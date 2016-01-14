@@ -1058,7 +1058,7 @@ InstallMethod( CompositionMapping2, "group hom. with perm group hom.",
     S.idimage := One( Range( hom1 ) );
     prd := GroupHomomorphismByImagesNC( Source( hom2 ), Range( hom1 ),
                    stb.generators, stb.genimages );
-    SetStabChainMutable( prd, stb );
+    SetStabChainAttributes( prd, stb );
     return prd;
 end );
 
@@ -1290,7 +1290,7 @@ InstallGlobalFunction( MakeStabChainLong,
     
     # Construct the stabilizer chain for <hom>.
     S := CopyStabChain( stb );
-    SetStabChainMutable( hom, S );
+    SetStabChainAttributes( hom, S );
     newlevs := [  ];
     idimage:= One( Range( hom ) );
 
@@ -1433,7 +1433,7 @@ local   D,  I,G;
   else
     G:=SubgroupNC(Range(hom),
       List(GeneratorsOfGroup(H),i->Permutation(i,D)));
-    SetStabChainMutable(G,I);
+    SetStabChainAttributes(G,I);
     return G;
   fi;
 end );
@@ -1460,7 +1460,7 @@ local   D,H,I,G;
     return GroupStabChain( I );
   else
     G:=Group(List(GeneratorsOfGroup(H),i->Permutation(i,D)),());
-    SetStabChainMutable(G,I);
+    SetStabChainAttributes(G,I);
     return G;
   fi;
 end;
@@ -1590,7 +1590,7 @@ InstallGlobalFunction( ImageKernelBlocksHomomorphism, function( hom, H,par )
     S := CopyStabChain( StabChainImmutable( H ) );
     full := IsIdenticalObj( H, Source( hom ) );
     if full  then
-        SetStabChainMutable( hom, S );
+        SetStabChainAttributes( hom, S );
     fi;
     if par<>false then
       I := EmptyStabChain( [  ], One(par) );

@@ -47,8 +47,11 @@ InstallMethod( AsSubgroup,"perm groups",
     S:= SubgroupNC( G, GeneratorsOfGroup( U ) );
     UseIsomorphismRelation( U, S );
     UseSubsetRelation( U, S );
+    if HasStabChainImmutable( U ) then
+        SetStabChainImmutable( S, StabChainImmutable( U ) );
+    fi;
     if HasStabChainMutable( U )  then
-        SetStabChainMutable( S, StabChainMutable( U ) );
+        SetStabChainMutable( S, CopyStabChain(StabChainMutable( U ) ) );
     fi;
     return S;
 end );
@@ -745,7 +748,7 @@ BindGlobal("DoClosurePrmGp",function( G, gens, options )
     else
       if inpar  then  C := SubgroupNC(P,newgens);
 		else  C := Group( newgens,One(G) );           fi;
-      SetStabChainMutable(C,chain);
+      SetStabChainAttributes(C,chain);
     fi;
     SetStabChainOptions( C, rec( random := options.random ) );
 
@@ -819,7 +822,8 @@ BindGlobal("DoNormalClosurePermGroup",function ( G, U )
     N := SubgroupNC( G, GeneratorsOfGroup(U) );
     UseIsomorphismRelation(U,N);
     UseSubsetRelation(U,N);
-    SetStabChainMutable( N, StabChainMutable( U ) );
+    SetStabChainImmutable( N, StabChainImmutable( U ) );
+    SetStabChainMutable( N, CopyStabChain(StabChainMutable( U ) ) );
     options := ShallowCopy( StabChainOptions( U ) );
     if IsBound( options.random )  then  random := options.random;
                                   else  random := 1000;            fi;
@@ -897,7 +901,7 @@ BindGlobal("DoNormalClosurePermGroup",function ( G, U )
         fi;
         chain := SCRRestoredRecord( chain );
     fi;
-    SetStabChainMutable( N, chain );
+    SetStabChainAttributes( N, chain );
     if result <> chain.identity  then
         N := ClosureGroup( N, [ result ] );
     fi;
@@ -932,7 +936,7 @@ local   H,  S;
     if HasStabChainMutable(G) then
       S := EmptyStabChain( [  ], One( H ) );
       ConjugateStabChain( StabChainMutable( G ), S, g, g );
-      SetStabChainMutable( H, S );
+      SetStabChainAttributes( H, S );
     elif HasSize(G) then
       SetSize(H,Size(G));
     fi;
@@ -2174,4 +2178,3 @@ end);
 #############################################################################
 ##
 #E
-

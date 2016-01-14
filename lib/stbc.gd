@@ -174,6 +174,13 @@ DeclareOperation( "StabChainOp", [ IsGroup, IsRecord ] );
 DeclareAttribute( "StabChainMutable", IsObject, "mutable" );
 DeclareAttribute( "StabChainImmutable", IsObject );
 
+#############################################################################
+## SetStabChainAttributes(G, chain)
+## This is a small helper function, while transitioning from mutable
+## to immutable stab chains. If given a mutable stabchain it sets both
+## the StabChainImmutable and StabChainMutable attributes of G to
+## 'chain'. If given an immutable, it only sets the immutable.
+DeclareGlobalFunction( "SetStabChainAttributes" );
 
 #############################################################################
 ##
