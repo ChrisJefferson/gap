@@ -1029,7 +1029,7 @@ InstallMethod( CompositionMapping2, "group hom. with perm group hom.",
     function( hom1, hom2 )
     local   prd,  stb,  levs,  S,t,i,oli;
 
-    stb := StructuralCopy( StabChainMutable( hom2 ) );
+    stb := StructuralCopy( StabChainImmutable( hom2 ) );
     levs := [  ];
     S := stb;
     while IsBound( S.stabilizer )  do

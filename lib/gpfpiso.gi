@@ -85,7 +85,7 @@ local l,iso,fp,stbc,gens;
     od;
   fi;
 
-  stbc:=StabChainMutable(G);
+  stbc:=StabChainImmutable(G);
   gens:=StrongGeneratorsStabChain(stbc);
   return IsomorphismFpGroupByGeneratorsNC( G, gens, str:chunk );
 end);
@@ -851,4 +851,3 @@ end);
 #############################################################################
 ##
 #E
-
