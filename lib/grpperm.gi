@@ -50,7 +50,7 @@ InstallMethod( AsSubgroup,"perm groups",
     if HasStabChainImmutable( U ) then
         SetStabChainImmutable( S, StabChainImmutable( U ) );
     fi;
-    if HasStabChainMutable( U )  then
+    if HasStabChainImmutable( U )  then
         SetStabChainMutable( S, CopyStabChain(StabChainMutable( U ) ) );
     fi;
     return S;
@@ -933,7 +933,7 @@ function( G, g )
 local   H,  S;
     
     H := GroupByGenerators( OnTuples( GeneratorsOfGroup( G ), g ), One( G ) );
-    if HasStabChainMutable(G) then
+    if HasStabChainImmutable(G) then
       S := EmptyStabChain( [  ], One( H ) );
       ConjugateStabChain( StabChainMutable( G ), S, g, g );
       SetStabChainAttributes( H, S );
@@ -1630,7 +1630,7 @@ InstallGlobalFunction( ApproximateSuborbitsStabilizerPermGroup,
           processStabGen, currPt,currGen, stgp, orblen, gens,Ggens;
 
     one:= One( G );
-  if HasStabChainMutable( G ) and punkt in StabChainMutable(G).orbit then
+  if HasStabChainImmutable( G ) and punkt in StabChainImmutable(G).orbit then
 # if we already have a stab chain and bother computing the proper
 # stabilizer, a trivial orbit algorithm seems best.
     return Concatenation([[punkt]],

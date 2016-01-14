@@ -1268,7 +1268,7 @@ InstallGlobalFunction( StabChainPermGroupToPermGroupGeneralMappingByImages,
     
     if  NrMovedPoints(longgroup)<=10000 and
        (not HasInverseGeneralMapping( hom )
-       or not HasStabChainMutable( InverseGeneralMapping( hom ) )
+       or not HasStabChainImmutable( InverseGeneralMapping( hom ) )
        or not HasKernelOfMultiplicativeGeneralMapping( hom ) 
        )then
         MakeStabChainLong( InverseGeneralMapping( hom ),
@@ -1369,7 +1369,7 @@ InstallMethod( KernelOfMultiplicativeGeneralMapping,
           IsToPermGroupGeneralMappingByImages ], 0,
 function( hom )
 local ker;
-  if HasStabChainMutable( hom ) then TryNextMethod(); fi;
+  if HasStabChainImmutable( hom ) then TryNextMethod(); fi;
   StabChainPermGroupToPermGroupGeneralMappingByImages( hom );
   ker:=KernelOfMultiplicativeGeneralMapping( hom );
   if Size(ker)=1 then
@@ -1417,7 +1417,7 @@ end );
 InstallMethod( ImagesSet,"constituent homomorphism", CollFamSourceEqFamElms,
         # this method should *not* be applied if the group to be mapped has
         # no stabilizer chain (for example because it is very big).
-        [ IsConstituentHomomorphism, IsPermGroup and HasStabChainMutable], 0,
+        [ IsConstituentHomomorphism, IsPermGroup and HasStabChainImmutable], 0,
 function( hom, H )
 local   D,  I,G;
   
@@ -1446,7 +1446,7 @@ RanImgSrcSurjTraho:=function(hom)
 local   D,H,I,G;
   H:=Source(hom);
   # only worth if the source has a stab chain to utilize
-  if not HasStabChainMutable(H) then
+  if not HasStabChainImmutable(H) then
     TryNextMethod();
   fi;
   D := Enumerator( UnderlyingExternalSet( hom ) );
@@ -1481,7 +1481,7 @@ InstallMethod( PreImagesRepresentative,"constituent homomorphism",
   FamRangeEqFamElm,[IsConstituentHomomorphism,IsPerm], 0,
 function( hom, elm )
 local D,DP;
-  if not HasStabChainMutable(Source(hom)) then
+  if not HasStabChainImmutable(Source(hom)) then
     # do not enforce a stabchain if not neccessary -- it could be big
     TryNextMethod();
   fi;
@@ -1656,7 +1656,7 @@ end);
 RanImgSrcSurjBloho:=function(hom)
 local gens,imgs,ran,dom;
 # using stabchain info will produce just too many generators
-  if ValueOption("onlyimage")=fail and HasStabChainMutable(Source(hom)) 
+  if ValueOption("onlyimage")=fail and HasStabChainImmutable(Source(hom)) 
     and NrMovedPoints(Source(hom))<20000 then
     # transfer stabchain information if not too expensive
     ran:=ImageKernelBlocksHomomorphism(hom,Source(hom),false);

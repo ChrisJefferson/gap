@@ -23,9 +23,9 @@ InstallOtherMethod( OrbitOp,
     if gens <> acts  or  act <> OnPoints  then
         TryNextMethod();
     fi;
-    if HasStabChainMutable( G )
-       and IsInBasicOrbit( StabChainMutable( G ), pnt ) then
-        return Immutable(StabChainMutable( G ).orbit);
+    if HasStabChainImmutable( G )
+       and IsInBasicOrbit( StabChainImmutable( G ), pnt ) then
+        return StabChainImmutable( G ).orbit;
     else
         return Immutable( OrbitPerms( acts, pnt ) );
     fi;
@@ -1501,7 +1501,7 @@ PermGroupStabilizerOp:=function(arg)
 
     # enforce size computation (unless the stabilizer did not cause a
     # StabChain to be computed.
-    if HasStabChainMutable(K) then
+    if HasStabChainImmutable(K) then
       Size(K);
     fi;
 
@@ -1608,4 +1608,3 @@ end );
 #############################################################################
 ##
 #E
-
