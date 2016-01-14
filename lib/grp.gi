@@ -4705,7 +4705,7 @@ function(G,elm)
                     stabChain:=ShallowCopy(e!.stabChain)));
         S:=e!.stabChain;
       else
-        S:=ShallowCopy(StabChainMutable(G));
+        S:=ShallowCopy(StabChainImmutable(G));
       fi;
 
       cnt:=QuoInt(10^6,4*NrMovedPoints(G));

@@ -476,7 +476,7 @@ InstallMethod( BaseOfGroup,
     "for a permutation group",
     true,
     [ IsPermGroup ], 0,
-    G -> BaseStabChain( StabChainMutable( G ) ) );
+    G -> BaseStabChain( StabChainImmutable( G ) ) );
 
 
 #############################################################################
@@ -487,7 +487,7 @@ InstallMethod( Size,
     "for a permutation group",
     true,
     [ IsPermGroup ], 0,
-    G -> SizeStabChain( StabChainMutable( G ) ) );
+    G -> SizeStabChain( StabChainImmutable( G ) ) );
 
 
 #############################################################################
@@ -616,7 +616,7 @@ InstallMethod( Random,
     local   S,  rnd;
 
     # go down the stabchain and multiply random representatives
-    S := StabChainMutable( G );
+    S := StabChainImmutable( G );
     rnd := S.identity;
     while Length( S.genlabels ) <> 0  do
         rnd := LeftQuotient( InverseRepresentative( S,
@@ -641,7 +641,7 @@ InstallMethod( \in,
     if g = One( G )  or  g in GeneratorsOfGroup( G )  then
         return true;
     else
-        G := StabChainMutable( G );
+        G := StabChainImmutable( G );
         return SiftedPermutation( G, g ) = G.identity;
     fi;
 end );
@@ -722,7 +722,7 @@ BindGlobal("DoClosurePrmGp",function( G, gens, options )
 #    fi;
 
     # make the base of G compatible with options.base
-    chain := StructuralCopy( StabChainMutable( G ) );
+    chain := StructuralCopy( StabChainImmutable( G ) );
     if IsBound( options.base )  then
         ChangeStabChain( chain, options.base,
                 IsBound( options.reduced ) and options.reduced );
