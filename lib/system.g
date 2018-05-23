@@ -520,7 +520,7 @@ end );
 ##  <#/GAPDoc>
 ##
 BIND_GLOBAL("ARCH_IS_WINDOWS",function()
-  return POSITION_SUBSTRING (GAPInfo.Architecture, "cygwin", 0) <> fail;
+  return false;
 end);
 
 #############################################################################
