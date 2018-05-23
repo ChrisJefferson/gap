@@ -7,10 +7,15 @@ set -ex
 
 # Grab some extra files
 
-for i in cyggcc_s-seh-1.dll cygiconv-2.dll cygncursesw-10.dll cygstdc++-6.dll cyggmp-10.dll cygintl-8.dll cygreadline7.dll cygwin1.dll; do
+for i in
+cygiconv-2.dll cyggmp-10.dll cygintl-8.dll cygreadline7.dll cygwin1.dll # Basics
+ cygncursesw-10.dll cygncurses-10.dll cygpanel-10.dll cygpanelw-10.dll # Browse
+ cygstdc++-6.dll # C++ (json / semigroups)
+  cyggcc*.dll # Exception handling (semigroups)
+; do
  cp /usr/bin/$i .
 done;
 
-for i in bash.exe  cygpath.exe  gap.exe  mintty.exe  sh.exe; do
+for i in bash.exe  cygpath.exe   mintty.exe  sh.exe; do
   cp /usr/bin/$i .
 done;
