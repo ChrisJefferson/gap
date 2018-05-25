@@ -2,6 +2,8 @@ if defined PROGRAMFILES(X86) (
     echo 64-bit sytem detected
 ) else (
     echo 32-bit sytem detected
+    echo This is a 64-bit GAP and will not work. Sorry.
+    pause
 )
 
 set CYGWIN=nodosfilewarning
@@ -16,7 +18,7 @@ set GAPDIR=%BATPATH%gap
 
 if NOT exist "%GAPDIR%\gap.exe" (
     echo "%GAPDIR%\gap.exe missing"
-    timeout 10
+    pause
 )
 
 echo %GAPDIR%
@@ -34,4 +36,4 @@ echo %CYGDIR%
 
 "%GAPDIR%\mintty.exe" --hold start -s 120,40 "%CYGDIR%/gap.exe" %*
 
-timeout 150
+pause
