@@ -2,14 +2,18 @@
 
 # Start doing a standard GAP build
 
-./autogen.sh && ./configure && make -j4 && make bootstrap-pkg-full && cd pkg && ../bin/BuildPackages.sh && ../bin/CygwinPackageHacks.sh
+./autogen.sh && ./configure && make -j4 && make bootstrap-pkg-full && (cd pkg && ../bin/BuildPackages.sh && ../bin/CygwinPackageHacks.sh)
+
+# Get terminfo things
+
+cnf/cygwin/instcygwinterminfo.sh
 
 # Grab some extra files
 
 BASICS="cygiconv-2.dll cyggmp-10.dll cygintl-8.dll cygreadline7.dll cygwin1.dll" # Basics
 BROWSE="cygncursesw-10.dll cygncurses-10.dll cygpanel-10.dll cygpanelw-10.dll" # Browse
 CPP="cygstdc++-6.dll" # C++ (json / semigroups)
-for i in ${BASICS} ${BROWSE} ${CPP} ${EXCEPTION}; do
+for i in ${BASICS} ${BROWSE} ${CPP}; do
  cp /usr/bin/$i .
 done;
 
