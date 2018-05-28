@@ -13,7 +13,8 @@ cnf/cygwin/instcygwinterminfo.sh
 BASICS="cygiconv-2.dll cyggmp-10.dll cygintl-8.dll cygreadline7.dll cygwin1.dll" # Basics
 BROWSE="cygncursesw-10.dll cygncurses-10.dll cygpanel-10.dll cygpanelw-10.dll" # Browse
 CPP="cygstdc++-6.dll" # C++ (json / semigroups)
-for i in ${BASICS} ${BROWSE} ${CPP}; do
+ZMQ="cygzmg-5.dll cygsodium-23.dll" # ZeroMQ
+for i in ${BASICS} ${BROWSE} ${CPP} ${ZMQ}; do
  cp /usr/bin/$i .
 done;
 
