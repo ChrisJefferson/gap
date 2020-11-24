@@ -31,8 +31,12 @@ jobs:
           # somehow when running on GitHub Actions, it takes almost 4 hours (!) to
           # complete instead of 25 minutes. So for now we just run testinstall.
           - os: ubuntu-latest
-            test-suites: "docomp testinstall"
+            test-suites: "docomp teststandard"
             extra: "HPCGAP=yes ABI=64"
+
+          - os: ubuntu-latest
+            test-suites: "docomp teststandard"
+            extra: "HPCGAP=yes ABI=64 CONFIGFLAGS=\"\""
 
           # compile packages and run GAP tests
           # don't use --enable-debug to prevent the tests from taking too long
