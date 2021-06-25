@@ -54,8 +54,8 @@ gap> l:=RUNTIMES();; List(l,IsInt);
 [ true, true, true, true ]
 
 #
-gap> RecNames(NanosecondsSinceEpochInfo());
-[ "Method", "Monotonic", "Resolution", "Reliable" ]
+gap> RecNamesSorted(NanosecondsSinceEpochInfo());
+[ "Method", "Monotonic", "Reliable", "Resolution" ]
 
 #
 gap> List(SizeScreen(), IsPosInt);

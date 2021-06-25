@@ -66,8 +66,8 @@ fail
 gap> iso3:= CharacterTableIsoclinic( iso, rec( k:= 2 ) );;
 gap> TransformingPermutationsCharacterTables( t, iso3 ) = fail;
 false
-gap> RecNames( SourceOfIsoclinicTable( iso ) );
-[ "p", "k", "table", "centralElement", "outerClasses" ]
+gap> RecNamesSorted( SourceOfIsoclinicTable( iso ) );
+[ "centralElement", "k", "outerClasses", "p", "table" ]
 
 # Brauer tables
 gap> g:= GL(2,3);;

@@ -847,13 +847,13 @@ Sym( [ 1 .. 4 ] )
 gap> IsMutable(g);
 false
 gap> NamesOfComponents(g);
-[ "Size", "NrMovedPoints", "MovedPoints", 
-  "GeneratorsOfMagmaWithInverses" ]
+[ "GeneratorsOfMagmaWithInverses", "MovedPoints", "NrMovedPoints", 
+  "Size" ]
 gap> g!.silly := "rubbish";
 "rubbish"
 gap> NamesOfComponents(g);
-[ "Size", "NrMovedPoints", "MovedPoints", 
-  "GeneratorsOfMagmaWithInverses", "silly" ]
+[ "GeneratorsOfMagmaWithInverses", "MovedPoints", "NrMovedPoints", 
+  "Size", "silly" ]
 gap> g!.silly;
 "rubbish"
 ]]></Example>
