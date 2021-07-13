@@ -34,6 +34,7 @@
 #include "funcs.h"
 #include "gaputils.h"
 #include "io.h"
+#include "listfunc.h"
 #include "modules.h"
 #include "opers.h"
 #include "plist.h"
@@ -541,7 +542,6 @@ static Obj InnerRecNames(Obj rec)
 {
     Obj                 list;           /* list of record names, result    */
     UInt                rnam;           /* one name of record              */
-    Obj                 string;         /* one name as string              */
     UInt                i;
     Obj                 name;
     SortPRecRNam(rec,0);   /* Make sure rnams are sorted and thus negative */
@@ -553,12 +553,10 @@ static Obj InnerRecNames(Obj rec)
     /* loop over the components                                            */
     for ( i = 1; i <= LEN_PREC(rec); i++ ) {
         rnam = -GET_RNAM_PREC(rec, i);
-        /* could have been moved by garbage collection */
-        name = NAME_RNAM( rnam );
-        string = CopyToStringRep( name );
-        SET_ELM_PLIST( list, i, string );
-        CHANGED_BAG( list );
+        name = NAME_RNAM_EXTERNAL( rnam );
+        SET_ELM_PLIST( list, i, name );
     }
+    CHANGED_BAG( list );
 
     /* return the list                                                     */
     return list;

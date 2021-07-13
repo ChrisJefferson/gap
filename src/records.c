@@ -31,7 +31,15 @@
 
 static Obj HashRNam;
 
+// The name, as a GAP string, of each RNam
 static Obj NamesRNam;
+
+// A copy of the name, as a GAP string, of each RNam
+// Elements of this list may be returned to GAP (via RNamName for example),
+// which may (through functions like 'PLAIN_LIST') lead to their type changing.
+// As some internal kernel code assumes the elements of NamesRNam are always
+// type T_STRING, we keep a seperate copy.
+static Obj NamesRNamExternal;
 
 /****************************************************************************
 **
@@ -48,6 +56,12 @@ extern inline Obj NAME_RNAM(UInt rnam)
 {
     return ELM_PLIST(NamesRNam, rnam);
 }
+
+extern inline Obj NAME_RNAM_EXTERNAL(UInt rnam)
+{
+    return ELM_PLIST(NamesRNamExternal, rnam);
+}
+
 
 
 #ifdef HPCGAP
@@ -166,9 +180,16 @@ UInt RNamNameWithLen(const Char * name, UInt len)
     /* (copy the name first, to avoid a stale pointer in case of a GC)     */
     memcpy( namx, name, len );
     namx[len] = 0;
-    string = MakeImmString(namx);
 
+    // Make one copy for NamesRNamExternal
+    string = MakeImmString(namx);
+    PushPlist(NamesRNamExternal, string);
+
+    // And another copy for NamesRNam
+    string = MakeImmString(namx);
     const UInt countRNam = PushPlist(NamesRNam, string);
+
+
     rnam = INTOBJ_INT(countRNam);
     SET_ELM_PLIST( HashRNam, pos, rnam );
 
@@ -508,13 +529,11 @@ static Obj FuncALL_RNAMES(Obj self)
 {
     Obj                 copy, s;
     UInt                i;
-    Obj                 name;
-    const UInt          countRNam = LEN_PLIST(NamesRNam);
+    const UInt          countRNam = LEN_PLIST(NamesRNamExternal);
 
     copy = NEW_PLIST_IMM( T_PLIST, countRNam );
     for ( i = 1;  i <= countRNam;  i++ ) {
-        name = NAME_RNAM( i );
-        s = CopyToStringRep(name);
+        s = NAME_RNAM_EXTERNAL( i );
         SET_ELM_PLIST( copy, i, s );
     }
     SET_LEN_PLIST( copy, countRNam );
@@ -586,6 +605,7 @@ static Int InitKernel (
 
     /* make the list of names of record names                              */
     InitGlobalBag( &NamesRNam, "src/records.c:NamesRNam" );
+    InitGlobalBag( &NamesRNamExternal, "src/records.c:NamesRNamExternal" );
 
     /* make the hash list of record names                                  */
     InitGlobalBag( &HashRNam, "src/records.c:HashRNam" );
@@ -660,8 +680,10 @@ static Int InitLibrary (
 {
     /* make the list of names of record names                              */
     NamesRNam = NEW_PLIST( T_PLIST, 0 );
+    NamesRNamExternal = NEW_PLIST( T_PLIST, 0 );
 #ifdef HPCGAP
     MakeBagPublic(NamesRNam);
+    MakeBagPublic(NamesRNamExternal);
 #endif
 
     /* make the hash list of record names                                  */
