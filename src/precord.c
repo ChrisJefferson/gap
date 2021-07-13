@@ -590,12 +590,17 @@ static Obj FuncREC_NAMES_SORTED(Obj self, Obj rec)
 /* same as FuncREC_NAMES except for different argument check  */
 static Obj FuncREC_NAMES_COMOBJ(Obj self, Obj rec)
 {
+    Obj list;
     switch (TNUM_OBJ(rec)) {
       case T_COMOBJ:
-        return InnerRecNames(rec);
+        list = InnerRecNames(rec);
+        SortDensePlist(list);
+        return list;
 #ifdef HPCGAP
       case T_ACOMOBJ:
-        return InnerRecNames(FromAtomicRecord(rec));
+        list = InnerRecNames(FromAtomicRecord(rec));
+        SortDensePlist(list);
+        return list;
 #endif
     }
     RequireArgument(SELF_NAME, rec, "must be a component object");
