@@ -576,6 +576,12 @@ static Obj FuncREC_NAMES(Obj self, Obj rec)
     return Fail;
 }
 
+static Obj FuncREC_NAMES_SORTED(Obj self, Obj rec)
+{
+    Obj recnames = FuncREC_NAMES(self, rec);
+    SortDensePlist(recnames);
+    return recnames;
+}
 
 /****************************************************************************
 **
@@ -784,6 +790,7 @@ static StructBagNames BagNames[] = {
 static StructGVarFunc GVarFuncs [] = {
 
     GVAR_FUNC_1ARGS(REC_NAMES, rec),
+    GVAR_FUNC_1ARGS(REC_NAMES_SORTED, rec),
     GVAR_FUNC_1ARGS(REC_NAMES_COMOBJ, rec),
     { 0, 0, 0, 0, 0 }
 

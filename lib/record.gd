@@ -126,12 +126,15 @@ DeclareOperationKernel( "Unbind.", [ IsObject, IsObject ], UNB_REC );
 ##  <#GAPDoc Label="RecNames">
 ##  <ManSection>
 ##  <Attr Name="RecNames" Arg='record'/>
+##  <Attr Name="RecNamesSorted" Arg='record'/>
 ##
 ##  <Description>
-##  returns a duplicate-free list of strings corresponding to the names of
-##  the record components of the record <A>record</A>.
+##  <Ref Func="RecNames"/> and <Ref Func="RecNamesSorted"/> return a duplicate-free
+##  list of strings corresponding to the names of
+##  the record components of the record <A>record</A>. The only difference is
+##  <Ref Func="RecNamesSorted"/> is sorted lexicographically by string.
 ##  <P/>
-##  The list is sorted by <Ref Func="RNamObj" Label="for a string"/>
+##  <Ref Func="RecNames"/> is sorted by <Ref Func="RNamObj" Label="for a string"/>
 ##  for reasons of efficiency; see <Ref Oper="SortBy"/>.
 ##  Therefore the ordering is consistent within one &GAP; session,
 ##  but it is not necessarily consistent across different sessions.
@@ -146,7 +149,7 @@ DeclareOperationKernel( "Unbind.", [ IsObject, IsObject ], UNB_REC );
 ##  <P/>
 ##  <Example><![CDATA[
 ##  gap> r := rec( a := 1, b := 2 );;
-##  gap> Set(RecNames( r )); # 'Set' because ordering depends on GAP session
+##  gap> RecNamesSorted( r ); # 'Sorted' to avoid ordering depending on GAP session
 ##  [ "a", "b" ]
 ##  gap> Set(RecNames( r ), x -> r.(x));
 ##  [ 1, 2 ]
@@ -159,6 +162,7 @@ DeclareOperationKernel( "Unbind.", [ IsObject, IsObject ], UNB_REC );
 ##  <#/GAPDoc>
 ##
 DeclareAttribute( "RecNames", IsRecord );
+DeclareAttribute( "RecNamesSorted", IsRecord );
 
 #############################################################################
 ##
@@ -170,12 +174,12 @@ DeclareAttribute( "RecNames", IsRecord );
 ##
 ##  <Description>
 ##  For a component object <A>comobj</A>,
-##  <Ref Func="NamesOfComponents"/> returns a list of strings,
+##  <Ref Func="NamesOfComponents"/> returns a set of strings,
 ##  which are the names of components currently bound in <A>comobj</A>.
 ##  <P/>
 ##  For a record <A>comobj</A>,
 ##  <Ref Func="NamesOfComponents"/> returns the result of
-##  <Ref Attr="RecNames"/>.
+##  <Ref Func="RecNamesSorted"/>.
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>
