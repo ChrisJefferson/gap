@@ -9,11 +9,15 @@
 ##
 
 # returns names of components
+InstallMethod( RecNamesSorted,
+               "for a record in internal representation",
+               [ IsRecord and IsInternalRep ],
+               REC_NAMES_SORTED );
+
 InstallMethod( RecNames,
                "for a record in internal representation",
                [ IsRecord and IsInternalRep ],
                REC_NAMES );
-
 
 InstallGlobalFunction( "NamesOfComponents",
 function( obj )
@@ -44,6 +48,7 @@ InstallMethod( PrintObj,
     Print("\>\>rec(\n\>\>");
     com := false;
 
+    # This must be RecNames, for SET_PRINT_OBJ_INDEX
     names := List(RecNames(record));
     order := [1..Length(names)];
     SortParallel(names, order);
@@ -81,7 +86,7 @@ InstallMethod( String,
 
     str := "rec( ";
     com := false;
-    for nam in Set(RecNames( record )) do
+    for nam in RecNamesSorted( record ) do
       if com then
         Append( str, ", " );
       else
@@ -118,6 +123,7 @@ InstallMethod( ViewObj,
     Print("\>\>rec( \>\>");
     com := false;
 
+    # This must be RecNames, for SET_PRINT_OBJ_INDEX
     names := List(RecNames(record));
     order := [1..Length(names)];
     SortParallel(names, order);

@@ -962,14 +962,14 @@ The remarks made in Sections&nbsp;<Ref Sect="Identical Lists"/> and <Ref Sect="I
 about identity and mutability of lists are also true for records.
 <P/>
 Sometimes it is interesting to know which  components of a certain record
-are  bound.  This information is available  from the function
-<Ref Func="RecNames" BookName="ref"/>,
-which  takes a record as  its  argument and  returns  a list of names of
+are  bound.  This information is available  from the functions
+<Ref Func="RecNames" BookName="ref"/> and <Ref Func="RecNamesSorted" BookName="ref"/>,
+which  take a record as  its  argument and  return  a  list of names of
 all bound components of this record as a list of strings.
 <P/>
 <Example><![CDATA[
-gap> RecNames(date);
-[ "time", "year", "month", "day" ]
+gap> RecNamesSorted(date);
+[ "day", "month", "time", "year" ]
 ]]></Example>
 <P/>
 Now return to Sections <Ref Sect="Identical Lists"/>  and <Ref Sect="Immutability"/> and find out
