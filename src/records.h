@@ -23,9 +23,18 @@
 *F  NAME_RNAM(<rnam>) . . . . . . . . . . .  name for a record name as an Obj
 **
 **  'NAME_RNAM' returns the name (as an Obj) for the record name <rnam>.
+**  It is required the type of this object is never changed from T_STRING.
 */
 Obj NAME_RNAM(UInt rnam);
 
+/****************************************************************************
+**
+*F  NAME_RNAM_EXTERNAL(<rnam>) . . . . . . . name for a record name as an Obj
+**
+**  'NAME_RNAM_EXTERNAL' returns the name (as an Obj) for the record name
+**  <rnam>. This object may have its type changed, and be given to GAP users.
+*/
+Obj NAME_RNAM_EXTERNAL(UInt rnam);
 
 /****************************************************************************
 **
