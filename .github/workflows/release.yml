@@ -131,7 +131,7 @@ jobs:
   cygwin:
     name: "Create Windows ${{ matrix.arch }} installer"
     needs: unix
-    runs-on: windows-latest
+    runs-on: windows-2022
     env:
       CHERE_INVOKING: 1
       GAP_BUILD_VERSION: ${{ needs.unix.outputs.gap-build-version }}
@@ -244,6 +244,9 @@ jobs:
           repository: ChrisJefferson/sage-windows
           ref: master
           path: sage-windows
+
+      # Install the program we use for packagining in windows
+      - run: choco install InnoSetup
 
       - uses: gap-actions/setup-cygwin@v1
 
