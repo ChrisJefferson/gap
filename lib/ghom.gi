@@ -272,7 +272,7 @@ function( hom, elm )
     # group
     return ImagesRepresentative( RestrictedInverseGeneralMapping( hom ), elm );
   else
-    return PreImagesRepresentative( AsGroupGeneralMappingByImages( hom ), elm );
+    return PreImagesRepresentativeNC( AsGroupGeneralMappingByImages( hom ), elm );
   fi;
 end );
 

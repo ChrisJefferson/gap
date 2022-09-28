@@ -42,7 +42,7 @@ InstallMethod( DirectProductOp,
         relsG := RelatorsOfFpGroup( FG );
         gensG := GeneratorsOfGroup( FreeGroupOfFpGroup( FG ) );
         n     := s + Length( pcgsG );
-        Append( relsF, List( relsG,
+        Append( relsF, List( relsG, 
                        x -> MappedWord( x, gensG, gensF{[s+1..n]} ) ) );
         s := n;
         Add( first, n+1 );
@@ -59,7 +59,7 @@ InstallMethod( DirectProductOp,
     SetDirectProductInfo( D, info );
     return D;
 end );
-
+ 
 
 #############################################################################
 ##
@@ -67,15 +67,15 @@ end );
 ##
 InstallMethod( Embedding,
         "of pc group and integer",
-         true,
-         [ IsPcGroup and HasDirectProductInfo, IsPosInt ],
+         true, 
+         [ IsPcGroup and HasDirectProductInfo, IsPosInt ], 
          0,
     function( D, i )
     local info, G, imgs, hom, gens;
 
     # check
     info := DirectProductInfo( D );
-    if IsBound( info.embeddings[i] ) then
+    if IsBound( info.embeddings[i] ) then 
         return info.embeddings[i];
     fi;
 
@@ -97,15 +97,15 @@ end );
 ##
 InstallMethod( Projection,
         "of pc group and integer",
-         true,
-         [ IsPcGroup and HasDirectProductInfo, IsPosInt ],
+         true, 
+         [ IsPcGroup and HasDirectProductInfo, IsPosInt ], 
          0,
     function( D, i )
     local info, G, imgs, hom, N, gens;
 
     # check
     info := DirectProductInfo( D );
-    if IsBound( info.projections[i] ) then
+    if IsBound( info.projections[i] ) then 
         return info.projections[i];
     fi;
 
@@ -116,7 +116,7 @@ InstallMethod( Projection,
                            Pcgs( G ),
                            List( [info.first[i+1]..Length(gens)], x -> One(G)));
     hom := GroupHomomorphismByImagesNC( D, G, gens, imgs );
-    N := SubgroupNC( D, gens{Concatenation( [1..info.first[i]-1],
+    N := SubgroupNC( D, gens{Concatenation( [1..info.first[i]-1], 
                            [info.first[i+1]..Length(gens)] )} );
     SetIsSurjective( hom, true );
     SetKernelOfMultiplicativeGeneralMapping( hom, N );
@@ -132,7 +132,7 @@ end );
 ##
 InstallMethod( SemidirectProduct,
     "generic method for pc groups",
-    true,
+    true, 
     [ CanEasilyComputePcgs, IsGroupHomomorphism, CanEasilyComputePcgs ],
     {} -> 2*RankFilter(IsFinite), # ensure this is ranked higher than the generic method
 function( G, aut, N )
@@ -148,13 +148,13 @@ end );
 
 InstallOtherMethod( SemidirectProduct,
     "generic method for pc groups",
-    true,
+    true, 
     [ IsPcGroup, IsRecord],
     0,
 function( G, M )
     local H, info;
     H := Extension( G, M, 0 );
-    info := rec( groups := [G, AbelianGroup(
+    info := rec( groups := [G, AbelianGroup( 
                  List([1..M.dimension], x -> Characteristic(M.field)) )],
                  lenlist := [0, Length(Pcgs(G)), Length(Pcgs(H))],
                  embeddings := [],
@@ -165,7 +165,7 @@ end );
 
 InstallOtherMethod( SemidirectProduct,
     "generic method for pc groups",
-    true,
+    true, 
     [ IsPcGroup, IsGroupHomomorphism],
     0,
 function( G, pr )
@@ -183,15 +183,15 @@ end );
 ##
 InstallMethod( Embedding,
         "of semidirect pc group and integer",
-         true,
-         [ IsPcGroup and HasSemidirectProductInfo, IsPosInt ],
+         true, 
+         [ IsPcGroup and HasSemidirectProductInfo, IsPosInt ], 
          0,
     function( D, i )
     local info, G, imgs, hom;
 
     # check
     info := SemidirectProductInfo( D );
-    if IsBound( info.embeddings[i] ) then
+    if IsBound( info.embeddings[i] ) then 
         return info.embeddings[i];
     fi;
 
@@ -210,7 +210,7 @@ end );
 ##
 #A Projection
 ##
-InstallOtherMethod( Projection,"of semidirect pc group",true,
+InstallOtherMethod( Projection,"of semidirect pc group",true, 
          [ IsPcGroup and HasSemidirectProductInfo ],
          0,
     function( D )
@@ -267,9 +267,9 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
   pggens:=gens{[b2+1..b3]};
   phgens:=gens{[b3+1..Length(gens)]};
   coll:=SingleCollector(F,Concatenation(
-                        RelativeOrders(fp),
-                        RelativeOrders(pkg),
-                        RelativeOrders(pkh)
+			RelativeOrders(fp),
+			RelativeOrders(pkg),
+			RelativeOrders(pkh)
                         ));
   id:=One(F);
 
@@ -304,7 +304,7 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
       SetPower(coll,i+b2,w);
     fi;
   od;
-
+  
   # for pkh
   for i in [1..Length(pkh)] do
     pow:=pkh[i]^RelativeOrders(pkh)[i];
@@ -314,7 +314,7 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
       SetPower(coll,i+b3,w);
     fi;
   od;
-
+  
   # commutator relations
   # for fp
   for i in [1..Length(fp)] do
@@ -333,7 +333,7 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
       w:=w*LinearCombinationPcgs(phgens,ExponentsOfPcElement(pkh,comm),One(F));
 
       if w<>id then
-        SetCommutator(coll,j,i,w);
+	SetCommutator(coll,j,i,w);
       fi;
     od;
 
@@ -343,7 +343,7 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
       w:=LinearCombinationPcgs(pggens,ExponentsOfPcElement(pkg,comm),One(F));
 
       if w<>id then
-        SetCommutator(coll,j+b2,i,w);
+	SetCommutator(coll,j+b2,i,w);
       fi;
     od;
 
@@ -353,7 +353,7 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
       w:=LinearCombinationPcgs(phgens,ExponentsOfPcElement(pkh,comm),One(F));
 
       if w<>id then
-        SetCommutator(coll,j+b3,i,w);
+	SetCommutator(coll,j+b3,i,w);
       fi;
     od;
 
@@ -367,7 +367,7 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
       w:=LinearCombinationPcgs(pggens,e,One(F));
 
       if w<>id then
-        SetCommutator(coll,j+b2,i+b2,w);
+	SetCommutator(coll,j+b2,i+b2,w);
       fi;
     od;
   od;
@@ -380,7 +380,7 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
       w:=LinearCombinationPcgs(phgens,e,One(F));
 
       if w<>id then
-        SetCommutator(coll,j+b3,i+b3,w);
+	SetCommutator(coll,j+b3,i+b3,w);
       fi;
     od;
   od;
@@ -397,13 +397,13 @@ local mg,mh,kg,kh,pkg,pkh,fp,fh,F,coll,gens,fpgens,pggens,phgens,i,j,
     e:=ExponentsOfPcElement(fp,gi[i]);
     Add(comm,LinearCombinationPcgs(fpgens,e,One(w))
             *LinearCombinationPcgs(pggens,ExponentsOfPcElement(pkg,
-              LeftQuotient(LinearCombinationPcgs(fp,e,One(G)),gi[i])),One(w))
+	      LeftQuotient(LinearCombinationPcgs(fp,e,One(G)),gi[i])),One(w))
             *LinearCombinationPcgs(phgens,ExponentsOfPcElement(pkh,
-              LeftQuotient(LinearCombinationPcgs(fh,e,One(H)),hi[i])),One(w)));
+	      LeftQuotient(LinearCombinationPcgs(fh,e,One(H)),hi[i])),One(w)));
   od;
 
   return [w,comm];
-
+  
 end);
 
 #############################################################################
@@ -421,7 +421,7 @@ local pg,ph,kg,kh,ig,ih,mg,mh,S,info;
   ig:=InducedPcgs(pg,kg);
   ih:=InducedPcgs(ph,kh);
   mg:=pg mod ig;
-  mh:=List(mg,i->PreImagesRepresentative(hh,Image(gh,i)));
+  mh:=List(mg,i->PreImagesRepresentativeNC(hh,Image(gh,i)));
   pg:=Concatenation(mg,ig,List(ih,i->One(G)));
   ph:=Concatenation(mh,List(ig,i->One(H)),ih);
   S:=SubdirProdPcGroups(G,pg,H,ph);
@@ -429,8 +429,8 @@ local pg,ph,kg,kh,ig,ih,mg,mh,S,info;
   ph:=GroupHomomorphismByImagesNC(S[1],H,S[2],ph);
   S:=S[1];
   info:=rec(groups:=[G,H],
-            homomorphisms:=[gh,hh],
-            projections:=[pg,ph]);
+	    homomorphisms:=[gh,hh],
+	    projections:=[pg,ph]);
   SetSubdirectProductInfo(S,info);
   return S;
 end);

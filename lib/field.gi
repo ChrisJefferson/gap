@@ -1329,7 +1329,7 @@ InstallMethod( PreImagesElm,
     [ IsFieldHomomorphism, IsObject ],
     function ( hom, elm )
     if IsInjective( hom ) = 1 then
-      return [ PreImagesRepresentative( hom, elm ) ];
+      return [ PreImagesRepresentativeNC( hom, elm ) ];
     elif IsZero( elm ) then
       return Source( hom );
     else
@@ -1348,7 +1348,7 @@ InstallMethod( PreImagesSet,
     [ IsFieldHomomorphism, IsField ],
     function ( hom, elms )
     elms:= FieldByGenerators( List( GeneratorsOfField( elms ),
-               gen -> PreImagesRepresentative( hom, gen ) ) );
+               gen -> PreImagesRepresentativeNC( hom, gen ) ) );
     UseSubsetRelation( Source( hom ), elms );
     return elms;
     end );
