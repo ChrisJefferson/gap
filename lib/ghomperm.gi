@@ -1133,12 +1133,12 @@ end);
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> ) . . . . . .  for perm group range
+#M  PreImagesRepresentativeNC( <hom>, <elm> ) . . . . .  for perm group range
 ##
-InstallMethod( PreImagesRepresentative, FamRangeEqFamElm,
+InstallMethod( PreImagesRepresentativeNC, FamRangeEqFamElm,
         [ IsToPermGroupGeneralMappingByImages,
           IsMultiplicativeElementWithInverse ], 0,
-    function( hom, elm )
+function( hom, elm )
     return ImagesRepresentative( RestrictedInverseGeneralMapping( hom ), elm );
 end );
 
@@ -1532,10 +1532,10 @@ InstallMethod( ImagesSource,"constituent homomorphism",true,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> )
+#M  PreImagesRepresentativeNC( <hom>, <elm> )
 ##
-InstallMethod( PreImagesRepresentative,"constituent homomorphism",
-  FamRangeEqFamElm,[IsConstituentHomomorphism,IsPerm], 0,
+InstallMethod( PreImagesRepresentativeNC, "constituent homomorphism",
+  FamRangeEqFamElm, [IsConstituentHomomorphism,IsPerm], 0,
 function( hom, elm )
 local D,DP;
   if not HasStabChainMutable(Source(hom)) then
@@ -1787,9 +1787,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> ) . . . . . . . . .  for blocks hom
+#M  PreImagesRepresentativeNC( <hom>, <elm> ) . . . . . . . .  for blocks hom
 ##
-InstallMethod( PreImagesRepresentative, "blocks homomorphism",
+InstallMethod( PreImagesRepresentativeNC, "blocks homomorphism",
         FamRangeEqFamElm,
         [ IsBlocksHomomorphism, IsMultiplicativeElementWithInverse ], 0,
     function( hom, elm )

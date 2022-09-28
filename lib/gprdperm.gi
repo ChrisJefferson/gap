@@ -169,9 +169,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <emb>, <g> ) . . . . . . . . . . .  of embedding
+#M  PreImagesRepresentativeNC( <emb>, <g> ) . . . . . . . . . .  of embedding
 ##
-InstallMethod( PreImagesRepresentative, "perm direct product embedding",
+InstallMethod( PreImagesRepresentativeNC, "perm direct product embedding",
   FamRangeEqFamElm,
         [ IsEmbeddingDirectProductPermGroup,
           IsMultiplicativeElementWithInverse ],
@@ -292,9 +292,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <prj>, <g> ) . . . . . . . . . . . of projection
+#M  PreImagesRepresentativeNC( <prj>, <g> ) . . . . . . . . . . of projection
 ##
-InstallMethod( PreImagesRepresentative,"perm direct product projection",
+InstallMethod( PreImagesRepresentativeNC,"perm direct product projection",
   FamRangeEqFamElm,
         [ IsProjectionDirectProductPermGroup,
           IsMultiplicativeElementWithInverse ], 0,
@@ -466,9 +466,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <prj>, <g> ) . . . . . . . . . . . of projection
+#M  PreImagesRepresentativeNC( <prj>, <g> ) . . . . . . . . . . of projection
 ##
-InstallMethod( PreImagesRepresentative,"perm subdirect product projection",
+InstallMethod( PreImagesRepresentativeNC,"perm subdirect product projection",
   FamRangeEqFamElm,
         [ IsProjectionSubdirectProductPermGroup,
           IsMultiplicativeElementWithInverse ], 0,
@@ -796,9 +796,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <emb>, <g> ) . . . . . . . . . . .  of embedding
+#M  PreImagesRepresentativeNC( <emb>, <g> ) . . . . . . . . . .  of embedding
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
   "imprim perm wreath product embedding", FamRangeEqFamElm,
         [ IsEmbeddingImprimitiveWreathProductPermGroup,
           IsMultiplicativeElementWithInverse ], 0,

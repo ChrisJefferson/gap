@@ -1002,9 +1002,9 @@ end);
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> ) . . . . . . . . . . .  via images
+#M  PreImagesRepresentativeNC( <hom>, <elm> ) . . . . . . . . . .  via images
 ##
-InstallMethod( PreImagesRepresentative, "for PBG-Niceo",
+InstallMethod( PreImagesRepresentativeNC, "for PBG-Niceo",
     FamRangeEqFamElm,
     [ IsPreimagesByAsGroupGeneralMappingByImages and IsNiceMonomorphism,
       IsMultiplicativeElementWithInverse ], 0,

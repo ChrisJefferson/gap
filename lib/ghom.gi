@@ -261,9 +261,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> ) . . . . . . . . . . .  via images
+#M  PreImagesRepresentativeNC( <hom>, <elm> ) . . . . . . . . . .  via images
 ##
-InstallMethod( PreImagesRepresentative, "for PBG-Hom", FamRangeEqFamElm,
+InstallMethod( PreImagesRepresentativeNC, "for PBG-Hom", FamRangeEqFamElm,
   [ IsPreimagesByAsGroupGeneralMappingByImages,
     IsMultiplicativeElementWithInverse ], 0,
 function( hom, elm )
@@ -883,14 +883,12 @@ InstallMethod( ImagesRepresentative,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> ) . . . . . . . . . . . .  for GHBI
+#M  PreImagesRepresentativeNC( <hom>, <elm> ) . . . . . . . . . . .  for GHBI
 ##
-InstallMethod( PreImagesRepresentative,
-    "for GHBI and mult.-elm.-with-inverse",
-    FamRangeEqFamElm,
-    [ IsGroupGeneralMappingByImages,
-          IsMultiplicativeElementWithInverse ], 0,
-    function( hom, elm )
+InstallMethod( PreImagesRepresentativeNC,
+    "for GHBI and mult.-elm.-with-inverse", FamRangeEqFamElm,
+    [ IsGroupGeneralMappingByImages, IsMultiplicativeElementWithInverse ], 0,
+function( hom, elm )
     if IsBound( hom!.images )  and elm in hom!.images  then
         return hom!.elements[ Position( hom!.images, elm ) ];
     else
@@ -1227,9 +1225,9 @@ InstallMethod( ImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <g> ) . . . .  for conjugator isomorphism
+#M  PreImagesRepresentativeNC( <hom>, <g> ) . . .  for conjugator isomorphism
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for conjugator isomorphism",
     FamRangeEqFamElm,
     [ IsConjugatorIsomorphism, IsMultiplicativeElementWithInverse ], 0,

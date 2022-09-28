@@ -367,9 +367,9 @@ end);
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <emb>, <g> ) . . . . . . . . . . .  of embedding
+#M  PreImagesRepresentativeNC( <emb>, <g> ) . . . . . . . . . .  of embedding
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
   "imprim matrix wreath product embedding", FamRangeEqFamElm,
         [ IsEmbeddingImprimitiveWreathProductMatrixGroup,
           IsMultiplicativeElementWithInverse ], 0,

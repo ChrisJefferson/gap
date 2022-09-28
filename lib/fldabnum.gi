@@ -1945,9 +1945,9 @@ InstallMethod( PreImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <aut>, <cyc> ) . for autom. of ab. number fields
+#M  PreImagesRepresentativeNC( <aut>, <cyc> ) for autom. of ab. number fields
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for ANF automorphism and scalar",
     FamRangeEqFamElm,
     [ IsFieldHomomorphism and IsANFAutomorphismRep, IsScalar ],

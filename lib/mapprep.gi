@@ -340,9 +340,9 @@ InstallMethod( PreImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <map>, <elm> ) . . . . . for composition mapping
+#M  PreImagesRepresentativeNC( <map>, <elm> ) . . . . for composition mapping
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for a composition mapping, and an element",
     FamRangeEqFamElm,
     [ IsCompositionMappingRep, IsObject ], 0,
@@ -629,9 +629,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <map>, <elm> ) . . . . . for mapping by function
+#M  PreImagesRepresentativeNC( <map>, <elm> ) . . . . for mapping by function
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for mapping by function",
     FamRangeEqFamElm,
     [ IsMappingByFunctionRep, IsObject ], 0,
@@ -671,9 +671,9 @@ InstallMethod( PreImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <map>, <elm> ) . . . . . for mapping by function
+#M  PreImagesRepresentativeNC( <map>, <elm> ) . . . . for mapping by function
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for mapping by function with inverse",
     FamRangeEqFamElm,
     [ IsMappingByFunctionWithInverseRep, IsObject ], 0,
@@ -1080,9 +1080,9 @@ InstallMethod( PreImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <invmap>, <elm> )  . . for inv. mapping and elm.
+#M  PreImagesRepresentativeNC( <invmap>, <elm> )  . for inv. mapping and elm.
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for an inverse mapping and an element",
     FamRangeEqFamElm,
     [ IsInverseGeneralMappingRep, IsObject ], 0,
@@ -1323,9 +1323,9 @@ InstallMethod( PreImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <idmap>, <elm> )
+#M  PreImagesRepresentativeNC( <idmap>, <elm> )
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for identity mapping and object",
     FamRangeEqFamElm,
     [ IsGeneralMapping and IsOne, IsObject ],
@@ -1617,9 +1617,9 @@ InstallMethod( PreImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <zeromap>, <elm> )
+#M  PreImagesRepresentativeNC( <zeromap>, <elm> )
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for zero mapping and object",
     FamRangeEqFamElm,
     [ IsGeneralMapping and IsZero, IsObject ], SUM_FLAGS,
@@ -1857,9 +1857,9 @@ InstallMethod( PreImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <map>, <elm> ) . . . . . for restricted mapping
+#M  PreImagesRepresentativeNC( <map>, <elm> ) . . . . for restricted mapping
 ##
-InstallMethod( PreImagesRepresentative,
+InstallMethod( PreImagesRepresentativeNC,
     "for a restricted mapping, and an element",
     FamRangeEqFamElm,
     [ IsGeneralRestrictedMappingRep, IsObject ], 0,

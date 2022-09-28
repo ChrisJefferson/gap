@@ -1782,9 +1782,9 @@ InstallMethod( ImagesRepresentative, "equivalence relations",
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <rel>, <elm> )  . . . for equivalence relations
+#M  PreImagesRepresentativeNC( <rel>, <elm> )  . . for equivalence relations
 ##
-InstallMethod( PreImagesRepresentative, "equivalence relations",
+InstallMethod( PreImagesRepresentativeNC, "equivalence relations",
         FamRangeEqFamElm, [IsEquivalenceRelation, IsObject], 0,
     function( map, elm )
         return elm;

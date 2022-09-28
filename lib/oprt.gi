@@ -3327,9 +3327,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> ) . . . . . . . . . .  build matrix
+#M  PreImagesRepresentativeNC( <hom>, <elm> ) . . . . . . . . .  build matrix
 ##
-InstallMethod( PreImagesRepresentative,"IsLinearActionHomomorphism",
+InstallMethod( PreImagesRepresentativeNC,"IsLinearActionHomomorphism",
   FamRangeEqFamElm, [ IsLinearActionHomomorphism, IsPerm ], 0,
 function( hom, elm )
   local   V, xset,lab,f;
@@ -3365,9 +3365,9 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <hom>, <elm> ) . . . . . . . . . .  build matrix
+#M  PreImagesRepresentativeNC( <hom>, <elm> ) . . . . . . . . .  build matrix
 ##
-InstallMethod( PreImagesRepresentative,"IsProjectiveActionHomomorphism",
+InstallMethod( PreImagesRepresentativeNC,"IsProjectiveActionHomomorphism",
   FamRangeEqFamElm, [ IsProjectiveActionHomomorphism, IsPerm ], 0,
 function( hom, elm )
   local   V,  mat, xset,lab,f,dim,sol,i;

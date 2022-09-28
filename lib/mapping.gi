@@ -1069,7 +1069,7 @@ InstallMethod( PreImageElm,
     "for inj. & surj. general mapping, and element",
     FamRangeEqFamElm,
     [ IsGeneralMapping and IsInjective and IsSurjective, IsObject ], 0,
-    PreImagesRepresentative );
+    PreImagesRepresentativeNC );
 
 
 #############################################################################
@@ -1170,9 +1170,22 @@ InstallMethod( PreImagesRange,
 
 #############################################################################
 ##
-#M  PreImagesRepresentative( <map>, <elm> )  . .  for s.p. gen. mapping & elm
+#M  PreImagesRepresentative( <map>, <elm> ) . . . for s.p. gen. mapping & elm
+#M  PreImagesRepresentativeNC( <map>, <elm> ) . . for s.p. gen. mapping & elm
 ##
 InstallMethod( PreImagesRepresentative,
+    "for s.p. general mapping, and element",
+    FamRangeEqFamElm,
+    [ IsSPGeneralMapping, IsObject ], 0,
+    function( map, elm )
+## test will be included at a later stage of the change of name 
+##      if not elm in Image( map ) then 
+##        return fail; 
+##      fi; 
+      return PreImagesRepresentativeNC( map, elm ); 
+    end );
+
+InstallMethod( PreImagesRepresentativeNC,
     "for s.p. general mapping, and element",
     FamRangeEqFamElm,
     [ IsSPGeneralMapping, IsObject ], 0,
@@ -1184,12 +1197,25 @@ InstallMethod( PreImagesRepresentative,
 #############################################################################
 ##
 #M  PreImagesRepresentative( <map>, <elm> )
+#M  PreImagesRepresentativeNC( <map>, <elm> )
 ##
 InstallMethod( PreImagesRepresentative,
     "for total non-s.p. general mapping, and element",
     FamRangeEqFamElm,
     [ IsNonSPGeneralMapping, IsObject ], 0,
-    function ( map, elm )
+    function( map, elm ) 
+## test will be included at a later stage of the change of name 
+##      if not elm in Image( map ) then 
+##        return fail; 
+##      fi; 
+      return PreImagesRepresentativeNC( map, elm ); 
+    end );
+
+InstallMethod( PreImagesRepresentativeNC,
+    "for total non-s.p. general mapping, and element",
+    FamRangeEqFamElm,
+    [ IsNonSPGeneralMapping, IsObject ], 0,
+    function( map, elm )
     local   pres;       # all preimages of <elm> under <map>
 
     # get all preimages of <elm> under <map>
