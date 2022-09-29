@@ -1022,6 +1022,7 @@ DeclareOperation( "PreImageElm",
 ##  <#GAPDoc Label="PreImagesRepresentative">
 ##  <ManSection>
 ##  <Oper Name="PreImagesRepresentative" Arg='map, elm'/>
+##  <Oper Name="PreImagesRepresentativeNC" Arg='map, elm'/>
 ##
 ##  <Description>
 ##  If <A>elm</A> is an element of the range of the general mapping
@@ -1032,6 +1033,17 @@ DeclareOperation( "PreImageElm",
 ##  <P/>
 ##  Anything may happen if <A>elm</A> is not an element of the range of
 ##  <A>map</A>.
+##  <P/>
+##  In order to improve this state of affairs, 
+##  following the discussion in issue number 4809, 
+##  <C>PreImagesRepresentative</C> has been renamed 
+##  <C>PreImagesRepresentativeNC</C> throughout the library. 
+##  A new <C>PreImagesRepresentative</C> has been introduced which, for now, 
+##  just calls <C>PreImagesRepresentativeNC</C>. 
+##  Once package authors have had the opportunity to replace their calls of 
+##  <C>PreImagesRepresentative</C> by <C>PreImagesRepresentativeNC</C> 
+##  then a test for <A>elm</A> to be in the range of <A>map</A> will be 
+##  introduced, and <K>fail</K> will be returned when this is not the case.
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>

@@ -1179,9 +1179,9 @@ InstallMethod( PreImagesRepresentative,
     [ IsSPGeneralMapping, IsObject ], 0,
     function( map, elm )
 ## test will be included at a later stage of the change of name 
-      if not elm in Image( map ) then 
-        return fail; 
-      fi; 
+##      if not elm in Image( map ) then 
+##        return fail; 
+##      fi; 
       return PreImagesRepresentativeNC( map, elm ); 
     end );
 
@@ -1205,9 +1205,9 @@ InstallMethod( PreImagesRepresentative,
     [ IsNonSPGeneralMapping, IsObject ], 0,
     function( map, elm ) 
 ## test will be included at a later stage of the change of name 
-      if not elm in Image( map ) then 
-        return fail; 
-      fi; 
+##      if not elm in Image( map ) then 
+##        return fail; 
+##      fi; 
       return PreImagesRepresentativeNC( map, elm ); 
     end );
 
