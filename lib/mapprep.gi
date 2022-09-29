@@ -348,19 +348,19 @@ InstallMethod( PreImagesRepresentativeNC,
     [ IsCompositionMappingRep, IsObject ], 0,
     function( com, elm )
     local im, rep;
-    im:= PreImagesRepresentative( com!.map2, elm );
+    im:= PreImagesRepresentativeNC( com!.map2, elm );
     if im = fail then
       # 'elm' has no preimages under 'com!.map2', so it has none under 'com'.
       return fail;
     else
-      im:= PreImagesRepresentative( com!.map1, im );
+      im:= PreImagesRepresentativeNC( com!.map1, im );
       if im <> fail then
         return im;
       fi;
 
       # It may happen that only the chosen representative has no preimages.
       for im in Enumerator( PreImagesElm( com!.map2, elm ) ) do
-        rep:= PreImagesRepresentative( com!.map1, im );
+        rep:= PreImagesRepresentativeNC( com!.map1, im );
         if rep <> fail then
           return rep;
         fi;
@@ -1034,7 +1034,7 @@ InstallMethod( ImagesRepresentative,
     FamSourceEqFamElm,
     [ IsGeneralMapping and IsInverseGeneralMappingRep, IsObject ], 0,
     function ( inv, elm )
-    return PreImagesRepresentative( InverseGeneralMapping( inv ), elm );
+    return PreImagesRepresentativeNC( InverseGeneralMapping( inv ), elm );
     end );
 
 
@@ -1865,7 +1865,7 @@ InstallMethod( PreImagesRepresentativeNC,
     [ IsGeneralRestrictedMappingRep, IsObject ], 0,
     function( res, elm )
     local preim;
-    preim:= PreImagesRepresentative( res!.map, elm );
+    preim:= PreImagesRepresentativeNC( res!.map, elm );
     if preim = fail then
       # 'elm' has no preimages under 'res!.map', so it has none under 'res'.
       return fail;

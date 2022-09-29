@@ -13,17 +13,17 @@
 ##
 #M  Pcgs( <G> ) . . . . . . . . . . . . . . . . . . . . via nice monomorphism
 ##
-InstallMethod( Pcgs, "via niceomorphism", true,
+InstallMethod( Pcgs, "via niceomorphism", true, 
   [ IsGroup and IsHandledByNiceMonomorphism ], 0,
     function( G )
     local   nice,  npcgs,  pcgs;
-
+    
     nice := NiceMonomorphism( G );
     npcgs := Pcgs( NiceObject( G ) );
     if npcgs = fail  then
         return fail;
     fi;
-    pcgs := List( npcgs, gen -> PreImagesRepresentative( nice, gen ) );
+    pcgs := List( npcgs, gen -> PreImagesRepresentativeNC( nice, gen ) );
     pcgs := PcgsByPcSequenceNC( ElementsFamily( FamilyObj( G ) ), pcgs );
     if HasIsPrimeOrdersPcgs( npcgs )  and  IsPrimeOrdersPcgs( npcgs )  then
         SetIsPrimeOrdersPcgs( pcgs, true );
@@ -52,7 +52,7 @@ InstallOtherMethod( DepthOfPcElement, true,
                    ImagesRepresentative( NiceMonomorphism( pcgs ), g ),
                    depth );
 end );
-
+    
 #############################################################################
 ##
 #M  LeadingExponentOfPcElement( <pcgs>, <g> ) . . . . . via nice monomorphism
