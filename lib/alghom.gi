@@ -930,7 +930,7 @@ BindGlobal( "PreImagesRepresentativeOperationAlgebraHomomorphism", function( oph
     return mat;
 end );
 
-InstallMethod( PreImagesRepresentativeNC,
+InstallMethod( PreImagesRepresentative,
     "for an operation algebra homomorphism, and an element",
     FamRangeEqFamElm,
     [ IsOperationAlgebraHomomorphismDefaultRep, IsMatrix ],
@@ -1092,7 +1092,7 @@ InstallMethod( ImagesRepresentative,
 
 #############################################################################
 ##
-#M  PreImagesRepresentativeNC( <ophom>, <mat> )
+#M  PreImagesRepresentative( <ophom>, <mat> )
 ##
 InstallMethod( PreImagesRepresentativeNC,
     "for an alg. hom. from f. p. algebra, and an element",
