@@ -1016,43 +1016,49 @@ DeclareOperation( "PreImageElm",
 
 #############################################################################
 ##
-#O  PreImagesRepresentative( <map>, <elm> ) . . .  one preimage of an element
+#O  PreImagesRepresentativeNC( <map>, <elm> ) . .  one preimage of an element
 ##                                                       under a gen. mapping
 ##
-##  <#GAPDoc Label="PreImagesRepresentative">
+##  <#GAPDoc Label="PreImagesRepresentativeNC">
 ##  <ManSection>
-##  <Oper Name="PreImagesRepresentative" Arg='map, elm'/>
 ##  <Oper Name="PreImagesRepresentativeNC" Arg='map, elm'/>
+##  <Oper Name="PreImagesRepresentative" Arg='map, elm'/>
 ##
 ##  <Description>
 ##  If <A>elm</A> is an element of the range of the general mapping
-##  <A>map</A> then <Ref Oper="PreImagesRepresentative"/> returns either a
-##  representative of the set of preimages of <A>elm</A> under <A>map</A> or
-##  <K>fail</K>, the latter if and only if <A>elm</A>
-##  has no preimages under <A>map</A>.
+##  <A>map</A> then these operations return either a representative 
+##  of the set of preimages of <A>elm</A> under <A>map</A> or <K>fail</K>, 
+##  the latter if and only if <A>elm</A> has no preimages under <A>map</A>.
 ##  <P/>
 ##  Anything may happen if <A>elm</A> is not an element of the range of
 ##  <A>map</A>.
 ##  <P/>
 ##  In order to improve this state of affairs, 
-##  following the discussion in issue number 4809, 
 ##  <C>PreImagesRepresentative</C> has been renamed 
-##  <C>PreImagesRepresentativeNC</C> throughout the library. 
-##  A new <C>PreImagesRepresentative</C> has been introduced which, for now, 
-##  just calls <C>PreImagesRepresentativeNC</C>. 
-##  Once package authors have had the opportunity to replace their calls of 
-##  <C>PreImagesRepresentative</C> by <C>PreImagesRepresentativeNC</C> 
-##  then a test for <A>elm</A> to be in the range of <A>map</A> will be 
-##  introduced, and <K>fail</K> will be returned when this is not the case.
+##  <C>PreImagesRepresentativeNC</C> throughout the library, 
+##  and <C>PreImagesRepresentative</C> has been declared a synonym for 
+##  <C>PreImagesRepresentativeNC</C>. 
+##  <P/>
+##  In future versions of &GAP; <C>PreImagesRepresentative</C> 
+##  will perform additional checks and reject invalid inputs. 
+##  These additional checks will slow the computation so, 
+##  when the inputs are known to be valid by construction, 
+##  users are recommended to use <C>PreImagesRepresentativeNC</C>. 
+##  <P/>
+##  Package authors are asked to convert their methods for 
+##  <C>PreImagesRepresentative</C> to methods for 
+##  <C>PreImagesRepresentativeNC</C>. 
+##  Only when this has happened will the additional checks be implemented. 
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>
 ##
-DeclareOperation( "PreImagesRepresentative",
-    [ IsGeneralMapping, IsObject ] );
+
+## DeclareOperation( "PreImagesRepresentative",
+##     [ IsGeneralMapping, IsObject ] );
 DeclareOperation( "PreImagesRepresentativeNC",
     [ IsGeneralMapping, IsObject ] );
-
+DeclareSynonym( "PreImagesRepresentative", PreImagesRepresentativeNC );
 
 #############################################################################
 ##
