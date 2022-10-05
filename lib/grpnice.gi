@@ -377,7 +377,7 @@ local mon,cl,clg,c,i;
     c:=ConjugacyClass(g,PreImagesRepresentativeNC(mon,Representative(i)));
     c!.niceClass:=i;
     if HasStabilizerOfExternalSet(i) then
-      SetStabilizerOfExternalSet(c,PreImages(mon,StabilizerOfExternalSet(i)));
+      SetStabilizerOfExternalSet(c,PreImagesNC(mon,StabilizerOfExternalSet(i)));
     fi;
     Add(clg,c);
   od;
@@ -833,7 +833,7 @@ local mon,cl,clg,c,i;
    for i in cl do
      c:=RationalClass(g,PreImagesRepresentativeNC(mon,Representative(i)));
      if HasStabilizerOfExternalSet(i) then
-       SetStabilizerOfExternalSet(c,PreImages(mon,StabilizerOfExternalSet(i)));
+       SetStabilizerOfExternalSet(c,PreImagesNC(mon,StabilizerOfExternalSet(i)));
      fi;
      if HasGaloisGroup(i) then
        SetGaloisGroup(c,GaloisGroup(i));

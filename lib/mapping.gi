@@ -297,11 +297,14 @@ end );
 
 #############################################################################
 ##
-#F  PreImages( <map> )  . . . set of preimages of the range of a gen. mapping
-#F  PreImages(<map>,<elm>)  . set of preimages of an elm under a gen. mapping
-#F  PreImages(<map>,<coll>)  set of preimages of a coll. under a gen. mapping
+#F  PreImages(<map>) 
+#F  PreImagesNC(<map>)  . . . set of preimages of the range of a gen. mapping
+#F  PreImages(<map>,<elm>)  
+#F  PreImagesNC(<map>,<elm>)  set of preimages of an elm under a gen. mapping
+#F  PreImages(<map>,<coll>)  
+#F  PreImagesNC(<map>,<coll>) set of preimages of a coll. under a gen. mapping
 ##
-InstallGlobalFunction( PreImages, function ( arg )
+InstallGlobalFunction( PreImagesNC, function ( arg )
 
     local   map,        # mapping <map>, first argument
             img;        # element <img>, second argument
@@ -352,10 +355,9 @@ InstallGlobalFunction( PreImages, function ( arg )
                          "is not a homogeneous list or collection" );
         fi;
     fi;
-    ErrorNoReturn( "usage: PreImages(<map>), PreImages(<map>,<img>), ",
-                   "PreImages(<map>,<coll>)" );
+    ErrorNoReturn( "usage: PreImagesNC(<map>), PreImagesNC(<map>,<img>), ",
+                   "PreImagesNC(<map>,<coll>)" );
 end );
-
 
 #############################################################################
 ##

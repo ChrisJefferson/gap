@@ -1874,7 +1874,7 @@ InstallMethod( PreImagesRepresentativeNC,
     elif HasIsInjective(res!.map) and IsInjective(res!.map) then
       return fail; # no other choice
     else
-      preim:= PreImages( res!.map, elm );
+      preim:= PreImagesNC( res!.map, elm );
       return First(preim,x->x in Source(res));
     fi;
     end );
