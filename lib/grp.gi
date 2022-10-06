@@ -2095,7 +2095,7 @@ InstallGlobalFunction( SupersolvableResiduumDefault, function( G )
                                    PcElementByExponentsNC( pcgs, v ) ) );
 
                   od;
-                  Add( ds, PreImagesSet( dh,
+                  Add( ds, PreImagesSetNC( dh,
                             SubgroupNC( df, Concatenation( tmp2, gen ) ) ) );
                 od;
                 Append( gen, tmp2 );
@@ -2104,14 +2104,14 @@ InstallGlobalFunction( SupersolvableResiduumDefault, function( G )
             else
 
               # cyclic case
-              Add( ds, PreImagesSet( dh,
+              Add( ds, PreImagesSetNC( dh,
                            SubgroupNC( df, AsSSortedList( gen ) ) ) );
 
             fi;
           od;
 
           # Generate the new candidate.
-          ssr:= PreImagesSet( dh, SubgroupNC( df, AsSSortedList( gen ) ) );
+          ssr:= PreImagesSetNC( dh, SubgroupNC( df, AsSSortedList( gen ) ) );
 
         fi;
 
@@ -3556,7 +3556,7 @@ InstallMethod( HallSubgroupOp,
 
     iso := IsomorphismPermGroup( G );
     H := HallSubgroup( ImagesSource( iso ), pi );
-    return PreImagesSet(iso, H);
+    return PreImagesSetNC(iso, H);
     end );
 
 
@@ -5295,7 +5295,7 @@ InstallMethod (MinimalNormalSubgroups,
       local hom;
       hom := NiceMonomorphism (grp);
       return List (MinimalNormalSubgroups (NiceObject (grp)),
-        N -> PreImagesSet (hom, N));
+        N -> PreImagesSetNC(hom, N));
    end);
 
 

@@ -527,9 +527,9 @@ end);
 
 #############################################################################
 ##
-#M  PreImagesSet( <hom>, <u> )
+#M  PreImagesSetNC( <hom>, <u> )
 ##
-InstallMethod( PreImagesSet, "map from (sub)group of fp group",
+InstallMethod( PreImagesSetNC, "map from (sub)group of fp group",
   CollFamRangeEqFamElms,
   [ IsFromFpGroupHomomorphism,IsGroup ],0,
 function(hom,u)

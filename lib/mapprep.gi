@@ -312,7 +312,7 @@ InstallMethod( PreImagesElm,
     local im;
     im:= PreImagesElm( com!.map2, elm );
     if not IsEmpty( im ) then
-      return PreImagesSet( com!.map1, im );
+      return PreImagesSetNC( com!.map1, im );
     else
       return [];
     fi;
@@ -321,17 +321,17 @@ InstallMethod( PreImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesSet( <map>, <elm> )  . . . . . . . . . . for composition mapping
+#M  PreImagesSetNC( <map>, <elm> )  . . . . . . . . . for composition mapping
 ##
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "for a composition mapping, and a collection",
     CollFamRangeEqFamElms,
     [ IsCompositionMappingRep, IsCollection ], 0,
     function( com, elms )
     local im;
-    im:= PreImagesSet( com!.map2, elms );
+    im:= PreImagesSetNC( com!.map2, elms );
     if not IsEmpty( im ) then
-      return PreImagesSet( com!.map1, im );
+      return PreImagesSetNC( com!.map1, im );
     else
       return [];
     fi;
@@ -383,7 +383,7 @@ InstallMethod( KernelOfAdditiveGeneralMapping,
     if IsInjective( com!.map2 ) then
       return KernelOfAdditiveGeneralMapping( com!.map1 );
     else
-      return PreImagesSet( com!.map1,
+      return PreImagesSetNC( com!.map1,
                  KernelOfAdditiveGeneralMapping( com!.map2 ) );
     fi;
     end );
@@ -421,7 +421,7 @@ InstallMethod( KernelOfMultiplicativeGeneralMapping,
     if IsInjective( com!.map2 ) then
       return KernelOfMultiplicativeGeneralMapping( com!.map1 );
     else
-      return PreImagesSet( com!.map1,
+      return PreImagesSetNC( com!.map1,
                  KernelOfMultiplicativeGeneralMapping( com!.map2 ) );
     fi;
     end );
@@ -1021,7 +1021,7 @@ InstallMethod( ImagesSet,
     CollFamSourceEqFamElms,
     [ IsGeneralMapping and IsInverseGeneralMappingRep, IsCollection ], 0,
     function ( inv, elms )
-    return PreImagesSet( InverseGeneralMapping( inv ), elms );
+    return PreImagesSetNC( InverseGeneralMapping( inv ), elms );
     end );
 
 
@@ -1067,9 +1067,9 @@ InstallMethod( PreImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesSet( <invmap>, <coll> )  . .  for inverse mapping and collection
+#M  PreImagesSetNC( <invmap>, <coll> ) . . for inverse mapping and collection
 ##
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "for an inverse mapping and a collection",
     CollFamRangeEqFamElms,
     [ IsGeneralMapping and IsInverseGeneralMappingRep, IsCollection ], 0,
@@ -1309,9 +1309,9 @@ InstallMethod( PreImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesSet( <idmap>, <coll> ) . . . for identity mapping and collection
+#M  PreImagesSetNC( <idmap>, <coll> ) . . for identity mapping and collection
 ##
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "for identity mapping and collection",
     CollFamRangeEqFamElms,
     [ IsGeneralMapping and IsOne, IsCollection ],
@@ -1600,9 +1600,9 @@ InstallMethod( PreImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesSet( <zeromap>, <elms> ) . . . . for zero mapping and collection
+#M  PreImagesSetNC( <zeromap>, <elms> ) . . . for zero mapping and collection
 ##
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "for zero mapping and collection",
     CollFamRangeEqFamElms,
     [ IsGeneralMapping and IsZero, IsCollection ], SUM_FLAGS,
@@ -1838,15 +1838,15 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesSet( <map>, <elm> )  . . . . . . . . . . for restricted mapping
+#M  PreImagesSetNC( <map>, <elm> ) . . . . . . . . . . for restricted mapping
 ##
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "for a restricted mapping, and a collection",
     CollFamRangeEqFamElms,
     [ IsGeneralRestrictedMappingRep, IsCollection ], 0,
     function( res, elms )
     local preim;
-    preim:= PreImagesSet( res!.map, elms );
+    preim:= PreImagesSetNC( res!.map, elms );
     if not ( (HasIsInjective(res) and IsInjective(res)) or
         (HasIsInjective(res!.map) and IsInjective(res!.map)) ) then
       preim:=Intersection(Source(res),preim);

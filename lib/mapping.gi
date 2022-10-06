@@ -268,14 +268,14 @@ InstallGlobalFunction( PreImage, function ( arg )
         # preimage of a collection of elements <img> under <map>
         elif CollFamRangeEqFamElms( FamilyObj( map ), FamilyObj( img ) ) then
           if not IsSubset( Range( map ), img ) then
-            ErrorNoReturn( "the collection <elm> must be contained in ",
+            ErrorNoReturn( "the collection <coll> must be contained in ",
                            "Range(<map>)" );
           fi;
 
           if IsDomain( img ) or IsSSortedList( img ) then
-            return PreImagesSet( map, img );
+            return PreImagesSetNC( map, img );
           elif IsHomogeneousList( img ) then
-            return PreImagesSet( map, Set( img ) );
+            return PreImagesSetNC( map, Set( img ) );
           fi;
 
         # preimage of the empty list
@@ -338,9 +338,9 @@ InstallGlobalFunction( PreImagesNC, function ( arg )
           fi;
 
           if IsDomain( img ) or IsSSortedList( img ) then
-            return PreImagesSet( map, img );
+            return PreImagesSetNC( map, img );
           elif IsHomogeneousList( img ) then
-            return PreImagesSet( map, Set( img ) );
+            return PreImagesSetNC( map, Set( img ) );
           fi;
 
         # preimage of the empty list
@@ -1120,9 +1120,9 @@ InstallMethod( PreImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesSet( <map>, <elms> ) . for general mapping and finite collection
+#M  PreImagesSetNC( <map>, <elms> ) for general mapping and finite collection
 ##
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "for general mapping, and finite collection",
     CollFamRangeEqFamElms,
     [ IsGeneralMapping, IsCollection ], 0,
@@ -1138,7 +1138,7 @@ InstallMethod( PreImagesSet,
     return primgs;
     end );
 
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "for general mapping, and empty list",
     true,
     [ IsGeneralMapping, IsList and IsEmpty ], 0,
@@ -1155,7 +1155,7 @@ InstallMethod( PreImagesRange,
     "for general mapping",
     true,
     [ IsGeneralMapping ], 0,
-    map -> PreImagesSet( map, Range( map ) ) );
+    map -> PreImagesSetNC( map, Range( map ) ) );
 
 
 #############################################################################

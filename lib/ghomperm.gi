@@ -11,9 +11,9 @@
 
 #############################################################################
 ##
-#M  PreImagesSet( <map>, <elms> ) .  for s.p. gen. mapping resp. mult. & inv.
+#M  PreImagesSetNC( <map>, <elms> )  for s.p. gen. mapping resp. mult. & inv.
 ##
-InstallMethod( PreImagesSet,
+InstallMethod( PreImagesSetNC,
     "method for permgroup homs",
     CollFamRangeEqFamElms,
     [ IsPermGroupHomomorphism, IsGroup ],
@@ -1549,10 +1549,10 @@ end);
 
 #############################################################################
 ##
-#M  PreImagesSet( <hom>, <I> )  . . . . . . . . . . . . . . . . for const hom
+#M  PreImagesSetNC( <hom>, <I> )  . . . . . . . . . . . . . . . for const hom
 ##
-InstallMethod( PreImagesSet, "constituent homomorphism",CollFamRangeEqFamElms,
-        [ IsConstituentHomomorphism, IsPermGroup ], 0,
+InstallMethod( PreImagesSetNC, "constituent homomorphism", 
+        CollFamRangeEqFamElms, [ IsConstituentHomomorphism, IsPermGroup ], 0,
     function( hom, I )
     local   H,          # preimage of <I>, result
             K,          # kernel of <hom>
@@ -1839,9 +1839,9 @@ end) ;
 
 #############################################################################
 ##
-#M  PreImagesSet( <hom>, <I> )  . . . . . . . . . . . . . . .  for blocks hom
+#M  PreImagesSetNC( <hom>, <I> )  . . . . . . . . . . . . . .  for blocks hom
 ##
-InstallMethod( PreImagesSet, CollFamRangeEqFamElms,
+InstallMethod( PreImagesSetNC, CollFamRangeEqFamElms,
         [ IsBlocksHomomorphism, IsPermGroup ], 0,
     function( hom, I )
     local   H;          # preimage of <I> under <hom>, result
