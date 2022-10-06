@@ -26,7 +26,7 @@ local genpreimages,  pre,kg,sz;
   fi;
 
   genpreimages:= List(genpreimages,
-                    gen -> PreImagesRepresentative( map, gen ) );
+                    gen -> PreImagesRepresentativeNC( map, gen ) );
   if fail in genpreimages then
     TryNextMethod();
   fi;

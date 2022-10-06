@@ -970,24 +970,42 @@ DeclareGlobalFunction( "Images" );
 
 #############################################################################
 ##
-#O  PreImagesElm( <map>, <elm> )  . all preimages of elm under a gen. mapping
+#O  PreImagesElm( <map>, <elm> ) . . . . . . . . . . . . all preimages of elm
+#O  PreImagesElmNC( <map>, <elm> ) . . . . . . . . . . . under a gen. mapping
 ##
 ##  <#GAPDoc Label="PreImagesElm">
 ##  <ManSection>
 ##  <Oper Name="PreImagesElm" Arg='map, elm'/>
+##  <Oper Name="PreImagesElmNC" Arg='map, elm'/>
 ##
 ##  <Description>
 ##  If <A>elm</A> is an element of the range of the general mapping
-##  <A>map</A> then <Ref Oper="PreImagesElm"/> returns the set of all
+##  <A>map</A> then <Ref Oper="PreImagesElmNC"/> returns the set of all
 ##  preimages of <A>elm</A> under <A>map</A>.
 ##  <P/>
 ##  Anything may happen if <A>elm</A> is not an element of the range of
-##  <A>map</A>.
+##  <A>map</A>. 
+##  <P/>
+##  In order to improve this state of affairs, 
+##  <C>PreImagesElm</C> has been renamed <C>PreImagesElmNC</C> 
+##  throughout the library, and 
+##  <C>PreImagesElm</C> has been declared a synonym for <C>PreImagesElmNC</C>. 
+##  <P/>
+##  In future versions of &GAP; <C>PreImagesElm</C> 
+##  will perform additional checks and reject invalid inputs. 
+##  These additional checks will slow the computation so, 
+##  when the inputs are known to be valid by construction, 
+##  users are recommended to use <C>PreImagesElmNC</C>. 
+##  <P/>
+##  Package authors are asked to convert their methods for 
+##  <C>PreImagesElm</C> to methods for <C>PreImagesElmNC</C>. 
+##  Only when this has happened will the additional checks be implemented. 
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>
 ##
-DeclareOperation( "PreImagesElm", [ IsGeneralMapping, IsObject ] );
+DeclareOperation( "PreImagesElmNC", [ IsGeneralMapping, IsObject ] );
+DeclareSynonym( "PreImagesElm", PreImagesElmNC );
 
 
 #############################################################################
@@ -1017,7 +1035,7 @@ DeclareOperation( "PreImageElm",
 #############################################################################
 ##
 #O  PreImagesRepresentative( <map>, <elm> )  . . . one preimage of an element
-##  PreImagesRepresentativeNC( <map>, <elm> )  . . .  under a general mapping
+#O  PreImagesRepresentativeNC( <map>, <elm> )  . . .  under a general mapping
 ##
 ##  <#GAPDoc Label="PreImagesRepresentative">
 ##  <ManSection>
@@ -1063,6 +1081,7 @@ DeclareSynonym( "PreImagesRepresentative", PreImagesRepresentativeNC );
 #############################################################################
 ##
 #O  PreImagesSet( <map>, <elms> )
+#O  PreImagesSetNC( <map>, <elms> )
 ##
 ##  <#GAPDoc Label="PreImagesSet">
 ##  <ManSection>

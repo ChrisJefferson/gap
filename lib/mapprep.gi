@@ -302,15 +302,15 @@ InstallMethod( ImagesRepresentative,
 
 #############################################################################
 ##
-#M  PreImagesElm( <map>, <elm> )  . . . . . . . . . . for composition mapping
+#M  PreImagesElmNC( <map>, <elm> )  . . . . . . . . . for composition mapping
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for a composition mapping, and an element",
     FamRangeEqFamElm,
     [ IsCompositionMappingRep, IsObject ], 0,
     function( com, elm )
     local im;
-    im:= PreImagesElm( com!.map2, elm );
+    im:= PreImagesElmNC( com!.map2, elm );
     if not IsEmpty( im ) then
       return PreImagesSetNC( com!.map1, im );
     else
@@ -359,7 +359,7 @@ InstallMethod( PreImagesRepresentativeNC,
       fi;
 
       # It may happen that only the chosen representative has no preimages.
-      for im in Enumerator( PreImagesElm( com!.map2, elm ) ) do
+      for im in Enumerator( PreImagesElmNC( com!.map2, elm ) ) do
         rep:= PreImagesRepresentativeNC( com!.map1, im );
         if rep <> fail then
           return rep;
@@ -659,9 +659,9 @@ InstallMethod( PreImageElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <map>, <elm> )  . . . . . . . . . . for mapping by function
+#M  PreImagesElmNC( <map>, <elm> )  . . . . . . . . . for mapping by function
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for mapping by function",
     FamRangeEqFamElm,
     [ IsMappingByFunctionWithInverseRep, IsObject ], 0,
@@ -1008,7 +1008,7 @@ InstallMethod( ImagesElm,
     FamSourceEqFamElm,
     [ IsGeneralMapping and IsInverseGeneralMappingRep, IsObject ], 0,
     function ( inv, elm )
-    return PreImagesElm( InverseGeneralMapping( inv ), elm );
+    return PreImagesElmNC( InverseGeneralMapping( inv ), elm );
     end );
 
 
@@ -1054,9 +1054,9 @@ InstallMethod( PreImageElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <invmap>, <elm> ) . . . . . for inverse mapping and element
+#M  PreImagesElmNC( <invmap>, <elm> ) . . . . for inverse mapping and element
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for an inverse mapping and an element",
     FamRangeEqFamElm,
     [ IsGeneralMapping and IsInverseGeneralMappingRep, IsObject ], 0,
@@ -1295,9 +1295,9 @@ InstallMethod( PreImageElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <idmap>, <elm> )  . . . .  for identity mapping and element
+#M  PreImagesElmNC( <idmap>, <elm> ) . . . . for identity mapping and element
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for identity mapping and object",
     FamRangeEqFamElm,
     [ IsGeneralMapping and IsOne, IsObject ],
@@ -1583,9 +1583,9 @@ InstallMethod( ImagesRepresentative,
 
 #############################################################################
 ##
-#M  PreImagesElm( <zeromap>, <elm> )  . . . . .  for zero mapping and element
+#M  PreImagesElmNC( <zeromap>, <elm> ) . . . . . for zero mapping and element
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for zero mapping and object",
     FamRangeEqFamElm,
     [ IsGeneralMapping and IsZero, IsObject ], SUM_FLAGS,
@@ -1819,15 +1819,15 @@ end );
 
 #############################################################################
 ##
-#M  PreImagesElm( <map>, <elm> )  . . . . . . . . . . for restricted mapping
+#M  PreImagesElmNC( <map>, <elm> ) . . . . . . . . . . for restricted mapping
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for a restricted mapping, and an element",
     FamRangeEqFamElm,
     [ IsGeneralRestrictedMappingRep, IsObject ], 0,
     function( res, elm )
     local preim;
-    preim:= PreImagesElm( res!.map, elm );
+    preim:= PreImagesElmNC( res!.map, elm );
     if not ( (HasIsInjective(res) and IsInjective(res)) or
         (HasIsInjective(res!.map) and IsInjective(res!.map)) ) then
       preim:=Intersection(Source(res),preim);

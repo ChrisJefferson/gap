@@ -268,7 +268,7 @@ InstallGlobalFunction( PreImage, function ( arg )
         # preimage of a collection of elements <img> under <map>
         elif CollFamRangeEqFamElms( FamilyObj( map ), FamilyObj( img ) ) then
           if not IsSubset( Range( map ), img ) then
-            ErrorNoReturn( "the collection <coll> must be contained in ",
+            ErrorNoReturn( "the collection <elm> must be contained in ",
                            "Range(<map>)" );
           fi;
 
@@ -328,7 +328,7 @@ InstallGlobalFunction( PreImagesNC, function ( arg )
             if not img in Range( map ) then
                 ErrorNoReturn( "<elm> must be an element of Range(<map>)" );
             fi;
-            return PreImagesElm( map, img );
+            return PreImagesElmNC( map, img );
 
         # preimage of a collection of elements <img> under <map>
         elif CollFamRangeEqFamElms( FamilyObj( map ), FamilyObj( img ) ) then
@@ -1076,11 +1076,11 @@ InstallMethod( PreImageElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <map>, <elm> )  . . . . . . for general mapping and element
+#M  PreImagesElmNC( <map>, <elm> )  . . . . . for general mapping and element
 ##
 ##  more or less delegate to `ImagesElm'
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for general mapping with finite source, and element",
     FamRangeEqFamElm,
     [ IsGeneralMapping, IsObject ], 0,
@@ -1100,9 +1100,9 @@ InstallMethod( PreImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <map>, <elm> )   for const. time access gen. map., and elm.
+#M  PreImagesElmNC( <map>, <elm> ) for const. time access gen. map., and elm.
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for constant time access general mapping, and element",
     FamRangeEqFamElm,
     [ IsGeneralMapping and IsConstantTimeAccessGeneralMapping, IsObject ], 0,
@@ -1133,7 +1133,7 @@ InstallMethod( PreImagesSetNC,
     fi;
     primgs:= [];
     for elm in Enumerator( elms ) do
-      UniteSet( primgs, AsList( PreImagesElm( map, elm ) ) );
+      UniteSet( primgs, AsList( PreImagesElmNC( map, elm ) ) );
     od;
     return primgs;
     end );
@@ -1221,7 +1221,7 @@ InstallMethod( PreImagesRepresentativeNC,
     local   pres;       # all preimages of <elm> under <map>
 
     # get all preimages of <elm> under <map>
-    pres := PreImagesElm( map, elm );
+    pres := PreImagesElmNC( map, elm );
 
     # check that <elm> has at least one preimage under <map>
     if IsEmpty( pres ) then
@@ -1489,7 +1489,7 @@ InstallMethod( Enumerator,
       return enum;
     elif IsFinite( R ) then
       for elm in Enumerator( R ) do
-        imgs:= PreImagesElm( map, elm );
+        imgs:= PreImagesElmNC( map, elm );
         if IsFinite( imgs ) then
           UniteSet( enum, List( imgs, im -> DirectProductElement( [ im, elm ] ) ) );
         else

@@ -607,11 +607,11 @@ InstallMethod(HasseDiagramBinaryRelation,
         HDBRMinElts := function(list, rel)
 
             ## x minimal if
-            ##  {y in list | y<>x and y in PreImagesElm( rel,x)} is empty
+            ##  {y in list | y<>x and y in PreImagesElmNC(rel,x)} is empty
             ##
             return Filtered(list,
               x->IsEmpty(Filtered(list, y-> (y <> x) and
-                                              (y in PreImagesElm(rel,x)))));
+                                            (y in PreImagesElmNC(rel,x)))));
         end;
 
         ## return the elements which cover x in rel
@@ -983,11 +983,11 @@ InstallMethod(ImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <rel>, <n> )
+#M  PreImagesElmNC( <rel>, <n> )
 ##
 ##  For binary relations over [1..n] represented as a list of images
 ##
-InstallMethod(PreImagesElm,
+InstallMethod(PreImagesElmNC,
         "for binary rels over [1..n] with images list",
         true, [IsBinaryRelation and IsBinaryRelationOnPointsRep, IsPosInt], 0,
     function( rel, n )
@@ -1814,9 +1814,9 @@ InstallMethod( ImagesElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <rel>, <elm> )     for equivalence relations with partition
+#M  PreImagesElmNC( <rel>, <elm> )   for equivalence relations with partition
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
         "equivalence relations with partition and element",
         FamRangeEqFamElm,
         [IsEquivalenceRelation and HasEquivalenceRelationPartition,

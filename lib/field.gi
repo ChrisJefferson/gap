@@ -1321,9 +1321,9 @@ InstallMethod( ImagesSet,
 
 #############################################################################
 ##
-#M  PreImagesElm( <hom>, <elm> )  . . . . . . . . . . . .  preimage of an elm
+#M  PreImagesElmNC( <hom>, <elm> )  . . . . . . . . . . .  preimage of an elm
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for field homomorphism and element",
     FamRangeEqFamElm,
     [ IsFieldHomomorphism, IsObject ],

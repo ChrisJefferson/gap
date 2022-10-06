@@ -1918,9 +1918,9 @@ InstallMethod( PreImageElm,
 
 #############################################################################
 ##
-#M  PreImagesElm( <aut>, <cyc> )  . . . . . . for autom. of ab. number fields
+#M  PreImagesElmNC( <aut>, <cyc> )  . . . . . for autom. of ab. number fields
 ##
-InstallMethod( PreImagesElm,
+InstallMethod( PreImagesElmNC,
     "for ANF automorphism and scalar",
     FamRangeEqFamElm,
     [ IsFieldHomomorphism and IsANFAutomorphismRep, IsScalar ],
