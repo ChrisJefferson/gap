@@ -272,6 +272,13 @@ build_one_package() {
       mkdir -p bin && test -x bin/bistellar || mv bistellar bin
     ;;
 
+    fga*)
+      rm -f "doc/GAPROOT"
+      echo ln -s "$GAPROOT" "doc/GAPROOT"
+      ln -s "$GAPROOT" "doc/GAPROOT" && \
+      run_configure_and_make
+    ;;
+
     *)
       run_configure_and_make
     ;;
