@@ -211,6 +211,15 @@ GAPInput
   else
     notice "No building required for $PKG"
   fi
+  if [[ -f makedoc.g ]]; then
+    $GAP -q -T -A -M makedoc.g
+  elif [[ -f makedocrel.g ]]; then
+    $GAP -q -T -A -M makedocrel.g
+  elif [[ -x doc/make_doc ]]; then
+    (cd doc && ./make_doc)
+  else
+    notice "Did not build documentation for $PKG"
+  fi;
 }
 
 build_one_package() {
