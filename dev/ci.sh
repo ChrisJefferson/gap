@@ -63,6 +63,9 @@ do
     # skip itc because it requires xgap
     rm -rf itc*
 
+    # skip building docs for fga
+    rm -rf fga*/doc/make_doc
+
     # HACK to work out timestamp issues with anupq
     touch anupq*/configure* anupq*/Makefile* anupq*/aclocal.m4
 
