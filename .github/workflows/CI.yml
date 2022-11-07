@@ -209,6 +209,10 @@ jobs:
                          libzmq3-dev            # ZeroMQInterface
                          pari-gp                # alnuth
                          singular               # singular
+                         texlive-latex-base
+                         texlive-latex-recommended
+                         texlive-latex-extra
+                         texlive-fonts-recommended
                        )
                    fi
                    if [[ $TEST_SUITES == *makemanuals* ]] ; then
