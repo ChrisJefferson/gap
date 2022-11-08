@@ -65,6 +65,8 @@ do
 
     # skip building docs for fga
     rm -rf fga*/doc/make_doc
+    # also skip building docs for transgrp
+    rm -rf transgrp*/doc/make_doc
 
     # HACK to work out timestamp issues with anupq
     touch anupq*/configure* anupq*/Makefile* anupq*/aclocal.m4
