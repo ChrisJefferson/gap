@@ -172,9 +172,9 @@ jobs:
                   echo "No coverage reporting"
                else
                   echo "Coverage reporting, updating compiler and linker flags"
-                  echo "CFLAGS=--coverage -O2 -g" >> $GITHUB_ENV
-                  echo "CXXFLAGS=--coverage -O2 -g" >> $GITHUB_ENV
-                  echo "LDFLAGS=--coverage" >> $GITHUB_ENV
+                  echo "CFLAGS=-O2 -g" >> $GITHUB_ENV
+                  echo "CXXFLAGS=-O2 -g" >> $GITHUB_ENV
+                  echo "LDFLAGS=" >> $GITHUB_ENV
                fi
 
       - name: "Install dependencies"
