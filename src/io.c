@@ -28,6 +28,7 @@
 #include "gapstate.h"
 #include "gaputils.h"
 #include "gvars.h"
+#include "integer.h"
 #include "listfunc.h"
 #include "lists.h"
 #include "modules.h"
@@ -1921,6 +1922,30 @@ static Obj FuncGET_FILENAME_CACHE(Obj self)
   return CopyObj(FilenameCache, 1);
 }
 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/resource.h>
+#include <fcntl.h>
+
+static Obj FuncOPEN_FILE_COUNT(Obj self) {
+    struct rlimit rlim;
+    int i, count = 0;
+
+    if (getrlimit(RLIMIT_NOFILE, &rlim) == -1) {
+        return 0;
+    }
+
+    for (i = 0; i < rlim.rlim_max; i++) {
+        if (fcntl(i, F_GETFD) != -1) {
+            count++;
+        }
+    }
+
+    return ObjInt_Int(count);
+}
+
 static StructGVarFunc GVarFuncs [] = {
 
     GVAR_FUNC_0ARGS(ToggleEcho),
@@ -1937,6 +1962,7 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_0ARGS(IS_INPUT_TTY),
     GVAR_FUNC_0ARGS(IS_OUTPUT_TTY),
     GVAR_FUNC_0ARGS(GET_FILENAME_CACHE),
+    GVAR_FUNC_0ARGS(OPEN_FILE_COUNT),
     { 0, 0, 0, 0, 0 }
 
 };

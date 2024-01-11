@@ -587,8 +587,9 @@ end);
 
 InstallGlobalFunction("Test", function(arg)
   local fnam, nopts, opts, full, pf, failures, lines, ign, new,
-        cT, ok, oldtimes, thr, delta, len, c, i, j, d, localdef, line;
+        cT, ok, oldtimes, thr, delta, len, c, i, j, d, localdef, line, filecount;
 
+  filecount :=OPEN_FILE_COUNT();
   # get arguments and set options
   fnam := arg[1];
   if Length(arg) > 1 and IsRecord(arg[2]) then
@@ -785,6 +786,16 @@ InstallGlobalFunction("Test", function(arg)
   TEST.lastTestData := [pf.inp, pf.outp, pf.pos, pf.cmp, pf.times];
   # And also new record format
   TEST.lastTestDataRec := pf;
+
+  if OPEN_FILE_COUNT() -filecount <> 0 then
+    Print("!!!! ", filecount, " to ", OPEN_FILE_COUNT() ,"\n");
+    Print("!!!! ", filecount, " to ", OPEN_FILE_COUNT() ,"\n");
+    Print("!!!! ", filecount, " to ", OPEN_FILE_COUNT() ,"\n");
+    Print("!!!! ", filecount, " to ", OPEN_FILE_COUNT() ,"\n");
+    Print("!!!! ", filecount, " to ", OPEN_FILE_COUNT() ,"\n");
+    Print("!!!! ", filecount, " to ", OPEN_FILE_COUNT() ,"\n");
+    Print("!!!! ", filecount, " to ", OPEN_FILE_COUNT() ,"\n");
+  fi;
 
   # if requested, return number of failures
   if opts.returnNumFailures then
