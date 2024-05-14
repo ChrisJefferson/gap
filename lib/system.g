@@ -551,6 +551,10 @@ end );
 ##  <Description>
 ##  tests whether &GAP; is running on a Windows system without
 ##  standard POSIX tools available (such as a shell).
+##
+##  GAP on Windows is distributed with a full set of POSIX tools, so this
+##  function will return <b>false</b> in the windows GAP release.
+##  This function is only provided for backwards compatibility.
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>
@@ -595,6 +599,8 @@ end);
 ##
 ##  <Description>
 ##  tests whether &GAP; is running on a UNIX system (including macOS).
+##  This function also returns <b>true</b> on Windows when a full set of
+##  UNIX tools is available, as in the official GAP windows installer.
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>
