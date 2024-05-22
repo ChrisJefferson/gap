@@ -2678,7 +2678,7 @@ void gasman_check_do_scan(void) {
     }
 }
 
-void gasman_check_gc(void)
+void gasman_check_gc(int a, int b, int c, int d, int e, int f, int g)
 {
     setjmp(gasman_check_jbuf);
 
