@@ -2643,9 +2643,9 @@ int gasman_check_do_call(int a, int b, int c, int d, int e, int f, int g)
     int x2 = c/d;
     int x3 = e*f;
     int x4 = f*g;
-    int x5 = x3 - x1^x2;
+    int x5 = x3 - (x1^x2);
     int x6 = x2 / x5;
-    int x7 = x4 - x2^x5;
+    int x7 = x4 - (x2^x5);
     return x1+x2+x3+x4+x5+x6+x7;
 }
 
@@ -2660,14 +2660,14 @@ void gasman_check_do_scan(void) {
         int found = 0;
         for(char* p = (char*)stack_top; p < (char*)StackBottomBags; ++p) {
             if(*(int*)p == i) {
-                //printf("Found %d on stack\n", i);
+                printf("Found %d on stack\n", i);
                 found = 1;
             }
         }
 
         for(char* p = (char*)gasman_check_jbuf; p < (char*)gasman_check_jbuf + sizeof(gasman_check_jbuf); ++p) {
             if(*(int*)p == i) {
-                //printf("Found %d in the jmpbuf\n", i);
+                printf("Found %d in the jmpbuf\n", i);
                 found = 1;
             }
         }
