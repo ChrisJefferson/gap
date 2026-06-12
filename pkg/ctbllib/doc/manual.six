@@ -1,0 +1,761 @@
+#SIXFORMAT  GapDocGAP
+HELPBOOKINFOSIXTMP := rec(
+encoding := "UTF-8",
+bookname := "CTblLib",
+entries :=
+[ [ "Title page", "0.0", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" 
+     ], 
+  [ "Copyright", "0.0-1", [ 0, 0, 1 ], 18, 2, "copyright", 
+      "X81488B807F2A1CF1" ], 
+  [ "Table of Contents", "0.0-2", [ 0, 0, 2 ], 26, 3, "table of contents", 
+      "X8537FEB07AF2BEC8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YIntroduction to the \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027 Character Table Library\033[133X\033[101X", "1", [ 1, 0, 0 ], 
+      1, 5, "introduction to the gap character table library", 
+      "X86DEA3CF7802FFF7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YHistory of the \033[5XGAP\033[105X\033[101X\027\\
+033[1X\027 Character Table Library\033[133X\033[101X", "1.1", [ 1, 1, 0 ], 
+      129, 7, "history of the gap character table library", 
+      "X7ED5D4B77E9F2A4C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in \033[5XCTblLib\033[105X\033[101X\\
+027\033[1X\027, Compared to Older Versions?\033[133X\033[101X", "1.2", 
+      [ 1, 2, 0 ], 178, 7, "whats new in ctbllib compared to older versions?",
+      "X7DFD446B7840A6E0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.11? (May 2025)\033[133X\
+\033[101X", "1.2-1", [ 1, 2, 1 ], 192, 8, 
+      "whats new in version 1.3.11? may 2025", "X84BDBA6B7F5900CC" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.9? (March 2024)\033[133\
+X\033[101X", "1.2-2", [ 1, 2, 2 ], 290, 9, 
+      "whats new in version 1.3.9? march 2024", "X85710FDF79D428D2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.8? (March 2024)\033[133\
+X\033[101X", "1.2-3", [ 1, 2, 3 ], 297, 9, 
+      "whats new in version 1.3.8? march 2024", "X78A8624787A5F2BB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.7? (January 2024)\033[1\
+33X\033[101X", "1.2-4", [ 1, 2, 4 ], 319, 10, 
+      "whats new in version 1.3.7? january 2024", "X87C0A6BA86AF8C25" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.6? (May 2023)\033[133X\\
+033[101X", "1.2-5", [ 1, 2, 5 ], 389, 11, 
+      "whats new in version 1.3.6? may 2023", "X788E2D9E8715CEBF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.5? (March 2023)\033[133\
+X\033[101X", "1.2-6", [ 1, 2, 6 ], 399, 11, 
+      "whats new in version 1.3.5? march 2023", "X853CED1A7F4A7CB6" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.4? (April 2022)\033[133\
+X\033[101X", "1.2-7", [ 1, 2, 7 ], 431, 12, 
+      "whats new in version 1.3.4? april 2022", "X8673993582B1792E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.3? (January 2022)\033[1\
+33X\033[101X", "1.2-8", [ 1, 2, 8 ], 437, 12, 
+      "whats new in version 1.3.3? january 2022", "X81F15ABF81515359" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.2? (March 2021)\033[133\
+X\033[101X", "1.2-9", [ 1, 2, 9 ], 455, 12, 
+      "whats new in version 1.3.2? march 2021", "X7C0B3B6D7EC044DC" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.1? (April 2020)\033[133\
+X\033[101X", "1.2-10", [ 1, 2, 10 ], 503, 13, 
+      "whats new in version 1.3.1? april 2020", "X79418416826FE5F2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.0? (December 2019)\033[\
+133X\033[101X", "1.2-11", [ 1, 2, 11 ], 517, 13, 
+      "whats new in version 1.3.0? december 2019", "X83D8236D7E750DFE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.2.2? (March 2013)\033[133\
+X\033[101X", "1.2-12", [ 1, 2, 12 ], 653, 15, 
+      "whats new in version 1.2.2? march 2013", "X7BC6B5FD7F720EA0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.2.0 and 1.2.1? (May 2012)\
+\033[133X\033[101X", "1.2-13", [ 1, 2, 13 ], 669, 15, 
+      "whats new in version 1.2.0 and 1.2.1? may 2012", "X7E26A5FD7EBB4FA1" ],
+  [ "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.1? (November 2003)\033[1\
+33X\033[101X", "1.2-14", [ 1, 2, 14 ], 739, 16, 
+      "whats new in version 1.1? november 2003", "X79402202865D152A" ], 
+  [ "\033[1X\033[33X\033[0;-2YAcknowledgements\033[133X\033[101X", "1.3", 
+      [ 1, 3, 0 ], 802, 17, "acknowledgements", "X82A988D47DFAFCFA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YTutorial for the \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027 Character Table Library\033[133X\033[101X", "2", [ 2, 0, 0 ], 
+      1, 19, "tutorial for the gap character table library", 
+      "X7C4E7E1181E82D8E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConcepts used in the \033[5XGAP\033[105X\033[101X\
+\027\033[1X\027 Character Table Library\033[133X\033[101X", "2.1", 
+      [ 2, 1, 0 ], 31, 19, "concepts used in the gap character table library",
+      "X86B34875862028E8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing a Character Table from the Library\033[\
+133X\033[101X", "2.2", [ 2, 2, 0 ], 76, 20, 
+      "accessing a character table from the library", "X84930B2D7849E019" ], 
+  [ "\033[1X\033[33X\033[0;-2YAccessing a Character Table via a name\033[133X\
+\033[101X", "2.2-1", [ 2, 2, 1 ], 82, 20, 
+      "accessing a character table via a name", "X8658DC3A83B5A98B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing a Character Table via properties\033[13\
+3X\033[101X", "2.2-2", [ 2, 2, 2 ], 107, 21, 
+      "accessing a character table via properties", "X7AA474817D17BF49" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing a Character Table via a Table of Marks\\
+033[133X\033[101X", "2.2-3", [ 2, 2, 3 ], 134, 21, 
+      "accessing a character table via a table of marks", "X7C6BFB4384CAFFC8" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing a Character Table relative to another C\
+haracter Table\033[133X\033[101X", "2.2-4", [ 2, 2, 4 ], 150, 21, 
+      "accessing a character table relative to another character table", 
+      "X7E6AF18C7F139F54" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YDifferent character tables for the same group\\
+033[133X\033[101X", "2.2-5", [ 2, 2, 5 ], 201, 22, 
+      "different character tables for the same group", "X7CD1E9AA871848EC" ], 
+  [ "\033[1X\033[33X\033[0;-2YExamples of Using the \033[5XGAP\033[105X\033[10\
+1X\027\033[1X\027 Character Table Library\033[133X\033[101X", "2.3", 
+      [ 2, 3, 0 ], 306, 24, 
+      "examples of using the gap character table library", 
+      "X83B721F3801ED6D1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Ambivalent Simple Groups\033[133X\033[10\
+1X", "2.3-1", [ 2, 3, 1 ], 320, 24, "example: ambivalent simple groups", 
+      "X87AC9A4181AC369C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Simple \033[22Xp\033[122X\033[101X\027\\
+033[1X\027-pure Groups\033[133X\033[101X", "2.3-2", [ 2, 3, 2 ], 344, 24, 
+      "example: simple p-pure groups", "X7AD705F685FBF179" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Simple Groups with only one \033[22Xp\\
+033[122X\033[101X\027\033[1X\027-Block\033[133X\033[101X", "2.3-3", 
+      [ 2, 3, 3 ], 408, 25, "example: simple groups with only one p-block", 
+      "X7C2C7B138646D0C5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample:The Sylow \033[22X3\033[122X\033[101X\\
+027\033[1X\027 subgroup of \033[22X3.O'N\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "2.3-4", [ 2, 3, 4 ], 437, 26, 
+      "example:the sylow 3 subgroup of 3.on", "X7FA308D585DC1B40" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Primitive Permutation Characters of \\
+033[22X2.A_6\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "2.3-5", 
+      [ 2, 3, 5 ], 473, 26, 
+      "example: primitive permutation characters of 2.a_6", 
+      "X83BF83D87BC1B123" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: A Permutation Character of \033[22XFi_23\
+\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "2.3-6", [ 2, 3, 6 ], 
+      548, 28, "example: a permutation character of fi_23", 
+      "X808DD8997F10D429" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Non-commutators in the commutator group\\
+033[133X\033[101X", "2.3-7", [ 2, 3, 7 ], 611, 29, 
+      "example: non-commutators in the commutator group", "X7A23CB7D8267FE55" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: An irreducible \033[22X11\033[122X\033[1\
+01X\027\033[1X\027-modular character of \033[22XJ_4\033[122X\033[101X\027\033[\
+1X\027 (December 2018)\033[133X\033[101X", "2.3-8", [ 2, 3, 8 ], 675, 30, 
+      "example: an irreducible 11-modular character of j_4 december 2018", 
+      "X79CDDEE67A41EAB8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Tensor Products that are Generalized Pro\
+jectives (October 2019)\033[133X\033[101X", "2.3-9", [ 2, 3, 9 ], 764, 31, 
+      "example: tensor products that are generalized projectives october 2019"
+        , "X8135F74080E50B14" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Certain elementary abelian subgroups in \
+quasisimple groups (November 2020)\033[133X\033[101X", "2.3-10", 
+      [ 2, 3, 10 ], 881, 33, 
+      "example: certain elementary abelian subgroups in quasisimple groups nov\
+ember 2020", "X7AD5E36B7D44C507" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe User Interface to the \033[5XGAP\033[105X\\
+033[101X\027\033[1X\027 Character Table Library\033[133X\033[101X", "3", 
+      [ 3, 0, 0 ], 1, 43, 
+      "the user interface to the gap character table library", 
+      "X7EB517EB7A50A58F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing Data of the \033[5XCTblLib\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "3.1", [ 3, 1, 0 ], 4, 
+      43, "accessing data of the ctbllib package", "X7A5EECF8853A05A0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAdmissible Names for Character Tables in \033[5XC\
+TblLib\033[105X\033[101X\027\033[1X\027\033[133X\033[101X", "3.1-1", 
+      [ 3, 1, 1 ], 7, 43, "admissible names for character tables in ctbllib", 
+      "X818A9DE5799A4809" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Interface to the \033[5XTomLib\033[105X\033[1\
+01X\027\033[1X\027 Package\033[133X\033[101X", "3.2", [ 3, 2, 0 ], 332, 48, 
+      "the interface to the tomlib package", "X7EED71B4827BEBFA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Interface to \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027's Group Libraries\033[133X\033[101X", "3.3", [ 3, 3, 0 ], 456, 
+      50, "the interface to gaps group libraries", "X83D85EB2792D9D22" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUnipotent Characters of Finite Groups of Lie Type\
+\033[133X\033[101X", "3.4", [ 3, 4, 0 ], 650, 53, 
+      "unipotent characters of finite groups of lie type", 
+      "X7C1F6C01852D7933" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XBrowse\033[105X\033[101X\027\033[1X\027 Ap\
+plications Provided by \033[5XCTblLib\033[105X\033[101X\027\033[1X\027\033[133\
+X\033[101X", "3.5", [ 3, 5, 0 ], 752, 55, 
+      "browse applications provided by ctbllib", "X7900893987A89915" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YDuplicates of Library Character Tables\033[133X\\
+033[101X", "3.6", [ 3, 6, 0 ], 1456, 67, 
+      "duplicates of library character tables", "X7E5CFB187E313B11" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAttributes for Library Character Tables\033[133X\\
+033[101X", "3.7", [ 3, 7, 0 ], 1564, 69, 
+      "attributes for library character tables", "X7CCFEC998135F6FA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YContents of the \033[5XGAP\033[105X\033[101X\027\\
+033[1X\027 Character Table Library\033[133X\033[101X", "4", [ 4, 0, 0 ], 1, 
+      72, "contents of the gap character table library", "X85854AF07F2F8745" ]
+    , 
+  [ 
+      "\033[1X\033[33X\033[0;-2YOrdinary and Brauer Tables in the \033[5XGAP\033[\
+105X\033[101X\027\033[1X\027 Character Table Library\033[133X\033[101X", 
+      "4.1", [ 4, 1, 0 ], 25, 72, 
+      "ordinary and brauer tables in the gap character table library", 
+      "X80EEFF8B79856A75" ], 
+  [ "\033[1X\033[33X\033[0;-2YOrdinary Character Tables\033[133X\033[101X", 
+      "4.1-1", [ 4, 1, 1 ], 49, 73, "ordinary character tables", 
+      "X8569BC8E7A9D4BCE" ], 
+  [ "\033[1X\033[33X\033[0;-2YBrauer Tables\033[133X\033[101X", "4.1-2", 
+      [ 4, 1, 2 ], 126, 74, "brauer tables", "X7AD048607A08C6FF" ], 
+  [ "\033[1X\033[33X\033[0;-2YGeneric Character Tables\033[133X\033[101X", 
+      "4.2", [ 4, 2, 0 ], 137, 74, "generic character tables", 
+      "X81E3F9A384365282" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAvailable generic character tables\033[133X\033[1\
+01X", "4.2-1", [ 4, 2, 1 ], 186, 75, "available generic character tables", 
+      "X78CD9A2D8680506B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YComponents of generic character tables\033[133X\\
+033[101X", "4.2-3", [ 4, 2, 3 ], 324, 77, 
+      "components of generic character tables", "X7C2CB9E07990B63D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: The generic table of cyclic groups\033[1\
+33X\033[101X", "4.2-4", [ 4, 2, 4 ], 402, 78, 
+      "example: the generic table of cyclic groups", "X7D693E9787073E30" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: The generic table of the general linear \
+group GL\033[22X(2,q)\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", 
+      "4.2-5", [ 4, 2, 5 ], 453, 79, 
+      "example: the generic table of the general linear group gl 2 q", 
+      "X81231BCE79486FA3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XAtlas\033[105X\033[101X\027\033[1X\027 Tab\
+les\033[133X\033[101X", "4.3", [ 4, 3, 0 ], 503, 80, "atlas tables", 
+      "X7F44BD4B79473085" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YImprovements to the \033[5XAtlas\033[105X\033[101\
+X\027\033[1X\027\033[133X\033[101X", "4.3-1", [ 4, 3, 1 ], 534, 80, 
+      "improvements to the atlas", "X7CC608CD8690F9B1" ], 
+  [ "\033[1X\033[33X\033[0;-2YPower Maps\033[133X\033[101X", "4.3-2", 
+      [ 4, 3, 2 ], 569, 81, "power maps", "X7FED949A86575949" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YProjective Characters and Projections\033[133X\\
+033[101X", "4.3-3", [ 4, 3, 3 ], 580, 81, 
+      "projective characters and projections", "X824823F47BB6AD6C" ], 
+  [ "\033[1X\033[33X\033[0;-2YTables of Isoclinic Groups\033[133X\033[101X", 
+      "4.3-4", [ 4, 3, 4 ], 592, 81, "tables of isoclinic groups", 
+      "X78732CDF85FB6774" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YOrdering of Characters and Classes\033[133X\033[1\
+01X", "4.3-5", [ 4, 3, 5 ], 602, 81, "ordering of characters and classes", 
+      "X7C4B91CD84D5CDCC" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples of the \033[5XAtlas\033[105X\033[101X\\
+027\033[1X\027 Format for \033[5XGAP\033[105X\033[101X\027\033[1X\027 Tables\
+\033[133X\033[101X", "4.3-7", [ 4, 3, 7 ], 758, 83, 
+      "examples of the atlas format for gap tables", "X827044A37C04C0D1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XCAS\033[105X\033[101X\027\033[1X\027 Table\
+s\033[133X\033[101X", "4.4", [ 4, 4, 0 ], 1010, 88, "cas tables", 
+      "X7BC3F0B0814D5B67" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCustomizations of the \033[5XGAP\033[105X\033[101\
+X\027\033[1X\027 Character Table Library\033[133X\033[101X", "4.5", 
+      [ 4, 5, 0 ], 1080, 89, 
+      "customizations of the gap character table library", 
+      "X835811C279FB1E56" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInstalling the \033[5XGAP\033[105X\033[101X\027\\
+033[1X\027 Character Table Library\033[133X\033[101X", "4.5-1", [ 4, 5, 1 ], 
+      1083, 89, "installing the gap character table library", 
+      "X8202ACD57ACD5CAC" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUnloading Character Table Data\033[133X\033[101X"
+        , "4.5-2", [ 4, 5, 2 ], 1111, 89, "unloading character table data", 
+      "X83FA9D6B86150501" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YChanging the display format of several functions\\
+033[133X\033[101X", "4.5-3", [ 4, 5, 3 ], 1126, 89, 
+      "changing the display format of several functions", "X7E859C3482F27089" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XMagmaPath\033[110X\033[10\
+1X\027\033[1X\027\033[133X\033[101X", "4.5-4", [ 4, 5, 4 ], 1135, 89, 
+      "user preference magmapath", "X7DFAD31F84F55870" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YTechnicalities of the Access to Character Tables \
+from the Library\033[133X\033[101X", "4.6", [ 4, 6, 0 ], 1143, 90, 
+      "technicalities of the access to character tables from the library", 
+      "X8782716579A1B993" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YData Files of the \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027 Character Table Library\033[133X\033[101X", "4.6-1", 
+      [ 4, 6, 1 ], 1146, 90, "data files of the gap character table library", 
+      "X84E18B0B84F50B1E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YHow to Extend the \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027 Character Table Library\033[133X\033[101X", "4.7", 
+      [ 4, 7, 0 ], 1326, 92, "how to extend the gap character table library", 
+      "X78FFDF0F83E7EB0D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSanity Checks for the \033[5XGAP\033[105X\033[101\
+X\027\033[1X\027 Character Table Library\033[133X\033[101X", "4.8", 
+      [ 4, 8, 0 ], 1582, 97, 
+      "sanity checks for the gap character table library", 
+      "X7E3235FD7864A672" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YMaintenance of the \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027 Character Table Library\033[133X\033[101X", "4.9", 
+      [ 4, 9, 0 ], 1778, 100, "maintenance of the gap character table library"
+        , "X7D24C9D17DAB50D0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YFunctions for Character Table Constructions\033[1\
+33X\033[101X", "5", [ 5, 0, 0 ], 1, 101, 
+      "functions for character table constructions", "X7B915AD178236991" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of Structure \033[22XM\
+.G.A\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "5.1", [ 5, 1, 0 ], 
+      28, 101, "character tables of groups of structure m.g.a", 
+      "X7C32AA0784A79D53" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of Structure \033[22XG\
+.S_3\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "5.2", [ 5, 2, 0 ], 
+      106, 103, "character tables of groups of structure g.s_3", 
+      "X821F4CB186913250" ], 
+  [ "\033[1X\033[33X\033[0;-2YCharacterTableOfTypeGS3\033[133X\033[101X", 
+      "5.2-1", [ 5, 2, 1 ], 109, 103, "charactertableoftypegs3", 
+      "X7E06095E7CB3316D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of Structure \033[22XG\
+.2^2\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "5.3", [ 5, 3, 0 ], 
+      167, 104, "character tables of groups of structure g.2^2", 
+      "X83EB02D38624821C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YPossibleCharacterTablesOfTypeGV4\033[133X\033[101\
+X", "5.3-1", [ 5, 3, 1 ], 174, 104, "possiblecharactertablesoftypegv4", 
+      "X7CACDDED7A8C1CF9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of Structure \033[22X2\
+^2.G\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "5.4", [ 5, 4, 0 ], 
+      236, 105, "character tables of groups of structure 2^2.g", 
+      "X79142119791673EF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YPossibleCharacterTablesOfTypeV4G\033[133X\033[101\
+X", "5.4-1", [ 5, 4, 1 ], 248, 105, "possiblecharactertablesoftypev4g", 
+      "X7E7043A5857B9240" ], 
+  [ "\033[1X\033[33X\033[0;-2YBrauerTableOfTypeV4G\033[133X\033[101X", 
+      "5.4-2", [ 5, 4, 2 ], 272, 105, "brauertableoftypev4g", 
+      "X8536F9027F097C79" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Subdirect Products of Index T\
+wo\033[133X\033[101X", "5.5", [ 5, 5, 0 ], 293, 106, 
+      "character tables of subdirect products of index two", 
+      "X7B7282A37F293B36" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YBrauer Tables of Extensions by \033[22Xp\033[122X\
+\033[101X\027\033[1X\027-regular Automorphisms\033[133X\033[101X", "5.6", 
+      [ 5, 6, 0 ], 387, 107, 
+      "brauer tables of extensions by p-regular automorphisms", 
+      "X81255DAA7AB13278" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Coprime Central Extensions\\
+033[133X\033[101X", "5.7", [ 5, 7, 0 ], 418, 108, 
+      "character tables of coprime central extensions", "X844C69217B80537A" ],
+  [ "\033[1X\033[33X\033[0;-2YConstruction Functions used in the Character Tab\
+le Library\033[133X\033[101X", "5.8", [ 5, 8, 0 ], 454, 108, 
+      "construction functions used in the character table library", 
+      "X874C19D079CE0BE0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInterfaces to Other Data Formats for Character Ta\
+bles\033[133X\033[101X", "6", [ 6, 0, 0 ], 1, 113, 
+      "interfaces to other data formats for character tables", 
+      "X81C250407B91443F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInterface to the \033[5XCAS\033[105X\033[101X\\
+027\033[1X\027 System\033[133X\033[101X", "6.1", [ 6, 1, 0 ], 17, 113, 
+      "interface to the cas system", "X79F5E5A283E0D190" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInterface to the \033[5XMOC\033[105X\033[101X\\
+027\033[1X\027 System\033[133X\033[101X", "6.2", [ 6, 2, 0 ], 72, 114, 
+      "interface to the moc system", "X835EE8028539BB63" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInterface to \033[5XGAP\033[105X\033[101X\027\\
+033[1X\027\302\2403\033[133X\033[101X", "6.3", [ 6, 3, 0 ], 323, 118, 
+      "interface to gapa\2403", "X80E1850F7DCED030" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInterface to the Cambridge Format\033[133X\033[10\
+1X", "6.4", [ 6, 4, 0 ], 391, 120, "interface to the cambridge format", 
+      "X7806073380076800" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInterface to the \033[5XMAGMA\033[105X\033[101X\\
+027\033[1X\027 System\033[133X\033[101X", "6.5", [ 6, 5, 0 ], 563, 122, 
+      "interface to the magma system", "X8676916F81F40A0F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUtility Functions Provided by the \033[5XCTblLib\\
+033[105X\033[101X\027\033[1X\027 Package\033[133X\033[101X", "7", 
+      [ 7, 0, 0 ], 1, 127, "utility functions provided by the ctbllib package"
+        , "X797E1693780F1093" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWrite Character Values in Terms of Atomic \033[5X\
+Atlas\033[105X\033[101X\027\033[1X\027 Irrationalities\033[133X\033[101X", 
+      "7.1", [ 7, 1, 0 ], 12, 127, 
+      "write character values in terms of atomic atlas irrationalities", 
+      "X7BC89F7C8460E979" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCreate a String that Describes the Group Structur\
+e\033[133X\033[101X", "7.2", [ 7, 2, 0 ], 82, 128, 
+      "create a string that describes the group structure", 
+      "X7D867FE08240B83B" ], 
+  [ "Bibliography", "bib", [ "Bib", 0, 0 ], 1, 129, "bibliography", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "References", "bib", [ "Bib", 0, 0 ], 1, 129, "references", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 132, "index", "X83A0356F839C696F" ], 
+  [ "CTblLib", "0.0", [ 0, 0, 0 ], 1, 1, "ctbllib", "X7D2C85EC87DD46E5" ], 
+  [ "License", "0.0-1", [ 0, 0, 1 ], 18, 2, "license", "X81488B807F2A1CF1" ], 
+  [ "\033[2XCharacterTable\033[102X for a string", "3.1-2", [ 3, 1, 2 ], 68, 
+      44, "charactertable for a string", "X86C06F408706F27A" ], 
+  [ "\033[2XBrauerTable\033[102X for a string, and a prime integer", "3.1-3", 
+      [ 3, 1, 3 ], 113, 44, "brauertable for a string and a prime integer", 
+      "X7E42C22278DA4048" ], 
+  [ "\033[2XAllCharacterTableNames\033[102X", "3.1-4", [ 3, 1, 4 ], 135, 45, 
+      "allcharactertablenames", "X7C091641852BB6FE" ], 
+  [ "selection function!for character tables", "3.1-4", [ 3, 1, 4 ], 135, 45, 
+      "selection function!for character tables", "X7C091641852BB6FE" ], 
+  [ "\033[2XOneCharacterTableName\033[102X", "3.1-5", [ 3, 1, 5 ], 276, 47, 
+      "onecharactertablename", "X7EC4A57E8393D75C" ], 
+  [ "\033[2XNameOfEquivalentLibraryCharacterTable\033[102X", "3.1-6", 
+      [ 3, 1, 6 ], 302, 48, "nameofequivalentlibrarycharactertable", 
+      "X845DEEE282D4F1EB" ], 
+  [ "\033[2XNamesOfEquivalentLibraryCharacterTables\033[102X", "3.1-6", 
+      [ 3, 1, 6 ], 302, 48, "namesofequivalentlibrarycharactertables", 
+      "X845DEEE282D4F1EB" ], 
+  [ "\033[2XTableOfMarks\033[102X for a character table from the library", 
+      "3.2-1", [ 3, 2, 1 ], 344, 48, 
+      "tableofmarks for a character table from the library", 
+      "X8400C0397CA2FA3C" ], 
+  [ "\033[2XCharacterTable\033[102X for a table of marks", "3.2-2", 
+      [ 3, 2, 2 ], 362, 49, "charactertable for a table of marks", 
+      "X87110C1584D09BE4" ], 
+  [ "\033[2XFusionCharTableTom\033[102X", "3.2-3", [ 3, 2, 3 ], 382, 49, 
+      "fusionchartabletom", "X7A82CB487DBDDC53" ], 
+  [ "\033[2XFusionToTom\033[102X", "3.2-4", [ 3, 2, 4 ], 402, 49, 
+      "fusiontotom", "X7B1AAED68753B1BE" ], 
+  [ "\033[2XNameOfLibraryCharacterTable\033[102X", "3.2-5", [ 3, 2, 5 ], 439, 
+      50, "nameoflibrarycharactertable", "X8435BFE878FFFDAB" ], 
+  [ "\033[2XGroupInfoForCharacterTable\033[102X", "3.3-1", [ 3, 3, 1 ], 466, 
+      50, "groupinfoforcharactertable", "X78DCD38B7D96D8A4" ], 
+  [ "\033[2XKnowsSomeGroupInfo\033[102X", "3.3-2", [ 3, 3, 2 ], 528, 51, 
+      "knowssomegroupinfo", "X87CFDC8081767CA4" ], 
+  [ "\033[2XCharacterTableForGroupInfo\033[102X", "3.3-3", [ 3, 3, 3 ], 543, 
+      52, "charactertableforgroupinfo", "X78B7A5DB87B5285C" ], 
+  [ "\033[2XGroupForGroupInfo\033[102X", "3.3-4", [ 3, 3, 4 ], 558, 52, 
+      "groupforgroupinfo", "X804D2AC37E0D4755" ], 
+  [ "\033[2XGroupForTom\033[102X", "3.3-5", [ 3, 3, 5 ], 579, 52, 
+      "groupfortom", "X83B9EFB47CE0A617" ], 
+  [ "\033[2XAtlasStabilizer\033[102X", "3.3-6", [ 3, 3, 6 ], 608, 53, 
+      "atlasstabilizer", "X8032EF83823B1D88" ], 
+  [ "\033[2XIsNontrivialDirectProduct\033[102X", "3.3-7", [ 3, 3, 7 ], 634, 
+      53, "isnontrivialdirectproduct", "X7AADD757809DFDD5" ], 
+  [ "character unipotent", "3.4", [ 3, 4, 0 ], 650, 53, "character unipotent",
+      "X7C1F6C01852D7933" ], 
+  [ "\033[2XUnipotentCharacter\033[102X", "3.4-1", [ 3, 4, 1 ], 659, 54, 
+      "unipotentcharacter", "X79F645F278C27F23" ], 
+  [ "\033[2XDeligneLusztigNames\033[102X", "3.4-2", [ 3, 4, 2 ], 684, 54, 
+      "delignelusztignames", "X803FD7F87AFBBDE4" ], 
+  [ "\033[2XDeligneLusztigName\033[102X", "3.4-3", [ 3, 4, 3 ], 718, 55, 
+      "delignelusztigname", "X84B9D8EF84EB4145" ], 
+  [ "\033[2XKnowsDeligneLusztigNames\033[102X", "3.4-4", [ 3, 4, 4 ], 737, 
+      55, "knowsdelignelusztignames", "X78A05C0A82E23048" ], 
+  [ "\033[2XDisplayCTblLibInfo\033[102X for a character table", "3.5-1", 
+      [ 3, 5, 1 ], 798, 56, "displayctbllibinfo for a character table", 
+      "X8684C73E844E7033" ], 
+  [ "\033[2XDisplayCTblLibInfo\033[102X for a name", "3.5-1", [ 3, 5, 1 ], 
+      798, 56, "displayctbllibinfo for a name", "X8684C73E844E7033" ], 
+  [ "\033[2XStringCTblLibInfo\033[102X for a character table", "3.5-1", 
+      [ 3, 5, 1 ], 798, 56, "stringctbllibinfo for a character table", 
+      "X8684C73E844E7033" ], 
+  [ "\033[2XStringCTblLibInfo\033[102X for a name", "3.5-1", [ 3, 5, 1 ], 
+      798, 56, "stringctbllibinfo for a name", "X8684C73E844E7033" ], 
+  [ "\033[2XBrowseCTblLibInfo\033[102X", "3.5-2", [ 3, 5, 2 ], 825, 56, 
+      "browsectbllibinfo", "X7A038A267CD17032" ], 
+  [ "\033[2XBrowseCTblLibInfo\033[102X for a character table", "3.5-2", 
+      [ 3, 5, 2 ], 825, 56, "browsectbllibinfo for a character table", 
+      "X7A038A267CD17032" ], 
+  [ "\033[2XBrowseCTblLibInfo\033[102X for a name", "3.5-2", [ 3, 5, 2 ], 
+      825, 56, "browsectbllibinfo for a name", "X7A038A267CD17032" ], 
+  [ "\033[2XBrowseCommonIrrationalities\033[102X", "3.5-3", [ 3, 5, 3 ], 922, 
+      58, "browsecommonirrationalities", "X83FDD44E7E0AE885" ], 
+  [ "\033[2XBrowseCTblLibDifferences\033[102X", "3.5-4", [ 3, 5, 4 ], 965, 
+      59, "browsectbllibdifferences", "X87CA74CF7B533CC6" ], 
+  [ "\033[2XBrowseAtlasContents\033[102X", "3.5-5", [ 3, 5, 5 ], 1047, 60, 
+      "browseatlascontents", "X8135745381E1C0E2" ], 
+  [ "\033[2XDisplayAtlasContents\033[102X", "3.5-6", [ 3, 5, 6 ], 1090, 61, 
+      "displayatlascontents", "X810789F77F20C839" ], 
+  [ "\033[2XStringAtlasContents\033[102X", "3.5-6", [ 3, 5, 6 ], 1090, 61, 
+      "stringatlascontents", "X810789F77F20C839" ], 
+  [ "\033[2XBrowseAtlasMap\033[102X", "3.5-7", [ 3, 5, 7 ], 1125, 61, 
+      "browseatlasmap", "X86AC6408815EF122" ], 
+  [ "\033[2XDisplayAtlasMap\033[102X for the name of a simple group", 
+      "3.5-8", [ 3, 5, 8 ], 1157, 62, 
+      "displayatlasmap for the name of a simple group", "X875A6BB485A49976" ],
+  [ "\033[2XDisplayAtlasMap\033[102X for a record", "3.5-8", [ 3, 5, 8 ], 
+      1157, 62, "displayatlasmap for a record", "X875A6BB485A49976" ], 
+  [ "\033[2XStringsAtlasMap\033[102X for the name of a simple group", 
+      "3.5-8", [ 3, 5, 8 ], 1157, 62, 
+      "stringsatlasmap for the name of a simple group", "X875A6BB485A49976" ],
+  [ "\033[2XStringsAtlasMap\033[102X for a record", "3.5-8", [ 3, 5, 8 ], 
+      1157, 62, "stringsatlasmap for a record", "X875A6BB485A49976" ], 
+  [ "\033[2XBrowseAtlasTable\033[102X", "3.5-9", [ 3, 5, 9 ], 1351, 65, 
+      "browseatlastable", "X79DC72707B08A701" ], 
+  [ "\033[2XBrowseAtlasImprovements\033[102X", "3.5-10", [ 3, 5, 10 ], 1385, 
+      66, "browseatlasimprovements", "X79E3F783818FE75A" ], 
+  [ "duplicate character table", "3.6", [ 3, 6, 0 ], 1456, 67, 
+      "duplicate character table", "X7E5CFB187E313B11" ], 
+  [ "\033[2XIsDuplicateTable\033[102X", "3.6-1", [ 3, 6, 1 ], 1502, 68, 
+      "isduplicatetable", "X7FD4A9DF7CBAA418" ], 
+  [ "\033[2XIdentifierOfMainTable\033[102X", "3.6-2", [ 3, 6, 2 ], 1528, 68, 
+      "identifierofmaintable", "X860F49407882658F" ], 
+  [ "\033[2XIdentifiersOfDuplicateTables\033[102X", "3.6-3", [ 3, 6, 3 ], 
+      1546, 68, "identifiersofduplicatetables", "X7C83435B78DE62F6" ], 
+  [ "\033[2XMaxes\033[102X", "3.7-1", [ 3, 7, 1 ], 1580, 69, "maxes", 
+      "X8150E63F7DBDF252" ], 
+  [ "\033[2XProjectivesInfo\033[102X", "3.7-2", [ 3, 7, 2 ], 1604, 69, 
+      "projectivesinfo", "X82DC2E7779322DA8" ], 
+  [ "\033[2XExtensionInfoCharacterTable\033[102X", "3.7-3", [ 3, 7, 3 ], 
+      1629, 70, "extensioninfocharactertable", "X82A008987DB887C2" ], 
+  [ "\033[2XConstructionInfoCharacterTable\033[102X", "3.7-4", [ 3, 7, 4 ], 
+      1654, 70, "constructioninfocharactertable", "X851118377D1D6EC9" ], 
+  [ "\033[2XInfoText\033[102X", "3.7-5", [ 3, 7, 5 ], 1664, 70, "infotext", 
+      "X871562FD7F982C12" ], 
+  [ "\033[2XIsAtlasCharacterTable\033[102X", "3.7-6", [ 3, 7, 6 ], 1679, 71, 
+      "isatlascharactertable", "X867813EB79DC6953" ], 
+  [ "character tables!library of", "4.0", [ 4, 0, 0 ], 1, 72, 
+      "character tables!library of", "X85854AF07F2F8745" ], 
+  [ "tables!library of", "4.0", [ 4, 0, 0 ], 1, 72, "tables!library of", 
+      "X85854AF07F2F8745" ], 
+  [ "library tables", "4.0", [ 4, 0, 0 ], 1, 72, "library tables", 
+      "X85854AF07F2F8745" ], 
+  [ "generic character tables", "4.0", [ 4, 0, 0 ], 1, 72, 
+      "generic character tables", "X85854AF07F2F8745" ], 
+  [ "character tables!library of", "4.1", [ 4, 1, 0 ], 25, 72, 
+      "character tables!library of", "X80EEFF8B79856A75" ], 
+  [ "tables!library of", "4.1", [ 4, 1, 0 ], 25, 72, "tables!library of", 
+      "X80EEFF8B79856A75" ], 
+  [ "library of character tables", "4.1", [ 4, 1, 0 ], 25, 72, 
+      "library of character tables", "X80EEFF8B79856A75" ], 
+  [ "character tables!generic", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "character tables!generic", "X81E3F9A384365282" ], 
+  [ "tables!generic", "4.2", [ 4, 2, 0 ], 137, 74, "tables!generic", 
+      "X81E3F9A384365282" ], 
+  [ "library tables!generic", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "library tables!generic", "X81E3F9A384365282" ], 
+  [ "spin groups!character table", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "spin groups!character table", "X81E3F9A384365282" ], 
+  [ "symmetric groups!character table", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "symmetric groups!character table", "X81E3F9A384365282" ], 
+  [ "alternating groups!character table", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "alternating groups!character table", "X81E3F9A384365282" ], 
+  [ "dihedral groups!character table", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "dihedral groups!character table", "X81E3F9A384365282" ], 
+  [ "Suzuki groups!character table", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "suzuki groups!character table", "X81E3F9A384365282" ], 
+  [ "Weyl groups!character table", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "weyl groups!character table", "X81E3F9A384365282" ], 
+  [ "cyclic groups!character table", "4.2", [ 4, 2, 0 ], 137, 74, 
+      "cyclic groups!character table", "X81E3F9A384365282" ], 
+  [ "\033[2XCharacterTableSpecialized\033[102X", "4.2-2", [ 4, 2, 2 ], 267, 
+      76, "charactertablespecialized", "X78DA225F78F381C9" ], 
+  [ "character tables!ATLAS", "4.3", [ 4, 3, 0 ], 503, 80, 
+      "character tables!atlas", "X7F44BD4B79473085" ], 
+  [ "tables!library", "4.3", [ 4, 3, 0 ], 503, 80, "tables!library", 
+      "X7F44BD4B79473085" ], 
+  [ "library of character tables", "4.3", [ 4, 3, 0 ], 503, 80, 
+      "library of character tables", "X7F44BD4B79473085" ], 
+  [ "\033[2XAtlasLabelsOfIrreducibles\033[102X", "4.3-6", [ 4, 3, 6 ], 690, 
+      82, "atlaslabelsofirreducibles", "X7ADC9DC980CF0685" ], 
+  [ "character tables!CAS", "4.3-7", [ 4, 3, 7 ], 758, 83, 
+      "character tables!cas", "X827044A37C04C0D1" ], 
+  [ "tables!library", "4.3-7", [ 4, 3, 7 ], 758, 83, "tables!library", 
+      "X827044A37C04C0D1" ], 
+  [ "library of character tables", "4.3-7", [ 4, 3, 7 ], 758, 83, 
+      "library of character tables", "X827044A37C04C0D1" ], 
+  [ "character tables CAS", "4.4", [ 4, 4, 0 ], 1010, 88, 
+      "character tables cas", "X7BC3F0B0814D5B67" ], 
+  [ "tables library", "4.4", [ 4, 4, 0 ], 1010, 88, "tables library", 
+      "X7BC3F0B0814D5B67" ], 
+  [ "library of character tables", "4.4", [ 4, 4, 0 ], 1010, 88, 
+      "library of character tables", "X7BC3F0B0814D5B67" ], 
+  [ "\033[2XCASInfo\033[102X", "4.4-1", [ 4, 4, 1 ], 1024, 88, "casinfo", 
+      "X786A80A279674E91" ], 
+  [ "user preferences UnloadCTblLibFiles", "4.5-2", [ 4, 5, 2 ], 1111, 89, 
+      "user preferences unloadctbllibfiles", "X83FA9D6B86150501" ], 
+  [ "user preferences DisplayFunction", "4.5-3", [ 4, 5, 3 ], 1126, 89, 
+      "user preferences displayfunction", "X7E859C3482F27089" ], 
+  [ "user preferences MagmaPath", "4.5-4", [ 4, 5, 4 ], 1135, 89, 
+      "user preferences magmapath", "X7DFAD31F84F55870" ], 
+  [ "\033[2XLIBLIST\033[102X", "4.6-2", [ 4, 6, 2 ], 1247, 91, "liblist", 
+      "X84E728FD860CAC0F" ], 
+  [ "\033[2XLibInfoCharacterTable\033[102X", "4.6-3", [ 4, 6, 3 ], 1296, 92, 
+      "libinfocharactertable", "X80B7DF9C83A0F3F1" ], 
+  [ "library tables!add", "4.7", [ 4, 7, 0 ], 1326, 92, "library tables!add", 
+      "X78FFDF0F83E7EB0D" ], 
+  [ "tables!add to the library", "4.7", [ 4, 7, 0 ], 1326, 92, 
+      "tables!add to the library", "X78FFDF0F83E7EB0D" ], 
+  [ "\033[2XNotifyNameOfCharacterTable\033[102X", "4.7-1", [ 4, 7, 1 ], 1353, 
+      93, "notifynameofcharactertable", "X7A3B010A8790DD6E" ], 
+  [ "\033[2XLibraryFusion\033[102X", "4.7-2", [ 4, 7, 2 ], 1379, 93, 
+      "libraryfusion", "X8160EA7C85DCB485" ], 
+  [ "\033[2XLibraryFusionTblToTom\033[102X", "4.7-3", [ 4, 7, 3 ], 1418, 94, 
+      "libraryfusiontbltotom", "X79E06BD67F6BC3A5" ], 
+  [ "\033[2XPrintToLib\033[102X", "4.7-4", [ 4, 7, 4 ], 1473, 95, 
+      "printtolib", "X780CBC347876A54B" ], 
+  [ "\033[2XNotifyCharacterTable\033[102X", "4.7-5", [ 4, 7, 5 ], 1516, 96, 
+      "notifycharactertable", "X79366F797CD02DAF" ], 
+  [ "\033[2XNotifyCharacterTables\033[102X", "4.7-6", [ 4, 7, 6 ], 1573, 97, 
+      "notifycharactertables", "X8374B5D081F85DBC" ], 
+  [ "\033[2XPossibleCharacterTablesOfTypeMGA\033[102X", "5.1-1", [ 5, 1, 1 ], 
+      38, 101, "possiblecharactertablesoftypemga", "X78F82DD67E083B88" ], 
+  [ "\033[2XBrauerTableOfTypeMGA\033[102X", "5.1-2", [ 5, 1, 2 ], 75, 102, 
+      "brauertableoftypemga", "X83BE977185ADC24B" ], 
+  [ "\033[2XPossibleActionsForTypeMGA\033[102X", "5.1-3", [ 5, 1, 3 ], 88, 
+      102, "possibleactionsfortypemga", "X7899AA12836EEF8F" ], 
+  [ "\033[2XCharacterTableOfTypeGS3\033[102X", "5.2-1", [ 5, 2, 1 ], 109, 
+      103, "charactertableoftypegs3", "X7E06095E7CB3316D" ], 
+  [ "\033[2XCharacterTableOfTypeGS3\033[102X for Brauer tables", "5.2-1", 
+      [ 5, 2, 1 ], 109, 103, "charactertableoftypegs3 for brauer tables", 
+      "X7E06095E7CB3316D" ], 
+  [ "\033[2XPossibleActionsForTypeGS3\033[102X", "5.2-2", [ 5, 2, 2 ], 154, 
+      103, "possibleactionsfortypegs3", "X82FC6C377BEF0139" ], 
+  [ "\033[2XPossibleCharacterTablesOfTypeGV4\033[102X", "5.3-1", [ 5, 3, 1 ], 
+      174, 104, "possiblecharactertablesoftypegv4", "X7CACDDED7A8C1CF9" ], 
+  [ "\033[2XPossibleCharacterTablesOfTypeGV4\033[102X for Brauer tables", 
+      "5.3-1", [ 5, 3, 1 ], 174, 104, 
+      "possiblecharactertablesoftypegv4 for brauer tables", 
+      "X7CACDDED7A8C1CF9" ], 
+  [ "\033[2XPossibleActionsForTypeGV4\033[102X", "5.3-2", [ 5, 3, 2 ], 222, 
+      104, "possibleactionsfortypegv4", "X7CCD5A2979883144" ], 
+  [ "\033[2XPossibleCharacterTablesOfTypeV4G\033[102X", "5.4-1", [ 5, 4, 1 ], 
+      248, 105, "possiblecharactertablesoftypev4g", "X7E7043A5857B9240" ], 
+  [ 
+      "\033[2XPossibleCharacterTablesOfTypeV4G\033[102X for conj. ordinary tables\
+, and an autom.", "5.4-1", [ 5, 4, 1 ], 248, 105, 
+      "possiblecharactertablesoftypev4g for conj. ordinary tables and an autom\
+.", "X7E7043A5857B9240" ], 
+  [ "\033[2XBrauerTableOfTypeV4G\033[102X for three factors", "5.4-2", 
+      [ 5, 4, 2 ], 272, 105, "brauertableoftypev4g for three factors", 
+      "X8536F9027F097C79" ], 
+  [ "\033[2XBrauerTableOfTypeV4G\033[102X for one factor and an autom.", 
+      "5.4-2", [ 5, 4, 2 ], 272, 105, 
+      "brauertableoftypev4g for one factor and an autom.", 
+      "X8536F9027F097C79" ], 
+  [ "\033[2XCharacterTableOfIndexTwoSubdirectProduct\033[102X", "5.5-1", 
+      [ 5, 5, 1 ], 300, 106, "charactertableofindextwosubdirectproduct", 
+      "X7D0207B07B48FD06" ], 
+  [ "\033[2XConstructIndexTwoSubdirectProduct\033[102X", "5.5-2", 
+      [ 5, 5, 2 ], 335, 106, "constructindextwosubdirectproduct", 
+      "X8714D24B802DA949" ], 
+  [ "\033[2XConstructIndexTwoSubdirectProductInfo\033[102X", "5.5-3", 
+      [ 5, 5, 3 ], 348, 107, "constructindextwosubdirectproductinfo", 
+      "X8254CA95814DF613" ], 
+  [ "\033[2XIBrOfExtensionBySingularAutomorphism\033[102X", "5.6-1", 
+      [ 5, 6, 1 ], 396, 107, "ibrofextensionbysingularautomorphism", 
+      "X7AF3EA6C783FCFF9" ], 
+  [ "\033[2XCharacterTableOfCommonCentralExtension\033[102X", "5.7-1", 
+      [ 5, 7, 1 ], 421, 108, "charactertableofcommoncentralextension", 
+      "X82CEF31D7815C53D" ], 
+  [ "\033[2XConstructMGA\033[102X", "5.8-1", [ 5, 8, 1 ], 464, 109, 
+      "constructmga", "X7A948B397B5BC0AD" ], 
+  [ "\033[2XConstructMGAInfo\033[102X", "5.8-2", [ 5, 8, 2 ], 491, 109, 
+      "constructmgainfo", "X84DE92E579BA7171" ], 
+  [ "\033[2XConstructGS3\033[102X", "5.8-3", [ 5, 8, 3 ], 505, 109, 
+      "constructgs3", "X80F14D1C86CF1E9C" ], 
+  [ "\033[2XConstructGS3Info\033[102X", "5.8-3", [ 5, 8, 3 ], 505, 109, 
+      "constructgs3info", "X80F14D1C86CF1E9C" ], 
+  [ "\033[2XConstructV4G\033[102X", "5.8-4", [ 5, 8, 4 ], 521, 109, 
+      "constructv4g", "X7C1CE54A864936E0" ], 
+  [ "\033[2XConstructProj\033[102X", "5.8-5", [ 5, 8, 5 ], 532, 110, 
+      "constructproj", "X8726ADCC7BCEA96F" ], 
+  [ "\033[2XConstructProjInfo\033[102X", "5.8-5", [ 5, 8, 5 ], 532, 110, 
+      "constructprojinfo", "X8726ADCC7BCEA96F" ], 
+  [ "\033[2XConstructDirectProduct\033[102X", "5.8-6", [ 5, 8, 6 ], 562, 110, 
+      "constructdirectproduct", "X7EF9996082140544" ], 
+  [ "\033[2XConstructCentralProduct\033[102X", "5.8-7", [ 5, 8, 7 ], 580, 
+      110, "constructcentralproduct", "X781EAFEB80EC1ED8" ], 
+  [ "\033[2XConstructSubdirect\033[102X", "5.8-8", [ 5, 8, 8 ], 592, 111, 
+      "constructsubdirect", "X84F6BB30845D75E1" ], 
+  [ "\033[2XConstructWreathSymmetric\033[102X", "5.8-9", [ 5, 8, 9 ], 604, 
+      111, "constructwreathsymmetric", "X7F26BEC67B744999" ], 
+  [ "\033[2XConstructIsoclinic\033[102X", "5.8-10", [ 5, 8, 10 ], 616, 111, 
+      "constructisoclinic", "X7F6A9FE57C77D778" ], 
+  [ "\033[2XConstructPermuted\033[102X", "5.8-11", [ 5, 8, 11 ], 631, 111, 
+      "constructpermuted", "X7D3F0AC2825C8CA1" ], 
+  [ "\033[2XConstructAdjusted\033[102X", "5.8-12", [ 5, 8, 12 ], 654, 112, 
+      "constructadjusted", "X85FE8954830F85A0" ], 
+  [ "\033[2XConstructFactor\033[102X", "5.8-13", [ 5, 8, 13 ], 675, 112, 
+      "constructfactor", "X803FE1FF82790290" ], 
+  [ "CAS tables", "6.1", [ 6, 1, 0 ], 17, 113, "cas tables", 
+      "X79F5E5A283E0D190" ], 
+  [ "CAS format", "6.1", [ 6, 1, 0 ], 17, 113, "cas format", 
+      "X79F5E5A283E0D190" ], 
+  [ "\033[2XCASString\033[102X", "6.1-1", [ 6, 1, 1 ], 26, 113, "casstring", 
+      "X841537DA7E495B73" ], 
+  [ "\033[2XMAKElb11\033[102X", "6.2-1", [ 6, 2, 1 ], 110, 115, "makelb11", 
+      "X842957217E3697A1" ], 
+  [ "\033[2XMOCTable\033[102X", "6.2-2", [ 6, 2, 2 ], 126, 115, "moctable", 
+      "X832005B37F0A2872" ], 
+  [ "\033[2XMOCString\033[102X", "6.2-3", [ 6, 2, 3 ], 225, 117, "mocstring", 
+      "X7FBC528C7818814C" ], 
+  [ "\033[2XScanMOC\033[102X", "6.2-4", [ 6, 2, 4 ], 272, 118, "scanmoc", 
+      "X7F17B82879C8F953" ], 
+  [ "\033[2XGAPChars\033[102X", "6.2-5", [ 6, 2, 5 ], 281, 118, "gapchars", 
+      "X7FBA67C585BEBFE5" ], 
+  [ "\033[2XMOCChars\033[102X", "6.2-6", [ 6, 2, 6 ], 292, 118, "mocchars", 
+      "X7BF1B6BF83BDD27E" ], 
+  [ "\033[2XGAP3CharacterTableScan\033[102X", "6.3-1", [ 6, 3, 1 ], 329, 119, 
+      "gap3charactertablescan", "X7DB321DE80046931" ], 
+  [ "\033[2XGAP3CharacterTableString\033[102X", "6.3-2", [ 6, 3, 2 ], 342, 
+      119, "gap3charactertablestring", "X7B2C53137D1227FE" ], 
+  [ "\033[2XGAP3CharacterTableData\033[102X", "6.3-3", [ 6, 3, 3 ], 382, 119, 
+      "gap3charactertabledata", "X7B2725D2789A9D85" ], 
+  [ "\033[2XCambridgeMaps\033[102X", "6.4-1", [ 6, 4, 1 ], 448, 120, 
+      "cambridgemaps", "X78A84889878D98BB" ], 
+  [ "\033[2XStringOfCambridgeFormat\033[102X", "6.4-2", [ 6, 4, 2 ], 486, 
+      121, "stringofcambridgeformat", "X8209063C813240E5" ], 
+  [ "\033[2XBosmaBase\033[102X", "6.5-1", [ 6, 5, 1 ], 573, 123, "bosmabase", 
+      "X79D160BD7ECA6D2F" ], 
+  [ "\033[2XGAPTableOfMagmaFile\033[102X for a file", "6.5-2", [ 6, 5, 2 ], 
+      628, 123, "gaptableofmagmafile for a file", "X7B1FAE1A7FD5D5A1" ], 
+  [ "\033[2XGAPTableOfMagmaFile\033[102X for a string", "6.5-2", [ 6, 5, 2 ], 
+      628, 123, "gaptableofmagmafile for a string", "X7B1FAE1A7FD5D5A1" ], 
+  [ "\033[2XCharacterTableComputedByMagma\033[102X", "6.5-3", [ 6, 5, 3 ], 
+      758, 126, "charactertablecomputedbymagma", "X824D2B4A79A9E5AE" ], 
+  [ "\033[2XCTblLib.StringOfAtlasIrrationality\033[102X", "7.1-1", 
+      [ 7, 1, 1 ], 15, 127, "ctbllib.stringofatlasirrationality", 
+      "X874167957FD2B7EA" ], 
+  [ "\033[2XStructureDescriptionCharacterTableName\033[102X", "7.2-1", 
+      [ 7, 2, 1 ], 85, 128, "structuredescriptioncharactertablename", 
+      "X816807E4874585FD" ] ]
+);

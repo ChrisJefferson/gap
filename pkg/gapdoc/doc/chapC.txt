@@ -1,0 +1,503 @@
+  
+  [1XC [33X[0;0YThe File [11Xbibxmlext.dtd[111X[101X[1X[133X[101X
+  
+  [33X[0;0YFor  easier  reference  we  repeat  here  the  complete  content of the file
+  [11Xbibxmlext.dtd[111X which is explained in [14X7.2[114X.[133X
+  
+  [4X[32X  bibxmlext.dtd  [32X[104X
+    [4X<?xml version="1.0" encoding="UTF-8"?>[104X
+    [4X<!--[104X
+    [4X  - (C) Frank Lübeck (https://www.math.rwth-aachen.de/~Frank.Luebeck)[104X
+    [4X  -[104X
+    [4X  - The BibXMLext data format.[104X
+    [4X  - [104X
+    [4X  - This DTD expresses XML markup similar to the BibTeX language[104X
+    [4X  - specified for LaTeX, or actually its content model.[104X
+    [4X  -[104X
+    [4X  - It is a variation of a file bibxml.dtd developed by the project[104X
+    [4X  -   https://bibtexml.sf.net/[104X
+    [4X  - [104X
+    [4X  - For documentation on BibTeX, see[104X
+    [4X  -   https://tug.org/bibtex/[104X
+    [4X  -[104X
+    [4X  - A previous version of the code originally developed by[104X
+    [4X  - Vidar Bronken Gundersen, https://bibtexml.sf.net/[104X
+    [4X  - Reuse and repurposing is approved as long as this[104X
+    [4X  - notification appears with the code.[104X
+    [4X  -[104X
+    [4X-->[104X
+    [4X[104X
+    [4X<!-- ..................................................................... -->[104X
+    [4X<!-- Main structure -->[104X
+    [4X[104X
+    [4X<!-- key-value pairs as in BibTeX @string entries are put in empty elements[104X
+    [4X     (but here they can be used for parts of an entry field as well)       -->[104X
+    [4X<!ELEMENT string EMPTY>[104X
+    [4X<!ATTLIST string[104X
+    [4X   key        CDATA     #REQUIRED [104X
+    [4X   value      CDATA     #REQUIRED >[104X
+    [4X   [104X
+    [4X<!-- entry may contain one of the bibliographic types. -->[104X
+    [4X<!ELEMENT entry ( article | book | booklet |[104X
+    [4X                         manual | techreport |[104X
+    [4X                         mastersthesis | phdthesis |[104X
+    [4X                         inbook | incollection |[104X
+    [4X                         proceedings | inproceedings |[104X
+    [4X                         conference |[104X
+    [4X                         unpublished | misc ) >[104X
+    [4X<!ATTLIST entry[104X
+    [4X   id         CDATA     #REQUIRED >[104X
+    [4X[104X
+    [4X<!-- file is the documents top element. -->[104X
+    [4X<!ELEMENT file  ( string | entry )* >[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- ..................................................................... -->[104X
+    [4X<!-- Parameter entities -->[104X
+    [4X[104X
+    [4X<!-- these are additional elements often used, but not included in the[104X
+    [4X     standard BibTeX distribution, these must be added to the[104X
+    [4X     bibliography styles, otherwise these fields will be omitted by[104X
+    [4X     the formatter, we allow an arbitrary number of 'other' elements[104X
+    [4X     to specify any further information   -->[104X
+    [4X[104X
+    [4X<!ENTITY   %  n.user " abstract?, affiliation?,[104X
+    [4X                        contents?, copyright?,[104X
+    [4X                        (isbn | issn)?, [104X
+    [4X                        keywords?, language?, lccn?, [104X
+    [4X                        location?, mrnumber?, mrclass?, mrreviewer?,[104X
+    [4X                        price?, size?, url?, category?, other* ">[104X
+    [4X[104X
+    [4X<!ENTITY   %  n.common "key?, annotate?, crossref?,[104X
+    [4X                        %n.user;">[104X
+    [4X[104X
+    [4X<!-- content model used more than once -->[104X
+    [4X[104X
+    [4X<!ENTITY   %  n.InProceedings "author, title, booktitle,[104X
+    [4X                    year, editor?, [104X
+    [4X                    (volume | number)?,[104X
+    [4X                    series?, pages?, address?, [104X
+    [4X                    month?, organization?, publisher?,[104X
+    [4X                    note?, %n.common;">[104X
+    [4X[104X
+    [4X<!ENTITY   %  n.PHDThesis "author, title, school,[104X
+    [4X                    year, type?, address?, month?,[104X
+    [4X                    note?, %n.common;">[104X
+    [4X[104X
+    [4X<!-- ..................................................................... -->[104X
+    [4X<!-- Entries in the BibTeX database -->[104X
+    [4X[104X
+    [4X<!-- [article] An article from a journal or magazine.[104X
+    [4X  -  Required fields: author, title, journal, year.[104X
+    [4X  -  Optional fields: volume, number, pages, month, note. -->[104X
+    [4X<!ELEMENT   article    (author, title, journal,[104X
+    [4X               year, volume?, number?, pages?,[104X
+    [4X               month?, note?, %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [book] A book with an explicit publisher.  [104X
+    [4X  -  Required fields: author or editor, title, publisher, year.[104X
+    [4X  -  Optional fields: volume or number, series, address,[104X
+    [4X  -     edition, month, note. -->[104X
+    [4X<!ELEMENT   book    ((author | editor), title,[104X
+    [4X               publisher, year, (volume | number)?,[104X
+    [4X               series?, address?, edition?, month?,[104X
+    [4X               note?, %n.common;)[104X
+    [4X>[104X
+    [4X	   [104X
+    [4X<!-- [booklet] A work that is printed and bound, but without a named[104X
+    [4X  -  publisher or sponsoring institution  [104X
+    [4X  -  Required field: title.[104X
+    [4X  -  Optional fields: author, howpublished, address, month, year, note. -->[104X
+    [4X<!ELEMENT   booklet    (author?, title,[104X
+    [4X               howpublished?, address?, month?, [104X
+    [4X               year?, note?, %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [conference] The same as INPROCEEDINGS,[104X
+    [4X  -  included for Scribe compatibility. -->[104X
+    [4X<!ELEMENT   conference      (%n.InProceedings;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [inbook] A part of a book, which may be a chapter (or section or[104X
+    [4X  -  whatever) and/or a range of pages.  [104X
+    [4X  -  Required fields: author or editor, title, chapter and/or pages,[104X
+    [4X  -     publisher, year.[104X
+    [4X  -  Optional fields: volume or number, series, type, address,[104X
+    [4X  -     edition, month, note. -->[104X
+    [4X<!ELEMENT   inbook    ((author | editor), title,[104X
+    [4X               ((chapter, pages?) | pages),[104X
+    [4X               publisher, year, (volume |[104X
+    [4X               number)?, series?, type?,[104X
+    [4X               address?, edition?, month?, [104X
+    [4X               note?, %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!--[104X
+    [4X  - > I want to express that the elements a and/or b are legal that is one[104X
+    [4X  - > of them or both must be present in the document instance (see the[104X
+    [4X  - > element content for BibTeX entry `InBook').[104X
+    [4X  - > How do I specify this in my DTD?[104X
+    [4X  - [104X
+    [4X  - Dave Peterson:[104X
+    [4X  -  in content model:   ((a , b?) | b)          if order matters[104X
+    [4X  -                      ((a , b?) | (b , a?))   otherwise[104X
+    [4X-->[104X
+    [4X[104X
+    [4X<!-- [incollection] A part of a book having its own title.[104X
+    [4X  -  Required fields: author, title, booktitle, publisher, year.[104X
+    [4X  -  Optional fields: editor, volume or number, series, type,[104X
+    [4X  -     chapter, pages, address, edition, month, note. -->[104X
+    [4X<!ELEMENT   incollection    (author, title,[104X
+    [4X               booktitle, publisher, year,[104X
+    [4X               editor?, (volume | number)?,[104X
+    [4X               series?, type?, chapter?, [104X
+    [4X               pages?, address?, edition?, [104X
+    [4X               month?, note?,[104X
+    [4X               %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [inproceedings] An article in a conference proceedings.[104X
+    [4X  -  Required fields: author, title, booktitle, year.[104X
+    [4X  -  Optional fields: editor, volume or number, series, pages,[104X
+    [4X  -     address, month, organization, publisher, note. -->[104X
+    [4X<!ELEMENT   inproceedings      (%n.InProceedings;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [manual] Technical documentation  [104X
+    [4X  -  Required field: title.[104X
+    [4X  -  Optional fields: author, organization, address,[104X
+    [4X  -     edition, month, year, note. -->[104X
+    [4X<!ELEMENT   manual    (author?, title,[104X
+    [4X               organization?, address?, edition?,[104X
+    [4X               month?, year?, note?, %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [mastersthesis] A Master's thesis.  [104X
+    [4X  -  Required fields: author, title, school, year.[104X
+    [4X  -  Optional fields: type, address, month, note. -->[104X
+    [4X<!ELEMENT   mastersthesis      (%n.PHDThesis;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [misc] Use this type when nothing else fits.  [104X
+    [4X  -  Required fields: none.[104X
+    [4X  -  Optional fields: author, title, howpublished, month, year, note. -->[104X
+    [4X<!ELEMENT   misc    (author?, title?,[104X
+    [4X               howpublished?, month?, year?, note?,[104X
+    [4X               %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [phdthesis] A PhD thesis.  [104X
+    [4X  -  Required fields: author, title, school, year.[104X
+    [4X  -  Optional fields: type, address, month, note. -->[104X
+    [4X<!ELEMENT   phdthesis      (%n.PHDThesis;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [proceedings] The proceedings of a conference.  [104X
+    [4X  -  Required fields: title, year.[104X
+    [4X  -  Optional fields: editor, volume or number, series,[104X
+    [4X  -     address, month, organization, publisher, note. -->[104X
+    [4X<!ELEMENT   proceedings    (editor?, title, year,[104X
+    [4X               (volume | number)?, series?, [104X
+    [4X               address?, month?, organization?, [104X
+    [4X               publisher?, note?, %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [techreport] A report published by a school or other institution,[104X
+    [4X  -  usually numbered within a series.  [104X
+    [4X  -  Required fields: author, title, institution, year.[104X
+    [4X  -  Optional fields: type, number, address, month, note. -->[104X
+    [4X<!ELEMENT   techreport    (author, title,[104X
+    [4X               institution, year, type?, number?,[104X
+    [4X               address?, month?, note?, %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- [unpublished] A document having an author and title, but not[104X
+    [4X  -  formally published.  [104X
+    [4X  -  Required fields: author, title, note.[104X
+    [4X  -  Optional fields: month, year. -->[104X
+    [4X<!ELEMENT   unpublished    (author, title, note,[104X
+    [4X               month?, year?, %n.common;)[104X
+    [4X>[104X
+    [4X[104X
+    [4X<!-- ..................................................................... -->[104X
+    [4X<!-- Fields from the standard bibliography styles -->[104X
+    [4X[104X
+    [4X<!--[104X
+    [4X  - Below is a description of all fields recognized by the standard[104X
+    [4X  - bibliography styles.  An entry can also contain other fields, which[104X
+    [4X  - are ignored by those styles.[104X
+    [4X  - [104X
+    [4X  - [address] Usually the address of the publisher or other type of[104X
+    [4X  - institution  For major publishing houses, van~Leunen recommends[104X
+    [4X  - omitting the information entirely.  For small publishers, on the other[104X
+    [4X  - hand, you can help the reader by giving the complete address.[104X
+    [4X  - [104X
+    [4X  - [annote] An annotation  It is not used by the standard bibliography[104X
+    [4X  - styles, but may be used by others that produce an annotated[104X
+    [4X  - bibliography.[104X
+    [4X  - [104X
+    [4X  - [author] The name(s) of the author(s), here *not* in the format [104X
+    [4X  - described in the LaTeX book. Contains elements <name> which in turn[104X
+    [4X  - contains elements <first>, <last> for the first name (or first names,[104X
+    [4X  - fully written or as initials, and including middle initials) and[104X
+    [4X  - the last name.[104X
+    [4X  - [104X
+    [4X  - [booktitle] Title of a book, part of which is being cited.  See the[104X
+    [4X  - LaTeX book for how to type titles.  For book entries, use the title[104X
+    [4X  - field instead.[104X
+    [4X  - [104X
+    [4X  - [chapter] A chapter (or section or whatever) number.[104X
+    [4X  - [104X
+    [4X  - [crossref] The database key of the entry being cross referenced.[104X
+    [4X  - [104X
+    [4X  - [edition] The edition of a book-for example, ``Second''.  This[104X
+    [4X  - should be an ordinal, and should have the first letter capitalized, as[104X
+    [4X  - shown here; the standard styles convert to lower case when necessary.[104X
+    [4X  - [104X
+    [4X  - [editor] Name(s) of editor(s), typed as indicated in the LaTeX book.[104X
+    [4X  - If there is also an author field, then the editor field gives the[104X
+    [4X  - editor of the book or collection in which the reference appears.[104X
+    [4X  - [104X
+    [4X  - [howpublished] How something strange has been published.  The first[104X
+    [4X  - word should be capitalized.[104X
+    [4X  - [104X
+    [4X  - [institution] The sponsoring institution of a technical report.[104X
+    [4X  - [104X
+    [4X  - [journal] A journal name.  Abbreviations are provided for many[104X
+    [4X  - journals; see the Local Guide.[104X
+    [4X  - [104X
+    [4X  - [key] Used for alphabetizing, cross referencing, and creating a label[104X
+    [4X  - when the ``author'' information (described in Section [ref: ] is[104X
+    [4X  - missing. This field should not be confused with the key that appears[104X
+    [4X  - in the \cite command and at the beginning of the database entry.[104X
+    [4X  - [104X
+    [4X  - [month] The month in which the work was published or, for an[104X
+    [4X  - unpublished work, in which it was written. You should use the[104X
+    [4X  - standard three-letter abbreviation, as described in Appendix B.1.3 of[104X
+    [4X  - the LaTeX book.[104X
+    [4X  - [104X
+    [4X  - [note] Any additional information that can help the reader.  The first[104X
+    [4X  - word should be capitalized.[104X
+    [4X  - [104X
+    [4X  - [number] The number of a journal, magazine, technical report, or of a[104X
+    [4X  - work in a series.  An issue of a journal or magazine is usually[104X
+    [4X  - identified by its volume and number; the organization that issues a[104X
+    [4X  - technical report usually gives it a number; and sometimes books are[104X
+    [4X  - given numbers in a named series.[104X
+    [4X  - [104X
+    [4X  - [organization] The organization that sponsors a conference or that[104X
+    [4X  - publishes a manual.[104X
+    [4X  - [104X
+    [4X  - [pages] One or more page numbers or range of numbers, such as 42-111[104X
+    [4X  - or 7,41,73-97 or 43+ (the `+' in this last example indicates pages[104X
+    [4X  - following that don't form a simple range).  To make it easier to[104X
+    [4X  - maintain Scribe-compatible databases, the standard styles convert a[104X
+    [4X  - single dash (as in 7-33) to the double dash used in TeX to denote[104X
+    [4X  - number ranges (as in 7-33). Here, we suggest to use the entity[104X
+    [4X  - &ndash; for a dash in page ranges.[104X
+    [4X  - [104X
+    [4X  - [publisher] The publisher's name.[104X
+    [4X  - [104X
+    [4X  - [school] The name of the school where a thesis was written.[104X
+    [4X  - [104X
+    [4X  - [series] The name of a series or set of books.  When citing an entire[104X
+    [4X  - book, the the title field gives its title and an optional series field[104X
+    [4X  - gives the name of a series or multi-volume set in which the book is[104X
+    [4X  - published.[104X
+    [4X  - [104X
+    [4X  - [title] The work's title. For mathematical formulae use the <M> or[104X
+    [4X  - <Math> elements explained below (and LaTeX code in the content, without[104X
+    [4X  - surrounding '$').[104X
+    [4X  - [104X
+    [4X  - [type] The type of a technical report-for example, ``Research[104X
+    [4X  - Note''.[104X
+    [4X  - [104X
+    [4X  - [volume] The volume of a journal or multivolume book.[104X
+    [4X  - [104X
+    [4X  - [year] The year of publication or, for an unpublished work, the year[104X
+    [4X  - it was written.  Generally it should consist of four numerals, such as[104X
+    [4X  - 1984, although the standard styles can handle any year whose last four[104X
+    [4X  - nonpunctuation characters are numerals, such as `(about 1984)'.[104X
+    [4X-->[104X
+    [4X[104X
+    [4X<!-- Here is the main extension compared to the original BibXML definition[104X
+    [4X     from which is DTD is derived: We want to allow more markup in some [104X
+    [4X     elements such that we can use the bibliography for high quality [104X
+    [4X     output in other formats than LaTeX. [104X
+    [4X     [104X
+    [4X     - <M> and <Math>, mathematical formulae: Specify LaTeX code for "simple" [104X
+    [4X       formulae as content of <M> elements; "simple" means that they can be[104X
+    [4X       translated to a fairly readable ASCII representation as explained in[104X
+    [4X       the GAPDoc documentation on "<M>". [104X
+    [4X       More complicated formulae are given as content of <Math> elements.[104X
+    [4X       (Think about an <Alt> alternative for text or HTML representations.)[104X
+    [4X     [104X
+    [4X     - <URL>: use these elements to specify URLs, they can be properly[104X
+    [4X       converted to links if possible in an output format (in that case [104X
+    [4X       the Text attribute is used for the visible text).[104X
+    [4X[104X
+    [4X     - <value key="..."/>:  substituted by the value-attribute specified[104X
+    [4X       in a <string key="..." value="..."/> element. Can be used anywhere,[104X
+    [4X       not only for complete fields as in BibTeX.[104X
+    [4X[104X
+    [4X     - <C> protect case changes: should be used instead of {}'s which are[104X
+    [4X       used in BibTeX title fields to protect the case of letters from[104X
+    [4X       changes. [104X
+    [4X[104X
+    [4X     - <Alt Only="...">, <Alt Not="...">, alternatives for different [104X
+    [4X       output formats:  Use this to specify alternatives, the GAPDoc[104X
+    [4X       utilities will do some special handling for "Text", "HTML",[104X
+    [4X       and "BibTeX" as output type.[104X
+    [4X[104X
+    [4X     - <Wrap Name="...">, generic wrapper for other markup:[104X
+    [4X       Use this for any other type of markup you are interested in. The[104X
+    [4X       GAPDoc utilities will ignore the markup, but provide a hook[104X
+    [4X       to do install handler functions for them.[104X
+    [4X-->[104X
+    [4X<!ELEMENT   M               (#PCDATA | Alt)* > <!-- math with simple text[104X
+    [4X                                             representation, in LaTeX -->[104X
+    [4X<!ELEMENT   Math            (#PCDATA | Alt)* > <!-- other math in LaTeX -->[104X
+    [4X<!ELEMENT   URL             (#PCDATA | Alt | Link | LinkText)* > <!-- an URL -->[104X
+    [4X<!ATTLIST   URL Text CDATA #IMPLIED>    <!-- text to be printed [104X
+    [4X                                             (default is content) -->[104X
+    [4X<!ELEMENT   value             EMPTY   > <!-- placeholder for value given .. -->[104X
+    [4X<!ATTLIST   value key CDATA #REQUIRED > <!-- .. by key, defined in a string[104X
+    [4X                                             element -->[104X
+    [4X<!ELEMENT   C    (#PCDATA | value | Alt |[104X
+    [4X                  M | Math | Wrap | URL)* >  <!-- protect from case changes -->[104X
+    [4X<!ELEMENT   Alt  (#PCDATA | value | C | Alt |    [104X
+    [4X                  M | Math | Wrap | URL)* > <!-- specify alternatives for [104X
+    [4X                                             various types of output -->[104X
+    [4X<!ATTLIST   Alt  Only CDATA #IMPLIED[104X
+    [4X                 Not  CDATA #IMPLIED  > <!-- specify output types in comma and [104X
+    [4X                  whitespace separated list (use exactly one of Only or Not) -->[104X
+    [4X[104X
+    [4X<!ENTITY % withMURL "(#PCDATA | value | M | Math | Wrap | URL | C | Alt )*" >[104X
+    [4X[104X
+    [4X<!ELEMENT   Wrap           %withMURL; > <!-- a generic wrapper  -->[104X
+    [4X<!ATTLIST   Wrap Name CDATA #REQUIRED > <!-- needs a 'Name' attribute  -->[104X
+    [4X[104X
+    [4X<!ELEMENT   address         %withMURL; >[104X
+    [4X<!-- here we don't want the complicated definition from the LaTeX book,[104X
+    [4X     use markup for first/last name(s): a <name> element for each[104X
+    [4X     author which contains <first> (optional), <last> elements:  -->[104X
+    [4X<!ELEMENT   author          (name)* >[104X
+    [4X<!ELEMENT   name            (first?, last) >[104X
+    [4X<!ELEMENT   first           (#PCDATA) >[104X
+    [4X<!ELEMENT   last            (#PCDATA) >[104X
+    [4X[104X
+    [4X<!ELEMENT   booktitle       %withMURL; >[104X
+    [4X<!ELEMENT   chapter         %withMURL; >[104X
+    [4X<!ELEMENT   edition         %withMURL; >[104X
+    [4X<!-- same as for author field -->[104X
+    [4X<!ELEMENT   editor          (name)* >[104X
+    [4X<!ELEMENT   howpublished    %withMURL; >[104X
+    [4X<!ELEMENT   institution     %withMURL; >[104X
+    [4X<!ELEMENT   journal         %withMURL; >[104X
+    [4X<!ELEMENT   month           %withMURL; >[104X
+    [4X<!ELEMENT   note            %withMURL; >[104X
+    [4X<!ELEMENT   number          %withMURL; >[104X
+    [4X<!ELEMENT   organization    %withMURL; >[104X
+    [4X<!ELEMENT   pages           %withMURL; >[104X
+    [4X<!ELEMENT   publisher       %withMURL; >[104X
+    [4X<!ELEMENT   school          %withMURL; >[104X
+    [4X<!ELEMENT   series          %withMURL; >[104X
+    [4X<!ELEMENT   title           %withMURL; >[104X
+    [4X<!ELEMENT   type            %withMURL; >[104X
+    [4X<!ELEMENT   volume          %withMURL; >[104X
+    [4X<!ELEMENT   year            (#PCDATA) >[104X
+    [4X[104X
+    [4X<!-- These were not listed in the documentation for entry content, but[104X
+    [4X  -  appeared in the list of fields in the BibTeX documentation -->[104X
+    [4X[104X
+    [4X<!ELEMENT   annotate        %withMURL; >[104X
+    [4X<!ELEMENT   crossref        %withMURL; >[104X
+    [4X<!ELEMENT   key             (#PCDATA) >[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- ..................................................................... -->[104X
+    [4X<!-- Other popular fields[104X
+    [4X  - [104X
+    [4X  - From: http://www.ecst.csuchico.edu/~jacobsd/bib/formats/bibtex.html[104X
+    [4X  - BibTeX is extremely popular, and many people have used it to store[104X
+    [4X  - information. Here is a list of some of the more common fields:[104X
+    [4X  - [104X
+    [4X  - [affiliation]  The authors affiliation. [104X
+    [4X  - [abstract]  An abstract of the work. [104X
+    [4X  - [contents]  A Table of Contents [104X
+    [4X  - [copyright]  Copyright information. [104X
+    [4X  - [ISBN]  The International Standard Book Number. [104X
+    [4X  - [ISSN]  The International Standard Serial Number. [104X
+    [4X  -         Used to identify a journal. [104X
+    [4X  - [keywords]  Key words used for searching or possibly for annotation. [104X
+    [4X  - [language]  The language the document is in. [104X
+    [4X  - [location]  A location associated with the entry,[104X
+    [4X  -             such as the city in which a conference took place.[104X
+    [4X  - [LCCN]  The Library of Congress Call Number.[104X
+    [4X  -         I've also seen this as lib-congress. [104X
+    [4X  - [mrnumber]  The Mathematical Reviews number. [104X
+    [4X  - [mrclass]  The Mathematical Reviews class. [104X
+    [4X  - [mrreviewer]  The Mathematical Reviews reviewer. [104X
+    [4X  - [price]  The price of the document. [104X
+    [4X  - [size]  The physical dimensions of a work. [104X
+    [4X  - [URL] The WWW Universal Resource Locator that points to the item being[104X
+    [4X  -       referenced. This often is used for technical reports to point to the[104X
+    [4X  -       ftp site where the postscript source of the report is located.[104X
+    [4X  - [104X
+    [4X  - When using BibTeX with LaTeX you need[104X
+    [4X  - BibTeX style files to print these data.[104X
+    [4X-->[104X
+    [4X[104X
+    [4X<!ELEMENT   abstract        %withMURL; >[104X
+    [4X<!ELEMENT   affiliation     %withMURL; >[104X
+    [4X<!ELEMENT   contents        %withMURL; >[104X
+    [4X<!ELEMENT   copyright       %withMURL; >[104X
+    [4X<!ELEMENT   isbn            (#PCDATA) >[104X
+    [4X<!ELEMENT   issn            (#PCDATA) >[104X
+    [4X<!ELEMENT   keywords        %withMURL; >[104X
+    [4X<!ELEMENT   language        %withMURL; >[104X
+    [4X<!ELEMENT   lccn            (#PCDATA) >[104X
+    [4X<!ELEMENT   location        %withMURL; >[104X
+    [4X<!ELEMENT   mrnumber        %withMURL; >[104X
+    [4X<!ELEMENT   mrclass         %withMURL; >[104X
+    [4X<!ELEMENT   mrreviewer      %withMURL; >[104X
+    [4X<!ELEMENT   price           %withMURL; >[104X
+    [4X<!ELEMENT   size            %withMURL; >[104X
+    [4X<!ELEMENT   url             %withMURL; >[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- Added by Zeger W. Hendrikse[104X
+    [4X  - [category]  Category of this bibitem[104X
+    [4X-->[104X
+    [4X<!ELEMENT   category      %withMURL; >[104X
+    [4X[104X
+    [4X<!-- A container element [other] for any further information, a description [104X
+    [4X   - of the type of data must be given in the attribute 'type' [104X
+    [4X-->[104X
+    [4X<!ELEMENT   other      %withMURL; >[104X
+    [4X<!ATTLIST   other[104X
+    [4X    type      CDATA   #REQUIRED >[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- ..................................................................... -->[104X
+    [4X<!-- Predefined/reserved character entities -->[104X
+    [4X[104X
+    [4X<!ENTITY amp    "&#38;#38;">[104X
+    [4X<!ENTITY lt     "&#38;#60;">[104X
+    [4X<!ENTITY gt     "&#62;">[104X
+    [4X<!ENTITY apos   "&#39;">[104X
+    [4X<!ENTITY quot   "&#34;">[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- Some more generally useful entities -->[104X
+    [4X<!ENTITY nbsp "&#160;">[104X
+    [4X<!ENTITY copyright "&#169;">[104X
+    [4X<!ENTITY ndash "&#x2013;">[104X
+    [4X [104X
+    [4X[104X
+    [4X<!-- ..................................................................... -->[104X
+    [4X<!-- End of BibXMLext dtd -->[104X
+    [4X[104X
+  [4X[32X[104X
+  

@@ -1,0 +1,612 @@
+  
+  [1X6 [33X[0;0YString and Text Utilities[133X[101X
+  
+  
+  [1X6.1 [33X[0;0YText Utilities[133X[101X
+  
+  [33X[0;0YThis section describes some utility functions for handling texts within [5XGAP[105X.
+  They  are  used by the functions in the [5XGAPDoc[105X package but may be useful for
+  other  purposes  as  well.  We  start  with some variables containing useful
+  strings and go on with functions for parsing and reformatting text.[133X
+  
+  [1X6.1-1 WHITESPACE[101X
+  
+  [33X[1;0Y[29X[2XWHITESPACE[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XCAPITALLETTERS[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XSMALLLETTERS[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XLETTERS[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XDIGITS[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XHEXDIGITS[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XBOXCHARS[102X [32X global variable[133X
+  
+  [33X[0;0YThese  variables  contain  sets  of  characters  which  are  useful for text
+  processing. They are defined as follows.[133X
+  
+  [8X[10XWHITESPACE[110X[8X[108X
+        [33X[0;6Y[10X" \n\t\r"[110X[133X
+  
+  [8X[10XCAPITALLETTERS[110X[8X[108X
+        [33X[0;6Y[10X"ABCDEFGHIJKLMNOPQRSTUVWXYZ"[110X[133X
+  
+  [8X[10XSMALLLETTERS[110X[8X[108X
+        [33X[0;6Y[10X"abcdefghijklmnopqrstuvwxyz"[110X[133X
+  
+  [8X[10XLETTERS[110X[8X[108X
+        [33X[0;6Yconcatenation of [10XCAPITALLETTERS[110X and [10XSMALLLETTERS[110X[133X
+  
+  [8X[10XDIGITS[110X[8X[108X
+        [33X[0;6Y[10X"0123456789"[110X[133X
+  
+  [8X[10XHEXDIGITS[110X[8X[108X
+        [33X[0;6Y[10X"0123456789ABCDEFabcdef"[110X[133X
+  
+  [8X[10XBOXCHARS[110X[8X[108X
+        [33X[0;6Y[10X"─│┌┬┐├┼┤└┴┘━┃┏┳┓┣╋┫┗┻┛═║╔╦╗╠╬╣╚╩╝"[110X , these are in UTF-8 encoding, the
+        [10Xi[110X-th unicode character is [10XBOXCHARS{[3*i-2..3*i]}[110X.[133X
+  
+  [1X6.1-2 TextAttr[101X
+  
+  [33X[1;0Y[29X[2XTextAttr[102X [32X global variable[133X
+  
+  [33X[0;0YThe  record  [2XTextAttr[102X  contains  strings  which can be printed to change the
+  terminal  attribute  for  the  following  characters.  This  only works with
+  terminals  which  understand  basic ANSI escape sequences. Try the following
+  example  to see if this is the case for the terminal you are using. It shows
+  the  effect  of  the  foreground  and background color attributes and of the
+  [10X.bold[110X, [10X.blink[110X, [10X.normal[110X, [10X.reverse[110X and [10X.underscore[110X which can partly be mixed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xextra := ["CSI", "reset", "delline", "home"];;[128X[104X
+    [4X[28Xfor t in Difference(RecNames(TextAttr), extra) do[128X[104X
+    [4X[28X  Print(TextAttr.(t), "TextAttr.", t, TextAttr.reset,"\n");[128X[104X
+    [4X[28Xod;[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  suggested  defaults for colors [10X0..7[110X are black, red, green, brown, blue,
+  magenta,   cyan,  white.  But  this  may  be  different  for  your  terminal
+  configuration.[133X
+  
+  [33X[0;0YThe  escape  sequence  [10X.delline[110X  deletes the content of the current line and
+  [10X.home[110X moves the cursor to the beginning of the current line.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xfor i in [1..5] do [128X[104X
+    [4X[28X  Print(TextAttr.home, TextAttr.delline, String(i,-6), "\c"); [128X[104X
+    [4X[28X  Sleep(1); [128X[104X
+    [4X[28Xod;[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWhenever you use this in some printing routines you should make it optional.
+  Use   these   attributes  only  when  [10XUserPreference("UseColorsInTerminal");[110X
+  returns [9Xtrue[109X.[133X
+  
+  [1X6.1-3 WrapTextAttribute[101X
+  
+  [33X[1;0Y[29X[2XWrapTextAttribute[102X( [3Xstr[103X, [3Xattr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string with markup[133X
+  
+  [33X[0;0YThe  argument  [3Xstr[103X  must  be  a  text as [5XGAP[105X string, possibly with markup by
+  escape  sequences  as  in  [2XTextAttr[102X  ([14X6.1-2[114X). This function returns a string
+  which  is  wrapped by the escape sequences [3Xattr[103X and [10XTextAttr.reset[110X. It takes
+  care  of  markup in the given string by appending [3Xattr[103X also after each given
+  [10XTextAttr.reset[110X in [3Xstr[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xstr := Concatenation("XXX",TextAttr.2, "BLUB", TextAttr.reset,"YYY");[127X[104X
+    [4X[28X"XXX\033[32mBLUB\033[0mYYY"[128X[104X
+    [4X[25Xgap>[125X [27Xstr2 := WrapTextAttribute(str, TextAttr.1);[127X[104X
+    [4X[28X"\033[31mXXX\033[32mBLUB\033[0m\033[31m\027YYY\033[0m"[128X[104X
+    [4X[25Xgap>[125X [27Xstr3 := WrapTextAttribute(str, TextAttr.underscore);[127X[104X
+    [4X[28X"\033[4mXXX\033[32mBLUB\033[0m\033[4m\027YYY\033[0m"[128X[104X
+    [4X[25Xgap>[125X [27X# use Print(str); and so on to see how it looks like.[127X[104X
+  [4X[32X[104X
+  
+  [1X6.1-4 FormatParagraph[101X
+  
+  [33X[1;0Y[29X[2XFormatParagraph[102X( [3Xstr[103X[, [3Xlen[103X][, [3Xflush[103X][, [3Xattr[103X][, [3Xwidthfun[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe formatted paragraph as string[133X
+  
+  [33X[0;0YThis  function  formats  a  text given in the string [3Xstr[103X as a paragraph. The
+  optional arguments have the following meaning:[133X
+  
+  [8X[3Xlen[103X[8X[108X
+        [33X[0;6Ythe  length of the lines of the formatted text, default is [10X78[110X (counted
+        without  a  visible  length  of  the  strings  specified  in  the [3Xattr[103X
+        argument)[133X
+  
+  [8X[3Xflush[103X[8X[108X
+        [33X[0;6Ycan  be [10X"left"[110X, [10X"right"[110X, [10X"center"[110X or [10X"both"[110X, telling that lines should
+        be  flushed  left,  flushed  right,  centered or left-right justified,
+        respectively, default is [10X"both"[110X[133X
+  
+  [8X[3Xattr[103X[8X[108X
+        [33X[0;6Yis  a  list  of  two  strings;  the  first is prepended and the second
+        appended  to  each  line  of  the  result (can for example be used for
+        indenting, [10X[" ", ""][110X, or some markup, [10X[TextAttr.bold, TextAttr.reset][110X,
+        default is [10X["", ""][110X)[133X
+  
+  [8X[3Xwidthfun[103X[8X[108X
+        [33X[0;6Ymust be a function which returns the display width of text in [3Xstr[103X. The
+        default  is  [10XLength[110X assuming that each byte corresponds to a character
+        of  width  one.  If  [3Xstr[103X  is  given  in  [10XUTF-8[110X  encoding  one  can use
+        [2XWidthUTF8String[102X ([14X6.2-3[114X) here.[133X
+  
+  [33X[0;0YThis  function tries to handle markup with the escape sequences explained in
+  [2XTextAttr[102X ([14X6.1-2[114X) correctly.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xstr := "One two three four five six seven eight nine ten eleven.";;[127X[104X
+    [4X[25Xgap>[125X [27XPrint(FormatParagraph(str, 25, "left", ["/* ", " */"]));           [127X[104X
+    [4X[28X/* One two three four five */[128X[104X
+    [4X[28X/* six seven eight nine ten */[128X[104X
+    [4X[28X/* eleven. */[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-5 SubstitutionSublist[101X
+  
+  [33X[1;0Y[29X[2XSubstitutionSublist[102X( [3Xlist[103X, [3Xsublist[103X, [3Xnew[103X[, [3Xflag[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe changed list[133X
+  
+  [33X[0;0YThis  function  looks for (non-overlapping) occurrences of a sublist [3Xsublist[103X
+  in  a  list  [3Xlist[103X (compare [2XPositionSublist[102X ([14XReference: PositionSublist[114X)) and
+  returns a list where these are substituted with the list [3Xnew[103X.[133X
+  
+  [33X[0;0YThe  optional  argument [3Xflag[103X can either be [10X"all"[110X (this is the default if not
+  given)  or [10X"one"[110X. In the second case only the first occurrence of [3Xsublist[103X is
+  substituted.[133X
+  
+  [33X[0;0YIf  [3Xsublist[103X  does  not occur in [3Xlist[103X then [3Xlist[103X itself is returned (and not a
+  [10XShallowCopy(list)[110X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSubstitutionSublist("xababx", "ab", "a");[127X[104X
+    [4X[28X"xaax"[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-6 StripBeginEnd[101X
+  
+  [33X[1;0Y[29X[2XStripBeginEnd[102X( [3Xlist[103X, [3Xstrip[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ychanged string[133X
+  
+  [33X[0;0YHere [3Xlist[103X and [3Xstrip[103X must be lists. This function returns the sublist of list
+  which does not contain the leading and trailing entries which are entries of
+  [3Xstrip[103X. If the result is equal to [3Xlist[103X then [3Xlist[103X itself is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XStripBeginEnd(" ,a, b,c,   ", ", ");[127X[104X
+    [4X[28X"a, b,c"[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-7 StripEscapeSequences[101X
+  
+  [33X[1;0Y[29X[2XStripEscapeSequences[102X( [3Xstr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ystring without escape sequences[133X
+  
+  [33X[0;0YThis  function  returns  the string one gets from the string [3Xstr[103X by removing
+  all  escape  sequences  which are explained in [2XTextAttr[102X ([14X6.1-2[114X). If [3Xstr[103X does
+  not contain such a sequence then [3Xstr[103X itself is returned.[133X
+  
+  [1X6.1-8 RepeatedString[101X
+  
+  [33X[1;0Y[29X[2XRepeatedString[102X( [3Xc[103X, [3Xlen[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XRepeatedUTF8String[102X( [3Xc[103X, [3Xlen[103X ) [32X function[133X
+  
+  [33X[0;0YHere  [3Xc[103X  must  be  either  a character or a string and [3Xlen[103X is a non-negative
+  number.  Then  [2XRepeatedString[102X  returns  a string of length [3Xlen[103X consisting of
+  copies of [3Xc[103X.[133X
+  
+  [33X[0;0YIn  the variant [2XRepeatedUTF8String[102X the argument [3Xc[103X is considered as string in
+  UTF-8 encoding, and it can also be specified as unicode string or character,
+  see  [2XUnicode[102X  ([14X6.2-1[114X).  The  result  is a string in UTF-8 encoding which has
+  visible width [3Xlen[103X as explained in [2XWidthUTF8String[102X ([14X6.2-3[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XRepeatedString('=',51);[127X[104X
+    [4X[28X"==================================================="[128X[104X
+    [4X[25Xgap>[125X [27XRepeatedString("*=",51);[127X[104X
+    [4X[28X"*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*"[128X[104X
+    [4X[25Xgap>[125X [27Xs := "bäh";;[127X[104X
+    [4X[25Xgap>[125X [27Xenc := GAPInfo.TermEncoding;;[127X[104X
+    [4X[25Xgap>[125X [27Xif enc <> "UTF-8" then s := Encode(Unicode(s, enc), "UTF-8"); fi;[127X[104X
+    [4X[25Xgap>[125X [27Xl := RepeatedUTF8String(s, 8);;[127X[104X
+    [4X[25Xgap>[125X [27Xu := Unicode(l, "UTF-8");;[127X[104X
+    [4X[25Xgap>[125X [27XPrint(Encode(u, enc), "\n");[127X[104X
+    [4X[28Xbähbähbä[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-9 NumberDigits[101X
+  
+  [33X[1;0Y[29X[2XNumberDigits[102X( [3Xstr[103X, [3Xbase[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yinteger[133X
+  
+  [33X[1;0Y[29X[2XDigitsNumber[102X( [3Xn[103X, [3Xbase[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ystring[133X
+  
+  [33X[0;0YThe  argument  [3Xstr[103X  of  [2XNumberDigits[102X  must be a string consisting only of an
+  optional leading [10X'-'[110X and characters in [10X0123456789abcdefABCDEF[110X, describing an
+  integer  in  base  [3Xbase[103X  with  [22X2  ≤  [3Xbase[103X  ≤  16[122X.  This function returns the
+  corresponding integer.[133X
+  
+  [33X[0;0YThe function [2XDigitsNumber[102X does the reverse.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XNumberDigits("1A3F",16);[127X[104X
+    [4X[28X6719[128X[104X
+    [4X[25Xgap>[125X [27XDigitsNumber(6719, 16);[127X[104X
+    [4X[28X"1A3F"[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-10 LabelInt[101X
+  
+  [33X[1;0Y[29X[2XLabelInt[102X( [3Xn[103X, [3Xtype[103X, [3Xpre[103X, [3Xpost[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ystring[133X
+  
+  [33X[0;0YThe argument [3Xn[103X must be an integer in the range from 1 to 5000, while [3Xpre[103X and
+  [3Xpost[103X must be strings.[133X
+  
+  [33X[0;0YThe  argument  [3Xtype[103X  can  be  one  of  [10X"Decimal"[110X, [10X"Roman"[110X, [10X"roman"[110X, [10X"Alpha"[110X,
+  [10X"alpha"[110X.[133X
+  
+  [33X[0;0YThe  function  returns a string that starts with [3Xpre[103X, followed by a decimal,
+  respectively   roman  number  or  alphanumerical  number  literal  (capital,
+  respectively small letters), followed by [3Xpost[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList([1,2,3,4,5,691], i-> LabelInt(i,"Decimal","","."));[127X[104X
+    [4X[28X[ "1.", "2.", "3.", "4.", "5.", "691." ][128X[104X
+    [4X[25Xgap>[125X [27XList([1,2,3,4,5,691], i-> LabelInt(i,"alpha","(",")"));[127X[104X
+    [4X[28X[ "(a)", "(b)", "(c)", "(d)", "(e)", "(zo)" ][128X[104X
+    [4X[25Xgap>[125X [27XList([1,2,3,4,5,691], i-> LabelInt(i,"alpha","(",")"));[127X[104X
+    [4X[28X[ "(a)", "(b)", "(c)", "(d)", "(e)", "(zo)" ][128X[104X
+    [4X[25Xgap>[125X [27XList([1,2,3,4,5,691], i-> LabelInt(i,"Alpha","",".)"));[127X[104X
+    [4X[28X[ "A.)", "B.)", "C.)", "D.)", "E.)", "ZO.)" ][128X[104X
+    [4X[25Xgap>[125X [27XList([1,2,3,4,5,691], i-> LabelInt(i,"roman","","."));[127X[104X
+    [4X[28X[ "i.", "ii.", "iii.", "iv.", "v.", "dcxci." ][128X[104X
+    [4X[25Xgap>[125X [27XList([1,2,3,4,5,691], i-> LabelInt(i,"Roman","",""));[127X[104X
+    [4X[28X[ "I", "II", "III", "IV", "V", "DCXCI" ][128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-11 PositionMatchingDelimiter[101X
+  
+  [33X[1;0Y[29X[2XPositionMatchingDelimiter[102X( [3Xstr[103X, [3Xdelim[103X, [3Xpos[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yposition as integer or [9Xfail[109X[133X
+  
+  [33X[0;0YHere  [3Xstr[103X must be a string and [3Xdelim[103X a string with two different characters.
+  This  function searches the smallest position [10Xr[110X of the character [10X[3Xdelim[103X[10X[2][110X in
+  [3Xstr[103X such that the number of occurrences of [10X[3Xdelim[103X[10X[2][110X in [3Xstr[103X between positions
+  [10X[3Xpos[103X[10X+1[110X  and  [10Xr[110X is by one greater than the corresponding number of occurrences
+  of [10X[3Xdelim[103X[10X[1][110X.[133X
+  
+  [33X[0;0YIf such an [10Xr[110X exists, it is returned. Otherwise [9Xfail[109X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPositionMatchingDelimiter("{}x{ab{c}d}", "{}", 0);[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XPositionMatchingDelimiter("{}x{ab{c}d}", "{}", 1);[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XPositionMatchingDelimiter("{}x{ab{c}d}", "{}", 6);[127X[104X
+    [4X[28X11[128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-12 WordsString[101X
+  
+  [33X[1;0Y[29X[2XWordsString[102X( [3Xstr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ylist of strings containing the words[133X
+  
+  [33X[0;0YThis  returns  the  list  of  words  of a text stored in the string [3Xstr[103X. All
+  non-letters are considered as word boundaries and are removed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XWordsString("one_two \n    three!?");[127X[104X
+    [4X[28X[ "one", "two", "three" ][128X[104X
+  [4X[32X[104X
+  
+  [1X6.1-13 Base64String[101X
+  
+  [33X[1;0Y[29X[2XBase64String[102X( [3Xstr[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XStringBase64[102X( [3Xbstr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string[133X
+  
+  [33X[0;0YThe  first  function  translates arbitrary binary data given as a GAP string
+  into  a  [13Xbase 64[113X encoded string. This encoded string contains only printable
+  ASCII  characters  and  is  used  in  various  data transfer protocols ([10XMIME[110X
+  encoded  emails, weak password encryption, ...). We use the specification in
+  RFC 2045 ([7Xhttps://www.rfc-editor.org/rfc/rfc2045[107X).[133X
+  
+  [33X[0;0YThe  second  function has the reverse functionality. Here we also accept the
+  characters [10X-_[110X instead of [10X+/[110X as last two characters. Whitespace is ignored.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb := Base64String("This is a secret!");[127X[104X
+    [4X[28X"VGhpcyBpcyBhIHNlY3JldCEA="[128X[104X
+    [4X[25Xgap>[125X [27XStringBase64(b);                       [127X[104X
+    [4X[28X"This is a secret!"[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2 [33X[0;0YUnicode Strings[133X[101X
+  
+  [33X[0;0YThe  [5XGAPDoc[105X  package provides some tools to deal with unicode characters and
+  strings.  These  can  be  used  for  recoding  text  strings between various
+  encodings.[133X
+  
+  
+  [1X6.2-1 [33X[0;0YUnicode Strings and Characters[133X[101X
+  
+  [33X[1;0Y[29X[2XUnicode[102X( [3Xlist[103X[, [3Xencoding[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XUChar[102X( [3Xnum[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsUnicodeString[102X [32X filter[133X
+  [33X[1;0Y[29X[2XIsUnicodeCharacter[102X [32X filter[133X
+  [33X[1;0Y[29X[2XIntListUnicodeString[102X( [3Xustr[103X ) [32X function[133X
+  
+  [33X[0;0YUnicode characters are described by their [13Xcodepoint[113X, an integer in the range
+  from [22X0[122X to [22X2^21-1[122X. For details about unicode, see [7Xhttps://www.unicode.org[107X.[133X
+  
+  [33X[0;0YThe  function  [2XUChar[102X  wraps  an  integer  [3Xnum[103X into a [5XGAP[105X object lying in the
+  filter  [2XIsUnicodeCharacter[102X.  Use [10XInt[110X to get the codepoint back. The argument
+  [3Xnum[103X  can  also be a [5XGAP[105X character which is then translated to an integer via
+  [2XIntChar[102X ([14XReference: IntChar[114X).[133X
+  
+  [33X[0;0Y[2XUnicode[102X  produces  a  [5XGAP[105X  object  in  the filter [2XIsUnicodeString[102X. This is a
+  wrapped  list  of  integers  for  the  unicode characters in the string. The
+  function  [2XIntListUnicodeString[102X  gives access to this list of integers. Basic
+  list  functionality  is  available for [2XIsUnicodeString[102X elements. The entries
+  are in [2XIsUnicodeCharacter[102X. The argument [3Xlist[103X for [2XUnicode[102X is either a list of
+  integers or a [5XGAP[105X string. In the latter case an [3Xencoding[103X can be specified as
+  string, its default is [10X"UTF-8"[110X.[133X
+  
+  [33X[0;0YCurrently       supported      encodings      can      be      found      in
+  [10XUNICODE_RECODE.NormalizedEncodings[110X  (ASCII,  ISO-8859-X, UTF-8 and aliases).
+  The encoding [10X"XML"[110X means an ASCII encoding in which non-ASCII characters are
+  specified  by  XML character entities. The encoding [10X"URL"[110X is for URL-encoded
+  (also  called  percent-encoded  strings,  as specified in RFC 3986 (see here
+  ([7Xhttps://www.ietf.org/rfc/rfc3986.txt[107X)).  The  listed  encodings [10X"LaTeX"[110X and
+  aliases  cannot  be  used with [2XUnicode[102X. See the operation [2XEncode[102X ([14X6.2-2[114X) for
+  mapping a unicode string to a [5XGAP[105X string.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xustr := Unicode("a and \366", "latin1");[127X[104X
+    [4X[28XUnicode("a and ö")[128X[104X
+    [4X[25Xgap>[125X [27Xustr = Unicode("a and &#246;", "XML");  [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIntListUnicodeString(ustr);[127X[104X
+    [4X[28X[ 97, 32, 97, 110, 100, 32, 246 ][128X[104X
+    [4X[25Xgap>[125X [27Xustr[7];[127X[104X
+    [4X[28X'ö'[128X[104X
+  [4X[32X[104X
+  
+  [1X6.2-2 Encode[101X
+  
+  [33X[1;0Y[29X[2XEncode[102X( [3Xustr[103X[, [3Xencoding[103X] ) [32X operation[133X
+  [6XReturns:[106X  [33X[0;10Ya [5XGAP[105X string[133X
+  
+  [33X[1;0Y[29X[2XSimplifiedUnicodeString[102X( [3Xustr[103X[, [3Xencoding[103X][, [3X"single"[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya unicode string[133X
+  
+  [33X[1;0Y[29X[2XLowercaseUnicodeString[102X( [3Xustr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya unicode string[133X
+  
+  [33X[1;0Y[29X[2XUppercaseUnicodeString[102X( [3Xustr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya unicode string[133X
+  
+  [33X[1;0Y[29X[2XLaTeXUnicodeTable[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XSimplifiedUnicodeTable[102X [32X global variable[133X
+  [33X[1;0Y[29X[2XLowercaseUnicodeTable[102X [32X global variable[133X
+  
+  [33X[0;0YThe  operation  [2XEncode[102X translates a unicode string [3Xustr[103X into a [5XGAP[105X string in
+  some specified [3Xencoding[103X. The default encoding is [10X"UTF-8"[110X.[133X
+  
+  [33X[0;0YSupported  encodings  can  be  found  in [10XUNICODE_RECODE.NormalizedEncodings[110X.
+  Except  for some cases mentioned below characters which are not available in
+  the target encoding are substituted by '?' characters.[133X
+  
+  [33X[0;0YIf  the  [3Xencoding[103X  is  [10X"URL"[110X (see [2XUnicode[102X ([14X6.2-1[114X)) then an optional argument
+  [3Xencreserved[103X  can  be  given,  it must be a list of reserved characters which
+  should be percent encoded; the default is to encode only the [10X%[110X character.[133X
+  
+  [33X[0;0YThe  encoding  [10X"LaTeX"[110X  substitutes  non-ASCII  characters and LaTeX special
+  characters  by  LaTeX  code as given in an ordered list [10XLaTeXUnicodeTable[110X of
+  pairs  [codepoint,  string].  If  you  have a unicode character for which no
+  substitution  is  contained  in  that  list,  you will get a warning and the
+  translation  is  [10XUnicode(nr)[110X.  In  this  case  find a substitution and add a
+  corresponding  [codepoint,  string]  pair  to [10XLaTeXUnicodeTable[110X using [2XAddSet[102X
+  ([14XReference:  AddSet[114X).  Also,  please,  tell  the  [5XGAPDoc[105X  authors about your
+  addition,  such  that we can extend the list [10XLaTeXUnicodeTable[110X. (Most of the
+  initial  entries  were  generated  from lists in the TeX projects encTeX and
+  [10Xucs[110X.) There are some variants of this encoding:[133X
+  
+  [33X[0;0Y[10X"LaTeXleavemarkup"[110X  does  the same translations for non-ASCII characters but
+  leaves the LaTeX special characters (e.g., any LaTeX commands) as they are.[133X
+  
+  [33X[0;0Y[10X"LaTeXUTF8"[110X  does  not  give  a  warning  about  unicode  characters without
+  explicit  translation,  instead  it  translates  the  character to its [10XUTF-8[110X
+  encoding.  Make  sure  to  setup  your  LaTeX  document  such that all these
+  characters are understood.[133X
+  
+  [33X[0;0Y[10X"LaTeXUTF8leavemarkup"[110X is a combination of the last two variants.[133X
+  
+  [33X[0;0YNote  that the [10X"LaTeX"[110X encoding can only be used with [2XEncode[102X but not for the
+  opposite  translation  with  [2XUnicode[102X  ([14X6.2-1[114X)  (which  would  need  far  too
+  complicated heuristics).[133X
+  
+  [33X[0;0YThe   function  [2XSimplifiedUnicodeString[102X  can  be  used  to  substitute  many
+  non-ASCII  characters  by  related  ASCII  characters or strings (e.g., by a
+  corresponding  character  without accents). The argument [3Xustr[103X and the result
+  are  unicode  strings,  if [3Xencoding[103X is [10X"ASCII"[110X then all non-ASCII characters
+  are  translated,  otherwise  only  the  non-latin1 characters. If the string
+  [10X"single"[110X  in  an argument then only substitutions are considered which don't
+  make  the result string longer. The translations are stored in a sorted list
+  [10XSimplifiedUnicodeTable[110X.  Its  entries  are  of  the form [10X[codepoint, trans1,
+  trans2,  ...][110X.  Here [10Xtrans1[110X and so on is either an integer for the codepoint
+  of  a  substitution  character or it is a list of codepoint integers. If you
+  are missing characters in this list and know a sensible ASCII approximation,
+  then  add  an  entry  (with  [2XAddSet[102X ([14XReference: AddSet[114X)) and tell the [5XGAPDoc[105X
+  authors  about it. (The initial content of [10XSimplifiedUnicodeTable[110X was mainly
+  generated from the [21X[10Xtranstab[110X[121X tables by Markus Kuhn.)[133X
+  
+  [33X[0;0YThe  function  [2XLowercaseUnicodeString[102X  gets and returns a unicode string and
+  translates  each uppercase character to its corresponding lowercase version.
+  This  function  uses  a  list  [10XLowercaseUnicodeTable[110X  of  pairs of codepoint
+  integers.  This  list  was generated using the file [11XUnicodeData.txt[111X from the
+  unicode definition (field 14 in each row).[133X
+  
+  [33X[0;0YThe   function   [2XUppercaseUnicodeString[102X  does  the  similar  translation  to
+  uppercase characters.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xustr := Unicode("a and &#246;", "XML");[127X[104X
+    [4X[28XUnicode("a and ö")[128X[104X
+    [4X[25Xgap>[125X [27XSimplifiedUnicodeString(ustr, "ASCII");[127X[104X
+    [4X[28XUnicode("a and oe")[128X[104X
+    [4X[25Xgap>[125X [27XSimplifiedUnicodeString(ustr, "ASCII", "single");[127X[104X
+    [4X[28XUnicode("a and o")[128X[104X
+    [4X[25Xgap>[125X [27Xustr2 := UppercaseUnicodeString(ustr);;[127X[104X
+    [4X[25Xgap>[125X [27XPrint(Encode(ustr2, GAPInfo.TermEncoding), "\n");[127X[104X
+    [4X[28XA AND Ö[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2-3 [33X[0;0YLengths of UTF-8 strings[133X[101X
+  
+  [33X[1;0Y[29X[2XWidthUTF8String[102X( [3Xstr[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XNrCharsUTF8String[102X( [3Xstr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan integer[133X
+  
+  [33X[0;0YLet [3Xstr[103X be a [5XGAP[105X string with text in UTF-8 encoding. There are three [21Xlengths[121X
+  of  such  a  string  which  must  be  distinguished.  The  operation  [2XLength[102X
+  ([14XReference:  Length[114X)  returns the number of bytes and so the memory occupied
+  by  [3Xstr[103X.  The  function  [2XNrCharsUTF8String[102X  returns  the  number  of unicode
+  characters in [3Xstr[103X, that is the length of [10XUnicode([3Xstr[103X[10X)[110X.[133X
+  
+  [33X[0;0YIn  many  applications  the function [2XWidthUTF8String[102X is more interesting, it
+  returns the number of columns needed by the string if printed to a terminal.
+  This   takes  into  account  that  some  unicode  characters  are  combining
+  characters  and that there are wide characters which need two columns (e.g.,
+  for  Chinese  or Japanese). (To be precise: This implementation assumes that
+  there are no control characters in [3Xstr[103X and uses the character width returned
+  by the [10Xwcwidth[110X function in the GNU C-library called with UTF-8 locale.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# A, German umlaut u, B, zero width space, C, newline[127X[104X
+    [4X[25Xgap>[125X [27Xstr := Encode( Unicode( "A&#xFC;B&#x200B;C\n", "XML" ) );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint(str);[127X[104X
+    [4X[28XAüB​C[128X[104X
+    [4X[25Xgap>[125X [27X# umlaut u needs two bytes and the zero width space three[127X[104X
+    [4X[25Xgap>[125X [27XLength(str);[127X[104X
+    [4X[28X9[128X[104X
+    [4X[25Xgap>[125X [27XNrCharsUTF8String(str);[127X[104X
+    [4X[28X6[128X[104X
+    [4X[25Xgap>[125X [27X# zero width space and newline don't contribute to width[127X[104X
+    [4X[25Xgap>[125X [27XWidthUTF8String(str);[127X[104X
+    [4X[28X4[128X[104X
+  [4X[32X[104X
+  
+  [1X6.2-4 InitialSubstringUTF8String[101X
+  
+  [33X[1;0Y[29X[2XInitialSubstringUTF8String[102X( [3Xstr[103X, [3Xmaxwidth[103X[, [3Xsuf[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YUTF-8 encoded string[133X
+  
+  [33X[0;0YThe  arguments  [3Xstr[103X  and  [3Xsuf[103X  each  must be a [5XGAP[105X string with text in UTF-8
+  encoding  or  a unicode string. The argument [3Xsuf[103X is optional and its default
+  value  is  the empty string. If the visible width of [3Xstr[103X is at most [3Xmaxwidth[103X
+  then [3Xstr[103X is returned as UTF-8 encoded [5XGAP[105X string. Otherwise, [3Xsuf[103X is appended
+  to the maximal initial substring of [3Xstr[103X such that the total visible width of
+  the result is at most [3Xmaxwidth[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# A, German umlaut u, B, zero width space, C, newline[127X[104X
+    [4X[25Xgap>[125X [27Xstr := Encode( Unicode( "A&#xFC;B&#x200B;C\n", "XML" ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xini := InitialSubstringUTF8String(str, 3);;[127X[104X
+    [4X[25Xgap>[125X [27XWidthUTF8String(ini);[127X[104X
+    [4X[28X3[128X[104X
+    [4X[25Xgap>[125X [27XIntListUnicodeString(Unicode(ini));[127X[104X
+    [4X[28X[ 65, 252, 66, 8203 ][128X[104X
+    [4X[25Xgap>[125X [27Xl := Unicode([ 23380, 22827, 23376 ] );; # three chars of width 2[127X[104X
+    [4X[25Xgap>[125X [27Xs := InitialSubstringUTF8String(l, 4, "*");;[127X[104X
+    [4X[25Xgap>[125X [27XWidthUTF8String(s);[127X[104X
+    [4X[28X3[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.3 [33X[0;0YPrint Utilities[133X[101X
+  
+  [33X[0;0YThe  following  printing  utilities  turned out to be useful for interactive
+  work  with  texts  in [5XGAP[105X. But they are more general and so we document them
+  here.[133X
+  
+  [1X6.3-1 PrintTo1[101X
+  
+  [33X[1;0Y[29X[2XPrintTo1[102X( [3Xfilename[103X, [3Xfun[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XAppendTo1[102X( [3Xfilename[103X, [3Xfun[103X ) [32X function[133X
+  
+  [33X[0;0YThe  argument  [3Xfun[103X must be a function without arguments. Everything which is
+  printed  by  a call [3Xfun()[103X is printed into the file [3Xfilename[103X. As with [2XPrintTo[102X
+  ([14XReference:  PrintTo[114X)  and [2XAppendTo[102X ([14XReference: AppendTo[114X) this overwrites or
+  appends to, respectively, a previous content of [3Xfilename[103X.[133X
+  
+  [33X[0;0YThese functions can be particularly efficient when many small pieces of text
+  shall  be  written  to  a file, because no multiple reopening of the file is
+  necessary.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := function() local i; [127X[104X
+    [4X[25X>[125X [27X  for i in [1..100000] do Print(i, "\n"); od; end;; [127X[104X
+    [4X[25Xgap>[125X [27XPrintTo1("nonsense", f); # now check the local file `nonsense'[127X[104X
+  [4X[32X[104X
+  
+  [1X6.3-2 StringPrint[101X
+  
+  [33X[1;0Y[29X[2XStringPrint[102X( [3Xobj1[103X[, [3Xobj2[103X[, [3X...[103X]] ) [32X function[133X
+  [33X[1;0Y[29X[2XStringView[102X( [3Xobj[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XStringDisplay[102X( [3Xobj[103X ) [32X function[133X
+  
+  [33X[0;0YThese functions return a string containing the output of a [10XPrint[110X, [10XViewObj[110X or
+  [10XDisplay[110X call, respectively, with the same arguments.[133X
+  
+  [33X[0;0YThis should be considered as a (temporary?) hack. It would be better to have
+  [2XString[102X ([14XReference: String[114X) methods for all [5XGAP[105X objects and to have a generic
+  [2XPrint[102X ([14XReference: Print[114X)-function which just interprets these strings.[133X
+  
+  [1X6.3-3 PrintFormattedString[101X
+  
+  [33X[1;0Y[29X[2XPrintFormattedString[102X( [3Xstr[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function prints a string [3Xstr[103X. The difference to [10XPrint(str);[110X is that no
+  additional  line breaks are introduced by [5XGAP[105X's standard printing mechanism.
+  This  can  be  used  to print lines which are longer than the current screen
+  width. In particular one can print text which contains escape sequences like
+  those  explained  in  [2XTextAttr[102X ([14X6.1-2[114X), where lines may have more characters
+  than [13Xvisible characters[113X.[133X
+  
+  [1X6.3-4 Page[101X
+  
+  [33X[1;0Y[29X[2XPage[102X( [3X...[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XPageDisplay[102X( [3Xobj[103X ) [32X function[133X
+  
+  [33X[0;0YThese  functions  are  similar  to  [2XPrint[102X  ([14XReference:  Print[114X)  and  [2XDisplay[102X
+  ([14XReference: Display[114X), respectively. The difference is that the output is not
+  sent  directly to the screen, but is piped into the current pager; see [2XPager[102X
+  ([14XReference: Pager[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPage([1..1421]+0);[127X[104X
+    [4X[25Xgap>[125X [27XPageDisplay(CharacterTable("Symmetric", 14));[127X[104X
+  [4X[32X[104X
+  
+  [1X6.3-5 StringFile[101X
+  
+  [33X[1;0Y[29X[2XStringFile[102X( [3Xfilename[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFileString[102X( [3Xfilename[103X, [3Xstr[103X[, [3Xappend[103X] ) [32X function[133X
+  
+  [33X[0;0YThe  function  [2XStringFile[102X  returns the content of file [3Xfilename[103X as a string.
+  This  works  efficiently with arbitrary (binary or text) files. If something
+  went wrong, this function returns [9Xfail[109X.[133X
+  
+  [33X[0;0YConversely  the  function [2XFileString[102X writes the content of a string [3Xstr[103X into
+  the file [3Xfilename[103X. If the optional third argument [3Xappend[103X is given and equals
+  [9Xtrue[109X  then  the  content  of [3Xstr[103X is appended to the file. Otherwise previous
+  content  of  the  file is deleted. This function returns the number of bytes
+  written or [9Xfail[109X if something went wrong.[133X
+  
+  [33X[0;0YBoth functions are quite efficient, even with large files.[133X
+  

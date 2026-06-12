@@ -1,0 +1,57 @@
+<Chapter Label="Installing and loading the FGA package">
+<Heading>Installing and loading the FGA package</Heading>
+
+<Index>Installing and loading the FGA package</Index>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="Installing the FGA package">
+<Heading>Installing the FGA package</Heading>
+<Index>Installing the FGA package</Index>
+
+The installation of the &FGA; package follows standard &GAP; rules.
+So the standard method is to unpack the archive into the <C>pkg</C>
+directory  of your &GAP; distribution.  This will create an <C>fga</C>
+subdirectory. 
+<P/>
+For other non-standard options please see Chapter&nbsp;<Ref BookName="ref"
+Sect="Installing a GAP Package"/> in the &GAP; Reference Manual.
+<P/>
+<!-- %To create the documentation, go into the <C>doc</C> directory and type -->
+<!-- %<C>make_doc</C>. -->
+<P/>
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="Loading the FGA package">
+<Heading>Loading the FGA package</Heading>
+<Index>Loading the FGA package</Index>
+
+The &FGA; package is configured to autoload, so its functionality is
+usually available once &GAP; is started.
+<P/>
+If &GAP; does not autoload, you can request the package with the
+<C>LoadPackage</C> command like this:
+<P/>
+<Example><![CDATA[
+gap> LoadPackage( "fga" );
+-----------------------------------------------------------------------------
+Loading  FGA 1.5.0-DEV (Free Group Algorithms)
+by Christian Sievers (c.sievers@tu-bs.de).
+maintained by:
+   The GAP Team (support@gap-system.org).
+Homepage: https://gap-packages.github.io/fga/
+Report issues at https://github.com/gap-packages/fga/issues
+-----------------------------------------------------------------------------
+true
+]]></Example>
+<P/>
+You will not see the banner if &FGA; has already been loaded.
+<P/>
+The <C>LoadPackage</C> command and ways to disable autoloading are
+described in Section&nbsp;<Ref BookName="ref" Sect="Loading a GAP Package"/> in the &GAP;
+Reference Manual.
+<P/>
+
+</Section>
+</Chapter>

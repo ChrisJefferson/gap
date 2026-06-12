@@ -1,0 +1,837 @@
+  
+  [1X1 [33X[0;0YIntroduction to the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThe  usefulness  of  [5XGAP[105X  for  character  theoretic  tasks  depends  on  the
+  availability  of  many  known  character  tables,  and  there  are  a lot of
+  character  tables  in the [5XGAP[105X table library. Of course, this library is [21Xopen[121X
+  in  the  sense  that  it  shall be extended. So we would be grateful for any
+  further tables of interest sent to us for inclusion into our library. Please
+  offer     interesting     new     character    tables    via    e-mail    to
+  [7Xmailto:sam@math.rwth-aachen.de[107X.[133X
+  
+  [33X[0;0YIt  depends  on your [5XGAP[105X installation whether the character table library is
+  available. You can check this as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XInstalledPackageVersion( "ctbllib" ) <> fail;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  the  result  is [9Xfalse[109X then the library is not installed, and you may ask
+  your  system administrator for installing it, or install the library in your
+  home directory, see Section [14X4.5-1[114X.[133X
+  
+  [33X[0;0YFor    general    information   about   character   tables   in   [5XGAP[105X,   see
+  Chapter [14X'Reference: Character Tables'[114X.[133X
+  
+  [33X[0;0YExamples  of  character  theoretic  computations involving the [5XGAP[105X Character
+  Table  Library  are part of the package. They are dealing with the following
+  aspects.[133X
+  
+  [30X    [33X[0;6YMaintenance   issues   concerning  the  [5XGAP[105X  Character  Table  Library
+        [14X'CTblLibXpls: Maintenance Issues for the GAP Character Table Library'[114X.[133X
+  
+  [30X    [33X[0;6YConstructions  of  character  tables  using  table  automorphisms, see
+        [14X'CTblLibXpls:  Using  Table  Automorphisms  for Constructing Character
+        Tables in GAP'[114X.[133X
+  
+  [30X    [33X[0;6YComputations   of   common   central   extensions,  see  [14X'CTblLibXpls:
+        Constructing Character Tables of Central Extensions in GAP'[114X.[133X
+  
+  [30X    [33X[0;6YHamiltonian  cycles  in  the  generating  graphs of finite groups, see
+        [14X'CTblLibXpls:  GAP  Computations  Concerning Hamiltonian Cycles in the
+        Generating Graphs of Finite Groups'[114X.[133X
+  
+  [30X    [33X[0;6YA  question  about  the  group  PSO[22X^+(8,5).S_3[122X,  see [14X'CTblLibXpls: GAP
+        Computations with O_8^+(5).S_3 and O_8^+(2).S_3'[114X.[133X
+  
+  [30X    [33X[0;6YSolvable   subgroups  of  maximal  order  in  sporadic  simple  groups
+        [14X'CTblLibXpls:  Solvable  Subgroups of Maximal Order in Sporadic Simple
+        Groups'[114X.[133X
+  
+  [30X    [33X[0;6YLarge  Nilpotent  Subgroups  of  sporadic  simple groups [14X'CTblLibXpls:
+        Large Nilpotent Subgroups of Sporadic Simple Groups'[114X.[133X
+  
+  [30X    [33X[0;6YComputations  of  possible  permutation  characters, see [14X'CTblLibXpls:
+        Permutation Characters in GAP'[114X.[133X
+  
+  [30X    [33X[0;6YAmbiguous  class fusions, see [14X'CTblLibXpls: Ambiguous Class Fusions in
+        the GAP Character Table Library'[114X.[133X
+  
+  [30X    [33X[0;6YSome  computations  concerning  the  classification of groups with the
+        property  that  all  complex irreducible characters of the same degree
+        are  Galois conjugate (together with Klaus Lux), see [14X'CTblLibXpls: GAP
+        computations needed in the proof of [DNT13, Theorem 6.1 (ii)]'[114X.[133X
+  
+  [30X    [33X[0;6YProbabilistic  generation  of  finite  simple groups, see [Bree] or an
+        updated   version   at   [14X'CTblLibXpls:   GAP  Computations  Concerning
+        Probabilistic Generation of Finite Simple Groups'[114X.[133X
+  
+  [30X    [33X[0;6YOrdinary  character tables, Brauer tables, and decomposition matrices,
+        see                                                   [11Xdoc/ctbldeco.pdf[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctbldeco.pdf[107X)
+        and                                                   [11Xhtm/ctbldeco.htm[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctbldeco.htm[107X).[133X
+  
+  [30X    [33X[0;6YMultiplicity-free permutation characters of the sporadic simple groups
+        and     their     automorphism     groups,     see    [11Xdoc/multfree.pdf[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/multfree.pdf[107X)
+        and                                                   [11Xhtm/multfree.htm[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/multfree.htm[107X).[133X
+  
+  [30X    [33X[0;6YMultiplicity-free  permutation characters of central extensions of the
+        sporadic  simple  groups,  and  their automorphic extensions (together
+        with         Jürgen        Müller),        see        [11Xdoc/multfre2.pdf[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/multfre2.pdf[107X)
+        and                                                   [11Xhtm/multfre2.htm[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/multfre2.htm[107X).[133X
+  
+  [30X    [33X[0;6YThe  construction  of  some  character  tables  of [5XAtlas[105X groups, using
+        character  theoretic  methods,  see  [Brec]  or  an updated version at
+        [11Xdoc/ctblatlas.pdf[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctblatlas.pdf[107X)
+        and                                                  [11Xhtm/ctblatlas.htm[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctblatlas.htm[107X).[133X
+  
+  [30X    [33X[0;6YThe verification of the character table of the Baby Monster group, see
+        [BMW20]     or     an     updated     version     at    [11Xdoc/ctblbm.pdf[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctblbm.pdf[107X)
+        and                                                     [11Xhtm/ctblbm.htm[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctblbm.htm[107X).[133X
+  
+  [30X    [33X[0;6YThe  verification  of  the  character  table of the Monster group, see
+        [BMW24]     or     an     updated     version     at     [11Xdoc/ctblm.pdf[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctblm.pdf[107X)
+        and                                                      [11Xhtm/ctblm.htm[111X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctblm.htm[107X).[133X
+  
+  [33X[0;0YIf  you  use  the [5XGAP[105X Character Table Library to solve a problem then please
+  send  a  short  e-mail  to  [7Xmailto:sam@math.rwth-aachen.de[107X about it. The [5XGAP[105X
+  Character Table Library database should be referenced as follows.[133X
+  
+  [4X[32X[104X
+    [4X@misc{ CTblLib1.3.11,[104X
+    [4X  author =       {Breuer, T.},[104X
+    [4X  title =        {The \textsf{GAP} {C}haracter {T}able {L}ibrary,[104X
+    [4X                  {V}ersion 1.3.11},[104X
+    [4X  month =        {May},[104X
+    [4X  year =         {2025},[104X
+    [4X  note =         {\textsf{GAP} package},[104X
+    [4X  howpublished = {http://www.math.rwth-aachen.de/\~{}Thomas.Breuer/ctbllib}[104X
+    [4X}[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  referencing  the  [5XGAP[105X  system  in general, use the entry [GAP24] in the
+  bibliography of this manual, see also[133X
+  
+  [33X[0;0Y[7Xhttp://www.gap-system.org[107X.[133X
+  
+  
+  [1X1.1 [33X[0;0YHistory of the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThe  first  version  of  the  [5XGAP[105X  Character Table Library was released with
+  [5XGAP[105X 3.1 in March 1992.[133X
+  
+  [33X[0;0YIt was the first aim of this library to continue the character table library
+  of  the  [5XCAS[105X  system  (see  [NPP84])  in  [5XGAP[105X,  as  a part of the process of
+  reimplementing  the  algorithms  of  [5XCAS[105X  in [5XGAP[105X, see [14X'Reference: History of
+  Character  Theory  Stuff  in  GAP'[114X.  [5XGAP[105X 3.1  provided  only very restricted
+  methods  for computing character tables from groups, so its character theory
+  part was concerned mainly with library tables.[133X
+  
+  [33X[0;0YA  second  aspect  of  the character table library was to make all character
+  tables  shown  in  the  [5XAtlas[105X of Finite Groups [CCN+85] available in [5XGAP[105X. In
+  fact [5XGAP[105X turned out to provide a very good environment for systematic checks
+  of these character tables.[133X
+  
+  [33X[0;0YTo  some  extent,  the access to the (ordinary) character tables in [CCN+85]
+  was  a  prerequisite  for  storing  also  the corresponding Brauer character
+  tables in the [5XGAP[105X Character Table Library. Already [5XGAP[105X 3.1 contained many of
+  these  tables.  They  have  been  computed  mainly [21Xoutside of [5XGAP[105X[121X, using the
+  methods  described  in [HJLP], and part of the library has been published in
+  the  [5XAtlas[105X  of Brauer Characters [JLPW95]. One of the roles of [5XGAP[105X was again
+  to perform systematic checks.[133X
+  
+  [33X[0;0YBesides  these projects, many individual character tables have been added to
+  the  [5XGAP[105X  Character  Table  Library  since  the  times of [5XGAP[105X 3.1. They were
+  computed  from  groups  or  with  character  theoretic  methods  or  using a
+  combination of these two possibilities (see, e. g., [NPP84] and [LP91]).[133X
+  
+  [33X[0;0YSection [14X4.1[114X  lists  some  of  the  sources. The changes in the [5XGAP[105X Character
+  Table  Library  since the release of [5XGAP[105X 4.1 (in July 1999) are individually
+  documented           in          the          file          [11Xdoc/ctbldiff.pdf[111X
+  ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctbldiff.pdf[107X)  of
+  the package.[133X
+  
+  [33X[0;0YCurrently  the  main  focus  in  the  development of the [5XGAP[105X Character Table
+  Library  is  –besides  the addition of tables that appear to be interesting–
+  the  better  interaction  with  other  databases, such as the [5XAtlas[105X of Group
+  Representations and the [5XGAP[105X Library of Tables of Marks (see the [5XGAP[105X packages
+  [5XAtlasRep[105X  and  [5XTomLib[105X)  and [5XGAP[105X's group libraries, and an improvement of the
+  [21Xdatabase[121X  aspect of the character table library itself, see the sections [14X3.1[114X
+  and [14X3.5[114X.[133X
+  
+  [33X[0;0YUntil the release of [5XGAP[105X 4.3 in spring 2002, the [5XGAP[105X Character Table Library
+  had been a part of the main [5XGAP[105X library. With [5XGAP[105X 4.3, it was [21Xsplit off[121X as a
+  [5XGAP[105X package.[133X
+  
+  
+  [1X1.2 [33X[0;0YWhat's New in [5XCTblLib[105X[101X[1X, Compared to Older Versions?[133X[101X
+  
+  [33X[0;0YThe  PDF file [11Xdoc/ctbldiff.pdf[111X of the package lists the important changes to
+  the data since October 1996, mainly related to the relevant simple groups.[133X
+  
+  [33X[0;0YA  perhaps  more  suitable  overview  of  these  changes is given by the [5XGAP[105X
+  readable  file [11Xdata/ctbldiff.json[111X, which contains a complete overview of all
+  changes,  including the additions of class fusions. (Note that each added or
+  changed  fusion is mentioned twice in this list, once for the [21Xfrom[121X table and
+  once  for  the  [21Xto[121X  table.)  This list of changes can be shown and evaluated
+  using [2XBrowseCTblLibDifferences[102X ([14X3.5-4[114X) if the [5XBrowse[105X package (see [BL23]) is
+  available.[133X
+  
+  
+  [1X1.2-1 [33X[0;0YWhat's New in Version 1.3.11? (May 2025)[133X[101X
+  
+  [33X[0;0Y[13XThe following bugs were fixed.[113X[133X
+  
+  [30X    [33X[0;6YThe  paper  [DLPP24]  corrects  an  error in the classification of the
+        maximal  subgroups  of  the  Monster group: The Monster has no maximal
+        subgroups of the type [22XL_2(59)[122X, hence the groups of the structure [22X59:29[122X
+        are maximal.[133X
+  
+        [33X[0;6YDue  to this bugfix, the character tables of the maximal subgroups had
+        to  be  reordered.  (Note  that  a  similar reordering had happened in
+        version  1.3.7,  see  Section  [14X1.2-4[114X.)  This  means that the following
+        changes of relative admissible names were necessary.[133X
+  
+      ┌─────────────────┬──────────┬─────────────┐
+      │ Identifier      │ New name │ Former name │ 
+      │ [10X"L2(59)"[110X        │    –     │   [10X"MM39"[110X    │ 
+      │ [10X"11^2:(5x2.A5)"[110X │  [10X"MM39"[110X  │   [10X"MM40"[110X    │ 
+      │ [10X"L2(41)"[110X        │  [10X"MM40"[110X  │   [10X"MM41"[110X    │ 
+      │ [10X"L2(29).2"[110X      │  [10X"MM41"[110X  │   [10X"MM42"[110X    │ 
+      │ [10X"7^2:2psl(2,7)"[110X │  [10X"MM42"[110X  │   [10X"MM43"[110X    │ 
+      │ [10X"L2(19).2"[110X      │  [10X"MM43"[110X  │   [10X"MM44"[110X    │ 
+      │ [10X"L2(13).2"[110X      │  [10X"MM44"[110X  │   [10X"MM45"[110X    │ 
+      │ [10X"59:29"[110X         │  [10X"MM45"[110X  │      –      │ 
+      └─────────────────┴──────────┴─────────────┘
+  
+        [33X[0;6YThe  known  information  about the primitive permutation characters of
+        the   Monster   in   the   (now   no   longer   important)  data  file
+        [11Xdata/prim_perm_M.json[111X has been updated accordingly.[133X
+  
+  [30X    [33X[0;6YThe   [21Xindividual[121X  [2XGroupInfoForCharacterTable[102X  ([14X3.3-1[114X)  entry  for  the
+        character              table              with              identifier
+        [10X"3^(1+10)_+:(2x2^(1+6)_-:3^(1+2)_+:2S4)"[110X had erroneously been assigned
+        to the table with identifier [10X"3^(1+8).2^(1+6).3^(1+2).2S4"[110X. (Thanks to
+        Frank Lübeck who pointed out this error.)[133X
+  
+  [30X    [33X[0;6YThe [2XCharacterParameters[102X ([14XReference: CharacterParameters[114X) value for the
+        ordinary  character  table  of the symmetric group on six points (with
+        [2XIdentifier[102X   ([14XReference:   Identifier   for  tables  of  marks[114X)  value
+        [10X"A_6.2_1"[110X)  was not consistent with the correspnding parameters stored
+        on  the  [22Xp[122X-modular  Brauer  tables,  for  [22Xp  ∈  {  2, 3, 5 }[122X. Now this
+        inconsistency  was  fixed, by permuting the stored parameters with the
+        permutation that is induced by the outer automorphism of the group.[133X
+  
+  [33X[0;0Y[13XThe following data have been added.[113X[133X
+  
+  [30X    [33X[0;6YThe character table of the maximal subgroup of the type [22X2^5+10+20.(S_3
+        ×  L_5(2))[122X  in  the  Monster group has been computed by Anthony Pisani
+        (see [Pis25]) and is now available in the table library.[133X
+  
+        [33X[0;6YBy  the  classification of maximal subgroups of the Monster in [DLP25]
+        and [DLPP24], this means that now the character table library contains
+        the character tables of all maximal subgroups of the Monster. Also all
+        their  class  fusions  into  the  Monster  are  known (see for example
+        [PP24]),  hence  one  can now easily compute the primitive permutation
+        characters of the Monster, as follows.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[25Xgap>[125X [27Xm:= CharacterTable( "M" );;[127X[104X
+          [4X[25Xgap>[125X [27Xprim:= List( Maxes( m ),[127X[104X
+          [4X[25X>[125X [27X                nam -> TrivialCharacter( CharacterTable( nam ) )^m );;[127X[104X
+          [4X[25Xgap>[125X [27XLength( prim );[127X[104X
+          [4X[28X46[128X[104X
+        [4X[32X[104X
+  
+  [30X    [33X[0;6YA  description  of  computations that arose in the verification of the
+        character  table  of the Monster group is now part of the package, see
+        the overview at the beginning of Chapter [14X1[114X.[133X
+  
+  [30X    [33X[0;6YThe  errata list [ABC] for the [5XAtlas[105X of Brauer Characters [JLPW95] has
+        been  updated.  (The  contents can be shown by [2XBrowseAtlasImprovements[102X
+        ([14X3.5-10[114X).)[133X
+  
+  [30X    [33X[0;6Y[2XCharacterParameters[102X  ([14XReference:  CharacterParameters[114X)  values for all
+        Brauer  character  tables  of  symmetric groups in the library are now
+        available.  (Thanks  to  Benjamin  Sambale  for  pointing out that the
+        values were missing for some tables, and to Jürgen Müller for pointing
+        me to a reference for the definition of these character parameters.)[133X
+  
+  [33X[0;0Y[13XThe following functionality has been changed.[113X[133X
+  
+  [30X    [33X[0;6YWhen  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X)  is  called  with  an  [10XOrderedBy[110X
+        function,  the returned list is now [13Xstably[113X sorted w.r.t. entries which
+        have the same [10XOrderedBy[110X value.[133X
+  
+  [30X    [33X[0;6YThe  property [2XIsAtlasCharacterTable[102X ([14X3.7-6[114X) is new. It can for example
+        be  used  for  filtering,  as  an  argument  of [2XAllCharacterTableNames[102X
+        ([14X3.1-4[114X).[133X
+  
+  [30X    [33X[0;6YAlso the Boolean attribute [10XHasFusionToTom[110X (see [2XFusionToTom[102X ([14X3.2-4[114X)) is
+        now a supported argument of [2XAllCharacterTableNames[102X ([14X3.1-4[114X).[133X
+  
+  [30X    [33X[0;6YNow  version  4.13 of [5XGAP[105X is required, such that the [21Xpackage extension[121X
+        feature can be assumed. As a consequence, the behaviour of the [5XCTblLib[105X
+        package does not depend on the order in which its needed and suggested
+        packages get (installed and) loaded.[133X
+  
+  
+  [1X1.2-2 [33X[0;0YWhat's New in Version 1.3.9? (March 2024)[133X[101X
+  
+  [33X[0;0YThe  release  of Version 1.3.9 was necessary because of a bug in the changes
+  for  version 1.3.8: Depending on the order in which packages are loaded, [5XGAP[105X
+  ran into an error when it tried to load [5XCTblLib[105X.[133X
+  
+  
+  [1X1.2-3 [33X[0;0YWhat's New in Version 1.3.8? (March 2024)[133X[101X
+  
+  [33X[0;0Y[13XThe following bug was fixed.[113X[133X
+  
+  [30X    [33X[0;6YThe  table  with  identifier  [10X"2^2x3^2.2.S4"[110X  is  encoded  as a direct
+        product.  Up  to  now,  one  of  the  two  factors  did not fit to the
+        identifier. Now this has been corrected.[133X
+  
+  [33X[0;0Y[13XThe following data have been added.[113X[133X
+  
+  [30X    [33X[0;6YThe  class  fusions  from the maximal subgroups [22X(L_2(11) × L_2(11)):4[122X,
+        [22X11^2:(5 × 2.A_5)[122X, [22X7^2:2L_2(7)[122X, and [22XL_2(19).2[122X of the Monster group have
+        been  added.  The proofs can be found in a paper by Anthony Pisani and
+        Tomasz Popiel, see [PP24].[133X
+  
+  [33X[0;0Y[13XThe following functionality has been changed.[113X[133X
+  
+  [30X    [33X[0;6YIn  order to make [2XAllCharacterTableNames[102X ([14X3.1-4[114X) efficient also if the
+        [5XBrowse[105X  package  is not available, the relevant code from that package
+        has been copied into [5XCTblLib[105X.[133X
+  
+  
+  [1X1.2-4 [33X[0;0YWhat's New in Version 1.3.7? (January 2024)[133X[101X
+  
+  [33X[0;0Y[13XThe following bug was fixed.[113X[133X
+  
+  [30X    [33X[0;6YThe  [2XGroupInfoForCharacterTable[102X  ([14X3.3-1[114X)  entry [10X"SigmaL(2,9)"[110X had been
+        erroneously  attributed  to  the table with identifier [10X"2.A6.2_2"[110X, but
+        the  correct  table is that of [10X"2.A6.2_1"[110X. (Thanks to Bernhard Böhmler
+        for pointing this out.)[133X
+  
+  [33X[0;0Y[13XThe following data have been added.[113X[133X
+  
+  [30X    [33X[0;6YDue  to [DLP25], all classes of maximal subgroups of the Monster group
+        are  now  known, their number is [22X46[122X. Currently not all their character
+        tables  (and  the  class  fusions to the Monster) are available in the
+        character  table  library.  The  known information about the primitive
+        permutation   characters   of   the   Monster   in   the   data   file
+        [11Xdata/prim_perm_M.json[111X has been updated accordingly.[133X
+  
+        [33X[0;6YNow  the  groups  with  character tables [10X"U3(4).4"[110X and [10X"L2(13).2"[110X have
+        been  found  as  maximal subgroups of the Monster. This means that the
+        following changes of relative admissible names were necessary.[133X
+  
+      ┌─────────────────┬──────────┬─────────────┐
+      │ Identifier      │ New name │ Former name │ 
+      │ [10X"U3(4).4"[110X       │  [10X"MM37"[110X  │      –      │ 
+      │ [10X"L2(71)"[110X        │  [10X"MM38"[110X  │   [10X"MM37"[110X    │ 
+      │ [10X"L2(59)"[110X        │  [10X"MM39"[110X  │   [10X"MM38"[110X    │ 
+      │ [10X"11^2:(5x2.A5)"[110X │  [10X"MM40"[110X  │   [10X"MM39"[110X    │ 
+      │ [10X"L2(41)"[110X        │  [10X"MM41"[110X  │   [10X"MM40"[110X    │ 
+      │ [10X"L2(29).2"[110X      │  [10X"MM42"[110X  │   [10X"MM41"[110X    │ 
+      │ [10X"7^2:2psl(2,7)"[110X │  [10X"MM43"[110X  │   [10X"MM42"[110X    │ 
+      │ [10X"L2(19).2"[110X      │  [10X"MM44"[110X  │   [10X"MM43"[110X    │ 
+      │ [10X"L2(13).2"[110X      │  [10X"MM45"[110X  │      –      │ 
+      │ [10X"41:40"[110X         │  [10X"MM46"[110X  │   [10X"MM44"[110X    │ 
+      └─────────────────┴──────────┴─────────────┘
+  
+        [33X[0;6YAs  a  consequence,  some  arguments  concerning  the  Monster  in the
+        chapters  [14X'CTblLibXpls: GAP Computations Concerning Hamiltonian Cycles
+        in  the Generating Graphs of Finite Groups'[114X and [14X'CTblLibXpls: Solvable
+        Subgroups  of  Maximal  Order  in  Sporadic  Simple  Groups'[114X have been
+        adjusted.[133X
+  
+  [30X    [33X[0;6YThe  following  ordinary  character tables of maximal subgroups of the
+        Monster  have  been  added  to  the  library:  [10X"2^(10+16).O10+(2)"[110X was
+        contributed      by      Alexander      Hulpke.      [10X"3^8.O8-(3).2_3"[110X,
+        [10X"(3^2:2xO8+(3)).S4"[110X,                           [10X"3^(2+5+10).(M11x2S4)"[110X,
+        [10X"3^(3+2+6+6):(L3(3)xSD16)"[110X    were   contributed   by   Tim   Burness.
+        [10X"2^[39].(L3(2)x3.S6)"[110X  and  [10X"2^(2+11+22).(M24xS3)"[110X were computed using
+        [5XMAGMA[105X.[133X
+  
+        [33X[0;6YAs  a  consequence,  the  permutation  characters  induced  from these
+        subgroups  can  be  computed  directly.  The  relevant  subsections in
+        Section  [14X'CTblLibXpls:  Four  Primitive  Permutation Characters of the
+        Monster Group'[114X have been extended accordingly.[133X
+  
+  [30X    [33X[0;6YThe  known  information about orthogonal discriminants of orthogonally
+        stable   irreducible   characters  of  almost  simple  groups  is  now
+        available, via the data in the file [11Xdata/odresults.json[111X. The functions
+        [2XDisplay[102X  ([14XReference:  Display  for  a character table[114X) and [2XBrowse (for
+        character  tables)[102X  ([14XBrowse:  Browse for character tables[114X) support the
+        component  [10XOD[110X  in  the  optional  second  argument, in order to show a
+        column with the known orthogonal discriminants.[133X
+  
+  [30X    [33X[0;6YThree  new example sections have been added, which deal with subgroups
+        of the Monster group: [14X'CTblLibXpls: The Monster group does not contain
+        subgroups  of  the type 2.U_4(2) (August 2023)'[114X, [14X'CTblLibXpls: Perfect
+        central   extensions   of  L_3(4)  (August  2023)'[114X  [14X'CTblLibXpls:  The
+        character table of (2 × O_8^+(3)).S_4 ≤ 2.B (October 2023)'[114X.[133X
+  
+  
+  [1X1.2-5 [33X[0;0YWhat's New in Version 1.3.6? (May 2023)[133X[101X
+  
+  [33X[0;0YThe  release  of Version 1.3.6 was necessary for technical reasons: The code
+  for building the documentation of the package had to be adjusted to a change
+  in  [5XGAP[105X  4.13  ([7Xhttps://github.com/gap-system/gap/pull/5178[107X).  This does not
+  affect  most  users  of  the  package because the package archive contains a
+  ready  documentation.  (The ability to rebuild the package documentation had
+  been requested by packagers for Linux distributions.)[133X
+  
+  
+  [1X1.2-6 [33X[0;0YWhat's New in Version 1.3.5? (March 2023)[133X[101X
+  
+  [30X    [33X[0;6Y[5XGAP[105X  4.13 will provide the new [21Xpackage extension[121X feature, which allows
+        a  package  to  execute  [5XGAP[105X  code  [13Xafter[113X  the  package and some other
+        required  packages  have  been loaded. In [5XCTblLib[105X, this feature is now
+        used for example in order to achieve that those functions which depend
+        on the [5XBrowse[105X package can be used also if this package gets (installed
+        and) loaded after [5XCTblLib[105X has been loaded.[133X
+  
+  [30X    [33X[0;6YA  few  (modular  and  ordinary) character tables have been added that
+        were   used   for  the  computation  of  orthogonal  discriminants  of
+        characters.  Also  a  few  formerly unknown [22X2[122X-modular indicator values
+        have been added.[133X
+  
+  [30X    [33X[0;6YCharacter  parameters  for  modular tables of symmetric groups are now
+        available. (Thanks to Jürgen Müller for these data.)[133X
+  
+  [30X    [33X[0;6YThe  identifier  of  one  character  table  had  to  be  changed  from
+        [10X"D8.(S4x2)"[110X  to  [10X"2^3.(S4×2)"[110X  because  the old name suggested a wrong
+        group  structure.  This  bug  had  been  announced  in a StackExchange
+        discussion
+        ([7Xhttps://math.stackexchange.com/questions/4577016/group-names-in-gap-character-table-library[107X).[133X
+  
+  [30X    [33X[0;6YThe  [22X11[122X-modular  character tables of [22XHN[122X and [22XHN.2[122X (and as a consequence
+        also  that  of  [22X(D_10  × HN).2[122X) had to be changed, in order to solve a
+        generality  problem. See [14X'CTblLibXpls: A generality problem concerning
+        the group HN (August 2022)'[114X for the details.[133X
+  
+  [30X    [33X[0;6YA  few  class  fusions  had  to  be  replaced; they were valid for the
+        ordinary character tables in question but not for their Brauer tables.[133X
+  
+  
+  [1X1.2-7 [33X[0;0YWhat's New in Version 1.3.4? (April 2022)[133X[101X
+  
+  [33X[0;0YThe  release  of  Version 1.3.4 was necessary for technical reasons: Now the
+  testfile mentioned in [11XPackageInfo.g[111X exits [5XGAP[105X in the end.[133X
+  
+  
+  [1X1.2-8 [33X[0;0YWhat's New in Version 1.3.3? (January 2022)[133X[101X
+  
+  [33X[0;0YThe  reason  for  this  release  was the addition of the new example section
+  [14X'CTblLibXpls:  Generation  of  sporadic simple groups by π- and π'-subgroups
+  (December 2021)'[114X,  which  requires  the new data file [11Xdata/prim_perm_M.json[111X.
+  (The  data had already been used before in the example section [14X'CTblLibXpls:
+  The Monster'[114X, which has now been changed accordingly.)[133X
+  
+  [33X[0;0YThe database attribute [10XIsQuasisimple[110X has been added, which describes perfect
+  central  extensions  of nonabelian simple groups. It can be used for example
+  to    select    the    character   tables   of   quasisimple   groups   with
+  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X).  Thanks to Gunter Malle for suggesting this
+  addition.[133X
+  
+  [33X[0;0YNo  new character tables have been added, and there are only a few new class
+  fusions, admissible names, and group constructions.[133X
+  
+  
+  [1X1.2-9 [33X[0;0YWhat's New in Version 1.3.2? (March 2021)[133X[101X
+  
+  [33X[0;0YThe main new features of this release are technical.[133X
+  
+  [30X    [33X[0;6YThe  initialization of the database (at the time when the package gets
+        loaded)  has  been  changed.  Instead  of  executing  [5XGAP[105X  code in the
+        formerly  available (huge) file [11Xdata/ctprimar.tbl[111X, now one calls a few
+        short  [5XGAP[105X  functions, in the new file [11Xgap4/ctprimar.g[111X, which evaluate
+        JSON  format  files.  This  was  one  more step on the way to make the
+        database independent of [5XGAP[105X.[133X
+  
+  [30X    [33X[0;6YAlso  the  files with the precomputed attribute values are now in JSON
+        format, since now the [5XBrowse[105X supports this format.[133X
+  
+  [30X    [33X[0;6YThe             [21XWWW            table            of            contents[121X
+        ([7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/ctbltoc/index.html[107X)
+        of the package has been updated in the sense that it shows the same as
+        the   functions   [2XDisplayCTblLibInfo[102X   ([14X3.5-1[114X)  and  [2XBrowseCTblLibInfo[102X
+        ([14X3.5-2[114X); at the same time, these functions have been extended in order
+        to  link  each table to its main table and to its duplicates. The code
+        for  creating  the  HTML files is now distributed with the package, in
+        the [11Xctbltoc[111X directory.[133X
+  
+  [30X    [33X[0;6YThe mechanism for processing the package documentation (which contains
+        two  [5XGAPDoc[105X  books) has been changed to a more standard way. Now it is
+        enough to process one [5XGAP[105X input file in the package directory.[133X
+  
+  [33X[0;0YIn  several  [2XInfoText[102X  ([14X3.7-5[114X) values of character tables, information about
+  group  constructions has been added; where possible, these constructions are
+  now also available via [2XGroupInfoForCharacterTable[102X ([14X3.3-1[114X); for example, this
+  function  now  supports also the construction of a group as the automorphism
+  group  of  a simple group. (Thanks to Gunter Malle for ideas and discussions
+  about this feature.)[133X
+  
+  [33X[0;0YThe  function  [2XBrowseAtlasImprovements[102X  ([14X3.5-10[114X)  can  now  show  (also) the
+  improvements for the [5XAtlas[105X of Brauer Characters [JLPW95].[133X
+  
+  [33X[0;0YThe  strings  [10X"L2(49)"[110X and [10X"L2(81)"[110X are now valid inputs for [2XDisplayAtlasMap[102X
+  ([14X3.5-8[114X)  and  [2XBrowseAtlasTable[102X ([14X3.5-9[114X), and [2XDisplayAtlasContents[102X ([14X3.5-6[114X) and
+  [2XBrowseAtlasContents[102X ([14X3.5-5[114X) now show information about these two and [10X"L6(2)"[110X
+  and [10X"S10(2)"[110X.[133X
+  
+  [33X[0;0YBesides these changes, a few new tables and class fusions have been added. A
+  few  new  examples of applications have been added, see the sections [14X2.3-10[114X,
+  [14X'CTblLibXpls:   The  Character  Table  of  4.L_2(49).2_3  (December  2020)'[114X,
+  [14X'CTblLibXpls: The Character Table of 4.L_2(81).2_3 (December 2020)'[114X.[133X
+  
+  
+  [1X1.2-10 [33X[0;0YWhat's New in Version 1.3.1? (April 2020)[133X[101X
+  
+  [33X[0;0YThis  release  was  motivated  by  small technical changes: A few typos were
+  fixed,  an  acknowledgement was added, the directory name of the package now
+  contains  the version number (in order not to overwrite older versions), and
+  the  process  to  generate the package documentation was made independent of
+  other packages.[133X
+  
+  [33X[0;0YBesides  that,  the  function [2XCharacterTableComputedByMagma[102X ([14X6.5-3[114X) was made
+  more robust.[133X
+  
+  [33X[0;0YIn particular, the data part of the package was not changed at all.[133X
+  
+  
+  [1X1.2-11 [33X[0;0YWhat's New in Version 1.3.0? (December 2019)[133X[101X
+  
+  [33X[0;0YWe  distinguish  bug fixes, new features, new character table data, new data
+  of other kind, and changed documentation.[133X
+  
+  [33X[0;0Y[13XThe following bugs were fixed.[113X[133X
+  
+  [30X    [33X[0;6YThe  [22X2[122X-modular Brauer table of the character table with the identifier
+        [10X"3.(2x2^(1+8)):(U4(2):2x2)"[110X  was  wrong,  due  to  an error in the [5XGAP[105X
+        function that constructs this Brauer table from the known Brauer table
+        of  [22XU_4(2).2[122X;  this was the only case in the library that was affected
+        by this bug. (Thanks to Jürgen Müller who pointed out this error.)[133X
+  
+  [30X    [33X[0;6YThe [22X2[122X-power map of the character table with the identifier [10X"2.F4(2).2"[110X
+        was  wrong,  see  Section [14X'CTblLibXpls: An Error in a Power Map of the
+        Character  Table  of 2.F_4(2).2 (November 2015)'[114X. (This error has been
+        found  in  the  context  of  the  computations  that  are described in
+        [BMO17].)[133X
+  
+  [30X    [33X[0;6YThe  character  table  of  [22XE_6(2)[122X  was  wrong w. r. t. some irrational
+        character  values  and  power maps on the classes of element order [22X91[122X,
+        see  Section  [14X'CTblLibXpls:  An Error in the Character Table of E_6(2)
+        (March 2016)'[114X. (Thanks to Bill Unger who pointed out this error.)[133X
+  
+  [30X    [33X[0;6YCharacter tables with construction info [2XConstructAdjusted[102X ([14X5.8-12[114X) had
+        immutable  [2XComputedPowerMaps[102X  ([14XReference:  ComputedPowerMaps[114X)  values,
+        which  made  it  impossible  to add more power maps. (Thanks to Fabian
+        Gundlach who pointed out this error.)[133X
+  
+  [33X[0;0Y[13XThe following features have been added.[113X[133X
+  
+  [30X    [33X[0;6YThe  functions  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X), [2XOneCharacterTableName[102X
+        ([14X3.1-5[114X),  and  [2XBrowseCTblLibInfo[102X ([14X3.5-2[114X) support now the global option
+        [10XOrderedBy[110X.[133X
+  
+  [30X    [33X[0;6YThe  operation  [2XBrauerTable[102X  ([14X3.1-3[114X)  now  admits also a string as its
+        first  argument,  and  then  delegates to the ordinary character table
+        with this name.[133X
+  
+  [30X    [33X[0;6YThe  operation  [2XBrauerTable[102X  ([14X3.1-3[114X)  is  now  successful  also if the
+        ordinary    character    table   in   question   has   the   attribute
+        [2XConstructionInfoCharacterTable[102X  ([14X3.7-4[114X) set and the first entry of the
+        attribute value is the string [10X"ConstructGS3"[110X and the Brauer tables for
+        the  character  tables involved in the construction are available, see
+        Section [14X'CTblLibXpls: Examples for the Type G.S_3'[114X.[133X
+  
+  [30X    [33X[0;6YThe function [2XCambridgeMaps[102X ([14X6.4-1[114X) has been improved in the sense that
+        [21Xrelative[121X  class  names  such as [10X"B*2"[110X occur whenever this is possible,
+        where  the  element  order  does  not  appear in the class name, and a
+        Galois  automorphism  describes  the  relation  to another class. (The
+        character  table  with identifier [10X"L2(13)"[110X is an example for which the
+        result is now different.)[133X
+  
+  [30X    [33X[0;6YThe  function [2XConstructIsoclinic[102X ([14X5.8-10[114X) has been extended, according
+        to  the  extended functionality of [2XCharacterTableIsoclinic[102X ([14XReference:
+        CharacterTableIsoclinic[114X). For examples, see the sections [14X'CTblLibXpls:
+        Groups  of the Structures 3.U_3(8).3_1 and 3.U_3(8).6 (February 2017)'[114X
+        and [14X'CTblLibXpls: The Character Table of 9.U_3(8).3_3 (March 2017)'[114X.[133X
+  
+  [30X    [33X[0;6YThere  is  now a default [2XInfoText[102X ([14X3.7-5[114X) method for library character
+        tables,  which  returns  an  empty  string.  This  admits searches for
+        properties  of  the  info  text  via  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X).
+        Similarly,  also  properties  of [2XIdentifier[102X ([14XReference: Identifier for
+        character    tables[114X)    can   now   be   searched   efficiently,   see
+        [2XAllCharacterTableNames[102X ([14X3.1-4[114X) for examples.[133X
+  
+  [30X    [33X[0;6YWith  the user preference [10XDisplayFunction[110X of the [5XAtlasRep[105X package (see
+        Section    [14X4.5-3[114X),    one    can    configure   how   functions   like
+        [2XDisplayCTblLibInfo[102X  ([14X3.5-1[114X)  place  their output on the screen. (Up to
+        now, the function [2XPager[102X ([14XReference: Pager[114X) had always been called.)[133X
+  
+  [30X    [33X[0;6YThe definition of [21Xduplicate tables[121X has been extended in order to get a
+        better integration of the [5XSpinSym[105X package, see Section [14X3.6[114X.[133X
+  
+  [30X    [33X[0;6YA  new  variant  of  the  function  [2XGAPTableOfMagmaFile[102X ([14X6.5-2[114X) admits
+        entering  a  [5XMAGMA[105X  format  string  instead of the name of a file that
+        contains this string.[133X
+  
+  [30X    [33X[0;6YThe  new function [2XCharacterTableComputedByMagma[102X ([14X6.5-3[114X) uses the [5XMAGMA[105X
+        system  (if  this is available) for computing the character table of a
+        permutation group.[133X
+  
+  [30X    [33X[0;6YThe  new function [2XNotifyCharacterTables[102X ([14X4.7-6[114X) is more efficient than
+        [2XNotifyCharacterTable[102X  ([14X4.7-5[114X)  if  one  wants  to  add several private
+        character tables at the same time.[133X
+  
+  [30X    [33X[0;6YIn  the  tables  of maximal subgroups and Sylow [22Xp[122X normalizers shown by
+        [2XDisplayCTblLibInfo[102X  ([14X3.5-1[114X)  and [2XBrowseCTblLibInfo[102X ([14X3.5-2[114X), the former
+        [10XName[110X column has been replaced by two columns [10XStructure[110X (which tries to
+        show   information   about   the   structures  of  the  groups,  using
+        [2XStructureDescriptionCharacterTableName[102X  ([14X7.2-1[114X))  and [10XName[110X (which just
+        shows the identifiers of the character tables). This improvement arose
+        from a discussion with Gabriel Navarro.[133X
+  
+  [30X    [33X[0;6YThe  former [5XGAP[105X readable text file [11Xdata/ctbldiff.dat[111X has been replaced
+        by  the  (still [5XGAP[105X readable) JSON format file [11Xdata/ctbldiff.json[111X. (It
+        is  planned  for  future  releases  to replace more data files by JSON
+        format files, in order to make the data independent of [5XGAP[105X.)[133X
+  
+  [30X    [33X[0;6YTwo  filenames  of the package have been changed, from [11Xctadmin.tbd[111X and
+        [11Xctadmin.tbi[111X to [11Xctadmin.gd[111X and [11Xctadmin.gi[111X, respectively.[133X
+  
+  [33X[0;0YConcerning [13Xadded character table data[113X, the full list of differences w. r. t.
+  earlier versions can be found in the file [11Xdata/ctbldiff.json[111X of the package;
+  see [2XBrowseCTblLibDifferences[102X ([14X3.5-4[114X) for a way to utilize this list in a [5XGAP[105X
+  session.[133X
+  
+  [33X[0;0Y[13XThe following other data have been added.[113X[133X
+  
+  [30X    [33X[0;6Y[2XGroupInfoForCharacterTable[102X ([14X3.3-1[114X) works now for more character tables
+        than before.[133X
+  
+        [33X[0;6YIn particular there are representations for all [5XAtlas[105X groups (bicyclic
+        extensions  of  simple  groups whose character tables are shown in the
+        [5XAtlas[105X  of Finite Groups [CCN+85], up to isoclinism), except the groups
+        [22X2.B[122X  and  [22XM[122X;  several  of  these  representations were computed in the
+        context of the computations that are described in [BMO17].[133X
+  
+        [33X[0;6YAlso  the  library  tables  of  groups  that occur in [5XGAP[105X's library of
+        primitive  groups (the [5XGAP[105X package [5XPrimGrp[105X) know about this fact; note
+        that older versions of [5XPrimGrp[105X contained only groups of degree at most
+        [22X2499[122X.[133X
+  
+        [33X[0;6YSee  Section  [14X'CTblLibXpls: Some finite factor groups of perfect space
+        groups  (February  2014)'[114X  for some other representations that are now
+        available.[133X
+  
+  [33X[0;0Y[13XFinally, the documentation was changed as follows.[113X[133X
+  
+  [30X    [33X[0;6YSeveral   of   the  files  showing  examples  of  character  theoretic
+        computations   with   [5XGAP[105X  have  been  turned  into  the  [5XGAPDoc[105X  book
+        [21XCTblLibXpls[121X, see above. Some advantages of this new setup are that the
+        contents  can  be  accessed  also  in [5XGAP[105X's interactive help, and that
+        cross-referencing is simpler.[133X
+  
+  
+  [1X1.2-12 [33X[0;0YWhat's New in Version 1.2.2? (March 2013)[133X[101X
+  
+  [33X[0;0YThe following bugs were fixed.[133X
+  
+  [30X    [33X[0;6YThe functions [2XAllCharacterTableNames[102X ([14X3.1-4[114X) and [2XOneCharacterTableName[102X
+        ([14X3.1-5[114X)  ran  into  an error in certain situations, if the library had
+        been  extended  by private tables, see Section [14X4.7[114X. (As a consequence,
+        the description of [2XIsDuplicateTable[102X ([14X3.6-1[114X) has been extended.) Thanks
+        to Alexander Konovalov and Lukas Maas for pointing out this error.[133X
+  
+  [30X    [33X[0;6YThe function [2XCharacterTableOfIndexTwoSubdirectProduct[102X ([14X5.5-1[114X) returned
+        a  wrong  result  if  the two factors were given by the [13Xsame[113X character
+        table.  An example is [22X(A_5 × A_5).2[122X, created as a subdirect product of
+        two copies of [22XS_5[122X.[133X
+  
+  
+  [1X1.2-13 [33X[0;0YWhat's New in Version 1.2.0 and 1.2.1? (May 2012)[133X[101X
+  
+  [33X[0;0YConcerning character table data, we have the following.[133X
+  
+  [30X    [33X[0;6YA few bugs in character tables have been fixed.[133X
+  
+  [30X    [33X[0;6YSeveral class fusions stored in character tables have been changed, in
+        order  to  be  more  consistent with related data, see Section [14X4.9[114X for
+        reasons of such changes.[133X
+  
+  [30X    [33X[0;6YMany  new  character  tables have been added. For example, a character
+        table is available for each table of marks in the [5XTomLib[105X package.[133X
+  
+  [33X[0;0YBesides these changes of the data, the following features are new.[133X
+  
+  [30X    [33X[0;6YA  tutorial for beginners was added to the package manual, see Chapter
+        [14X2[114X, and the package manual was restructured. The manual is now based on
+        the [5XGAPDoc[105X package (see [LN18]).[133X
+  
+  [30X    [33X[0;6YGeneric  constructions  of  Brauer  tables  are  now  available if the
+        underlying   ordinary  table  is  encoded  via  [2XConstructMGA[102X  ([14X5.8-1[114X),
+        [2XConstructIndexTwoSubdirectProduct[102X  ([14X5.5-2[114X),  or  [2XConstructV4G[102X ([14X5.8-4[114X),
+        and if the Brauer tables of the compound tables are known.[133X
+  
+  [30X    [33X[0;6YThe attributes [2XFusionToTom[102X ([14X3.2-4[114X) and [2XMaxes[102X ([14X3.7-1[114X) are no longer set
+        in  duplicate  tables.  This  can  be  regarded  as  a  bugfix, in the
+        following  sense.  For the sake of consistency, it would in general be
+        necessary  to  apply  a  permutation  to  the fusion into the table of
+        marks,  and  to  add  the class fusions from the tables of the maximal
+        subgroups to the duplicate table.[133X
+  
+  [30X    [33X[0;6YThe consistency checks for character tables have been improved and are
+        now  documented,  see  Section [14X4.8[114X. Due to these checks, several class
+        fusions had to be replaced.[133X
+  
+  [30X    [33X[0;6YThe  concept  of  duplicate  character  tables  is now documented, see
+        Section [14X3.6[114X. As a consequence, the behaviour of [2XAllCharacterTableNames[102X
+        ([14X3.1-4[114X)  has changed in situations where [2XIsSimple[102X ([14XReference: IsSimple
+        for    a    character    table[114X)    or   [2XIsSporadicSimple[102X   ([14XReference:
+        IsSporadicSimple  for  a  character  table[114X)  occur  as  arguments (see
+        [14X'Reference:  Group  Operations  Applicable  to  Character Tables'[114X), as
+        follows.  In  earlier  versions  of  the package, duplicate tables had
+        automatically  been  excluded. From now on, duplicates can be excluded
+        if  one wants so, but they are not automatically excluded. This change
+        may be regarded as a bugfix.[133X
+  
+  [30X    [33X[0;6YSeveral   attribute   values   for  character  tables,  such  as  [2XSize[102X
+        ([14XReference:      Size[114X)      and     [2XNrConjugacyClasses[102X     ([14XReference:
+        NrConjugacyClasses[114X)  are  now  available without reading the character
+        table  data  files,  provided that the [5XBrowse[105X package (see [BL23]) has
+        been  loaded.  See the documentation of [2XAllCharacterTableNames[102X ([14X3.1-4[114X)
+        for  details;  this  function  is much faster if only these attributes
+        appear  in the conditions given. Thus it is now more reasonable to use
+        this function for searches in the table library.[133X
+  
+  [30X    [33X[0;6Y[5XGAP[105X's  group  libraries  provide  many  groups for which the Character
+        Table  Library  contains the character tables. Given a character table
+        from  the  library,  one can list and access available groups with the
+        functions  described  in Section [14X3.3[114X, provided that the [5XBrowse[105X package
+        (see [BL23]) has been loaded.[133X
+  
+  [30X    [33X[0;6YAn interactive overview of the contents is now available that is based
+        on the [5XBrowse[105X package [BL23], see Section [14X3.5[114X.[133X
+  
+  [30X    [33X[0;6YInformation  about  Deligne-Lusztig  names  of unipotent characters of
+        finite groups of Lie type is now available, see Section [14X3.4[114X.[133X
+  
+  [30X    [33X[0;6YAn interface for reading [5XMAGMA[105X tables was added, see Section [14X6.5[114X.[133X
+  
+  
+  [1X1.2-14 [33X[0;0YWhat's New in Version 1.1? (November 2003)[133X[101X
+  
+  [33X[0;0YFirst  of  all,  of  course  several  character  tables  were  added; for an
+  overview,  see  the  file  [11Xdoc/ctbldiff.pdf[111X  in  the  home  directory of the
+  package. Also lots of class fusions were added. This includes factor fusions
+  onto  the  tables of the factor groups modulo the largest normal [22Xp[122X-subgroups
+  whenever  the  tables  of  the  factors  are available; these maps admit the
+  automatic  construction  of the [22Xp[122X-modular Brauer tables if the corresponding
+  tables of the factors are available. For example, the [22X2[122X-modular Brauer table
+  of  the  maximal  subgroup  of  the  type  [22X2^10:M_22[122X  in  the group [22XFi_22[122X is
+  available because of the known [22X2[122X-modular table of [22XM_22[122X and the stored factor
+  fusion onto the table of [22XM_22[122X.[133X
+  
+  [33X[0;0YSecond,  more  information  has  been  made  more explicit, in the following
+  sense.[133X
+  
+  [30X    [33X[0;6Y[2XIdentifier[102X  ([14XReference:  Identifier  for  character  tables[114X) values of
+        tables  that  are  constructed  from  generic  tables  are  now  valid
+        arguments  of  [2XCharacterTable[102X ([14XReference: CharacterTable[114X), for example
+        [10XCharacterTable(  "C10" )[110X and [10XCharacterTable( "Sym(5)" )[110X can be used to
+        create  the character table of the cyclic group of order [22X10[122X and of the
+        symmetric group of degree [22X5[122X, respectively.[133X
+  
+  [30X    [33X[0;6YAttributes  have  been  introduced  that  replace  more or less hidden
+        components (see Section [14X3.7[114X); in particular, the way how many ordinary
+        tables are encoded via the construction from other tables is no longer
+        encapsulated  in  a function call but instead the name of the function
+        and    the    arguments    are    stored   as   an   attribute   value
+        (see [2XConstructionInfoCharacterTable[102X ([14X3.7-4[114X)).[133X
+  
+  [30X    [33X[0;6YThe  functions  that  are  used  for the table constructions have been
+        documented (see Chapter [14X5[114X).[133X
+  
+  [30X    [33X[0;6YSeveral  consistency  checks are now part of the package distribution,
+        in  the  files  [11Xgap4/test.gd[111X and [11Xgap4/test.gi[111X. However, currently they
+        are  not  documented.  The new file [11Xtst/testall.g[111X lists the files that
+        belong  to  the  [21Xstandard test suite[121X. Further checks involving the [5XGAP[105X
+        Character  Table  Library  are  parts  of  the  [5XGAP[105X  packages AtlasRep
+        (see [WPN+22]) and TomLib.[133X
+  
+  [30X    [33X[0;6YAs  a  part of the consistency checks, class fusions between character
+        tables  and  from  character tables into corresponding tables of marks
+        have  been recomputed, and the [10Xtext[110X components have been standardized;
+        this  means that the texts express whether the maps are unique, unique
+        up  to  table  automorphisms, or ambiguous. However, currently this is
+        not documented.[133X
+  
+  [30X    [33X[0;6YOne  can  now  avoid  unloading  the contents of data files, which can
+        speed  up computations involving many library tables. (In version 1.1,
+        the  function  [10XCTblLibSetUnload[110X  had  been  provided  for  that. Since
+        version 1.2, a [5XGAP[105X 4.5 user preference replaces this function.)[133X
+  
+  [33X[0;0YThird, several errors have been corrected (again see [11Xdoc/ctbldiff.pdf[111X). Most
+  of them affect class fusions, and for most of those, the term [21Xerror[121X could be
+  regarded as not really appropriate. See [14X4.9[114X for details.[133X
+  
+  [33X[0;0YFinally,  the  [5XGAP[105X  functions  for  reading  and  writing  other  formats of
+  character  tables  have been moved from the main [5XGAP[105X library to this package
+  (see  Chapter [14X6[114X), because they are useful only for library tables. The [5XGAP[105X 3
+  format  is  now  also  supported,  mainly  for  documentation  purposes (see
+  Section [14X6.3[114X).[133X
+  
+  
+  [1X1.3 [33X[0;0YAcknowledgements[133X[101X
+  
+  [33X[0;0YThe  development  of  the  [5XGAP[105X Character Table Library has been supported by
+  several  DFG  grants,  in  particular  the  project [21XRepresentation Theory of
+  Finite  Groups and Finite Dimensional Algebras[121X (until 1991), the Schwerpunkt
+  [21XAlgorithmische  Zahlentheorie  und  Algebra[121X  (from 1991 until 1997), and the
+  SFB-TRR   195   [21XSymbolic   Tools   in  Mathematics  and  their  Applications[121X
+  ([7Xhttps://www.computeralgebra.de/sfb/[107X) (Project-ID 286237555, since 2017).[133X
+  
+  [33X[0;0YThe  functions  for  the  conversion  of  [5XCAS[105X tables to [5XGAP[105X format have been
+  written  by  Götz  Pfeiffer.  The  functions  for  converting  the so-called
+  [21XCambridge  format[121X  (in which the original data of the [5XAtlas[105X of Finite Groups
+  had been stored) to [5XGAP[105X format have been written by Christoph Jansen.[133X
+  
+  [33X[0;0YThe  generic  character tables of double covers of alternating and symmetric
+  groups were contributed by Felix Noeske, see [Noe02].[133X
+  
+  [33X[0;0YThe     functions     in     Section [14X3.4[114X     ([2XDeligneLusztigName[102X    ([14X3.4-3[114X),
+  [2XDeligneLusztigNames[102X  ([14X3.4-2[114X), and [2XUnipotentCharacter[102X ([14X3.4-1[114X)) as well as the
+  corresponding  data  for  the finite groups of Lie type in the [5XGAP[105X Character
+  Table Library have been contributed by Michael Claßen-Houben, see [Cla05].[133X
+  
+  [33X[0;0YSeveral  character  tables of maximal subgroups of covering groups of simple
+  groups have been computed by Sebastian Dany, see [Dan06].[133X
+  
+  [33X[0;0YThanks  to  Frank  Lübeck  and  Max  Neunhöffer  for their help with solving
+  technical problems concerning the HMTL part of the example files that belong
+  to  the  package  documentation,  and  to  Ian  Hutchinson whose TeX to HTML
+  translator [10XTtH[110X was used to provide these HTML files.[133X
+  
+  [33X[0;0YThanks  to  Frank  Lübeck  and Max Neunhöffer also for developing the [5XGAPDoc[105X
+  package  (see [LN18]),  on which the manual of the [5XCTblLib[105X package is based.
+  The   previously   available   documentation   format  had  been  completely
+  inappropriate.[133X
+  

@@ -1,0 +1,125 @@
+  
+  
+                          [1XThe [5XGAP[105X 4 Development Manual[101X
+  
+  
+                         [1XAdministrating the [5XGAP[105X Project[101X
+  
+  
+                                      2015
+  
+  
+                                 The [5XGAP[105X Group
+  
+  
+  
+  The [5XGAP[105X Group
+      Email:    [7Xmailto:support@gap-system.org[107X
+      Homepage: [7Xhttps://www.gap-system.org[107X
+  
+  -------------------------------------------------------
+  [1XAbstract[101X
+  [33X[0;0YIn  this [13Xdevelopment manual[113X we collect documentation of various tasks needed
+  for the further development, maintenance and distribution of [5XGAP[105X.[133X
+  
+  [33X[0;0YSome  sections  provide  practical  howto's  and check lists for tasks like,
+  e.g.:    committing   changes,   testing,   wrapping   archives,   compiling
+  documentation.[133X
+  
+  [33X[0;0YOther sections document certain conventions which are followed by the active
+  members  of  The  [5XGAP[105X  Group. Some examples: there are several mailing lists
+  which  are  used  for  different  purposes;  there is a mechanism how larger
+  changes  to  the  [5XGAP[105X  system  should  be  announced and discussed among the
+  developers  before  they are committed, called [13Xproposals[113X; there is a concept
+  of  [13Xmodules[113X  where  parts  of  the  [5XGAP[105X  system  are  assigned  to specified
+  maintainers.[133X
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© (2005-this year) The [5XGAP[105X Group[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (dev)[101X
+  
+  1 [33X[0;0YStructure of the [5XGAP[105X distribution[133X
+    1.1 [33X[0;0YKernel, library, documentation, package interface, development part[133X
+    1.2 [33X[0;0YThe directories of the [5XGAP[105X distribution and repository[133X
+  2 [33X[0;0YThe [5XGAP[105X kernel programming[133X
+    2.1 [33X[0;0YOverview of the [5XGAP[105X kernel[133X
+    2.2 [33X[0;0Y"Hello World" example[133X
+    2.3 [33X[0;0YStructure of the [5XGAP[105X kernel[133X
+    2.4 [33X[0;0YGarbage collection in [5XGAP[105X[133X
+      2.4-1 [33X[0;0Y[5XGASMAN[105X[133X
+      2.4-2 [33X[0;0Y[5XGASMAN[105X Interface[133X
+      2.4-3 [33X[0;0YThe GASMAN Interface for Weak Pointer Objects[133X
+    2.5 [33X[0;0YInterfaces[133X
+    2.6 [33X[0;0YObjects and API[133X
+      2.6-1 [33X[0;0YImmediate Integers and FFEs[133X
+      2.6-2 [33X[0;0YArithmetics[133X
+      2.6-3 [33X[0;0YFunctions[133X
+      2.6-4 [33X[0;0YLists[133X
+      2.6-5 [33X[0;0YData objects[133X
+    2.7 [33X[0;0YRules of Kernel Programming[133X
+      2.7-1 [33X[0;0YThree golden rules[133X
+      2.7-2 [33X[0;0YCommon kernel traps[133X
+      2.7-3 [33X[0;0YOne More Bit of GASMAN interface[133X
+    2.8 [33X[0;0YThe [5XGAP[105X compiler[133X
+      2.8-1 [33X[0;0YCompiling [5XGAP[105X Code[133X
+      2.8-2 [33X[0;0YSuitability for Compilation[133X
+      2.8-3 [33X[0;0YCompiling Library Code[133X
+    2.9 [33X[0;0YGlobal Variables[133X
+      2.9-1 [33X[0;0YGlobal variables[133X
+      2.9-2 [33X[0;0YTracking global variables[133X
+    2.10 [33X[0;0YThe Kernel Module Structure and interface[133X
+      2.10-1 [33X[0;0YThe Kernel Module Structure[133X
+      2.10-2 [33X[0;0YThe Kernel Module Interface[133X
+      2.10-3 [33X[0;0YSequences of Events[133X
+      2.10-4 [33X[0;0YSaving a Workspace[133X
+      2.10-5 [33X[0;0YExcerpts from InitKernel from integer.c[133X
+      2.10-6 [33X[0;0YCommentary[133X
+      2.10-7 [33X[0;0YOther Similar Functions[133X
+      2.10-8 [33X[0;0YImporting from the Library[133X
+      2.10-9 [33X[0;0YInitKernel[133X
+      2.10-10 [33X[0;0YinitLibrary and postRestore[133X
+  3 [33X[0;0YMaintaining the [5XGAP[105X kernel and library[133X
+    3.1 [33X[0;0YDebugging the [5XGAP[105X Kernel[133X
+    3.2 [33X[0;0Y...[133X
+  4 [33X[0;0YMaintaining the [5XGAP[105X documentation[133X
+    4.1 [33X[0;0YThe source of the [5XGAP[105X documentation[133X
+    4.2 [33X[0;0YHow to compile the [5XGAP[105X manuals from the sources[133X
+  5 [33X[0;0YTesting [5XGAP[105X[133X
+    5.1 [33X[0;0Y[10X.tst[110X-files[133X
+    5.2 [33X[0;0YChecking examples in the main manuals[133X
+    5.3 [33X[0;0YTests for packages[133X
+    5.4 [33X[0;0YChecking references and cross-references of manuals[133X
+    5.5 [33X[0;0YDetecting potential naming conflicts[133X
+    5.6 [33X[0;0YThe standard test suite[133X
+    5.7 [33X[0;0YTest evaluation[133X
+    5.8 [33X[0;0YTest Issues for Releases[133X
+    5.9 [33X[0;0YOpen items concerning tests[133X
+  6 [33X[0;0YVersion control using Git[133X
+    6.1 [33X[0;0YIntroduction[133X
+      6.1-1 [33X[0;0YUsing Git[133X
+  7 [33X[0;0YDistributing packages via the [5XGAP[105X sites[133X
+    7.1 [33X[0;0Y...[133X
+  8 [33X[0;0YMaintaining the [5XGAP[105X website[133X
+    8.1 [33X[0;0YOverview[133X
+    8.2 [33X[0;0YGetting started[133X
+    8.3 [33X[0;0YGit usage[133X
+    8.4 [33X[0;0YThe web server in St Andrews[133X
+    8.5 [33X[0;0YInstallation on the web server[133X
+      8.5-1 [33X[0;0YNeeded ingredients[133X
+      8.5-2 [33X[0;0YInstallation procedure[133X
+      8.5-3 [33X[0;0YInstalling updated versions[133X
+    8.6 [33X[0;0YThe [5XGAP[105X manuals on the web pages[133X
+    8.7 [33X[0;0YThe [5XGAP[105X packages on the web pages[133X
+    8.8 [33X[0;0YThe [5XGAP[105X forum archive[133X
+  9 [33X[0;0YHints and conventions for writing [5XGAP[105X programs[133X
+    9.1 [33X[0;0YNaming conventions[133X
+  
+  
+  [32X

@@ -1,0 +1,75 @@
+
+<!-- %W  ctblothe.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="chap:interfaces">
+<Heading>Interfaces to Other Data Formats for Character Tables</Heading>
+
+<#Include Label="interfaces">
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:interface-cas">
+<Heading>Interface to the &CAS; System</Heading>
+
+<Index Subkey="tables">CAS</Index>
+<Index Subkey="format">CAS</Index>
+
+<#Include Label="interface_CAS">
+<#Include Label="CASString">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:interface-moc">
+<Heading>Interface to the &MOC; System</Heading>
+
+<#Include Label="interface_MOC">
+<#Include Label="MAKElb11">
+<#Include Label="MOCTable">
+<#Include Label="MOCString">
+<#Include Label="ScanMOC">
+<#Include Label="GAPChars">
+<#Include Label="MOCChars">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:interface-gap3">
+<Heading>Interface to &GAP;&nbsp;3</Heading>
+
+<#Include Label="interface_GAP3">
+<#Include Label="GAP3CharacterTableScan">
+<#Include Label="GAP3CharacterTableString">
+<#Include Label="GAP3CharacterTableData">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:interface-cambridge">
+<Heading>Interface to the Cambridge Format</Heading>
+
+<#Include Label="interface_cambridge">
+<#Include Label="CambridgeMaps">
+<#Include Label="StringOfCambridgeFormat">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:interface-magma">
+<Heading>Interface to the &MAGMA; System</Heading>
+
+<#Include Label="interface_magma">
+<#Include Label="BosmaBase">
+<#Include Label="GAPTableOfMagmaFile">
+<#Include Label="CharacterTableComputedByMagma">
+
+</Section>
+
+</Chapter>
+

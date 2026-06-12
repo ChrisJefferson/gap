@@ -1,0 +1,71 @@
+\contentsline {chapter}{\numberline {1}\textcolor {Chapter }{Introduction}}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}\textcolor {Chapter }{Information for package authors}}{6}{section.1.1}%
+\contentsline {chapter}{\numberline {2}\textcolor {Chapter }{Printing Lists and Iterators}}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}\textcolor {Chapter }{Printing selected items}}{7}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}\textcolor {Chapter }{PrintSelection}}{7}{subsection.2.1.1}%
+\contentsline {chapter}{\numberline {3}\textcolor {Chapter }{Lists, Sets and Strings}}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}\textcolor {Chapter }{Functions for lists}}{9}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}\textcolor {Chapter }{DifferencesList}}{9}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}\textcolor {Chapter }{QuotientsList}}{9}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}\textcolor {Chapter }{SearchCycle}}{10}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}\textcolor {Chapter }{RandomCombination}}{11}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}\textcolor {Chapter }{Distinct and Common Representatives}}{11}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}\textcolor {Chapter }{DistinctRepresentatives}}{11}{subsection.3.2.1}%
+\contentsline {section}{\numberline {3.3}\textcolor {Chapter }{Functions for strings}}{12}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}\textcolor {Chapter }{BlankFreeString}}{12}{subsection.3.3.1}%
+\contentsline {chapter}{\numberline {4}\textcolor {Chapter }{Number-theoretic functions}}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}\textcolor {Chapter }{Functions for integers}}{13}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}\textcolor {Chapter }{AllSmoothIntegers}}{13}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}\textcolor {Chapter }{AllProducts}}{13}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}\textcolor {Chapter }{RestrictedPartitionsWithoutRepetitions}}{14}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}\textcolor {Chapter }{NextProbablyPrimeInt}}{14}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}\textcolor {Chapter }{PrimeNumbersIterator}}{15}{subsection.4.1.5}%
+\contentsline {chapter}{\numberline {5}\textcolor {Chapter }{Groups and homomorphisms}}{16}{chapter.5}%
+\contentsline {section}{\numberline {5.1}\textcolor {Chapter }{Functions for groups}}{16}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}\textcolor {Chapter }{Comm}}{16}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}\textcolor {Chapter }{IsCommuting}}{16}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}\textcolor {Chapter }{ListOfPowers}}{17}{subsection.5.1.3}%
+\contentsline {subsection}{\numberline {5.1.4}\textcolor {Chapter }{GeneratorsAndInverses}}{17}{subsection.5.1.4}%
+\contentsline {subsection}{\numberline {5.1.5}\textcolor {Chapter }{UpperFittingSeries}}{17}{subsection.5.1.5}%
+\contentsline {section}{\numberline {5.2}\textcolor {Chapter }{Left Cosets for Groups}}{18}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}\textcolor {Chapter }{LeftCoset}}{18}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}\textcolor {Chapter }{Inverse}}{19}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}\textcolor {Chapter }{Functions for group homomorphisms}}{19}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}\textcolor {Chapter }{EpimorphismByGenerators}}{19}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}\textcolor {Chapter }{Pullback}}{20}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}\textcolor {Chapter }{CentralProduct}}{20}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}\textcolor {Chapter }{IdempotentEndomorphisms}}{21}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}\textcolor {Chapter }{DirectProductOfFunctions}}{22}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}\textcolor {Chapter }{DirectProductOfAutomorphismGroups}}{23}{subsection.5.3.6}%
+\contentsline {chapter}{\numberline {6}\textcolor {Chapter }{Iterators}}{24}{chapter.6}%
+\contentsline {section}{\numberline {6.1}\textcolor {Chapter }{Some iterators for groups and their isomorphisms}}{24}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}\textcolor {Chapter }{AllIsomorphismsIterator}}{24}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}\textcolor {Chapter }{AllSubgroupsIterator}}{25}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}\textcolor {Chapter }{Operations on iterators}}{25}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}\textcolor {Chapter }{CartesianIterator}}{25}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}\textcolor {Chapter }{UnorderedPairsIterator}}{26}{subsection.6.2.2}%
+\contentsline {chapter}{\numberline {7}\textcolor {Chapter }{Records}}{27}{chapter.7}%
+\contentsline {section}{\numberline {7.1}\textcolor {Chapter }{Functions for records}}{27}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}\textcolor {Chapter }{AssignGlobals}}{27}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}\textcolor {Chapter }{OptionRecordWithDefaults}}{27}{subsection.7.1.2}%
+\contentsline {chapter}{\numberline {8}\textcolor {Chapter }{Web Downloads}}{29}{chapter.8}%
+\contentsline {section}{\numberline {8.1}\textcolor {Chapter }{Functions for downloading files from the web}}{29}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}\textcolor {Chapter }{Download}}{29}{subsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.1.2}\textcolor {Chapter }{User preference \texttt {DownloadVerifyCertificate}}}{30}{subsection.8.1.2}%
+\contentsline {chapter}{\numberline {9}\textcolor {Chapter }{Various other functions}}{31}{chapter.9}%
+\contentsline {section}{\numberline {9.1}\textcolor {Chapter }{File operations}}{31}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}\textcolor {Chapter }{Log2HTML}}{31}{subsection.9.1.1}%
+\contentsline {section}{\numberline {9.2}\textcolor {Chapter }{{\LaTeX } strings}}{31}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}\textcolor {Chapter }{IntOrOnfinityToLaTeX}}{31}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}\textcolor {Chapter }{LaTeXStringFactorsInt}}{32}{subsection.9.2.2}%
+\contentsline {section}{\numberline {9.3}\textcolor {Chapter }{Conversion to ${\sf Magma}$ string}}{32}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}\textcolor {Chapter }{ConvertToMagmaInputString}}{32}{subsection.9.3.1}%
+\contentsline {chapter}{\numberline {10}\textcolor {Chapter }{Obsolete functions}}{34}{chapter.10}%
+\contentsline {section}{\numberline {10.1}\textcolor {Chapter }{Operations from AutoDoc}}{34}{section.10.1}%
+\contentsline {section}{\numberline {10.2}\textcolor {Chapter }{Functions for printing}}{34}{section.10.2}%
+\contentsline {section}{\numberline {10.3}\textcolor {Chapter }{Other obsolete functions}}{35}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}\textcolor {Chapter }{Applicable Methods}}{35}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}\textcolor {Chapter }{ExponentOfPrime}}{35}{subsection.10.3.2}%
+\contentsline {chapter}{\numberline {11}\textcolor {Chapter }{The transfer procedure}}{36}{chapter.11}%
+\contentsline {chapter}{References}{38}{chapter*.5}%
+\contentsline {chapter}{Index}{39}{section*.6}%

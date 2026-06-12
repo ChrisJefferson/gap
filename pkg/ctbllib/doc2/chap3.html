@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (CTblLibXpls) - Chapter 3: Constructing Character Tables of Central Extensions in GAP</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3_mj.html">[MathJax on]</a></p>
+<p><a id="X7A80D5ED7D6E57B7" name="X7A80D5ED7D6E57B7"></a></p>
+<div class="ChapSects"><a href="chap3.html#X7A80D5ED7D6E57B7">3 <span class="Heading">Constructing Character Tables of Central Extensions in <strong class="pkg">GAP</strong></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X87B17873861E2F64">3.1 <span class="Heading">Coprime Central Extensions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X85CB2671851D1206">3.1-1 <span class="Heading">The Character Table Head</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D8F6E5D7D632046">3.1-2 <span class="Heading">The Irreducible Characters</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X867D16E07D36560F">3.1-3 <span class="Heading">Ordering of Conjugacy Classes</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X813B9F5180A45077">3.1-4 <span class="Heading">Compatibility with Smaller Factor Groups</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7A489A5D79DA9E5C">3.2 <span class="Heading">Examples</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X861B5C3F7B1F6AB7">3.2-1 <span class="Heading">Central Extensions of Simple <strong class="pkg">Atlas</strong> Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X799ADD5487613BA2">3.2-2 <span class="Heading">Central Extensions of Other <strong class="pkg">Atlas</strong> Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X861F558380FE4812">3.2-3 <span class="Heading">Compatible Central Extensions of Maximal Subgroups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C73944579D6EE73">3.2-4 <span class="Heading">The <code class="code">2B</code> Centralizer in <span class="SimpleMath">3.Fi_24'</span> (January 2004)</span></a>
+</span>
+</div></div>
+</div>
+
+<h3>3 <span class="Heading">Constructing Character Tables of Central Extensions in <strong class="pkg">GAP</strong></span></h3>
+
+<p>Date: February 19th, 2004</p>
+
+<p>This chapter has three aims. First it shows how the <strong class="pkg">GAP</strong> system <a href="chapBib.html#biBGAP">[GAP24]</a> can be utilized to construct character tables of certain central extensions from known character tables; the <strong class="pkg">GAP</strong> functions used for that are part of the <strong class="pkg">GAP</strong> Character Table Library <a href="chapBib.html#biBCTblLib">[Bre25]</a>. Second it documents several constructions of character tables which are contained in the <strong class="pkg">GAP</strong> Character Table Library. Third it serves as a testfile for the <strong class="pkg">GAP</strong> functions.</p>
+
+<p>A typo (wrong sign of <span class="SimpleMath">ε^5</span>) in the picture in Section <a href="chap3.html#X813B9F5180A45077"><span class="RefLink">3.1-4</span></a> has been corrected in 2013.</p>
+
+<p><a id="X87B17873861E2F64" name="X87B17873861E2F64"></a></p>
+
+<h4>3.1 <span class="Heading">Coprime Central Extensions</span></h4>
+
+<p>In this section, we will deal with the following situation. Let <span class="SimpleMath">H</span> be a group, <span class="SimpleMath">Z</span> be a cyclic central subgroup in <span class="SimpleMath">H</span>, and <span class="SimpleMath">Z = Z_1 Z_2</span> for subgroups <span class="SimpleMath">Z_1</span> and <span class="SimpleMath">Z_2</span> of coprime orders <span class="SimpleMath">m</span> and <span class="SimpleMath">n</span>, say. For the sake of simplicity, suppose that both <span class="SimpleMath">m</span> and <span class="SimpleMath">n</span> are primes; the general case is then obtained by iterating the construction process.</p>
+
+<p>Our aim is to compute the character table of <span class="SimpleMath">H</span> from the character tables of <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span>. We assume that the factor fusions from these tables to that of the common factor group <span class="SimpleMath">H/Z</span> are known. Again for the sake of simplicity, we will take the character table of <span class="SimpleMath">H/Z</span> as an input. (See Section <a href="chap3.html#X7C73944579D6EE73"><span class="RefLink">3.2-4</span></a> for an example where two different orderings of classes and characters of <span class="SimpleMath">H/Z</span> arise from the tables of <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span>.)</p>
+
+<p>For example, the character table of <span class="SimpleMath">H = 12.M_22</span> can be computed from those of <span class="SimpleMath">6.M_22</span> and <span class="SimpleMath">4.M_22</span>, and the character table of <span class="SimpleMath">6.M_22</span> can be computed from those of <span class="SimpleMath">3.M_22</span> and <span class="SimpleMath">2.M_22</span> (see Section <a href="chap3.html#X861B5C3F7B1F6AB7"><span class="RefLink">3.2-1</span></a>).</p>
+
+<p><a id="X85CB2671851D1206" name="X85CB2671851D1206"></a></p>
+
+<h5>3.1-1 <span class="Heading">The Character Table Head</span></h5>
+
+<p>The conjugacy classes and power maps of <span class="SimpleMath">H</span> are uniquely determined by the input data specified above.</p>
+
+<p><center> <img src="ctocenex1.png" alt="setup: common epimorphisms from group H with trivially intersecting kernels"/> </center></p>
+
+<p>Suppose that a class <span class="SimpleMath">C</span> of elements of <span class="SimpleMath">H/Z</span> has <span class="SimpleMath">n_C</span> preimage classes in <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">m_C</span> preimage classes in <span class="SimpleMath">H/Z_2</span>; then <span class="SimpleMath">n_C</span> is either <span class="SimpleMath">1</span> or <span class="SimpleMath">n</span>, and <span class="SimpleMath">m_C</span> is either <span class="SimpleMath">1</span> or <span class="SimpleMath">m</span>. The preimage classes of <span class="SimpleMath">C</span> in <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span> are parametrized by <span class="SimpleMath">{ j; 0 ≤ j &lt; n_C }</span> and <span class="SimpleMath">{ i; 0 ≤ i &lt; m_C }</span>, respectively, and the preimage classes in <span class="SimpleMath">H</span> are parametrized by the pairs <span class="SimpleMath">{ (i,j); 0 ≤ i &lt; m_C, 0 ≤ j &lt; n_C }</span>.</p>
+
+<p>The centralizer orders of these classes in <span class="SimpleMath">H</span> are <span class="SimpleMath">m_C n_C</span> times the centralizer order of <span class="SimpleMath">C</span> in <span class="SimpleMath">H/Z</span>.</p>
+
+<p>The factor fusion onto <span class="SimpleMath">H/Z_1</span> is then given by mapping the class with the parameter <span class="SimpleMath">(i,j)</span> to the class with the parameter <span class="SimpleMath">j</span>; analogously, the factor fusion onto <span class="SimpleMath">H/Z_2</span> maps this class to the class with the parameter <span class="SimpleMath">i</span>. To see this, let <span class="SimpleMath">Z = ⟨ z ⟩</span>, and set <span class="SimpleMath">z_1 = z^n</span> and <span class="SimpleMath">z_2 = z^m</span>. Now take an element <span class="SimpleMath">g ∈ H</span> for which <span class="SimpleMath">g Z</span> lies in <span class="SimpleMath">C</span>. Then the elements <span class="SimpleMath">g z_1^i z_2^j</span>, <span class="SimpleMath">1 ≤ i ≤ m_C</span>, <span class="SimpleMath">1 ≤ j ≤ n_C</span> form a set of representatives of the preimage classes of <span class="SimpleMath">C</span> in <span class="SimpleMath">H</span>. In <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span>, these elements map to <span class="SimpleMath">g z_2^j Z_1</span>, <span class="SimpleMath">1 ≤ j ≤ n_C</span> and <span class="SimpleMath">g z_1^i Z_2</span>, <span class="SimpleMath">1 ≤ i ≤ m_C</span>, respectively, which are sets of representatives of the classes in question in these groups.</p>
+
+<p>For each prime <span class="SimpleMath">p</span>, the factor fusions determine the <span class="SimpleMath">p</span>-th power map of <span class="SimpleMath">H</span> from the <span class="SimpleMath">p</span>-th power maps of <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span>. To see this, take a class <span class="SimpleMath">C_0</span> in <span class="SimpleMath">H</span> that is a preimage of the class <span class="SimpleMath">C</span> of <span class="SimpleMath">H/Z</span>, and let <span class="SimpleMath">K</span> be the class of <span class="SimpleMath">p</span>-th powers of the elements in <span class="SimpleMath">C</span>. Then the image of <span class="SimpleMath">C_0</span> under the <span class="SimpleMath">p</span>-th power map is one of the preimages of <span class="SimpleMath">K</span>. We know the images of <span class="SimpleMath">C_0</span> under the factor fusions to <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span>, and thus also their images <span class="SimpleMath">K_1</span> and <span class="SimpleMath">K_2</span> under the <span class="SimpleMath">p</span>-th power maps of these groups. So the class of <span class="SimpleMath">p</span>-th powers of the elements in <span class="SimpleMath">C_0</span> is the unique class that is mapped to <span class="SimpleMath">K_1</span> and <span class="SimpleMath">K_2</span> under the factor fusions.</p>
+
+<p>The construction of the character table head of <span class="SimpleMath">H</span> from the input data specified above is implemented by the <strong class="pkg">GAP</strong> function <code class="func">CharacterTableOfCommonCentralExtension</code> (<a href="../doc/chap5.html#X82CEF31D7815C53D"><span class="RefLink">CTblLib: CharacterTableOfCommonCentralExtension</span></a>).</p>
+
+<p><a id="X7D8F6E5D7D632046" name="X7D8F6E5D7D632046"></a></p>
+
+<h5>3.1-2 <span class="Heading">The Irreducible Characters</span></h5>
+
+<p>First of all, it should be said that it is not obvious how the irreducible characters of <span class="SimpleMath">H</span> can be computed from the irreducible characters of <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span>. Clearly the irreducible characters of the two factor groups can be inflated to <span class="SimpleMath">H</span> via the factor fusions, so we have to find those irreducibles that have neither <span class="SimpleMath">Z_1</span> nor <span class="SimpleMath">Z_2</span> in their kernels.</p>
+
+<p>For that, we use the following heuristic. Let <span class="SimpleMath">ε_z</span> be a complex primitive <span class="SimpleMath">|z|</span>-th root of unity. For integers <span class="SimpleMath">i</span>, set <span class="SimpleMath">Irr_{z,i}(H) = { χ ∈ Irr(H); χ(z) = ε_z^i χ(1) }</span>. Then <span class="SimpleMath">Irr(H) = ⋃_{i=0}^{|z|-1} Irr_{z,i}(H)</span>, as a disjoint union. If <span class="SimpleMath">i</span> is a multiple of <span class="SimpleMath">m</span> or <span class="SimpleMath">n</span>, respectively, then <span class="SimpleMath">Irr_{z,i}(H)</span> consists of the inflations of certain irreducible characters of <span class="SimpleMath">H/Z_1</span> or <span class="SimpleMath">H/Z_2</span>, respectively. The remaining irreducible characters of <span class="SimpleMath">H</span> lie in <span class="SimpleMath">Irr_{z,i}(H)</span> with <span class="SimpleMath">i</span> coprime to <span class="SimpleMath">|z|</span>. These characters are algebraic conjugates of <span class="SimpleMath">Irr_{z,1}(H)</span>, so it suffices to compute this subset; the conjugates are then derived as the last step.</p>
+
+<p>Since <span class="SimpleMath">Irr_{z,i}(H) ⊗ Irr_{z,j}(H) ⊂ ℤ[ Irr_{z,i+j}(H) ]</span> holds, we start with the tensor products of the known irreducible characters in <span class="SimpleMath">Irr_{z,i}(H)</span> and <span class="SimpleMath">Irr_{z,j}(H)</span> with the property <span class="SimpleMath">i+j ≡ 1 mod m n</span>.</p>
+
+<p>For example, if we have <span class="SimpleMath">m = 2</span> and <span class="SimpleMath">n = 3</span> then <span class="SimpleMath">Irr_{z,3}(H)</span> consists of the inflations of those characters in <span class="SimpleMath">Irr(H/Z_2)</span> that are not characters of <span class="SimpleMath">H/Z</span>, and <span class="SimpleMath">Irr_{z,4}(H)</span> consists of the inflations of certain characters in <span class="SimpleMath">Irr(H/Z_1)</span> that are not characters of <span class="SimpleMath">H/Z</span>. The tensor products of these sets of characters lie in the span of <span class="SimpleMath">Irr_{z,1}(H)</span>.</p>
+
+<p>In general these tensor products are reducible, but some of them may be in fact irreducible, so we first take these irreducibles, and reduce the other tensor products with them. (If <span class="SimpleMath">H</span> is a direct product of <span class="SimpleMath">Z</span> and <span class="SimpleMath">H/Z</span> then all missing irreducibles are obtained this way.)</p>
+
+<p>Then we tensor algebraic conjugates of the known characters in the span of <span class="SimpleMath">Irr_{z,1}(H)</span> with characters in suitable sets <span class="SimpleMath">Irr_{z,i}(H)</span>, in order to get more characters in <span class="SimpleMath">Irr_{z,1}(H)</span>; for example, <span class="SimpleMath">Irr_{z,1}(H) ⊗ Irr_{z,0}(H)</span> is a subset of <span class="SimpleMath">ℤ[Irr_{z,1}(H)]</span>.</p>
+
+<p>In the case <span class="SimpleMath">m = 2</span> and <span class="SimpleMath">n = 3</span>, also <span class="SimpleMath">Irr_{z,5}(H) ⊗ Irr_{z,2}(H)</span> yields linear combinations of <span class="SimpleMath">Irr_{z,1}(H)</span>. Note that <span class="SimpleMath">Irr_{z,5}(H)</span> consists of the complex conjugates of <span class="SimpleMath">Irr_{z,1}(H)</span>.</p>
+
+<p>In the next step, we apply the LLL algorithm (implemented via the <strong class="pkg">GAP</strong> function <code class="func">LLL</code> (<a href="../../../doc/ref/chap72.html#X85B360C085B360C0"><span class="RefLink">Reference: LLL</span></a>)) to the set of reducible characters in <span class="SimpleMath">ℤ[Irr_{z,1}(H)]</span> which we got from the tensor products, and hope to find irreducibles. In the examples shown below, this step yields all desired irreducible characters.</p>
+
+<p>The <strong class="pkg">GAP</strong> function <code class="func">CharacterTableOfCommonCentralExtension</code> (<a href="../doc/chap5.html#X82CEF31D7815C53D"><span class="RefLink">CTblLib: CharacterTableOfCommonCentralExtension</span></a>) implements the strategy sketched above.</p>
+
+<p><a id="X867D16E07D36560F" name="X867D16E07D36560F"></a></p>
+
+<h5>3.1-3 <span class="Heading">Ordering of Conjugacy Classes</span></h5>
+
+<p>One <q>natural</q> choice for the ordering of the columns in the character table of <span class="SimpleMath">H</span> is given by respecting the ordering of columns in the character table of <span class="SimpleMath">H/Z</span>, and taking the preimage of the class <span class="SimpleMath">C</span> corresponding to the parameter <span class="SimpleMath">(k mod m_C, k mod n_C)</span> as the <span class="SimpleMath">k</span>-th class for <span class="SimpleMath">C</span>.</p>
+
+<p>If the preimages of <span class="SimpleMath">C</span> in <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span> have class representatives <span class="SimpleMath">g Z_1</span>, <span class="SimpleMath">g z_2 Z_1</span>, <span class="SimpleMath">g z_2^2 Z_1</span>, <span class="SimpleMath">...</span> and <span class="SimpleMath">g Z_2</span>, <span class="SimpleMath">g z_1 Z_2</span>, <span class="SimpleMath">g z_1^2 Z_2</span>, <span class="SimpleMath">...</span>, respectively (in this ordering), then the above rule yields representatives of preimages in <span class="SimpleMath">H</span> in the ordering <span class="SimpleMath">g</span>, <span class="SimpleMath">g (z_1 z_2)</span>, <span class="SimpleMath">g (z_1 z_2)^2</span>, <span class="SimpleMath">...</span>.</p>
+
+<p>In the case <span class="SimpleMath">m = 2</span>, <span class="SimpleMath">n = 3</span>, the following pattern arises for classes of <span class="SimpleMath">H/Z</span> that have <span class="SimpleMath">m</span> and <span class="SimpleMath">n</span> preimages in <span class="SimpleMath">H/Z_1</span> and <span class="SimpleMath">H/Z_2</span>, respectively. The vertices are labelled by the roots of unity with which the values of the characters in the set <span class="SimpleMath">Irr_{z,1}(H)</span> on the first preimage must be multiplied in order to obtain the values on the given class; we have <span class="SimpleMath">ω = exp(2 π i/3)</span>.</p>
+
+<p><center> <img src="ctocenex2.png" alt="factor fusions for the cyclic group of order six"/> </center></p>
+
+<p><a id="X813B9F5180A45077" name="X813B9F5180A45077"></a></p>
+
+<h5>3.1-4 <span class="Heading">Compatibility with Smaller Factor Groups</span></h5>
+
+<p>It may happen that a cyclic central subgroup <span class="SimpleMath">Z_0</span> of <span class="SimpleMath">H</span> contains <span class="SimpleMath">Z</span> properly. Then we choose a class ordering relative to that in the factor group <span class="SimpleMath">H/Z_0</span>, mainly because the <strong class="pkg">Atlas</strong> tables of this type are sorted this way.</p>
+
+<p>The typical case is the character table of a central extension of the type <span class="SimpleMath">12.G</span> that shall be constructed from the character tables of the groups of the types <span class="SimpleMath">4.G</span> and <span class="SimpleMath">6.G</span>; here we prefer to order the preimages of a class in the smaller factor group of the type <span class="SimpleMath">G</span> according to the above rule. This results in the following pattern, where <span class="SimpleMath">ε = exp(2 π i/12)</span> holds (cf. Section <q>ATLAS Tables</q> in the manual of the <strong class="pkg">GAP</strong> Character Table Library).</p>
+
+<p><center> <img src="ctocenex3.png" alt="factor fusions for the cyclic group of order twelve"/> </center></p>
+
+<p>A more important aspect concerns the computation of the irreducible characters. Let <span class="SimpleMath">Z_0 = ⟨ z_0 ⟩</span>. Instead of computing <span class="SimpleMath">Irr_{z,1}(H)</span>, we compute the set <span class="SimpleMath">Irr_{z_0,1}(H)</span>.</p>
+
+<p>In the computation of the character table of a central extension of the type <span class="SimpleMath">12.G</span> as mentioned above, with <span class="SimpleMath">|z_0| = 12</span>, we start with the characters</p>
+
+<p class="pcenter">Irr_{z_0,3}(H) ⊗ Irr_{z_0,10}(H) ∪ Irr_{z_0,4}(H) ⊗ Irr_{z_0,9}(H) ⊆ ℤ[Irr_{z_0,1}(H)],</p>
+
+<p>and later form tensor products involving algebraic conjugates of the characters in the span of <span class="SimpleMath">Irr_{z_0,1}(H)</span>, using that</p>
+
+<p class="pcenter">Irr_{z_0,1}(H) ⊗ Irr_{z_0,0}(H) ∪ Irr_{z_0,2}(H) ⊗ Irr_{z_0,11}(H) ∪ Irr_{z_0,5}(H) ⊗ Irr_{z_0,8}(H) ∪ Irr_{z_0,6}(H) ⊗ Irr_{z_0,7}(H)</p>
+
+<p>is a subset of <span class="SimpleMath">ℤ[Irr_{z_0,1}(H)]</span>.</p>
+
+<p>Without that modification, the computation of irreducibles is significantly more involved.</p>
+
+<p>The <strong class="pkg">GAP</strong> function <code class="func">CharacterTableOfCommonCentralExtension</code> (<a href="../doc/chap5.html#X82CEF31D7815C53D"><span class="RefLink">CTblLib: CharacterTableOfCommonCentralExtension</span></a>) chooses the class ordering relative to larger cyclic factor groups, as in the above picture, and also uses the above refinement for the computation of irreducible characters.</p>
+
+<p><a id="X7A489A5D79DA9E5C" name="X7A489A5D79DA9E5C"></a></p>
+
+<h4>3.2 <span class="Heading">Examples</span></h4>
+
+<p>The following examples use the <strong class="pkg">GAP</strong> Character Table Library, so we first load this package.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "ctbllib", false );</span>
+true
+</pre></div>
+
+<p><a id="X861B5C3F7B1F6AB7" name="X861B5C3F7B1F6AB7"></a></p>
+
+<h5>3.2-1 <span class="Heading">Central Extensions of Simple <strong class="pkg">Atlas</strong> Groups</span></h5>
+
+<p>For the following groups, the <strong class="pkg">Atlas</strong> contains the character tables of central extensions <span class="SimpleMath">M.G</span> of simple groups <span class="SimpleMath">G</span> with <span class="SimpleMath">|M|</span> divisible by two different primes; in all these cases, we have <span class="SimpleMath">M ∈ { 6, 12 }</span>.</p>
+
+<p>(The entry concerning <span class="SimpleMath">6.^2E_6(2)</span> has been added to the list after the character table of <span class="SimpleMath">3.^2E_6(2)</span> became available. This table has been computed by Frank Lübeck.)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list:= [</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    #         G          m.G          n.G           mn.G</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [      "A6",      "2.A6",      "3.A6",        "6.A6" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [      "A7",      "2.A7",      "3.A7",        "6.A7" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [   "L3(4)",   "2.L3(4)",   "3.L3(4)",     "6.L3(4)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "2.L3(4)", "4_1.L3(4)",   "6.L3(4)",  "12_1.L3(4)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "2.L3(4)", "4_2.L3(4)",   "6.L3(4)",  "12_2.L3(4)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [     "M22",     "2.M22",     "3.M22",       "6.M22" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [   "2.M22",     "4.M22",     "6.M22",      "12.M22" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [   "U4(3)",   "2.U4(3)", "3_1.U4(3)",   "6_1.U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [   "U4(3)",   "2.U4(3)", "3_2.U4(3)",   "6_2.U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "2.U4(3)",   "4.U4(3)", "6_1.U4(3)",  "12_1.U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "2.U4(3)",   "4.U4(3)", "6_2.U4(3)",  "12_2.U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [   "O7(3)",   "2.O7(3)",   "3.O7(3)",     "6.O7(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [   "U6(2)",   "2.U6(2)",   "3.U6(2)",     "6.U6(2)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [     "Suz",     "2.Suz",     "3.Suz",       "6.Suz" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [    "Fi22",    "2.Fi22",    "3.Fi22",      "6.Fi22" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [  "2E6(2)",  "2.2E6(2)",  "3.2E6(2)",    "6.2E6(2)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  ];;</span>
+</pre></div>
+
+<p>As was discussed in the sections <a href="chap3.html#X867D16E07D36560F"><span class="RefLink">3.1-3</span></a> and <a href="chap3.html#X813B9F5180A45077"><span class="RefLink">3.1-4</span></a>, the class ordering of the result tables is the same as that in the <strong class="pkg">GAP</strong> library tables, so it is enough to check whether the set of characters in the computed table coincides with the set of characters in the library table.</p>
+
+<p>In order to list information about the progress, we set the relevant info level to <span class="SimpleMath">1</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel( InfoCharacterTable, 1 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for entry in list do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  id    := entry[4];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblG  := CharacterTable( entry[1] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblmG := CharacterTable( entry[2] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblnG := CharacterTable( entry[3] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  lib   := CharacterTable( id );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  res:= CharacterTableOfCommonCentralExtension( tblG, tblmG, tblnG, id );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  if not res.IsComplete then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    Print( "#E  not complete: ", id, "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  if not IsSubset( Irr( lib ), res.irreducibles ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    Print( "#E  inconsistent: ", id, "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">od;</span>
+#I  6.A6: need 4 faithful irreducibles
+#I  6.A6: 4 found by tensoring
+#I  6.A7: need 5 faithful irreducibles
+#I  6.A7: 5 found by tensoring
+#I  6.L3(4): need 7 faithful irreducibles
+#I  6.L3(4): 7 found by LLL
+#I  12_1.L3(4): need 5 faithful irreducibles
+#I  12_1.L3(4): 2 found by tensoring
+#I  12_1.L3(4): 3 found by tensoring
+#I  12_2.L3(4): need 6 faithful irreducibles
+#I  12_2.L3(4): 6 found by LLL
+#I  6.M22: need 10 faithful irreducibles
+#I  6.M22: 1 found by tensoring
+#I  6.M22: 9 found by LLL
+#I  12.M22: need 7 faithful irreducibles
+#I  12.M22: 7 found by LLL
+#I  6_1.U4(3): need 15 faithful irreducibles
+#I  6_1.U4(3): 1 found by tensoring
+#I  6_1.U4(3): 14 found by LLL
+#I  6_2.U4(3): need 12 faithful irreducibles
+#I  6_2.U4(3): 12 found by LLL
+#I  12_1.U4(3): need 12 faithful irreducibles
+#I  12_1.U4(3): 4 found by tensoring
+#I  12_1.U4(3): 8 found by tensoring
+#I  12_2.U4(3): need 9 faithful irreducibles
+#I  12_2.U4(3): 9 found by LLL
+#I  6.O7(3): need 12 faithful irreducibles
+#I  6.O7(3): 2 found by tensoring
+#I  6.O7(3): 10 found by LLL
+#I  6.U6(2): need 28 faithful irreducibles
+#I  6.U6(2): 2 found by tensoring
+#I  6.U6(2): 26 found by LLL
+#I  6.Suz: need 29 faithful irreducibles
+#I  6.Suz: 29 found by LLL
+#I  6.Fi22: need 34 faithful irreducibles
+#I  6.Fi22: 4 found by tensoring
+#I  6.Fi22: 30 found by LLL
+#I  6.2E6(2): need 60 faithful irreducibles
+#I  6.2E6(2): 60 found by LLL
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel( InfoCharacterTable, 0 );</span>
+</pre></div>
+
+<p>We see that in all cases, the irreducible characters of the groups <span class="SimpleMath">M.G</span> are obtained by reducing tensor products and applying the LLL algorithm.</p>
+
+<p><a id="X799ADD5487613BA2" name="X799ADD5487613BA2"></a></p>
+
+<h5>3.2-2 <span class="Heading">Central Extensions of Other <strong class="pkg">Atlas</strong> Groups</span></h5>
+
+<p>The following cases also fit to the pattern introduced above.</p>
+
+<p>(The following examples were added in October 2006.)</p>
+
+<p>The group <span class="SimpleMath">(2^2 × 3).L_3(4)</span> can be viewed as a common central extension of its factor group <span class="SimpleMath">2.L_3(4)</span> by the two groups <span class="SimpleMath">2^2.L_3(4)</span> and <span class="SimpleMath">6.L_3(4)</span>.</p>
+
+<p>Analogously, the group <span class="SimpleMath">(4^2 × 3).L_3(4)</span> can be viewed as a common central extension of its factor group <span class="SimpleMath">(2 × 4).L_3(4)</span> by the two groups <span class="SimpleMath">4^2.L_3(4)</span> and <span class="SimpleMath">(2 × 12).L_3(4)</span>.</p>
+
+<p>Finally, the group <span class="SimpleMath">(2 × 12).L_3(4)</span> can be viewed as a common central extension of the factor group <span class="SimpleMath">2^2.L_3(4)</span> by the two groups <span class="SimpleMath">(2 × 4).L_3(4)</span> and <span class="SimpleMath">(2^2 × 3).L_3(4)</span>.</p>
+
+<p>The construction of the character tables of the involved factor groups <span class="SimpleMath">2^2.L_3(4)</span> and <span class="SimpleMath">(2 × 4).L_3(4)</span>, as well as an alternative construction of the table of <span class="SimpleMath">(2 × 12).L_3(4)</span> can be found in the sections <a href="chap2.html#X83652A0282A64D14"><span class="RefLink">2.7-2</span></a> and <a href="chap2.html#X86A1607787DE6BB9"><span class="RefLink">2.7-4</span></a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">list2:= [</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "2.L3(4)",     "2^2.L3(4)",   "6.L3(4)",       "(2^2x3).L3(4)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "2^2.L3(4)",   "(2x4).L3(4)", "(2^2x3).L3(4)", "(2x12).L3(4)"  ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "(2x4).L3(4)", "4^2.L3(4)",   "(2x12).L3(4)",  "(4^2x3).L3(4)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  ];;</span>
+</pre></div>
+
+<p>(The following examples were added in December 2010.)</p>
+
+<p>The group <span class="SimpleMath">(3^2 × 2).U_4(3)</span> can be viewed as a common central extension of its factor group <span class="SimpleMath">3_1.U_4(3)</span> by the two groups <span class="SimpleMath">6_1.U_4(3)</span> and <span class="SimpleMath">3^2.U_4(3)</span>, or as a common central extension of its factor group <span class="SimpleMath">3_2.U_4(3)</span> by the two groups <span class="SimpleMath">6_2.U_4(3)</span> and <span class="SimpleMath">3^2.U_4(3)</span>.</p>
+
+<p>Analogously, the group <span class="SimpleMath">(3^2 × 4).U_4(3)</span> can be viewed as a common central extension of its factor group <span class="SimpleMath">6_1.U_4(3)</span> by the two groups <span class="SimpleMath">12_1.U_4(3)</span> and <span class="SimpleMath">(3^2 × 2).U_4(3)</span>, or as a common central extension of its factor group <span class="SimpleMath">6_2.U_4(3)</span> by the two groups <span class="SimpleMath">12_2.U_4(3)</span> and <span class="SimpleMath">(3^2 × 2).U_4(3)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Append( list2, [</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "3_1.U4(3)",   "6_1.U4(3)",   "3^2.U4(3)",     "(3^2x2).U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "3_2.U4(3)",   "6_2.U4(3)",   "3^2.U4(3)",     "(3^2x2).U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "6_1.U4(3)",   "12_1.U4(3)",  "(3^2x2).U4(3)", "(3^2x4).U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    [ "6_2.U4(3)",   "12_2.U4(3)",  "(3^2x2).U4(3)", "(3^2x4).U4(3)" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  ] );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel( InfoCharacterTable, 1 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for entry in list2 do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  id    := entry[4];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblG  := CharacterTable( entry[1] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblmG := CharacterTable( entry[2] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblnG := CharacterTable( entry[3] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  lib   := CharacterTable( id );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  res:= CharacterTableOfCommonCentralExtension(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            tblG, tblmG, tblnG, id );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  if not res.IsComplete then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    Print( "#E  not complete: ", id, "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  if TransformingPermutationsCharacterTables( res.tblmnG, lib )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         = fail then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    Print( "#E  inconsistent: ", id, "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">od;</span>
+#I  (2^2x3).L3(4): need 14 faithful irreducibles
+#I  (2^2x3).L3(4): 14 found by tensoring
+#I  (2x12).L3(4): need 11 faithful irreducibles
+#I  (2x12).L3(4): 7 found by tensoring
+#I  (2x12).L3(4): 4 found by LLL
+#I  (4^2x3).L3(4): need 22 faithful irreducibles
+#I  (4^2x3).L3(4): 14 found by tensoring
+#I  (4^2x3).L3(4): 8 found by LLL
+#I  (3^2x2).U4(3): need 39 faithful irreducibles
+#I  (3^2x2).U4(3): 27 found by tensoring
+#I  (3^2x2).U4(3): 12 found by LLL
+#I  (3^2x2).U4(3): need 42 faithful irreducibles
+#I  (3^2x2).U4(3): 2 found by tensoring
+#I  (3^2x2).U4(3): 40 found by LLL
+#I  (3^2x4).U4(3): need 30 faithful irreducibles
+#I  (3^2x4).U4(3): 6 found by tensoring
+#I  (3^2x4).U4(3): 8 found by tensoring
+#I  (3^2x4).U4(3): 16 found by LLL
+#I  (3^2x4).U4(3): need 33 faithful irreducibles
+#I  (3^2x4).U4(3): 9 found by tensoring
+#I  (3^2x4).U4(3): 18 found by tensoring
+#I  (3^2x4).U4(3): 6 found by further tensoring
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel( InfoCharacterTable, 0 );</span>
+</pre></div>
+
+<p><a id="X861F558380FE4812" name="X861F558380FE4812"></a></p>
+
+<h5>3.2-3 <span class="Heading">Compatible Central Extensions of Maximal Subgroups</span></h5>
+
+<p>The <strong class="pkg">GAP</strong> Character Table Library contains the character tables of all maximal subgroups of the groups <span class="SimpleMath">4.M_22</span>, <span class="SimpleMath">3.M_22</span>, <span class="SimpleMath">2.Suz</span>, and <span class="SimpleMath">3.Suz</span>. So we can use the approach from Section <a href="chap3.html#X87B17873861E2F64"><span class="RefLink">3.1</span></a> for computing the character tables of the maximal subgroups of <span class="SimpleMath">6.M_22</span>, <span class="SimpleMath">12.M_22</span>, and <span class="SimpleMath">6.Suz</span>.</p>
+
+<p>These tables are contained in the <strong class="pkg">GAP</strong> Character Table Library. Several of the groups are direct products, and the library tables of direct products are usually stored in the form of Kronecker products of the tables of the factors, so the class ordering of the result tables does not necessarily coincide with the class ordering in the library tables.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sublist:= list{ [ 6, 7, 14 ] };</span>
+[ [ "M22", "2.M22", "3.M22", "6.M22" ], 
+  [ "2.M22", "4.M22", "6.M22", "12.M22" ], 
+  [ "Suz", "2.Suz", "3.Suz", "6.Suz" ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for entry in sublist do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblG  := CharacterTable( entry[1] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblmG := CharacterTable( entry[2] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  tblnG := CharacterTable( entry[3] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  lib   := CharacterTable( entry[4] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  maxesG   := List( Maxes( tblG ), CharacterTable );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  maxesmG  := List( Maxes( tblmG ), CharacterTable );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  maxesnG  := List( Maxes( tblnG ), CharacterTable );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  maxeslib := List( Maxes( lib ), CharacterTable );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  for i in [ 1 .. Length( maxesG ) ] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    id:= Identifier( maxeslib[i] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    res:= CharacterTableOfCommonCentralExtension( maxesG[i],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              maxesmG[i], maxesnG[i], id );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    if not res.IsComplete then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      Print( "#E  not complete: ", id, "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    if not IsSubset( Irr( maxeslib[i] ), res.irreducibles ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      trans:= TransformingPermutationsCharacterTables( maxeslib[i],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                                       res.tblmnG );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      if not IsRecord( trans ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        Print( "#E  not transformable: ", id, "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">  od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">od;</span>
+</pre></div>
+
+<p>Since we get no output, all tables in question can be computed with the <strong class="pkg">GAP</strong> functions, and coincide (up to permutations of rows and columns) with the library tables.</p>
+
+<p><a id="X7C73944579D6EE73" name="X7C73944579D6EE73"></a></p>
+
+<h5>3.2-4 <span class="Heading">The <code class="code">2B</code> Centralizer in <span class="SimpleMath">3.Fi_24'</span> (January 2004)</span></h5>
+
+<p>As is stated in <a href="chapBib.html#biBCCN85">[CCN+85, p. 207]</a>, the <code class="code">2B</code> centralizer <span class="SimpleMath">N_0</span> in the sporadic simple Fischer group <span class="SimpleMath">Fi_24'</span> has the structure <span class="SimpleMath">2^{1+12}_+.3U_4(3).2_2</span>. The character table of <span class="SimpleMath">N_0</span> is contained in the <strong class="pkg">GAP</strong> Character Table Library since the year <span class="SimpleMath">2000</span>.</p>
+
+<p>Our aim is to compute the character table of the preimage <span class="SimpleMath">N</span> of <span class="SimpleMath">N_0</span> in the central extension <span class="SimpleMath">3.Fi_24'</span> of <span class="SimpleMath">Fi_24'</span>; let <span class="SimpleMath">Z_1</span> denote the centre of <span class="SimpleMath">3.Fi_24'</span>.</p>
+
+<p>Using the <q>dihedral group method</q> in the faithful permutation representation of degree <span class="SimpleMath">920808</span> for <span class="SimpleMath">3.Fi_24'</span>, we first compute a generating set of <span class="SimpleMath">N</span>. This group has three orbits of the lengths <span class="SimpleMath">774144</span>, <span class="SimpleMath">145152</span>, and <span class="SimpleMath">1512</span>; the actions on the first two orbits are faithful, and the action on the orbit of length <span class="SimpleMath">1512</span> (which consists of the fixed points of the central involution of <span class="SimpleMath">N</span>) has kernel exactly the central subgroup <span class="SimpleMath">Z_2</span>, say, of order <span class="SimpleMath">2</span> in <span class="SimpleMath">N</span>.</p>
+
+<p>Since the permutation representation on <span class="SimpleMath">1512</span> points is so small, it is straightforward to compute the character table of <span class="SimpleMath">N/Z_2</span> using the implementation of Dixon's algorithm in <strong class="pkg">GAP</strong>; now this table is part of the <strong class="pkg">GAP</strong> Character Table Library.</p>
+
+<p>Note that <span class="SimpleMath">N</span> is a central extension of <span class="SimpleMath">N_0/Z(N_0)</span> by the cyclic group <span class="SimpleMath">Z = Z_1 Z_2</span> of order <span class="SimpleMath">6</span>, and that we know the character tables of the groups <span class="SimpleMath">N/Z_1</span> and <span class="SimpleMath">N/Z_2</span>. So we can apply the method described in Section <a href="chap3.html#X87B17873861E2F64"><span class="RefLink">3.1</span></a> for computing the character table of <span class="SimpleMath">N</span>.</p>
+
+<p>First we fetch the input data.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblmG := CharacterTable( "F3+N2B" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblG  := tblmG / ClassPositionsOfCentre( tblmG );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblnG := CharacterTable( "2^12.3^2.U4(3).2_2'" );;</span>
+</pre></div>
+
+<p>The character tables of the library table of <span class="SimpleMath">N_0</span> and the character table of <span class="SimpleMath">N/Z_2</span> obtained from the permutation group are not compatible in the sense that the tables of the factor groups modulo the centres are not sorted compatibly, so we have to compute and store the fusion from <code class="code">tblnG</code> to <code class="code">tblG</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f2:= tblnG / ClassPositionsOfCentre( tblnG );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">trans:= TransformingPermutationsCharacterTables( f2, tblG );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblnGfustblG:= OnTuples( GetFusionMap( tblnG, f2 ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                            trans.columns );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StoreFusion( tblnG, tblnGfustblG, tblG );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSubset( Irr( tblnG ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             List( Irr( tblG ), x -&gt; x{ tblnGfustblG } ) );</span>
+true
+</pre></div>
+
+<p>Now we apply <code class="func">CharacterTableOfCommonCentralExtension</code> (<a href="../doc/chap5.html#X82CEF31D7815C53D"><span class="RefLink">CTblLib: CharacterTableOfCommonCentralExtension</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel( InfoCharacterTable, 1 );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">id:= "3.2^(1+12).3U4(3).2";;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">res:= CharacterTableOfCommonCentralExtension(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             tblG, tblmG, tblnG, id );;</span>
+#I  3.2^(1+12).3U4(3).2: need 36 faithful irreducibles
+#I  3.2^(1+12).3U4(3).2: 16 found by tensoring
+#I  3.2^(1+12).3U4(3).2: 20 found by LLL
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel( InfoCharacterTable, 0 );</span>
+</pre></div>
+
+<p>So we have found all missing irreducibles of <span class="SimpleMath">N</span>. Let us check whether the result table coincides with the table in the <strong class="pkg">GAP</strong> Character Table Library.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lib:= CharacterTable( "3.F3+N2B" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsRecord( TransformingPermutationsCharacterTables(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                 res.tblmnG, lib ) );</span>
+true
+</pre></div>
+
+<p>We were interested in the character table because <span class="SimpleMath">N</span> is a maximal subgroup of <span class="SimpleMath">3.Fi_24'</span>. So the class fusion into the table of this group is an interesting information. We assume that the class fusion of <span class="SimpleMath">N_0</span> into <span class="SimpleMath">Fi_24'</span> is known, and compute only those possible class fusions that are compatible with this map.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">3f3p:= CharacterTable( "3.F3+" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f3p:= CharacterTable( "F3+" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">approxfus:= CompositionMaps(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                   InverseMap( GetFusionMap( 3f3p, f3p ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                   CompositionMaps( GetFusionMap( tblmG, f3p ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                       GetFusionMap( lib, tblmG ) ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">poss:= PossibleClassFusions( lib, 3f3p,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              rec( fusionmap:= approxfus ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( poss );</span>
+1
+</pre></div>
+
+<p>It turns out that only one map has this property. (Without the condition on the compatibility, we would have got <span class="SimpleMath">128</span> possibilities, which form one orbit under table automorphisms.)</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

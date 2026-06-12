@@ -1,0 +1,1971 @@
+
+<!-- %W  tutorial.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="ch:tutorial">
+<Heading>Tutorial for the &GAP; Character Table Library</Heading>
+
+This chapter gives an overview of the basic functionality
+provided by the &GAP; Character Table Library.
+The main concepts and interface functions are presented in
+the sections&nbsp;<Ref Sect="sect:concepts"/> and
+<Ref Sect="sect:accesstbl"/>,
+Section&nbsp;<Ref Sect="sect:tutsectctbllib"/> shows a few small examples.
+
+<P/>
+
+In order to force that the output of the examples consists only of
+ASCII characters,
+we set the user preference <C>DisplayFunction</C>
+of the <Package>AtlasRep</Package> to the value <C>"Print"</C>.
+This is necessary because the &LaTeX; and HTML versions of &GAPDoc;
+documents support only ASCII characters.
+
+<P/>
+
+<Example><![CDATA[
+gap> origpref:= UserPreference( "AtlasRep", "DisplayFunction" );;
+gap> SetUserPreference( "AtlasRep", "DisplayFunction", "Print" );
+]]></Example>
+
+<P/>
+
+Some of the examples need functionalities from other &GAP; packages
+in the sense that the output looks different if these packages
+are not available.
+
+<P/>
+
+<Example><![CDATA[
+gap> LoadPackage( "Browse", false );
+true
+gap> LoadPackage( "SpinSym", false );
+true
+gap> LoadPackage( "TomLib", false );
+true
+]]></Example>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:concepts">
+<Heading>Concepts used in the &GAP; Character Table Library</Heading>
+
+The main idea behind working with the &GAP; Character Table Library
+is to deal with character tables of groups
+but <E>without</E> having access to these groups.
+This situation occurs for example if one extracts information from the
+printed &ATLAS; of Finite Groups (<Cite Key="CCN85"/>).
+
+<P/>
+
+This restriction means first of all that we need a way to access the
+character tables, see Section <Ref Sect="sect:accesstbl"/> for that.
+Once we have such a character table,
+we can compute all those data about the underlying group <M>G</M>, say,
+that are determined by the character table.
+Chapter <Ref Chap="Attributes and Properties for Groups and Character Tables"
+BookName="ref"/> lists such attributes and properties.
+For example, it can be computed from the character table of <M>G</M>
+whether <M>G</M> is solvable or not.
+
+<P/>
+
+Questions that cannot be answered using only the character table of <M>G</M>
+can perhaps be treated using additional information.
+For example, the structure of subgroups of <M>G</M> is in general not
+determined by the character table of <M>G</M>,
+but the character table may yield partial information.
+Two examples can be found in the sections
+<Ref Subsect="subsect:sylowstructure3on"/> and
+<Ref Subsect="subsect:permcharfi23"/>.
+
+<P/>
+
+In the character table context,
+the role of homomorphisms between two groups is taken by
+<E>class fusions</E>.
+Monomorphisms correspond to subgroup fusions,
+epimorphisms correspond to factor fusions.
+Given two character tables of a group <M>G</M> and a subgroup <M>H</M>
+of <M>G</M>,
+one can in general compute only <E>candidates</E> for the class fusion of
+<M>H</M> into <M>G</M>,
+for example using <Ref Func="PossibleClassFusions" BookName="ref"/>.
+Note that <M>G</M> may contain several nonconjugate subgroups isomorphic
+with <M>H</M>, which may have different class fusions.
+
+<!--
+<P/>
+
+If no subgroup fusion from the character table of the group <M>H</M> into
+the character table of the group <M>G</M> is possible
+then one has proved that <M>G</M> contains no subgroup isomorphic with
+<M>H</M>.
+If one knows that <M>G</M> contains subgroups isomorphic with
+<M>H</M> and if the class fusion between the character tables of these
+groups is unique (up to character table automorphisms) then this class fusion
+can be used to induce or restrict characters.
+-->
+
+<P/>
+
+One can often reduce a question about a group <M>G</M> to a question about
+its maximal subgroups.
+In the character table context,
+it is often sufficient to know the character table of <M>G</M>,
+the character tables of its maximal subgroups,
+and their class fusions into <M>G</M>.
+We are in this situation if the attribute <Ref Attr="Maxes"/> is set in
+the character table of <M>G</M>.
+
+<P/>
+
+<E>Summary:</E>
+The character theoretic approach that is supported by the
+&GAP; Character Table Library, that is, an approach without explicitly
+using the underlying groups,
+has the advantages that it can be used to answer many questions,
+and that these computations are usually cheap,
+compared to computations with groups.
+Disadvantages are that this approach is not always successful,
+and that answers are often <Q>nonconstructive</Q> in the sense that one
+can show the existence of something without getting one's hands on it.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:accesstbl">
+<Heading>Accessing a Character Table from the Library</Heading>
+
+As stated in Section <Ref Sect="sect:concepts"/>,
+we must define how character tables from the &GAP; Character Table Library
+can be accessed.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:accesstblbyname">
+<Heading>Accessing a Character Table via a name</Heading>
+
+The most common way to access a character table from the
+&GAP; Character Table Library is to call
+<Ref Func="CharacterTable" Label="for a string"/> with argument
+a string that is an <E>admissible name</E> for the character table.
+Typical admissible names are similar to the group names used in the
+&ATLAS; of Finite Groups <Cite Key="CCN85"/>.
+One of these names is the
+<Ref Attr="Identifier" Label="for character tables" BookName="ref"/> value
+of the character table,
+this name is used by &GAP; when it prints library character tables.
+
+<P/>
+
+For example, an admissible name for the character table of an
+almost simple group is the &ATLAS; name,
+such as <C>A5</C>, <C>M11</C>, or <C>L2(11).2</C>.
+
+Other names may be admissible, for example <C>S6</C> is admissible for
+the symmetric group on six points,
+which is called <M>A_6.2_1</M> in the &ATLAS;.
+
+<Example><![CDATA[
+gap> CharacterTable( "J1" );
+CharacterTable( "J1" )
+gap> CharacterTable( "L2(11)" );
+CharacterTable( "L2(11)" )
+gap> CharacterTable( "S5" );
+CharacterTable( "A5.2" )
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:accesstblbyproperties">
+<Heading>Accessing a Character Table via properties</Heading>
+
+If one does not know an admissible name of the character table of a group
+one is interested in, or if one does not know whether ths character table
+is available at all,
+one can use <Ref Func="AllCharacterTableNames"/> to compute a list of
+identifiers of all available character tables with given properties.
+Analogously, <Ref Func="OneCharacterTableName"/> can be used to compute
+one such identifier.
+
+<Example><![CDATA[
+gap> AllCharacterTableNames( Size, 168 );
+[ "(2^2xD14):3", "2^3.7.3", "L3(2)", "L3(4)M7", "L3(4)M8" ]
+gap> OneCharacterTableName( NrConjugacyClasses, n -> n <= 4 );
+"S3"
+]]></Example>
+
+For certain filters, such as <Ref Attr="Size" BookName="ref"/> and
+<Ref Attr="NrConjugacyClasses" BookName="ref"/>,
+the computations are fast because the values for all library tables
+are precomputed.
+See <Ref Func="AllCharacterTableNames"/> for an overview of these filters.
+
+<P/>
+
+The function <Ref Func="BrowseCTblLibInfo"/> provides an interactive overview
+of available character tables,
+which allows one for example to search also for substrings in identifiers of
+character tables.
+This function is available only if the <Package>Browse</Package> package
+has been loaded.
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:accesstblbytom">
+<Heading>Accessing a Character Table via a Table of Marks</Heading>
+
+Let <M>G</M> be a group whose table of marks is available via the
+<Package>TomLib</Package> package (see <Cite Key="TomLib"/> for how to access
+tables of marks from this library)
+then the &GAP; Character Table Library contains the character table of
+<M>G</M>,
+and one can access this table by using the table of marks as an argument of
+<Ref Meth="CharacterTable" Label="for a table of marks"/>.
+
+<Example><![CDATA[
+gap> tom:= TableOfMarks( "M11" );
+TableOfMarks( "M11" )
+gap> t:= CharacterTable( tom );
+CharacterTable( "M11" )
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:accesstblbytbl">
+<Heading>Accessing a Character Table relative to another Character Table
+</Heading>
+
+If one has already a character table from the &GAP; Character Table Library
+that belongs to the group <M>G</M>, say,
+then names of related tables can be found as follows.
+
+<P/>
+
+The value of the attribute <Ref Attr="Maxes"/>, if known, is the list of
+identifiers of the character tables of all classes of maximal subgroups
+of <M>G</M>.
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "M11" );
+CharacterTable( "M11" )
+gap> HasMaxes( t );
+true
+gap> Maxes( t );
+[ "A6.2_3", "L2(11)", "3^2:Q8.2", "A5.2", "2.S4" ]
+]]></Example>
+
+If the <Ref Attr="Maxes"/> value of the character table with identifier
+<M>id</M>, say, is known then the character table of the groups in the
+<M>i</M>-th class of maximal subgroups can be accessed via the
+<Q>relative name</Q> <M>id</M><C>M</C><M>i</M>.
+
+<Example><![CDATA[
+gap> CharacterTable( "M11M2" );
+CharacterTable( "L2(11)" )
+]]></Example>
+
+The value of the attribute <Ref Attr="NamesOfFusionSources" BookName="ref"/>
+is the list of identifiers of those character tables which store
+class fusions to <M>G</M>.
+So these character tables belong to subgroups of <M>G</M>
+and groups that have <M>G</M> as a factor group.
+
+<Example><![CDATA[
+gap> NamesOfFusionSources( t );
+[ "A5.2", "A6.2_3", "P48/G1/L1/V1/ext2", "P48/G1/L1/V2/ext2", 
+  "L2(11)", "2.S4", "3^5:M11", "3^6.M11", "3^(2+5+10).(M11x2S4)", 
+  "s4", "3^2:Q8.2", "M11N2", "5:4", "11:5" ]
+]]></Example>
+
+The value of the attribute <Ref Attr="ComputedClassFusions" BookName="ref"/>
+is the list of records whose <C>name</C> components are the identifiers
+of those character tables to which class fusions are stored.
+So these character tables belong to overgroups and factor groups of <M>G</M>.
+
+<Example><![CDATA[
+gap> List( ComputedClassFusions( t ), r -> r.name );
+[ "A11", "M12", "M23", "HS", "McL", "ON", "3^5:M11", "B" ]
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:severaltables">
+<Heading>Different character tables for the same group</Heading>
+
+The &GAP; Character Table Library may contain several different
+character tables of a given group,
+in the sense that the rows and columns are sorted differently.
+
+<P/>
+
+For example, the &ATLAS; table of the alternating group <M>A_5</M> is
+available, and since <M>A_5</M> is isomorphic with the groups
+PSL<M>(2, 4)</M> and PSL<M>(2, 5)</M>, two more character tables of
+<M>A_5</M> can be constructed in a natural way.
+The three tables are of course permutation isomorphic.
+The first two are sorted in the same way, but the rows and columns of the
+third one are sorted differently.
+
+<Example><![CDATA[
+gap> t1:= CharacterTable( "A5" );;
+gap> t2:= CharacterTable( "PSL", 2, 4 );;
+gap> t3:= CharacterTable( "PSL", 2, 5 );;
+gap> TransformingPermutationsCharacterTables( t1, t2 );
+rec( columns := (), group := Group([ (4,5) ]), rows := () )
+gap> TransformingPermutationsCharacterTables( t1, t3 );
+rec( columns := (2,4)(3,5), group := Group([ (2,3) ]), 
+  rows := (2,5,3,4) )
+]]></Example>
+
+Another situation where several character tables for the same group are
+available is that a group contains several classes of isomorphic
+maximal subgroups such that the class fusions are different.
+
+<P/>
+
+For example, the Mathieu group <M>M_{12}</M> contains two classes of
+maximal subgroups of index <M>12</M>,
+which are isomorphic with <M>M_{11}</M>.
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "M12" );
+CharacterTable( "M12" )
+gap> mx:= Maxes( t );
+[ "M11", "M12M2", "A6.2^2", "M12M4", "L2(11)", "3^2.2.S4", "M12M7", 
+  "2xS5", "M8.S4", "4^2:D12", "A4xS3" ]
+gap> s1:= CharacterTable( mx[1] );
+CharacterTable( "M11" )
+gap> s2:= CharacterTable( mx[2] );
+CharacterTable( "M12M2" )
+]]></Example>
+
+The class fusions into <M>M_{12}</M> are stored on the library tables of the
+maximal subgroups.
+The groups in the first class of <M>M_{11}</M> type subgroups contain
+elements in the classes <C>4B</C>, <C>6B</C>, and <C>8B</C> of <M>M_{12}</M>,
+and the groups in the second class contain
+elements in the classes <C>4A</C>, <C>6A</C>, and <C>8A</C>.
+Note that according to the &ATLAS;
+(see <Cite Key="CCN85" Where="p.&nbsp;33"/>),
+the permutation characters of the action of <M>M_{12}</M> on the cosets
+of <M>M_{11}</M> type subgroups from the two classes of maximal subgroups
+are <C>1a + 11a</C> and <C>1a + 11b</C>, respectively.
+
+<Example><![CDATA[
+gap> GetFusionMap( s1, t );
+[ 1, 3, 4, 7, 8, 10, 12, 12, 15, 14 ]
+gap> GetFusionMap( s2, t );
+[ 1, 3, 4, 6, 8, 10, 11, 11, 14, 15 ]
+gap> Display( t );
+M12
+
+      2   6  4  6  1  2  5  5  1  2  1  3  3   1   .   .
+      3   3  1  1  3  2  .  .  .  1  1  .  .   .   .   .
+      5   1  1  .  .  .  .  .  1  .  .  .  .   1   .   .
+     11   1  .  .  .  .  .  .  .  .  .  .  .   .   1   1
+
+         1a 2a 2b 3a 3b 4a 4b 5a 6a 6b 8a 8b 10a 11a 11b
+     2P  1a 1a 1a 3a 3b 2b 2b 5a 3b 3a 4a 4b  5a 11b 11a
+     3P  1a 2a 2b 1a 1a 4a 4b 5a 2a 2b 8a 8b 10a 11a 11b
+     5P  1a 2a 2b 3a 3b 4a 4b 1a 6a 6b 8a 8b  2a 11a 11b
+    11P  1a 2a 2b 3a 3b 4a 4b 5a 6a 6b 8a 8b 10a  1a  1a
+
+X.1       1  1  1  1  1  1  1  1  1  1  1  1   1   1   1
+X.2      11 -1  3  2 -1 -1  3  1 -1  . -1  1  -1   .   .
+X.3      11 -1  3  2 -1  3 -1  1 -1  .  1 -1  -1   .   .
+X.4      16  4  . -2  1  .  .  1  1  .  .  .  -1   A  /A
+X.5      16  4  . -2  1  .  .  1  1  .  .  .  -1  /A   A
+X.6      45  5 -3  .  3  1  1  . -1  . -1 -1   .   1   1
+X.7      54  6  6  .  .  2  2 -1  .  .  .  .   1  -1  -1
+X.8      55 -5  7  1  1 -1 -1  .  1  1 -1 -1   .   .   .
+X.9      55 -5 -1  1  1  3 -1  .  1 -1 -1  1   .   .   .
+X.10     55 -5 -1  1  1 -1  3  .  1 -1  1 -1   .   .   .
+X.11     66  6  2  3  . -2 -2  1  . -1  .  .   1   .   .
+X.12     99 -1  3  .  3 -1 -1 -1 -1  .  1  1  -1   .   .
+X.13    120  . -8  3  .  .  .  .  .  1  .  .   .  -1  -1
+X.14    144  4  .  . -3  .  . -1  1  .  .  .  -1   1   1
+X.15    176 -4  . -4 -1  .  .  1 -1  .  .  .   1   .   .
+
+A = E(11)+E(11)^3+E(11)^4+E(11)^5+E(11)^9
+  = (-1+Sqrt(-11))/2 = b11
+]]></Example>
+
+Permutation equivalent library tables are related to each other.
+In the above example, the table <C>s2</C> is a <E>duplicate</E> of <C>s1</C>,
+and there are functions for making the relations explicit.
+
+<Example><![CDATA[
+gap> IsDuplicateTable( s2 );
+true
+gap> IdentifierOfMainTable( s2 );
+"M11"
+gap> IdentifiersOfDuplicateTables( s1 );
+[ "HSM9", "M12M2", "ONM11" ]
+]]></Example>
+
+See Section&nbsp;<Ref Sect="sec:duplicates"/> for details about
+duplicate character tables.
+
+</Subsection>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:tutsectctbllib">
+<Heading>Examples of Using the &GAP; Character Table Library</Heading>
+
+The sections <Ref Subsect="subsect:ambivalent"/>,
+<Ref Subsect="subsect:ppure"/>, and
+<Ref Subsect="subsect:onepblock"/> show how the function
+<Ref Func="AllCharacterTableNames"/> can be used to search for
+character tables with certain properties.
+The &GAP; Character Table Library serves as a tool for finding and
+checking conjectures in these examples.
+
+<P/>
+
+In Section <Ref Subsect="subsect:permcharfi23"/>,
+a question about a subgroup of the sporadic simple Fischer group
+<M>G = Fi_{23}</M> is answered using only character tables from the
+&GAP; Character Table Library.
+
+<P/>
+
+More examples can be found in
+<Cite Key="GMN"/>, <Cite Key="AmbigFus"/>, <Cite Key="ctblpope"/>,
+<Cite Key="ProbGenArxiv"/>, <Cite Key="Auto"/>.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:ambivalent">
+<Heading>Example: Ambivalent Simple Groups</Heading>
+
+A group <M>G</M> is called <E>ambivalent</E> if each element in <M>G</M>
+is <M>G</M>-conjugate to its inverse.
+Equivalently, <M>G</M> is ambivalent if all its characters are real-valued.
+We are interested in nonabelian simple ambivalent groups.
+Since ambivalence is of course invariant under permutation equivalence,
+we may omit duplicate character tables.
+
+<Example><![CDATA[
+gap> isambivalent:= tbl -> PowerMap( tbl, -1 )
+>                            = [ 1 .. NrConjugacyClasses( tbl ) ];;
+gap> AllCharacterTableNames( IsSimple, true, IsDuplicateTable, false,
+>        IsAbelian, false, isambivalent, true );
+[ "3D4(2)", "3D4(3)", "3D4(4)", "A10", "A14", "A5", "A6", "J1", "J2", 
+  "L2(101)", "L2(109)", "L2(113)", "L2(121)", "L2(125)", "L2(13)", 
+  "L2(16)", "L2(17)", "L2(25)", "L2(29)", "L2(32)", "L2(37)", 
+  "L2(41)", "L2(49)", "L2(53)", "L2(61)", "L2(64)", "L2(73)", 
+  "L2(8)", "L2(81)", "L2(89)", "L2(97)", "O12+(2)", "O12-(2)", 
+  "O12-(3)", "O7(5)", "O8+(2)", "O8+(3)", "O8+(7)", "O8-(2)", 
+  "O8-(3)", "O9(3)", "S10(2)", "S12(2)", "S4(4)", "S4(5)", "S4(8)", 
+  "S4(9)", "S6(2)", "S6(4)", "S6(5)", "S8(2)" ]
+]]></Example>
+
+<!-- some comment? -->
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:ppure">
+<Heading>Example: Simple <M>p</M>-pure Groups</Heading>
+
+A group <M>G</M> is called <E><M>p</M>-pure</E> for a prime integer <M>p</M>
+that divides <M>|G|</M>
+if the centralizer orders of nonidentity <M>p</M>-elements in <M>G</M>
+are <M>p</M>-powers.
+Equivalently, <M>G</M> is <M>p</M>-pure if <M>p</M> divides <M>|G|</M>
+and each element in <M>G</M> of order divisible by <M>p</M>
+is a <M>p</M>-element.
+(This property was studied by L. Héthelyi in 2002.)
+
+<P/>
+
+We are interested in small nonabelian simple <M>p</M>-pure groups.
+
+<P/>
+
+<Example><![CDATA[
+gap> isppure:= function( p )
+>      return tbl -> Size( tbl ) mod p = 0 and
+>        ForAll( OrdersClassRepresentatives( tbl ),
+>                n -> n mod p <> 0 or IsPrimePowerInt( n ) );
+>    end;;
+gap> for i in [ 2, 3, 5, 7, 11, 13 ] do
+>      Print( i, "\n",
+>        AllCharacterTableNames( IsSimple, true, IsAbelian, false,
+>            IsDuplicateTable, false, isppure( i ), true ),
+>        "\n" );
+>    od;
+2
+[ "A5", "A6", "L2(16)", "L2(17)", "L2(31)", "L2(32)", "L2(64)", 
+  "L2(8)", "L3(2)", "L3(4)", "Sz(32)", "Sz(8)" ]
+3
+[ "A5", "A6", "L2(17)", "L2(19)", "L2(27)", "L2(53)", "L2(8)", 
+  "L2(81)", "L3(2)", "L3(4)" ]
+5
+[ "A5", "A6", "A7", "L2(11)", "L2(125)", "L2(25)", "L2(49)", "L3(4)", 
+  "M11", "M22", "S4(7)", "Sz(32)", "Sz(8)", "U4(2)", "U4(3)" ]
+7
+[ "A7", "A8", "A9", "G2(3)", "HS", "J1", "J2", "L2(13)", "L2(49)", 
+  "L2(8)", "L2(97)", "L3(2)", "L3(4)", "M22", "O8+(2)", "S6(2)", 
+  "Sz(8)", "U3(3)", "U3(5)", "U4(3)", "U6(2)" ]
+11
+[ "A11", "A12", "A13", "Co2", "HS", "J1", "L2(11)", "L2(121)", 
+  "L2(23)", "L5(3)", "M11", "M12", "M22", "M23", "M24", "McL", 
+  "O10+(3)", "O12+(3)", "ON", "Suz", "U5(2)", "U6(2)" ]
+13
+[ "2E6(2)", "2F4(2)'", "3D4(2)", "A13", "A14", "A15", "F4(2)", 
+  "Fi22", "G2(3)", "G2(4)", "L2(13)", "L2(25)", "L2(27)", "L3(3)", 
+  "L4(3)", "O7(3)", "O8+(3)", "S4(5)", "S6(3)", "Suz", "Sz(8)", 
+  "U3(4)" ]
+]]></Example>
+
+<P/>
+
+Looking at these examples, we may observe that the alternating group
+<M>A_n</M> of degree <M>n</M> is
+<M>2</M>-pure iff <M>n \in \{ 4, 5, 6 \}</M>,
+<M>3</M>-pure iff <M>n \in \{ 3, 4, 5, 6 \}</M>, and
+<M>p</M>-pure, for <M>p \geq 5</M>, iff <M>n \in \{ p, p+1, p+2 \}</M>.
+
+<P/>
+
+Also, the Suzuki groups <M>Sz(q)</M> are <M>2</M>-pure
+since the centralizers of nonidentity <M>2</M>-elements are contained in
+Sylow <M>2</M>-subgroups.
+
+<P/>
+
+From the inspection of the generic character table(s) of <M>PSL(2, q)</M>,
+we see that <M>PSL(2, p^d)</M> is <M>p</M>-pure
+Additionally, exactly the following cases of <M>l</M>-purity occur,
+for a prime <M>l</M>.
+
+<List>
+<Item>
+  <M>q</M> is even and <M>q-1</M> or <M>q+1</M> is a power of <M>l</M>.
+</Item>
+<Item>
+  For <M>q \equiv 1 \pmod{4}</M>, <M>(q+1)/2</M> is a power of <M>l</M>
+  or <M>q-1</M> is a power of <M>l = 2</M>.
+</Item>
+<Item>
+  For <M>q \equiv 3 \pmod{4}</M>, <M>(q-1)/2</M> is a power of <M>l</M>
+  or <M>q+1</M> is a power of <M>l = 2</M>.
+</Item>
+</List>
+
+<!--
+  somehow, the special case L3(2) came up in this context;
+  there is a paper by Bob Guralnick on subgroups of prime power index
+  in simple groups
+-->
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:onepblock">
+<Heading>Example: Simple Groups with only one <M>p</M>-Block</Heading>
+
+Are there nonabelian simple groups with only one <M>p</M>-block,
+for some prime <M>p</M>?
+
+<Example><![CDATA[
+gap> fun:= function( tbl )
+>      local result, p, bl;
+> 
+>      result:= false;
+>      for p in PrimeDivisors( Size( tbl ) ) do
+>        bl:= PrimeBlocks( tbl, p );
+>        if Length( bl.defect ) = 1 then
+>          result:= true;
+>          Print( "only one block: ", Identifier( tbl ), ", p = ", p, "\n" );
+>        fi;
+>      od;
+> 
+>      return result;
+> end;;
+gap> AllCharacterTableNames( IsSimple, true, IsAbelian, false,
+>                            IsDuplicateTable, false, fun, true );
+only one block: M22, p = 2
+only one block: M24, p = 2
+[ "M22", "M24" ]
+]]></Example>
+
+We see that the sporadic simple groups <M>M_{22}</M> and <M>M_{24}</M>
+have only one <M>2</M>-block.
+
+<!--
+  for alternating groups, see James/Kerber;
+  Lie groups in def. characteristics do always have a Steinberg character,
+  so there must be at least two blocks
+-->
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:sylowstructure3on">
+<Heading>Example:The Sylow <M>3</M> subgroup of <M>3.O'N</M></Heading>
+
+We want to determine the structure of the Sylow <M>3</M>-subgroups of the
+triple cover <M>G = 3.O'N</M> of the sporadic simple O'Nan group <M>O'N</M>.
+The Sylow <M>3</M>-subgroup of <M>O'N</M> is an elementary abelian group
+of order <M>3^4</M>,
+since the Sylow <M>3</M> normalizer in <M>O'N</M> has the structure
+<M>3^4:2^{1+4}D_{10}</M> (see <Cite Key="CCN85" Where="p.&nbsp;132"/>).
+
+<Example><![CDATA[
+gap> CharacterTable( "ONN3" );
+CharacterTable( "3^4:2^(1+4)D10" )
+]]></Example>
+
+Let <M>P</M> be a Sylow <M>3</M>-subgroup of <M>G</M>.
+Then <M>P</M> is not abelian,
+since the centralizer order of any preimage of an element of order three
+in the simple factor group of <M>G</M> is not divisible by <M>3^5</M>.
+Moreover, the exponent of <M>P</M> is three.
+
+<Example><![CDATA[
+gap> 3t:= CharacterTable( "3.ON" );;
+gap> orders:= OrdersClassRepresentatives( 3t );;
+gap> ord3:= PositionsProperty( orders, x -> x = 3 );
+[ 2, 3, 7 ]
+gap> sizes:= SizesCentralizers( 3t ){ ord3 };
+[ 1382446517760, 1382446517760, 3240 ]
+gap> Size( 3t );
+1382446517760
+gap> Collected( Factors( sizes[3] ) );
+[ [ 2, 3 ], [ 3, 4 ], [ 5, 1 ] ]
+gap> 9 in orders;
+false
+]]></Example>
+
+So both the centre and the Frattini subgroup of <M>P</M> are equal to the
+centre of <M>G</M>,
+hence <M>P</M> is an extraspecial group <M>3^{1+4}_+</M>.
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:primpermchars2A6">
+<Heading>Example: Primitive Permutation Characters of <M>2.A_6</M></Heading>
+
+It is often interesting to compute the primitive permutation characters
+of a group <M>G</M>,
+that is, the characters of the permutation actions of <M>G</M> on the cosets
+of its maximal subgroups.
+These characters can be computed for example when the character tables of
+<M>G</M>, the character tables of its maximal subgroups,
+and the class fusions from these character tables into the table of <M>G</M>
+are known.
+
+<Example><![CDATA[
+gap> tbl:= CharacterTable( "2.A6" );;
+gap> HasMaxes( tbl );
+true
+gap> maxes:= Maxes( tbl );
+[ "2.A5", "2.A6M2", "3^2:8", "2.Symm(4)", "2.A6M5" ]
+gap> mx:= List( maxes, CharacterTable );;
+gap> prim1:= List( mx, s -> TrivialCharacter( s )^tbl );;
+gap> Display( tbl,
+>      rec( chars:= prim1, centralizers:= false, powermap:= false ) );
+2.A6
+
+       1a 2a 4a 3a 6a 3b 6b 8a 8b 5a 10a 5b 10b
+
+Y.1     6  6  2  3  3  .  .  .  .  1   1  1   1
+Y.2     6  6  2  .  .  3  3  .  .  1   1  1   1
+Y.3    10 10  2  1  1  1  1  2  2  .   .  .   .
+Y.4    15 15  3  3  3  .  .  1  1  .   .  .   .
+Y.5    15 15  3  .  .  3  3  1  1  .   .  .   .
+]]></Example>
+
+These permutation characters are the ones listed in
+<Cite Key="CCN85" Where="p.&nbsp;4"/>.
+
+<Example><![CDATA[
+gap> PermCharInfo( tbl, prim1 ).ATLAS;
+[ "1a+5a", "1a+5b", "1a+9a", "1a+5a+9a", "1a+5b+9a" ]
+]]></Example>
+
+Alternatively, one can compute the primitive permutation characters
+from the table of marks if this table and the fusion into it are known.
+
+<Example><![CDATA[
+gap> tom:= TableOfMarks( tbl );
+TableOfMarks( "2.A6" )
+gap> allperm:= PermCharsTom( tbl, tom );;
+gap> prim2:= allperm{ MaximalSubgroupsTom( tom )[1] };;
+gap> Display( tbl,
+>      rec( chars:= prim2, centralizers:= false, powermap:= false ) );
+2.A6
+
+       1a 2a 4a 3a 6a 3b 6b 8a 8b 5a 10a 5b 10b
+
+Y.1     6  6  2  3  3  .  .  .  .  1   1  1   1
+Y.2     6  6  2  .  .  3  3  .  .  1   1  1   1
+Y.3    10 10  2  1  1  1  1  2  2  .   .  .   .
+Y.4    15 15  3  .  .  3  3  1  1  .   .  .   .
+Y.5    15 15  3  3  3  .  .  1  1  .   .  .   .
+]]></Example>
+
+We see that the two approaches yield the same permutation characters,
+but the two lists are sorted in a different way.
+The latter is due to the fact that the rows of the table of marks are
+ordered in a way that is not compatible with the ordering of maximal
+subgroups for the character table.
+Moreover, there is no way to choose the fusion from the character table
+to the table of marks in such a way that the two lists of
+permutation characters would become equal.
+The component <C>perm</C> in the <Ref Attr="FusionToTom"/> record of
+the character table describes the incompatibility.
+
+<Example><![CDATA[
+gap> FusionToTom( tbl );
+rec( map := [ 1, 2, 5, 4, 8, 3, 7, 11, 11, 6, 13, 6, 13 ], 
+  name := "2.A6", perm := (4,5), 
+  text := "fusion map is unique up to table autom." )
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:permcharfi23">
+<Heading>Example: A Permutation Character of <M>Fi_{23}</M></Heading>
+
+Let <M>x</M> be a <C>3B</C> element in the sporadic simple Fischer group
+<M>G = Fi_{23}</M>.
+The normalizer <M>M</M> of <M>x</M> in <M>G</M> is a maximal subgroup
+of the type <M>3^{{1+8}}_+.2^{{1+6}}_-.3^{{1+2}}_+.2S_4</M>.
+We are interested in the distribution of the elements of the
+normal subgroup <M>N</M> of the type <M>3^{{1+8}}_+</M> in <M>M</M>
+to the conjugacy classes of <M>G</M>.
+
+<P/>
+
+This information can be computed from the permutation character
+<M>\pi = 1_N^G</M>, so we try to compute this permutation character.
+We have <M>\pi = (1_N^M)^G</M>,
+and <M>1_N^M</M> can be computed as the inflation of
+the regular character of the factor group <M>M/N</M> to <M>M</M>.
+Note that the character tables of <M>G</M> and <M>M</M> are available,
+as well as the class fusion of <M>M</M> in <M>G</M>,
+and that <M>N</M> is the largest normal <M>3</M>-subgroup of <M>M</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "Fi23" );
+CharacterTable( "Fi23" )
+gap> mx:= Maxes( t );
+[ "2.Fi22", "O8+(3).3.2", "2^2.U6(2).2", "S8(2)", "S3xO7(3)", 
+  "2..11.m23", "3^(1+8).2^(1+6).3^(1+2).2S4", "Fi23M8", "A12.2", 
+  "(2^2x2^(1+8)).(3xU4(2)).2", "2^(6+8):(A7xS3)", "S4xS6(2)", 
+  "S4(4).4", "L2(23)" ]
+gap> m:= CharacterTable( mx[7] );
+CharacterTable( "3^(1+8).2^(1+6).3^(1+2).2S4" )
+gap> n:= ClassPositionsOfPCore( m, 3 );
+[ 1 .. 6 ]
+gap> f:= m / n;
+CharacterTable( "3^(1+8).2^(1+6).3^(1+2).2S4/[ 1, 2, 3, 4, 5, 6 ]" )
+gap> reg:= 0 * [ 1 .. NrConjugacyClasses( f ) ];;
+gap> reg[1]:= Size( f );;
+gap> infl:= reg{ GetFusionMap( m, f ) };
+[ 165888, 165888, 165888, 165888, 165888, 165888, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+gap> ind:= Induced( m, t, [ infl ] );
+[ ClassFunction( CharacterTable( "Fi23" ),
+  [ 207766624665600, 0, 0, 0, 603832320, 127567872, 6635520, 663552, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0 ] ) ]
+gap> PermCharInfo( t, ind ).contained;
+[ [ 1, 0, 0, 0, 864, 1538, 3456, 13824, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]
+gap> PositionsProperty( OrdersClassRepresentatives( t ), x -> x = 3 );
+[ 5, 6, 7, 8 ]
+]]></Example>
+
+Thus <M>N</M> contains <M>864</M> elements in the class <C>3A</C>,
+<M>1\,538</M> elements in the class <C>3B</C>, and so on.
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:commutatorlength">
+<Heading>Example: Non-commutators in the commutator group</Heading>
+
+In general, not every element in the commutator group of a group is itself
+a commutator.
+Are there examples in the Character Table Library,
+and if yes, what is a smallest one?
+
+<Example><![CDATA[
+gap> nam:= OneCharacterTableName( CommutatorLength, x -> x > 1
+>                                 : OrderedBy:= Size );
+"3.(A4x3):2"
+gap> Size( CharacterTable( nam ) );
+216
+]]></Example>
+
+The smallest groups with this property have order <M>96</M>.
+
+<Example><![CDATA[
+gap> OneSmallGroup( Size, [ 2 .. 100 ],
+>                   G -> CommutatorLength( G ) > 1, true );
+<pc group of size 96 with 6 generators>
+]]></Example>
+
+(Note the different syntax:
+<Ref Func="OneSmallGroup" BookName="smallgrp"/> does not admit a function
+such as <C>x -> x > 1</C> for describing the admissible values.)
+
+<P/>
+
+Nonabelian simple groups cannot be expected to have non-commutators,
+by the main theorem in <Cite Key="LOST2010"/>.
+
+<Example><![CDATA[
+gap> OneCharacterTableName( IsSimple, true, IsAbelian, false,
+>                           IsDuplicateTable, false,
+>                           CommutatorLength, x -> x > 1
+>                           : OrderedBy:= Size );
+fail
+]]></Example>
+
+Perfect groups can contain non-commutators.
+
+<Example><![CDATA[
+gap> nam:= OneCharacterTableName( IsPerfect, true,
+>                                 IsDuplicateTable, false,
+>                                 CommutatorLength, x -> x > 1
+>                                 : OrderedBy:= Size );
+"P1/G1/L1/V1/ext2"
+gap> Size( CharacterTable( nam ) );
+960
+]]></Example>
+
+This is in fact the smallest example of a perfect group that contains
+non-commutators.
+
+<Example><![CDATA[
+gap> for n in [ 2 .. 960 ] do
+>      for i in [ 1 .. NrPerfectGroups( n ) ] do
+>        g:= PerfectGroup( n,  i);
+>        if CommutatorLength( g ) <> 1 then
+>          Print( [ n, i ], "\n" );
+>        fi;
+>      od;
+>    od;
+[ 960, 2 ]
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:J4mod11deg887778">
+<Heading>Example: An irreducible <M>11</M>-modular character of <M>J_4</M>
+(December 2018)</Heading>
+
+Let <M>G</M> be the sporadic simple Janko group <M>J_4</M>.
+For the ordinary irreducible characters of degree <M>1333</M> of <M>G</M>,
+the reductions modulo <M>11</M> are known to be irreducible Brauer characters.
+
+<P/>
+
+David Craven asked Richard Parker how to show that the antisymmetric squares
+of these Brauer characters are irreducible.
+Richard proposed the following.
+
+<P/>
+
+Restrict the given ordinary character <M>\chi</M>, say,
+to a subgroup <M>S</M> of <M>J_4</M>
+whose <M>11</M>-modular character table is known,
+decompose the restriction <M>\chi_S</M> into irreducible Brauer characters,
+and compute those constituents that are constant on all subsets of
+conjugacy classes that fuse in <M>J_4</M>.
+If the Brauer character <M>\chi_S</M> cannot be written as a sum
+of two such constituents then <M>\chi</M>,
+as a Brauer character of <M>J_4</M>, is irreducible.
+
+<P/>
+
+Here is a &GAP; session that shows how to apply this idea.
+
+<P/>
+
+The group <M>J_4</M> has exactly two ordinary irreducible characters of
+degree <M>1333</M>.
+They are complex conjugate, and so are their antisymmetric squares.
+Thus we may consider just one of the two.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "J4" );;
+gap> deg1333:= Filtered( Irr( t ), x -> x[1] = 1333 );;
+gap> antisym:= AntiSymmetricParts( t, deg1333, 2 );;
+gap> List(  antisym, x -> Position( Irr( t ), x ) );
+[ 7, 6 ]
+gap> ComplexConjugate( antisym[1] ) = antisym[2];
+true
+gap> chi:= antisym[1];;  chi[1];
+887778
+]]></Example>
+
+Let <M>S</M> be a maximal subgroup of the structure <M>2^{11}:M_{24}</M>
+in <M>J_4</M>.
+Fortunately,
+the <M>11</M>-modular character table of <M>S</M> is available
+(it had been constructed by Christoph Jansen),
+and we can restrict the interesting character to this table.
+
+<Example><![CDATA[
+gap> s:= CharacterTable( Maxes( t )[1] );;
+gap> Size( s ) = 2^11 * Size( CharacterTable( "M24" ) );
+true
+gap> rest:= RestrictedClassFunction( chi, s );;
+gap> smod11:= s mod 11;;
+gap> rest:= RestrictedClassFunction( rest, smod11 );;
+]]></Example>
+
+The restriction is a sum of nine pairwise different irreducible
+Brauer characters of <M>S</M>.
+
+<Example><![CDATA[
+gap> dec:= Decomposition( Irr( smod11 ), [ rest ], "nonnegative" )[1];;
+gap> Sum( dec );
+9
+gap> constpos:= PositionsProperty( dec, x -> x <> 0 );
+[ 15, 36, 46, 53, 55, 58, 63, 67, 69 ]
+]]></Example>
+
+Next we compute those sets of classes of <M>S</M> which fuse in <M>J_4</M>.
+
+<Example><![CDATA[
+gap> smod11fuss:= GetFusionMap( smod11, s );;
+gap> sfust:= GetFusionMap( s, t );;
+gap> fus:= CompositionMaps( sfust, smod11fuss );;
+gap> inv:= Filtered( InverseMap( fus ), IsList );
+[ [ 3, 4, 5 ], [ 2, 6, 7 ], [ 8, 9 ], [ 10, 11, 16 ], 
+  [ 12, 14, 15, 17, 18, 21 ], [ 13, 19, 20, 22 ], [ 26, 27, 28, 30 ], 
+  [ 25, 29, 31 ], [ 34, 39 ], [ 35, 37, 38 ], [ 40, 42 ], [ 41, 43 ], 
+  [ 44, 47, 48 ], [ 45, 49, 50 ], [ 46, 51 ], [ 56, 57 ], [ 63, 64 ], 
+  [ 69, 70 ] ]
+]]></Example>
+
+Finally, we run over all <M>2^9</M> subsets of the irreducible constituents.
+
+<Example><![CDATA[
+gap> const:= Irr( smod11 ){ constpos };;
+gap> zero:= 0 * TrivialCharacter( smod11 );;
+gap> comb:= List( Combinations( const ), x -> Sum( x, zero ) );;
+gap> cand:= Filtered( comb,
+>               x -> ForAll( inv, l -> Length( Set( x{ l } ) ) = 1 ) );;
+gap> List( cand, x -> x[1] );
+[ 0, 887778 ]
+]]></Example>
+
+We see that no proper subset of the constituents yields a Brauer character
+that can be restricted from <M>J_4</M>.
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:nonprojtensor">
+<Heading>Example: Tensor Products that are Generalized Projectives
+(October 2019)</Heading>
+
+Let <M>G</M> be a finite group and <M>p</M> be a prime integer.
+If the tensor product <M>\Phi</M>, say,
+of two ordinary irreducible characters of <M>G</M>
+vanishes on all <M>p</M>-singular elements of <M>G</M> then
+<M>\Phi</M> is a <M>&ZZ;</M>-linear combination of the
+<E>projective indecomposable characters</E>
+<M>\Phi_{\varphi} = \sum_{{\chi \in &Irr;(G)}} d_{{\chi \varphi}} \chi</M>
+of <M>G</M>,
+where <M>\varphi</M> runs over the irreducible <M>p</M>-modular
+Brauer characters of <M>G</M> and <M>d_{{\chi \varphi}}</M> is the
+decomposition number of <M>\chi</M> and <M>\varphi</M>.
+(See for example <Cite Key="Nav98" Where="p. 25"/> or
+<Cite Key="LP10" Where="Def. 4.3.1"/>.)
+Such class functions are called generalized projective characters.
+
+<P/>
+
+In fact, very often <M>\Phi</M> is a projective character, that is,
+the coefficients of the decomposition into
+projective indecomposable characters are nonnegative.
+
+<P/>
+
+We are interested in examples where this is <E>not</E> the case.
+For that, we write a small &GAP; function that computes,
+for a given <M>p</M>-modular character table,
+those tensor products of ordinary irreducible characters
+that are generalized projective characters but are not projective.
+
+<P/>
+
+Many years ago, Richard Parker had been interested in the question
+whether such tensor products can exist for a given group.
+Note that forming tensor products that vanish on <M>p</M>-singular elements
+is a recipe for creating projective characters,
+provided one knows in advance that the answer is negative for the
+given group.
+
+<P/>
+
+<Example><![CDATA[
+gap> GenProjNotProj:= function( modtbl )
+>      local p, tbl, X, PIMs, n, psingular, list, labels, i, j, psi,
+>            pos, dec, poss;
+> 
+>      p:= UnderlyingCharacteristic( modtbl );
+>      tbl:= OrdinaryCharacterTable( modtbl );
+>      X:= Irr( tbl );
+>      PIMs:= TransposedMat( DecompositionMatrix( modtbl ) ) * X;
+>      n:= Length( X );
+>      psingular:= Difference( [ 1 .. n ], GetFusionMap( modtbl, tbl ) );
+>      list:= [];
+>      labels:= [];
+>      for i in [ 1 .. n ] do
+>        for j in [ 1 .. i ] do
+>          psi:= List( [ 1 .. n ], x -> X[i][x] * X[j][x] );
+>          if IsZero( psi{ psingular } ) then
+>            # This is a generalized projective character.
+>            pos:= Position( list, psi );
+>            if pos = fail then
+>              Add( list, psi );
+>              Add( labels, [ [ j, i ] ] );
+>            else
+>              Add( labels[ pos ], [ j, i ] );
+>            fi;
+>          fi;
+>        od;
+>      od;
+> 
+>      if Length( list ) > 0 then
+>        # Decompose the generalized projective tensor products
+>        # into the projective indecomposables.
+>        dec:= Decomposition( PIMs, list, "nonnegative" );
+>        poss:= Positions( dec, fail );
+>        return Set( Concatenation( labels{ poss } ) );
+>      else
+>        return [];
+>      fi;
+>      end;;
+]]></Example>
+
+<P/>
+
+One group for which the function returns a nonempty result is the sporadic
+simple Janko group <M>J_2</M> in characteristic <M>2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tbl:= CharacterTable( "J2" );;
+gap> modtbl:= tbl mod 2;;
+gap> pairs:= GenProjNotProj( modtbl );
+[ [ 6, 12 ] ]
+gap> irr:= Irr( tbl );;
+gap> PIMs:= TransposedMat( DecompositionMatrix( modtbl ) ) * irr;;
+gap> SolutionMat( PIMs, irr[6] * irr[12] );
+[ 0, 0, 0, 1, 1, 1, 0, 0, -2, 3 ]
+]]></Example>
+
+<P/>
+
+Checking all available tables from the library takes several hours of
+CPU time and also requires a lot of space;
+<!-- "6x2.F4(2)" needs more than 7GB -->
+finally, it yields the following result.
+
+<P/>
+
+<Example><![CDATA[
+gap> examples:= [];;
+gap> for name in AllCharacterTableNames( IsDuplicateTable, false ) do
+>      tbl:= CharacterTable( name );
+>      for p in PrimeDivisors( Size( tbl ) ) do
+>        modtbl:= tbl mod p;
+>        if modtbl <> fail then
+>          res:= GenProjNotProj( modtbl );
+>          if not IsEmpty( res ) then
+>            AddSet( examples, [ name, p, Length( res ) ] );
+>         fi;
+>       fi;
+>     od;
+>   od;
+gap> examples;
+[ [ "(A5xJ2):2", 2, 4 ], [ "(D10xJ2).2", 2, 9 ], [ "2.Suz", 3, 1 ], 
+  [ "2.Suz.2", 3, 4 ], [ "2xCo2", 5, 4 ], [ "3.Suz", 2, 6 ], 
+  [ "3.Suz.2", 2, 4 ], [ "Co2", 5, 1 ], [ "Co3", 2, 4 ], 
+  [ "Isoclinic(2.Suz.2)", 3, 4 ], [ "J2", 2, 1 ], [ "Suz", 2, 2 ], 
+  [ "Suz", 3, 1 ], [ "Suz.2", 3, 4 ] ]
+]]></Example>
+
+This list looks rather <Q>sporadic</Q>.
+The number of examples is small, and all groups in question except two
+(the subdirect products of <M>S_5</M> and <M>J_2.2</M>,
+and of <M>5:4</M> and <M>J_2.2</M>, respectively)
+are extensions of sporadic simple groups.
+
+<P/>
+
+Note that the following cases could be omitted
+because the characters in question belong to proper factor groups:
+<M>2.Suz</M> mod <M>3</M>, <M>2.Suz.2</M> mod <M>3</M>,
+and its isoclinic variant.
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:elabsubgroup">
+<Heading>Example: Certain elementary abelian subgroups in quasisimple groups
+(November 2020)</Heading>
+
+In October 2020, Bob Guralnick asked:
+Does each quasisimple group <M>G</M> contain an elementary abelian
+subgroup that contains elements from all conjugacy classes
+of involutions in <M>G</M>?
+(Such a subgroup is called a <E>broad</E> subgroup of <M>G</M>.
+See <Cite Key="GR20"/> for the paper.)
+
+<P/>
+
+In the case of simple groups,
+theoretical arguments suffice to show that the answer is positive for
+simple groups of alternating and Lie type,
+thus it remains to inspect the sporadic simple groups.
+
+<P/>
+
+In the case of nonsimple quasisimple groups,
+again groups having a sporadic simple factor group have to be checked,
+and also the central extensions of groups of Lie type by exceptional
+multipliers have to be checked computationally.
+
+<P/>
+
+In the following situations,
+the answer is positive for a given group <M>G</M>.
+
+<P/>
+
+<Enum>
+<Item>
+    <M>G</M> has at most two classes of involutions.
+    (Take an involution <M>x</M> in the centre of a Sylow <M>2</M>-subgroup
+    <M>P</M> of <M>G</M>;
+    if there is a conjugacy class of involutions in <M>G</M>
+    different from <M>x^G</M> then <M>P</M> contains an element in the other
+    involution class.)
+</Item>
+<Item>
+    <M>G</M> has exactly three classes of involutions
+    such that there are representatives <M>x</M>, <M>y</M>, <M>z</M>
+    with the property <M>x y = z</M>.
+    (The subgroup <M>\langle x, y \rangle</M> is a Klein four group;
+    note that <M>x</M> and <M>y</M> commute because
+    <M>x^{{-1}} y^{{-1}} x y = (x y)^2 = z^2 = 1</M> holds.)
+</Item>
+<Item>
+    <M>G</M> has a central elementary abelian <M>2</M>-subgroup <M>N</M>,
+    and there is an elementary abelian <M>2</M>-subgroup <M>P / N</M> in
+    <M>G / N</M> containing elements from all those involution classes of
+    <M>G / N</M> that lift to involutions of <M>G</M>, but no elements from
+    other involution classes of <M>G / N</M>.
+    (Just take the preimage <M>P</M>, which is elementary abelian.)
+    <P/>
+    This condition is satisfied for example if the answer is positive for
+    <M>G / N</M> and <E>all</E> involutions of <M>G / N</M> lift to
+    involutions in <M>G</M>,
+    or if exactly one class of involutions of <M>G / N</M> lifts to
+    involutions in <M>G</M>.
+</Item>
+</Enum>
+
+<P/>
+
+The following function evaluates the first two of the above criteria
+and easy cases of the third one, for the given character table
+of the group <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> ApplyCriteria:= "dummy";;  # Avoid a syntax error ...
+gap> ApplyCriteria:= function( tbl )
+>    local id, ord, invpos, cen, facttbl, factfus, invmap, factord,
+>           factinvpos, imgs;
+>    id:= ReplacedString( Identifier( tbl ), " ", "" );
+>    ord:= OrdersClassRepresentatives( tbl );
+>    invpos:= PositionsProperty( ord, x -> x <= 2 );
+>    if Length( invpos ) <= 3 then
+>      # There are at most 2 involution classes.
+>      Print( "#I  ", id, ": ",
+>             "done (", Length( invpos ) - 1, " inv. class(es))\n" );
+>      return true;
+>    elif Length( invpos ) = 4 and
+>         ClassMultiplicationCoefficient( tbl, invpos[2], invpos[3],
+>                                              invpos[4] ) <> 0 then
+>      Print( "#I  ", id, ": ",
+>             "done (3 inv. classes, nonzero str. const.)\n" );
+>      return true;
+>    fi;
+>    cen:= Intersection( invpos, ClassPositionsOfCentre( tbl ) );
+>    if Length( cen ) > 1 then
+>      # Consider the factor modulo the largest central el. ab. 2-group.
+>      facttbl:= tbl / cen;
+>      factfus:= GetFusionMap( tbl, facttbl );
+>      invmap:= InverseMap( factfus );
+>      factord:= OrdersClassRepresentatives( facttbl );
+>      factinvpos:= PositionsProperty( factord, x -> x <= 2 );
+>      if ForAll( factinvpos,
+>             i -> invmap[i] in invpos or
+>                  ( IsList( invmap[i] ) and
+>                    IsSubset( invpos, invmap[i] ) ) ) then
+>        # All involutions of the factor group lift to involutions.
+>        if ApplyCriteria( facttbl ) = true then
+>          Print( "#I  ", id, ": ",
+>                 "done (all inv. in ",
+>                 ReplacedString( Identifier( facttbl ), " ", "" ),
+>                 " lift to inv.)\n" );
+>          return true;
+>        fi;
+>      fi;
+>      imgs:= Set( factfus{ invpos } );
+>      if Length( imgs ) = 2 and
+>         ForAll( imgs,
+>             i -> invmap[i] in invpos or
+>                  ( IsList( invmap[i] ) and
+>                    IsSubset( invpos, invmap[i] ) ) ) then
+>        # There is a C2 subgroup of the factor
+>        # such that its involution lifts to involutions,
+>        # and the lifts of the C2 cover all involution classes of 'tbl'.
+>        Print( "#I  ", id, ": ",
+>               "done (all inv. in ", id,
+>               " are lifts of a C2\n",
+>               "#I  in the factor modulo ",
+>               ReplacedString( String( cen ), " ", "" ), ")\n" );
+>        return true;
+>      fi;
+>    fi;
+>    Print( "#I  ", id, ": ",
+>           "OPEN (", Length( invpos  ) - 1, " inv. class(es))\n" );
+>    return false;
+> end;;
+]]></Example>
+
+<P/>
+
+We start with the sporadic simple groups.
+
+<P/>
+
+<Example><![CDATA[
+gap> SizeScreen( [ 72 ] );;
+gap> spor:= AllCharacterTableNames( IsSporadicSimple, true,
+>                                   IsDuplicateTable, false );
+[ "B", "Co1", "Co2", "Co3", "F3+", "Fi22", "Fi23", "HN", "HS", "He", 
+  "J1", "J2", "J3", "J4", "Ly", "M", "M11", "M12", "M22", "M23", 
+  "M24", "McL", "ON", "Ru", "Suz", "Th" ]
+gap> Filtered( spor,
+>        x -> not ApplyCriteria( CharacterTable( x ) ) );
+#I  B: OPEN (4 inv. class(es))
+#I  Co1: OPEN (3 inv. class(es))
+#I  Co2: done (3 inv. classes, nonzero str. const.)
+#I  Co3: done (2 inv. class(es))
+#I  F3+: done (2 inv. class(es))
+#I  Fi22: done (3 inv. classes, nonzero str. const.)
+#I  Fi23: done (3 inv. classes, nonzero str. const.)
+#I  HN: done (2 inv. class(es))
+#I  HS: done (2 inv. class(es))
+#I  He: done (2 inv. class(es))
+#I  J1: done (1 inv. class(es))
+#I  J2: done (2 inv. class(es))
+#I  J3: done (1 inv. class(es))
+#I  J4: done (2 inv. class(es))
+#I  Ly: done (1 inv. class(es))
+#I  M: done (2 inv. class(es))
+#I  M11: done (1 inv. class(es))
+#I  M12: done (2 inv. class(es))
+#I  M22: done (1 inv. class(es))
+#I  M23: done (1 inv. class(es))
+#I  M24: done (2 inv. class(es))
+#I  McL: done (1 inv. class(es))
+#I  ON: done (1 inv. class(es))
+#I  Ru: done (2 inv. class(es))
+#I  Suz: done (2 inv. class(es))
+#I  Th: done (1 inv. class(es))
+[ "B", "Co1" ]
+]]></Example>
+
+<P/>
+
+The two open cases can be handled as follows.
+
+<P/>
+
+The group <M>G = B</M> contains maximal subgroups of the type
+<M>5:4 \times HS.2</M> (the normalizers of <C>5A</C> elements,
+see <Cite Key="CCN85" Where="p.&nbsp;217"/>).
+The direct factor <M>H = HS.2</M> of such a subgroup
+has four classes of involutions,
+which fuse to the four involution classes of <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "B" );;
+gap> invpos:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4, 5 ]
+gap> mx:= List( Maxes( t ), CharacterTable );;
+gap> s:= First( mx,
+>          x -> Size( x ) = 20 * Size( CharacterTable( "HS.2" ) ) );
+CharacterTable( "5:4xHS.2" )
+gap> fus:= GetFusionMap( s, t );;
+gap> prod:= ClassPositionsOfDirectProductDecompositions( s );
+[ [ [ 1, 40 .. 157 ], [ 1 .. 39 ] ] ]
+gap> fusinB:= List( prod[1], l -> fus{ l } );
+[ [ 1, 18, 8, 3, 8 ], 
+  [ 1, 3, 4, 6, 8, 9, 14, 19, 18, 18, 25, 22, 31, 36, 43, 51, 50, 54, 
+      57, 81, 100, 2, 5, 8, 11, 16, 21, 20, 24, 34, 33, 48, 52, 59, 
+      76, 106, 100, 100, 137 ] ]
+gap> IsSubset( fusinB[2], invpos );
+true
+gap> h:= CharacterTable( "HS.2" );;
+gap> fusinB[2]{ Positions( OrdersClassRepresentatives( h ), 2 ) };
+[ 3, 4, 2, 5 ]
+]]></Example>
+
+<P/>
+
+The table of marks of <M>H</M> is known.
+We find five classes of elementary abelian subgroups of order eight
+in <M>H</M> that contain elements from all four involution classes of
+<M>H</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tom:= TableOfMarks( h );
+TableOfMarks( "HS.2" )
+gap> ord:= OrdersTom( tom );;
+gap> invpos:= Positions( ord, 2 );
+[ 2, 3, 534, 535 ]
+gap> 8pos:= Positions( ord, 8 );;
+gap> filt:= Filtered( 8pos,
+>        x -> ForAll( invpos,
+>               y -> Length( IntersectionsTom( tom, x, y ) ) >= y
+>                    and IntersectionsTom( tom, x, y )[y] <> 0 ) );
+[ 587, 589, 590, 593, 595 ]
+gap> reps:= List( filt, i -> RepresentativeTom( tom, i ) );;
+gap> ForAll( reps, IsElementaryAbelian );
+true
+]]></Example>
+
+<P/>
+
+The group <M>G = Co_1</M> has a maximal subgroup <M>H</M> of type
+<M>A_9 \times S_3</M>
+(see <Cite Key="CCN85" Where="p.&nbsp;183"/>)
+that contains elements from all three involution classes of <M>G</M>.
+Moreover, the factor <M>S_3</M> contains <C>2A</C> elements,
+and the factor <M>A_9</M> contains <C>2B</C> and <C>2C</C> elements.
+This yields the desired elementary abelian subgroup of order eight.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "Co1" );;
+gap> invpos:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4 ]
+gap> mx:= List( Maxes( t ), CharacterTable );;
+gap> s:= First( mx, x -> Size( x ) = 3 * Factorial( 9 ) );
+CharacterTable( "A9xS3" )
+gap> fus:= GetFusionMap( s, t );;
+gap> prod:= ClassPositionsOfDirectProductDecompositions( s );
+[ [ [ 1 .. 3 ], [ 1, 4 .. 52 ] ] ]
+gap> List( prod[1], l -> fus{ l } );
+[ [ 1, 8, 2 ], 
+  [ 1, 3, 4, 5, 7, 6, 13, 14, 15, 19, 24, 28, 36, 37, 39, 50, 61, 61 
+     ] ]
+]]></Example>
+
+<!--  alternative arguments for some sporadic groups (not needed)
+<P/>
+
+The group <M>G = Co_2</M> has a maximal subgroup <M>H</M> of type <M>HS.2</M>
+that contains elements from all classes of involutions in <M>G</M>.
+As we have seen in the case of the group <M>B</M>,
+there are elementary abelian subgroups of order eight in <M>H</M>
+that contain elements from all classes of involutions in <M>H</M>
+and hence also elements from all three involution classes in <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "Co2" );;
+gap> invpos:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4 ]
+gap> mx:= List( Maxes( t ), CharacterTable );;
+gap> s:= First( mx, x -> Size( x ) = Size( CharacterTable( "HS.2" ) ) );
+CharacterTable( "HS.2" )
+gap> IsSubset( GetFusionMap( s, t ), invpos );
+true
+]]></Example>
+
+<P/>
+
+For <M>G = Fi_{22}</M>, consider the maximal subgroup <M>2^{10}.M_{22}</M>
+of <M>G</M>:
+Its <M>2</M>-core is elementary abelian and covers all three
+involution classes of <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "Fi22" );;
+gap> invpos:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4 ]
+gap> mx:= List( Maxes( t ), CharacterTable );;
+gap> s:= First( mx,
+>          x -> Size( x ) = 2^10 * Size( CharacterTable( "M22" ) ) );
+CharacterTable( "2^10:m22" )
+gap> corepos:= ClassPositionsOfPCore( s, 2 );
+[ 1 .. 4 ]
+gap> OrdersClassRepresentatives( t ){ corepos };
+[ 1, 2, 2, 2 ]
+gap> GetFusionMap( s, t ){ corepos };
+[ 1, 2, 3, 4 ]
+]]></Example>
+
+<P/>
+
+An analogous argument can be applied to <M>G = Fi_{23}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "Fi23" );;
+gap> invpos:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4 ]
+gap> mx:= List( Maxes( t ), CharacterTable );;
+gap> s:= First( mx,
+>          x -> Size( x ) = 2^11 * Size( CharacterTable( "M23" ) ) );
+CharacterTable( "2..11.m23" )
+gap> corepos:= ClassPositionsOfPCore( s, 2 );
+[ 1 .. 4 ]
+gap> OrdersClassRepresentatives( t ){ corepos };
+[ 1, 2, 2, 2 ]
+gap> GetFusionMap( s, t ){ corepos };
+[ 1, 2, 3, 4 ]
+]]></Example>
+
+-->
+<P/>
+
+Thus we know that the answer is positive for each sporadic simple group.
+Next we look at the relevant covering groups of sporadic simple groups.
+For a quasisimple group with a sporadic simple factor,
+the Schur multiplier has at most the prime factors <M>2</M> and <M>3</M>;
+only the extension by the <M>2</M>-part of the multipier must be checked.
+
+<P/>
+
+<Example><![CDATA[
+gap> sporcov:= AllCharacterTableNames( IsSporadicSimple, true,
+>        IsDuplicateTable, false, OfThose, SchurCover );
+[ "12.M22", "2.B", "2.Co1", "2.HS", "2.J2", "2.M12", "2.Ru", "3.F3+", 
+  "3.J3", "3.McL", "3.ON", "6.Fi22", "6.Suz", "Co2", "Co3", "Fi23", 
+  "HN", "He", "J1", "J4", "Ly", "M", "M11", "M23", "M24", "Th" ]
+gap> Filtered( sporcov, x -> '.' in x );
+[ "12.M22", "2.B", "2.Co1", "2.HS", "2.J2", "2.M12", "2.Ru", "3.F3+", 
+  "3.J3", "3.McL", "3.ON", "6.Fi22", "6.Suz" ]
+gap> relevant:= [ "2.M22", "4.M22", "2.B", "2.Co1", "2.HS", "2.J2",
+>                 "2.M12", "2.Ru", "2.Fi22", "2.Suz" ];;
+gap> Filtered( relevant,
+>        x -> not ApplyCriteria( CharacterTable( x ) ) );
+#I  2.M22: done (3 inv. classes, nonzero str. const.)
+#I  4.M22: done (2 inv. class(es))
+#I  2.B: OPEN (5 inv. class(es))
+#I  2.Co1: OPEN (4 inv. class(es))
+#I  2.HS: done (3 inv. classes, nonzero str. const.)
+#I  2.J2: done (3 inv. classes, nonzero str. const.)
+#I  2.M12: done (3 inv. classes, nonzero str. const.)
+#I  2.Ru: done (3 inv. classes, nonzero str. const.)
+#I  2.Fi22/[1,2]: done (3 inv. classes, nonzero str. const.)
+#I  2.Fi22: done (all inv. in 2.Fi22/[1,2] lift to inv.)
+#I  2.Suz: done (3 inv. classes, nonzero str. const.)
+[ "2.B", "2.Co1" ]
+]]></Example>
+
+<P/>
+
+The group <M>B</M> has four classes of involutions,
+let us call them <C>2A</C>, <C>2B</C>, <C>2C</C>, and <C>2D</C>.
+All except <C>2C</C> lift to involutions in <M>2.B</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "B" );;
+gap> 2t:= CharacterTable( "2.B" );;
+gap> invpost:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4, 5 ]
+gap> invpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );
+[ 2, 3, 4, 5, 7 ]
+gap> GetFusionMap( 2t, t ){ invpos2t };
+[ 1, 2, 3, 3, 5 ]
+]]></Example>
+
+<P/>
+
+Thus it suffices to show that there is a subgroup of type <M>2^2</M>
+in <M>B</M> that contains elements from <C>2A</C>, <C>2B</C>, and <C>2D</C>
+(but no element from <C>2C</C>).
+This follows from the fact that the
+<M>(</M><C>2A</C>, <C>2B</C>, <C>2D</C><M>)</M> structure constant
+of <M>B</M> is nonzero.
+
+<P/>
+
+<Example><![CDATA[
+gap> ClassMultiplicationCoefficient( t, 2, 3, 5 );
+120
+]]></Example>
+
+<P/>
+
+The group <M>Co_1</M> has three classes of involutions,
+let us call them <C>2A</C>, <C>2B</C>, and <C>2C</C>.
+All except <C>2B</C> lift to involutions in <M>2.Co_1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "Co1" );;
+gap> 2t:= CharacterTable( "2.Co1" );;
+gap> invpost:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4 ]
+gap> invpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );
+[ 2, 3, 4, 6 ]
+gap> GetFusionMap( 2t, t ){ invpos2t };
+[ 1, 2, 2, 4 ]
+]]></Example>
+
+<P/>
+
+Thus it suffices to show that there is a subgroup of type <M>2^2</M>
+in <M>Co_1</M> that contains elements from <C>2A</C> and <C>2C</C>
+but no element from <C>2B</C>.
+This follows from the fact that the
+<M>(</M><C>2A</C>, <C>2A</C>, <C>2C</C><M>)</M> structure constant
+of <M>Co_1</M> is nonzero.
+
+<Example><![CDATA[
+gap> ClassMultiplicationCoefficient( t, 2, 2, 4 );
+264
+]]></Example>
+
+<P/>
+
+Finally,
+we deal with the relevant central extensions of finite simple groups
+of Lie type with exceptional multipliers.
+These groups are listed in <Cite Key="CCN85" Where="p.&nbsp;xvi, Table 5"/>.
+The following cases belong to exceptional multipliers with nontrivial
+<M>2</M>-part.
+
+<P/>
+
+<Table Align="|l|l|r|">
+<Caption>Groups with exceptional <M>2</M>-part of their multiplier</Caption>
+<HorLine/>
+<Row>
+   <Item>Group</Item>
+   <Item>Name</Item>
+   <Item>Multiplier</Item>
+</Row>
+<HorLine/>
+<Row>
+   <Item><M>A_1(4)</M></Item>
+   <Item><C>"A5"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>A_2(2)</M></Item>
+   <Item><C>"L3(2)"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>A_2(4)</M></Item>
+   <Item><C>"L3(4)"</C></Item>
+   <Item><M>4^2</M></Item>
+</Row>
+<Row>
+   <Item><M>A_3(2)</M></Item>
+   <Item><C>"A8"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>{}^2A_3(2)</M></Item>
+   <Item><C>"U4(2)"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>{}^2A_5(2)</M></Item>
+   <Item><C>"U6(2)"</C></Item>
+   <Item><M>2^2</M></Item>
+</Row>
+<Row>
+   <Item><M>B_2(2)</M></Item>
+   <Item><C>"S6"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>{}^2B_2(2)</M></Item>
+   <Item><C>"Sz(8)"</C></Item>
+   <Item><M>2^2</M></Item>
+</Row>
+<Row>
+   <Item><M>B_3(2) \cong C_3(2)</M></Item>
+   <Item><C>"S6(2)"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>D_4(2)</M></Item>
+   <Item><C>"O8+(2)"</C></Item>
+   <Item><M>2^2</M></Item>
+</Row>
+<Row>
+   <Item><M>G_2(4)</M></Item>
+   <Item><C>"G2(4)"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>F_4(2)</M></Item>
+   <Item><C>"F4(2)"</C></Item>
+   <Item><M>2</M></Item>
+</Row>
+<Row>
+   <Item><M>{}^2E_6(2)</M></Item>
+   <Item><C>"2E6(2)"</C></Item>
+   <Item><M>2^2</M></Item>
+</Row>
+<HorLine/>
+</Table>
+
+<P/>
+
+This leads to the following list of cases to be checked.
+(We would not need to deal with the groups <M>A_5</M> and <M>L_3(2)</M>,
+because of isomorphisms with groups of Lie type for which
+the multiplier in question is not exceptional, but here we ignore this fact.)
+
+<P/>
+
+<Example><![CDATA[
+gap> list:= [
+>      [ "A5", "2.A5" ],
+>      [ "L3(2)", "2.L3(2)" ],
+>      [ "L3(4)", "2.L3(4)", "2^2.L3(4)", "4_1.L3(4)", "4_2.L3(4)",
+>        "(2x4).L3(4)", "4^2.L3(4)" ],
+>      [ "A8", "2.A8" ],
+>      [ "U4(2)", "2.U4(2)"],
+>      [ "U6(2)", "2.U6(2)", "2^2.U6(2)" ],
+>      [ "A6", "2.A6" ],
+>      [ "Sz(8)", "2.Sz(8)", "2^2.Sz(8)" ],
+>      [ "S6(2)", "2.S6(2)" ],
+>      [ "O8+(2)", "2.O8+(2)", "2^2.O8+(2)" ],
+>      [ "G2(4)", "2.G2(4)" ],
+>      [ "F4(2)", "2.F4(2)" ],
+>      [ "2E6(2)", "2.2E6(2)", "2^2.2E6(2)" ] ];;
+gap> Filtered( Concatenation( list ),
+>        x -> not ApplyCriteria( CharacterTable( x ) ) );
+#I  A5: done (1 inv. class(es))
+#I  2.A5: done (1 inv. class(es))
+#I  L3(2): done (1 inv. class(es))
+#I  2.L3(2): done (1 inv. class(es))
+#I  L3(4): done (1 inv. class(es))
+#I  2.L3(4): done (3 inv. classes, nonzero str. const.)
+#I  2^2.L3(4)/[1,2,3,4]: done (1 inv. class(es))
+#I  2^2.L3(4): done (all inv. in 2^2.L3(4)/[1,2,3,4] lift to inv.)
+#I  4_1.L3(4): done (2 inv. class(es))
+#I  4_2.L3(4): done (2 inv. class(es))
+#I  (2x4).L3(4): done (all inv. in (2x4).L3(4) are lifts of a C2
+#I  in the factor modulo [1,2,3,4])
+#I  4^2.L3(4): done (all inv. in 4^2.L3(4) are lifts of a C2
+#I  in the factor modulo [1,2,3,4])
+#I  A8: done (2 inv. class(es))
+#I  2.A8: done (2 inv. class(es))
+#I  U4(2): done (2 inv. class(es))
+#I  2.U4(2): done (2 inv. class(es))
+#I  U6(2): done (3 inv. classes, nonzero str. const.)
+#I  2.U6(2)/[1,2]: done (3 inv. classes, nonzero str. const.)
+#I  2.U6(2): done (all inv. in 2.U6(2)/[1,2] lift to inv.)
+#I  2^2.U6(2)/[1,2,3,4]: done (3 inv. classes, nonzero str. const.)
+#I  2^2.U6(2): done (all inv. in 2^2.U6(2)/[1,2,3,4] lift to inv.)
+#I  A6: done (1 inv. class(es))
+#I  2.A6: done (1 inv. class(es))
+#I  Sz(8): done (1 inv. class(es))
+#I  2.Sz(8): done (2 inv. class(es))
+#I  2^2.Sz(8)/[1,2,3,4]: done (1 inv. class(es))
+#I  2^2.Sz(8): done (all inv. in 2^2.Sz(8)/[1,2,3,4] lift to inv.)
+#I  S6(2): OPEN (4 inv. class(es))
+#I  2.S6(2): OPEN (3 inv. class(es))
+#I  O8+(2): OPEN (5 inv. class(es))
+#I  2.O8+(2): OPEN (5 inv. class(es))
+#I  2^2.O8+(2): OPEN (5 inv. class(es))
+#I  G2(4): done (2 inv. class(es))
+#I  2.G2(4): done (3 inv. classes, nonzero str. const.)
+#I  F4(2): OPEN (4 inv. class(es))
+#I  2.F4(2)/[1,2]: OPEN (4 inv. class(es))
+#I  2.F4(2): OPEN (9 inv. class(es))
+#I  2E6(2): done (3 inv. classes, nonzero str. const.)
+#I  2.2E6(2)/[1,2]: done (3 inv. classes, nonzero str. const.)
+#I  2.2E6(2): done (all inv. in 2.2E6(2)/[1,2] lift to inv.)
+#I  2^2.2E6(2)/[1,2,3,4]: done (3 inv. classes, nonzero str. const.)
+#I  2^2.2E6(2): done (all inv. in 2^2.2E6(2)/[1,2,3,4] lift to inv.)
+[ "S6(2)", "2.S6(2)", "O8+(2)", "2.O8+(2)", "2^2.O8+(2)", "F4(2)", 
+  "2.F4(2)" ]
+]]></Example>
+
+<P/>
+
+We could assume that the answer is positive for the simple groups in
+the list of open cases, by theoretical arguments,
+but it is easy to show this computationally.
+
+<P/>
+
+For <M>G = S_6(2)</M>, consider a maximal subgroup <M>2^6.L_3(2)</M>
+of <M>G</M> (see <Cite Key="CCN85" Where="p.&nbsp;46"/>):
+Its <M>2</M>-core is elementary abelian and covers all four
+involution classes of <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "S6(2)" );;
+gap> invpos:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4, 5 ]
+gap> mx:= List( Maxes( t ), CharacterTable );;
+gap> s:= First( mx,
+>          x -> Size( x ) = 2^6 * Size( CharacterTable( "L3(2)" ) ) );
+CharacterTable( "2^6:L3(2)" )
+gap> corepos:= ClassPositionsOfPCore( s, 2 );
+[ 1 .. 5 ]
+gap> OrdersClassRepresentatives( t ){ corepos };
+[ 1, 2, 2, 2, 2 ]
+gap> GetFusionMap( s, t ){ corepos };
+[ 1, 3, 4, 2, 5 ]
+]]></Example>
+
+<P/>
+
+Concerning <M>G = 2.S_6(2)</M>,
+note that from the four involution classes of <M>S_6(2)</M>,
+exactly <C>2B</C> and <C>2D</C> lift to involutions in <M>2.S_6(2)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> 2t:= CharacterTable( "2.S6(2)" );;
+gap> invpost:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4, 5 ]
+gap> invpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );
+[ 2, 4, 6 ]
+gap> GetFusionMap( 2t, t ){ invpos2t };
+[ 1, 3, 5 ]
+]]></Example>
+
+<P/>
+
+Thus it suffices to show that there is a subgroup of type <M>2^2</M>
+in <M>S_6(2)</M> that contains elements from <C>2B</C> and <C>2D</C>
+but no elements from <C>2A</C> or <C>2C</C>.
+This follows from the fact that the
+<M>(</M><C>2B</C>, <C>2D</C>, <C>2D</C><M>)</M> structure constant
+of <M>S_6(2)</M> is nonzero.
+
+<Example><![CDATA[
+gap> ClassMultiplicationCoefficient( t, 3, 5, 5 );
+15
+]]></Example>
+
+<P/>
+
+For <M>G = O_8^+(2)</M>, we consider the known table of marks.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "O8+(2)" );;
+gap> tom:= TableOfMarks( t );
+TableOfMarks( "O8+(2)" )
+gap> ord:= OrdersTom( tom );;
+gap> invpos:= Positions( ord, 2 );
+[ 2, 3, 4, 5, 6 ]
+gap> 8pos:= Positions( ord, 8 );;
+gap> filt:= Filtered( 8pos,
+>             x -> ForAll( invpos,
+>                    y -> Length( IntersectionsTom( tom, x, y ) ) >= y
+>                         and IntersectionsTom( tom, x, y )[y] <> 0 ) );
+[ 151, 153 ]
+gap> reps:= List( filt, i -> RepresentativeTom( tom, i ) );;
+gap> ForAll( reps, IsElementaryAbelian );
+true
+]]></Example>
+
+<P/>
+
+Concerning <M>G = 2.O_8^+(2)</M>,
+note that from the five involution classes of <M>O_8^+(2)</M>,
+exactly <C>2A</C>, <C>2B</C>, and <C>2E</C> lift to involutions
+in <M>2.O_8^+(2)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> 2t:= CharacterTable( "2.O8+(2)" );;
+gap> invpost:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4, 5, 6 ]
+gap> invpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );
+[ 2, 3, 4, 5, 8 ]
+gap> GetFusionMap( 2t, t ){ invpos2t };
+[ 1, 2, 3, 3, 6 ]
+]]></Example>
+
+<P/>
+
+Thus it suffices to show that the
+<M>(</M><C>2A</C>, <C>2B</C>, <C>2E</C><M>)</M> structure constant
+of <M>O_8^+(2)</M> is nonzero.
+
+<P/>
+
+<Example><![CDATA[
+gap> ClassMultiplicationCoefficient( t, 2, 3, 6 );
+4
+]]></Example>
+
+<P/>
+
+Concerning <M>G = 2^2.O_8^+(2)</M>,
+note that from the five involution classes of <M>O_8^+(2)</M>,
+exactly the first and the last lift to involutions
+in <M>2^2.O_8^+(2)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v4t:= CharacterTable( "2^2.O8+(2)" );;
+gap> invposv4t:= Positions( OrdersClassRepresentatives( v4t ), 2 );
+[ 2, 3, 4, 5, 12 ]
+gap> GetFusionMap( v4t, t ){ invposv4t };
+[ 1, 1, 1, 2, 6 ]
+]]></Example>
+
+<P/>
+
+Thus it suffices to show that a corresponding structure constant
+of <M>O_8^+(2)</M> is nonzero.
+
+<P/>
+
+<Example><![CDATA[
+gap> ClassMultiplicationCoefficient( t, 2, 6, 6 );
+27
+]]></Example>
+
+<P/>
+
+For <M>G = F_4(2)</M>, consider a maximal subgroup <M>2^{10}.A_8</M>
+of a maximal subgroup <M>S_8(2)</M> of <M>G</M>
+(see <Cite Key="CCN85" Where="p.&nbsp;123 and 170"/>):
+Its <M>2</M>-core is elementary abelian and covers all four
+involution classes of <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "F4(2)" );;
+gap> invpost:= Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4, 5 ]
+gap> "S8(2)" in Maxes( t );
+true
+gap> s:= CharacterTable( "S8(2)M4" );
+CharacterTable( "2^10.A8" )
+gap> corepos:= ClassPositionsOfPCore( s, 2 );
+[ 1 .. 7 ]
+gap> OrdersClassRepresentatives( s ){ corepos };
+[ 1, 2, 2, 2, 2, 2, 2 ]
+gap> poss:= PossibleClassFusions( s, t );;
+gap> List( poss, map -> map{ corepos } );
+[ [ 1, 4, 2, 3, 4, 5, 5 ], [ 1, 4, 2, 3, 4, 5, 5 ], 
+  [ 1, 4, 3, 2, 4, 5, 5 ], [ 1, 4, 3, 2, 4, 5, 5 ] ]
+]]></Example>
+
+<P/>
+
+Finally,
+all involutions of <M>G</M> lift to involutions in <M>2.F_4(2)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> 2t:= CharacterTable( "2.F4(2)" );;
+gap> invpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );
+[ 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+gap> GetFusionMap( 2t, t ){ invpos2t };
+[ 1, 2, 2, 3, 3, 4, 4, 5, 5 ]
+]]></Example>
+
+</Subsection>
+
+</Section>
+
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+

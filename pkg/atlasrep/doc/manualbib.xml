@@ -1,0 +1,327 @@
+<?xmlversion="1.0" encoding="UTF-8"?>
+<!DOCTYPE file SYSTEM "bibxmlext.dtd">
+
+<file>
+
+<!-- The proposal for the following entry was found at
+     http://www.rfc-editor.org/info/rfc7159 -->
+<entry id="JSON"><misc>
+  <key>JSON</key>
+  <editor>
+    <name><first>T.</first><last>Bray</last></name>
+  </editor>
+  <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
+  <howpublished><URL>http://www.rfc-editor.org/info/rfc7159</URL></howpublished>
+  <month>Mar</month>
+  <year>2014</year>
+  <other type="doi">10.17487/RFC7159</other>
+</misc></entry>
+
+<entry id="CP96"><misc>
+  <author>
+    <name><first>J. J.</first><last>Cannon</last></name>
+    <name><first>C.</first><last>Playoust</last></name>
+  </author>
+  <title>An introduction to algebraic programming in <C>Magma</C></title>
+  <howpublished><URL>http://www.math.usyd.edu.au:8000/u/magma</URL></howpublished>
+  <year>1996</year>
+  <other type="address">Sydney, Australia</other>
+  <other type="organization">School of Mathematics and Statistics,
+                University of Sydney</other>
+</misc></entry>
+
+<entry id="Jan05"><article>
+  <author>
+    <name><first>Christoph</first><last>Jansen</last></name>
+  </author>
+  <title>The minimal degrees of faithful representations of the
+              sporadic simple groups and their covering groups</title>
+  <journal>LMS J. Comput. Math.</journal>
+  <year>2005</year>
+  <volume>8</volume>
+  <pages>122&ndash;144 (electronic)</pages>
+  <issn>1461-1570</issn>
+  <mrnumber>2153793 (2006e:20026)</mrnumber>
+  <mrclass>20C34</mrclass>
+  <mrreviewer>Robert A. Wilson</mrreviewer>
+  <other type="fjournal">LMS Journal of Computation and Mathematics</other>
+</article></entry>
+
+<entry id="SWW00"><article>
+  <author>
+    <name><first>Ibrahim A. I.</first><last>Suleiman</last></name>
+    <name><first>Peter G.</first><last>Walsh</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>Conjugacy classes in sporadic simple groups</title>
+  <journal>Comm. Algebra</journal>
+  <year>2000</year>
+  <volume>28</volume>
+  <number>7</number>
+  <pages>3209&ndash;3222</pages>
+  <issn>0092-7872</issn>
+  <mrnumber>1765312 (2001c:20031)</mrnumber>
+  <mrclass>20D08 (20E45)</mrclass>
+  <mrreviewer>Wujie Shi</mrreviewer>
+  <other type="coden">COALDM</other>
+  <other type="fjournal">Communications in Algebra</other>
+</article></entry>
+
+<entry id="NW05"><article>
+  <author>
+    <name><first>S. J.</first><last>Nickerson</last></name>
+    <name><first>R. A.</first><last>Wilson</last></name>
+  </author>
+  <title>Semi-presentations for the sporadic simple groups</title>
+  <journal>Experiment. Math.</journal>
+  <year>2005</year>
+  <volume>14</volume>
+  <number>3</number>
+  <pages>359&ndash;371</pages>
+  <issn>1058-6458</issn>
+  <mrnumber>2172713 (2006h:20019)</mrnumber>
+  <mrclass>20D08 (20F05)</mrclass>
+  <mrreviewer>Andrea Previtali</mrreviewer>
+  <other type="fjournal">Experimental Mathematics</other>
+</article></entry>
+
+<entry id="Nic06"><phdthesis>
+  <author>
+    <name><first>S. J.</first><last>Nickerson</last></name>
+  </author>
+  <title>An <C>A</C>tlas of <C>C</C>haracteristic <C>Z</C>ero
+      <C>R</C>epresentations</title>
+  <school>School of Mathematics, University of Birmingham</school>
+  <year>2006</year>
+  <type>Phd thesis</type>
+</phdthesis></entry>
+
+<entry id="AtlasRep"><misc>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+    <name><first>Richard A.</first><last>Parker</last></name>
+    <name><first>Simon</first><last>Nickerson</last></name>
+    <name><first>John N.</first><last>Bray</last></name>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title><C>AtlasRep</C>, A <Wrap Name="Package">GAP</Wrap> <C>I</C>nterface
+         to the <C>A</C>tlas of <C>G</C>roup <C>R</C>epresentations,
+         <C>V</C>ersion 2.1.9</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/atlasrep</URL></howpublished>
+  <month>Aug</month>
+  <year>2024</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="Browse"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Frank</first><last>Lübeck</last></name>
+  </author>
+  <title><C>Browse</C>, ncurses interface and browsing applications,
+         <C>V</C>ersion 1.8.9</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Browse</URL></howpublished>
+  <month>Jun</month>
+  <year>2018</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="CMeatAxe"><misc>
+  <author>
+    <name><first>Michael</first><last>Ringe</last></name>
+  </author>
+  <title>The <C>C</C> <C>M</C>eat<C>A</C>xe,
+         <C>V</C>ersion 2.4</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~MTX</URL></howpublished>
+</misc></entry>
+
+<entry id="CTBlocks"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title><Wrap Name="Package">CTBlocks</Wrap>,
+         <C>B</C>locks of <C>C</C>haracter <C>T</C>ables,
+         <C>V</C>ersion 0.9.3</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/ctblocks</URL></howpublished>
+  <month>Feb</month>
+  <year>2014</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="CTblLib"><misc>
+  <author>
+    <name><first>T.</first><last>Breuer</last></name>
+  </author>
+  <title>The <Wrap Name="Package">GAP</Wrap> <C>C</C>haracter <C>T</C>able
+      <C>L</C>ibrary, <C>V</C>ersion 1.3.3</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib</URL></howpublished>
+  <month>Mar</month>
+  <year>2022</year>
+
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="GAPDoc"><misc>
+  <author>
+    <name><first>Frank</first><last>Lübeck</last></name>
+    <name><first>Max</first><last>Neunhöffer</last></name>
+  </author>
+  <title><Wrap Name="Package">GAPDoc</Wrap>,
+         A <C>M</C>eta <C>P</C>ackage for <Wrap Name="Package">GAP</Wrap>
+         <C>D</C>ocumentation,
+         <C>V</C>ersion 1.6.2</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc</URL></howpublished>
+  <month>Oct</month>
+  <year>2018</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="IO"><misc>
+  <author>
+    <name><first>Max</first><last>Neunhöffer</last></name>
+  </author>
+  <title><C>IO</C>, Bindings for low level <C>C</C> library <C>IO</C>,
+         <C>V</C>ersion 4.3.1</title>
+  <howpublished><URL>http://www-groups.mcs.st-and.ac.uk/~neunhoef/Computer/Software/Gap/io.html</URL></howpublished>
+  <month>Apr</month>
+  <year>2014</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="MFER"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Ines</first><last>Höhler</last></name>
+    <name><first>Jürgen</first><last>Müller</last></name>
+  </author>
+  <title><C>MFER</C>, multiplicity-free endomorphism rings of
+         permutation modules of the sporadic simple groups
+         and their cyclic and bicyclic extensions,
+         <C>V</C>ersion 1.0.0</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~MFER</URL></howpublished>
+  <month>Jul</month>
+  <year>2009</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+  <keywords>multiplicity-free; permutation character; endomorphism ring; sporadic simple group</keywords>
+</misc></entry>
+
+<entry id="StandardFF"><misc>
+  <author>
+    <name><first>Frank</first><last>Lübeck</last></name>
+  </author>
+  <title><Wrap Name="Package">StandardFF</Wrap>,
+         A <Wrap Name="Package">GAP</Wrap> package for constructing finite fields</title>
+  <howpublished><URL>https://github.com/frankluebeck/StandardFF/</URL></howpublished>
+  <year>2021</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="GAP"><misc>
+  <title><Wrap Name="Package">GAP</Wrap> &ndash;
+      <C>G</C>roups, <C>A</C>lgorithms, and <C>P</C>rogramming,
+      <C>V</C>ersion 4.10.2</title>
+  <organization>The GAP&nbsp;Group</organization>
+  <howpublished><URL>http://www.gap-system.org</URL></howpublished>
+  <month>Jun</month>
+  <year>2019</year>
+  <key>GAP</key>
+  <keywords>groups; *; gap; manual</keywords>
+</misc></entry>
+
+<entry id="HL89"><book>
+  <author>
+    <name><first>Gerhard</first><last>Hiss</last></name>
+    <name><first>Klaus</first><last>Lux</last></name>
+  </author>
+  <title>Brauer trees of sporadic groups</title>
+  <publisher>The Clarendon Press, Oxford University Press</publisher>
+  <year>1989</year>
+  <series>Oxford Science Publications</series>
+  <address>New York</address>
+  <isbn>0-19-853381-0</isbn>
+  <mrnumber>1033265 (91k:20018)</mrnumber>
+  <mrclass>20C20 (20-02 20D08)</mrclass>
+  <mrreviewer>Harvey Blau</mrreviewer>
+  <other type="pages">x+526</other>
+</book></entry>
+
+<entry id="TomLib"><misc>
+  <author>
+    <name><first>Liam</first><last>Naughton</last></name>
+    <name><first>Thomas</first><last>Merkwitz</last></name>
+    <name><first>Götz</first><last>Pfeiffer</last></name>
+  </author>
+  <title><C>TomLib</C>,
+         The <Wrap Name="Package">GAP</Wrap> Library of Tables of Marks,
+         <C>V</C>ersion 1.2.7</title>
+  <howpublished><URL>http://schmidt.nuigalway.ie/tomlib</URL></howpublished>
+  <month>Oct</month>
+  <year>2018</year>
+  <note>GAP package</note>
+  <keywords>table of marks; Burnside matrix; subgroup lattice; finite simple groups; Moebius function; Euler function</keywords>
+</misc></entry>
+
+<entry id="recog"><misc>
+  <author>
+    <name><first>Max</first><last>Neunhöffer</last></name>
+    <name><first>Ákos</first><last>Seress</last></name>
+    <name><first>Nurullah</first><last>Ankaralioglu</last></name>
+    <name><first>Peter</first><last>Brooksbank</last></name>
+    <name><first>Frank</first><last>Celler</last></name>
+    <name><first>Stephen</first><last>Howe</last></name>
+    <name><first>Maska</first><last>Law</last></name>
+    <name><first>Steve</first><last>Linton</last></name>
+    <name><first>Gunter</first><last>Malle</last></name>
+    <name><first>Alice</first><last>Niemeyer</last></name>
+    <name><first>Eamonn</first><last>O'Brien</last></name>
+    <name><first>Colva M.</first><last>Roney-Dougal</last></name>
+    <name><first>Max</first><last>Horn</last></name>
+  </author>
+  <title><C>recog</C>, A collection of group recognition methods,
+         <C>V</C>ersion 1.3.1</title>
+  <howpublished><URL>https://gap-packages.github.io/recog</URL></howpublished>
+  <month>Sep</month>
+  <year>2018</year>
+  <note>GAP package</note>
+  <keywords>group recognition; matrix group recognition; permutation group; black box group; composition tree; Aschbacher classes; method selection</keywords>
+</misc></entry>
+
+<entry id="utils"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Sebastian</first><last>Gutsche</last></name>
+    <name><first>Max</first><last>Horn</last></name>
+    <name><first>Alexander</first><last>Hulpke</last></name>
+    <name><first>Stefan</first><last>Kohl</last></name>
+    <name><first>Frank</first><last>Lübeck</last></name>
+    <name><first>Chris</first><last>Wensley</last></name>
+  </author>
+  <title><C>utils</C>, Utility functions in GAP,
+         <C>V</C>ersion 0.77</title>
+  <howpublished><URL>https://gap-packages.github.io/utils</URL></howpublished>
+  <month>Aug</month>
+  <year>2022</year>
+  <note>GAP package</note>
+  <keywords></keywords>
+</misc></entry>
+
+<entry id="AGRv3"><misc>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+    <name><first>Peter</first><last>Walsh</last></name>
+    <name><first>Jonathan</first><last>Tripp</last></name>
+    <name><first>Ibrahim</first><last>Suleiman</last></name>
+    <name><first>Richard A.</first><last>Parker</last></name>
+    <name><first>Simon P.</first><last>Norton</last></name>
+    <name><first>Simon</first><last>Nickerson</last></name>
+    <name><first>Steve</first><last>Linton</last></name>
+    <name><first>John</first><last>Bray</last></name>
+    <name><first>Rachel</first><last>Abbott</last></name>
+  </author>
+  <title><C>ATLAS of Finite Group Representations</C></title>
+  <howpublished><URL>http://atlas.math.rwth-aachen.de/Atlas/v3</URL></howpublished>
+  <key>ATLAS</key>
+</misc></entry>
+
+</file>
+

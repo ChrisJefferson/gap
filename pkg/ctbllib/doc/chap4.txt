@@ -1,0 +1,1808 @@
+  
+  [1X4 [33X[0;0YContents of the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThis chapter informs you about[133X
+  
+  [30X    [33X[0;6Ythe currently available character tables (see Section [14X4.1[114X),[133X
+  
+  [30X    [33X[0;6Ygeneric character tables (see Section [14X4.2[114X),[133X
+  
+  [30X    [33X[0;6Ythe  subsets  of  [5XAtlas[105X  tables  (see Section [14X4.3[114X) and [5XCAS[105X tables (see
+        Section [14X4.4[114X),[133X
+  
+  [30X    [33X[0;6Yinstalling   the   library,   and   related   user   preferences  (see
+        Section [14X4.5[114X).[133X
+  
+  [33X[0;0YThe  following  rather  technical sections are thought for those who want to
+  maintain or extend the Character Table Library.[133X
+  
+  [30X    [33X[0;6Ythe technicalities of the access to library tables (see Section [14X4.6[114X),[133X
+  
+  [30X    [33X[0;6Yhow to extend the library (see Section [14X4.7[114X), and[133X
+  
+  [30X    [33X[0;6Ysanity checks (see Section [14X4.8[114X).[133X
+  
+  
+  [1X4.1 [33X[0;0YOrdinary and Brauer Tables in the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThis  section  gives  a  brief overview of the contents of the [5XGAP[105X character
+  table  library.  For  the details about, e. g., the structure of data files,
+  see Section [14X4.6[114X.[133X
+  
+  [33X[0;0YThe  changes in the character table library since the first release of [5XGAP[105X 4
+  are listed in a file that can be fetched from[133X
+  
+  [33X[0;0Y[7Xhttps://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctbldiff.htm[107X.[133X
+  
+  [33X[0;0YThere  are  three  different  kinds  of character tables in the [5XGAP[105X library,
+  namely  [13Xordinary  character  tables[113X,  [13XBrauer  tables[113X,  and [13Xgeneric character
+  tables[113X. Note that the Brauer table and the corresponding ordinary table of a
+  group determine the [13Xdecomposition matrix[113X of the group (and the decomposition
+  matrices  of  its blocks). These decomposition matrices can be computed from
+  the  ordinary  and  modular  irreducibles  with [5XGAP[105X, see Section [14X'Reference:
+  Operations  Concerning Blocks'[114X for details. A collection of PDF files of the
+  known  decomposition  matrices  of  [5XAtlas[105X  tables in the [5XGAP[105X Character Table
+  Library can also be found at[133X
+  
+  [33X[0;0Y[7Xhttps://www.math.rwth-aachen.de/~MOC/decomposition/[107X.[133X
+  
+  
+  [1X4.1-1 [33X[0;0YOrdinary Character Tables[133X[101X
+  
+  [33X[0;0YTwo  different  aspects  are  useful  to  list the ordinary character tables
+  available  in [5XGAP[105X, namely the aspect of the [13Xsource[113X of the tables and that of
+  [13Xrelations[113X between the tables.[133X
+  
+  [33X[0;0YAs  for the source, there are first of all two big sources, namely the [5XAtlas[105X
+  of  Finite  Groups (see Section [14X4.3[114X) and the [5XCAS[105X library of character tables
+  (see [NPP84]).  Many  [5XAtlas[105X  tables  are  contained  in the [5XCAS[105X library, and
+  difficulties  may  arise because the succession of characters and classes in
+  [5XCAS[105X tables and [5XAtlas[105X tables are in general different, so see Section [14X4.4[114X for
+  the  relations  between  these  two variants of character tables of the same
+  group.  A subset of the [5XCAS[105X tables is the set of tables of Sylow normalizers
+  of  sporadic  simple  groups  as published in [Ost86]  this may be viewed as
+  another  source of character tables. The library also contains the character
+  tables   of   factor   groups  of  space  groups  (computed  by  W. Hanrath,
+  see [Han88])  that are part of [HP89], in the form of two microfiches; these
+  tables  are  given  in  [5XCAS[105X format (see Section [14X4.4[114X) on the microfiches, but
+  they had not been part of the [21Xofficial[121X [5XCAS[105X library.[133X
+  
+  [33X[0;0YTo  avoid  confusion about the ordering of classes and characters in a given
+  table, authorship and so on, the [2XInfoText[102X ([14XReference: InfoText[114X) value of the
+  table contains the information[133X
+  
+  [8X[10Xorigin: ATLAS of finite groups[110X[8X[108X
+        [33X[0;6Yfor [5XAtlas[105X tables (see Section [14X4.3[114X),[133X
+  
+  [8X[10Xorigin: Ostermann[110X[8X[108X
+        [33X[0;6Yfor tables contained in [Ost86],[133X
+  
+  [8X[10Xorigin: CAS library[110X[8X[108X
+        [33X[0;6Yfor  any  table  of the [5XCAS[105X table library that is contained neither in
+        the [5XAtlas[105X nor in [Ost86], and[133X
+  
+  [8X[10Xorigin: Hanrath library[110X[8X[108X
+        [33X[0;6Yfor tables contained in the microfiches in [HP89].[133X
+  
+  [33X[0;0YThe  [2XInfoText[102X  ([14XReference:  InfoText[114X)  value  usually contains more detailed
+  information,  for  example that the table in question is the character table
+  of  a maximal subgroup of an almost simple group. If the table was contained
+  in  the  [5XCAS[105X  library  then  additional information may be available via the
+  [2XCASInfo[102X ([14X4.4-1[114X) value.[133X
+  
+  [33X[0;0YIf  one  is interested in the aspect of relations between the tables, i. e.,
+  the  internal  structure of the library of ordinary tables, the contents can
+  be listed up the following way.[133X
+  
+  [33X[0;0YWe have[133X
+  
+  [30X    [33X[0;6Yall  [5XAtlas[105X  tables  (see Section [14X4.3[114X), i. e., the tables of the simple
+        groups  which  are  contained  in  the [5XAtlas[105X of Finite Groups, and the
+        tables of cyclic and bicyclic extensions of these groups,[133X
+  
+  [30X    [33X[0;6Ymost  tables  of  maximal subgroups of sporadic simple groups ([13Xnot all[113X
+        for the Monster group),[133X
+  
+  [30X    [33X[0;6Ymany  tables  of  maximal  subgroups  of other [5XAtlas[105X tables; the [2XMaxes[102X
+        ([14X3.7-1[114X)  value for the table is set if all tables of maximal subgroups
+        are available,[133X
+  
+  [30X    [33X[0;6Ythe tables of many Sylow [22Xp[122X-normalizers of sporadic simple groups; this
+        includes  the tables printed in [Ost86] except [22XJ_4N2[122X, [22XCo_1N2[122X, [22XFi_22N2[122X,
+        but also other tables are available; more generally, several tables of
+        normalizers  of  other  radical  [22Xp[122X-subgroups  are  available,  such as
+        normalizers of defect groups of [22Xp[122X-blocks,[133X
+  
+  [30X    [33X[0;6Ysome tables of element centralizers,[133X
+  
+  [30X    [33X[0;6Ysome tables of Sylow [22Xp[122X-subgroups,[133X
+  
+  [30X    [33X[0;6Yand a few other tables, e. g. [10XW(F4)[110X[133X
+  
+  [33X[0;0Y[13XNote[113X  that  class  fusions stored on library tables are not guaranteed to be
+  compatible for any two subgroups of a group and their intersection, and they
+  are not guaranteed to be consistent w. r. t. the composition of maps.[133X
+  
+  
+  [1X4.1-2 [33X[0;0YBrauer Tables[133X[101X
+  
+  [33X[0;0YThe  library  contains  all tables of the [5XAtlas[105X of Brauer Tables ([JLPW95]),
+  and  many  other Brauer tables of bicyclic extensions of simple groups which
+  are known yet. The Brauer tables in the library contain the information[133X
+  
+  origin: modular ATLAS of finite groups
+  
+  [33X[0;0Yin their [2XInfoText[102X ([14XReference: InfoText[114X) string.[133X
+  
+  
+  [1X4.2 [33X[0;0YGeneric Character Tables[133X[101X
+  
+  [33X[0;0YGeneric  character  tables  provide  a  means for writing down the character
+  tables  of  all  groups  in  a  (usually infinite) series of similar groups,
+  e. g.,  cyclic  groups,  or  symmetric  groups, or the general linear groups
+  GL[22X(2,q)[122X where [22Xq[122X ranges over certain prime powers.[133X
+  
+  [33X[0;0YLet [22X{ G_q | q ∈ I }[122X be such a series, where [22XI[122X is an index set. The character
+  table  of one fixed member [22XG_q[122X could be computed using a function that takes
+  [22Xq[122X  as  only  argument and constructs the table of [22XG_q[122X. It is, however, often
+  desirable  to  compute  not  only  the  whole  table  but to access just one
+  specific  character,  or  to  compute  just  one  character  value,  without
+  computing the whole character table.[133X
+  
+  [33X[0;0YFor  example,  both  the conjugacy classes and the irreducible characters of
+  the  symmetric group [22XS_n[122X are in bijection with the partitions of [22Xn[122X. Thus for
+  given  [22Xn[122X  it  makes  sense  to  ask  for  the  character  corresponding to a
+  particular partition, or just for its character value at another partition.[133X
+  
+  [33X[0;0YA  generic character table in [5XGAP[105X allows one such local evaluations. In this
+  sense,  [5XGAP[105X  can  deal  also  with  character  tables that are too big to be
+  computed and stored as a whole.[133X
+  
+  [33X[0;0YCurrently  the  only  operations for generic tables supported by [5XGAP[105X are the
+  specialisation  of  the  parameter [22Xq[122X in order to compute the whole character
+  table   of   [22XG_q[122X,  and  local  evaluation  (see [2XClassParameters[102X  ([14XReference:
+  ClassParameters[114X)  for  an example). [5XGAP[105X does [13Xnot[113X support the computation of,
+  e. g., generic scalar products.[133X
+  
+  [33X[0;0YWhile the numbers of conjugacy classes for the members of a series of groups
+  are  usually  not  bounded,  there  is always a fixed finite number of [13Xtypes[113X
+  (equivalence  classes)  of  conjugacy  classes;  very  often the equivalence
+  relation is isomorphism of the centralizers of the representatives.[133X
+  
+  [33X[0;0YFor  each  type  [22Xt[122X  of  classes  and a fixed [22Xq ∈ I[122X, a [13Xparametrisation[113X of the
+  classes  in [22Xt[122X is a function that assigns to each conjugacy class of [22XG_q[122X in [22Xt[122X
+  a [13Xparameter[113X by which it is uniquely determined. Thus the classes are indexed
+  by pairs [22X[t,p_t][122X consisting of a type [22Xt[122X and a parameter [22Xp_t[122X for that type.[133X
+  
+  [33X[0;0YFor  any  generic  table,  there  has  to  be  a  fixed  number  of types of
+  irreducible characters of [22XG_q[122X, too. Like the classes, the characters of each
+  type are parametrised.[133X
+  
+  [33X[0;0YIn  [5XGAP[105X,  the parametrisations of classes and characters for tables computed
+  from   generic   tables  is  stored  using  the  attributes  [2XClassParameters[102X
+  ([14XReference:    ClassParameters[114X)    and    [2XCharacterParameters[102X    ([14XReference:
+  CharacterParameters[114X).[133X
+  
+  
+  [1X4.2-1 [33X[0;0YAvailable generic character tables[133X[101X
+  
+  [33X[0;0YCurrently,  generic  tables  of the following groups –in alphabetical order–
+  are available in [5XGAP[105X. (A list of the names of generic tables known to [5XGAP[105X is
+  [10XLIBTABLE.GENERIC.firstnames[110X.)  We  list  the  function calls needed to get a
+  specialized  table,  the  generic  table  itself  can be accessed by calling
+  [2XCharacterTable[102X ([14XReference: CharacterTable[114X) with the first argument only; for
+  example,  [10XCharacterTable(  "Cyclic"  )[110X  yields  the  generic table of cyclic
+  groups.[133X
+  
+  [8X[10XCharacterTable( "Alternating", [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xalternating[113X group on [22Xn[122X letters,[133X
+  
+  [8X[10XCharacterTable( "Cyclic", [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xcyclic[113X group of order [22Xn[122X,[133X
+  
+  [8X[10XCharacterTable( "Dihedral", [110X[8X[22X2n[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xdihedral[113X group of order [22X2n[122X,[133X
+  
+  [8X[10XCharacterTable( "DoubleCoverAlternating", [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe  table  of  the  [13XSchur  double cover of the alternating[113X group on [22Xn[122X
+        letters (see [Noe02]),[133X
+  
+  [8X[10XCharacterTable( "DoubleCoverSymmetric", [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xstandard Schur double cover of the symmetric[113X group on
+        [22Xn[122X letters (see [Noe02]),[133X
+  
+  [8X[10XCharacterTable( "GL", 2, [110X[8X[22Xq[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xgeneral linear[113X group [10XGL(2,[110X[22Xq[122X[10X)[110X, for a prime power [22Xq[122X,[133X
+  
+  [8X[10XCharacterTable( "GU", 3, [110X[8X[22Xq[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xgeneral unitary[113X group [10XGU(3,[110X[22Xq[122X[10X)[110X, for a prime power [22Xq[122X,[133X
+  
+  [8X[10XCharacterTable( "P:Q", [110X[8X[22X[ p, q ][122X[10X )[110X[8X and [10XCharacterTable( "P:Q", [110X[8X[22X[ p, q, k ][122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13XFrobenius extension[113X of the nontrivial cyclic group of
+        odd  order [22Xp[122X by the nontrivial cyclic group of order [22Xq[122X where [22Xq[122X divides
+        [22Xp_i-1[122X  for  all  prime divisors [22Xp_i[122X of [22Xp[122X; if [22Xp[122X is a prime power then [22Xq[122X
+        determines  the group uniquely and thus the first version can be used,
+        otherwise  the  action of the residue class of [22Xk[122X modulo [22Xp[122X is taken for
+        forming  orbits  of  length  [22Xq[122X each on the nonidentity elements of the
+        group of order [22Xp[122X,[133X
+  
+  [8X[10XCharacterTable( "PSL", 2, [110X[8X[22Xq[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xprojective special linear[113X group [10XPSL(2,[110X[22Xq[122X[10X)[110X, for a prime
+        power [22Xq[122X,[133X
+  
+  [8X[10XCharacterTable( "SL", 2, [110X[8X[22Xq[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xspecial linear[113X group [10XSL(2,[110X[22Xq[122X[10X)[110X, for a prime power [22Xq[122X,[133X
+  
+  [8X[10XCharacterTable( "SU", 3, [110X[8X[22Xq[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xspecial unitary[113X group [10XSU(3,[110X[22Xq[122X[10X)[110X, for a prime power [22Xq[122X,[133X
+  
+  [8X[10XCharacterTable( "Suzuki", [110X[8X[22Xq[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe  table of the [13XSuzuki[113X group [10XSz([110X[22Xq[122X[10X)[110X [22X= ^2B_2(q)[122X, for [22Xq[122X an odd power of
+        [22X2[122X,[133X
+  
+  [8X[10XCharacterTable( "Symmetric", [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xsymmetric[113X group on [22Xn[122X letters,[133X
+  
+  [8X[10XCharacterTable( "WeylB", [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13XWeyl[113X group of type [22XB_n[122X,[133X
+  
+  [8X[10XCharacterTable( "WeylD", [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13XWeyl[113X group of type [22XD_n[122X.[133X
+  
+  [33X[0;0YIn addition to the above calls that really use generic tables, the following
+  calls  to  [2XCharacterTable[102X  ([14XReference:  CharacterTable[114X)  are  to some extent
+  [21Xgeneric[121X  constructions.  But  note  that  no local evaluation is possible in
+  these  cases, as no generic table object exists in [5XGAP[105X that can be asked for
+  local information.[133X
+  
+  [8X[10XCharacterTable( "Quaternionic", [110X[8X[22X4n[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe table of the [13Xgeneralized quaternionic[113X group of order [22X4n[122X,[133X
+  
+  [8X[10XCharacterTableWreathSymmetric( tbl, [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ythe  character table of the wreath product of the group whose table is
+        [10Xtbl[110X     with     the     symmetric     group     on     [22Xn[122X     letters,
+        see [2XCharacterTableWreathSymmetric[102X                          ([14XReference:
+        CharacterTableWreathSymmetric[114X).[133X
+  
+  [1X4.2-2 CharacterTableSpecialized[101X
+  
+  [33X[1;0Y[29X[2XCharacterTableSpecialized[102X( [3Xgentbl[103X, [3Xq[103X ) [32X function[133X
+  
+  [33X[0;0YFor  a record [3Xgentbl[103X representing a generic character table, and a parameter
+  value [3Xq[103X, [2XCharacterTableSpecialized[102X returns a character table object computed
+  by evaluating [3Xgentbl[103X at [3Xq[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xc5:= CharacterTableSpecialized( CharacterTable( "Cyclic" ), 5 );[127X[104X
+    [4X[28XCharacterTable( "C5" )[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( c5 );[127X[104X
+    [4X[28XC5[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X     5  1  1  1  1  1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 5a 5b 5c 5d[128X[104X
+    [4X[28X    5P 1a 1a 1a 1a 1a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1     1  1  1  1  1[128X[104X
+    [4X[28XX.2     1  A  B /B /A[128X[104X
+    [4X[28XX.3     1  B /A  A /B[128X[104X
+    [4X[28XX.4     1 /B  A /A  B[128X[104X
+    [4X[28XX.5     1 /A /B  B  A[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(5)[128X[104X
+    [4X[28XB = E(5)^2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Also  [10XCharacterTable(  "Cyclic",  5 )[110X could have been used to construct the
+  above table.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XHasClassParameters( c5 );  HasCharacterParameters( c5 );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XClassParameters( c5 );  CharacterParameters( c5 );[127X[104X
+    [4X[28X[ [ 1, 0 ], [ 1, 1 ], [ 1, 2 ], [ 1, 3 ], [ 1, 4 ] ][128X[104X
+    [4X[28X[ [ 1, 0 ], [ 1, 1 ], [ 1, 2 ], [ 1, 3 ], [ 1, 4 ] ][128X[104X
+    [4X[25Xgap>[125X [27XClassParameters( CharacterTable( "Symmetric", 3 ) );[127X[104X
+    [4X[28X[ [ 1, [ 1, 1, 1 ] ], [ 1, [ 2, 1 ] ], [ 1, [ 3 ] ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  are  examples  for  the  [21Xlocal evaluation[121X of generic character tables,
+  first  a  character  value of the cyclic group shown above, then a character
+  value and a representative order of a symmetric group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "Cyclic" ).irreducibles[1][1]( 5, 2, 3 );[127X[104X
+    [4X[28XE(5)[128X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "Symmetric" );;[127X[104X
+    [4X[25Xgap>[125X [27Xtbl.irreducibles[1][1]( 5, [ 3, 2 ], [ 2, 2, 1 ] );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27Xtbl.orders[1]( 5, [ 2, 1, 1, 1 ] );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.2-3 [33X[0;0YComponents of generic character tables[133X[101X
+  
+  [33X[0;0YAny  generic  table  in  [5XGAP[105X  is  represented  by  a  record.  The following
+  components are supported for generic character table records.[133X
+  
+  [8X[10Xcentralizers[110X[8X[108X
+        [33X[0;6Ylist  of  functions,  one  for each class type [22Xt[122X, with arguments [22Xq[122X and
+        [22Xp_t[122X, returning the centralizer order of the class [22X[t,p_t][122X,[133X
+  
+  [8X[10Xcharparam[110X[8X[108X
+        [33X[0;6Ylist  of  functions,  one  for each character type [22Xt[122X, with argument [22Xq[122X,
+        returning the list of character parameters of type [22Xt[122X,[133X
+  
+  [8X[10Xclassparam[110X[8X[108X
+        [33X[0;6Ylist  of  functions,  one  for  each  class  type  [22Xt[122X, with argument [22Xq[122X,
+        returning the list of class parameters of type [22Xt[122X,[133X
+  
+  [8X[10Xclasstext[110X[8X[108X
+        [33X[0;6Ylist  of  functions,  one  for each class type [22Xt[122X, with arguments [22Xq[122X and
+        [22Xp_t[122X,  returning  a  representative of the class with parameter [22X[t,p_t][122X
+        (note  that  this  element  need  [13Xnot[113X  actually  lie  in  the group in
+        question,   for   example   it  may  be  a  diagonal  matrix  but  the
+        characteristic polynomial in the group s irreducible),[133X
+  
+  [8X[10Xdomain[110X[8X[108X
+        [33X[0;6Yfunction  of  [22Xq[122X  returning  [9Xtrue[109X  if [22Xq[122X is a valid parameter, and [9Xfalse[109X
+        otherwise,[133X
+  
+  [8X[10Xidentifier[110X[8X[108X
+        [33X[0;6Yidentifier string of the generic table,[133X
+  
+  [8X[10Xirreducibles[110X[8X[108X
+        [33X[0;6Ylist of list of functions, in row [22Xi[122X and column [22Xj[122X the function of three
+        arguments, namely [22Xq[122X and the parameters [22Xp_t[122X and [22Xp_s[122X of the class type [22Xt[122X
+        and the character type [22Xs[122X,[133X
+  
+  [8X[10XisGenericTable[110X[8X[108X
+        [33X[0;6Yalways [9Xtrue[109X[133X
+  
+  [8X[10Xlibinfo[110X[8X[108X
+        [33X[0;6Yrecord  with  components  [10Xfirstname[110X ([2XIdentifier[102X ([14XReference: Identifier
+        for  character  tables[114X)  value  of  the table) and [10Xothernames[110X (list of
+        other admissible names)[133X
+  
+  [8X[10Xmatrix[110X[8X[108X
+        [33X[0;6Yfunction of [22Xq[122X returning the matrix of irreducibles of [22XG_q[122X,[133X
+  
+  [8X[10Xorders[110X[8X[108X
+        [33X[0;6Ylist  of  functions,  one  for each class type [22Xt[122X, with arguments [22Xq[122X and
+        [22Xp_t[122X,  returning  the  representative  order  of elements of type [22Xt[122X and
+        parameter [22Xp_t[122X,[133X
+  
+  [8X[10Xpowermap[110X[8X[108X
+        [33X[0;6Ylist  of  functions,  one  for  each  class  type  [22Xt[122X,  each with three
+        arguments  [22Xq[122X,  [22Xp_t[122X,  and  [22Xk[122X,  returning  the  pair [22X[s,p_s][122X of type and
+        parameter for the [22Xk[122X-th power of the class with parameter [22X[t,p_t][122X,[133X
+  
+  [8X[10Xsize[110X[8X[108X
+        [33X[0;6Yfunction of [22Xq[122X returning the order of [22XG_q[122X,[133X
+  
+  [8X[10Xspecializedname[110X[8X[108X
+        [33X[0;6Yfunction  of  [22Xq[122X  returning  the  [2XIdentifier[102X ([14XReference: Identifier for
+        character tables[114X) value of the table of [22XG_q[122X,[133X
+  
+  [8X[10Xtext[110X[8X[108X
+        [33X[0;6Ystring informing about the generic table[133X
+  
+  [33X[0;0YIn  the  specialized table, the [2XClassParameters[102X ([14XReference: ClassParameters[114X)
+  and  [2XCharacterParameters[102X  ([14XReference:  CharacterParameters[114X)  values  are the
+  lists of parameters [22X[t,p_t][122X of classes and characters, respectively.[133X
+  
+  [33X[0;0YIf  the  [10Xmatrix[110X  component  is present then its value implements a method to
+  compute  the  complete  table of small members [22XG_q[122X more efficiently than via
+  local  evaluation; this method will be called when the generic table is used
+  to    compute    the    whole    character    table    for    a    given   [22Xq[122X
+  (see [2XCharacterTableSpecialized[102X ([14X4.2-2[114X)).[133X
+  
+  
+  [1X4.2-4 [33X[0;0YExample: The generic table of cyclic groups[133X[101X
+  
+  [33X[0;0YFor  the  cyclic group [22XC_q = ⟨ x ⟩[122X of order [22Xq[122X, there is one type of classes.
+  The  class  parameters  are  integers  [22Xk  ∈  { 0, ..., q-1 }[122X, the class with
+  parameter  [22Xk[122X  consists of the group element [22Xx^k[122X. Group order and centralizer
+  orders  are the identity function [22Xq ↦ q[122X, independent of the parameter [22Xk[122X. The
+  representative order function maps the parameter pair [22X[q,k][122X to [22Xq / gcd(q,k)[122X,
+  which is the order of [22Xx^k[122X in [22XC_q[122X; the [22Xp[122X-th power map is the function mapping
+  the triple [22X(q,k,p)[122X to the parameter [22X[1,(kp mod q)][122X.[133X
+  
+  [33X[0;0YThere  is  one  type of characters, with parameters [22Xl ∈ { 0, ..., q-1 }[122X; for
+  [22Xe_q[122X  a  primitive  complex  [22Xq[122X-th  root  of  unity,  the character values are
+  [22Xχ_l(x^k) = e_q^kl[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPrint( CharacterTable( "Cyclic" ), "\n" );[127X[104X
+    [4X[28Xrec([128X[104X
+    [4X[28X  centralizers := [ function ( n, k )[128X[104X
+    [4X[28X            return n;[128X[104X
+    [4X[28X        end ],[128X[104X
+    [4X[28X  charparam := [ function ( n )[128X[104X
+    [4X[28X            return [ 0 .. n - 1 ];[128X[104X
+    [4X[28X        end ],[128X[104X
+    [4X[28X  classparam := [ function ( n )[128X[104X
+    [4X[28X            return [ 0 .. n - 1 ];[128X[104X
+    [4X[28X        end ],[128X[104X
+    [4X[28X  domain := <Category "(IsInt and IsPosRat)">,[128X[104X
+    [4X[28X  identifier := "Cyclic",[128X[104X
+    [4X[28X  irreducibles := [ [ function ( n, k, l )[128X[104X
+    [4X[28X                return E( n ) ^ (k * l);[128X[104X
+    [4X[28X            end ] ],[128X[104X
+    [4X[28X  isGenericTable := true,[128X[104X
+    [4X[28X  libinfo := rec([128X[104X
+    [4X[28X      firstname := "Cyclic",[128X[104X
+    [4X[28X      othernames := [  ] ),[128X[104X
+    [4X[28X  orders := [ function ( n, k )[128X[104X
+    [4X[28X            return n / Gcd( n, k );[128X[104X
+    [4X[28X        end ],[128X[104X
+    [4X[28X  powermap := [ function ( n, k, pow )[128X[104X
+    [4X[28X            return [ 1, k * pow mod n ];[128X[104X
+    [4X[28X        end ],[128X[104X
+    [4X[28X  size := function ( n )[128X[104X
+    [4X[28X        return n;[128X[104X
+    [4X[28X    end,[128X[104X
+    [4X[28X  specializedname := function ( q )[128X[104X
+    [4X[28X        return Concatenation( "C", String( q ) );[128X[104X
+    [4X[28X    end,[128X[104X
+    [4X[28X  text := "generic character table for cyclic groups" )[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.2-5 [33X[0;0YExample: The generic table of the general linear group GL[22X(2,q)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YWe  have four types [22Xt_1, t_2, t_3, t_4[122X of classes, according to the rational
+  canonical form of the elements. [22Xt_1[122X describes scalar matrices, [22Xt_2[122X nonscalar
+  diagonal  matrices, [22Xt_3[122X companion matrices of [22X(X - ρ)^2[122X for nonzero elements
+  [22Xρ  ∈  F_q[122X, and [22Xt_4[122X companion matrices of irreducible polynomials of degree [22X2[122X
+  over [22XF_q[122X.[133X
+  
+  [33X[0;0YThe  sets  of  class  parameters  of the types are in bijection with nonzero
+  elements in [22XF_q[122X for [22Xt_1[122X and [22Xt_3[122X, with the set[133X
+  
+  
+  [24X[33X[0;6Y{ { ρ, τ }; ρ, τ ∈ F_q, ρ ‡ 0, τ ‡ 0, ρ ‡ τ }[133X[124X
+  
+  [33X[0;0Yfor [22Xt_2[122X, and with the set [22X{ { ϵ, ϵ^q }; ϵ ∈ F_{q^2} ∖ F_q }[122X for [22Xt_4[122X.[133X
+  
+  [33X[0;0YThe  centralizer  order  functions  are [22Xq ↦ (q^2-1)(q^2-q)[122X for type [22Xt_1[122X, [22Xq ↦
+  (q-1)^2[122X for type [22Xt_2[122X, [22Xq ↦ q(q-1)[122X for type [22Xt_3[122X, and [22Xq ↦ q^2-1[122X for type [22Xt_4[122X.[133X
+  
+  [33X[0;0YThe  representative  order  function of [22Xt_1[122X maps [22X(q, ρ)[122X to the order of [22Xρ[122X in
+  [22XF_q[122X,  that  of  [22Xt_2[122X  maps  [22X(q, { ρ, τ })[122X to the least common multiple of the
+  orders of [22Xρ[122X and [22Xτ[122X.[133X
+  
+  [33X[0;0YThe file contains something similar to the following table.[133X
+  
+  [4X[32X[104X
+    [4Xrec([104X
+    [4Xidentifier := "GL2",[104X
+    [4Xspecializedname := ( q -> Concatenation( "GL(2,", String(q), ")" ) ),[104X
+    [4Xsize := ( q -> (q^2-1)*(q^2-q) ),[104X
+    [4Xtext := "generic character table of GL(2,q), see Robert Steinberg: ...",[104X
+    [4Xcentralizers := [ function( q, k ) return (q^2-1) * (q^2-q); end,[104X
+    [4X                  ..., ..., ... ],[104X
+    [4Xclassparam := [ ( q -> [ 0 .. q-2 ] ), ..., ..., ... ],[104X
+    [4Xcharparam := [ ( q -> [ 0 .. q-2 ] ), ..., ..., ... ],[104X
+    [4Xpowermap := [ function( q, k, pow ) return [ 1, (k*pow) mod (q-1) ]; end,[104X
+    [4X              ..., ..., ... ],[104X
+    [4Xorders:= [ function( q, k ) return (q-1)/Gcd( q-1, k ); end,[104X
+    [4X           ..., ..., ... ],[104X
+    [4Xirreducibles := [ [ function( q, k, l ) return E(q-1)^(2*k*l); end,[104X
+    [4X                    ..., ..., ... ],[104X
+    [4X                  [ ..., ..., ..., ... ],[104X
+    [4X                  [ ..., ..., ..., ... ],[104X
+    [4X                  [ ..., ..., ..., ... ] ],[104X
+    [4Xclasstext := [ ..., ..., ..., ... ],[104X
+    [4Xdomain := IsPrimePowerInt,[104X
+    [4XisGenericTable := true )[104X
+  [4X[32X[104X
+  
+  
+  [1X4.3 [33X[0;0Y[5XAtlas[105X[101X[1X Tables[133X[101X
+  
+  [33X[0;0YThe  [5XGAP[105X  character  table library contains all character tables of bicyclic
+  extensions  of simple groups that are included in the [5XAtlas[105X of Finite Groups
+  ([CCN+85], from now on called [5XAtlas[105X), and the Brauer tables contained in the
+  [5XAtlas[105X of Brauer Characters ([JLPW95]).[133X
+  
+  [33X[0;0YThese tables have the information[133X
+  
+  origin: ATLAS of finite groups
+  
+  [33X[0;0Yor[133X
+  
+  origin: modular ATLAS of finite groups
+  
+  [33X[0;0Yin  their [2XInfoText[102X ([14XReference: InfoText[114X) value, they are simply called [5XAtlas[105X
+  tables further on.[133X
+  
+  [33X[0;0YThe  property [2XIsAtlasCharacterTable[102X ([14X3.7-6[114X) describes which character tables
+  are [5XAtlas[105X tables.[133X
+  
+  [33X[0;0YFor  displaying  [5XAtlas[105X  tables with the row labels used in the [5XAtlas[105X, or for
+  displaying    decomposition   matrices,   see [2XLaTeXStringDecompositionMatrix[102X
+  ([14XReference:   LaTeXStringDecompositionMatrix[114X)  and [2XAtlasLabelsOfIrreducibles[102X
+  ([14X4.3-6[114X).[133X
+  
+  [33X[0;0YIn  addition  to the information given in Chapters 6 to 8 of the [5XAtlas[105X which
+  tell you how to read the printed tables, there are some rules relating these
+  to the corresponding [5XGAP[105X tables.[133X
+  
+  
+  [1X4.3-1 [33X[0;0YImprovements to the [5XAtlas[105X[101X[1X[133X[101X
+  
+  [33X[0;0YFor the [5XGAP[105X Character Table Library not the printed versions of the [5XAtlas[105X of
+  Finite  Groups  and  the  [5XAtlas[105X  of  Brauer  Characters are relevant but the
+  revised versions given by the currently three lists of improvements that are
+  maintained  by Simon Norton. The first such list is contained in [BN95], and
+  is  printed  in  the Appendix of [JLPW95]; it contains the improvements that
+  had  been  known  until  the  [21X[5XAtlas[105X  of Brauer Characters[121X was published. The
+  second  list  contains  the  improvements to the [5XAtlas[105X of Finite Groups that
+  were  found  since  the  publication  of [JLPW95].  It  can  be found in the
+  internet, an HTML version at[133X
+  
+  [33X[0;0Y[7Xhttp://web.mat.bham.ac.uk/atlas/html/atlasmods.html[107X[133X
+  
+  [33X[0;0Yand a DVI version at[133X
+  
+  [33X[0;0Y[7Xhttp://web.mat.bham.ac.uk/atlas/html/atlasmods.dvi[107X.[133X
+  
+  [33X[0;0YThe  third list contains the improvements to the [5XAtlas[105X of Brauer Characters,
+  HTML and PDF versions can be found in the internet at[133X
+  
+  [33X[0;0Y[7Xhttps://www.math.rwth-aachen.de/~MOC/ABCerr.html[107X[133X
+  
+  [33X[0;0Yand[133X
+  
+  [33X[0;0Y[7Xhttps://www.math.rwth-aachen.de/~MOC/ABCerr.pdf[107X,[133X
+  
+  [33X[0;0Yrespectively.[133X
+  
+  [33X[0;0YAlso  some  tables  are regarded as [5XAtlas[105X tables that are not printed in the
+  [5XAtlas[105X  but available in [5XAtlas[105X format, according to the lists of improvements
+  mentioned above. Currently these are the tables related to [22XL_2(49)[122X, [22XL_2(81)[122X,
+  [22XL_6(2)[122X, [22XO_8^-(3)[122X, [22XO_8^+(3)[122X, [22XS_10(2)[122X, and [22X^2E_6(2).3[122X.[133X
+  
+  
+  [1X4.3-2 [33X[0;0YPower Maps[133X[101X
+  
+  [33X[0;0YFor  the  tables of [22X3.McL[122X, [22X3_2.U_4(3)[122X and its covers, and [22X3_2.U_4(3).2_3[122X and
+  its  covers,  the  power maps are not uniquely determined by the information
+  from   the   [5XAtlas[105X   but   determined   only   up  to  matrix  automorphisms
+  (see [2XMatrixAutomorphisms[102X    ([14XReference:    MatrixAutomorphisms[114X))    of   the
+  irreducible  characters. In these cases, the first possible map according to
+  lexicographical ordering was chosen, and the automorphisms are listed in the
+  [2XInfoText[102X ([14XReference: InfoText[114X) strings of the tables.[133X
+  
+  
+  [1X4.3-3 [33X[0;0YProjective Characters and Projections[133X[101X
+  
+  [33X[0;0YIf  [22XG[122X  (or  [22XG.a[122X)  has  a  nontrivial  Schur  multiplier  then  the attribute
+  [2XProjectivesInfo[102X  ([14X3.7-2[114X)  of  the [5XGAP[105X table object of [22XG[122X (or [22XG.a[122X) is set; the
+  [10Xchars[110X  component  of  the  record in question is the list of values lists of
+  those  faithful  projective  irreducibles  that  are  printed  in  the [5XAtlas[105X
+  (so-called  [13Xproxy  character[113X),  and the [10Xmap[110X component lists the positions of
+  columns  in  the  covering  for  which the column is printed in the [5XAtlas[105X (a
+  so-called  [13Xproxy  class[113X,  this  preimage  is  denoted  by  [22Xg_0[122X in Chapter 7,
+  Section 14 of the [5XAtlas[105X).[133X
+  
+  
+  [1X4.3-4 [33X[0;0YTables of Isoclinic Groups[133X[101X
+  
+  [33X[0;0YAs  described  in  Chapter 6,  Section 7 and in Chapter 7, Section 18 of the
+  [5XAtlas[105X, there exist two (often nonisomorphic) groups of structure [22X2.G.2[122X for a
+  simple  group  [22XG[122X,  which are isoclinic. The table in the [5XGAP[105X Character Table
+  Library  is the one printed in the [5XAtlas[105X, the table of the isoclinic variant
+  can     be    constructed    using    [2XCharacterTableIsoclinic[102X    ([14XReference:
+  CharacterTableIsoclinic[114X).[133X
+  
+  
+  [1X4.3-5 [33X[0;0YOrdering of Characters and Classes[133X[101X
+  
+  [33X[0;0Y(Throughout this section, [22XG[122X always means the simple group involved.)[133X
+  
+  [31X1[131X   [33X[0;6YFor  [22XG[122X itself, the ordering of classes and characters in the [5XGAP[105X table
+        coincides with the one in the [5XAtlas[105X.[133X
+  
+  [31X2[131X   [33X[0;6YFor an automorphic extension [22XG.a[122X, there are three types of characters.[133X
+  
+        [30X    [33X[0;12YIf  a  character  [22Xχ[122X  of  [22XG[122X  extends  to  [22XG.a[122X  then the different
+              extensions  [22Xχ^0,  χ^1, ..., χ^{a-1}[122X are consecutive in the table
+              of [22XG.a[122X (see [CCN+85, Chapter 7, Section 16]).[133X
+  
+        [30X    [33X[0;12YIf  some  characters of [22XG[122X fuse to give a single character of [22XG.a[122X
+              then the position of that character in the table of [22XG.a[122X is given
+              by the position of the first involved character of [22XG[122X.[133X
+  
+        [30X    [33X[0;12YIf  both  extension  and  fusion  occur for a character then the
+              resulting  characters  are  consecutive in the table of [22XG.a[122X, and
+              each replaces the first involved character of [22XG[122X.[133X
+  
+  [31X3[131X   [33X[0;6YSimilarly,  there  are  different  types of classes for an automorphic
+        extension [22XG.a[122X, as follows.[133X
+  
+        [30X    [33X[0;12YIf  some  classes collapse then the resulting class replaces the
+              first involved class of [22XG[122X.[133X
+  
+        [30X    [33X[0;12YFor [22Xa > 2[122X, any proxy class and its algebraic conjugates that are
+              not printed in the [5XAtlas[105X are consecutive in the table of [22XG.a[122X; if
+              more than two classes of [22XG.a[122X have the same proxy class (the only
+              case  that  actually  occurs  is for [22Xa = 5[122X) then the ordering of
+              non-printed  classes  is the natural one of corresponding Galois
+              conjugacy operators [22X*k[122X (see [CCN+85, Chapter 7, Section 19]).[133X
+  
+        [30X    [33X[0;12YFor  [22Xa_1[122X,  [22Xa_2[122X  dividing  [22Xa[122X  such that [22Xa_1 ≤ a_2[122X, the classes of
+              [22XG.a_1[122X  in  [22XG.a[122X  precede  the  classes  of [22XG.a_2[122X not contained in
+              [22XG.a_1[122X.  This ordering is the same as in the [5XAtlas[105X, with the only
+              exception [22XU_3(8).6[122X.[133X
+  
+  [31X4[131X   [33X[0;6YFor  a  central  extension  [22XM.G[122X,  there  are  two  different  types of
+        characters, as follows.[133X
+  
+        [30X    [33X[0;12YEach  character  can  be  regarded  as a faithful character of a
+              factor  group  [22Xm.G[122X,  where [22Xm[122X divides [22XM[122X. Characters with the same
+              kernel  are  consecutive  as  in  the  [5XAtlas[105X,  the  ordering  of
+              characters  with  different  kernels  is  given  by the order of
+              precedence [22X1, 2, 4, 3, 6, 12[122X for the different values of [22Xm[122X.[133X
+  
+        [30X    [33X[0;12YIf  [22Xm  >  2[122X,  a faithful character of [22Xm.G[122X that is printed in the
+              [5XAtlas[105X  (a  so-called  [13Xproxy  character[113X)  represents  two or more
+              Galois conjugates. In each [5XAtlas[105X table in [5XGAP[105X, a proxy character
+              always  precedes the non-printed characters with this proxy. The
+              case [22Xm = 12[122X is the only one that actually occurs where more than
+              one  character  for  a  proxy  is not printed. In this case, the
+              non-printed    characters   are   ordered   according   to   the
+              corresponding  Galois  conjugacy  operators [22X*5[122X, [22X*7[122X, [22X*11[122X (in this
+              order).[133X
+  
+  [31X5[131X   [33X[0;6YFor the classes of a central extension we have the following.[133X
+  
+        [30X    [33X[0;12YThe  preimages  of a [22XG[122X-class in [22XM.G[122X are subsequent, the ordering
+              is  the  same  as  that  of  the  lifting order rows in [CCN+85,
+              Chapter 7, Section 7].[133X
+  
+        [30X    [33X[0;12YThe  primitive roots of unity chosen to represent the generating
+              central  element  (i. e., the element in the second class of the
+              [5XGAP[105X  table) are [10XE(3)[110X, [10XE(4)[110X, [10XE(6)^5[110X ([10X= E(2)*E(3)[110X), and [10XE(12)^7[110X ([10X=
+              E(3)*E(4)[110X), for [22Xm = 3[122X, [22X4[122X, [22X6[122X, and [22X12[122X, respectively.[133X
+  
+  [31X6[131X   [33X[0;6YFor   tables   of  bicyclic  extensions  [22Xm.G.a[122X,  both  the  rules  for
+        automorphic  and  central  extensions  hold.  Additionally we have the
+        following three rules.[133X
+  
+        [30X    [33X[0;12YWhenever  classes of the subgroup [22Xm.G[122X collapse in [22Xm.G.a[122X then the
+              resulting class replaces the first involved class.[133X
+  
+        [30X    [33X[0;12YWhenever  characters  of the subgroup [22Xm.G[122X collapse fuse in [22Xm.G.a[122X
+              then the result character replaces the first involved character.[133X
+  
+        [30X    [33X[0;12YExtensions  of a character are subsequent, and the extensions of
+              a proxy character precede the extensions of characters with this
+              proxy that are not printed.[133X
+  
+        [30X    [33X[0;12YPreimages  of  a  class  of [22XG.a[122X in [22Xm.G.a[122X are subsequent, and the
+              preimages  of a proxy class precede the preimages of non-printed
+              classes with this proxy.[133X
+  
+  [1X4.3-6 AtlasLabelsOfIrreducibles[101X
+  
+  [33X[1;0Y[29X[2XAtlasLabelsOfIrreducibles[102X( [3Xtbl[103X[, [3Xshort[103X] ) [32X function[133X
+  
+  [33X[0;0YLet  [3Xtbl[103X be the (ordinary or Brauer) character table of a bicyclic extension
+  of  a simple group that occurs in the [5XAtlas[105X of Finite Groups [CCN+85] or the
+  [5XAtlas[105X  of  Brauer  Characters [JLPW95].  [2XAtlasLabelsOfIrreducibles[102X returns a
+  list  of  strings,  the  [22Xi[122X-th  entry  being a label for the [22Xi[122X-th irreducible
+  character of [3Xtbl[103X.[133X
+  
+  [33X[0;0YThe  labels  have  the  following form. We state the rules only for ordinary
+  characters,  the  rules for Brauer characters are obtained by replacing [22Xχ[122X by
+  [22Xφ[122X.[133X
+  
+  [33X[0;0YFirst  consider  only  downward extensions [22Xm.G[122X of a simple group [22XG[122X. If [22Xm ≤ 2[122X
+  then  only  labels  of  the  form [22Xχ_i[122X occur, which denotes the [22Xi[122X-th ordinary
+  character shown in the [5XAtlas[105X.[133X
+  
+  [33X[0;0YThe  labels  of faithful ordinary characters of groups [22Xm.G[122X with [22Xm ≥ 3[122X are of
+  the  form [22Xχ_i[122X, [22Xχ_i^*[122X, or [22Xχ_i^{*k}[122X, which means the [22Xi[122X-th character printed in
+  the  [5XAtlas[105X,  the unique character that is not printed and for which [22Xχ_i[122X acts
+  as  proxy (see [CCN+85, Chapter 7, Sections 8 and 19]), and the image of the
+  printed   character   [22Xχ_i[122X   under   the  algebraic  conjugacy  operator  [22X*k[122X,
+  respectively.[133X
+  
+  [33X[0;0YFor  groups  [22Xm.G.a[122X  with [22Xa > 1[122X, the labels of the irreducible characters are
+  derived   from   the   labels  of  the  irreducible  constituents  of  their
+  restrictions to [22Xm.G[122X, as follows.[133X
+  
+  [31X1[131X   [33X[0;6YIf the ordinary irreducible character [22Xχ_i[122X of [22Xm.G[122X extends to [22Xm.G.a[122X then
+        the  [22Xa^'[122X  extensions  are denoted by [22Xχ_{i,0}, χ_{i,1}, ..., χ_{i,a^'}[122X,
+        where [22Xχ_{i,0}[122X is the character whose values are printed in the [5XAtlas[105X.[133X
+  
+  [31X2[131X   [33X[0;6YThe  label  [22Xχ_{i_1  + i_2 + ⋯ + i_a}[122X means that [22Xa[122X different characters
+        [22Xχ_{i_1},  χ_{i_2},  ...,  χ_{i_a}[122X  of  [22Xm.G[122X  induce  to  an irreducible
+        character of [22Xm.G.a[122X with this label.[133X
+  
+        [33X[0;6YIf either [9Xtrue[109X or the string [10X"short"[110X is entered as the second argument
+        then  the  label has the short form [22Xχ_{i_1+}[122X. Note that [22Xi_2, i_3, ...,
+        i_a[122X can be read off from the fusion signs in the [5XAtlas[105X.[133X
+  
+  [31X3[131X   [33X[0;6YFinally,  the  label [22Xχ_{i_1,j_1 + i_2,j_2 + ⋯ + i_{a^'},j_{a^'}}[122X means
+        that  the  characters [22Xχ_{i_1}, χ_{i_2}, ..., χ_{i_{a^'}}[122X of [22Xm.G[122X extend
+        to  a  group  that  lies  properly  between  [22Xm.G[122X  and  [22Xm.G.a[122X,  and the
+        extensions  [22Xχ_{i_1, j_1}, χ_{i_2, j_2}, ... χ_{i_{a^'},j_{a^'}}[122X induce
+        to an irreducible character of [22Xm.G.a[122X with this label.[133X
+  
+        [33X[0;6YIf  [9Xtrue[109X or the string [10X"short"[110X was entered as the second argument then
+        the label has the short form [22Xχ_{i,j+}[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAtlasLabelsOfIrreducibles( CharacterTable( "3.A7.2" ) );[127X[104X
+    [4X[28X[ "\\chi_{1,0}", "\\chi_{1,1}", "\\chi_{2,0}", "\\chi_{2,1}", [128X[104X
+    [4X[28X  "\\chi_{3+4}", "\\chi_{5,0}", "\\chi_{5,1}", "\\chi_{6,0}", [128X[104X
+    [4X[28X  "\\chi_{6,1}", "\\chi_{7,0}", "\\chi_{7,1}", "\\chi_{8,0}", [128X[104X
+    [4X[28X  "\\chi_{8,1}", "\\chi_{9,0}", "\\chi_{9,1}", "\\chi_{17+17\\ast 2}",[128X[104X
+    [4X[28X  "\\chi_{18+18\\ast 2}", "\\chi_{19+19\\ast 2}", [128X[104X
+    [4X[28X  "\\chi_{20+20\\ast 2}", "\\chi_{21+21\\ast 2}", [128X[104X
+    [4X[28X  "\\chi_{22+23\\ast 8}", "\\chi_{22\\ast 8+23}" ][128X[104X
+    [4X[25Xgap>[125X [27XAtlasLabelsOfIrreducibles( CharacterTable( "3.A7.2" ), "short" );[127X[104X
+    [4X[28X[ "\\chi_{1,0}", "\\chi_{1,1}", "\\chi_{2,0}", "\\chi_{2,1}", [128X[104X
+    [4X[28X  "\\chi_{3+}", "\\chi_{5,0}", "\\chi_{5,1}", "\\chi_{6,0}", [128X[104X
+    [4X[28X  "\\chi_{6,1}", "\\chi_{7,0}", "\\chi_{7,1}", "\\chi_{8,0}", [128X[104X
+    [4X[28X  "\\chi_{8,1}", "\\chi_{9,0}", "\\chi_{9,1}", "\\chi_{17+}", [128X[104X
+    [4X[28X  "\\chi_{18+}", "\\chi_{19+}", "\\chi_{20+}", "\\chi_{21+}", [128X[104X
+    [4X[28X  "\\chi_{22+}", "\\chi_{23+}" ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.3-7 [33X[0;0YExamples of the [5XAtlas[105X[101X[1X Format for [5XGAP[105X[101X[1X Tables[133X[101X
+  
+  [33X[0;0YWe  give  three  little  examples for the conventions stated in Section [14X4.3[114X,
+  listing both the [5XAtlas[105X format and the table displayed by [5XGAP[105X.[133X
+  
+  [33X[0;0YFirst, let [22XG[122X be the trivial group. We consider the cyclic group [22XC_6[122X of order
+  [22X6[122X. It can be viewed in several ways, namely[133X
+  
+  [30X    [33X[0;6Yas  a downward extension of the factor group [22XC_2[122X which contains [22XG[122X as a
+        subgroup,  or equivalently, as an upward extension of the subgroup [22XC_3[122X
+        which has a factor group isomorphic to [22XG[122X:[133X
+  
+  [4X[32X[104X
+    [4X┌───────┐ ┌───────┐       ;   @   ;   ;   @      2   1   1   1   1   1   1[104X
+    [4X│       │ │       │           1           1      3   1   1   1   1   1   1[104X
+    [4X│   G   │ │  G.2  │     p power           A[104X
+    [4X│       │ │       │     p' part           A         1a  3a  3b  2a  6a  6b[104X
+    [4X└───────┘ └───────┘     ind  1A fus ind  2A     2P  1a  3b  3a  1a  3b  3a[104X
+    [4X┌───────┐ ┌───────┐                             3P  1a  1a  1a  2a  2a  2a[104X
+    [4X│       │ │       │  χ_1  +   1   :  ++   1[104X
+    [4X│  3.G  │ │ 3.G.2 │                           X.1    1   1   1   1   1   1[104X
+    [4X│       │ │       │     ind   1 fus ind   2   X.2    1   1   1  -1  -1  -1[104X
+    [4X└───────┘ └───────┘           3           6   X.3    1   A  /A   1   A  /A[104X
+    [4X                              3           6   X.4    1   A  /A  -1  -A -/A[104X
+    [4X                                              X.5    1  /A   A   1  /A   A[104X
+    [4X                     χ_2 o2   1   : oo2   1   X.6    1  /A   A  -1 -/A  -A[104X
+    [4X[104X
+    [4X                                              A = E(3)[104X
+    [4X                                                = (-1+ER(-3))/2 = b3[104X
+  [4X[32X[104X
+  
+  [8X[108X
+        [33X[0;6Y[10XX.1[110X, [10XX.2[110X extend [22Xχ_1[122X. [10XX.3[110X, [10XX.4[110X extend the proxy character [22Xχ_2[122X. [10XX.5[110X, [10XX.6[110X
+        extend  the  not printed character with proxy [22Xχ_2[122X. The classes [10X1a[110X, [10X3a[110X,
+        [10X3b[110X are preimages of [10X1A[110X, and [10X2a[110X, [10X6a[110X, [10X6b[110X are preimages of [10X2A[110X.[133X
+  
+  [30X    [33X[0;6Yas  a downward extension of the factor group [22XC_3[122X which contains [22XG[122X as a
+        subgroup,  or equivalently, as an upward extension of the subgroup [22XC_2[122X
+        which has a factor group isomorphic to [22XG[122X:[133X
+  
+  [4X[32X[104X
+    [4X┌───────┐ ┌───────┐       ;   @   ;   ;   @      2   1   1   1   1   1   1[104X
+    [4X│       │ │       │           1           1      3   1   1   1   1   1   1[104X
+    [4X│   G   │ │  G.3  │     p power           A[104X
+    [4X│       │ │       │     p' part           A         1a  2a  3a  6a  3b  6b[104X
+    [4X└───────┘ └───────┘     ind  1A fus ind  3A     2P  1a  1a  3b  3b  3a  3a[104X
+    [4X┌───────┐ ┌───────┐                             3P  1a  2a  1a  2a  1a  2a[104X
+    [4X│       │ │       │  χ_1  +   1   : +oo   1[104X
+    [4X│  2.G  │ │ 2.G.3 │                           X.1    1   1   1   1   1   1[104X
+    [4X│       │ │       │     ind   1 fus ind   3   X.2    1   1   A   A  /A  /A[104X
+    [4X└───────┘ └───────┘           2           6   X.3    1   1  /A  /A   A   A[104X
+    [4X                                              X.4    1  -1   1  -1   1  -1[104X
+    [4X                     χ_2  +   1   : +oo   1   X.5    1  -1   A  -A  /A -/A[104X
+    [4X                                              X.6    1  -1  /A -/A   A  -A[104X
+    [4X[104X
+    [4X                                              A = E(3)[104X
+    [4X                                                = (-1+ER(-3))/2 = b3[104X
+  [4X[32X[104X
+  
+  [8X[108X
+        [33X[0;6Y[10XX.1[110X  to  [10XX.3[110X  extend [22Xχ_1[122X, [10XX.4[110X to [10XX.6[110X extend [22Xχ_2[122X. The classes [10X1a[110X and [10X2a[110X
+        are  preimages  of  [10X1A[110X, [10X3a[110X and [10X6a[110X are preimages of the proxy class [10X3A[110X,
+        and [10X3b[110X and [10X6b[110X are preimages of the not printed class with proxy [10X3A[110X.[133X
+  
+  [30X    [33X[0;6Yas  a downward extension of the factor groups [22XC_3[122X and [22XC_2[122X which have [22XG[122X
+        as a factor group:[133X
+  
+  [4X[32X[104X
+    [4X┌───────┐           ;   @        2   1   1   1   1   1   1[104X
+    [4X│       │               1        3   1   1   1   1   1   1[104X
+    [4X│   G   │         p power[104X
+    [4X│       │         p' part           1a  6a  3a  2a  3b  6b[104X
+    [4X└───────┘         ind  1A       2P  1a  3a  3b  1a  3a  3b[104X
+    [4X┌───────┐                       3P  1a  2a  1a  2a  1a  2a[104X
+    [4X│       │      χ_1  +   1[104X
+    [4X│  2.G  │                     X.1    1   1   1   1   1   1[104X
+    [4X│       │         ind   1     X.2    1  ─1   1  ─1   1  ─1[104X
+    [4X└───────┘               2     X.3    1   A  /A   1   A  /A[104X
+    [4X┌───────┐                     X.4    1  /A   A   1  /A   A[104X
+    [4X│       │      χ_2  +   1     X.5    1  ─A  /A  ─1   A ─/A[104X
+    [4X│  3.G  │                     X.6    1 ─/A   A  ─1  /A  ─A[104X
+    [4X│       │         ind   1[104X
+    [4X└───────┘               3     A = E(3)[104X
+    [4X┌───────┐               3       = (─1+ER(─3))/2 = b3[104X
+    [4X│       │[104X
+    [4X│  6.G  │      χ_3 o2   1[104X
+    [4X│       │[104X
+    [4X└───────┘         ind   1[104X
+    [4X                        6[104X
+    [4X                        3[104X
+    [4X                        2[104X
+    [4X                        3[104X
+    [4X                        6[104X
+    [4X[104X
+    [4X               χ_4 o2   1[104X
+  [4X[32X[104X
+  
+  [8X[108X
+        [33X[0;6Y[10XX.1[110X,  [10XX.2[110X correspond to [22Xχ_1, χ_2[122X, respectively; [10XX.3[110X, [10XX.5[110X correspond to
+        the  proxies [22Xχ_3[122X, [22Xχ_4[122X, and [10XX.4[110X, [10XX.6[110X to the not printed characters with
+        these proxies. The factor fusion onto [22X3.G[122X is given by [10X[ 1, 2, 3, 1, 2,
+        3 ][110X, that onto [22XG.2[122X by [10X[ 1, 2, 1, 2, 1, 2 ][110X.[133X
+  
+  [30X    [33X[0;6Yas  an upward extension of the subgroups [22XC_3[122X or [22XC_2[122X which both contain
+        a subgroup isomorphic to [22XG[122X:[133X
+  
+  [4X[32X[104X
+    [4X┌───────┐ ┌───────┐ ┌───────┐ ┌───────┐[104X
+    [4X│       │ │       │ │       │ │       │[104X
+    [4X│   G   │ │  G.2  │ │  G.3  │ │  G.6  │[104X
+    [4X│       │ │       │ │       │ │       │[104X
+    [4X└───────┘ └───────┘ └───────┘ └───────┘[104X
+    [4X[104X
+    [4X     ;   @   ;   ;   @   ;   ;   @   ;     ;   @[104X
+    [4X[104X
+    [4X         1           1           1             1[104X
+    [4X   p power           A           A            AA[104X
+    [4X   p' part           A           A            AA[104X
+    [4X   ind  1A fus ind  2A fus ind  3A fus   ind  6A[104X
+    [4X[104X
+    [4Xχ_1  +   1   :  ++   1   : +oo   1   :+oo+oo   1[104X
+    [4X[104X
+    [4X[104X
+    [4X    2   1   1   1   1   1   1[104X
+    [4X    3   1   1   1   1   1   1[104X
+    [4X[104X
+    [4X       1a  2a  3a  3b  6a  6b[104X
+    [4X   2P  1a  1a  3b  3a  3b  3a[104X
+    [4X   3P  1a  2a  1a  1a  2a  2a[104X
+    [4X X.1    1   1   1   1   1   1[104X
+    [4X X.2    1  -1   A  /A  -A -/A[104X
+    [4X X.3    1   1  /A   A  /A   A[104X
+    [4X X.4    1  -1   1   1  -1  -1[104X
+    [4X X.5    1   1   A  /A   A  /A[104X
+    [4X X.6    1  -1  /A   A -/A  -A[104X
+    [4X[104X
+    [4X A = E(3)[104X
+    [4X   = (-1+ER(-3))/2 = b3[104X
+  [4X[32X[104X
+  
+  [8X[108X
+        [33X[0;6YThe  classes  [10X1a[110X,  [10X2a[110X  correspond  to  [22X1A[122X,  [22X2A[122X,  respectively.  [10X3a[110X, [10X6a[110X
+        correspond  to  the  proxies  [22X3A[122X,  [22X6A[122X,  and  [10X3b[110X, [10X6b[110X to the not printed
+        classes with these proxies.[133X
+  
+  [33X[0;0YThe second example explains the fusion case. Again, [22XG[122X is the trivial group.[133X
+  
+  [4X[32X[104X
+    [4X┌───────┐ ┌───────┐        ;   @   ;   ;  @      3.G.2[104X
+    [4X│       │ │       │            1          1[104X
+    [4X│   G   │ │  G.2  │      p power          A         2   1   .   1[104X
+    [4X│       │ │       │      p' part          A         3   1   1   .[104X
+    [4X└───────┘ └───────┘      ind  1A fus ind 2A[104X
+    [4X┌───────┐ ┌───────┐                                    1a 3a 2a[104X
+    [4X│       │ │       │   χ_1  +   1   :  ++  1        2P  1a 3a 1a[104X
+    [4X│  2.G  │ │ 2.G.2 │                                3P  1a 1a 2a[104X
+    [4X│       │ │       │      ind   1 fus ind  2[104X
+    [4X└───────┘ └───────┘            2          2      X.1    1  1  1[104X
+    [4X┌───────┐ ┌───────                               X.2    1  1 ─1[104X
+    [4X│       │ │           χ_2  +   1   :  ++  1      X.3    2 ─1  .[104X
+    [4X│  3.G  │ │ 3.G.2[104X
+    [4X│       │ │              ind   1 fus ind  2[104X
+    [4X└───────┘                      3                 6.G.2[104X
+    [4X┌───────┐ ┌───────             3[104X
+    [4X│       │ │                                         2   2  1  1  2  2  2[104X
+    [4X│  6.G  │ │ 6.G.2     χ_3 o2   1   *   +            3   1  1  1  1  .  .[104X
+    [4X│       │ │[104X
+    [4X└───────┘                ind   1 fus ind  2            1a 6a 3a 2a 2b 2c[104X
+    [4X                               6          2        2P  1a 3a 3a 1a 1a 1a[104X
+    [4X                               3                   3P  1a 2a 1a 2a 2b 2c[104X
+    [4X                               2[104X
+    [4X                               3                 Y.1    1  1  1  1  1  1[104X
+    [4X                               6                 Y.2    1  1  1  1 -1 -1[104X
+    [4X                                                 Y.3    1 -1  1 -1  1 -1[104X
+    [4X                      χ_4 o2   1   *   +         Y.4    1 -1  1 -1 -1  1[104X
+    [4X                                                 Y.5    2 -1 -1  2  .  .[104X
+    [4X                                                 Y.6    2  1 -1 -2  .  .[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  tables  of  [22XG[122X,  [22X2.G[122X, [22X3.G[122X, [22X6.G[122X and [22XG.2[122X are known from the first example,
+  that  of  [22X2.G.2[122X will be given in the next one. So here we print only the [5XGAP[105X
+  tables of [22X3.G.2 ≅ D_6[122X and [22X6.G.2 ≅ D_12[122X.[133X
+  
+  [33X[0;0YIn  [22X3.G.2[122X,  the  characters  [10XX.1[110X,  [10XX.2[110X  extend  [22Xχ_1[122X; [22Xχ_3[122X and its non-printed
+  partner fuse to give [10XX.3[110X, and the two preimages of [10X1A[110X of order [22X3[122X collapse.[133X
+  
+  [33X[0;0YIn [22X6.G.2[122X, [10XY.1[110X to [10XY.4[110X are extensions of [22Xχ_1[122X, [22Xχ_2[122X, so these characters are the
+  inflated characters from [22X2.G.2[122X (with respect to the factor fusion [10X[ 1, 2, 1,
+  2,  3, 4 ][110X). [10XY.5[110X is inflated from [22X3.G.2[122X (with respect to the factor fusion [10X[
+  1,  2,  2,  1,  3,  3 ][110X), and [10XY.6[110X is the result of the fusion of [22Xχ_4[122X and its
+  non-printed partner.[133X
+  
+  [33X[0;0YFor  the last example, let [22XG[122X be the elementary abelian group [22X2^2[122X of order [22X4[122X.
+  Consider the following tables.[133X
+  
+  [4X[32X[104X
+    [4X┌───────┐ ┌───────┐          ;   @   @   @   @   ;   ;   @[104X
+    [4X│       │ │       │              4   4   4   4           1[104X
+    [4X│   G   │ │  G.3  │        p power   A   A   A           A[104X
+    [4X│       │ │       │        p' part   A   A   A           A[104X
+    [4X└───────┘ └───────┘        ind  1A  2A  2B  2C fus ind  3A[104X
+    [4X┌───────┐ ┌───────┐[104X
+    [4X│       │ │       │     χ_1  +   1   1   1   1   : +oo   1[104X
+    [4X│  2.G  │ │ 2.G.3 │     χ_2  +   1   1  ─1  ─1   .   +   0[104X
+    [4X│       │ │       │     χ_3  +   1  ─1   1  ─1   |[104X
+    [4X└───────┘ └───────┘     χ_4  +   1  ─1  ─1   1   |[104X
+    [4X[104X
+    [4X                           ind   1   4   4   4 fus ind   3[104X
+    [4X                                 2                       6[104X
+    [4X[104X
+    [4X                        χ_5  -   2   0   0   0   : -oo   1[104X
+    [4X[104X
+    [4X  G.3[104X
+    [4X[104X
+    [4X     2   2   2   .   .[104X
+    [4X     3   1   .   1   1[104X
+    [4X[104X
+    [4X        1a  2a  3a  3b[104X
+    [4X    2P  1a  1a  3b  3a[104X
+    [4X    3P  1a  2a  1a  1a[104X
+    [4X[104X
+    [4X  X.1    1   1   1   1[104X
+    [4X  X.2    1   1   A  /A[104X
+    [4X  X.3    1   1  /A   A         2.G.3[104X
+    [4X  X.4    3  -1   .   .[104X
+    [4X                                  2   3   3   2   1   1   1   1[104X
+    [4X  A = E(3)                        3   1   1   .   1   1   1   1[104X
+    [4X    = (-1+ER(-3))/2 = b3[104X
+    [4X                                     1a  2a  4a  3a  6a  3b  6b[104X
+    [4X  2.G                            2P  1a  1a  2a  3b  3b  3a  3a[104X
+    [4X                                 3P  1a  2a  4a  1a  2a  1a  2a[104X
+    [4X     2   3   3   2   2   2[104X
+    [4X                               X.1    1   1   1   1   1   1   1[104X
+    [4X        1a  2a  4a  4b  4c     X.2    1   1   1   A   A  /A  /A[104X
+    [4X    2P  1a  1a  2a  1a  1a     X.3    1   1   1  /A  /A   A   A[104X
+    [4X    3P  1a  2a  4a  4b  4c     X.4    3   3  -1   .   .   .   .[104X
+    [4X                               X.5    2  -2   .   1   1   1   1[104X
+    [4X  X.1    1   1   1   1   1     X.6    2  -2   .   A  -A  /A -/A[104X
+    [4X  X.2    1   1   1  -1  -1     X.7    2  -2   .  /A -/A   A  -A[104X
+    [4X  X.3    1   1  -1   1  -1[104X
+    [4X  X.4    1   1  -1  -1   1     A = E(3)[104X
+    [4X  X.5    2  -2   .   .   .       = (-1+ER(-3))/2 = b3[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  the  table  of [22XG.3 ≅ A_4[122X, the characters [22Xχ_2[122X, [22Xχ_3[122X, and [22Xχ_4[122X fuse, and the
+  classes [10X2A[110X, [10X2B[110X and [10X2C[110X collapse. For getting the table of [22X2.G ≅ Q_8[122X, one just
+  has to split the class [10X2A[110X and adjust the representative orders. Finally, the
+  table  of  [22X2.G.3  ≅  SL_2(3)[122X is given; the class fusion corresponding to the
+  injection  [22X2.G  ↪  2.G.3[122X  is  [10X[  1,  2,  3,  3,  3  ][110X, and the factor fusion
+  corresponding to the epimorphism [22X2.G.3 → G.3[122X is [10X[ 1, 1, 2, 3, 3, 4, 4 ][110X.[133X
+  
+  
+  [1X4.4 [33X[0;0Y[5XCAS[105X[101X[1X Tables[133X[101X
+  
+  [33X[0;0YOne  of  the  predecessors  of  [5XGAP[105X  was  [5XCAS[105X  ([13XC[113Xharacter  [13XA[113Xlgorithm [13XS[113Xystem,
+  see [NPP84]),  which  had  also  a  library  of  character tables. All these
+  character tables are available in [5XGAP[105X except if stated otherwise in the file
+  [11Xdoc/ctbldiff.pdf[111X.  This sublibrary has been completely revised before it was
+  included in [5XGAP[105X, for example, errors have been corrected and power maps have
+  been completed.[133X
+  
+  [33X[0;0YAny  [5XCAS[105X  table  is  accessible  by  each of its [5XCAS[105X names (except if stated
+  otherwise in [11Xdoc/ctbldiff.pdf[111X), that is, the table name or the filename used
+  in [5XCAS[105X.[133X
+  
+  [1X4.4-1 CASInfo[101X
+  
+  [33X[1;0Y[29X[2XCASInfo[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YLet  [3Xtbl[103X  be  an ordinary character table in the [5XGAP[105X library that was (up to
+  permutations  of  classes and characters) contained already in the [5XCAS[105X table
+  library.  When one fetches [3Xtbl[103X from the library, one does in general not get
+  the  original  [5XCAS[105X  table.  Namely,  in many cases (mostly [5XAtlas[105X tables, see
+  Section [14X4.3[114X),  the  identifier  of  the  table  (see [2XIdentifier[102X  ([14XReference:
+  Identifier  for  character  tables[114X))  as well as the ordering of classes and
+  characters are different for the [5XCAS[105X table and its [5XGAP[105X version.[133X
+  
+  [33X[0;0YNote that in several cases, the [5XCAS[105X library contains different tables of the
+  same  group,  in  particular  these  tables  may  have  different  names and
+  orderings of classes and characters.[133X
+  
+  [33X[0;0YThe  [2XCASInfo[102X  value of [3Xtbl[103X, if stored, is a list of records, each describing
+  the  relation  between  [3Xtbl[103X  and  a  character table in the [5XCAS[105X library. The
+  records have the components[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe name of the [5XCAS[105X table,[133X
+  
+  [8X[10Xpermchars[110X[8X and [10Xpermclasses[110X[8X[108X
+        [33X[0;6Ypermutations  of  the  [2XIrr[102X  ([14XReference: Irr[114X) values and the classes of
+        [3Xtbl[103X,  respectively, that must be applied in order to get the orderings
+        in the original [5XCAS[105X table, and[133X
+  
+  [8X[10Xtext[110X[8X[108X
+        [33X[0;6Ythe text that was stored on the [5XCAS[105X table (which may contain incorrect
+        statements).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "m10" );[127X[104X
+    [4X[28XCharacterTable( "A6.2_3" )[128X[104X
+    [4X[25Xgap>[125X [27XHasCASInfo( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XCASInfo( tbl );[127X[104X
+    [4X[28X[ rec( name := "m10", permchars := (3,5)(4,8,7,6), permclasses := (), [128X[104X
+    [4X[28X      text := "names:     m10\norder:     2^4.3^2.5 = 720\nnumber of c\[128X[104X
+    [4X[28Xlasses: 8\nsource:    cambridge atlas\ncomments:  point stabilizer of \[128X[104X
+    [4X[28Xmathieu-group m11\ntest:      orth, min, sym[3]\n" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  class  fusions stored on tables from the [5XCAS[105X library have been computed
+  anew  with  [5XGAP[105X;  the  [10Xtext[110X  component  of such a fusion record tells if the
+  fusion  map  is  equal  to that in the [5XCAS[105X library, up to the permutation of
+  classes between the table in [5XCAS[105X and its [5XGAP[105X version.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFirst( ComputedClassFusions( tbl ), x -> x.name = "M11" );[127X[104X
+    [4X[28Xrec( map := [ 1, 2, 3, 4, 5, 4, 7, 8 ], name := "M11", [128X[104X
+    [4X[28X  text := "fusion is unique up to table automorphisms,\nthe representa\[128X[104X
+    [4X[28Xtive is equal to the fusion map on the CAS table" )[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.5 [33X[0;0YCustomizations of the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  
+  [1X4.5-1 [33X[0;0YInstalling the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YTo  install  the  package  unpack the archive file in a directory in the [11Xpkg[111X
+  directory  of  your  local copy of [5XGAP[105X 4. This might be the [11Xpkg[111X directory of
+  the  [5XGAP[105X 4 home directory, see Section [14X'Reference: Installing a GAP Package'[114X
+  for details. It is however also possible to keep an additional [11Xpkg[111X directory
+  in  your  private  directories,  see [14X'Reference:  GAP Root Directories'[114X. The
+  latter possibility [13Xmust[113X be chosen if you do not have write access to the [5XGAP[105X
+  root directory.[133X
+  
+  [33X[0;0YThe  package  consists entirely of [5XGAP[105X code, no external binaries need to be
+  compiled.[133X
+  
+  [33X[0;0YFor checking the installation of the package, you should start [5XGAP[105X and call[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XReadPackage( "ctbllib", "tst/testinst.g" );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  the  installation  is  o. k.  then  [9Xtrue[109X  is printed, and the [5XGAP[105X prompt
+  appears again; otherwise the output lines tell you what should be changed.[133X
+  
+  [33X[0;0YMore testfiles are available in the [11Xtst[111X directory of the package.[133X
+  
+  [33X[0;0YPDF  and  HTML  versions  of  the  package  manual  are available in the [11Xdoc[111X
+  directory of the package.[133X
+  
+  
+  [1X4.5-2 [33X[0;0YUnloading Character Table Data[133X[101X
+  
+  [33X[0;0YData files from the [5XGAP[105X Character Table Library may be read only once during
+  a [5XGAP[105X session –this is efficient but requires memory– or the cached data may
+  be  erased  as  soon as a second data file is to be read –this requires less
+  memory but is usually less efficient.[133X
+  
+  [33X[0;0YOne  can  choose  between  these  two  possibilities via the user preference
+  [10X"UnloadCTblLibFiles"[110X  of the [5XCTblLib[105X package, see [2XUserPreference[102X ([14XReference:
+  UserPreference[114X).  The default value of this preference is [9Xtrue[109X, that is, the
+  contents  of  only  one data file is kept in memory. Call [10XSetUserPreference(
+  "CTblLib",  "UnloadCTblLibFiles",  false  );[110X  if  you  want  to  change this
+  behaviour.[133X
+  
+  
+  [1X4.5-3 [33X[0;0YChanging the display format of several functions[133X[101X
+  
+  [33X[0;0YThe  way  how  the  functions [2XDisplayAtlasContents[102X ([14X3.5-6[114X), [2XDisplayAtlasInfo[102X
+  ([14XAtlasRep:      DisplayAtlasInfo[114X),      [2XDisplayAtlasMap[102X     ([14X3.5-8[114X),     and
+  [2XDisplayCTblLibInfo[102X  ([14X3.5-1[114X)  show  tabular information can be customized via
+  the  user  preference [10X"DisplayFunction"[110X of the [5XAtlasRep[105X package, see Section
+  [14X'AtlasRep: User preference DisplayFunction'[114X.[133X
+  
+  
+  [1X4.5-4 [33X[0;0YUser preference [10XMagmaPath[110X[101X[1X[133X[101X
+  
+  [33X[0;0YThis  preference  describes the path for calling [5XMAGMA[105X. An empty string (the
+  default) means that [5XMAGMA[105X is not available.[133X
+  
+  [33X[0;0YThis preference is used by [2XCharacterTableComputedByMagma[102X ([14X6.5-3[114X).[133X
+  
+  
+  [1X4.6 [33X[0;0YTechnicalities of the Access to Character Tables from the Library[133X[101X
+  
+  
+  [1X4.6-1 [33X[0;0YData Files of the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThe  data  files  of  the  [5XGAP[105X  Character  Table  Library reside in the [11Xdata[111X
+  directory of the package [5XCTblLib[105X.[133X
+  
+  [33X[0;0YThe filenames start with [10Xct[110X (for [21Xcharacter table[121X), followed by either [10Xo[110X (for
+  [21Xordinary[121X),  [10Xb[110X  (for  [21XBrauer[121X),  or [10Xg[110X (for [21Xgeneric[121X), then a description of the
+  contents (up to [22X5[122X characters, e. g., [10Xalter[110X for the tables of alternating and
+  related groups), and the suffix [10X.tbl[110X.[133X
+  
+  [33X[0;0YThe  file [10Xctb[110X[22Xdescr[122X[10X.tbl[110X contains the known Brauer tables corresponding to the
+  ordinary tables in the file [10Xcto[110X[22Xdescr[122X[10X.tbl[110X.[133X
+  
+  [33X[0;0YEach data file of the table library is supposed to consist of[133X
+  
+  [31X1[131X   [33X[0;6Ycomment lines, starting with a hash character [10X#[110X in the first column,[133X
+  
+  [31X2[131X   [33X[0;6Yan assignment to a component of [10XLIBTABLE.LOADSTATUS[110X, at the end of the
+        file, and[133X
+  
+  [31X3[131X   [33X[0;6Yfunction calls of the form[133X
+  
+        [30X    [33X[0;12Y[10XMBT( [110X[22Xname, data[122X[10X )[110X ([21Xmake Brauer table[121X),[133X
+  
+        [30X    [33X[0;12Y[10XMOT( [110X[22Xname, data[122X[10X )[110X ([21Xmake ordinary table[121X),[133X
+  
+        [30X    [33X[0;12Y[10XALF(  [110X[22Xfrom,  to,  map[122X[10X  )[110X,  [10XALF(  [110X[22Xfrom, to, map, textlines[122X[10X )[110X ([21Xadd
+              library fusion[121X),[133X
+  
+        [30X    [33X[0;12Y[10XALN( [110X[22Xname, listofnames[122X[10X )[110X ([21Xadd library name[121X), and[133X
+  
+        [30X    [33X[0;12Y[10XARC( [110X[22Xname, component, compdata[122X[10X )[110X ([21Xadd record component[121X).[133X
+  
+        [33X[0;6YHere [22Xname[122X must be the identifier value of the ordinary character table
+        corresponding to the table to which the command refers; [22Xdata[122X must be a
+        comma  separated  sequence  of  [5XGAP[105X  objects;  [22Xfrom[122X  and  [22Xto[122X  must  be
+        identifier values of ordinary character tables, [22Xmap[122X a list of positive
+        integers, [22Xtextlines[122X and [22Xlistofnames[122X lists list of strings, [22Xcomponent[122X a
+        string, and [22Xcompdata[122X any [5XGAP[105X object.[133X
+  
+        [33X[0;6Y[10XMOT[110X,  [10XALF[110X,  [10XALN[110X,  and  [10XARC[110X  occur  only  in  files containing ordinary
+        character  tables,  and  [10XMBT[110X  occurs  only  in files containing Brauer
+        tables.[133X
+  
+  [33X[0;0YBesides  the  above  calls, the data in files containing ordinary and Brauer
+  tables  may  contain  only  the  following  [5XGAP[105X functions. (Files containing
+  generic  character  tables  may  contain  calls  to  arbitrary  [5XGAP[105X  library
+  functions.)[133X
+  
+  [33X[0;0Y[10XACM[110X,  [2XConcatenation[102X  ([14XReference:  concatenation of lists[114X), [2XE[102X ([14XReference: E[114X),
+  [10XEvalChars[110X,  [10XGALOIS[110X,  [2XLength[102X  ([14XReference:  Length[114X),  [2XShallowCopy[102X  ([14XReference:
+  ShallowCopy[114X), [10XTENSOR[110X, and [2XTransposedMat[102X ([14XReference: TransposedMat[114X).[133X
+  
+  [33X[0;0YThe  function [10XCTblLib.RecomputeTOC[110X in the file [11Xgap4/maketbl.g[111X of the [5XCTblLib[105X
+  package  expects  the  file  format  described  above, and to some extent it
+  checks this format.[133X
+  
+  [33X[0;0YThe  function  calls  may  be  continued  over  several  lines  of a file. A
+  semicolon  is assumed to be the last character in its line if and only if it
+  terminates a function call.[133X
+  
+  [33X[0;0YNames  of  character tables are strings (see Chapter [14X'Reference: Strings and
+  Characters'[114X),  i. e.,  they  are enclosed in double quotes; [13Xstrings in table
+  library  files  must  not be split over several lines[113X, because otherwise the
+  function  [10XCTblLib.RecomputeTOC[110X  may get confused. Additionally, no character
+  table name is allowed to contain double quotes.[133X
+  
+  [33X[0;0YThere are three different ways how the table data can be stored in the file.[133X
+  
+  [8XFull ordinary tables[108X
+        [33X[0;6Yare  encoded  by  a  call  to  the  function  [10XMOT[110X, where the arguments
+        correspond  to the relevant attribute values; each fusion into another
+        library  table  is  added  by  a  call  to [10XALF[110X, values to be stored in
+        components  of  the  table  object  are added with [10XARC[110X, and admissible
+        names  are  notified  with  [10XALN[110X.  The argument of [10XMOT[110X that encodes the
+        irreducible  characters  is abbreviated as follows. For each subset of
+        characters  that differ just by multiplication with a linear character
+        or by Galois conjugacy, only the first one is given by its values, the
+        others  are replaced by [10X[TENSOR,[i,j]][110X (which means that the character
+        is  the tensor product of the [10Xi[110X-th and the [10Xj[110X-th character in the list)
+        or [10X[GALOIS,[i,j]][110X (which means that the character is obtained from the
+        [10Xi[110X-th character by applying [10XGaloisCyc( ., j )[110X to it).[133X
+  
+  [8XBrauer tables[108X
+        [33X[0;6Yare  stored  relative  to the corresponding ordinary tables; attribute
+        values  that can be computed by restricting from the ordinary table to
+        [22Xp[122X-regular  classes  are  not  stored,  and  instead of the irreducible
+        characters  the  files contain (inverses of) decomposition matrices or
+        Brauer trees for the blocks of nonzero defect.[133X
+  
+  [8XOrdinary construction tables[108X
+        [33X[0;6Yhave  the  attribute  [2XConstructionInfoCharacterTable[102X ([14X3.7-4[114X) set, with
+        value  a list that contains the name of the construction function used
+        and  the  arguments  for a call to this function; the function call is
+        performed by [2XCharacterTable[102X ([14XReference: CharacterTable[114X) when the table
+        is  constructed  ([13Xnot[113X when the file containing the table is read). One
+        aim  of this mechanism is to store structured character tables such as
+        tables  of  direct  products and tables of central extensions of other
+        tables in a compact way, see Chapter [14X5[114X.[133X
+  
+  [1X4.6-2 LIBLIST[101X
+  
+  [33X[1;0Y[29X[2XLIBLIST[102X [32X global variable[133X
+  
+  [33X[0;0Y[5XGAP[105X's  knowledge  about  the  ordinary character tables in the [5XGAP[105X Character
+  Table  Library is given by several JSON format files that get evaluated when
+  the  file  [11Xgap4/ctprimar.g[111X (the [21Xprimary file[121X of the character table library)
+  is read. These files can be produced from the data files, see Section [14X4.6-1[114X.[133X
+  
+  [33X[0;0YThe  information is stored in the global variable [2XLIBLIST[102X, which is a record
+  with the following components.[133X
+  
+  [8X[10Xfirstnames[110X[8X[108X
+        [33X[0;6Ythe  list  of  [2XIdentifier[102X ([14XReference: Identifier for character tables[114X)
+        values of the ordinary tables,[133X
+  
+  [8X[10Xfiles[110X[8X[108X
+        [33X[0;6Ythe list of filenames containing the data of ordinary tables,[133X
+  
+  [8X[10Xfilenames[110X[8X[108X
+        [33X[0;6Ya  list  of  positive  integers,  value [22Xj[122X at position [22Xi[122X means that the
+        table whose identifier is the [22Xi[122X-th in the [10Xfirstnames[110X list is contained
+        in the [22Xj[122X-th file of the [10Xfiles[110X component,[133X
+  
+  [8X[10Xfusionsource[110X[8X[108X
+        [33X[0;6Ya list containing at position [22Xi[122X the list of names of tables that store
+        a fusion into the table whose identifier is the [22Xi[122X-th in the [10Xfirstnames[110X
+        list,[133X
+  
+  [8X[10Xallnames[110X[8X[108X
+        [33X[0;6Ya list of all admissible names of ordinary library tables,[133X
+  
+  [8X[10Xposition[110X[8X[108X
+        [33X[0;6Ya  list  that  stores  at position [22Xi[122X the position in [10Xfirstnames[110X of the
+        identifier of the table with the [22Xi[122X-th admissible name in [10Xallnames[110X,[133X
+  
+  [8X[10Xsimpleinfo[110X[8X[108X
+        [33X[0;6Ya  list  of  triples  [22X[  m,  name, a ][122X describing the tables of simple
+        groups in the library; [22Xname[122X is the identifier of the table, [22Xm[122X[10X.[110X[22Xname[122X and
+        [22Xname[122X[10X.[110X[22Xa[122X  are admissible names for its Schur multiplier and automorphism
+        group, respectively, if these tables are available at all,[133X
+  
+  [8X[10XsporadicSimple[110X[8X[108X
+        [33X[0;6Ya  list of identifiers of the tables of the [22X26[122X sporadic simple groups,
+        and[133X
+  
+  [8X[10XGENERIC[110X[8X[108X
+        [33X[0;6Ya record with information about generic tables (see Section [14X4.2[114X).[133X
+  
+  [1X4.6-3 LibInfoCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XLibInfoCharacterTable[102X( [3Xtblname[103X ) [32X function[133X
+  
+  [33X[0;0Yis a record with the components[133X
+  
+  [8X[10XfirstName[110X[8X[108X
+        [33X[0;6Ythe  [2XIdentifier[102X  ([14XReference: Identifier for character tables[114X) value of
+        the library table for which [3Xtblname[103X is an admissible name, and[133X
+  
+  [8X[10XfileName[110X[8X[108X
+        [33X[0;6Ythe name of the file in which the table data is stored.[133X
+  
+  [33X[0;0YIf no such table exists in the [5XGAP[105X library then [9Xfail[109X is returned.[133X
+  
+  [33X[0;0YIf [3Xtblname[103X contains the substring [10X"mod"[110X then it is regarded as the name of a
+  Brauer  table.  In  this  case  the  result  is  computed  from that for the
+  corresponding  ordinary  table  and  the  characteristic. So if the ordinary
+  table  exists  then  the  result  is  a  record although the Brauer table in
+  question need not be contained in the [5XGAP[105X library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLibInfoCharacterTable( "S5" );[127X[104X
+    [4X[28Xrec( fileName := "ctoalter", firstName := "A5.2" )[128X[104X
+    [4X[25Xgap>[125X [27XLibInfoCharacterTable( "S5mod2" );[127X[104X
+    [4X[28Xrec( fileName := "ctbalter", firstName := "A5.2mod2" )[128X[104X
+    [4X[25Xgap>[125X [27XLibInfoCharacterTable( "J5" );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.7 [33X[0;0YHow to Extend the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0Y[5XGAP[105X  users  may  want  to  extend  the  character table library in different
+  respects.[133X
+  
+  [30X    [33X[0;6YProbably  the easiest change is to [13Xadd new admissible names[113X to library
+        tables,  in  order  to  use  these  names  in  calls of [2XCharacterTable[102X
+        ([14X3.1-2[114X). This can be done using [2XNotifyNameOfCharacterTable[102X ([14X4.7-1[114X).[133X
+  
+  [30X    [33X[0;6YThe  next  kind  of  changes  is  the  [13Xaddition of new fusions[113X between
+        library  tables.  Once  a  fusion map is known, it can be added to the
+        library  file  containing  the table of the subgroup, using the format
+        produced by [2XLibraryFusion[102X ([14X4.7-2[114X).[133X
+  
+  [30X    [33X[0;6YThe  last  kind  of changes is the [13Xaddition of new character tables[113X to
+        the  [5XGAP[105X  character  table  library.  Data  files containing tables in
+        library  format  (i. e.,  in  the  form of calls to [10XMOT[110X or [10XMBT[110X) can be
+        produced using [2XPrintToLib[102X ([14X4.7-4[114X).[133X
+  
+        [33X[0;6YIf  you  have  an ordinary character table in library format which you
+        want  to  add  to  the  table library, for example because it shall be
+        accessible  via  [2XCharacterTable[102X  ([14X3.1-2[114X),  you must notify this table,
+        i. e.,  tell  [5XGAP[105X in which file it can be found, and which names shall
+        be  admissible  for  it.  This  can be done using [2XNotifyCharacterTable[102X
+        ([14X4.7-5[114X).[133X
+  
+  [1X4.7-1 NotifyNameOfCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XNotifyNameOfCharacterTable[102X( [3Xfirstname[103X, [3Xnewnames[103X ) [32X function[133X
+  
+  [33X[0;0Ynotifies  the  strings  in the list [3Xnewnames[103X as new admissible names for the
+  library  table  with [2XIdentifier[102X ([14XReference: Identifier for character tables[114X)
+  value [3Xfirstname[103X. If there is already another library table for which some of
+  these names are admissible then an error is signaled.[133X
+  
+  [33X[0;0Y[2XNotifyNameOfCharacterTable[102X modifies the global variable [2XLIBLIST[102X ([14X4.6-2[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "private" );[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XNotifyNameOfCharacterTable( "A5", [ "private" ] );[127X[104X
+    [4X[25Xgap>[125X [27Xa5:= CharacterTable( "private" );[127X[104X
+    [4X[28XCharacterTable( "A5" )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YOne  can  notify  alternative  names for character tables inside data files,
+  using  the  function  [10XALN[110X instead of [2XNotifyNameOfCharacterTable[102X. The idea is
+  that  the  additional  names of tables from those files can be ignored which
+  are  controlled  by  [10XCTblLib.RecomputeTOC[110X.  Therefore,  [10XALN[110X is set to [10XIgnore[110X
+  before  the  file  is  read  with  [10XCTblLib.ReadTbl[110X,  otherwise [10XALN[110X is set to
+  [2XNotifyNameOfCharacterTable[102X.[133X
+  
+  [1X4.7-2 LibraryFusion[101X
+  
+  [33X[1;0Y[29X[2XLibraryFusion[102X( [3Xname[103X, [3Xfus[103X ) [32X function[133X
+  
+  [33X[0;0YFor a string [3Xname[103X that is an [2XIdentifier[102X ([14XReference: Identifier for character
+  tables[114X)  value  of  an  ordinary  character  table in the [5XGAP[105X library, and a
+  record [3Xfus[103X with the components[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe identifier of the destination table, or this table itself,[133X
+  
+  [8X[10Xmap[110X[8X[108X
+        [33X[0;6Ythe fusion map, a list of image positions,[133X
+  
+  [8X[10Xtext[110X[8X (optional)[108X
+        [33X[0;6Ya string describing properties of the fusion, and[133X
+  
+  [8X[10Xspecification[110X[8X (optional)[108X
+        [33X[0;6Ya string or an integer,[133X
+  
+  [33X[0;0Y[2XLibraryFusion[102X  returns  a  string whose printed value can be used to add the
+  fusion  in  question  to  the library file containing the data for the table
+  with identifier [3Xname[103X.[133X
+  
+  [33X[0;0YIf  [3Xname[103X is a character table then its [2XIdentifier[102X ([14XReference: Identifier for
+  character tables[114X) value is used as the corresponding string.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs5:= CharacterTable( "S5" );[127X[104X
+    [4X[28XCharacterTable( "A5.2" )[128X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleClassFusions( a5, s5 );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 4, 4 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xfusion:= rec( name:= s5, map:= fus[1], text:= "unique" );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( LibraryFusion( "A5", fusion ) );[127X[104X
+    [4X[28XALF("A5","A5.2",[1,2,3,4,4],[[128X[104X
+    [4X[28X"unique"[128X[104X
+    [4X[28X]);[128X[104X
+  [4X[32X[104X
+  
+  [1X4.7-3 LibraryFusionTblToTom[101X
+  
+  [33X[1;0Y[29X[2XLibraryFusionTblToTom[102X( [3Xname[103X, [3Xfus[103X ) [32X function[133X
+  
+  [33X[0;0YFor a string [3Xname[103X that is an [2XIdentifier[102X ([14XReference: Identifier for character
+  tables[114X)  value  of  an  ordinary  character  table in the [5XGAP[105X library, and a
+  record [3Xfus[103X with the components[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe  identifier  of  the  destination  table  of  marks, or this table
+        itself,[133X
+  
+  [8X[10Xmap[110X[8X[108X
+        [33X[0;6Ythe fusion map, a list of image positions,[133X
+  
+  [8X[10Xtext[110X[8X (optional)[108X
+        [33X[0;6Ya string describing properties of the fusion, and[133X
+  
+  [8X[10Xperm[110X[8X (optional)[108X
+        [33X[0;6Ya permutation,[133X
+  
+  [33X[0;0Y[2XLibraryFusionTblToTom[102X  returns  a  string whose printed value can be used to
+  add  the  fusion in question to the library file containing the data for the
+  table with identifier [3Xname[103X.[133X
+  
+  [33X[0;0YThe  meaning  of the component [10Xperm[110X is as follows. Let [3Xprim[103X be the primitive
+  permutation  characters  obtained  by computing the [2XPermCharsTom[102X ([14XReference:
+  PermCharsTom  via  fusion  map[114X)  value  of  the  tables of marks, taking the
+  sublist  at  the positions in the first component of the [2XMaximalSubgroupsTom[102X
+  ([14XReference:   MaximalSubgroupsTom[114X)   value  of  the  tables  of  marks,  and
+  restricting  these lists via the [10Xmap[110X component. Permuting [3Xprim[103X with the [10Xperm[110X
+  component  via [2XPermuted[102X ([14XReference: Permuted[114X) yields the list of permutation
+  characters  obtained  by  inducing  the  trivial characters of the subgroups
+  given  by  the  [2XMaxes[102X ([14X3.7-1[114X) value of the character table. If the component
+  [10Xperm[110X  is  not  present  and  if  the character table has the attribute [2XMaxes[102X
+  ([14X3.7-1[114X)  set  then  the  two  ways  of  computing  the primitive permutation
+  characters yield the same list.[133X
+  
+  [33X[0;0YIf  [3Xname[103X is a character table then its [2XIdentifier[102X ([14XReference: Identifier for
+  character tables[114X) value is used as the corresponding string.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "A5" );     [127X[104X
+    [4X[28XCharacterTable( "A5" )[128X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( "A5" );[127X[104X
+    [4X[28XTableOfMarks( "A5" )[128X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleFusionsCharTableTom( tbl, tom );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 5, 5 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xfusion:= rec( name:= tom, map:= fus[1], text:= "unique" );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( LibraryFusionTblToTom( "A5", fusion ) );[127X[104X
+    [4X[28XARC("A5","tomfusion",rec(name:="A5",map:=[1,2,3,5,5],text:=[[128X[104X
+    [4X[28X"unique"[128X[104X
+    [4X[28X]));[128X[104X
+  [4X[32X[104X
+  
+  [1X4.7-4 PrintToLib[101X
+  
+  [33X[1;0Y[29X[2XPrintToLib[102X( [3Xfile[103X, [3Xtbl[103X ) [32X function[133X
+  
+  [33X[0;0Yprints the (ordinary or Brauer) character table [3Xtbl[103X in library format to the
+  file [3Xfile[103X[10X.tbl[110X (or to [3Xfile[103X if this has already the suffix [10X.tbl[110X).[133X
+  
+  [33X[0;0YIf   [3Xtbl[103X   is   an   ordinary   table   then  the  value  of  the  attribute
+  [2XNamesOfFusionSources[102X   ([14XReference:   NamesOfFusionSources[114X)   is  ignored  by
+  [2XPrintToLib[102X,  since for library tables this information is extracted from the
+  source files (see Section [14X4.6-1[114X).[133X
+  
+  [33X[0;0YThe  names  of  data files in the [5XGAP[105X Character Table Library begin with [10Xcto[110X
+  (for  ordinary  tables)  or  [10Xctb[110X  (for  corresponding  Brauer  tables),  see
+  Section [14X4.6[114X.  This  is supported also for private extensions of the library,
+  that is, if the filenames are chosen this way and the ordinary tables in the
+  [10Xcto[110X  files  are  notified  via  [2XNotifyCharacterTable[102X ([14X4.7-5[114X) then the Brauer
+  tables  will  be  found in the [10Xctb[110X files. Alternatively, if the filenames of
+  the  files  with  the ordinary tables do not start with [10Xcto[110X then [5XGAP[105X expects
+  the corresponding Brauer tables in the same file as the ordinary tables.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPrintToLib( "private", a5 );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  above command appends the data of the table [10Xa5[110X to the file [11Xprivate.tbl[111X;
+  the first lines printed to this file are[133X
+  
+  [4X[32X[104X
+    [4XMOT("A5",[104X
+    [4X[[104X
+    [4X"origin: ATLAS of finite groups, tests: 1.o.r., pow[2,3,5]"[104X
+    [4X],[104X
+    [4X[60,4,3,5,5],[104X
+    [4X[,[1,1,3,5,4],[1,2,1,5,4],,[1,2,3,1,1]],[104X
+    [4X[[1,1,1,1,1],[3,-1,0,-E(5)-E(5)^4,-E(5)^2-E(5)^3],[104X
+    [4X[GALOIS,[2,2]],[4,0,1,-1,-1],[5,1,-1,0,0]],[104X
+    [4X[(4,5)]);[104X
+    [4XARC("A5","projectives",["2.A5",[[2,0,-1,E(5)+E(5)^4,E(5)^2+E(5)^3],[104X
+    [4X[GALOIS,[1,2]],[4,0,1,-1,-1],[6,0,0,1,1]],]);[104X
+    [4XARC("A5","extInfo",["2","2"]);[104X
+  [4X[32X[104X
+  
+  [1X4.7-5 NotifyCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XNotifyCharacterTable[102X( [3Xfirstname[103X, [3Xfilename[103X, [3Xothernames[103X ) [32X function[133X
+  
+  [33X[0;0Ynotifies  a  new  ordinary  table  to the library. This table has [2XIdentifier[102X
+  ([14XReference:   Identifier  for  character  tables[114X)  value  [3Xfirstname[103X,  it  is
+  contained  (in library format, see [2XPrintToLib[102X ([14X4.7-4[114X)) in the file with name
+  [3Xfilename[103X  (without  suffix  [10X.tbl[110X),  and  the  names  contained  in  the list
+  [3Xothernames[103X are admissible for it.[133X
+  
+  [33X[0;0YIf the initial part of [3Xfilename[103X is one of [10X~/[110X, [10X/[110X or [10X./[110X then it is interpreted
+  as  an  [13Xabsolute[113X  path.  Otherwise  it  is  interpreted [13Xrelative[113X to the [11Xdata[111X
+  directory of the [5XCTblLib[105X package.[133X
+  
+  [33X[0;0Y[2XNotifyCharacterTable[102X  modifies  the  global variable [2XLIBLIST[102X ([14X4.6-2[114X) for the
+  current  [5XGAP[105X  session,  after  having checked that there is no other library
+  table  yet  with  an  admissible  name  equal  to  [3Xfirstname[103X or contained in
+  [3Xothernames[103X.[133X
+  
+  [33X[0;0YFor  example,  let  us  change the name [10XA5[110X to [10Xicos[110X wherever it occurs in the
+  file  [11Xprivate.tbl[111X  that was produced above, and then notify the [21Xnew[121X table in
+  this file as follows. (The name change is needed because [5XGAP[105X knows already a
+  table  with  name  [10XA5[110X  and  would  not accept to add another table with this
+  name.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XNotifyCharacterTable( "icos", "private", [] );[127X[104X
+    [4X[25Xgap>[125X [27Xicos:= CharacterTable( "icos" );[127X[104X
+    [4X[28XCharacterTable( "icos" )[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( icos );[127X[104X
+    [4X[28Xicos[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X     2  2  2  .  .  .[128X[104X
+    [4X[28X     3  1  .  1  .  .[128X[104X
+    [4X[28X     5  1  .  .  1  1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 2a 3a 5a 5b[128X[104X
+    [4X[28X    2P 1a 1a 3a 5b 5a[128X[104X
+    [4X[28X    3P 1a 2a 1a 5b 5a[128X[104X
+    [4X[28X    5P 1a 2a 3a 1a 1a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1     1  1  1  1  1[128X[104X
+    [4X[28XX.2     3 -1  .  A *A[128X[104X
+    [4X[28XX.3     3 -1  . *A  A[128X[104X
+    [4X[28XX.4     4  .  1 -1 -1[128X[104X
+    [4X[28XX.5     5  1 -1  .  .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = -E(5)-E(5)^4[128X[104X
+    [4X[28X  = (1-ER(5))/2 = -b5[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  the private table is treated as a library table. Note that the table can
+  be  accessed  only  if  it has been notified in the current [5XGAP[105X session. For
+  frequently   used   private   tables,  it  may  be  reasonable  to  put  the
+  [2XNotifyCharacterTable[102X  statements  into  your [11Xgaprc[111X file (see [14X'Reference: The
+  gap.ini and gaprc files'[114X), or into a file that is read via the [11Xgaprc[111X file.[133X
+  
+  [1X4.7-6 NotifyCharacterTables[101X
+  
+  [33X[1;0Y[29X[2XNotifyCharacterTables[102X( [3Xlist[103X ) [32X function[133X
+  
+  [33X[0;0Ynotifies  several new ordinary tables to the library. The argument [3Xlist[103X must
+  be  a  dense  list  in  which each entry is a lists of the form [10X[ firstname,
+  filename,   othernames  ][110X,  with  the  same  meaning  as  the  arguments  of
+  [2XNotifyCharacterTable[102X ([14X4.7-5[114X).[133X
+  
+  
+  [1X4.8 [33X[0;0YSanity Checks for the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThe  fact  that  the  [5XGAP[105X  Character  Table  Library  is designed as an open
+  database  (see  Chapter [14X1[114X) makes it especially desirable to have consistency
+  checks available which can be run automatically whenever new data get added.[133X
+  
+  [33X[0;0YThe  file  [11Xtst/testall.g[111X  of  the  package  contains  [2XTest[102X ([14XReference: Test[114X)
+  statements  for  executing  a  collection of such sanity checks; one can run
+  them  by  calling  [10XReadPackage(  "CTblLib", "tst/testall.g" )[110X. If no problem
+  occurs then [5XGAP[105X prints only lines starting with one of the following.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X+ Input file:[128X[104X
+    [4X[28X+ GAP4stones:[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  examples  in  the  package  manual  form  a part of the tests, they are
+  collected in the file [11Xtst/docxpl.tst[111X of the package.[133X
+  
+  [33X[0;0YThe  following  tests  concern only [13Xordinary[113X character tables. In all cases,
+  let  [22Xtbl[122X be the ordinary character table of a group [22XG[122X, say. The return value
+  is [9Xfalse[109X if an error occurred, and [9Xtrue[109X otherwise.[133X
+  
+  [8X[10XCTblLib.Test.InfoText( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  some properties of the [2XInfoText[102X ([14XReference: InfoText[114X) value of
+        [22Xtbl[122X,  if  available. Currently it is not recommended to use this value
+        programmatically.  However, one can rely on the following structure of
+        this value for tables in the [5XGAP[105X Character Table Library.[133X
+  
+        [30X    [33X[0;12YThe value is a string that consists of [10X\n[110X separated lines.[133X
+  
+        [30X    [33X[0;12YIf  a line of the form [21Xmaximal subgroup of [22Xgrpname[122X[121X occurs, where
+              [22Xgrpname[122X  is  the  name of a character table, then a class fusion
+              from the table in question to that with name [22Xgrpname[122X is stored.[133X
+  
+        [30X    [33X[0;12YIf  a  line  of  the form [21X[22Xn[122Xth maximal subgroup of [22Xgrpname[122X[121X occurs
+              then  additionally  the  name  [22Xgrpname[122X[10XM[110X[22Xn[122X  is admissible for [22Xtbl[122X.
+              Furthermore,  if the table with name [22Xgrpname[122X has a [2XMaxes[102X ([14X3.7-1[114X)
+              value then [22Xtbl[122X is referenced in position [22Xn[122X of this list.[133X
+  
+  [8X[10XCTblLib.Test.RelativeNames( [110X[8X[22Xtbl[122X[10X[, [110X[8X[22Xtblname[122X[10X] )[110X[8X[108X
+        [33X[0;6Ychecks some properties of those admissible names for [22Xtbl[122X that refer to
+        a  related  group  [22XH[122X,  say.  Let  [22Xname[122X  be  an admissible name for the
+        character  table  of  [22XH[122X. (In particular, [22Xname[122X is not an empty string.)
+        Then the following relative names are considered.[133X
+  
+        [8X[22Xname[122X[10XM[110X[8X[22Xn[122X[108X
+              [33X[0;12Y[22XG[122X  is  isomorphic  with  the groups in the [22Xn[122X-th class of maximal
+              subgroups  of  [22XH[122X.  An  example  is [10X"M12M1"[110X for the Mathieu group
+              [22XM_11[122X.  We  consider  only  cases where [22Xname[122X does [13Xnot[113X contain the
+              letter  [10Xx[110X.  For  example,  [10X2xM12[110X denotes the direct product of a
+              cyclic  group  of order two and the Mathieu group [22XM_12[122X but [13Xnot[113X a
+              maximal  subgroup of [21X[10X2x[110X[121X. Similarly, [10X3x2.M22M5[110X denotes the direct
+              product  of  a  cyclic  group  of order three and a group in the
+              fifth  class  of  maximal  subgroups of [22X2.M_22[122X but [13Xnot[113X a maximal
+              subgroup of [21X[10X3x2.M22[110X[121X.[133X
+  
+        [8X[22Xname[122X[10XN[110X[8X[22Xp[122X[108X
+              [33X[0;12Y[22XG[122X is isomorphic with the normalizers of the Sylow [22Xp[122X-subgroups of
+              [22XH[122X.  An  example  is  [10X"M24N2"[110X  for  the  (self-normalizing) Sylow
+              [22X2[122X-subgroup in the Mathieu group [22XM_24[122X.[133X
+  
+        [8X[22Xname[122X[10XN[110X[8X[22Xcnam[122X[108X
+              [33X[0;12Y[22XG[122X  is  isomorphic  with  the normalizers of the cyclic subgroups
+              generated  by the elements in the class with the name [22Xcnam[122X of [22XH[122X.
+              An example is [10X"O7(3)N3A"[110X for the normalizer of an element in the
+              class [10X3A[110X of the simple group [22XO_7(3)[122X.[133X
+  
+        [8X[22Xname[122X[10XC[110X[8X[22Xcnam[122X[108X
+              [33X[0;12Y[22XG[122X  is  isomorphic  with  the  groups  in the centralizers of the
+              elements  in  the  class  with the name [22Xcnam[122X of [22XH[122X. An example is
+              [10X"M24C2A"[110X  for  the  centralizer of an element in the class [10X2A[110X in
+              the Mathieu group [22XM_24[122X.[133X
+  
+        [33X[0;6YIn  these  cases,  [10XCTblLib.Test.RelativeNames[110X checks whether a library
+        table  with  the admissible name [22Xname[122X exists and a class fusion to [22Xtbl[122X
+        is stored on this table.[133X
+  
+        [33X[0;6YIn  the  case  of  Sylow  [22Xp[122X-normalizers,  it is also checked whether [22XG[122X
+        contains  a  normal  Sylow  [22Xp[122X-subgroup  of the same order as the Sylow
+        [22Xp[122X-subgroups  in  [22XH[122X. If the normal Sylow [22Xp[122X-subgroup of [22XG[122X is cyclic then
+        it  is also checked whether [22XG[122X is the full Sylow [22Xp[122X-normalizer in [22XH[122X. (In
+        general  this  information cannot be read off from the character table
+        of [22XH[122X).[133X
+  
+        [33X[0;6YIn  the  case of normalizers (centralizers) of cyclic subgroups, it is
+        also  checked  whether [22XH[122X really normalizes (centralizes) a subgroup of
+        the given order, and whether the class fusion from [22Xtbl[122X to the table of
+        [22XH[122X is compatible with the relative name.[133X
+  
+        [33X[0;6YIf  the  optional  argument  [22Xtblname[122X  is  given then only this name is
+        tested.  If  there  is only one argument then all admissible names for
+        [22Xtbl[122X are tested.[133X
+  
+  [8X[10XCTblLib.Test.FindRelativeNames( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Yruns  over  the  class  fusions  stored  on  [22Xtbl[122X.  If  [22Xtbl[122X is the full
+        centralizer/normalizer  of a cyclic subgroup in the table to which the
+        class   fusion   points   then  the  function  proposes  to  make  the
+        corresponding relative name an admissible name for [22Xtbl[122X.[133X
+  
+  [8X[10XCTblLib.Test.PowerMaps( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  whether  all  [22Xp[122X-th  power  maps  are  stored on [22Xtbl[122X, for prime
+        divisors  [22Xp[122X  of  the  order  of [22XG[122X, and whether they are correct. (This
+        includes the information about uniqueness of the power maps.)[133X
+  
+  [8X[10XCTblLib.Test.TableAutomorphisms( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  whether the table automorphisms are stored on [22Xtbl[122X, and whether
+        they are correct. Also all available Brauer tables of [22Xtbl[122X are checked.[133X
+  
+  [8X[10XCTblLib.Test.CompatibleFactorFusions( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks whether triangles and quadrangles of factor fusions from [22Xtbl[122X to
+        other   library   tables  commute  (where  the  entries  in  the  list
+        [10XCTblLib.IgnoreFactorFusionsCompatibility[110X are excluded from the tests),
+        and   whether   the   factor  fusions  commute  with  the  actions  of
+        corresponding outer automorphisms.[133X
+  
+  [8X[10XCTblLib.Test.FactorsModPCore( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks,  for  all those prime divisors [22Xp[122X of the order of [22XG[122X such that [22XG[122X
+        is not [22Xp[122X-solvable, whether the factor fusion to the character table of
+        [22XG/O_p(G)[122X is stored on [22Xtbl[122X.[133X
+  
+        [33X[0;6YNote  that if [22XG[122X is not [22Xp[122X-solvable and [22XO_p(G)[122X is nontrivial then we can
+        compute  the  [22Xp[122X-modular  Brauer table of [22XG[122X if that of the factor group
+        [22XG/O_p(G)[122X is available. The availability of this table is indicated via
+        the availability of the factor fusion from [22Xtbl[122X.[133X
+  
+  [8X[10XCTblLib.Test.Fusions( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  the  class  fusions  that  are  stored  on  the  table [22Xtbl[122X: No
+        duplicates  shall  occur,  each  subgroup  fusion  or factor fusion is
+        tested using [10XCTblLib.Test.SubgroupFusion[110X or [10XCTblLib.Test.FactorFusion[110X,
+        respectively,  and  a  fusion  to the table of marks for [22Xtbl[122X is tested
+        using [10XCTblLib.Test.FusionToTom[110X.[133X
+  
+  [8X[10XCTblLib.Test.Maxes( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  for those character tables [22Xtbl[122X that have the [2XMaxes[102X ([14X3.7-1[114X) set
+        whether   the  character  tables  with  the  given  names  are  really
+        available,  that  they  are ordered w.r.t. non-increasing group order,
+        and that the fusions into [22Xtbl[122X are stored.[133X
+  
+  [8X[10XCTblLib.Test.ClassParameters( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  the  compatibility  of  class  parameters  of  alternating and
+        symmetric  groups  (partitions describing cycle structures), using the
+        underlying group stored in the corresponding table of marks.[133X
+  
+  [8X[10XCTblLib.Test.TablesOfSymmetricGroup( [110X[8X[22Xn[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  that  the class parameters and character parameters of the two
+        ordinary character tables of the symmetric group of degree [22Xn[122X (from the
+        [5XAtlas[105X  and  from  the  [5XSpinSym[105X  package)  are consistent, and that the
+        parameters  for  the ordinary tables are consistent with those for the
+        Brauer tables. The interesting values of [3Xn[103X are in [10X[ 5 .. 19 ][110X.[133X
+  
+  [8X[10XCTblLib.Test.Constructions( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks the [2XConstructionInfoCharacterTable[102X ([14X3.7-4[114X) status for the table
+        [22Xtbl[122X: If this attribute value is set then tests depending on this value
+        are  executed; if this attribute is not set then it is checked whether
+        a description of [22Xtbl[122X via a construction would be appropriate.[133X
+  
+  [8X[10XCTblLib.Test.ExtensionInfo( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  whether  the  attribute [2XExtensionInfoCharacterTable[102X ([14X3.7-3[114X) is
+        known  for  all  nonabelian  simple  character  tables  that  are  not
+        duplicates.[133X
+  
+  [8X[10XCTblLib.Test.GroupForGroupInfo( [110X[8X[22Xtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks    that    the    entries    in    the    list    returned   by
+        [2XGroupInfoForCharacterTable[102X ([14X3.3-1[114X) fit to the character table [22Xtbl[122X.[133X
+  
+  [33X[0;0YThe following tests concern only [13Xmodular[113X character tables. In all cases, let
+  [22Xmodtbl[122X be a Brauer character table of a group [22XG[122X, say.[133X
+  
+  [8X[10XCTblLib.Test.BlocksInfo( [110X[8X[22Xmodtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  whether the decomposition matrices of all blocks of the Brauer
+        table   [22Xmodtbl[122X  are  integral,  as  well  as  the  inverses  of  their
+        restrictions to basic sets.[133X
+  
+  [8X[10XCTblLib.Test.TensorDecomposition( [110X[8X[22Xmodtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks whether the tensor products of irreducible Brauer characters of
+        the Brauer table [22Xmodtbl[122X decompose into Brauer characters.[133X
+  
+  [8X[10XCTblLib.Test.Indicators( [110X[8X[22Xmodtbl[122X[10X )[110X[8X[108X
+        [33X[0;6Ychecks  the  [22X2[122X-nd indicators of the Brauer table [22Xmodtbl[122X: The indicator
+        of  a  Brauer character is zero iff it has at least one nonreal value.
+        In   odd  characteristic,  the  indicator  of  an  irreducible  Brauer
+        character  is  equal  to  the  indicator  of  any ordinary irreducible
+        character that contains it as a constituent, with odd multiplicity. In
+        characteristic  two,  we  test  that  all  nontrivial real irreducible
+        Brauer  characters  have  even  degree,  and  that  irreducible Brauer
+        characters with indicator [22X-1[122X lie in the principal block.[133X
+  
+  [8X[10XCTblLib.Test.FactorBlocks( [110X[8X[22Xmodtbl[122X[10X )[110X[8X[108X
+        [33X[0;6YIf  the  Brauer  table [22Xmodtbl[122X is encoded using references to tables of
+        factor  groups  then we must make sure that the irreducible characters
+        of  the  underlying  ordinary  table  and  the factors in question are
+        sorted   compatibly.   (Note  that  we  simply  take  over  the  block
+        information about the factors, without applying an explicit mapping.)[133X
+  
+  
+  [1X4.9 [33X[0;0YMaintenance of the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YIt  is  of  course desirable that the information in the [5XGAP[105X Character Table
+  Library  is  consistent  with related data. For example, the ordering of the
+  classes  of  maximal  subgroups  stored  in  the  [2XMaxes[102X  ([14X3.7-1[114X) list of the
+  character  table  of a group [22XG[122X, say, should correspond to the ordering shown
+  for  [22XG[122X  in  the  [5XAtlas[105X of Finite Groups [CCN+85], to the ordering of maximal
+  subgroups  used  for  [22XG[122X  in  the  [5XAtlasRep[105X,  and  to the ordering of maximal
+  subgroups  in  the  table  of  marks  of  [22XG[122X.  The fact that the related data
+  collections  are  developed independently makes it difficult to achieve this
+  kind  of  consistency. Sometimes it is unavoidable to [21Xadjust[121X data of the [5XGAP[105X
+  Character Table Library to external data.[133X
+  
+  [33X[0;0YAn important issue is the consistency of class fusions. Usually such fusions
+  are  determined  only  up  to  table automorphisms, and one candidate can be
+  chosen.  However,  other conditions such as known Brauer tables may restrict
+  the  choice.  The  point  is  that there are class fusions which predate the
+  availability  of  Brauer tables in the Character Table Library (in fact many
+  of  them  have been inherited from the table library of the [5XCAS[105X system), but
+  they  are not compatible with the Brauer tables. For example, there are four
+  possible  class fusion from [22XM_23[122X into [22XCo_3[122X, which lie in one orbit under the
+  relevant groups of table automorphisms; two of these maps are not compatible
+  with  the  [22X3[122X-modular  Brauer  tables of [22XM_23[122X and [22XCo_3[122X, and unfortunately the
+  class  fusion  that  was stored on the [5XCAS[105X tables –and that was available in
+  version  1.0  of  the  [5XGAP[105X  Character  Table  Library–  was  one  of the [13Xnot[113X
+  compatible maps. One could argue that the class fusion has older rights, and
+  that the Brauer tables should be adjusted to them, but the Brauer tables are
+  published  in  the [5XAtlas[105X of Brauer Characters [JLPW95], which is an accepted
+  standard.[133X
+  

@@ -1,0 +1,241 @@
+<html><head><title>[transgrp] 1 The Library of Transitive Groups</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href = "theindex.htm">Index</a>]
+<h1>1 The Library of Transitive Groups</h1><p>
+<P>
+<H3>Sections</H3>
+<oL>
+<li> <A HREF="CHAP001.htm#SECT001">Transitive Permutation Groups</a>
+<li> <A HREF="CHAP001.htm#SECT002">Selection Functions</a>
+<li> <A HREF="CHAP001.htm#SECT003">Interfacing with the library</a>
+<li> <A HREF="CHAP001.htm#SECT004">Supplemental Downloads</a>
+</ol><p>
+<p>
+The Transitive Groups Library is created by Alexander Hulpke.
+You are free to distribute it, provided that you make no modifications.
+<p>
+The actual groups in the library and their generating sets are due to a
+number of authors:
+Gregory Butler, John McKay, Gordon
+Royle, Alexander Hulpke, John Cannon, Gareth Tracy, and Derek Holt. 
+<p>
+The list of transitive  groups up  to degree 11
+was published in <a href="biblio.htm#BM83"><cite>BM83</cite></a>,  the list of degree  12 was published in
+<a href="biblio.htm#Roy87"><cite>Roy87</cite></a>, degree 14 and  15 were published in  <a href="biblio.htm#Butler93"><cite>Butler93</cite></a> and
+degrees 16--30 were published in <a href="biblio.htm#Hulpke96"><cite>Hulpke96</cite></a> and <a href="biblio.htm#HulpkeTG"><cite>HulpkeTG</cite></a>.
+Degree 32 was published in <a href="biblio.htm#CanHolt32"><cite>CanHolt32</cite></a>, degrees 34-46 have been
+obtained by Derek Holt and Gordon Royle in <a href="biblio.htm#HoltRoyle47"><cite>HoltRoyle47</cite></a>,
+and degree 48 is due to Derek Holt, Gordon Royle, and Gareth Tracy in
+&nbsp;<a href="biblio.htm#HoltRoyleTracy48"><cite>HoltRoyleTracy48</cite></a>.
+Groups of prime degree of course are primitive and were known long before.
+<p>
+The transitive groups library will contain representatives for all
+transitive permutation groups of degree at most  47. Not all degrees might
+be yet available in the current release. Due to the total number,
+degree 32 and 48 need to be downloaded separately, see section ``Supplemental
+Downloads'' below.
+<p>
+Two permutations groups of the same degree are considered to be
+equivalent, if there is a renumbering of points, which maps one group into
+the other one.
+In other words, if they lie in the same conjugacy class under operation
+of the full symmetric group by conjugation.
+<p>
+<p>
+<h2><a name="SECT001">1.1 Transitive Permutation Groups</a></h2>
+<p><p>
+<a name = "SSEC001.1"></a>
+<li><code>TransitiveGroupsAvailable( </code><var>deg</var><code> ) F</code>
+<p>
+returns whether the transitive groups groups of degree <var>deg</var> are available
+for use. This function should be used to test for the scope of the library
+available.
+<p>
+<a name = "SSEC001.2"></a>
+<li><code>TransitiveGroup( </code><var>deg</var><code>, </code><var>nr</var><code> ) F</code>
+<p>
+returns the <var>nr</var>-th transitive  group of degree <var>deg</var>.  Both  <var>deg</var> and
+<var>nr</var> must be  positive integers. The transitive groups of equal  degree
+are  sorted with  respect to   their  size, so for  example
+<code>TransitiveGroup(  </code><var>deg</var><code>, 1 )</code> is a  transitive group  of degree and
+size <var>deg</var>, e.g, the cyclic  group  of size <var>deg</var>,   if <var>deg</var> is a
+prime.
+<p>
+<a name = "SSEC001.3"></a>
+<li><code>NrTransitiveGroups( </code><var>deg</var><code> ) F</code>
+<p>
+returns the number of transitive groups of degree <var>deg</var> stored in the
+library of transitive groups. The function returns <code>fail</code> if <var>deg</var> is
+beyond the range of the library.
+<p>
+The arrangement and the names of the groups of degree up to 15 is the same
+as given in <a href="biblio.htm#ConwayHulpkeMcKay98"><cite>ConwayHulpkeMcKay98</cite></a>. With the exception of the symmetric
+and alternating group (which are represented as <code>SymmetricGroup</code> and
+<code>AlternatingGroup</code>) the generators for these groups also conform to this
+paper with the only difference that 0 (which is not permitted in <font face="Gill Sans,Helvetica,Arial">GAP</font> for
+permutations to act on) is always replaced by the degree.
+<p>
+The arrangement for all degrees is intended to be equal to the arangement
+within the system Magma, thus it should be safe to refer to particular
+(classes of) groups by their index numbers.
+<p>
+<pre>
+gap&gt; TransitiveGroup(10,22);
+S(5)[x]2
+gap&gt; l:=AllTransitiveGroups(NrMovedPoints,12,Size,1440,IsSolvable,false);
+[ S(6)[x]2, M_10.2(12)=A_6.E_4(12)=[S_6[1/720]{M_10}S_6]2 ]
+gap&gt; List(l,IsSolvable);
+[ false, false ]
+</pre>
+<p>
+<a name = "SSEC001.4"></a>
+<li><code>TransitiveIdentification( </code><var>G</var><code> ) A</code>
+<p>
+Let <var>G</var> be a permutation group, acting transitively on a set  of up to 30
+points.  Then <code>TransitiveIdentification</code> will return the position of this
+group in the transitive  groups library.  This means,  if <var>G</var> acts on
+<var>m</var> points and    <code>TransitiveIdentification</code>  returns <var>n</var>,  then <var>G</var>   is
+permutation isomorphic to the group <code>TransitiveGroup(m,n)</code>.
+<p>
+Note: The points moved do <strong>not</strong> need to be [1..<var>n</var>], the group
+<var>langle(2,3,4),(2,3)rangle</var> is considered to be transitive on 3
+points. If the group has several orbits on the points moved by it the
+result of <code>TransitiveIdentification</code> is undefined.
+<p>
+<pre>
+gap&gt; TransitiveIdentification(Group((1,2),(1,2,3)));
+2
+</pre>
+<p>
+<a name = "SSEC001.5"></a>
+<li><code>MinimalTransitiveIndices( </code><var>deg</var><code> ) F</code>
+<p>
+returns a list of indices of the transitive groups of degree <var>deg</var>, which
+are minimally trransitive, i.e. for which every proper subgroup is not
+transitive.
+<p>
+<pre>
+gap&gt; MinimalTransitiveIndices(12);
+[ 1, 2, 3, 4, 5, 7, 9, 17, 31, 34, 40, 46, 47, 57, 162, 166, 246 ]
+</pre>
+<p>
+<p>
+<h2><a name="SECT002">1.2 Selection Functions</a></h2>
+<p><p>
+<a name = "SSEC002.1"></a>
+<li><code>AllTransitiveGroups( </code><var>fun1</var><code>, </code><var>val1</var><code>, ... ) F</code>
+<a name = "SSEC002.1"></a>
+<li><code>AllLibraryTransitiveGroups( </code><var>fun1</var><code>, </code><var>val1</var><code>, ... ) F</code>
+<a name = "SSEC002.1"></a>
+<li><code>OneTransitiveGroup( </code><var>fun1</var><code>, </code><var>val1</var><code>, ... ) F</code>
+<p>
+These functions take an arbitrary number of pairs (but at least one pair)
+of arguments. The first argument in such a pair is a function that can be
+applied to the groups in the library, and the second argument is either a
+single value that this function must return in order to have  this  group
+included in the selection, or a list of such  values. 
+It returns all (ore one) group satisfying the parameters:
+<p>
+<pre>
+gap&gt; AllTransitiveGroups(NrMovedPoints,[10..15],
+&gt;                        Size,         [1..100],
+&gt;                        IsAbelian,    false    );
+</pre>
+<p>
+returns a list of all transitive groups with degree between 10 and 15 and
+size less than 100 that are not abelian.
+<p>
+Thus  the <code>AllTransitiveGroups</code>  behaves  as if   it was implemented  by a
+function similar to the one defined below, where <code>TransitiveGroupsList</code> is a
+list of all transitive groups.  (Note that in  the definition below we assume
+for simplicity that <code>AllTransitiveGroups</code> accepts exactly 4 arguments.  It is
+of course  obvious how to change this  definition so that the function would
+accept a variable number of arguments.)
+<p>
+<pre>
+AllTransitiveGroups := function( fun1, val1, fun2, val2 )
+local    groups, g, i;
+  groups := [];
+  for i  in [ 1 .. Length( TransitiveGroupsList ) ] do
+    g := TransitiveGroupsList[i];
+    if      fun1(g) = val1  or IsList(val1) and fun1(g) in val1
+        and fun2(g) = val2  or IsList(val2) and fun2(g) in val2
+     then
+      Add( groups, g );
+    fi;
+  od;
+  return groups;
+end;
+</pre>
+Note that the real  selection functions are considerably  more difficult,
+to improve the efficiency. Most  important, each recognizes a certain set
+of properties which are precomputed for the library without having to
+compute them anew for each group. This will substantially speed up the
+selection process.
+<p>
+The selection functions for the transitive
+groups library are <code>AllTransitiveGroups</code> and <code>OneTransitiveGroup</code>. They
+obtain the following properties from the database without having to compute
+them anew:
+<p>
+<code>NrMovedPoints</code>, <code>Size</code>,   <code>Transitivity</code>, and <code>IsPrimitive</code>.
+<p>
+The function <code>AllLibraryTransitiveGroups</code> works the same way as
+<code>AllTransitiveGroups</code> but does not warn if no degree is specified.
+<p>
+<p>
+<h2><a name="SECT003">1.3 Interfacing with the library</a></h2>
+<p><p>
+Only access using the functions described in this manual is promised to
+remain stable. Code that wants to use the transitive groups library should
+use <code>TransitiveGroupsAvailable</code> to establish the data being installed for
+the desired degree. (This function has a dummy equivalent in the main <font face="Gill Sans,Helvetica,Arial">GAP</font>
+library so that it is always available to return <code>false</code>.) Then
+<code>NrTransitiveGroups</code> should be used to determine the range of valid indices for
+the given degree. Routines should not try to access data structures of the
+library directly.
+<p>
+<p>
+<h2><a name="SECT004">1.4 Supplemental Downloads</a></h2>
+<p><p>
+There are almost 3 million groups of degree 32 and these groups require over
+a GB of disk space when uncompressed.
+These groups are therefore not part of the package
+distribution, but are made available as a supplemental download at 
+<pre>
+https://www.math.colostate.edu/~hulpke/transgrp/trans32.tgz
+</pre>
+<p>
+Simply unpack this archive (which is a tar archive compressed with gzip --
+consult your computer administrator on the correct way of unpacking)
+in the top folder of the <code>transgrp</code> package (this
+folder will contain the <code>PackageInfo.g</code> file, it will create a folder dat32
+containing the groups of degree 32. Once you restart GAP it will
+automatically recognize the existence of these groups.
+<p>
+The <var>195826352</var> groups of degree 48 take over 30GB of disk space in
+compressed form and thus require a particular download:
+<p>
+Create a folder <code>dat48</code> in the top folder of the <code>transgrp</code> package. Then
+download the 11 files <code>Trans48Part....tar</code> from
+<pre>
+https://zenodo.org/record/5935751
+</pre>
+and unpack them into this folder. 
+<strong>Do not uncompress the resulting <code>.gz</code> files</strong>
+(You can delete the <code>.tar</code> archive files afterwards.)
+Once GAP is restarted these groups will be available, but
+<code>TransitiveIdentification</code> (for groups not created from the library) or
+the <code>AllTransitiveGroups</code> selector will not work.
+<p>
+Conversion of these groups to GAP is due in part to Jesse Lansdown, whose
+help is greatly appreciated
+<p>
+Due to the compressed storage, it is perceivable that the groups of degree 48
+do not work under Windows. This has not been tested and no promise for this
+particular functionality is made.
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>transgrp manual<br>February 2022
+</address></body></html>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (CTblLibXpls) - Chapter 7: Large Nilpotent Subgroups of Sporadic Simple Groups</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap7"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap7.html">[MathJax off]</a></p>
+<p><a id="X8102827B85FE3BCA" name="X8102827B85FE3BCA"></a></p>
+<div class="ChapSects"><a href="chap7_mj.html#X8102827B85FE3BCA">7 <span class="Heading">Large Nilpotent Subgroups of Sporadic Simple Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X7F817DC57A69CF0D">7.1 <span class="Heading">The Result</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X787B841383A16711">7.2 <span class="Heading">The Proof</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X798EACC07F6C36D9">7.3 <span class="Heading">Alternative: Use <strong class="pkg">GAP</strong>'s Tables of Marks</span></a>
+</span>
+</div>
+</div>
+
+<h3>7 <span class="Heading">Large Nilpotent Subgroups of Sporadic Simple Groups</span></h3>
+
+<p>Date: June 6th, 2009</p>
+
+<p>We show that any nontrivial nilpotent subgroup <span class="SimpleMath">\(U\)</span> in a sporadic simple group <span class="SimpleMath">\(G\)</span> satisfies <span class="SimpleMath">\(|U| \cdot |N_G(U)| &lt; |G|\)</span>. The proof uses the information in the <strong class="pkg">Atlas</strong> of Finite Groups <a href="chapBib_mj.html#biBCCN85">[CCN+85]</a> and the <strong class="pkg">GAP</strong> system <a href="chapBib_mj.html#biBGAP">[GAP24]</a>, in particular its Character Table Library <a href="chapBib_mj.html#biBCTblLib">[Bre25]</a> and its library of Tables of Marks <a href="chapBib_mj.html#biBTomLib">[MNP19]</a>. (In <a href="chapBib_mj.html#biBVdo00">[Vdo00]</a>, it is shown that in any finite nonabelian simple group <span class="SimpleMath">\(G\)</span>, any nilpotent subgroup <span class="SimpleMath">\(U\)</span> satisfies <span class="SimpleMath">\(|U|^2 &lt; |G|\)</span>.)</p>
+
+<p><a id="X7F817DC57A69CF0D" name="X7F817DC57A69CF0D"></a></p>
+
+<h4>7.1 <span class="Heading">The Result</span></h4>
+
+<p>The aim of this writeup is to show the following statement.</p>
+
+<p><em>Proposition</em>: Let <span class="SimpleMath">\(G\)</span> be a sporadic simple group, let <span class="SimpleMath">\(U\)</span> be a nontrivial nilpotent subgroup in <span class="SimpleMath">\(G\)</span>, and let <span class="SimpleMath">\(N_G(U)\)</span> denote the normalizer of <span class="SimpleMath">\(U\)</span> in <span class="SimpleMath">\(G\)</span>. Then <span class="SimpleMath">\(|U| \cdot |N_G(U)| &lt; |G|\)</span> holds.</p>
+
+<p>The following criteria are sufficient to prove this proposition. Note that we are interested in an argument that uses only information about the character tables of the sporadic simple groups and of their maximal subgroups.</p>
+
+<p><em>Lemma 1</em>: Let <span class="SimpleMath">\(G\)</span> be a nonabelian finite simple group, and suppose that <span class="SimpleMath">\(U\)</span> is a nontrivial nilpotent subgroup of <span class="SimpleMath">\(G\)</span> such that <span class="SimpleMath">\(|U| \cdot |N_G(U)| \geq |G|\)</span> holds. Let <span class="SimpleMath">\(\Pi = \{ p_1, p_2, \ldots, p_n \}\)</span> be the set of prime divisors of <span class="SimpleMath">\(|U|\)</span>, and set <span class="SimpleMath">\(n = \prod_{{p \in \Pi}} p\)</span>.</p>
+
+
+<dl>
+<dt><strong class="Mark">(a)</strong></dt>
+<dd><p><span class="SimpleMath">\(G\)</span> contains an element <span class="SimpleMath">\(g\)</span> of order <span class="SimpleMath">\(n\)</span> and a maximal subgroup <span class="SimpleMath">\(M\)</span> with the properties <span class="SimpleMath">\(g \in Z(U)\)</span> and <span class="SimpleMath">\(N_G(U) \leq M\)</span>. Set <span class="SimpleMath">\(c:= \gcd(|C_G(g)|_{\Pi}, |M|)\)</span>, where <span class="SimpleMath">\(|C_G(g)|_{\Pi}\)</span> denotes the largest divisor of the order of the centralizer of <span class="SimpleMath">\(g\)</span> in <span class="SimpleMath">\(G\)</span> whose prime divisors are elements of the set <span class="SimpleMath">\(\Pi\)</span>. Then we have <span class="SimpleMath">\(|U| \leq c\)</span> and hence <span class="SimpleMath">\(c \cdot |M| \geq |G|\)</span>, in particular <span class="SimpleMath">\(|M|^2 \geq |G|\)</span>.</p>
+
+</dd>
+<dt><strong class="Mark">(b)</strong></dt>
+<dd><p>If <span class="SimpleMath">\((g, M)\)</span> is as in part (a) then one of the following holds.</p>
+
+
+<dl>
+<dt><strong class="Mark">(b1)</strong></dt>
+<dd><p><span class="SimpleMath">\(U\)</span> is normal in <span class="SimpleMath">\(M\)</span>, and the Fitting subgroup <span class="SimpleMath">\(Fit(M)\)</span> of <span class="SimpleMath">\(M\)</span> satisfies <span class="SimpleMath">\(|Fit(M)| \cdot |M| \geq |G|\)</span>.</p>
+
+</dd>
+<dt><strong class="Mark">(b2)</strong></dt>
+<dd><p><span class="SimpleMath">\(U\)</span> is not normal in <span class="SimpleMath">\(M\)</span>, so <span class="SimpleMath">\(N_G(U)\)</span> is a proper subgroup of <span class="SimpleMath">\(M\)</span>, in particular <span class="SimpleMath">\(|G| \leq |U| \cdot |M|/2 \leq c \cdot |M| / 2\)</span> holds.</p>
+
+</dd>
+</dl>
+</dd>
+<dt><strong class="Mark">(c)</strong></dt>
+<dd><p>Let <span class="SimpleMath">\((g, M)\)</span> be as in part (b2) and assume that <span class="SimpleMath">\(M\)</span> contains a normal subgroup <span class="SimpleMath">\(K\)</span> such that <span class="SimpleMath">\(\pi(M):= M/K\)</span> is an almost simple group with socle <span class="SimpleMath">\(S\)</span>, i. e., <span class="SimpleMath">\(\pi(M)\)</span> has a nonabelian simple normal subgroup <span class="SimpleMath">\(S\)</span> such that <span class="SimpleMath">\(C_{{\pi(M)}}(S)\)</span> is trivial. Then either <span class="SimpleMath">\(U \leq K\)</span> holds, and hence <span class="SimpleMath">\(|K| \cdot |M| \geq |G|\)</span>, or we are in the following situation.</p>
+
+<p>The group <span class="SimpleMath">\(\pi(U):= U K / K\)</span> is a nontrivial nilpotent normal subgroup of <span class="SimpleMath">\(\pi(N):= N_G(U) K / K\)</span>, and <span class="SimpleMath">\(H:= S \cap \pi(N)\)</span> is a proper subgroup of <span class="SimpleMath">\(S\)</span>. The latter statement holds because otherwise <span class="SimpleMath">\(S \cap \pi(U)\)</span> would be normal in <span class="SimpleMath">\(S\)</span> and thus would be trivial, which would imply that <span class="SimpleMath">\(S\)</span> would centralize <span class="SimpleMath">\(\pi(U)\)</span>.</p>
+
+<p>As a consequence, <span class="SimpleMath">\(|\pi(N)|\)</span> divides <span class="SimpleMath">\(|\pi(M)/S| \cdot |H| = |\pi(M)| / [S:H]\)</span>, in particular, <span class="SimpleMath">\([S:H] \leq |\pi(M)| / |\pi(N)| = |M| / |N_G(U) K| \leq |M| / |N_G(U)| \leq |M| \cdot |U| / |G| \leq c / [G:M]\)</span> holds.</p>
+
+</dd>
+</dl>
+<p>We will apply Lemma 1 as follows.</p>
+
+<p>From the character tables of <span class="SimpleMath">\(G\)</span> and <span class="SimpleMath">\(M\)</span>, the value <span class="SimpleMath">\(|Fit(M)|\)</span> and the maximal possible <span class="SimpleMath">\(c\)</span> can be computed. If part (a) of the lemma applies then we verify that part (b1) does <em>not</em> apply, and that either (b2) or (c) yields a contradiction. Note that we can determine from the character table of <span class="SimpleMath">\(M\)</span> whether <span class="SimpleMath">\(M\)</span> has a normal subgroup <span class="SimpleMath">\(K\)</span> such that <span class="SimpleMath">\(M/K\)</span> is almost simple, and in this case we can compute the order of the socle <span class="SimpleMath">\(S\)</span> of <span class="SimpleMath">\(M/K\)</span>.</p>
+
+<p>For proving the nonexistence of the subgroup <span class="SimpleMath">\(H\)</span> in the situation of part (c), we will show that all subgroups of <span class="SimpleMath">\(\pi(M)\)</span> of index up to <span class="SimpleMath">\(d:= c \cdot [\pi(M):S] / [G:M]\)</span> contain <span class="SimpleMath">\(S\)</span>. For that, we will compute the complete list of those possible permutation characters of <span class="SimpleMath">\(\pi(M)\)</span> whose degree is at most <span class="SimpleMath">\(d\)</span>, and then check that the kernels of these characters contain <span class="SimpleMath">\(S\)</span>.</p>
+
+<p>(Note that these computations are cheap because the bound <span class="SimpleMath">\(d\)</span> is small in the cases that occur. There are easier criteria for proving the nonexistence of a subgroup of index at most <span class="SimpleMath">\(d\)</span> in a simple group <span class="SimpleMath">\(S\)</span>, for example in the case <span class="SimpleMath">\(|S| &gt; d! / 2\)</span> or if the smallest nontrivial irreducible degree of <span class="SimpleMath">\(S\)</span> is at least <span class="SimpleMath">\(d\)</span>; but these criteria do not suffice in our situation.)</p>
+
+<p>We illustrate the application of Lemma 1 with some examples.</p>
+
+
+<dl>
+<dt><strong class="Mark"><span class="SimpleMath">\(J_1\)</span>:</strong></dt>
+<dd><p>The first Janko group <span class="SimpleMath">\(J_1\)</span> (see <a href="chapBib_mj.html#biBCCN85">[CCN+85, p. 36]</a>) has order <span class="SimpleMath">\(175\,560\)</span>, and the largest maximal subgroup has order <span class="SimpleMath">\(660\)</span>. The largest centralizer of a nonidentity element in <span class="SimpleMath">\(J_1\)</span> has order <span class="SimpleMath">\(120\)</span>, and <span class="SimpleMath">\(660 \cdot 120 = 79\,200 &lt; |J_1|\)</span>. Thus <span class="SimpleMath">\(J_1\)</span> satisfies the proposition.</p>
+
+</dd>
+<dt><strong class="Mark"><span class="SimpleMath">\(𝕄\)</span>:</strong></dt>
+<dd><p>For the Monster group <span class="SimpleMath">\(𝕄\)</span> (see <a href="chapBib_mj.html#biBCCN85">[CCN+85, p. 234]</a>), we read off from the list <a href="chapBib_mj.html#biBMmaxes">[Wil]</a> of maximal subgroups that the only maximal subgroups <span class="SimpleMath">\(M\)</span> of <span class="SimpleMath">\(𝕄\)</span> with the property <span class="SimpleMath">\(|M|^2 \geq 𝕄\)</span> have the structure <span class="SimpleMath">\(2.B\)</span>. Already for the second largest maximal subgroups, with the structure <span class="SimpleMath">\(2^{{1+24}}.Co_1\)</span>, the order is smaller than the index in the Monster.</p>
+
+<p>Only elements <span class="SimpleMath">\(g\)</span> from the classes <code class="code">2A</code>, <code class="code">2B</code>, and <code class="code">3A</code> have the property that the product of <span class="SimpleMath">\(|2.B|\)</span> and the order of the centralizer of <span class="SimpleMath">\(g\)</span> in <span class="SimpleMath">\(M\)</span> is not smaller than <span class="SimpleMath">\(|M|\)</span>. So <span class="SimpleMath">\(U\)</span> can be only a <span class="SimpleMath">\(2\)</span>- or a <span class="SimpleMath">\(3\)</span>-subgroup of <span class="SimpleMath">\(2.B\)</span>. However, the <span class="SimpleMath">\(2\)</span>-part and the <span class="SimpleMath">\(3\)</span>-part of <span class="SimpleMath">\(|2.B|\)</span> are <span class="SimpleMath">\(2^{42}\)</span> and <span class="SimpleMath">\(3^{13}\)</span>, respectively, which are smaller than the index of <span class="SimpleMath">\(2.B\)</span> in <span class="SimpleMath">\(M\)</span>. Thus <span class="SimpleMath">\(M\)</span> satisfies the proposition.</p>
+
+</dd>
+<dt><strong class="Mark"><span class="SimpleMath">\(Fi_{23}\)</span>:</strong></dt>
+<dd><p>We show that no counterexample to the proposition can arise from maximal subgroups <span class="SimpleMath">\(M\)</span> of the type <span class="SimpleMath">\(O_8^+(3):S_3\)</span> in the Fischer group <span class="SimpleMath">\(Fi_{23}\)</span> (see <a href="chapBib_mj.html#biBCCN85">[CCN+85, p. 177]</a>). Several element centralizers in <span class="SimpleMath">\(G\)</span> satisfy Lemma 1 (a), the largest value <span class="SimpleMath">\(c\)</span> arises from elements in the class <code class="code">6B</code>, whose centralizers have order <span class="SimpleMath">\(2^8 \cdot 3^9\)</span>, which divides <span class="SimpleMath">\(|M|\)</span>. So <span class="SimpleMath">\(|U| \leq 2^8 \cdot 3^9\)</span>, and a possible counterexample to the proposition must satisfy <span class="SimpleMath">\(|N_G(U)| \geq |G| / (2^8 \cdot 3^9) = 811\,588\,377\,600\)</span>. We have <span class="SimpleMath">\(|M| = 29\,713\,078\,886\,400\)</span>, which is less than <span class="SimpleMath">\(37\)</span> times this minimal order required for <span class="SimpleMath">\(N_G(U)\)</span>. However, the intersection <span class="SimpleMath">\(H\)</span> of this group with the simple subgroup <span class="SimpleMath">\(S \cong O_8^+(3)\)</span> in <span class="SimpleMath">\(M\)</span> cannot be at most <span class="SimpleMath">\(36\)</span>, because the largest maximal subgroups in <span class="SimpleMath">\(S\)</span> have index <span class="SimpleMath">\(1\,080\)</span> (see <a href="chapBib_mj.html#biBCCN85">[CCN+85, p. 140]</a>). Arguing not with <span class="SimpleMath">\(S\)</span> but with <span class="SimpleMath">\(M\)</span>, we can show –using only the character table of <span class="SimpleMath">\(M\)</span>– that all proper subgroups of index less than <span class="SimpleMath">\(37 \cdot 6\)</span> in <span class="SimpleMath">\(M\)</span> contain <span class="SimpleMath">\(S\)</span>.</p>
+
+</dd>
+</dl>
+<p><a id="X787B841383A16711" name="X787B841383A16711"></a></p>
+
+<h4>7.2 <span class="Heading">The Proof</span></h4>
+
+<p>The following <strong class="pkg">GAP</strong> function utilizes Lemma 1. Its input are the <strong class="pkg">GAP</strong> character table <code class="code">tbl</code> of a group <span class="SimpleMath">\(G\)</span>, say, and a list <code class="code">maxesinfo</code> of character tables of maximal subgroups of <span class="SimpleMath">\(G\)</span>, covering at least all those maximal subgroups <span class="SimpleMath">\(M\)</span> for which <span class="SimpleMath">\(|M|^2 \geq |G|\)</span> holds.</p>
+
+<p>The idea is to collect pairs <span class="SimpleMath">\((M, g)\)</span> that satisfy part (a) of Lemma 1, and then to show that they do not satisfy part (b) or part (c). For each maximal subgroup <span class="SimpleMath">\(M\)</span> that admits elements <span class="SimpleMath">\(g\)</span> as in Lemma 1, information is printed how this candidate is excluded.</p>
+
+<p>The function returns a list of length three. The first entry is <code class="keyw">true</code> if the criteria of Lemma 1 are sufficient to prove that the proposition is true for <span class="SimpleMath">\(G\)</span>, and <code class="keyw">false</code> otherwise. The second entry is the name of <span class="SimpleMath">\(G\)</span>, and the third entry in the number of maximal subgroups <span class="SimpleMath">\(M\)</span> for which an element <span class="SimpleMath">\(g\)</span> as in Lemma 1 (a) exists.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ApplyTheLemma:= function( tbl, maxesinfo )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    local Gname, Gsize, cents, orders, result, Mtbl, Msize, maxc, i,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          pi, pipart, c, Mclasslengths, Fit, excluded, Kclasses, Mbar,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          Ksize, Sclasses, Ssize, d;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    Gname:= Identifier( tbl );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    Gsize:= Size( tbl );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    cents:= SizesCentralizers( tbl );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    orders:= OrdersClassRepresentatives( tbl );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    result:= [ true, Gname, 0 ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    # Run over the relevant maximal subgroups.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    for Mtbl in maxesinfo do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      Msize:= Size( Mtbl );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      # Run over nonidentity class representatives g of squarefree</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      # order, compute the largest c that occurs.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      maxc:= 1;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      for i in [ 2 .. NrConjugacyClasses( tbl ) ] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        pi:= Factors( orders[i] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        if IsSet( pi ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          # The elements in class `i' have squarefree order.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          pipart:= Product( Filtered( Factors( cents[i] ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                      x -&gt; x in pi ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          c:= Gcd( pipart, Msize );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          if maxc &lt; c then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            maxc:= c;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      if maxc * Msize &gt;= Gsize then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        # Criterion (a) is satisfied, try to exclude (b) and (c).</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        result[3]:= result[3] + 1;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        Print( Gname, ": consider M = ", Identifier( Mtbl ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">               ", c = ", StringPP( maxc ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">               ", c * |M| / |G| &gt;= ", Int( maxc * Msize / Gsize ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">               "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        Mclasslengths:= SizesConjugacyClasses( Mtbl );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        Fit:= Mclasslengths{ ClassPositionsOfFittingSubgroup( Mtbl ) };</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        if Sum( Fit ) * Msize &gt;= Gsize then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          # Criterion (b1) is satisfied.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          Print( Gname, ": not excludable by (b1)\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          result[1]:= false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        elif maxc * Msize &lt; 2 * Gsize then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          # Criterion (b2) is not satisfied.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          Print( Gname, ":     excluded by (b2)\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        else</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          # Run over the normal subgroups of M.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          excluded:= false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          for Kclasses in ClassPositionsOfNormalSubgroups( Mtbl ) do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            Mbar:= Mtbl / Kclasses;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            Ksize:= Sum( Mclasslengths{ Kclasses } );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            if IsAlmostSimpleCharacterTable( Mbar ) and</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">               Ksize * Msize &lt; Gsize then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              # We are in the situation of criterion (c).</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              # The socle is the unique minimal normal subgroup.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              Sclasses:= ClassPositionsOfMinimalNormalSubgroups(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                             Mbar )[1];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              Ssize:= Sum( SizesConjugacyClasses( Mbar ){ Sclasses } );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              d:= Int( maxc * Msize * Size( Mbar )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                  / ( Gsize * Ssize ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              # Try to show that all subgroups of index up to d</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              # in Mbar contain the socle.</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              if ForAll( [ 2 .. d ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                   n -&gt; ForAll( PermChars( Mbar, rec( torso:= [ n ] ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                          chi -&gt; IsSubset(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                     ClassPositionsOfKernel( chi ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                     Sclasses ) ) ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                Print( Gname, ":     excluded by (c), |K| = ",</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                       StringPP( Ksize ), ", degree bound ", d, "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                excluded:= true;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                break;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          if not excluded then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            Print( Gname, ": not excludable by (c)\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            result[1]:= false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    return result;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">end;;</span>
+</pre></div>
+
+<p>So our proof relies on the classifications of maximal subgroups of sporadic simple groups, see <a href="chapBib_mj.html#biBCCN85">[CCN+85]</a> and <a href="chapBib_mj.html#biBBN95">[BN95]</a>.</p>
+
+<p>The <strong class="pkg">GAP</strong> Character Table Library <a href="chapBib_mj.html#biBCTblLib">[Bre25]</a> contains the character tables of the sporadic simple groups and of their maximal subgroups, except that not all character tables of maximal subgroups of the Monster group are available yet. (See Section <a href="chap7_mj.html#X7F817DC57A69CF0D"><span class="RefLink">7.1</span></a> for the treatment of the Monster group.)</p>
+
+<p>Since the <strong class="pkg">GAP</strong> Character Table Library is used for the computations in this section, we first load this package.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "ctbllib", false );</span>
+true
+</pre></div>
+
+<p>Now we apply the function to the sporadic simple groups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= [];;                                       </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for name in AllCharacterTableNames( IsSporadicSimple, true,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                       IsDuplicateTable, false ) do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     tbl:= CharacterTable( name );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     if HasMaxes( tbl ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       mx:= List( Maxes( tbl ), CharacterTable );  </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     elif name = "M" then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       mx:= [ CharacterTable( "2.B" ) ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     else</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       Error( "this should not happen ...");</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     Add( info, ApplyTheLemma( tbl, mx ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+B: consider M = 2.2E6(2).2, c = 2^38, c * |M| / |G| &gt;= 20
+B:     excluded by (c), |K| = 2, degree bound 40
+Co1: consider M = Co2, c = 2^13*3^5, c * |M| / |G| &gt;= 20
+Co1:     excluded by (c), |K| = 1, degree bound 20
+Co1: consider M = 3.Suz.2, c = 2^13*3^5, c * |M| / |G| &gt;= 1
+Co1:     excluded by (b2)
+Co2: consider M = U6(2).2, c = 2^16, c * |M| / |G| &gt;= 28
+Co2:     excluded by (c), |K| = 1, degree bound 56
+Co2: consider M = 2^10:m22:2, c = 2^18, c * |M| / |G| &gt;= 5
+Co2:     excluded by (c), |K| = 2^10, degree bound 11
+Co2: consider M = 2^1+8:s6f2, c = 2^18, c * |M| / |G| &gt;= 4
+Co2:     excluded by (c), |K| = 2^9, degree bound 4
+Co3: consider M = McL.2, c = 2^4*3^4, c * |M| / |G| &gt;= 4
+Co3:     excluded by (c), |K| = 1, degree bound 9
+F3+: consider M = Fi23, c = 2^9*3^9, c * |M| / |G| &gt;= 32
+F3+:     excluded by (c), |K| = 1, degree bound 32
+Fi22: consider M = 2.U6(2), c = 2^7*3^6, c * |M| / |G| &gt;= 26
+Fi22:     excluded by (c), |K| = 2, degree bound 26
+Fi22: consider M = O7(3), c = 2^7*3^6, c * |M| / |G| &gt;= 6
+Fi22:     excluded by (c), |K| = 1, degree bound 6
+Fi22: consider M = Fi22M3, c = 2^7*3^6, c * |M| / |G| &gt;= 6
+Fi22:     excluded by (c), |K| = 1, degree bound 6
+Fi22: consider M = O8+(2).3.2, c = 2^7*3^6, c * |M| / |G| &gt;= 1
+Fi22:     excluded by (b2)
+Fi23: consider M = 2.Fi22, c = 2^8*3^9, c * |M| / |G| &gt;= 159
+Fi23:     excluded by (c), |K| = 2, degree bound 159
+Fi23: consider M = O8+(3).3.2, c = 2^8*3^9, c * |M| / |G| &gt;= 36
+Fi23:     excluded by (c), |K| = 1, degree bound 219
+HS: consider M = M22, c = 2^7, c * |M| / |G| &gt;= 1
+HS:     excluded by (b2)
+M11: consider M = A6.2_3, c = 2^4, c * |M| / |G| &gt;= 1
+M11:     excluded by (b2)
+M12: consider M = M11, c = 2^4, c * |M| / |G| &gt;= 1
+M12:     excluded by (b2)
+M12: consider M = M12M2, c = 2^4, c * |M| / |G| &gt;= 1
+M12:     excluded by (b2)
+M22: consider M = L3(4), c = 2^6, c * |M| / |G| &gt;= 2
+M22:     excluded by (c), |K| = 1, degree bound 2
+M22: consider M = 2^4:a6, c = 2^7, c * |M| / |G| &gt;= 1
+M22:     excluded by (b2)
+M23: consider M = M22, c = 2^7, c * |M| / |G| &gt;= 5
+M23:     excluded by (c), |K| = 1, degree bound 5
+M24: consider M = M23, c = 2^7, c * |M| / |G| &gt;= 5
+M24:     excluded by (c), |K| = 1, degree bound 5
+M24: consider M = 2^4:a8, c = 2^10, c * |M| / |G| &gt;= 1
+M24:     excluded by (b2)
+McL: consider M = U4(3), c = 3^6, c * |M| / |G| &gt;= 2
+McL:     excluded by (c), |K| = 1, degree bound 2
+Ru: consider M = 2F4(2)'.2, c = 2^12, c * |M| / |G| &gt;= 1
+Ru:     excluded by (b2)
+Suz: consider M = G2(4), c = 2^12, c * |M| / |G| &gt;= 2
+Suz:     excluded by (c), |K| = 1, degree bound 2
+</pre></div>
+
+<p>First of all, we see that Lemma 1 is sufficient to prove the proposition, since all candidates were excluded.</p>
+
+<p>Moreover, we see that for the following ten sporadic simple groups, no candidates had to be considered. (No information was printed about these groups.)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Filtered( info, x -&gt; x[3] = 0 );</span>
+[ [ true, "HN", 0 ], [ true, "He", 0 ], [ true, "J1", 0 ], 
+  [ true, "J2", 0 ], [ true, "J3", 0 ], [ true, "J4", 0 ], 
+  [ true, "Ly", 0 ], [ true, "M", 0 ], [ true, "ON", 0 ], 
+  [ true, "Th", 0 ] ]
+</pre></div>
+
+<p><a id="X798EACC07F6C36D9" name="X798EACC07F6C36D9"></a></p>
+
+<h4>7.3 <span class="Heading">Alternative: Use <strong class="pkg">GAP</strong>'s Tables of Marks</span></h4>
+
+<p>We can easily inspect all conjugacy classes of subgroups of a group <span class="SimpleMath">\(G\)</span> whose table of marks is contained in <strong class="pkg">GAP</strong>'s Library of Tables of Marks <a href="chapBib_mj.html#biBTomLib">[MNP19]</a>. First we load this <strong class="pkg">GAP</strong> package.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "tomlib", false );</span>
+true
+</pre></div>
+
+<p>The following <strong class="pkg">GAP</strong> function takes the table of marks of a group <span class="SimpleMath">\(G\)</span> and returns the list of pairs <span class="SimpleMath">\([ U, N_G(U) ]\)</span> where <span class="SimpleMath">\(U\)</span> ranges over representatives of conjugacy classes of those nilpotent subgroups of <span class="SimpleMath">\(G\)</span> for which <span class="SimpleMath">\(|U| \cdot |N_G(U)|\)</span> is maximal.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">maximalpairs:= function( tom )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   local g, max, result, i, u, n, prod;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   g:= UnderlyingGroup( tom );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   max:= 1;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   result:= [];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   for i in [ 1 .. Length( OrdersTom( tom ) ) ] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     u:= RepresentativeTom( tom, i );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     if not IsTrivial( u ) and IsNilpotent( u ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       n:= Normalizer( g, u );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       prod:= Size( u ) * Size( n );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       if max &lt; prod then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         max:= prod;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         result:= [ [ u, n ] ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       elif max = prod then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         Add( result, [ u, n ] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   return result;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">end;;</span>
+</pre></div>
+
+<p>So let us collect the data for those sporadic simple groups for which the table of marks is known.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= [];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for name in AllCharacterTableNames( IsSporadicSimple, true,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                       IsDuplicateTable, false ) do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     tom:= TableOfMarks( name );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     if tom &lt;&gt; fail then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       Add( info, [ name, tom, maximalpairs( tom ) ] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( info );</span>
+12
+</pre></div>
+
+<p>We got results for twelve sporadic simple groups. The following computations show that in ten cases, the simple group <span class="SimpleMath">\(G\)</span> contains a unique class of nontrivial nilpotent subgroups <span class="SimpleMath">\(U\)</span> for which the maximal value of <span class="SimpleMath">\(|U| \cdot |N_G(U)|\)</span> is attained. The ratio of this value and <span class="SimpleMath">\(|G|\)</span> is less than <span class="SimpleMath">\(21\)</span> per cent. The following table shows the name of the group <span class="SimpleMath">\(G\)</span>, the orders of <span class="SimpleMath">\(U\)</span> and <span class="SimpleMath">\(N_G(U)\)</span>, and the integral part of <span class="SimpleMath">\(10^6\)</span> times the ratio.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( info, x -&gt; Length( x[3] ) );</span>
+[ 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mat:= [];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for entry in info do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     pair:= entry[3][1];                          # [ U, N_G(U) ]</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     bound:= Size( pair[1] ) * Size( pair[2] );   # |U|*|N_G(U)|</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     size:= Size( UnderlyingGroup( entry[2] ) );  # |G|</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     Add( mat, [ entry[1],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                 StringPP( Size( pair[1] ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                 StringPP( Size( pair[2] ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                 Int( 10^6 * bound / size ) ] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     if Size( pair[1] ) * Size( pair[2] ) &gt;= 21/100 * size then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       Error("!");</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PrintArray( mat );</span>
+[ [           Co3,           3^5,  2^5*3^7*5*11,          1886 ],
+  [            HS,           2^6,       2^9*3*7,         15515 ],
+  [            He,           2^6,    2^10*3^3*5,          2195 ],
+  [            J1,            19,        2*3*19,         12337 ],
+  [            J2,           2^6,       2^7*3^2,        121904 ],
+  [            J3,           3^5,       2^3*3^5,          9404 ],
+  [           M11,           3^2,       2^4*3^2,        163636 ],
+  [           M12,           2^5,         2^6*3,         64646 ],
+  [           M22,           2^4,     2^7*3^2*5,        207792 ],
+  [           M23,           2^4,   2^7*3^2*5*7,         63241 ],
+  [           M24,           2^6,    2^10*3^3*5,         36137 ],
+  [           McL,           3^5,     2^4*3^6*5,         15779 ] ]
+</pre></div>
+
+<p>Moreover, we see that in most cases, the group <span class="SimpleMath">\(U\)</span> for which the maximum is attained is not the largest <span class="SimpleMath">\(p\)</span>-subgroup in the simple group in question.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap8_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+[
+    [<#Include SYSTEM "_entities.xml">
+]
+>
+<Book Name="Utils">
+<#Include SYSTEM "title.xml">
+<TableOfContents/>
+<Body>
+<#Include SYSTEM "intro.xml">
+<#Include SYSTEM "print.xml">
+<#Include SYSTEM "lists.xml">
+<#Include SYSTEM "number.xml">
+<#Include SYSTEM "groups.xml">
+<#Include SYSTEM "iterator.xml">
+<#Include SYSTEM "record.xml">
+<#Include SYSTEM "download.xml">
+<#Include SYSTEM "others.xml">
+<#Include SYSTEM "obsolete.xml">
+<#Include SYSTEM "transfer.xml">
+<#Include SYSTEM "_AutoDocMainFile.xml">
+</Body>
+<Bibliography Databases="bib.xml"/>
+<TheIndex/>
+</Book>

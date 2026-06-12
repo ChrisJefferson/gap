@@ -1,0 +1,151 @@
+  
+  
+  [1XIndex[101X
+  
+  [2XAllCharacterTableNames[102X 3.1-4 
+  alternating groups!character table 4.2 
+  [2XAtlasLabelsOfIrreducibles[102X 4.3-6 
+  [2XAtlasStabilizer[102X 3.3-6 
+  [2XBosmaBase[102X 6.5-1 
+  [2XBrauerTable[102X, for a string, and a prime integer 3.1-3 
+  [2XBrauerTableOfTypeMGA[102X 5.1-2 
+  [2XBrauerTableOfTypeV4G[102X, for one factor and an autom. 5.4-2 
+      for three factors 5.4-2 
+  [2XBrowseAtlasContents[102X 3.5-5 
+  [2XBrowseAtlasImprovements[102X 3.5-10 
+  [2XBrowseAtlasMap[102X 3.5-7 
+  [2XBrowseAtlasTable[102X 3.5-9 
+  [2XBrowseCommonIrrationalities[102X 3.5-3 
+  [2XBrowseCTblLibDifferences[102X 3.5-4 
+  [2XBrowseCTblLibInfo[102X 3.5-2 
+      for a character table 3.5-2 
+      for a name 3.5-2 
+  [2XCambridgeMaps[102X 6.4-1 
+  CAS, format 6.1 
+      tables 6.1 
+  [2XCASInfo[102X 4.4-1 
+  [2XCASString[102X 6.1-1 
+  character, unipotent 3.4 
+  character tables, CAS 4.4 
+  character tables!ATLAS 4.3 
+  character tables!CAS 4.3-7 
+  character tables!generic 4.2 
+  character tables!library of 4.0  4.1 
+  [2XCharacterTable[102X, for a string 3.1-2 
+      for a table of marks 3.2-2 
+  [2XCharacterTableComputedByMagma[102X 6.5-3 
+  [2XCharacterTableForGroupInfo[102X 3.3-3 
+  [2XCharacterTableOfCommonCentralExtension[102X 5.7-1 
+  [2XCharacterTableOfIndexTwoSubdirectProduct[102X 5.5-1 
+  [2XCharacterTableOfTypeGS3[102X 5.2-1 
+      for Brauer tables 5.2-1 
+  [2XCharacterTableSpecialized[102X 4.2-2 
+  [2XConstructAdjusted[102X 5.8-12 
+  [2XConstructCentralProduct[102X 5.8-7 
+  [2XConstructDirectProduct[102X 5.8-6 
+  [2XConstructFactor[102X 5.8-13 
+  [2XConstructGS3[102X 5.8-3 
+  [2XConstructGS3Info[102X 5.8-3 
+  [2XConstructIndexTwoSubdirectProduct[102X 5.5-2 
+  [2XConstructIndexTwoSubdirectProductInfo[102X 5.5-3 
+  [2XConstructionInfoCharacterTable[102X 3.7-4 
+  [2XConstructIsoclinic[102X 5.8-10 
+  [2XConstructMGA[102X 5.8-1 
+  [2XConstructMGAInfo[102X 5.8-2 
+  [2XConstructPermuted[102X 5.8-11 
+  [2XConstructProj[102X 5.8-5 
+  [2XConstructProjInfo[102X 5.8-5 
+  [2XConstructSubdirect[102X 5.8-8 
+  [2XConstructV4G[102X 5.8-4 
+  [2XConstructWreathSymmetric[102X 5.8-9 
+  CTblLib 0.0 
+  [2XCTblLib.StringOfAtlasIrrationality[102X 7.1-1 
+  cyclic groups!character table 4.2 
+  [2XDeligneLusztigName[102X 3.4-3 
+  [2XDeligneLusztigNames[102X 3.4-2 
+  dihedral groups!character table 4.2 
+  [2XDisplayAtlasContents[102X 3.5-6 
+  [2XDisplayAtlasMap[102X, for a record 3.5-8 
+      for the name of a simple group 3.5-8 
+  [2XDisplayCTblLibInfo[102X, for a character table 3.5-1 
+      for a name 3.5-1 
+  duplicate character table 3.6 
+  [2XExtensionInfoCharacterTable[102X 3.7-3 
+  [2XFusionCharTableTom[102X 3.2-3 
+  [2XFusionToTom[102X 3.2-4 
+  [2XGAP3CharacterTableData[102X 6.3-3 
+  [2XGAP3CharacterTableScan[102X 6.3-1 
+  [2XGAP3CharacterTableString[102X 6.3-2 
+  [2XGAPChars[102X 6.2-5 
+  [2XGAPTableOfMagmaFile[102X, for a file 6.5-2 
+      for a string 6.5-2 
+  generic character tables 4.0 
+  [2XGroupForGroupInfo[102X 3.3-4 
+  [2XGroupForTom[102X 3.3-5 
+  [2XGroupInfoForCharacterTable[102X 3.3-1 
+  [2XIBrOfExtensionBySingularAutomorphism[102X 5.6-1 
+  [2XIdentifierOfMainTable[102X 3.6-2 
+  [2XIdentifiersOfDuplicateTables[102X 3.6-3 
+  [2XInfoText[102X 3.7-5 
+  [2XIsAtlasCharacterTable[102X 3.7-6 
+  [2XIsDuplicateTable[102X 3.6-1 
+  [2XIsNontrivialDirectProduct[102X 3.3-7 
+  [2XKnowsDeligneLusztigNames[102X 3.4-4 
+  [2XKnowsSomeGroupInfo[102X 3.3-2 
+  [2XLibInfoCharacterTable[102X 4.6-3 
+  [2XLIBLIST[102X 4.6-2 
+  library of character tables 4.1  4.3  4.3-7  4.4 
+  library tables 4.0 
+  library tables!add 4.7 
+  library tables!generic 4.2 
+  [2XLibraryFusion[102X 4.7-2 
+  [2XLibraryFusionTblToTom[102X 4.7-3 
+  License 0.0-1 
+  [2XMAKElb11[102X 6.2-1 
+  [2XMaxes[102X 3.7-1 
+  [2XMOCChars[102X 6.2-6 
+  [2XMOCString[102X 6.2-3 
+  [2XMOCTable[102X 6.2-2 
+  [2XNameOfEquivalentLibraryCharacterTable[102X 3.1-6 
+  [2XNameOfLibraryCharacterTable[102X 3.2-5 
+  [2XNamesOfEquivalentLibraryCharacterTables[102X 3.1-6 
+  [2XNotifyCharacterTable[102X 4.7-5 
+  [2XNotifyCharacterTables[102X 4.7-6 
+  [2XNotifyNameOfCharacterTable[102X 4.7-1 
+  [2XOneCharacterTableName[102X 3.1-5 
+  [2XPossibleActionsForTypeGS3[102X 5.2-2 
+  [2XPossibleActionsForTypeGV4[102X 5.3-2 
+  [2XPossibleActionsForTypeMGA[102X 5.1-3 
+  [2XPossibleCharacterTablesOfTypeGV4[102X 5.3-1 
+      for Brauer tables 5.3-1 
+  [2XPossibleCharacterTablesOfTypeMGA[102X 5.1-1 
+  [2XPossibleCharacterTablesOfTypeV4G[102X 5.4-1 
+      for conj. ordinary tables, and an autom. 5.4-1 
+  [2XPrintToLib[102X 4.7-4 
+  [2XProjectivesInfo[102X 3.7-2 
+  [2XScanMOC[102X 6.2-4 
+  selection function!for character tables 3.1-4 
+  spin groups!character table 4.2 
+  [2XStringAtlasContents[102X 3.5-6 
+  [2XStringCTblLibInfo[102X, for a character table 3.5-1 
+      for a name 3.5-1 
+  [2XStringOfCambridgeFormat[102X 6.4-2 
+  [2XStringsAtlasMap[102X, for a record 3.5-8 
+      for the name of a simple group 3.5-8 
+  [2XStructureDescriptionCharacterTableName[102X 7.2-1 
+  Suzuki groups!character table 4.2 
+  symmetric groups!character table 4.2 
+  [2XTableOfMarks[102X, for a character table from the library 3.2-1 
+  tables, library 4.4 
+  tables!add to the library 4.7 
+  tables!generic 4.2 
+  tables!library 4.3  4.3-7 
+  tables!library of 4.0  4.1 
+  [2XUnipotentCharacter[102X 3.4-1 
+  user preferences, DisplayFunction 4.5-3 
+      MagmaPath 4.5-4 
+      UnloadCTblLibFiles 4.5-2 
+  Weyl groups!character table 4.2 
+  
+  
+  -------------------------------------------------------

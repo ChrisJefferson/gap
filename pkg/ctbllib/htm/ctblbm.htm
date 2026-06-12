@@ -1,0 +1,4728 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.59">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+              <title>Some steps in the verification of the ordinary character table of the Baby Monster group</title>
+<h1 align="center">Some steps in the verification of the ordinary character table of the Baby Monster group</h1>
+  <body bgcolor="FFFFFF"> 
+
+<div class="p"><!----></div>
+
+<h3 align="center"> T<font size="-2">HOMAS</font> B<font size="-2">REUER</font>, K<font size="-2">AY</font> M<font size="-2">AGAARD</font>, R<font size="-2">OBERT</font> A.&nbsp;W<font size="-2">ILSON</font> </h3>
+
+<div class="p"><!----></div>
+
+<h3 align="center">May 17th, 2019 </h3>
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+We show the details of certain computations that are described
+in [<a href="#BMverify" name="CITEBMverify">BMW20</a>].
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+
+<h1>Contents </h1><a href="#tth_sEc1"
+>1&nbsp; Overview</a><br /><a href="#tth_sEc2"
+>2&nbsp; Verification of a presentation for <font size="+0">B</font></a><br /><a href="#tth_sEc3"
+>3&nbsp; Invariants that distinguish conjugacy classes of <font size="+0">B</font></a><br /><a href="#tth_sEc4"
+>4&nbsp; Centralizers of elements of prime order</a><br /><a href="#tth_sEc5"
+>5&nbsp; The character table of 2<sup>1+22</sup>.Co<sub>2</sub></a><br /><a href="#tth_sEc6"
+>6&nbsp; Conjugacy classes of <font size="+0">B</font> and their centralizer orders</a><br /><a href="#tth_sEc7"
+>7&nbsp; The irreducible characters of <font size="+0">B</font></a><br /><a href="#tth_sEc8"
+>8&nbsp; Appendix: Standardizing the generators of Co<sub>2</sub></a><br /><a href="#tth_sEc9"
+>9&nbsp; Appendix: Words for generators of the kernel 2<sup>22</sup></a><br /><a href="#tth_sEc10"
+>10&nbsp; Appendix: Words for class representatives of 2<sup>22</sup>.Co<sub>2</sub></a><br /><a href="#tth_sEc11"
+>11&nbsp; Appendix: About the character table of 2<sup>9+16</sup>.S<sub>8</sub>(2)</a><br />
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Overview</h2>
+
+<div class="p"><!----></div>
+The aim of&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>] is to verify the ordinary character table
+of the Baby Monster group <font size="+0">B</font>.
+Here we collect,
+in the form of an explicit <font face="helvetica">GAP</font>&nbsp;[<a href="#GAP" name="CITEGAP">GAP24</a>] session protocol,
+the computations that are needed in that paper.
+
+<div class="p"><!----></div>
+We proceed as follows.
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#pres_B">2</a>
+shows the computations that are described in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;3].
+At this point, we know that the three matrix groups that are used
+later on are in fact representations of the group <font size="+0">B</font>,
+w.&nbsp;r.&nbsp;t.&nbsp;compatible (standard) generators.
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#invs_B">3</a> turns the class invariants and the power map
+information from&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;4] into a <font face="helvetica">GAP</font> function
+that identifies the class label of a given word in terms of the
+given standard generators.
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#centralizers_prime">4</a>
+shows part of the computations described in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;5].
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#table_c2b">5</a> shows the computation of the character table
+of an involution centralizer of type 2<sup>1+22</sup>.Co<sub>2</sub> in <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#sect:classes">6</a> shows how the conjugacy classes,
+the corresponding centralizer orders, and the power maps of <font size="+0">B</font>
+are determined.
+
+<div class="p"><!----></div>
+In Section&nbsp;<a href="#sect:classes">6</a>, we put these pieces together and write down
+the list of class representatives of <font size="+0">B</font>,
+together with their centralizer orders and power maps.
+
+<div class="p"><!----></div>
+With this information and with the (already verified) character tables
+of some known subgroups of <font size="+0">B</font>,
+computing the irreducible characters of <font size="+0">B</font> is then easy;
+this corresponds to&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;7],
+and is done in Section&nbsp;<a href="#sect:irreducibles">7</a>.
+
+<div class="p"><!----></div>
+We will use the <font face="helvetica">GAP</font> Character Table Library
+and the interface to the  A<font size="-2">TLAS</font> of Group Representations&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>],
+thus we load these <font face="helvetica">GAP</font> packages.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; LoadPackage( "ctbllib", false );
+    true
+    gap&#62; LoadPackage( "atlasrep", false );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+The <font face="helvetica">MAGMA</font>&nbsp;[<a href="#Magma" name="CITEMagma">BCP97</a>] system will be needed
+for computing a character table
+and for several conjugacy tests.
+If the following command returns <tt>false</tt>
+then these steps will not work.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; CTblLib.IsMagmaAvailable();
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Verification of a presentation for <font size="+0">B</font></h2><a name="pres_B">
+</a>
+
+<div class="p"><!----></div>
+We show the computations that are described in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;4].
+First we create the free generators and relators of the presentation.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; F:= FreeGroup( List( "abcdefghijk", x -&#62; [ x ] ) );;
+    gap&#62; gens:= GeneratorsOfGroup( F );;
+    gap&#62; rels:= List( gens, x -&#62; x^2 );;
+    gap&#62; ord3pairs:= List( [ 1 .. 7 ], i -&#62; [ i, i+1 ] );
+    [ [ 1, 2 ], [ 2, 3 ], [ 3, 4 ], [ 4, 5 ], [ 5, 6 ], [ 6, 7 ], [ 7, 8 ] ]
+    gap&#62; Append( ord3pairs, [ [ 5, 9 ], [ 9, 10 ], [ 10, 11 ] ] );
+    gap&#62; for pair in ord3pairs do
+    &#62;      Add( rels, ( gens[ pair[1] ] * gens[ pair[2] ] )^3 );
+    &#62;    od;
+    gap&#62; for i in [ 1 .. 11 ] do
+    &#62;      for j in [ i+1 .. 11 ] do
+    &#62;        if not [ i, j ] in ord3pairs then
+    &#62;          Add( rels, ( gens[i] * gens[j] )^2 );
+    &#62;        fi;
+    &#62;      od;
+    &#62;    od;
+    gap&#62; Add( rels, Product( gens{ [ 5, 4, 3, 5, 6, 7, 5, 9, 10 ] } )^10 );
+
+</pre>
+
+<div class="p"><!----></div>
+We do not call <tt>FreeGroup( 11 )</tt> because later on we want to
+translate the relators into straight line programs,
+and we can use <tt>StraightLineProgram</tt> with first argument a string
+only if no generator name is a prefix of another generator name.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; gensstrings:= List( gens, String );;
+    gap&#62; relsslps:= List( List( rels, String ),
+    &#62;                     x -&#62; StraightLineProgram( x, gensstrings ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we write a straight line program that computes the 11 generators
+t<sub>1</sub>, &#8230;, t<sub>11</sub>,
+following the steps shown in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Table&nbsp;1].
+We start with the two standard generators a and b, say,
+in the slots 1 and 2,
+and compute expressions for the subsequent slots.
+The product a b will be in position 3, its 5th power (a b)<sup>5</sup>
+(which will be needed later on) in position 4,
+the power (a b)<sup>15</sup> in position 5, and d = (a b)<sup>15</sup> b
+in position 6.
+The generators t<sub>11</sub> = d<sup>19</sup> gets stored in position 7.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; slp:= [ [ 1, 1, 2, 1 ], [ 3, 5 ], [ 4, 3 ], [ 5, 1, 2, 1 ] ];;
+    gap&#62; resultpos:= [];;
+    gap&#62; Add( slp, [ 6, 19 ] );
+    gap&#62; resultpos[11]:= Length( slp ) + 2;;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we compute c = (a t<sub>11</sub>)<sup>3</sup> (position 9),
+e = ((c d<sup>3</sup>)<sup>10</sup>)<sup>d</sup> (position 13), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Append( slp, [ [ 1, 1, 7, 1 ], [ 8, 3 ] ] );
+    gap&#62; Append( slp, [ [ 6, 3 ], [ 9, 1, 10, 1 ], [ 11, 10 ],
+    &#62;                   [ 6, -1, 12, 1, 6, 1 ] ] );
+
+</pre>
+
+<div class="p"><!----></div>
+... t<sub>1</sub> = f = ((((e c)<sup>6</sup> c (e c)<sup>3</sup> )<sup>2</sup> e c e<sup>2</sup> c)<sup>5</sup>)<sup>(</sup>(e c)<sup>4</sup>)
+(position 24), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 14: e*c,  15: (e*c)^2,  16: (e*c)^3,  17: (e*c)^4,  18: (e*c)^6
+    gap&#62; Append( slp, [ [ 13, 1, 9, 1 ], [ 14, 2 ], [ 14, 1, 15, 1 ],
+    &#62;                   [ 15, 2 ], [ 16, 2 ] ] );
+    gap&#62; # 19: e*c*e,  20: e*c*e^2*c
+    gap&#62; Append( slp, [ [ 14, 1, 13, 1 ], [ 19, 1, 14, 1 ] ] );
+    gap&#62; # 21: (e*c)^6*c*(e*c)^3,  22: ((e*c)^6*c*(e*c)^3)^2*e*c*e^2*c
+    gap&#62; Append( slp, [ [ 18, 1, 9, 1, 16, 1 ], [ 21, 2, 20, 1 ] ] );
+    gap&#62; # 23: (((e*c)^6*c*(e*c)^3)^2*e*c*e^2*c)^5
+    gap&#62; Append( slp, [ [ 22, 5 ] ] );
+    gap&#62; # 24: t1 = f = ((((e*c)^6*c*(e*c)^3)^2*e*c*e^2*c)^5)^((e*c)^4)
+    gap&#62; Append( slp, [ [ 17, -1, 23, 1, 17, 1 ] ] );
+    gap&#62; resultpos[1]:= Length( slp ) + 2;;
+
+</pre>
+
+<div class="p"><!----></div>
+... g = ((e c)<sup>8</sup> c (e c)<sup>3</sup> )<sup>(e c e<sup>2</sup> c)<sup>2</sup></sup>
+(position 27) and t<sub>2</sub> = f<sup>g<sup>f</sup></sup> (position 30), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 25: (e*c)^8*c*(e*c)^3,  26: (e*c*e^2*c)^2
+    gap&#62; Append( slp, [ [ 15, 1, 21, 1 ], [ 20, 2 ] ] );
+    gap&#62; # 27: g = ((e*c)^8*c*(e*c)^3)^((e*c*e^2*c)^2)
+    gap&#62; Append( slp, [ [ 26, -1, 25, 1, 26, 1 ] ] );
+    gap&#62; # 28: g f,  29: g^-1,  30: t2 = f^{{g f}}
+    gap&#62; Append( slp, [ [ 27, 1, 24, 1 ], [ 27, -1 ],
+    &#62;                   [ 28, -1, 24, 1, 28, 1 ] ] );
+    gap&#62; resultpos[2]:= Length( slp ) + 2;;
+
+</pre>
+
+<div class="p"><!----></div>
+... t<sub>3</sub> = f<sup>g f g</sup>,
+t<sub>4</sub> = f<sup>g f g<sup>2</sup></sup>,
+t<sub>5</sub> = f<sup>g f g<sup>3</sup></sup>,
+t<sub>6</sub> = f<sup>g f g<sup>4</sup></sup>,
+t<sub>7</sub> = f<sup>g f g<sup>5</sup></sup>,
+t<sub>8</sub> = f<sup>g f g<sup>6</sup></sup> (positions 31 to 36), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 31: t3 = f^( g * f * g )
+    gap&#62; Append( slp, [ [ 29, 1, 30, 1, 27, 1 ] ] );
+    gap&#62; resultpos[3]:= Length( slp ) + 2;;
+    gap&#62; # 32: t4 = f^( g * f * g^2 )
+    gap&#62; Append( slp, [ [ 29, 1, 31, 1, 27, 1 ] ] );
+    gap&#62; resultpos[4]:= Length( slp ) + 2;;
+    gap&#62; # 33: t5 = f^( g * f * g^3 )
+    gap&#62; Append( slp, [ [ 29, 1, 32, 1, 27, 1 ] ] );
+    gap&#62; resultpos[5]:= Length( slp ) + 2;;
+    gap&#62; # 34: t6 = f^( g * f * g^4 )
+    gap&#62; Append( slp, [ [ 29, 1, 33, 1, 27, 1 ] ] );
+    gap&#62; resultpos[6]:= Length( slp ) + 2;;
+    gap&#62; # 35: t7 = f^( g * f * g^5 )
+    gap&#62; Append( slp, [ [ 29, 1, 34, 1, 27, 1 ] ] );
+    gap&#62; resultpos[7]:= Length( slp ) + 2;;
+    gap&#62; # 36: t8 = f^( g * f * g^6 )
+    gap&#62; Append( slp, [ [ 29, 1, 35, 1, 27, 1 ] ] );
+    gap&#62; resultpos[8]:= Length( slp ) + 2;;
+
+</pre>
+
+<div class="p"><!----></div>
+... p = ((a b)<sup>5</sup> t<sub>11</sub> (a b)<sup>&#8722;5</sup> t<sub>1</sub> (a b)<sup>5</sup>)<sup>&#8722;1</sup> (position 38)
+and i = d<sup>p</sup> (position 41), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 37: (a*b)^5*t11*(a*b)^-5*t1*(a*b)^5,
+    gap&#62; # 38: p = ((a*b)^5*t11*(a*b)^-5*t1*(a*b)^5)^-1
+    gap&#62; Append( slp, [ [ 4, 1, 7, 1, 4, -1, 24, 1, 4, 1 ], [ 37, -1 ] ] );
+    gap&#62; # 39: p^-1,  40: h = c^p, 41: i = d^p
+    gap&#62; Append( slp, [ [ 38, -1 ], [ 39, 1, 9, 1, 38, 1 ],
+    &#62;                   [ 39, 1, 6, 1, 38, 1 ] ] );
+
+</pre>
+
+<div class="p"><!----></div>
+... j = [t<sub>5</sub><sup>i<sup>2</sup></sup>, t<sub>3</sub> t<sub>4</sub>] (position 45) and
+k = [t<sub>5</sub><sup>i<sup>5</sup></sup>, t<sub>3</sub> t<sub>4</sub>] (position 48), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 42: i^2,  43: t5^(i^2),  44: t3*t4
+    gap&#62; Append( slp, [ [ 41, 2 ], [ 42, -1, 33, 1, 42, 1 ],
+    &#62;                   [ 31, 1, 32, 1 ] ] );
+    gap&#62; # 45: j = Comm( t5^( i^2 ), t3*t4 )
+    gap&#62; Append( slp, [ [ 43, -1, 44, -1, 43, 1, 44, 1 ] ] );
+    gap&#62; # 46: i^3,  47: t5^(i^5),  48: k = Comm( t5^(i^5), t3*t4 )
+    gap&#62; Append( slp, [ [ 41, 1, 42, 1 ], [ 46, -1, 43, 1, 46, 1 ],
+    &#62;                   [ 47, -1, 44, -1, 47, 1, 44, 1 ] ] );
+
+</pre>
+
+<div class="p"><!----></div>
+... l = [t<sub>8</sub><sup>j k</sup>, t<sub>6</sub> t<sub>7</sub>] [t<sub>8</sub><sup>k j</sup>, t<sub>6</sub> t<sub>7</sub>] (position 57),
+...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 49: t6*t7,  50: (t6*t7)^-1,  51: j*k,  52: k*j,  53: t8^(j*k)
+    gap&#62; Append( slp, [ [ 34, 1, 35, 1 ], [ 49, -1 ], [ 45, 1, 48, 1 ],
+    &#62;                   [ 48, 1, 45, 1 ], [ 51, -1, 36, 1, 51, 1 ] ] );
+    gap&#62; # 54: Comm( t8^(j*k), t6*t7),  55: t8^(k*j)
+    gap&#62; Append( slp, [ [ 53, -1, 50, 1, 53, 1, 49, 1 ] ] );
+    gap&#62; Append( slp, [ [ 52, -1, 36, 1, 52, 1 ] ] );
+    gap&#62; # 56: Comm( t8^(k*j), t6*t7 )
+    gap&#62; Append( slp, [ [ 55, -1, 50, 1, 55, 1, 49, 1 ] ] );
+    gap&#62; # 57: l = Comm( t8^(j*k), t6*t7 ) * Comm( t8^(k*j), t6*t7 )
+    gap&#62; Append( slp, [ [ 54, 1, 56, 1 ] ] );
+
+</pre>
+
+<div class="p"><!----></div>
+... l<sub>3</sub> = [t<sub>8</sub><sup>(j k)<sup>4</sup></sup>, t<sub>6</sub> t<sub>7</sub>] (position 61),
+l<sub>4</sub> = t<sub>8</sub><sup>(j k)<sup>3</sup> k j</sup> (position 62),
+l<sub>5</sub> = (l l<sub>3</sub> l<sub>4</sub>)<sup>3</sup> l<sub>3</sub> l<sub>4</sub> (position 65), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 58: (j*k)^3,  59: (j*k)^-3,  60: t8^((j*k)^4)
+    gap&#62; Append( slp, [ [ 51, 3 ], [ 58, -1 ], [ 59, 1, 53, 1, 58, 1 ] ] );
+    gap&#62; # 61: l3 = Comm( t8^((j*k)^4), t6*t7 )
+    gap&#62; Append( slp, [ [ 60, -1, 50, 1, 60, 1, 49, 1 ] ] );
+    gap&#62; # 62: l4 = t8^((j*k)^3*k*j)
+    gap&#62; Append( slp, [ [ 52, -1, 59, 1, 36, 1, 58, 1, 52, 1 ] ] );
+    gap&#62; # 63: l3*l4,  64: l*l3*l4
+    gap&#62; Append( slp, [ [ 61, 1, 62, 1 ], [ 57, 1, 63, 1 ] ] );
+    gap&#62; # 65: l5:= ( l * l3 * l4 )^3 * l3 * l4;;
+    gap&#62; Append( slp, [ [ 64, 3, 63, 1 ] ] );
+
+</pre>
+
+<div class="p"><!----></div>
+... m<sub>2</sub> = l<sub>4</sub><sup>l<sub>5</sub><sup>4</sup></sup> (position 67),
+m<sub>3</sub> = m<sub>2</sub><sup>l<sub>5</sub></sup> (position 68),
+t<sub>10</sub> = m<sub>3</sub> m<sub>2</sub> l<sub>4</sub> m<sub>2</sub> m<sub>3</sub> (position 69), and
+t<sub>9</sub> = l<sub>4</sub> m<sub>2</sub> t<sub>10</sub> m<sub>2</sub> l<sub>4</sub> (position 70).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; # 66: l5^4,  67: m2 = l4^(l5^4)
+    gap&#62; Append( slp, [ [ 65, 4 ], [ 66, -1, 62, 1, 66, 1 ] ] );
+    gap&#62; # 68: m3 = m2^l5
+    gap&#62; Append( slp, [ [ 65, -1, 67, 1, 65, 1 ] ] );
+    gap&#62; # 69: t10 = m3*m2*l4*m2*m3
+    gap&#62; Append( slp, [ [ 68, 1, 67, 1, 62, 1, 67, 1, 68, 1 ] ] );
+    gap&#62; resultpos[10]:= Length( slp ) + 2;;
+    gap&#62; # 70: t9 = l4*m2*t10*m2*l4
+    gap&#62; Append( slp, [ [ 62, 1, 67, 1, 69, 1, 67, 1, 62, 1 ] ] );
+    gap&#62; resultpos[9]:= Length( slp ) + 2;;
+
+</pre>
+
+<div class="p"><!----></div>
+Finally, we specify the list of outputs,
+and create the straight line program object.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Add( slp, List( resultpos, x -&#62; [ x, 1 ] ) );
+    gap&#62; slp:= StraightLineProgram( slp, 2 );
+    &lt;straight line program&#62;
+
+</pre>
+
+<div class="p"><!----></div>
+And now we compute,
+for each of the three pairs of generators we are interested in,
+the 11 generators,
+and test whether these generators satisfy the presentation.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; b_2:= AtlasGroup( "B", Characteristic, 2, Dimension, 4370 );;
+    gap&#62; b_3:= AtlasGroup( "B", Characteristic, 3, Dimension, 4371 );;
+    gap&#62; b_5:= AtlasGroup( "B", Characteristic, 5, Dimension, 4371 );;
+    gap&#62; gens_2:= GeneratorsOfGroup( b_2 );;
+    gap&#62; gens_3:= GeneratorsOfGroup( b_3 );;
+    gap&#62; gens_5:= GeneratorsOfGroup( b_5 );;
+    gap&#62; res_2:= ResultOfStraightLineProgram( slp, gens_2 );;
+    gap&#62; ForAll( relsslps,
+    &#62;            prg -&#62; IsOne( ResultOfStraightLineProgram( prg, res_2 ) ) );
+    true
+    gap&#62; res_3:= ResultOfStraightLineProgram( slp, gens_3 );;
+    gap&#62; ForAll( relsslps,
+    &#62;            prg -&#62; IsOne( ResultOfStraightLineProgram( prg, res_3 ) ) );
+    true
+    gap&#62; res_5:= ResultOfStraightLineProgram( slp, gens_5 );;
+    gap&#62; ForAll( relsslps,
+    &#62;            prg -&#62; IsOne( ResultOfStraightLineProgram( prg, res_5 ) ) );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+In order to prove that the 11 elements that satisfy the relations
+generate the same group as the original generators,
+we create a straight line program that computes the elements a&#8242;, b&#8242;
+stated in [<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section 4.4],
+first the elements r and s (positions 12 and 13), ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; revslp:= [ Concatenation( List( [ 1 .. 8 ], i -&#62; [ i, 1 ] ) ),
+    &#62;        Concatenation( List( [ 5, 9, 10, 11 ], i -&#62; [ i, 1 ] ) ) ];;
+
+</pre>
+
+<div class="p"><!----></div>
+... and then a&#8242; = (r<sup>7</sup> s)<sup>15</sup> (position 15)
+and b&#8242; = (t<sub>1</sub> t<sub>2</sub>)<sup>(sr)<sup>1</sup>0</sup> (position 20).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Append( revslp, [ [ 12, 7, 13, 1 ], [ 14, 15 ], [ 13, 1, 12, 1 ],
+    &#62;                      [ 16, 10 ], [ 17, -1 ], [ 1, 1, 2, 1 ],
+    &#62;                      [ 18, 1, 19, 1, 17, 1 ] ] );
+
+</pre>
+
+<div class="p"><!----></div>
+Again, we specify the outputs and create the straight line program object.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Add( revslp, List( [ 15, 20 ], x -&#62; [ x, 1 ] ) );
+    gap&#62; revslp:= StraightLineProgram( revslp, 11 );
+    &lt;straight line program&#62;
+
+</pre>
+
+<div class="p"><!----></div>
+We claim that, for the three representations in question,
+evaluating the straight line program <tt>revslp</tt> at the 11
+generators
+yields a pair a&#8242;, b&#8242; of matrices that is simultaneously conjugate to the
+original matrices a, b.
+Once this is established, we know that the group &#9001;a, b &#9002;
+is equal to the group generated by the 11 generators,
+and that mapping the original generators of any of the three
+representations to the original generators of another one
+defines a group isomorphism.
+
+<div class="p"><!----></div>
+In order to show the conjugacy property,
+we use that the nullspace of w(a, b) = a<sup>0</sup> + a b + b a + b
+is 1-dimensional, in all three cases.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; a:= gens_2[1];; b:= gens_2[2];;
+    gap&#62; w:= One( a ) + b*a + a*b + b;;
+    gap&#62; nsp_2:= NullspaceMat( w );; Length( nsp_2 );
+    1
+    gap&#62; a:= gens_3[1];; b:= gens_3[2];;
+    gap&#62; w:= One( a ) + b*a + a*b + b;;
+    gap&#62; nsp_3:= NullspaceMat( w );; Length( nsp_3 );
+    1
+    gap&#62; a:= gens_5[1];; b:= gens_5[2];;
+    gap&#62; w:= One( a ) + b*a + a*b + b;;
+    gap&#62; nsp_5:= NullspaceMat( w );; Length( nsp_5 );
+    1
+
+</pre>
+
+<div class="p"><!----></div>
+The standard basis w.&nbsp;r.&nbsp;t.&nbsp;given generators and a vector v
+is defined by starting with the list b = [ v ]
+and iteratively adding those images of the vectors in b
+under the right multiplication with the generators that increase the
+dimension of the vector space generated by b.
+(Since such a function is apparently not available in <font face="helvetica">GAP</font>'s MeatAxe,
+we provide it here.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; StdBasis:= function( F, mats, seed )
+    &#62;      local n, b, mb, v, m, new;
+    &#62; 
+    &#62;      n:= Length( mats[1] );
+    &#62;      b:= [ seed ];
+    &#62;      mb:= MutableBasis( F, b );
+    &#62;      for v in b do
+    &#62;        for m in mats do
+    &#62;          new:= v * m;
+    &#62;          if not IsContainedInSpan( mb, new ) then
+    &#62;            Add( b, new );
+    &#62;            if Length( b ) = n then
+    &#62;              break;
+    &#62;            fi;
+    &#62;            CloseMutableBasis( mb, new );
+    &#62;          fi;
+    &#62;        od;
+    &#62;        if Length( b ) = n then
+    &#62;          break;
+    &#62;        fi;
+    &#62;      od;
+    &#62;      return b;
+    &#62;    end;;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+All we have to check is that the matrices of the linear mappings a, b
+w.&nbsp;r.&nbsp;t.&nbsp;their standard basis and a generating vector of the nullspace
+of w(a, b) are equal to the matrices of a&#8242;, b&#8242; w.&nbsp;r.&nbsp;t.&nbsp;their
+standard basis and a generating vector of the nullspace of w(a&#8242;, b&#8242;).
+
+<div class="p"><!----></div>
+We verify this in characteristic 2, ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; stdbas_2:= StdBasis( GF(2), gens_2, nsp_2[1] );;
+    gap&#62; inv:= stdbas_2^-1;;
+    gap&#62; stdgens_2:= List( gens_2, m -&#62; stdbas_2 * m * inv );;
+    gap&#62; newgens_2:= ResultOfStraightLineProgram( revslp, res_2 );;
+    gap&#62; aa:= newgens_2[1];;  bb:= newgens_2[2];;
+    gap&#62; neww:= One( aa ) + bb * aa + aa * bb + bb;;
+    gap&#62; newnsp_2:= NullspaceMat( neww );;  Length( newnsp_2 );
+    1
+    gap&#62; newstdbas_2:= StdBasis( GF(2), newgens_2, newnsp_2[1] );;
+    gap&#62; inv:= newstdbas_2^-1;;
+    gap&#62; newstdgens_2:= List( newgens_2, m -&#62; newstdbas_2 * m * inv );;
+    gap&#62; stdgens_2 = newstdgens_2;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+... in characteristic 3, ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; stdbas_3:= StdBasis( GF(3), gens_3, nsp_3[1] );;
+    gap&#62; inv:= stdbas_3^-1;;
+    gap&#62; stdgens_3:= List( gens_3, m -&#62; stdbas_3 * m * inv );;
+    gap&#62; newgens_3:= ResultOfStraightLineProgram( revslp, res_3 );;
+    gap&#62; aa:= newgens_3[1];;  bb:= newgens_3[2];;
+    gap&#62; neww:= One( aa ) + bb * aa + aa * bb + bb;;
+    gap&#62; newnsp_3:= NullspaceMat( neww );;  Length( newnsp_3 );
+    1
+    gap&#62; newstdbas_3:= StdBasis( GF(3), newgens_3, newnsp_3[1] );;
+    gap&#62; inv:= newstdbas_3^-1;;
+    gap&#62; newstdgens_3:= List( newgens_3, m -&#62; newstdbas_3 * m * inv );;
+    gap&#62; stdgens_3 = newstdgens_3;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+... and in characteristic 5.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; stdbas_5:= StdBasis( GF(5), gens_5, nsp_5[1] );;
+    gap&#62; inv:= stdbas_5^-1;;
+    gap&#62; stdgens_5:= List( gens_5, m -&#62; stdbas_5 * m * inv );;
+    gap&#62; newgens_5:= ResultOfStraightLineProgram( revslp, res_5 );;
+    gap&#62; aa:= newgens_5[1];;  bb:= newgens_5[2];;
+    gap&#62; neww:= One( aa ) + bb * aa + aa * bb + bb;;
+    gap&#62; newnsp_5:= NullspaceMat( neww );;  Length( newnsp_5 );
+    1
+    gap&#62; newstdbas_5:= StdBasis( GF(5), newgens_5, newnsp_5[1] );;
+    gap&#62; inv:= newstdbas_5^-1;;
+    gap&#62; newstdgens_5:= List( newgens_5, m -&#62; newstdbas_5 * m * inv );;
+    gap&#62; stdgens_5 = newstdgens_5;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;Invariants that distinguish conjugacy classes of <font size="+0">B</font></h2><a name="invs_B">
+</a>
+
+<div class="p"><!----></div>
+The function <tt>IdentifyClassName</tt> shown below
+implements the invariants defined in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;5],
+that distinguish 183 conjugacy classes of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+Its input can be as follows.
+
+<div class="p"><!----></div>
+
+<ul>
+<li>  Three matrices <tt>data2</tt>, <tt>data3</tt>, <tt>data5</tt>,
+  representing an element of <font size="+0">B</font> in the given three matrix representations,
+  in characteristics 2, 3, and 5, respectively;
+  in this case, the argument <tt>slp</tt> should be <tt>fail</tt>.
+<div class="p"><!----></div>
+</li>
+
+<li>
+  Lists <tt>data2</tt>, <tt>data3</tt>, <tt>data5</tt>
+  of standard generators of <font size="+0">B</font> in the given three matrix representations
+  such that <tt>slp</tt> is a straight line program
+  that takes these generators as inputs,
+  and computes the element in question.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+In both cases, the argument <tt>order</tt> can be either <tt>fail</tt>
+or the order of the element.
+A known order allows us to omit any computation with matrices
+in several cases.
+
+<div class="p"><!----></div>
+The output is the label for the union of conjugacy classes
+as defined in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Table 2],
+except that labels containing <em>two</em> letters are returned
+in those cases that will later turn out to describe two Galois conjugate
+classes
+-these are <tt>"23AB"</tt>, <tt>"30GH"</tt>, <tt>"31AB"</tt>,
+<tt>"32AB"</tt>, <tt>"32CD"</tt>, <tt>"34BC"</tt>, <tt>"46AB"</tt>,
+<tt>"47AB"</tt>, <tt>"56AB"</tt>-
+and in the case of <tt>"16DF"</tt> where we have no invariant that
+distinguishes two classes that are not Galois conjugate.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; IdentifyClassName:= function( data2, data3, data5, slp, order )
+    &#62;      local data, mats, elm, cand, nams, trace, pos, one, rank;
+    &#62; 
+    &#62;      data:= [ , data2, data3,, data5 ];
+    &#62;      mats:= [];
+    &#62; 
+    &#62;      elm:= function( p )
+    &#62;        if not IsBound( mats[p] ) then
+    &#62;          if slp = fail then
+    &#62;            mats[p]:= data[p];
+    &#62;          else
+    &#62;            mats[p]:= ResultOfStraightLineProgram( slp, data[p] );
+    &#62;          fi;
+    &#62;        fi;
+    &#62;        return mats[p];
+    &#62;      end;
+    &#62; 
+    &#62;      if order = fail then
+    &#62;        order:= Order( elm(2) );
+    &#62;      fi;
+    &#62; 
+    &#62;      # The element order suffices in certain cases.
+    &#62;      if order in [ 23, 31, 46, 47, 56 ] then
+    &#62;        # There are two Galois conjugate classes of elements of this order.
+    &#62;        return Concatenation( String( order ), "AB" );
+    &#62;      elif order in [ 1, 7, 11, 13, 17, 19, 21, 25, 27, 33, 35, 38, 39,
+    &#62;                      44, 47, 52, 55, 66, 70 ] then
+    &#62;        # There is exactly one conjugacy class of elements of this order.
+    &#62;        return Concatenation( String( order ), "A" );
+    &#62;      fi;
+    &#62; 
+    &#62;      if order in [ 3, 5, 9, 15 ] then
+    &#62;        # The trace in the 2-modular representation suffices.
+    &#62;        cand:= [ [3,1], [3,0], [5,0], [5,1], [9,0], [9,1], [15,0], [15,1] ];
+    &#62;        nams:= [ "3A", "3B", "5A", "5B", "9A", "9B", "15A", "15B" ];
+    &#62;        trace:= Int( TraceMat( elm(2) ) );
+    &#62;        return nams[ Position( cand, [ order, trace ] ) ];
+    &#62;      elif order mod 4 = 2 then
+    &#62;        # Compute the rank of 1 + x.
+    &#62;        cand:= [ [ 2, 1860 ], [ 2, 2048 ], [ 2, 2158 ], [ 2, 2168 ],
+    &#62;                 [ 6, 3486 ], [ 6, 3510 ], [ 6, 3566 ], [ 6, 3534 ],
+    &#62;                 [ 6, 3606 ], [ 6, 3604 ], [ 6, 3596 ], [ 6, 3610 ],
+    &#62;                 [ 6, 3636 ], [ 6, 3638 ], [ 6, 3634 ],
+    &#62;                 [ 10, 3860 ], [ 10, 3896 ], [ 10, 3918 ], [ 10, 3908 ],
+    &#62;                 [ 10, 3920 ], [ 10, 3932 ],
+    &#62;                 [ 14, 3996 ], [ 14, 4008 ], [ 14, 4048 ], [ 14,4034 ],
+    &#62;                 [ 14, 4052 ],
+    &#62;                 [ 18, 4088 ], [ 18, 4090 ], [ 18, 4110 ], [ 18, 4124 ],
+    &#62;                 [ 18, 4128 ], [ 18, 4122 ],
+    &#62;                 [ 22, 4140 ], [ 22, 4158 ],
+    &#62;                 [ 26, 4198 ], [ 26, 4176 ],
+    &#62;                 [ 30, 4190 ], [ 30, 4212 ], [ 30, 4206 ], [ 30, 4214 ],
+    &#62;                 [ 30, 4224 ], [ 30, 4216 ],
+    &#62;                 [ 34, 4238 ], [ 34, 4220 ],
+    &#62;                 [ 42, 4242 ], [ 42, 4258 ] ];
+    &#62;        nams:= [ "2A", "2B", "2C", "2D",
+    &#62;                 "6A", "6B", "6C", "6D", "6E", "6F",
+    &#62;                 "6G", "6H", "6I", "6J", "6K",
+    &#62;                 "10A", "10B", "10C", "10D", "10E", "10F",
+    &#62;                 "14A", "14B", "14C", "14D", "14E",
+    &#62;                 "18A", "18B", "18C", "18D", "18E", "18F",
+    &#62;                 "22A", "22B",
+    &#62;                 "26A", "26B",
+    &#62;                 "30AB", "30C", "30D", "30E", "30F", "30GH",
+    &#62;                 "34A", "34BC",
+    &#62;                 "42AB", "42C" ];
+    &#62;        one:= elm(2)^0;
+    &#62;        rank:= RankMat( elm(2) + one );
+    &#62;        pos:= Position( cand, [ order, rank ] );
+    &#62;        if nams[ pos ] = "30AB" then
+    &#62;          rank:= RankMat( elm(2)^5 + one );
+    &#62;          if   rank = 3510 then return "30A";
+    &#62;          elif rank = 3486 then return "30B";
+    &#62;          else Error( "wrong rank" );
+    &#62;          fi;
+    &#62;        elif nams[ pos ] = "42AB" then
+    &#62;          rank:= RankMat( elm(2)^3 + one );
+    &#62;          if   rank = 3996 then return "42A";
+    &#62;          elif rank = 4008 then return "42B";
+    &#62;          else Error( "wrong rank" );
+    &#62;          fi;
+    &#62;        else
+    &#62;          return nams[ pos ];
+    &#62;        fi;
+    &#62;      elif order in [ 36, 60 ] then
+    &#62;        cand:= [ [36,4226],[36,4238],[36,4248],[60,4280],[60,4286],[60,4296] ];
+    &#62;        nams:= [ "36A", "36B", "36C", "60A", "60B", "60C" ];
+    &#62;        one:= elm(2)^0;
+    &#62;        rank:= RankMat( elm(2) + one );
+    &#62;        return nams[ Position( cand, [ order, rank ] ) ];
+    &#62;      elif order = 28 then
+    &#62;        one:= elm(2)^0;
+    &#62;        rank:= RankMat( elm(2) + one );
+    &#62;        trace:= Int( TraceMat( elm(3)^7 ) );
+    &#62;        if rank = 4188 then   # 28A or 28C
+    &#62;          if   trace = 0 then return "28A";
+    &#62;          elif trace = 1 then return "28C";
+    &#62;          else Error( "wrong trace" );
+    &#62;          fi;
+    &#62;        elif rank = 4200 then   # 28B or 28D
+    &#62;          if   trace = 1 then return "28B";
+    &#62;          elif trace = 0 then return "28D";
+    &#62;          else Error( "wrong trace" );
+    &#62;          fi;
+    &#62;        elif rank = 4210 then return "28E";
+    &#62;        else Error( "wrong rank" );
+    &#62;        fi;
+    &#62;      elif order = 32 then
+    &#62;        trace:= Int( TraceMat( elm(3)^2 ) );
+    &#62;        if   trace = 2 then return "32AB";
+    &#62;        elif trace = 0 then return "32CD";
+    &#62;        else Error( "wrong trace" );
+    &#62;        fi;
+    &#62;      elif order = 40 then
+    &#62;        one:= elm(2)^0;
+    &#62;        rank:= RankMat( elm(2) + one );
+    &#62;        if rank = 4242 then   # 40A or 40B 0r 40C
+    &#62;          trace:= Int( TraceMat( elm(3) ) );
+    &#62;          if   trace = 0 then return "40A";
+    &#62;          elif trace = 1 then return "40B";
+    &#62;          else return "40C";
+    &#62;          fi;
+    &#62;        elif rank = 4250 then return "40D";
+    &#62;        elif rank = 4258 then return "40E";
+    &#62;        else Error( "wrong rank" );
+    &#62;        fi;
+    &#62;      elif order = 48 then
+    &#62;        trace:= Int( TraceMat( elm(3) ) );
+    &#62;        if   trace = 0 then return "48A";
+    &#62;        elif trace = 1 then return "48B";
+    &#62;        else Error( "wrong trace" );
+    &#62;        fi;
+    &#62;      elif order in [ 4, 8 ] then
+    &#62;        cand:= [ [4,3114],[4,3192],[4,3256],[4,3202],[4,3204],[4,3266],
+    &#62;                 [4,3264],[8,3774],[8,3738],[8,3778],[8,3780],[8,3810],
+    &#62;                 [8,3786],[8,3812],[8,3818] ];
+    &#62;        nams:= [ "4A-B", "4C-D", "4E", "4F", "4G", "4H-J", "4I",
+    &#62;                 "8A", "8B-C-E", "8D", "8F-H", "8G", "8I-L", "8J", "8K-M-N" ];
+    &#62;        one:= elm(2)^0;
+    &#62;        rank:= RankMat( elm(2) + one );
+    &#62;        pos:= Position( cand, [ order, rank ] );
+    &#62;        if not '-' in nams[ pos ] then
+    &#62;          return nams[ pos ];
+    &#62;        elif order = 4 then
+    &#62;          trace:= Int( TraceMat( elm(3) ) );
+    &#62;          if trace = 0 then
+    &#62;            if   nams[ pos ] = "4A-B" then return "4B";
+    &#62;            elif nams[ pos ] = "4C-D" then return "4D";
+    &#62;            else return "4H";
+    &#62;            fi;
+    &#62;          elif trace = 1 then
+    &#62;            if   nams[ pos ] = "4A-B" then return "4A";
+    &#62;            elif nams[ pos ] = "4C-D" then return "4C";
+    &#62;            else return "4J";
+    &#62;            fi;
+    &#62;          else
+    &#62;            Error( "wrong trace" );
+    &#62;          fi;
+    &#62;        elif order = 8 then
+    &#62;          if nams[ pos ] = "8B-C-E" then
+    &#62;            trace:= Int( TraceMat( elm(3) ) );
+    &#62;            if   trace = 1 then return "8B";
+    &#62;            elif trace = 0 then return "8C";
+    &#62;            else return "8E";
+    &#62;            fi;
+    &#62;          elif nams[ pos ] = "8F-H" then
+    &#62;            rank:= RankMat( ( elm(2) + one )^3 );
+    &#62;            if   rank = 2619 then return "8F";
+    &#62;            elif rank = 2620 then return "8H";
+    &#62;            else Error( "wrong rank" );
+    &#62;            fi;
+    &#62;          elif nams[ pos ] = "8I-L" then
+    &#62;            rank:= RankMat( ( elm(2) + one )^2 );
+    &#62;            if   rank = 3202 then return "8I";
+    &#62;            elif rank = 3204 then return "8L";
+    &#62;            else Error( "wrong rank" );
+    &#62;            fi;
+    &#62;          else   # 8K-M-N
+    &#62;            rank:= RankMat( ( elm(2) + one )^3 );
+    &#62;            if rank = 2714 then   # 8K-M
+    &#62;              trace:= Int( TraceMat( elm(3) ) );
+    &#62;              if   trace = 1 then return "8K";
+    &#62;              elif trace = 2 then return "8M";
+    &#62;              else Error( "wrong trace" );
+    &#62;              fi;
+    &#62;            elif rank = 2717 then return "8N";
+    &#62;            else Error( "wrong rank" );
+    &#62;            fi;
+    &#62;          fi;
+    &#62;        fi;
+    &#62;      elif order in [ 12, 24 ] then
+    &#62;        cand:= [ [12,3936],[12,3942],[12,3958],[12,3996],[12,3962],[12,3964],
+    &#62;                 [12,3986],[12,3978],[12,3966],[12,4000],[12,3982],[12,3988],
+    &#62;                 [12,4002],[12,4004],[24,4152],[24,4164],[24,4170],[24,4182],
+    &#62;                 [24,4176],[24,4178],[24,4174],[24,4186] ];
+    &#62;        nams:= [ "12A-C-D", "12B", "12E", "12F", "12G-H", "12I", "12J",
+    &#62;                 "12K-M", "12L", "12N", "12O", "12P", "12Q-R-T", "12S",
+    &#62;                 "24A-B-C-D", "24E-G", "24F", "24H", "24I-M", "24J", "24K",
+    &#62;                 "24L-N" ];
+    &#62;        one:= elm(2)^0;
+    &#62;        rank:= RankMat( elm(2) + one );
+    &#62;        pos:= Position( cand, [ order, rank ] );
+    &#62;        if not '-' in nams[ pos ] then
+    &#62;          return nams[ pos ];
+    &#62;        elif order = 12 then
+    &#62;          if nams[ pos ] = "12A-C-D" then
+    &#62;            trace:= Int( TraceMat( elm(5) ) );
+    &#62;            if   trace = 3 then return "12A";
+    &#62;            elif trace = 4 then return "12C";
+    &#62;            elif trace = 1 then return "12D";
+    &#62;            else Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          else
+    &#62;            trace:= Int( TraceMat( elm(3) ) );
+    &#62;            if trace = 0 then
+    &#62;              if   nams[ pos ] = "12G-H" then return "12H";
+    &#62;              elif nams[ pos ] = "12K-M" then return "12K";
+    &#62;              else return "12Q";  # 12Q-R-T
+    &#62;              fi;
+    &#62;            elif trace = 1 then
+    &#62;              if   nams[ pos ] = "12G-H" then return "12G";
+    &#62;              elif nams[ pos ] = "12K-M" then return "12M";
+    &#62;              else return "12R";  # 12Q-R-T
+    &#62;              fi;
+    &#62;            elif nams[ pos ] = "12Q-R-T" then
+    &#62;              return "12T";
+    &#62;            else
+    &#62;              Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          fi;
+    &#62;        elif order = 24 then
+    &#62;          if nams[ pos ] = "24I-M" then
+    &#62;            rank:= RankMat( elm(2)^2 + one );
+    &#62;            if   rank = 3986 then return "24I";
+    &#62;            elif rank = 3982 then return "24M";
+    &#62;            else Error( "wrong rank" );
+    &#62;            fi;
+    &#62;          elif nams[ pos ] = "24E-G" then
+    &#62;            rank:= RankMat( elm(2)^3 + one );
+    &#62;            if   rank = 3774 then return "24E";
+    &#62;            elif rank = 3778 then return "24G";
+    &#62;            else Error( "wrong rank" );
+    &#62;            fi;
+    &#62;          elif nams[ pos ] = "24L-N" then
+    &#62;            trace:= Int( TraceMat( elm(3) ) );
+    &#62;            if   trace = 1 then return "24L";
+    &#62;            elif trace = 2 then return "24N";
+    &#62;            else Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          else   # 24A-B-C-D"
+    &#62;            trace:= Int( TraceMat( elm(5) ) );
+    &#62;            if   trace = 3 then return "24A";
+    &#62;            elif trace = 0 then return "24B";
+    &#62;            elif trace = 2 then return "24C";
+    &#62;            elif trace = 1 then return "24D";
+    &#62;            else Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          fi;
+    &#62;        fi;
+    &#62;      elif order in [ 16, 20 ] then
+    &#62;        cand:= [ [ 16, 4072 ], [ 16, 4074 ], [ 16, 4094 ],
+    &#62;                 [ 20, 4114 ], [ 20, 4128 ], [ 20, 4132 ], [ 20, 4148 ],
+    &#62;                 [ 20, 4144 ], [ 20, 4138 ], [ 20, 4150 ] ];
+    &#62;        nams:= [ "16A-B", "16C-D-E-F", "16G-H",
+    &#62;                 "20A-B-C-D", "20E", "20F", "20G", "20H", "20I", "20J" ];
+    &#62;        one:= elm(2)^0;
+    &#62;        rank:= RankMat( elm(2) + one );
+    &#62;        pos:= Position( cand, [ order, rank ] );
+    &#62;        if not '-' in nams[ pos ] then
+    &#62;          return nams[ pos ];
+    &#62;        elif order = 20 then
+    &#62;          rank:= RankMat( elm(2)^2 + one );
+    &#62;          if   rank = 3908 then return "20B";
+    &#62;          elif rank &lt;&#62; 3896 then Error( "wrong rank" );
+    &#62;          else
+    &#62;            trace:= Int( TraceMat( elm(3) ) );
+    &#62;            if   trace = 2 then return "20A";
+    &#62;            elif trace = 0 then return "20C";
+    &#62;            elif trace = 1 then return "20D";
+    &#62;            else Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          fi;
+    &#62;        else   # order = 16
+    &#62;          if nams[ pos ] = "16A-B" then
+    &#62;            trace:= Int( TraceMat( elm(3) ) );
+    &#62;            if   trace = 0 then return "16A";
+    &#62;            elif trace = 1 then return "16B";
+    &#62;            else Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          elif nams[ pos ] = "16G-H" then
+    &#62;            trace:= Int( TraceMat( elm(3)^2 ) );
+    &#62;            if   trace = 1 then return "16G";
+    &#62;            elif trace = 2 then return "16H";
+    &#62;            else Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          else   # 16C-D-E-F
+    &#62;            trace:= Int( TraceMat( elm(3) ) );
+    &#62;            if trace = 0 then   # We cannot distinguish 16D and 16F.
+    &#62;              return "16DF";
+    &#62;            elif trace = 2 then   # 16C-E
+    &#62;              one:= elm(2)^0;
+    &#62;              rank:= RankMat( elm(2)^2 + one );
+    &#62;              if   rank = 3780 then return "16C";
+    &#62;              elif rank = 3778 then return "16E";
+    &#62;              else Error( "wrong rank" );
+    &#62;              fi;
+    &#62;            else
+    &#62;              Error( "wrong trace" );
+    &#62;            fi;
+    &#62;          fi;
+    &#62;        fi;
+    &#62;      else Error( "wrong element order" );
+    &#62;      fi;
+    &#62;  end;;
+
+</pre>
+
+<div class="p"><!----></div>
+Elements of <font size="+0">B</font> to which the labels belong can be generated as follows.
+The straight line program <tt>"BG1-cycW1"</tt> from&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>]
+computes generators of the maximally cyclic subgroups of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; cycprg:= AtlasProgram( "B", "cyclic" );;
+    gap&#62; cycprg.identifier;
+    [ "B", "BG1-cycW1", 1 ]
+    gap&#62; cycprg.outputs;
+    [ "12A", "12H", "12I", "12L", "12P", "12S", "12T", "16E", "16F", "16G", 
+      "16H", "18A", "18B", "18D", "18F", "20B", "20C", "20H", "20I", "20J", 
+      "24A", "24B", "24C", "24D", "24E", "24F", "24H", "24I", "24J", "24K", 
+      "24L", "24M", "24N", "25A", "26B", "27A", "28A", "28C", "28D", "28E", 
+      "30A", "30B", "30C", "30E", "30G-H", "31A-B", "32A-B", "32C-D", "34A", 
+      "34BC", "36A", "36B", "36C", "38A", "39A", "40A", "40B", "40C", "40D", 
+      "40E", "42A", "42B", "42C", "44A", "46AB", "47AB", "48A", "48B", "52A", 
+      "55A", "56AB", "60A", "60B", "60C", "66A", "70A" ]
+
+</pre>
+
+<div class="p"><!----></div>
+The remaining representatives are obtained as suitable powers of them.
+The following list encodes the definition of these powers,
+see&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Table&nbsp;2].
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; DefinitionsViaPowerMaps:= [
+    &#62;     [ "70A", 2, "35A" ], [ "66A", 2, "33A" ], [ "60A", 2, "30D" ],
+    &#62;     [ "60C", 2, "30F" ], [ "56AB", 2, "28B" ], [ "52A", 2, "26A" ],
+    &#62;     [ "48B", 2, "24G" ], [ "46AB", 2, "23AB" ], [ "44A", 2, "22B" ],
+    &#62;     [ "66A", 3, "22A" ], [ "42C", 2, "21A" ], [ "40E", 2, "20G" ],
+    &#62;     [ "40D", 2, "20F" ], [ "60B", 3, "20E" ], [ "60A", 3, "20A" ],
+    &#62;     [ "40C", 2, "20D" ], [ "38A", 2, "19A" ], [ "36C", 2, "18E" ],
+    &#62;     [ "36B", 2, "18C" ], [ "34A", 2, "17A" ], [ "32CD", 2, "16DF" ],
+    &#62;     [ "32AB", 2, "16C" ], [ "48B", 3, "16B" ], [ "48A", 3, "16A" ],
+    &#62;     [ "30F", 2, "15B" ], [ "30A", 2, "15A" ], [ "28E", 2, "14E" ],
+    &#62;     [ "28A", 2, "14D" ], [ "42A", 3, "14A" ], [ "42B", 3, "14B" ],
+    &#62;     [ "42C", 3, "14C" ], [ "26A", 2, "13A" ], [ "24N", 2, "12R" ],
+    &#62;     [ "24M", 2, "12O" ], [ "24L", 2, "12Q" ], [ "24K", 2, "12M" ],
+    &#62;     [ "24J", 2, "12J" ], [ "24H", 2, "12F" ], [ "24G", 2, "12G" ],
+    &#62;     [ "24D", 2, "12D" ], [ "36C", 3, "12N" ], [ "36B", 3, "12K" ],
+    &#62;     [ "36A", 3, "12B" ], [ "60A", 5, "12C" ], [ "60B", 5, "12E" ],
+    &#62;     [ "22B", 2, "11A" ], [ "20J", 2, "10F" ], [ "20I", 2, "10D" ],
+    &#62;     [ "20H", 2, "10C" ], [ "20F", 2, "10B" ], [ "30A", 3, "10A" ],
+    &#62;     [ "30E", 3, "10E" ], [ "18F", 2, "9B" ], [ "18E", 2, "9A" ],
+    &#62;     [ "16H", 2, "8M" ], [ "16G", 2, "8K" ], [ "16DF", 2, "8H" ],
+    &#62;     [ "16E", 2, "8D" ], [ "24J", 3, "8J" ], [ "24M", 3, "8I" ],
+    &#62;     [ "24I", 3, "8G" ], [ "24K", 3, "8F" ], [ "24C", 3, "8E" ],
+    &#62;     [ "24B", 3, "8C" ], [ "24A", 3, "8B" ], [ "24E", 3, "8A" ],
+    &#62;     [ "24N", 3, "8N" ], [ "40D", 5, "8L" ], [ "14D", 2, "7A" ],
+    &#62;     [ "12T", 2, "6K" ], [ "12S", 2, "6J" ], [ "12R", 2, "6I" ],
+    &#62;     [ "12P", 2, "6H" ], [ "12O", 2, "6G" ], [ "12I", 2, "6C" ],
+    &#62;     [ "18A", 3, "6D" ], [ "30B", 5, "6A" ], [ "30A", 5, "6B" ],
+    &#62;     [ "30E", 5, "6E" ], [ "30C", 5, "6F" ], [ "12C", 3, "4A" ],
+    &#62;     [ "10F", 2, "5B" ], [ "10B", 2, "5A" ], [ "8N", 2, "4J" ],
+    &#62;     [ "8M", 2, "4H" ], [ "8L", 2, "4G" ], [ "8J", 2, "4E" ],
+    &#62;     [ "8I", 2, "4F" ], [ "8H", 2, "4C" ], [ "8E", 2, "4B" ],
+    &#62;     [ "12E", 3, "4D" ], [ "12T", 3, "4I" ], [ "6K", 2, "3B" ],
+    &#62;     [ "6A", 2, "3A" ], [ "4J", 2, "2D" ], [ "4I", 2, "2C" ],
+    &#62;     [ "4A", 2, "2B" ], [ "6A", 3, "2A" ], [ "2B", 2, "1A" ],
+    &#62;    ];;
+
+</pre>
+
+<div class="p"><!----></div>
+The following function takes a label and the straight line program data
+shown above, and returns a straight line program for computing an
+element for the given label from standard generators of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SLPForClassName:= function( nam, cycslp, outputnames )
+    &#62;      local pos, rule;
+    &#62; 
+    &#62;      pos:= Position( outputnames, nam );
+    &#62;      if pos &lt;&#62; fail then
+    &#62;        return RestrictOutputsOfSLP( cycslp.program, pos );
+    &#62;      fi;
+    &#62; 
+    &#62;      rule:= First( DefinitionsViaPowerMaps, x -&#62; x[3] = nam );
+    &#62;      if rule = fail then
+    &#62;        Error( "'nam' is not an admiss. name for a cyclic subgroup of B" );
+    &#62;      fi;
+    &#62; 
+    &#62;      return CompositionOfStraightLinePrograms(
+    &#62;                 StraightLineProgram( [ [ 1, rule[2] ] ], 1 ),
+    &#62;                 SLPForClassName( rule[1], cycslp, outputnames ) );
+    &#62; end;;
+
+</pre>
+
+<div class="p"><!----></div>
+Let us verify that <tt>IdentifyClassName</tt> computes the claimed labels.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; outputnames:= List( cycprg.outputs,
+    &#62;                        x -&#62; ReplacedString( x, "-", "" ) );;
+    gap&#62; outputnames:= List( outputnames,
+    &#62;                        x -&#62; ReplacedString( x, "16F", "16DF" ) );;
+    gap&#62; labels:= Union( outputnames,
+    &#62;                    List( DefinitionsViaPowerMaps, x -&#62; x[3] ) );;
+    gap&#62; for l in labels do
+    &#62;      slp:= SLPForClassName( l, cycprg, outputnames );
+    &#62;      id:= IdentifyClassName( gens_2, gens_3, gens_5, slp, fail );
+    &#62;      if id &lt;&#62; l then
+    &#62;        Print( "#E  problem with identification: ", id, " vs. ", l, "\n" );
+    &#62;      fi;
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+As we get no outputs, the identification is correct.
+
+<div class="p"><!----></div>
+For later use, we collect power map information for the labels.
+In order to simplify later loops,
+we sort the labels w.&nbsp;r.&nbsp;t.&nbsp;increasing element order.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SortParallel( List( labels, x -&#62; Int( Filtered( x, IsDigitChar ) ) ),
+    &#62;                  labels );
+    gap&#62; powerinfo:= [];;
+    gap&#62; for l in labels do
+    &#62;      slp:= SLPForClassName( l, cycprg, outputnames );
+    &#62;      ord:= Int( Filtered( l, IsDigitChar ) );
+    &#62;      pow:= [];
+    &#62;      if not ( IsPrimeInt( ord ) or ord = 1 ) then
+    &#62;        for p in Set( Factors( ord ) ) do
+    &#62;          powerslp:= CompositionOfStraightLinePrograms(
+    &#62;                         StraightLineProgram( [ [ 1, p ] ], 1 ), slp );
+    &#62;          id:= IdentifyClassName( gens_2, gens_3, gens_5, powerslp,
+    &#62;                                  ord / p );
+    &#62;          Add( pow, [ p, id ] );
+    &#62;        od;
+    &#62;      fi;
+    &#62;      Add( powerinfo, [ l, pow ] );
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc4">
+4</a>&nbsp;&nbsp;Centralizers of elements of prime order</h2><a name="centralizers_prime">
+</a>
+
+<div class="p"><!----></div>
+We document part of the computations needed in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;5].
+
+<div class="p"><!----></div>
+We know from [<a href="#Str76b" name="CITEStr76b">Str76</a>] that <font size="+0">B</font> has exactly four classes of involutions,
+whose normalizers in <font size="+0">B</font> have the following properties.
+
+<div class="p"><!----></div>
+
+<ul>
+<li>    The normalizer H of a <tt>2A</tt> involution has the structure
+    2.<sup>2</sup>E<sub>6</sub>(2).2, such that H is an extension of its derived subgroup
+    H&#8242; by a field automorphism of order two, see&nbsp;[<a href="#Str76b" name="CITEStr76b">Str76</a>,p.&nbsp;505].
+    This implies that H is a <em>split</em> extension of H&#8242;,
+    and this means that the character table of H is the one that is shown
+    in the  A<font size="-2">TLAS</font> of Finite Groups and that has the identifier
+    <tt>"2.2E6(2).2"</tt> in <font face="helvetica">GAP</font>'s library of character tables;
+    note that the isoclinic variant of H is a <em>non-split</em> extension
+    of 2.<sup>2</sup>E<sub>6</sub>(2).
+<div class="p"><!----></div>
+</li>
+
+<li>
+    The normalizer C of a <tt>2B</tt> involution has the structure
+    2<sup>1+22</sup>.Co<sub>2</sub>.
+    Its character table has been constructed in Section&nbsp;<a href="#table_c2b">5</a>.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    The normalizer of a <tt>2C</tt> involution is a subdirect product
+    of F<sub>4</sub>(2).2 and a dihedral group D<sub>8</sub> of order eight,
+    see&nbsp;[<a href="#Str76b" name="CITEStr76b">Str76</a>,La.&nbsp;3.1, 5.6].
+    The character table of this group can easily be constructed
+    character-theoretically from the known character tables of
+    F<sub>4</sub>(2), F<sub>4</sub>(2).2, 2<sup>2</sup>, and D<sub>8</sub>.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    The normalizer of a <tt>2D</tt> involution
+    has order 11&nbsp;689&nbsp;182&nbsp;992&nbsp;793&nbsp;600 and is contained in the
+    normalizer in <font size="+0">B</font> of an elementary abelian group of order 2<sup>8</sup>.
+    The character table of the latter normalizer has been computed from
+    a subgroup of <font size="+0">B</font>, see Appendix&nbsp;<a href="#2Dnormalizer">11</a>.
+    This table has a unique class with centralizer order equal to the
+    order of the normalizer of a <tt>2D</tt> element in <font size="+0">B</font>.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+Let H  &#8773; 2.<sup>2</sup>E<sub>6</sub>(2).2 be a <tt>2A</tt> centralizer in <font size="+0">B</font>.
+The involution classes in H are as stated
+in the table in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;5.1].
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; h:= CharacterTable( "2.2E6(2).2" );;
+    gap&#62; invpos:= Positions( OrdersClassRepresentatives( h ), 2 );
+    [ 2, 3, 4, 5, 6, 7, 175, 176, 177, 178 ]
+    gap&#62; ClassNames( h ){ invpos };
+    [ "2a", "2b", "2c", "2d", "2e", "2f", "2g", "2h", "2i", "2j" ]
+    gap&#62; AtlasClassNames( h ){ invpos };
+    [ "1A_1", "2A_0", "2A_1", "2B_0", "2B_1", "2C_0", "2D_0", "2D_1", "2E_0", 
+      "2E_1" ]
+
+</pre>
+
+<div class="p"><!----></div>
+(The subscripts 0 and 1 that appear above
+are denoted by signs + and &#8722; in&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>].)
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Let us try to compute the necessary information about
+the permutation action of <font size="+0">B</font> on the cosets of H,
+restricted to H.
+We calculate the first three transitive constituents
+of the permutation character as listed in[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;5.2].
+
+<div class="p"><!----></div>
+The point stabilizer of the action of H on the first orbit contains
+the centre Z(H) of H, thus we may perform the computations with
+H/Z(H).
+If we assume that the rank of the permutation character is 5 then
+we can compute the possible degrees of the irreducible constituents
+combinatorially, as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; f:= CharacterTable( "2E6(2).2" );;
+    gap&#62; index1:= 3968055;;
+    gap&#62; constit:= Filtered( Irr( f ), x -&#62; x[1] &lt;= index1 );;
+    gap&#62; degrees:= Set( constit, x -&#62; x[1] );
+    [ 1, 1938, 48620, 554268, 815100, 1322685, 1828332, 2089164, 2909907, 2956096 
+     ]
+    gap&#62; lincom:= Filtered( UnorderedTuples( degrees, 5 ),
+    &#62;                       x -&#62; Sum( x ) = index1 );
+    [ [ 1, 1938, 48620, 1828332, 2089164 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+The degrees are uniquely determined.
+Now we compute which sums of irreducibles of these degrees
+have nonnegative values.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; degrees:= lincom[1];
+    [ 1, 1938, 48620, 1828332, 2089164 ]
+    gap&#62; constit:= List( degrees, d -&#62; Filtered( constit, x -&#62; x[1] = d ) );;
+    gap&#62; cand1:= List( Cartesian( constit ), Sum );;
+    gap&#62; cand1:= Filtered( cand1, x -&#62; ForAll( x, y -&#62; y &#62;= 0 ) );;
+    gap&#62; List( ConstituentsOfCharacter( cand1[1] ),
+    &#62;          x -&#62; Position( Irr( f ), x ) );
+    [ 1, 3, 5, 13, 15 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus this permutation character is uniquely determined.
+Alternatively, we can ask <font face="helvetica">GAP</font> to compute the possible permutation
+characters of the given degree, and get the same result
+(without a priori knowledge about the rank of the permutation action).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; PermComb( f, rec( degree:= index1 ) ) = cand1;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+We compute the permutation character of the action on the second orbit
+in two steps.
+First we induce the trivial character of F<sub>4</sub>(2) to H and then
+we compute the unique subcharacter of this character that has the right
+degree and only nonnegative values.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; u:= CharacterTable( "F4(2)" );;
+    gap&#62; ufush:= PossibleClassFusions( u, h );;
+    gap&#62; ind:= Set( ufush,
+    &#62;               map -&#62; InducedClassFunctionsByFusionMap( u, h,
+    &#62;                          [ TrivialCharacter( u ) ], map )[1] );;
+    gap&#62; Length( ind );
+    1
+    gap&#62; const:= ConstituentsOfCharacter( ind[1] );;
+    gap&#62; Sum( const ) = ind[1];
+    true
+    gap&#62; sub:= List( Cartesian( List( const, x -&#62; [ Zero( x ), x ] ) ), Sum );;
+    gap&#62; cand2:= Filtered( sub,
+    &#62;                      x -&#62; x[1] = ind[1][1] / 4 and Minimum( x ) &#62;= 0 );;
+    gap&#62; Length( cand2 );
+    1
+    gap&#62; List( ConstituentsOfCharacter( cand2[1] ),
+    &#62;          x -&#62; Position( Irr( h ), x ) );
+    [ 1, 5, 17, 24 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The character table of the point stabilizer Fi<sub>22</sub>.2
+of the action of H on the third orbit is available.
+We compute the corresponding permutation character by inducing the
+trivial character of Fi<sub>22</sub>.2 to H.
+Note that the class fusion from Fi<sub>22</sub>.2 to H is unique up to
+the group automorphism of H that multiplies the elements outside
+the derived subgroup of H by the central involution in H;
+we know that the class <tt>2D</tt> of the point stabilizer lies in a class
+of H that fuses into the class <tt>2A</tt> of <font size="+0">B</font>,
+thus the first of the two fusions is the right one.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "Fi22.2" );;
+    gap&#62; sfush:= PossibleClassFusions( s, h );;
+    gap&#62; Length( sfush );
+    2
+    gap&#62; Positions( OrdersClassRepresentatives( s ), 2 );
+    [ 2, 3, 4, 60, 61, 62 ]
+    gap&#62; List( sfush, x -&#62; x[60] );
+    [ 175, 176 ]
+    gap&#62; cand3:= InducedClassFunctionsByFusionMap( s, h,
+    &#62;                [ TrivialCharacter( s ) ], sfush[1] );;
+    gap&#62; SortedList( List( ConstituentsOfCharacter( cand3[1] ),
+    &#62;                      x -&#62; Position( Irr( h ), x ) ) );
+    [ 1, 3, 5, 13, 17, 28, 49, 76, 190, 192, 196, 202, 210, 217 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Next we compute the value of the permutation character of the action
+on the fourth orbit listed in[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;5.2] on the
+class <tt>3C</tt> of H.
+The point stabilizer is H<sub>5</sub>  &#8773; 2<sup>1+20</sup>.U<sub>4</sub>(3).2<sup>2</sup>,
+thus the subgroup H<sub>5</sub> Z(H) / Z(H) of H / Z(H)  &#8773; <sup>2</sup>E<sub>6</sub>(2).2
+lies in a maximal subgroup of type (2<sup>1+20</sup>:U<sub>6</sub>(2)).2,
+see&nbsp;[<a href="#CCN85" name="CITECCN85">CCN<sup>+</sup>85</a>,p.&nbsp;191].
+
+<div class="p"><!----></div>
+Because the extension of 2<sup>1+20</sup> by U<sub>6</sub>(2) splits,
+we know that H<sub>5</sub> Z(H) / Z(H) has U<sub>4</sub>(3) type subgroups,
+thus H<sub>5</sub> has subgroups of one of the types U<sub>4</sub>(3), 2.U<sub>4</sub>(3).
+Computing possible class fusions from both possibilities to H,
+we get that the class of elements of order 3 in U<sub>4</sub>(3) or 2.U<sub>4</sub>(3)
+that belongs to the <tt>3A</tt> class of U<sub>4</sub>(3)
+lies in the class <tt>3C</tt> of H,
+and the other classes of 3-elements lie in the classes <tt>3A</tt> or
+<tt>3B</tt> of H, as claimed.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; h:= CharacterTable( "2.2E6(2).2" );;
+    gap&#62; u:= CharacterTable( "U4(3)" );;
+    gap&#62; Positions( OrdersClassRepresentatives( h ), 3 );
+    [ 8, 10, 12 ]
+    gap&#62; ufush:= PossibleClassFusions( u, h );;
+    gap&#62; 3pos:= Positions( OrdersClassRepresentatives( u ), 3 );
+    [ 3, 4, 5, 6 ]
+    gap&#62; Set( ufush, x -&#62; x{ 3pos } );
+    [ [ 12, 8, 10, 10 ], [ 12, 10, 8, 10 ] ]
+    gap&#62; u:= CharacterTable( "2.U4(3)" );;
+    gap&#62; ufush:= PossibleClassFusions( u, h );;
+    gap&#62; 3pos:= Positions( OrdersClassRepresentatives( u ), 3 );
+    [ 5, 7, 9, 11 ]
+    gap&#62; Set( ufush, x -&#62; x{ 3pos } );
+    [ [ 12, 8, 10, 10 ], [ 12, 10, 8, 10 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+The <tt>3A</tt> elements in U<sub>4</sub>(3) have centralizer order 2<sup>3</sup> &#183;3<sup>6</sup>
+in this group.
+The centralizer order in 2<sup>20</sup>.U<sub>4</sub>(3) is 2<sup>5</sup> &#183;3<sup>6</sup>,
+since the fixed space of a <tt>3A</tt> element on the unique 20 dimensional
+irreducible module in characteristic 2 has dimension 2
+-this can be read off from the fact that the Brauer character value on
+the class <tt>3A</tt> is &#8722;7.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; u:= CharacterTable( "U4(3)" ) mod 2;;
+    gap&#62; phi:= Filtered( Irr( u ), x -&#62; x[1] = 20 );;
+    gap&#62; Display( u, rec( chars:= phi, powermap:= false ) );
+    U4(3)mod2
+    
+         2  7  3  2  2  .  .  .  .  .  .  .  .
+         3  6  6  5  5  4  .  .  .  3  3  3  3
+         5  1  .  .  .  .  1  .  .  .  .  .  .
+         7  1  .  .  .  .  .  1  1  .  .  .  .
+    
+           1a 3a 3b 3c 3d 5a 7a 7b 9a 9b 9c 9d
+    
+    Y.1    20 -7  2  2  2  . -1 -1 -1 -1 -1 -1
+
+</pre>
+
+<div class="p"><!----></div>
+Now the centralizer order gets doubled in the central extension to
+2<sup>1+20</sup>.U<sub>4</sub>(3),
+and the two upwards extensions cannot fuse the <tt>3A</tt> class with
+another class, thus the centralizer order is again doubled in each case,
+which means that &#124;C<sub>H<sub>5</sub></sub>(<tt>3A</tt>)&#124; = 2<sup>8</sup> &#183;3<sup>6</sup>.
+
+<div class="p"><!----></div>
+The permutation character of the action of <font size="+0">B</font> on the cosets of H
+has the value 1&nbsp;620 on the class <tt>3C</tt> of H.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; 3pos:= Positions( OrdersClassRepresentatives( f ), 3 );;
+    gap&#62; val3C:= 1 + cand1[1][ 3pos[3] ];;
+    gap&#62; 3pos:= Positions( OrdersClassRepresentatives( h ), 3 );;
+    gap&#62; val3C:= val3C + cand2[1][ 3pos[3] ] + cand3[1][ 3pos[3] ];;
+    gap&#62; val3C:= val3C + SizesCentralizers( h )[ 3pos[3] ] / ( 2^8 * 3^6 );
+    1620
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we have computed &#124;C<sub><font size="+0">B</font></sub>(<tt>3B</tt>)&#124; = 2<sup>13</sup> &#183;3<sup>13</sup> &#183;5.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Collected( Factors( val3C * SizesCentralizers( h )[ 3pos[3] ] ) );
+    [ [ 2, 13 ], [ 3, 13 ], [ 5, 1 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc5">
+5</a>&nbsp;&nbsp;The character table of 2<sup>1+22</sup>.Co<sub>2</sub></h2><a name="table_c2b">
+</a>
+
+<div class="p"><!----></div>
+Let z be an involution in <font size="+0">B</font> whose class is called <tt>2B</tt> in the
+ A<font size="-2">TLAS</font> of Finite Groups.
+The centralizer C of z in <font size="+0">B</font> has the structure 2<sup>1+22</sup>.Co<sub>2</sub>,
+the construction of its character table is described in&nbsp;[<a href="#Pah07" name="CITEPah07">Pah07</a>],
+and this table is available in <font face="helvetica">GAP</font>.
+However, that paper assumes the knowledge of the character table of <font size="+0">B</font>,
+hence we are not allowed to use the known character table of C
+in the verification of the character table of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+In this section, we recompute the character table of C, as follows.
+We start with the three certified matrix representations of <font size="+0">B</font>
+in characteristic 2, 3, and 5,
+and with the straight line program for restricting these representations
+to a <tt>2B</tt> centralizer.
+
+<div class="p"><!----></div>
+First we standardize the generators of the subgroup such that
+the known straight line program for computing class representatives of Co<sub>2</sub>
+can be applied.
+Next we compute a permutation representation of degree 4600 for the
+factor group C / &#9001;z &#9002;.
+Using this representation,
+we construct a straight line program that computes class representatives
+of C / &#9001;Z &#9002; from the images of the given generators of C
+under the natural epimorphism.
+Applying this straight line program to the restrictions of the
+given representations of <font size="+0">B</font> and then computing the class labels in <font size="+0">B</font>
+yields a "preliminary class fusion´´ from C to <font size="+0">B</font>.
+Furthermore,
+the given matrix representations of C in characteristic 3 and 5
+have a unique faithful constituent,
+which lifts to the unique ordinary irreducible character of degree 2048
+of C.
+Hence the Brauer characters of the two representations yield most of the
+values of this ordinary character.
+Together with the character table of C / &#9001;Z &#9002; that can be
+computed by <font face="helvetica">MAGMA</font>&nbsp;[<a href="#Magma" name="CITEMagma">BCP97</a>] from the permutation representation,
+this information suffices to complete the character table of C.
+
+<div class="p"><!----></div>
+Using the given degree 4371 matrix representation of <font size="+0">B</font>
+over the field with three elements
+(verified as described in Section&nbsp;<a href="#pres_B">2</a>)
+and the description from&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>] how to restrict this representation
+to (a conjugate of) C,
+we compute generators of C.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; slp_maxes_2:= AtlasProgram( "B", "maxes", 2 );;
+    gap&#62; cgens_3:= ResultOfStraightLineProgram( slp_maxes_2.program,
+    &#62;                  GeneratorsOfGroup( b_3 ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+The composition factors of the 4371 dimensional module for C have the
+dimensions 23, 2300, and 2048, respectively.
+The kernels of the actions of C on these factors will turn out to have
+the orders 2<sup>23</sup>, 2, and 1, respectively.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; m:= GModuleByMats( cgens_3, GF(3) );;
+    gap&#62; cf_3:= MTX.CompositionFactors( m );;
+    gap&#62; SortParallel( List( cf_3, x -&#62; x.dimension ), cf_3 );
+    gap&#62; List( cf_3, x -&#62; x.dimension );
+    [ 23, 2048, 2300 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We use the action on the 23-dimensional module
+to find words in terms of the generators of C
+that act on this module as <em>standard generators</em> of Co<sub>2</sub>,
+as defined in&nbsp;[<a href="#Wil96" name="CITEWil96">Wil96</a>].
+
+<div class="p"><!----></div>
+For that, we find two elements a, b that generate Co<sub>2</sub> and
+lie in the conjugacy classes <tt>2A</tt> and <tt>5A</tt>, respectively,
+such that the product a b has order 28.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Let us call the generators in the 23-dimensional composition factor
+x and y, and set c = y (y x)<sup>3</sup>.
+Then the elements y<sup>12</sup>, c<sup>&#8722;1</sup> ((y<sup>4</sup> x)<sup>4</sup>) c are standard generators
+of Co<sub>2</sub>, see Appendix&nbsp;<a href="#slp_co2">8</a>.
+The following straight line program computes these elements
+when it is applied to x and y.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; slp_co2:= StraightLineProgram( [
+    &#62;     [ 2, 1, 1, 1 ], [ 2, 2 ], [ 4, 1, 1, 1 ], [ 4, 2 ],
+    &#62;     [ 6, 1, 1, 1 ], [ 7, 4 ], [ 3, 2 ], [ 5, 1, 9, 1 ],
+    &#62;     [ 10, -1 ], [ 6, 3 ], [ 11, 1, 8, 1 ], [ 13, 1, 10, 1 ],
+    &#62;     [ [ 12, 1 ], [ 14, 1 ] ] ], 2 );;
+    gap&#62; f:= FreeGroup( "x", "y" );;  x:= f.1;;  y:= f.2;;
+    gap&#62; words:= ResultOfStraightLineProgram( slp_co2, [ x, y ] );;
+    gap&#62; words = [ y^12, ((y^4*x)^4)^(y*(y*x)^3) ];
+    true
+    gap&#62; co2gens:= cf_3[1].generators;;
+    gap&#62; co2stdgens:= ResultOfStraightLineProgram( slp_co2, co2gens );;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we find an orbit of length 4600 under the action of C
+on the 2300-dimensional module.
+This will allow us to represent C/&#9001;z &#9002; as a permutation group
+P, say, of degree 4600.
+
+<div class="p"><!----></div>
+Note that Co<sub>2</sub> contains a maximal subgroup of the structure U<sub>6</sub>(2).2,
+of index 2300,
+and that there is a 2<sup>21</sup>.U<sub>6</sub>(2).2 type subgroup of C that fixes
+a 1-dimensional subspace in the given 2300-dimensional representation
+of C over the field with three elements.
+We can compute generators for (a sufficiently large subgroup of)
+2<sup>22</sup>.U<sub>6</sub>(2).2 by applying the straight line program for computing
+generators of a U<sub>6</sub>(2).2 type subgroup from standard generators of Co<sub>2</sub>.
+Then we find a vector in the 1-dimensional subspace
+as the common fixed vector of squares of commutators in this subgroup.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fgens:= cf_3[3].generators;;
+    gap&#62; fstdgens:= ResultOfStraightLineProgram( slp_co2, fgens );;
+    gap&#62; slp_co2m1:= AtlasProgram( "Co2", "maxes", 1 );;
+    gap&#62; ugens:= ResultOfStraightLineProgram( slp_co2m1.program, fstdgens );;
+    gap&#62; one:= ugens[1]^0;;
+    gap&#62; comm:= Comm( ugens[1], ugens[2] );;
+    gap&#62; Order( comm );
+    12
+    gap&#62; pow:= comm^2;;
+    gap&#62; mats:= List( [ pow, pow^ugens[1] ], x -&#62; x - one );;
+    gap&#62; nsp:= List( mats, NullspaceMat );;
+    gap&#62; List( nsp, Length );
+    [ 434, 434 ]
+    gap&#62; si:= SumIntersectionMat( nsp[1], nsp[2] );;
+    gap&#62; Length( si[2] );
+    1
+    gap&#62; orb:= Orbit( Group( fstdgens ), si[2][1] );;
+    gap&#62; Length( orb );
+    4600
+    gap&#62; orb:= SortedList( orb );;
+    gap&#62; stdperms:= List( fstdgens, x -&#62; Permutation( x, orb ) );;
+    gap&#62; List( stdperms, Order );
+    [ 2, 5 ]
+
+</pre>
+
+<div class="p"><!----></div>
+In P, we compute a basis for the elementary abelian
+normal subgroup N of order 2<sup>22</sup>,
+and the following words for the basis vectors
+in terms of the standard generators of Co<sub>2</sub>,
+see Appendix&nbsp;<a href="#slp_kernel">9</a>.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+</td><td nowrap="nowrap" align="center">
+<table>
+<tr><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b<sup>2</sup> a)<sup>9</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b a b)<sup>9</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(a b<sup>2</sup>)<sup>9</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b<sup>2</sup> a b)<sup>9</sup>, </td></tr></table></td></tr>
+<tr><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b a b<sup>2</sup>)<sup>9</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((a b)<sup>2</sup> a)<sup>9</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(a b (b a)<sup>2</sup>)<sup>9</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((a b)<sup>2</sup> b a)<sup>9</sup>, </td></tr></table></td></tr>
+<tr><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b<sup>3</sup> (b a)<sup>2</sup>)<sup>4</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b (b<sup>2</sup> a)<sup>2</sup>)<sup>4</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b<sup>2</sup> a b<sup>3</sup> a)<sup>4</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b a b<sup>4</sup> a)<sup>4</sup>, </td></tr></table></td></tr>
+<tr><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b<sup>2</sup> (b a)<sup>2</sup> b)<sup>4</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((b<sup>2</sup> a)<sup>2</sup> b)<sup>4</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b a b<sup>3</sup> a b)<sup>4</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b (b a)<sup>2</sup> b<sup>2</sup>)<sup>4</sup>, </td></tr></table></td></tr>
+<tr><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((b a b)<sup>2</sup> b)<sup>4</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((b<sup>2</sup> a)<sup>2</sup> b a)<sup>12</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+(b (b a)<sup>2</sup> b<sup>2</sup> a)<sup>12</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((b a b)<sup>2</sup> b a)<sup>12</sup>, </td></tr></table></td></tr>
+<tr><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((b a b)<sup>2</sup> a b)<sup>12</sup>, </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+((b<sup>2</sup> a)<sup>2</sup> b a b a)<sup>12</sup> </td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+</td></tr></table></td><td><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+</td></tr></table></td></tr></table>
+</td><td nowrap="nowrap" align="center">
+</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+The following straight line program computes these basis vectors
+when it is applied to x and y.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; slp_ker:= StraightLineProgram( [
+    &#62;     [ 1, 1, 2, 1 ], [ 2, 1, 1, 1 ], [ 2, 2 ], [ 4, 1, 2, 1 ],
+    &#62;     [ 2, 1, 4, 1 ], [ 3, 1, 2, 1 ], [ 3, 2 ], [ 4, 2 ], [ 6, 2 ],
+    &#62;     [ 7, 2 ], [ 2, 1, 10, 1 ], [ 2, 1, 6, 1 ], [ 10, 1, 2, 1 ],
+    &#62;     [ 5, 1, 3, 1 ], [ 4, 1, 5, 1 ], [ 9, 1, 1, 1 ], [ 3, 1, 10, 1 ],
+    &#62;     [ 9, 1, 4, 1 ], [ 5, 1, 13, 1 ], [ 2, 1, 12, 1 ], [ 14, 1, 7, 1 ],
+    &#62;     [ 17, 1, 7, 1 ], [ 5, 1, 15, 1 ], [ 12, 1, 2, 1 ], [ 6, 1, 14, 1 ],
+    &#62;     [ 13, 1, 5, 1 ], [ 11, 1, 2, 1 ], [ 12, 1, 4, 1 ], [ 13, 1, 7, 1 ],
+    &#62;     [ 11, 1, 4, 1 ], [ 11, 1, 3, 1 ], [ 12, 1, 10, 1 ],
+    &#62;     [ [ 7, 9 ], [ 6, 9 ], [ 8, 9 ], [ 16, 9 ], [ 17, 9 ], [ 18, 9 ],
+    &#62;       [ 19, 9 ], [ 20, 9 ], [ 21, 4 ], [ 22, 4 ], [ 23, 4 ], [ 24, 4 ],
+    &#62;       [ 25, 4 ], [ 26, 4 ], [ 27, 4 ], [ 28, 4 ], [ 29, 4 ], [ 30, 12 ],
+    &#62;       [ 31, 12 ], [ 32, 12 ], [ 33, 12 ], [ 34, 12 ] ] ], 2 );;
+    gap&#62; f:= FreeGroup( "a", "b" );;  a:= f.1;;  b:= f.2;;
+    gap&#62; ResultOfStraightLineProgram( slp_ker, [ a, b ] );
+    [ (b^2*a)^9, (b*a*b)^9, (a*b^2)^9, (b^2*a*b)^9, (b*a*b^2)^9, ((a*b)^2*a)^9, 
+      (a*b*(b*a)^2)^9, ((a*b)^2*b*a)^9, (b^3*(b*a)^2)^4, (b*(b^2*a)^2)^4, 
+      (b^2*a*b^3*a)^4, (b*a*b^4*a)^4, (b^2*(b*a)^2*b)^4, ((b^2*a)^2*b)^4, 
+      (b*a*b^3*a*b)^4, (b*(b*a)^2*b^2)^4, ((b*a*b)^2*b)^4, ((b^2*a)^2*b*a)^12, 
+      (b*(b*a)^2*b^2*a)^12, ((b*a*b)^2*b*a)^12, ((b*a*b)^2*a*b)^12, 
+      ((b^2*a)^2*b*a*b*a)^12 ]
+
+</pre>
+
+<div class="p"><!----></div>
+the straight line program that is available in&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>]
+computes class representatives of Co<sub>2</sub> from standard generators.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; slp_co2classreps:= AtlasProgram( "Co2", "classes" );;
+
+</pre>
+
+<div class="p"><!----></div>
+Hence we can describe representatives of the 388 classes of P
+as products of the class representatives of Co<sub>2</sub>
+and suitable elements of N.
+The necessary computations are described in Appendix&nbsp;<a href="#slp_classreps">10</a>.
+
+<div class="p"><!----></div>
+The list <tt>classrepsinfo</tt> contains 60 entries;
+the i-th entry describes the preimage classes of the i-th class
+of Co<sub>2</sub>,
+by listing the positions of those basis vectors that can be multiplied
+with the i-th output of <tt>slp_co2classreps</tt> in order to get
+the class representatives in question.
+
+<div class="p"><!----></div>
+(The ordering of the representatives fits to the ordering of the classes
+in the relevant factor of the library character table of C.
+The entry <tt>[ 0 ]</tt> means that the identity matrix is taken instead
+of the representative.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; classrepsinfo:= [
+    &#62;  [  "1A", [ [ 0 ], [ 3, 4, 22 ], [  ], [ 8 ], [ 2 ], [ 1 ] ] ], 
+    &#62;  [  "2A", [ [ 1, 6, 8, 9, 11 ], [ 12 ], [ 1, 4, 9, 10, 19 ],
+    &#62;             [ 5, 7 ], [ 1, 9 ], [ 1, 16 ], [  ], [ 1 ], [ 5 ],
+    &#62;             [ 1, 5, 18 ], [ 3 ] ] ], 
+    &#62;  [  "2B", [ [ 1, 3, 4, 17, 20 ], [ 2, 14, 17 ], [ 2, 10, 22 ],
+    &#62;             [ 14, 21 ], [  ], [ 9 ], [ 1, 5 ], [ 10, 11 ], [ 6, 12 ],
+    &#62;             [ 1 ], [ 2 ] ] ], 
+    &#62;  [  "2C", [ [ 4, 11, 13, 20 ], [ 1, 10, 12, 17 ], [ 3, 18, 21 ],
+    &#62;             [ 8, 13, 17 ], [ 16, 22 ], [ 4, 5, 15 ], [ 8, 13 ],
+    &#62;             [ 1, 10 ], [ 1, 21 ], [ 3, 9, 18, 21 ], [ 8 ],
+    &#62;             [ 1, 10, 12 ], [ 4 ], [ 21 ], [ 6 ], [ 1 ], [  ] ] ],
+    &#62;  [  "3A", [ [  ], [ 21 ], [ 1 ] ] ], 
+    &#62;  [  "3B", [ [ 17, 20 ], [ 17 ], [ 1, 5, 17 ], [ 3, 18 ], [ 1 ], [ 10 ],
+    &#62;             [ 12 ], [ 3 ], [  ] ] ],
+    &#62;  [  "4A", [ [ 11 ], [  ], [ 1 ], [ 1, 12 ], [ 2 ] ] ], 
+    &#62;  [  "4B", [ [ 2, 7, 19, 20 ], [ 2, 12 ], [ 9, 21 ], [ 5 ], [  ],
+    &#62;             [ 14 ], [ 9, 20 ], [ 2, 14 ], [ 6 ], [ 1 ], [ 8 ], [ 2 ] ] ], 
+    &#62;  [  "4C", [ [ 3, 7, 11 ], [ 18, 22 ], [ 4, 6 ], [ 21 ], [ 2, 17, 18 ],
+    &#62;             [ 1, 14 ], [ 5, 12, 17 ], [ 14 ], [ 3, 4 ], [ 3 ], [ 10 ],
+    &#62;             [ 2 ], [ 1 ], [  ] ] ], 
+    &#62;  [  "4D", [ [ 20 ], [ 9, 22 ], [ 8, 16 ], [ 6 ], [ 6, 17 ], [  ],
+    &#62;             [ 1 ] ] ], 
+    &#62;  [  "4E", [ [ 11, 19 ], [ 3, 7 ], [ 1, 22 ], [ 1, 2, 22 ], [ 1, 10 ],
+    &#62;             [ 3, 18 ], [  ], [ 5, 20 ], [ 2 ], [ 1, 15 ], [ 1 ], [ 3 ],
+    &#62;             [ 8 ] ] ], 
+    &#62;  [  "4F", [ [ 3, 4 ], [ 3, 19, 21 ], [ 4, 16 ], [ 4, 13 ], [ 3, 7 ],
+    &#62;             [ 4 ], [ 3 ], [ 4, 17 ], [ 13 ], [ 1, 7 ], [  ], [ 1, 9 ],
+    &#62;             [ 4, 14 ], [ 17 ], [ 19 ], [ 1 ], [ 1, 4 ], [ 18 ],
+    &#62;             [ 11 ] ] ], 
+    &#62;  [  "4G", [ [ 10 ], [ 1, 4 ], [ 8 ], [ 20 ], [  ], [ 16 ], [ 1 ],
+    &#62;             [ 2 ] ] ], 
+    &#62;  [  "5A", [ [  ], [ 1 ] ] ], 
+    &#62;  [  "5B", [ [  ], [ 1 ], [ 2 ], [ 19 ], [ 15, 19 ], [ 4 ], [ 8 ] ] ], 
+    &#62;  [  "6A", [ [ 2 ], [  ], [ 1 ] ] ], 
+    &#62;  [  "6B", [ [  ], [ 21 ], [ 1, 11 ], [ 1 ], [ 10 ] ] ], 
+    &#62;  [  "6C", [ [ 8 ], [ 1, 14 ], [  ], [ 9 ], [ 1 ], [ 10 ], [ 2 ],
+    &#62;             [ 3 ] ] ], 
+    &#62;  [  "6D", [ [  ], [ 19 ], [ 12, 17 ], [ 1, 11 ], [ 7 ], [ 4, 10 ], [ 1 ], 
+    &#62;             [ 2, 3 ], [ 1, 7 ], [ 10 ], [ 3 ] ] ], 
+    &#62;  [  "6E", [ [ 9 ], [ 1, 8 ], [ 2 ], [ 22 ], [  ], [ 2, 3 ], [ 1 ],
+    &#62;             [ 3, 4 ], [ 3 ], [ 13 ], [ 7 ], [ 6 ] ] ], 
+    &#62;  [  "6F", [ [ 5, 10 ], [ 1, 2, 4 ], [ 4, 13 ], [ 10, 18 ], [ 4, 12 ],
+    &#62;             [ 4, 9 ], [ 21 ], [ 4 ], [ 8 ], [ 1, 10 ], [ 1, 8, 18 ],
+    &#62;             [ 10 ], [ 6 ], [ 1 ], [  ], [ 3 ] ] ], 
+    &#62;  [  "7A", [ [ 1, 2 ], [ 2 ], [  ], [ 7 ], [ 1, 10 ], [ 1 ], [ 11 ] ] ], 
+    &#62;  [  "8A", [ [ 2, 18 ], [  ], [ 2 ], [ 9 ], [ 7 ], [ 1 ] ] ], 
+    &#62;  [  "8B", [ [ 8, 17 ], [ 1, 7 ], [ 11, 21 ], [ 2, 8 ], [  ], [ 1 ],
+    &#62;             [ 2, 12 ], [ 7 ], [ 5 ], [ 2 ] ] ], 
+    &#62;  [  "8C", [ [ 1, 8 ], [ 13 ], [ 9 ], [  ], [ 1 ] ] ], 
+    &#62;  [  "8D", [ [ 1, 2 ], [ 7 ], [ 1 ], [ 6 ], [  ] ] ], 
+    &#62;  [  "8E", [ [ 2, 12 ], [ 3, 22 ], [ 4, 22 ], [ 4, 12 ], [ 1, 11 ],
+    &#62;             [ 2, 22 ], [ 6, 12 ], [ 9 ], [ 2, 10 ], [ 20 ], [ 1, 9 ],
+    &#62;             [ 11 ], [ 10 ], [ 1 ], [  ], [ 7 ] ] ], 
+    &#62;  [  "8F", [ [ 1, 10 ], [ 18 ], [ 4 ], [ 9 ], [ 20 ], [  ], [ 6 ],
+    &#62;             [ 1 ] ] ], 
+    &#62;  [  "9A", [ [  ], [ 4 ], [ 3 ], [ 5 ] ] ],
+    &#62;  [ "10A", [ [  ], [ 1 ] ] ], 
+    &#62;  [ "10B", [ [ 2 ], [ 12 ], [  ], [ 1 ], [ 9 ], [ 10 ], [ 14 ], [ 3 ] ] ], 
+    &#62;  [ "10C", [ [ 1, 20 ], [ 5 ], [ 1, 8 ], [ 12 ], [ 2 ], [  ], [ 10 ],
+    &#62;             [ 3 ], [ 1 ] ] ],
+    &#62;  [ "11A", [ [ 2 ], [ 1 ], [ 3 ], [  ] ] ], 
+    &#62;  [ "12A", [ [ 10 ], [  ], [ 1 ] ] ], 
+    &#62;  [ "12B", [ [  ], [ 14 ], [ 1 ], [ 3 ], [ 4 ], [ 10 ] ] ], 
+    &#62;  [ "12C", [ [ 19 ], [  ], [ 7 ], [ 1, 7 ], [ 1 ] ] ], 
+    &#62;  [ "12D", [ [ 1 ], [ 11 ], [ 8 ], [ 15 ], [  ], [ 2 ] ] ], 
+    &#62;  [ "12E", [ [ 3 ], [ 5 ], [  ] ] ], 
+    &#62;  [ "12F", [ [ 9 ], [ 1, 15 ], [ 5 ], [  ], [ 2 ], [ 12 ], [ 8 ],
+    &#62;             [ 1 ] ] ], 
+    &#62;  [ "12G", [ [  ], [ 1 ], [ 3 ] ] ], 
+    &#62;  [ "12H", [ [ 1, 4 ], [ 4, 14 ], [ 4, 9 ], [ 4 ], [ 14 ], [ 9 ], [ 1 ],
+    &#62;             [  ], [ 11 ], [ 18 ] ] ], 
+    &#62;  [ "14A", [ [ 1, 2 ], [ 1, 7 ], [ 10 ], [ 1 ], [ 19 ], [  ], [ 16 ] ] ], 
+    &#62;  [ "14B", [ [ 7 ], [  ], [ 1 ], [ 11 ] ] ], 
+    &#62;  [ "14C", [ [ 7 ], [  ], [ 1 ], [ 11 ] ] ], 
+    &#62;  [ "15A", [ [  ], [ 2 ], [ 3 ], [ 1 ] ] ],
+    &#62;  [ "15B", [ [  ] ] ], 
+    &#62;  [ "15C", [ [  ] ] ],
+    &#62;  [ "16A", [ [ 6 ], [ 11 ], [  ], [ 1 ] ] ], 
+    &#62;  [ "16B", [ [ 3 ], [  ], [ 6 ], [ 1 ] ] ], 
+    &#62;  [ "18A", [ [ 4 ], [  ], [ 5 ], [ 3 ] ] ], 
+    &#62;  [ "20A", [ [ 6 ], [ 1 ], [  ], [ 7 ] ] ], 
+    &#62;  [ "20B", [ [ 3 ], [ 1 ], [ 2 ], [  ] ] ],
+    &#62;  [ "23A", [ [  ] ] ], 
+    &#62;  [ "23B", [ [  ] ] ],
+    &#62;  [ "24A", [ [ 18 ], [ 7 ], [  ], [ 1 ] ] ], 
+    &#62;  [ "24B", [ [ 10 ], [  ], [ 1 ], [ 4 ] ] ], 
+    &#62;  [ "28A", [ [ 5 ], [  ], [ 10 ], [ 1 ] ] ], 
+    &#62;  [ "30A", [ [ 2 ], [  ], [ 1 ], [ 3 ] ] ],
+    &#62;  [ "30B", [ [  ] ] ], 
+    &#62;  [ "30C", [ [  ] ] ] ];;
+
+</pre>
+
+<div class="p"><!----></div>
+The <font face="helvetica">GAP</font> code for turning this information into a straight line program
+is shorter than the lines of this program,
+hence we show this program.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; create_classreps_slp:= function( classreps )
+    &#62;     local words, l, len, lines, kerneloffset, inputoffset, cache, k,
+    &#62;           found, pair, pos, diff, pos2, first, n, outputs, i, list;
+    &#62; 
+    &#62;     # Find words for the products of kernel generators that occur.
+    &#62;     words:= [];
+    &#62;     for l in Set( Concatenation( List( classreps, x -&#62; x[2] ) ) ) do
+    &#62;       len:= Length( l );
+    &#62;       if 2 &lt;= len then
+    &#62;         if not IsBound( words[ len ] ) then
+    &#62;           words[ len ]:= [];
+    &#62;         fi;
+    &#62;         Add( words[ len ], l );
+    &#62;       fi;
+    &#62;     od;
+    &#62; 
+    &#62;     lines:= [];
+    &#62;     kerneloffset:= 60;
+    &#62;     inputoffset:= 82;
+    &#62; 
+    &#62;     # We have to form all products of length 2 of kernel generators.
+    &#62;     cache:= [ [], [] ];
+    &#62;     for l in words[2] do
+    &#62;       Add( lines,
+    &#62;            [ l[1] + kerneloffset, 1, l[2] + kerneloffset, 1 ] );
+    &#62;       Add( cache[1], l );
+    &#62;       Add( cache[2], Length( lines ) + inputoffset );
+    &#62;     od;
+    &#62; 
+    &#62;     # For products of length at least 3, we may use known products
+    &#62;     # of length 2.  Longer matches are not considered.
+    &#62;     for k in [ 3 .. Length( words ) ] do
+    &#62;       for l in words[k] do
+    &#62;         found:= false;
+    &#62;         for pair in Combinations( l, 2 ) do
+    &#62;           pos:= Position( cache[1], pair );
+    &#62;           if pos &lt;&#62; fail then
+    &#62;             diff:= Difference( l, pair );
+    &#62;             if Length( diff ) = 1 then
+    &#62;               Add( lines,
+    &#62;                 [ cache[2][ pos ], 1, diff[1] + kerneloffset, 1 ] );
+    &#62;             else
+    &#62;               pos2:= Position( cache[1], diff );
+    &#62;               if pos2 &lt;&#62; fail then
+    &#62;                 Add( lines,
+    &#62;                   [ cache[2][ pos ], 1, cache[2][ pos2 ], 1 ] );
+    &#62;               else
+    &#62;                 first:= cache[2][ pos ];
+    &#62;                 for n in diff do
+    &#62;                   Add( lines, [ first, 1, n + kerneloffset, 1 ] );
+    &#62;                   first:= Length( lines ) + inputoffset;
+    &#62;                 od;
+    &#62;               fi;
+    &#62;             fi;
+    &#62;             Add( cache[1], l );
+    &#62;             Add( cache[2], Length( lines ) + inputoffset );
+    &#62;             found:= true;
+    &#62;             break;
+    &#62;           fi;
+    &#62;         od;
+    &#62;         if not found then
+    &#62;           first:= l[1] + kerneloffset;
+    &#62;           for n in l{ [ 2 .. Length( l ) ] } do
+    &#62;             Add( lines, [ first, 1, n + kerneloffset, 1 ] );
+    &#62;             first:= Length( lines ) + inputoffset;
+    &#62;           od;
+    &#62;           Add( cache[1], l );
+    &#62;           Add( cache[2], Length( lines ) + inputoffset );
+    &#62;         fi;
+    &#62;       od;
+    &#62;     od;
+    &#62; 
+    &#62;     outputs:= [];
+    &#62; 
+    &#62;     for i in [ 1 .. Length( classreps ) ] do
+    &#62;       list:= classreps[i][2];
+    &#62;       for l in list do
+    &#62;         if l = [ 0 ] then
+    &#62;           Add( outputs, [ kerneloffset + 1, 2 ] );
+    &#62;         elif l = [] then
+    &#62;           Add( outputs, [ i, 1 ] );
+    &#62;         elif Length( l ) = 1 then
+    &#62;           Add( lines, [ i, 1, l[1] + kerneloffset, 1 ] );
+    &#62;           Add( outputs, [ Length( lines ) + inputoffset, 1 ] );
+    &#62;         else
+    &#62;           # The words are already cached.
+    &#62;           pos:= Position( cache[1], l );
+    &#62;           Add( lines, [ i, 1, cache[2][ pos ], 1 ] );
+    &#62;           Add( outputs, [ Length( lines ) + inputoffset, 1 ] );
+    &#62;         fi;
+    &#62;       od;
+    &#62;     od;
+    &#62; 
+    &#62;     Add( lines, outputs );
+    &#62; 
+    &#62;     return StraightLineProgram( lines, inputoffset );
+    &#62; end;;
+    gap&#62; slp_classreps:= create_classreps_slp( classrepsinfo );;
+
+</pre>
+
+<div class="p"><!----></div>
+We compute the class representatives of P.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; kerperms:= ResultOfStraightLineProgram( slp_ker, stdperms );;
+    gap&#62; co2classreps:= ResultOfStraightLineProgram(
+    &#62;        slp_co2classreps.program, stdperms );;
+    gap&#62; classreps:= ResultOfStraightLineProgram( slp_classreps,
+    &#62;        Concatenation( co2classreps, kerperms ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+Now the <font face="helvetica">MAGMA</font>&nbsp;[<a href="#Magma" name="CITEMagma">BCP97</a>] system is invoked
+for computing the irreducible characters of P.
+The function <tt>CharacterTableComputedByMagma</tt> guarantees that
+the columns are indexed by the class representatives we have chosen.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; g:= Group( stdperms );;
+    gap&#62; SetConjugacyClasses( g,
+    &#62;        List( classreps, x -&#62; ConjugacyClass( g, x ) ) );
+    gap&#62; libcb2b:= CharacterTable( "BM2" );
+    CharacterTable( "2^(1+22).Co2" )
+    gap&#62; cen:= ClassPositionsOfCentre( libcb2b );;
+    gap&#62; if CTblLib.IsMagmaAvailable() then
+    &#62;      mgmt:= CharacterTableComputedByMagma( g, "2^22.Co2-Magma" );
+    &#62;    else
+    &#62;      mgmt:= libcb2b / cen;  # this is a hack ...
+    &#62;    fi;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Our next goal is to compute the character table of C,
+together with the information about the correspondence of the
+conjugacy classes in C and <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+In order to write down class representatives of C,
+we evaluate the words for class representatives of
+C / &#9001;z &#9002; in the generators of the faithful
+2048-dimensional module for C, in characteristic 3 and 5.
+For elements of order not divisible by 15, we can compute the Brauer
+character value in at least one of the two representations,
+and interpret it as the value of the unique faithful irreducible ordinary
+character of degree 2048 of C.
+Whenever this character value is nonzero, we know that the corresponding
+class of C / &#9001;z &#9002; splits into two classes of C,
+on which the values of this character differ by sign.
+For classes where the character value is zero, it will turn out later
+that no splitting occurs; for the moment, we leave this question open.
+
+<div class="p"><!----></div>
+We get words in terms of the generators a and b of C for the elements
+in question, that is, for the class representatives of C / &#9001;z &#9002;
+and for products of some of them with the central involution of C.
+
+<div class="p"><!----></div>
+We evaluate these words in the three 4371-dimensional representations,
+and run the identification program in order to assign the label of one of
+the  preliminary conjugacy classes of <font size="+0">B</font> to them.
+
+<div class="p"><!----></div>
+Let us collect the necessary data, that is,
+the class representatives of C / &#9001;z &#9002; in the restrictions
+of the three representations of <font size="+0">B</font> to C
+and in the two 2048-dimensional representations of C,
+in characteristics 3 and 5, respectively.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; cgens_2:= ResultOfStraightLineProgram( slp_maxes_2.program,
+    &#62;                  GeneratorsOfGroup( b_2 ) );;
+    gap&#62; cgens_5:= ResultOfStraightLineProgram( slp_maxes_2.program,
+    &#62;                  GeneratorsOfGroup( b_5 ) );;
+    gap&#62; cgens_2_std:= ResultOfStraightLineProgram( slp_co2, cgens_2 );;
+    gap&#62; cgens_3_std:= ResultOfStraightLineProgram( slp_co2, cgens_3 );;
+    gap&#62; cgens_5_std:= ResultOfStraightLineProgram( slp_co2, cgens_5 );;
+    gap&#62; m:= GModuleByMats( cgens_5_std, GF(5) );;
+    gap&#62; cf_5:= MTX.CompositionFactors( m );;
+    gap&#62; SortParallel( List( cf_5, x -&#62; x.dimension ), cf_5 );
+    gap&#62; List( cf_5, x -&#62; x.dimension );
+    [ 23, 2048, 2300 ]
+    gap&#62; inputsB:= List( [ cgens_2_std, cgens_3_std, cgens_5_std ],
+    &#62;      l -&#62; Concatenation(
+    &#62;             ResultOfStraightLineProgram( slp_co2classreps.program, l ),
+    &#62;             ResultOfStraightLineProgram( slp_ker, l ) ) );;
+    gap&#62; cf3std:= ResultOfStraightLineProgram( slp_co2, cf_3[2].generators );;
+    gap&#62; inputs2048:= List( [ cf3std, cf_5[2].generators ],
+    &#62;      l -&#62; Concatenation(
+    &#62;             ResultOfStraightLineProgram( slp_co2classreps.program, l ),
+    &#62;             ResultOfStraightLineProgram( slp_ker, l ) ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Next we need the central involution of C in the five representations.
+We are lucky, the preimage of the identity of C / &#9001;z &#9002;
+under the epimorphism from C that is computed by the straight line
+program <tt>slp_classreps</tt> has order two.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; slp:= RestrictOutputsOfSLP( slp_classreps, 1 );;
+    gap&#62; centralinv_2048:= List( inputs2048,
+    &#62;        l -&#62; ResultOfStraightLineProgram( slp, l ) );;
+    gap&#62; List( centralinv_2048, Order );
+    [ 2, 2 ]
+    gap&#62; centralinv_B:= List( inputsB,
+    &#62;        l -&#62; ResultOfStraightLineProgram( slp, l ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+Now we run over the class representatives of C / &#9001;z &#9002;,
+and collect the data in a record with the following components.
+
+<div class="p"><!----></div>
+<tt>preimages</tt>:
+    one or two preimage classes, depending on whether the class in question
+    need not split or must split,
+
+<div class="p"><!----></div>
+<tt>fusionlabels</tt>:
+    for each class of C / &#9001;z &#9002;,
+    one or two labels of class names in <font size="+0">B</font>,
+
+<div class="p"><!----></div>
+<tt>projcharacter</tt>:
+    the Brauer character value of the first preimage of the class
+    in one of the 2048-dimensional representations, if possible;
+    otherwise <tt>fail</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; cent_table:= rec( preimages:= [],
+    &#62;                      fusionlabels:= [],
+    &#62;                      projcharacter:= [] );;
+    gap&#62; for i in [ 1 .. Length( classreps ) ] do
+    &#62;      # identify the representative
+    &#62;      slp:= RestrictOutputsOfSLP( slp_classreps, i );
+    &#62;      id:= IdentifyClassName( inputsB[1], inputsB[2], inputsB[3], slp, fail );
+    &#62;      order:= Int( Filtered( id, IsDigitChar ) );
+    &#62; 
+    &#62;      if order mod 3 = 0 then
+    &#62;        if order mod 5 = 0 then
+    &#62;          # We cannot compute the Brauer character value.
+    &#62;          value:= fail;
+    &#62;        else
+    &#62;          value:= BrauerCharacterValue(
+    &#62;                      ResultOfStraightLineProgram( slp, inputs2048[2] ) );
+    &#62;        fi;
+    &#62;      else
+    &#62;        value:= BrauerCharacterValue(
+    &#62;                    ResultOfStraightLineProgram( slp, inputs2048[1] ) );
+    &#62;      fi;
+    &#62; 
+    &#62;      if value = 0 then
+    &#62;        # Assume no splitting.
+    &#62;        Add( cent_table.preimages, [ i ] );
+    &#62;        Add( cent_table.fusionlabels, [ id ] );
+    &#62;        Add( cent_table.projcharacter, value );
+    &#62;      else
+    &#62;        # Identify the class of the other preimage.
+    &#62;        mats:= List( inputsB,
+    &#62;                     l -&#62; ResultOfStraightLineProgram( slp, l ) );
+    &#62;        id2:= IdentifyClassName( mats[1] * centralinv_B[1],
+    &#62;                            mats[2] * centralinv_B[2],
+    &#62;                            mats[3] * centralinv_B[3],
+    &#62;                            fail, fail );
+    &#62;        if value = fail then
+    &#62;          # no Brauer character value known
+    &#62;          Add( cent_table.preimages, [ i ] );
+    &#62;          Add( cent_table.fusionlabels, [ id, id2 ] );
+    &#62;          Add( cent_table.projcharacter, value );
+    &#62;        else
+    &#62;          # two preimage classes, take the positive value first
+    &#62;          Add( cent_table.preimages, [ i, i ] );
+    &#62;          if value &#62; 0 then
+    &#62;            Add( cent_table.fusionlabels, [ id, id2 ] );
+    &#62;            Add( cent_table.projcharacter, value );
+    &#62;          else
+    &#62;            Add( cent_table.fusionlabels, [ id2, id ] );
+    &#62;            Add( cent_table.projcharacter, -value );
+    &#62;          fi;
+    &#62;        fi;
+    &#62;      fi;
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+Let us compute the missing values for the faithful irreducible character
+of C.
+We know that these values are integers,
+and the character values at the p-th powers are known,
+for p  &#8712; { 3, 5 }.
+The value at the p-th power of an element g, say,
+determines the congruence class of the value at g modulo p,
+thus we know the congruence classes of the missing values modulo 15.
+For each of the classes of C where the character value is not known yet,
+the class length is at least &#124;C&#124; / 120,
+and a character value of absolute value 7 or larger
+on any of these classes would lead to a contribution of at least 7<sup>2</sup> / 120
+to the norm of the character.
+However, the known character values contribute already more than
+1 &#8722; 7<sup>2</sup> / 120 to the norm, hence the missing character values
+are uniquely determined by their congruence class modulo 15.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; chi:= cent_table.projcharacter;;
+    gap&#62; failpos:= Positions( chi, fail );;
+    gap&#62; OrdersClassRepresentatives( mgmt ){ failpos };
+    [ 15, 30, 30, 30, 15, 15, 30, 30, 30, 30, 30, 30 ]
+    gap&#62; SizesCentralizers( mgmt ){ failpos };
+    [ 120, 120, 120, 120, 30, 30, 120, 120, 120, 120, 30, 30 ]
+    gap&#62; used:= 0;;
+    gap&#62; for i in[ 1 .. 388 ] do
+    &#62;      if chi[i] &lt;&#62; 0 and chi[i] &lt;&#62; fail then
+    &#62;        used:= used + 2 * SizesConjugacyClasses( mgmt )[i] * chi[i]^2;
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; used / ( 2 * Size( mgmt ) ) &#62; 1 - 7^2 / 120;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we may complete the character, as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; for i in failpos do
+    &#62;      v:= ChineseRem( [ 3, 5 ], [ chi[ PowerMap( mgmt, 3, i ) ],
+    &#62;                                  chi[ PowerMap( mgmt, 5, i ) ] ] );
+    &#62;     if v &#62; 7 then
+    &#62;       v:= v - 15;
+    &#62;     fi;
+    &#62;     chi[i]:= AbsInt( v );
+    &#62;   od;
+    gap&#62; chi{ failpos };
+    [ 2, 0, 0, 0, 1, 1, 2, 0, 0, 0, 1, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+In order to assign the right labels to the preimages of those classes
+of C / &#9001;z &#9002; that split into two classes of C,
+we use congruences w.&nbsp;r.&nbsp;t.&nbsp;the third power map.
+Note that we have chosen that <em>positive</em>
+values of the projective character
+belong to the <em>first</em> entry in each pair of class labels.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; split:= Filtered( failpos, x -&#62; chi[x] &lt;&#62; 0 );
+    [ 343, 347, 348, 383, 387, 388 ]
+    gap&#62; nonsplit:= Difference( failpos, split );
+    [ 344, 345, 346, 384, 385, 386 ]
+    gap&#62; pow:= PowerMap( mgmt, 3 ){ split };
+    [ 138, 136, 136, 263, 261, 261 ]
+    gap&#62; chi{ split };
+    [ 2, 1, 1, 2, 1, 1 ]
+    gap&#62; chi{ pow };
+    [ 8, 2, 2, 4, 2, 2 ]
+    gap&#62; cent_table.fusionlabels{ split };
+    [ [ "15A", "30D" ], [ "15B", "30GH" ], [ "15B", "30GH" ], [ "30A", "30E" ], 
+      [ "30GH", "30F" ], [ "30GH", "30F" ] ]
+    gap&#62; cent_table.fusionlabels{ pow };
+    [ [ "5A", "10B" ], [ "10D", "5B" ], [ "10D", "5B" ], [ "10A", "10E" ], 
+      [ "10F", "10D" ], [ "10F", "10D" ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+We see from the element orders that the first three pairs are already
+sorted correctly.
+The fourth pair must be swapped because <tt>30A</tt> cubes to <tt>10A</tt>
+and the positive values of the projective character
+are not congruent modulo 3.
+Similarly, the last two pairs need not be swapped because <tt>30F</tt>
+cubes to <tt>10F</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; First( powerinfo, l -&#62; l[1] = "30A" );
+    [ "30A", [ [ 2, "15A" ], [ 3, "10A" ], [ 5, "6B" ] ] ]
+    gap&#62; First( powerinfo, l -&#62; l[1] = "30F" );
+    [ "30F", [ [ 2, "15B" ], [ 3, "10F" ], [ 5, "6I" ] ] ]
+    gap&#62; cent_table.fusionlabels[ split[4] ]:= Permuted(
+    &#62;        cent_table.fusionlabels[ split[4] ], (1,2) );;
+    gap&#62; for i in nonsplit do
+    &#62;      Unbind( cent_table.fusionlabels[i][2] );
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+Assuming that not more classes of C / &#9001;z &#9002; split
+under the epimorphism from C,
+we create the (preliminary) character table head of C.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; for i in split do
+    &#62;      cent_table.preimages[i]:= [ i, i ];
+    &#62;    od;
+    gap&#62; factorfusion:= Concatenation( cent_table.preimages );;
+    gap&#62; cb2b:= rec( UnderlyingCharacteristic:= 0,
+    &#62;                Size:= 2 * Size( mgmt ),
+    &#62;                Identifier:= "C_B(2B)",
+    &#62;                SizesCentralizers:= [] );;
+    gap&#62; proj:= InverseMap( factorfusion );;
+    gap&#62; for i in [ 1 .. Length( proj ) ] do
+    &#62;      if IsInt( proj[i] ) then
+    &#62;        cb2b.SizesCentralizers[ proj[i] ]:= SizesCentralizers( mgmt )[i];
+    &#62;      else
+    &#62;        cb2b.SizesCentralizers{ proj[i] }:=
+    &#62;            SizesCentralizers( mgmt )[i] * [ 2, 2 ];
+    &#62;      fi;
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+The element orders are given by the class labels.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fusionlabels:= Concatenation( cent_table.fusionlabels );;
+    gap&#62; cb2b.OrdersClassRepresentatives:= List(
+    &#62;        Concatenation( cent_table.fusionlabels ),
+    &#62;        x -&#62; Int( Filtered( x, IsDigitChar ) ) );;
+    gap&#62; ConvertToCharacterTable( cb2b );;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we turn the projective character <tt>chi</tt> of C/&#9001;z &#9002;
+into a character for C,
+and inflate the characters of the factor group to C.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; chi_c:= [];;
+    gap&#62; for i in [ 1 .. Length( chi ) ] do
+    &#62;      if chi[i] = 0 then
+    &#62;        chi_c[ proj[i] ]:= 0;
+    &#62;      else
+    &#62;        chi_c{ proj[i] }:= [ 1, -1 ] * chi[i];
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; factirr:= List( Irr( mgmt ), x -&#62; x{ factorfusion } );;
+
+</pre>
+
+<div class="p"><!----></div>
+Tensoring the faithful irreducible character with the 60 irreducible
+characters of the factor group Co<sub>2</sub> yields 60 irreducible characters
+of C, which are in fact all the missing irreducibles.
+In particular, no further splitting of classes occurs.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; factirr_co2:= Filtered( factirr,
+    &#62;                      x -&#62; ClassPositionsOfKernel( x ) &lt;&#62; [ 1, 2 ] );;
+    gap&#62; Length( factirr_co2 );
+    60
+    gap&#62; ten:= Tensored( factirr_co2, [ chi_c ] );;
+    gap&#62; Set( List( ten, x -&#62; ScalarProduct( cb2b, x, x ) ) );
+    [ 1 ]
+    gap&#62; irr:= Concatenation( factirr, ten );;
+    gap&#62; Size( cb2b ) = Sum( List( irr, x -&#62; x[1]^2 ) );
+    true
+    gap&#62; SetIrr( cb2b, List( irr, x -&#62; Character( cb2b, x ) ) );
+
+</pre>
+
+<div class="p"><!----></div>
+The only missing information on the character table of C
+is that on power maps.
+We use the power maps of the table for C / &#9001;z &#9002;
+as approximations, and let the standard algorithms compute the
+candidates for the maps of C;
+for all primes, there is only one candidate.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powermaps:= ComputedPowerMaps( cb2b );
+    [  ]
+    gap&#62; for p in Set( Factors( Size( cb2b ) ) ) do
+    &#62;      init:= CompositionMaps( InverseMap( factorfusion ),
+    &#62;          CompositionMaps( PowerMap( mgmt, p ), factorfusion ) );
+    &#62;      poss:= PossiblePowerMaps( cb2b, p, rec( powermap:= init ) );
+    &#62;      if Length( poss ) &lt;&#62; 1 then
+    &#62;        Error( Ordinal( p ), " power map is not unique" );
+    &#62;      fi;
+    &#62;      powermaps[p]:= poss[1];
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+Finally, we compare the newly computed character table
+with that from <font face="helvetica">GAP</font>'s library.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; libtbl:= CharacterTable( "BM2" );;
+    gap&#62; Set( Irr( libtbl ) ) = Set( Irr( cb2b ) );
+    true
+    gap&#62; IsRecord( TransformingPermutationsCharacterTables( libtbl, cb2b ) );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc6">
+6</a>&nbsp;&nbsp;Conjugacy classes of <font size="+0">B</font> and their centralizer orders</h2><a name="sect:classes">
+</a>
+
+<div class="p"><!----></div>
+In this section, we determine the conjugacy classes of <font size="+0">B</font>
+and their centralizer orders, using the fact that for each element g
+(of prime order) in a group G, say,
+the conjugacy classes of elements in G that contain roots of g
+are in bijection with the conjugacy classes in N<sub>G</sub>(&#9001;g &#9002;)
+that contain roots of g,
+and that this bijection respects centralizer orders.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+We have the following information about the elements of odd prime
+order in <font size="+0">B</font>, and their normalizers, see&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section 6].
+
+<div class="p"><!----></div>
+
+<ul>
+<li>    There are exactly two classes of element order 3 in <font size="+0">B</font>,
+    <tt>3A</tt> with normalizer S<sub>3</sub> &times;Fi<sub>22</sub>.2 and
+    <tt>3B</tt> with normalizer 3<sup>1+8</sup>.2<sup>1+6</sup>.U<sub>4</sub>(2).2.
+    Both subgroups have been constructed explicitly in the certified copy
+    of <font size="+0">B</font>, and the character table of the second subgroup has been
+    recomputed from a permutation representation -it is equivalent to the
+    character table in <font face="helvetica">GAP</font>'s library of character tables.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There are exactly two classes of element order 5 in <font size="+0">B</font>,
+    <tt>5A</tt> with normalizer 5:4 &times;HS and
+    <tt>5B</tt> with normalizer 5<sup>1+4</sup>.2<sup>1+4</sup>.A<sub>5</sub>.4.
+    According to&nbsp;[<a href="#BMverify" name="CITEBMverify">BMW20</a>,Section&nbsp;6],
+    the two subgroups have been constructed explicitly in the certified copy
+    of <font size="+0">B</font>, and the character table of the second subgroup has been
+    recomputed from a permutation representation -it is equivalent to the
+    character table in <font face="helvetica">GAP</font>'s library of character tables.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There is exactly one class of element order 7 in <font size="+0">B</font>,
+    with normalizer of order 2<sup>9</sup> &#183;3<sup>3</sup> &#183;5 &#183;7<sup>2</sup>
+    and contained in maximal subgroups of type 2.<sup>2</sup>E<sub>6</sub>(2).2.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There is exactly one class of element order 11 in <font size="+0">B</font>,
+    with normalizer of type S<sub>5</sub> &times;11:10.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There is exactly one class of element order 13 in <font size="+0">B</font>,
+    with normalizer of type S<sub>4</sub> &times;13:12.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There is exactly one class of element order 17 in <font size="+0">B</font>,
+    with normalizer of order 2<sup>6</sup> &#183;17.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There is exactly one class of element order 19 in <font size="+0">B</font>,
+    with normalizer of order 2<sup>2</sup> &#183;3<sup>2</sup> &#183;19.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There are exactly two classes of element order 23 in <font size="+0">B</font>,
+    which are Galois conjugate and have normalizer 2 &times;23:11.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There are exactly two classes of element order 31 in <font size="+0">B</font>,
+    which are Galois conjugate and have normalizer 31:15.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    There are exactly two classes of element order 47 in <font size="+0">B</font>,
+    which are Galois conjugate and have normalizer 47:23.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+We are going to create the character table head for <font size="+0">B</font>.
+For that, we collect the information about already identified classes
+in a record; its component names are the class names,
+the corresponding values are the element order and the centralizer order.
+The following auxiliary function sets a value in this record
+(and signals an error if the value constradicts the one stored in the
+library character tableof <font size="+0">B</font>).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; libB:= CharacterTable( "B" );;
+    gap&#62; libBnames:= ClassNames( libB, "ATLAS" );;
+    gap&#62; Bclassinfo:= rec();;
+    gap&#62; SetCentralizerOrder:= function( classname, value )
+    &#62;        local pos;
+    &#62; 
+    &#62;        pos:= Position( libBnames, classname );
+    &#62;        if pos = fail then
+    &#62;          Print( "no class name '", classname, "'?" );
+    &#62;          return false;
+    &#62;        elif SizesCentralizers( libB )[ pos ] &lt;&#62; value then
+    &#62;          Error( "wrong centralizer order!" );
+    &#62;        fi;
+    &#62;        Bclassinfo.( classname ):=
+    &#62;            [ Int( Filtered( classname, IsDigitChar ) ), value ];
+    &#62;        return true;
+    &#62;    end;;
+
+</pre>
+
+<div class="p"><!----></div>
+The values mentioned above, for elements of prime order at least 11,
+are entered by hand.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SetCentralizerOrder( "1A", Size( libB ) );;
+    gap&#62; SetCentralizerOrder( "11A", 11 * 120 );;
+    gap&#62; SetCentralizerOrder( "13A", 13 * 24 );;
+    gap&#62; SetCentralizerOrder( "17A", 17 * 4 );;
+    gap&#62; SetCentralizerOrder( "19A", 19 * 2 );;
+    gap&#62; SetCentralizerOrder( "23A", 23 * 2 );;
+    gap&#62; SetCentralizerOrder( "23B", 23 * 2 );;
+    gap&#62; SetCentralizerOrder( "31A", 31 );;
+    gap&#62; SetCentralizerOrder( "31B", 31 );;
+    gap&#62; SetCentralizerOrder( "47A", 47 );;
+    gap&#62; SetCentralizerOrder( "47B", 47 );;
+
+</pre>
+
+<div class="p"><!----></div>
+We will need the information about how many root classes a given class
+of <font size="+0">B</font> has,
+based on the power map information for the labels
+(the list <tt>powerinfo</tt>).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; RootInfoFromLabels:= function( label )
+    &#62;     local found, exp, res, entry, pos, root, ord;
+    &#62; 
+    &#62;     found:= [ label ];
+    &#62;     exp:= [ Int( Filtered( label, IsDigitChar ) ) ];
+    &#62;     res:= rec( total:= [], labels:= [] );
+    &#62;     res.total[ exp[1] ]:= 1;
+    &#62;     res.labels[ exp[1] ]:= [ label ];
+    &#62;     for entry in powerinfo do
+    &#62;       for root in entry[2] do
+    &#62;         if not entry[1] in found then
+    &#62;           pos:= Position( found, root[2] );
+    &#62;           if pos &lt;&#62; fail then
+    &#62;             ord:= exp[ pos ] * root[1];
+    &#62;             Add( exp, ord );
+    &#62;             Add( found, entry[1] );
+    &#62;             if not IsBound( res.total[ ord ] ) then
+    &#62;               res.total[ ord ]:= 0;
+    &#62;               res.labels[ ord ]:= [];
+    &#62;             fi;
+    &#62;             res.total[ ord ]:= res.total[ ord ] + 1;
+    &#62;             Add( res.labels[ ord ], entry[1] );
+    &#62;           fi;
+    &#62;         fi;
+    &#62;       od;
+    &#62;     od;
+    &#62;     return res;
+    &#62; end;;
+
+</pre>
+
+<div class="p"><!----></div>
+Analogously, we will need this roots information for the normalizers
+of certain elements, computed from the character tables.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; RootInfoFromTable:= function( tbl, pos )
+    &#62;     local orders, posord, res, i, ord;
+    &#62; 
+    &#62;     orders:= OrdersClassRepresentatives( tbl );
+    &#62;     posord:= orders[ pos ];
+    &#62;     res:= rec( total:= [], classpos:= [] );
+    &#62;     for i in [ 1 .. NrConjugacyClasses( tbl ) ] do
+    &#62;       ord:= orders[i];
+    &#62;       if ord mod posord = 0 and
+    &#62;          PowerMap( tbl, ord / posord, i ) = pos then
+    &#62;         if not IsBound( res.total[ ord ] ) then
+    &#62;           res.total[ ord ]:= 0;
+    &#62;           res.classpos[ ord ]:= [];
+    &#62;         fi;
+    &#62;         res.total[ ord ]:= res.total[ ord ] + 1;
+    &#62;         Add( res.classpos[ ord ], i );
+    &#62;       fi;
+    &#62;     od;
+    &#62;     return res;
+    &#62; end;;
+
+</pre>
+
+<div class="p"><!----></div>
+We compute the roots info for the four involution normalizers,
+from the available character tables.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; norm2A:= CharacterTable( "2.2E6(2).2" );;
+    gap&#62; pos2A:= ClassPositionsOfCentre( norm2A );
+    [ 1, 2 ]
+    gap&#62; rootinfo2A_t:= RootInfoFromTable( norm2A, pos2A[2] );;
+    gap&#62; pos2B:= ClassPositionsOfCentre( cb2b );
+    [ 1, 2 ]
+    gap&#62; rootinfo2B_t:= RootInfoFromTable( cb2b, pos2B[2] );;
+    gap&#62; norm2C:= CharacterTableOfIndexTwoSubdirectProduct(
+    &#62;      CharacterTable( "F4(2)" ), CharacterTable( "F4(2).2" ),
+    &#62;      CharacterTable( "2^2" ), CharacterTable( "D8" ), "norm2C" );;
+    gap&#62; pos2C:= ClassPositionsOfCentre( norm2C.table );
+    [ 1, 2 ]
+    gap&#62; rootinfo2C_t:= RootInfoFromTable( norm2C.table, pos2C[2] );;
+    gap&#62; sup_norm2D:= CharacterTable( "BM4" );
+    CharacterTable( "2^(9+16).S8(2)" )
+    gap&#62; pos2D:= Positions( SizesCentralizers( sup_norm2D ), 11689182992793600 );
+    [ 4 ]
+    gap&#62; rootinfo2D_t:= RootInfoFromTable( sup_norm2D, pos2D[1] );;
+    gap&#62; rootinfo2A_l:= RootInfoFromLabels( "2A" );;
+    gap&#62; rootinfo2B_l:= RootInfoFromLabels( "2B" );;
+    gap&#62; rootinfo2C_l:= RootInfoFromLabels( "2C" );;
+    gap&#62; rootinfo2D_l:= RootInfoFromLabels( "2D" );;
+
+</pre>
+
+<div class="p"><!----></div>
+We have to justify that the labels <tt>"2A"</tt>, <tt>"2B"</tt>,
+<tt>"2C"</tt>, <tt>"2D"</tt> for class representatives fit to the
+class names <tt>2A</tt>, <tt>2B</tt>, <tt>2C</tt>, <tt>2D</tt>
+which are used in [<a href="#Str76b" name="CITEStr76b">Str76</a>].
+For that, we check for the availability of roots of certain orders.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; List( [ rootinfo2A_t, rootinfo2B_t, rootinfo2C_t, rootinfo2D_t ],
+    &#62;          r -&#62; Filtered( [ 52, 56, 70 ], i -&#62; IsBound( r.total[i] ) ) );
+    [ [ 70 ], [ 56 ], [ 52 ], [  ] ]
+    gap&#62; List( [ rootinfo2A_l, rootinfo2B_l, rootinfo2C_l, rootinfo2D_l ],
+    &#62;          r -&#62; Filtered( [ 52, 56, 70 ], i -&#62; IsBound( r.total[i] ) ) );
+    [ [ 70 ], [ 56 ], [ 52 ], [  ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Now we can start to identify the root classes of the normalizers
+with the class labels.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; List( [ rootinfo2A_t, rootinfo2B_t, rootinfo2C_t, rootinfo2D_t ],
+    &#62;          r -&#62; Sum( Compacted( r.total ) ) );
+    [ 20, 83, 14, 40 ]
+    gap&#62; List( [ rootinfo2A_l, rootinfo2B_l, rootinfo2C_l, rootinfo2D_l ],
+    &#62;          r -&#62; Sum( Compacted( r.total ) ) );
+    [ 19, 77, 14, 40 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We see that some of the class labels for <font size="+0">B</font> belong to more than one
+conjugacy class.  Exactly one such case occurs for a root class of
+<tt>2A</tt>, the label <tt>"34BC"</tt> belongs to two Galois conjugate
+classes <tt>34B</tt>, <tt>34C</tt>.
+(This was already clear from the discussion of classes of elements
+of order 17.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rootinfo2A_t.total[34];
+    2
+    gap&#62; rootinfo2A_l.total[34];
+    1
+    gap&#62; rootinfo2A_l.labels[34];
+    [ "34BC" ]
+    gap&#62; pos34:= rootinfo2A_t.classpos[34];
+    [ 133, 135 ]
+    gap&#62; PowerMap( norm2A, 3 ){ pos34 };
+    [ 135, 133 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The other six cases where we have to adjust the labels occur for roots of
+<tt>2B</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rootinfo2B_t.total{ [ 16, 30, 32, 46, 56 ] };
+    [ 6, 3, 4, 2, 2 ]
+    gap&#62; rootinfo2B_l.total{ [ 16, 30, 32, 46, 56 ] };
+    [ 5, 2, 2, 1, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+For the classes of element order different from 16,
+we have to replace a class label by a pair of labels
+which belong to Galois conjugate classes:
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rootinfo2B_l.labels[30];
+    [ "30D", "30GH" ]
+    gap&#62; pos30:= rootinfo2B_t.classpos[30];
+    [ 388, 393, 395 ]
+    gap&#62; PowerMap( cb2b, 7 ){ pos30 };
+    [ 388, 395, 393 ]
+    gap&#62; List( pos30,
+    &#62;          i -&#62; Number( PowerMap( cb2b, 2 ), x -&#62; x = i ) );
+    [ 2, 0, 0 ]
+    gap&#62; List( rootinfo2B_l.labels[30],
+    &#62;          l -&#62; Length( RootInfoFromLabels( l ).total ) );
+    [ 60, 30 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We have to replace the label <tt>"30GH"</tt> (for which there are no square
+roots) into two labels, which we call <tt>"30G"</tt> and <tt>"30H"</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rootinfo2B_l.labels[32];
+    [ "32AB", "32CD" ]
+    gap&#62; pos32:= rootinfo2B_t.classpos[32];
+    [ 399, 400, 403, 404 ]
+    gap&#62; PowerMap( cb2b, 5 ){ pos32 };
+    [ 400, 399, 404, 403 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We replace <tt>"32AB"</tt> by <tt>"32A"</tt> and <tt>"32B"</tt>,
+and replace <tt>"32GH"</tt> by <tt>"32G"</tt> and <tt>"32H"</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rootinfo2B_l.labels[46];
+    [ "46AB" ]
+
+</pre>
+
+<div class="p"><!----></div>
+It was already clear from the presence of two Galois conjugate classes
+of element order 23 that there must be two Galois conjugate classes
+of element order 46;
+we replace <tt>"46AB"</tt> by <tt>"46A"</tt> and <tt>"46B"</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rootinfo2B_l.labels[56];
+    [ "56AB" ]
+    gap&#62; pos56:= rootinfo2B_t.classpos[56];
+    [ 437, 438 ]
+    gap&#62; PowerMap( cb2b, 3 ){ pos56 };
+    [ 437, 438 ]
+    gap&#62; PowerMap( cb2b, 5 ){ pos56 };
+    [ 438, 437 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We replace <tt>"56AB"</tt> by <tt>"56A"</tt> and <tt>"56B"</tt>.
+
+<div class="p"><!----></div>
+Now one case of element order 16 is left.
+There are two classes of element order 8 for which we
+need three classes of square roots.
+We have three square roots for the label <tt>"8D"</tt>
+but only two for <tt>"8H"</tt>,
+which are <tt>"16C"</tt> and <tt>"16DF"</tt>.
+Since both of them have square roots,
+we conclude that we have to introduce one new label for a class
+of element order 16 that has no square roots.
+We call this new label <tt>"16F"</tt>,
+and replace <tt>"16DF"</tt> by <tt>"16D"</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; pos:= rootinfo2B_t.classpos[16];
+    [ 233, 234, 235, 251, 252, 258 ]
+    gap&#62; PowerMap( cb2b, 2 ){ pos };
+    [ 69, 69, 69, 104, 104, 104 ]
+    gap&#62; List( rootinfo2B_t.classpos[16],
+    &#62;          i -&#62; Number( PowerMap( cb2b, 2 ), x -&#62; x = i ) );
+    [ 0, 0, 0, 2, 0, 2 ]
+    gap&#62; rootinfo2B_l.labels[16];
+    [ "16A", "16B", "16E", "16DF", "16C" ]
+    gap&#62; Filtered( powerinfo, l -&#62; l[1] in rootinfo2B_l.labels[16] );
+    [ [ "16A", [ [ 2, "8D" ] ] ], [ "16B", [ [ 2, "8D" ] ] ], 
+      [ "16E", [ [ 2, "8D" ] ] ], [ "16DF", [ [ 2, "8H" ] ] ], 
+      [ "16C", [ [ 2, "8H" ] ] ] ]
+    gap&#62; List( rootinfo2B_l.labels[16],
+    &#62;          l -&#62; IsBound( RootInfoFromLabels( l ).total[32] ) );
+    [ false, false, false, true, true ]
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+We record the splittings in the list <tt>powerinfo</tt>.
+First we replace the entry for each splitting label by two entries.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tosplit:= List( Filtered( powerinfo,
+    &#62;                              x -&#62; Number( x[1], IsAlphaChar ) &#62; 1 ),
+    &#62;                    x -&#62; x[1] );
+    [ "16DF", "23AB", "30GH", "31AB", "32AB", "32CD", "34BC", "46AB", "47AB", 
+      "56AB" ]
+    gap&#62; for l in tosplit do
+    &#62;      ord:= Filtered( l, IsDigitChar );
+    &#62;      new:= List( Filtered( l, IsAlphaChar ),
+    &#62;                  c -&#62; Concatenation( ord, [ c ] ) );
+    &#62;      pos:= PositionProperty( powerinfo, x -&#62; x[1] = l );
+    &#62;      Append( powerinfo, List( new, x -&#62; [ x,
+    &#62;                  StructuralCopy( powerinfo[ pos ][2] ) ] ) );
+    &#62;      Unbind( powerinfo[ pos ] );
+    &#62;    od;
+    gap&#62; powerinfo:= Compacted( powerinfo );;
+    gap&#62; SortParallel(
+    &#62;      List( powerinfo,
+    &#62;            x -&#62; [ Int( Filtered( x[1], IsDigitChar ) ), x[1] ] ),
+    &#62;      powerinfo );
+
+</pre>
+
+<div class="p"><!----></div>
+The splitting classes occur as powers only in the follwoing cases:
+We may choose <tt>"23A"</tt> as the square of <tt>"46A"</tt>,
+and <tt>"23B"</tt> as the square of <tt>"46B"</tt>.
+And we have already said that the square of both <tt>"32C"</tt>
+and <tt>"32D"</tt> shall be <tt>"16D"</tt>.
+We adjust these cases by hand.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Filtered( powerinfo, x -&#62; ForAny( x[2], p -&#62; p[2] in tosplit ) );
+    [ [ "32C", [ [ 2, "16DF" ] ] ], [ "32D", [ [ 2, "16DF" ] ] ], 
+      [ "46A", [ [ 2, "23AB" ], [ 23, "2B" ] ] ], 
+      [ "46B", [ [ 2, "23AB" ], [ 23, "2B" ] ] ] ]
+    gap&#62; entry:= First( powerinfo, x -&#62; x[1] = "32C" );;
+    gap&#62; entry[2][1][2]:= "16D";;
+    gap&#62; entry:= First( powerinfo, x -&#62; x[1] = "32D" );;
+    gap&#62; entry[2][1][2]:= "16D";;
+    gap&#62; entry:= First( powerinfo, x -&#62; x[1] = "46A" );;
+    gap&#62; entry[2][1][2]:= "23A";;
+    gap&#62; entry:= First( powerinfo, x -&#62; x[1] = "46B" );;
+    gap&#62; entry[2][1][2]:= "23B";;
+
+</pre>
+
+<div class="p"><!----></div>
+Now the numbers of roots for the four involution labels coincide
+with the corresponding numbers of root classes in the normalizers.
+We know that <font size="+0">B</font> has 184 conjugacy classes.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Length( powerinfo );
+    184
+    gap&#62; Bnames:= List( powerinfo, x -&#62; x[1] );;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we verify that the labels for elements of odd order
+describe already the conjugacy classes of elements of odd order.
+For that, it is sufficient to check the normalizers of
+<tt>"3A"</tt>, <tt>"3B"</tt>, <tt>"5A"</tt>, <tt>"5B"</tt>.
+Note that <tt>"3A"</tt> has roots of order 66 and
+<tt>"3B"</tt> has no such roots,
+and <tt>"5A"</tt> has roots of order 70 and <tt>"5B"</tt> has not;
+this means that the names of the labels coincide with the class names.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; n3a:= CharacterTable( "S3xFi22.2" );;
+    gap&#62; pos:= ClassPositionsOfPCore( n3a, 3 );
+    [ 1, 113 ]
+    gap&#62; rootinfo3A_t:= RootInfoFromTable( n3a, pos[2] );;
+    gap&#62; rootinfo3A_l:= RootInfoFromLabels( "3A" );;
+    gap&#62; n3b:= CharacterTable( "3^(1+8).2^(1+6).U4(2).2" );;
+    gap&#62; pos:= ClassPositionsOfPCore( n3b, 3 );
+    [ 1 .. 4 ]
+    gap&#62; Filtered( ClassPositionsOfNormalSubgroups( n3b ),
+    &#62;              n -&#62; IsSubset( pos, n ) );
+    [ [ 1 ], [ 1, 2 ], [ 1 .. 4 ] ]
+    gap&#62; rootinfo3B_t:= RootInfoFromTable( n3b, pos[2] );;
+    gap&#62; rootinfo3B_l:= RootInfoFromLabels( "3B" );;
+    gap&#62; IsBound( rootinfo3A_t.total[66] );
+    true
+    gap&#62; IsBound( rootinfo3B_t.total[66] );
+    false
+    gap&#62; rootinfo3A_t.total = rootinfo3A_l.total;
+    true
+    gap&#62; rootinfo3B_t.total = rootinfo3B_l.total;
+    true
+    gap&#62; n5a:= CharacterTable( "5:4xHS.2" );
+    CharacterTable( "5:4xHS.2" )
+    gap&#62; pos:= ClassPositionsOfPCore( n5a, 5 );
+    [ 1, 40 ]
+    gap&#62; rootinfo5A_t:= RootInfoFromTable( n5a, pos[2] );;
+    gap&#62; rootinfo5A_l:= RootInfoFromLabels( "5A" );;
+    gap&#62; n5b:= CharacterTable( "5^(1+4).2^(1+4).A5.4" );
+    CharacterTable( "5^(1+4).2^(1+4).A5.4" )
+    gap&#62; pos:= ClassPositionsOfPCore( n5b, 5 );
+    [ 1 .. 4 ]
+    gap&#62; Filtered( ClassPositionsOfNormalSubgroups( n5b ),
+    &#62;              n -&#62; IsSubset( pos, n ) );
+    [ [ 1 ], [ 1, 2 ], [ 1 .. 4 ] ]
+    gap&#62; rootinfo5B_t:= RootInfoFromTable( n5b, pos[2] );;
+    gap&#62; rootinfo5B_l:= RootInfoFromLabels( "5B" );;
+    gap&#62; IsBound( rootinfo5A_t.total[70] );
+    true
+    gap&#62; IsBound( rootinfo5B_t.total[70] );
+    false
+    gap&#62; rootinfo5A_t.total = rootinfo5A_l.total;
+    true
+    gap&#62; rootinfo5B_t.total = rootinfo5B_l.total;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+It will be useful to provide the <tt>powerinfo</tt> information
+in a record.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powerinforec:= rec();;
+    gap&#62; for entry in powerinfo do
+    &#62;      powerinforec.( entry[1] ):= entry[2];
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+We recompute the roots information, according to the changed data.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rootinfo2A_l:= RootInfoFromLabels( "2A" );;
+    gap&#62; rootinfo2B_l:= RootInfoFromLabels( "2B" );;
+    gap&#62; rootinfo2C_l:= RootInfoFromLabels( "2C" );;
+    gap&#62; rootinfo2D_l:= RootInfoFromLabels( "2D" );;
+    gap&#62; rootinfo2A_t.total = rootinfo2A_l.total;
+    true
+    gap&#62; rootinfo2B_t.total = rootinfo2B_l.total;
+    true
+    gap&#62; rootinfo2C_t.total = rootinfo2C_l.total;
+    true
+    gap&#62; rootinfo2D_t.total = rootinfo2D_l.total;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+We try to identify the classes with labels.
+The numbers of classes and labels fit together,
+now we compute the bijection.
+The following function identifies classes which are determined either
+already by the element order or as a power of an identified class
+or as a unique root of an identified class.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; IdentifyCentralizerOrders:= function( normtbl, rl, rt )
+    &#62;     local n, identified, found, i, unknown, class, d, linfo, p, e, cand,
+    &#62;           imgs, im, pos, powerlabel, dd, cent;
+    &#62;     n:= First( [ 1 .. Length( rl ) ], i -&#62; IsBound( rl[i] ) );
+    &#62;     identified:= [ [], [] ];
+    &#62;     found:= true;
+    &#62;     while found do
+    &#62;       found:= false;
+    &#62;       for i in [ 1 .. Length( rl ) ] do
+    &#62;       if IsBound( rl[i] ) then
+    &#62;         unknown:= Difference( rl[i], identified[1] );
+    &#62;         if Length( unknown ) = 1 then
+    &#62;           # Identify the class.
+    &#62;           class:= Difference( rt[i], identified[2] )[1];
+    &#62;           Add( identified[1], unknown[1] );
+    &#62;           Add( identified[2], class );
+    &#62;           found:= true;
+    &#62;           # Identify the admissible powers.
+    &#62;           for d in Difference( DivisorsInt( i / n ), [ 1 ] ) do
+    &#62;             linfo:= powerinforec.( unknown[1] );
+    &#62;             for p in Factors( d ) do
+    &#62;               e:= First( linfo, x -&#62; x[1] = p );
+    &#62;               linfo:= powerinforec.( e[2] );
+    &#62;             od;
+    &#62;             if not e[2] in identified[1] then
+    &#62;               Add( identified[1], e[2] );
+    &#62;               Add( identified[2], PowerMap( normtbl, d, class ) );
+    &#62;               found:= true;
+    &#62;             fi;
+    &#62;           od;
+    &#62;         else
+    &#62;           # Try to identify roots whose powers are identified.
+    &#62;           for d in Difference( DivisorsInt( i / n ), [ 1 ] ) do
+    &#62;             cand:= Difference( rt[i], identified[2] );
+    &#62;             imgs:= PowerMap( normtbl, d ){ cand };
+    &#62;             for im in Intersection( imgs, identified[2] ) do
+    &#62;               pos:= Positions( imgs, im );
+    &#62;               if Length( pos ) = 1 then
+    &#62;                 class:= cand[ pos[1] ];
+    &#62;                 powerlabel:= identified[1][
+    &#62;                                  Position( identified[2], im ) ];
+    &#62;                 # Find the labels of the 'd'-th powers of 'unknown'.
+    &#62;                 linfo:= List( unknown, l -&#62; powerinforec.( l ) );
+    &#62;                 for p in Factors( d ) do
+    &#62;                   e:= List( linfo, ll -&#62; First( ll, x -&#62; x[1] = p ) );
+    &#62;                   linfo:= List( e, ee -&#62; powerinforec.( ee[2] ) );
+    &#62;                 od;
+    &#62;                 linfo:= List( e, x -&#62; x[2] );
+    &#62;                 pos:= Position( linfo, powerlabel );
+    &#62;                 Add( identified[1], unknown[ pos ] );
+    &#62;                 Add( identified[2], class );
+    &#62;                 # Identify the admissible powers.
+    &#62;                 for dd in Difference( DivisorsInt( i / n ), [ 1 ] ) do
+    &#62;                   linfo:= powerinforec.( unknown[ pos ] );
+    &#62;                   for p in Factors( dd ) do
+    &#62;                     e:= First( linfo, x -&#62; x[1] = p );
+    &#62;                     linfo:= powerinforec.( e[2] );
+    &#62;                   od;
+    &#62;                   if not e[2] in identified[1] then
+    &#62;                     Add( identified[1], e[2] );
+    &#62;                     Add( identified[2], PowerMap( normtbl, dd, class ) );
+    &#62;                     found:= true;
+    &#62;                   fi;
+    &#62;                 od;
+    &#62;                 found:= true;
+    &#62;                 break; # since we have to update 'unknown'
+    &#62;               fi;
+    &#62;             od;
+    &#62;             if found then
+    &#62;               break; # since we have to update 'unknown'
+    &#62;             fi;
+    &#62;           od;
+    &#62;         fi;
+    &#62;       fi;
+    &#62;     od;
+    &#62;   od;
+    &#62;   # Where the centralizer order is unique, set it.
+    &#62;   for i in [ 1 .. Length( rl ) ] do
+    &#62;     if IsBound( rl[i] ) then
+    &#62;       cand:= Difference( rt[i], identified[2] );
+    &#62;       cent:= Set( SizesCentralizers( normtbl ){ cand } );
+    &#62;       if Length( cent ) = 1 then
+    &#62;         Append( identified[1], Difference( rl[i], identified[1] ) );
+    &#62;         Append( identified[2], cand );
+    &#62;       fi;
+    &#62;     fi;
+    &#62;   od;
+    &#62;   # Set the centralizer orders.
+    &#62;   for i in [ 1 .. Length( identified[1] ) ] do
+    &#62;     if not IsBound( Bclassinfo.( identified[1][i] ) ) then
+    &#62;       Print( "#I  identify ", identified[1][i], "\n" );
+    &#62;     fi;
+    &#62;     SetCentralizerOrder( identified[1][i],
+    &#62;         SizesCentralizers( normtbl )[ identified[2][i] ] );
+    &#62;   od;
+    &#62;   # Return the information about unidentified classes.
+    &#62;   return [ Difference( Concatenation( Compacted( rl ) ), identified[1] ),
+    &#62;            Difference( Concatenation( Compacted( rt ) ), identified[2] ) ];
+    &#62; end;;
+
+</pre>
+
+<div class="p"><!----></div>
+We try the function with the four involution normalizers.
+In the case of <tt>cb2b</tt>,
+we are better off since we know most of the class fusion to <font size="+0">B</font>.
+Thus we use also the information about the labels that belong to roots of
+<tt>"2B"</tt> elements where this is available.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; IdentifyCentralizerOrders( norm2A,
+    &#62;        rootinfo2A_l.labels, rootinfo2A_t.classpos );
+    #I  identify 2A
+    #I  identify 10A
+    #I  identify 22A
+    #I  identify 26B
+    #I  identify 38A
+    #I  identify 66A
+    #I  identify 6A
+    #I  identify 70A
+    #I  identify 14A
+    #I  identify 14B
+    #I  identify 42A
+    #I  identify 6B
+    #I  identify 6D
+    #I  identify 42B
+    #I  identify 30B
+    #I  identify 30A
+    #I  identify 34B
+    #I  identify 34C
+    [ [ "18A", "18B" ], [ 74, 76 ] ]
+    gap&#62; for i in Union( rootinfo2B_t.classpos ) do
+    &#62;      if IsBound( powerinforec.( fusionlabels[i] ) ) then
+    &#62;        SetCentralizerOrder( fusionlabels[i],
+    &#62;            SizesCentralizers( cb2b )[i] );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; IdentifyCentralizerOrders( cb2b,
+    &#62;        rootinfo2B_l.labels, rootinfo2B_t.classpos );
+    #I  identify 30G
+    #I  identify 30H
+    #I  identify 32A
+    #I  identify 32B
+    #I  identify 32C
+    #I  identify 32D
+    #I  identify 46A
+    #I  identify 46B
+    #I  identify 56A
+    #I  identify 56B
+    [ [ "12A", "12D", "12G", "12I", "12L", "12M", "12O", "16A", "16B", "16C", 
+          "16D", "16E", "16F", "20B", "20C", "20F", "20I", "24A", "24B", "24C", 
+          "24D", "24E", "24F", "24G", "24K", "24M", "40A", "40B", "40C", "40D", 
+          "4F", "4G", "8A", "8B", "8C", "8D", "8E", "8F", "8H", "8I", "8L" ], 
+      [ 28, 42, 47, 48, 49, 61, 63, 68, 69, 103, 104, 116, 145, 151, 158, 163, 
+          169, 187, 199, 215, 217, 218, 219, 220, 233, 234, 235, 251, 252, 258, 
+          292, 308, 309, 310, 311, 320, 332, 333, 344, 357, 420 ] ]
+    gap&#62; IdentifyCentralizerOrders( norm2C.table,
+    &#62;        rootinfo2C_l.labels, rootinfo2C_t.classpos );
+    #I  identify 2C
+    #I  identify 4I
+    #I  identify 10C
+    #I  identify 12T
+    #I  identify 6K
+    #I  identify 14C
+    #I  identify 18F
+    #I  identify 20H
+    #I  identify 26A
+    #I  identify 30C
+    #I  identify 6F
+    #I  identify 34A
+    #I  identify 42C
+    #I  identify 52A
+    [ [  ], [  ] ]
+    gap&#62; IdentifyCentralizerOrders( sup_norm2D,
+    &#62;        rootinfo2D_l.labels, rootinfo2D_t.classpos );
+    #I  identify 2D
+    #I  identify 14E
+    #I  identify 28E
+    #I  identify 4E
+    #I  identify 36C
+    #I  identify 18E
+    #I  identify 12N
+    #I  identify 6J
+    #I  identify 40E
+    #I  identify 20G
+    #I  identify 10F
+    #I  identify 8G
+    #I  identify 60C
+    #I  identify 30F
+    #I  identify 12F
+    #I  identify 6I
+    #I  identify 8J
+    #I  identify 10E
+    #I  identify 12S
+    #I  identify 4H
+    #I  identify 18D
+    #I  identify 20J
+    #I  identify 4J
+    #I  identify 24H
+    #I  identify 30E
+    #I  identify 6E
+    #I  identify 6H
+    #I  identify 8N
+    #I  identify 12J
+    #I  identify 12P
+    #I  identify 12Q
+    #I  identify 24L
+    #I  identify 8K
+    #I  identify 8M
+    #I  identify 12R
+    #I  identify 16G
+    #I  identify 24N
+    #I  identify 16H
+    #I  identify 24I
+    #I  identify 24J
+    [ [  ], [  ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; IdentifyCentralizerOrders( n3a,
+    &#62;        rootinfo3A_l.labels, rootinfo3A_t.classpos );;
+    #I  identify 3A
+    #I  identify 15A
+    #I  identify 21A
+    #I  identify 33A
+    #I  identify 39A
+    gap&#62; IdentifyCentralizerOrders( n3b,
+    &#62;        rootinfo3B_l.labels, rootinfo3B_t.classpos );;
+    #I  identify 3B
+    #I  identify 15B
+    #I  identify 27A
+    #I  identify 9A
+    #I  identify 9B
+    gap&#62; IdentifyCentralizerOrders( n5a,
+    &#62;        rootinfo5A_l.labels, rootinfo5A_t.classpos );;
+    #I  identify 5A
+    #I  identify 35A
+    #I  identify 55A
+    gap&#62; IdentifyCentralizerOrders( n5b,
+    &#62;        rootinfo5B_l.labels, rootinfo5B_t.classpos );;
+    #I  identify 5B
+    #I  identify 25A
+
+</pre>
+
+<div class="p"><!----></div>
+Let us see which classes of <font size="+0">B</font> are not identified yet.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Difference( RecNames( powerinforec ), RecNames( Bclassinfo ) );
+    [ "16D", "16F", "18A", "18B", "7A" ]
+
+</pre>
+
+<div class="p"><!----></div>
+For simplicity, we set the centralizer order for <tt>"7A"</tt> by hand.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SetCentralizerOrder( "7A", 2^8 * 3^2 * 5 * 7^2 );;
+
+</pre>
+
+<div class="p"><!----></div>
+The classes <tt>18A</tt> and <tt>"18B"</tt> are roots of <tt>"2A"</tt>.
+They have no roots and the same power maps.
+The centralizer orders of the two classes in the <tt>"2A"</tt> centralizer
+are 1296 = 2<sup>4</sup> &#183;3<sup>4</sup> and 648 = 2<sup>3</sup> &#183;3<sup>4</sup>, respectively.
+We know a class in <tt>cb2b</tt> that fuses into <tt>18A</tt> and
+has centralizer order 144 = 2<sup>4</sup> &#183;3<sup>2</sup> in <tt>cb2b</tt>.
+Thus <tt>18A</tt> must have centralizer order 1296 in <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SetCentralizerOrder( "18A", 1296 );;
+    gap&#62; SetCentralizerOrder( "18B", 648 );;
+
+</pre>
+
+<div class="p"><!----></div>
+The cases <tt>"16D"</tt> and <tt>"16F"</tt> will be handled below.
+
+<div class="p"><!----></div>
+Later we will need the class fusion from C<sub>B</sub>(<tt>2B</tt>) to <font size="+0">B</font>,
+and we know it already as far as the class invariants reach.
+We compute part of the missing information.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; diff:= Difference( fusionlabels, RecNames( powerinforec ) );
+    [ "16DF", "23AB", "30GH", "32AB", "32CD", "46AB", "56AB" ]
+    gap&#62; List( diff, x -&#62; Positions( fusionlabels, x ) );
+    [ [ 251, 252, 274, 281, 396 ], [ 421, 423 ], [ 393, 395, 445, 447 ], 
+      [ 399, 400 ], [ 403, 404 ], [ 422, 424 ], [ 437, 438 ] ]
+    gap&#62; Length( fusionlabels );
+    448
+    gap&#62; NrConjugacyClasses( cb2b );
+    448
+
+</pre>
+
+<div class="p"><!----></div>
+We are free to choose the images of the class fusion for the elements of
+order 23 (which then determines the classes of element order 46),
+32, and 56, since the question is about independent pairs
+of Galois conjugate classes.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fusionlabels[421]:= "23A";;
+    gap&#62; fusionlabels[423]:= "23B";;
+    gap&#62; fusionlabels[399]:= "32A";;
+    gap&#62; fusionlabels[400]:= "32B";;
+    gap&#62; fusionlabels[403]:= "32C";;
+    gap&#62; fusionlabels[404]:= "32D";;
+    gap&#62; fusionlabels[437]:= "56A";;
+    gap&#62; fusionlabels[438]:= "56B";;
+    gap&#62; pos46:= Positions( OrdersClassRepresentatives( cb2b ), 46 );
+    [ 422, 424 ]
+    gap&#62; PowerMap( cb2b, 2 ){ pos46 };
+    [ 421, 423 ]
+    gap&#62; fusionlabels[422]:= "46A";;
+    gap&#62; fusionlabels[424]:= "46B";;
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we are left with the question about the fusion to the classes with the
+labels <tt>"16D"</tt>, <tt>"16F"</tt>, <tt>"30G"</tt>, and <tt>"30H"</tt>.
+
+<div class="p"><!----></div>
+For the order 30 elements, we may choose images for <em>one</em> pair of
+Galois conjugate classes, and later try to distinguish the two possibilities
+for the other pair, for example via induced characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fusionlabels[393]:= "30G";;
+    gap&#62; fusionlabels[395]:= "30H";;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Two classes of order 16 elements with fusion label <tt>"16DF"</tt>
+are roots of the central involution of <tt>cb2b</tt>,
+and we can distinguish them by the fact that
+<tt>"16D"</tt> has square roots whereas <tt>"16F"</tt> has not.
+For the other three classes, we are left with two possibilities.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fusionlabels[251]:= "16D";;
+    gap&#62; fusionlabels[252]:= "16F";;
+    gap&#62; SetCentralizerOrder( "16D", SizesCentralizers( cb2b )[251] );;
+    gap&#62; SetCentralizerOrder( "16F", SizesCentralizers( cb2b )[252] );;
+
+</pre>
+
+<div class="p"><!----></div>
+This means that we have currently 2<sup>5</sup> candidates for the class fusion
+from <tt>cb2b</tt> to <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; cb2bfusb:= List( fusionlabels, l -&#62; Position( Bnames, l ) );;
+    gap&#62; Positions( cb2bfusb, fail );
+    [ 274, 281, 396, 445, 447 ]
+    gap&#62; pos:= Positions( fusionlabels, "16DF" );
+    [ 274, 281, 396 ]
+    gap&#62; for i in pos do
+    &#62;      cb2bfusb[i]:= [ 86, 88 ];
+    &#62;    od;
+    gap&#62; pos:= Positions( fusionlabels, "30GH" );
+    [ 445, 447 ]
+    gap&#62; for i in pos do
+    &#62;      cb2bfusb[i]:= [ 143, 144 ];
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+Before we compute the irreducible characters of <font size="+0">B</font>,
+we create the character table head for <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; bhead:= rec( UnderlyingCharacteristic:= 0,
+    &#62;                 Size:= Bclassinfo.( "1A" )[2],
+    &#62;                 Identifier:= "Bnew" );;
+    gap&#62; bhead.SizesCentralizers:= List( Bnames, x -&#62; Bclassinfo.( x )[2] );;
+    gap&#62; bhead.OrdersClassRepresentatives:= List( Bnames,
+    &#62;        x -&#62; Bclassinfo.( x )[1] );;
+    gap&#62; bhead.ComputedPowerMaps:= [];;
+    gap&#62; galoisinfo:= rec(
+    &#62;     classes:= [ "23A", "23B", "30G", "30H", "31A", "31B", "32A", "32B",
+    &#62;                 "32C", "32D", "34B", "34C", "46A", "46B", "47A", "47B",
+    &#62;                 "56A", "56B" ],
+    &#62;     partners:= [ "23B", "23A", "30H", "30G", "31B", "31A", "32B", "32A",
+    &#62;                  "32D", "32C", "34C", "34B", "46B", "46A", "47B", "47A",
+    &#62;                  "56B", "56A" ],
+    &#62;     rootsof:= [ -23, -23, -15, -15, -31, -31, 2, 2,
+    &#62;                 -2, -2, 17, 17, -23, -23, -47, -47,
+    &#62;                 7, 7 ] );;
+    gap&#62; galoisinfo.irrats:= List( galoisinfo.rootsof, Sqrt );;
+    gap&#62; for p in Filtered( [ 1 .. Maximum( bhead.OrdersClassRepresentatives ) ],
+    &#62;                       IsPrimeInt ) do
+    &#62;      map:= [ 1 ];
+    &#62;      for i in [ 2 .. Length( Bnames ) ] do
+    &#62;        if bhead.OrdersClassRepresentatives[i] = p then
+    &#62;          map[i]:= 1;
+    &#62;        elif bhead.OrdersClassRepresentatives[i] mod p = 0 then
+    &#62;          # The 'p'-th power has smaller order, we know the image class.
+    &#62;          info:= First( powerinforec.( Bnames[i] ), pair -&#62; pair[1] = p );
+    &#62;          map[i]:= Position( Bnames, info[2] );
+    &#62;        else
+    &#62;          # The 'p'-th power is a Galois conjugate.
+    &#62;          pos:= Position( galoisinfo.classes, Bnames[i] );
+    &#62;          if pos = fail then
+    &#62;            # The 'i'-th class is rational.
+    &#62;            map[i]:= i;
+    &#62;          else
+    &#62;            # Determine whether the pair gets swapped.
+    &#62;            irrat:= galoisinfo.irrats[ pos ];
+    &#62;            if GaloisCyc( irrat, p ) &lt;&#62; irrat then
+    &#62;              map[i]:= Position( Bnames, galoisinfo.partners[ pos ] );
+    &#62;            else
+    &#62;              map[i]:= i;
+    &#62;            fi;
+    &#62;          fi;
+    &#62;        fi;
+    &#62;      od;
+    &#62;      bhead.ComputedPowerMaps[p]:= map;
+    &#62;    od;
+    gap&#62; ConvertToCharacterTable( bhead );;
+
+</pre>
+
+<div class="p"><!----></div>
+Check the library table of <font size="+0">B</font> against the character table head.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; b:= CharacterTable( "B" );;
+    gap&#62; for p in Filtered( [ 2 ..
+    &#62;                 Maximum( OrdersClassRepresentatives( b ) ) ],
+    &#62;                 IsPrimeInt ) do
+    &#62;      PowerMap( b, p );
+    &#62;    od;
+    gap&#62; ComputedPowerMaps( bhead ) = ComputedPowerMaps( b );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Determine the missing pieces of the class fusion
+from the <tt>2B</tt> centralizer to <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; maps:= ContainedMaps( cb2bfusb );;
+    gap&#62; Length( maps );
+    32
+    gap&#62; good:= [];;
+    gap&#62; for map in maps do
+    &#62;      ind:= InducedClassFunctionsByFusionMap( cb2b, b, Irr( cb2b ), map );
+    &#62;      if ForAll( ind, x -&#62; IsInt( ScalarProduct( b, x, x ) ) ) then
+    &#62;        Add( good, map );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; Length( good );
+    1
+    gap&#62; b2b:= CharacterTable( "BM2" );;
+    gap&#62; good[1] = GetFusionMap( b2b, b );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+In our situation (where the classes of the subgroup have been
+identified via the class invariants for <font size="+0">B</font>,
+and where we have made appropriate choices for the pairs of
+Galois conjugate classes),
+the class fusion is unique.
+
+<div class="p"><!----></div>
+The newly computed fusion coincides with the one that is stored
+on the <font face="helvetica">GAP</font> library table.
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc7">
+7</a>&nbsp;&nbsp;The irreducible characters of <font size="+0">B</font></h2><a name="sect:irreducibles">
+</a>
+
+<div class="p"><!----></div>
+We assume the following information about the Baby Monster group <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<ul>
+<li>    The conjugacy class lengths, the element orders, and the power maps
+    (for all primes up to the maximal element order in <font size="+0">B</font>) are known
+    and coincide with the information that is shown in&nbsp;[<a href="#CCN85" name="CITECCN85">CCN<sup>+</sup>85</a>].
+<div class="p"><!----></div>
+</li>
+
+<li>
+    The group <font size="+0">B</font> contains subgroups of the structures
+    2.<sup>2</sup>E<sub>6</sub>(2).2, Fi<sub>23</sub>, and HN.2.
+    The ordinary character tables of these groups have been verified
+    (see&nbsp;[<a href="#BMO17" name="CITEBMO17">BMO17</a>]) and thus may be used in our computations.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    The character table of the <tt>2B</tt> centralizer in <font size="+0">B</font> is known.
+    Also the class fusion from this table to the table head of <font size="+0">B</font>
+    is known by the construction of this character table
+    in Section&nbsp;<a href="#table_c2b">5</a>.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+For the sake of simplicity, we start with the  A<font size="-2">TLAS</font> table of <font size="+0">B</font>
+and store the power maps up to the maximal element order
+(needed for inducing from cyclic subgroups).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; b:= CharacterTable( "B" );;
+    gap&#62; for p in Filtered( [ 2 ..
+    &#62;                 Maximum( OrdersClassRepresentatives( b ) ) ],
+    &#62;                 IsPrimeInt ) do
+    &#62;      PowerMap( b, p );
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+In order to make sure that the irreducible characters that are stored
+on the table are not silently used inside some computations,
+we delete them from the character table.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; irr_atlas:= Irr( b );;
+    gap&#62; ResetFilterObj( b, HasIrr );
+
+</pre>
+
+<div class="p"><!----></div>
+Now we compute candidates for the class fusions from the subgroups
+which we are allowed to use.
+For that, we write a small <font face="helvetica">GAP</font> program.
+The input parameters are the character tables of the subgroup and <font size="+0">B</font>,
+a list of characters of <font size="+0">B</font>, and perhaps a first approximation of the
+class fusion in question.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tryFusion:= function( s, b, ind, initmap )
+    &#62;      local i, sfusb, poss, good, test, map, indmap, indgood;
+    &#62; 
+    &#62;      for i in [ 1 .. Length( ComputedPowerMaps( b ) ) ] do
+    &#62;        if IsBound( ComputedPowerMaps( b )[i] ) then
+    &#62;          PowerMap( s, i );
+    &#62;        fi;
+    &#62;      od;
+    &#62; 
+    &#62;      if initmap = fail then
+    &#62;        sfusb:= InitFusion( s, b );;
+    &#62;      else
+    &#62;        sfusb:= initmap;
+    &#62;      fi;
+    &#62; 
+    &#62;      if not TestConsistencyMaps( ComputedPowerMaps( s ), sfusb,
+    &#62;                 ComputedPowerMaps( b ) ) then
+    &#62;        Error( "inconsistency in power maps!" );
+    &#62;      fi;
+    &#62; 
+    &#62;      poss:= FusionsAllowedByRestrictions( s, b, Irr( s ), ind, sfusb,
+    &#62;                 rec( decompose:= true, minamb:= 2, maxamb:= 10^4,
+    &#62;                      quick:= false, maxlen:= 10,
+    &#62;                      contained:= ContainedPossibleCharacters ) );
+    &#62;      indgood:= [];
+    &#62;      if ForAll( poss, x -&#62; ForAll( x, IsInt ) ) then
+    &#62;        # All candidates in 'poss' are unique.
+    &#62;        # Consider only representatives under the symmetry group of 's'.
+    &#62;        poss:= RepresentativesFusions( s, poss, Group( () ) );
+    &#62; 
+    &#62;        # Discard candidates for which the scalar products
+    &#62;        # of induced characters are not integral.
+    &#62;        good:= [];
+    &#62;        test:= ( n  -&#62; IsInt( n ) and 0 &lt;= n );
+    &#62;        for map in poss do
+    &#62;          indmap:= InducedClassFunctionsByFusionMap( s, b, Irr( s ), map );
+    &#62;          if ForAll( indmap,
+    &#62;                 x -&#62; ForAll( indmap,
+    &#62;                          y -&#62; test( ScalarProduct( b, x, y ) ) ) ) then
+    &#62;            Add( good, map );
+    &#62;          fi;
+    &#62;        od;
+    &#62;        poss:= good;
+    &#62; 
+    &#62;        # Compute those induced characters that arise independent of
+    &#62;        # the fusion map.
+    &#62;        indgood:= Intersection( List( good,
+    &#62;            map -&#62; InducedClassFunctionsByFusionMap( s, b, Irr( s ),
+    &#62;                       map ) ) );
+    &#62;      fi;
+    &#62; 
+    &#62;      return rec( maps:= poss, induced:= indgood );
+    &#62;    end;;
+
+</pre>
+
+<div class="p"><!----></div>
+Our initial characters of <font size="+0">B</font> are the trivial character and the characters
+that arise from inducing irreducible characters of cyclic subgroups.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; knownirr:= [ TrivialCharacter( b ) ];;
+    gap&#62; indcyc:= InducedCyclic( b, [ 2 .. NrConjugacyClasses( b ) ], "all" );;
+
+</pre>
+
+<div class="p"><!----></div>
+The class fusion from Fi<sub>23</sub> to <font size="+0">B</font> is determined uniquely
+by the available data, and this takes only a few seconds.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fi23:= CharacterTable( "Fi23" );;
+    gap&#62; fi23fusb:= tryFusion( fi23, b, indcyc, fail );;
+    gap&#62; Length( fi23fusb.maps );
+    1
+    gap&#62; indfi23:= fi23fusb.induced;;
+
+</pre>
+
+<div class="p"><!----></div>
+The class fusion from <b>C</b><sub>B</sub>(2B) to <font size="+0">B</font> may be assumed,
+see Section&nbsp;<a href="#table_c2b">5</a>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; b2b:= CharacterTable( "BM2" );;
+    gap&#62; b2bfusb:= GetFusionMap( b2b, b );;
+    gap&#62; indb2b:= Set( InducedClassFunctionsByFusionMap( b2b, b,
+    &#62;                      Irr( b2b ), b2bfusb ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+The subgroups Th and HN.2 are treated in the same way as Fi<sub>23</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; hn2:= CharacterTable( "HN.2" );;
+    gap&#62; ind:= Concatenation( indfi23, indb2b, indcyc );;
+    gap&#62; hn2fusb:= tryFusion( hn2, b, ind, fail );;
+    gap&#62; Length( hn2fusb.maps );
+    1
+    gap&#62; indhn2:= hn2fusb.induced;;
+    gap&#62; th:= CharacterTable( "Th" );;
+    gap&#62; ind:= Concatenation( indfi23, indb2b, indcyc );;
+    gap&#62; thfusb:= tryFusion( th, b, ind, fail );;
+    gap&#62; Length( thfusb.maps );
+    1
+    gap&#62; indth:= thfusb.induced;;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Now we want to determine the class fusion from H = 2.<sup>2</sup>E<sub>6</sub>(2).2 to <font size="+0">B</font>.
+The approach used above is not feasible in this case.
+In order to refine the initial approximation of the class fusion,
+we use that H&#8242; contains a subgroup of the type 2.Fi<sub>22</sub>
+that is contained also in a Fi<sub>23</sub> type subgroup of <font size="+0">B</font>.
+Note that H is the centralizer of an involution z in <font size="+0">B</font> from the class
+<tt>2A</tt>, and the class <tt>2A</tt> of Fi<sub>23</sub> lies in this class.
+We may choose our Fi<sub>23</sub> subgroup such that it contains z.
+The centralizer of z in Fi<sub>23</sub> has then the type 2.Fi<sub>22</sub>.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Thus we compute the possible class fusions from 2.Fi<sub>22</sub> to Fi<sub>23</sub>
+and to H&#8242;.
+The compositions of the former maps with the known fusion from Fi<sub>23</sub>
+to <font size="+0">B</font> yields the possible class fusions from 2.Fi<sub>22</sub> to <font size="+0">B</font>,
+and the compositions of these fusions with the inverses of the latter maps
+yield the desired approximations for the fusion from Fi<sub>23</sub> to <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; 2fi22:= CharacterTable( "2.Fi22" );;
+    gap&#62; 2fi22fusfi23:= PossibleClassFusions( 2fi22, fi23 );;
+    gap&#62; 2fi22fusb:= Set( List( 2fi22fusfi23, map -&#62; CompositionMaps(
+    &#62;        fi23fusb.maps[1], map ) ) );;
+    gap&#62; Length( 2fi22fusb );
+    2
+    gap&#62; hh:= CharacterTable( "2.2E6(2)" );;
+    gap&#62; 2fi22fushh:= PossibleClassFusions( 2fi22, hh );;
+    gap&#62; approxhhfusb:= [];;
+    gap&#62; for map1 in 2fi22fushh do
+    &#62;      for map2 in 2fi22fusb do
+    &#62;        AddSet( approxhhfusb, CompositionMaps( map2, InverseMap( map1 ) ) );
+    &#62;      od;
+    &#62;    od;
+    gap&#62; Length( approxhhfusb );
+    4
+    gap&#62; inithhfusb:= InitFusion( hh, b );;
+    gap&#62; TestConsistencyMaps( ComputedPowerMaps( hh ), inithhfusb,
+    &#62;        ComputedPowerMaps( b ) );
+    true
+    gap&#62; for i in [ 1 .. Length( approxhhfusb ) ] do
+    &#62;      if MeetMaps( approxhhfusb[i], inithhfusb ) &lt;&#62; true then
+    &#62;        Unbind( approxhhfusb[i] );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; approxhhfusb:= Compacted( approxhhfusb );;
+    gap&#62; Length( approxhhfusb );
+    2
+
+</pre>
+
+<div class="p"><!----></div>
+We get two initial approximations, and the computation of the
+class fusion from H&#8242; to <font size="+0">B</font> is now easy.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; hhfusb:= List( approxhhfusb, map -&#62; tryFusion( hh, b, ind, map ) );;
+    gap&#62; List( hhfusb, r -&#62; Length( r.maps ) );
+    [ 1, 1 ]
+    gap&#62; hhfusb[1] = hhfusb[2];
+    true
+    gap&#62; hhfusb:= hhfusb[1];;
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we have determined the class fusion from H&#8242; to <font size="+0">B</font> uniquely.
+The next step is to compute the class fusion for the classes in H
+that do not lie in H&#8242;.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; h:= CharacterTable( "2.2E6(2).2" );;
+    gap&#62; hhfush:= PossibleClassFusions( hh, h );;
+    gap&#62; Length( hhfush );
+    4
+    gap&#62; approxhfusb:= Set( List( hhfush,
+    &#62;        map -&#62; CompositionMaps( hhfusb.maps[1], InverseMap( map ) ) ) );;
+    gap&#62; Length( approxhfusb );
+    2
+    gap&#62; inithfusb:= InitFusion( h, b );;
+    gap&#62; TestConsistencyMaps( ComputedPowerMaps( h ), inithfusb,
+    &#62;        ComputedPowerMaps( b ) );
+    true
+    gap&#62; List( approxhfusb, map -&#62; MeetMaps( map, inithfusb ) );
+    [ true, true ]
+    gap&#62; ind:= Concatenation( indfi23, indb2b, indhn2, hhfusb.induced,
+    &#62;              indcyc );;
+    gap&#62; hfusb:= List( approxhfusb, map -&#62; tryFusion( h, b, ind, map ) );;
+    gap&#62; List( hfusb, r -&#62; Length( r.maps ) );
+    [ 1, 1 ]
+    gap&#62; hfusb[1].induced = hfusb[2].induced;
+    true
+    gap&#62; hfusb:= hfusb[1];;
+    gap&#62; indh:= hfusb.induced;;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Now we know many induced characters of <font size="+0">B</font>.
+The <font size="+0">Z</font>-lattice that is spanned by these characters contains several
+irreducible characters.
+Unfortunately, the LLL program in <font face="helvetica">GAP</font> does not find them immediately.
+
+<div class="p"><!----></div>
+Therefore, we proceed now in two steps.
+First,
+we assume that <font size="+0">B</font> has a rational ordinary irreducible character &#967;,
+say, of degree 4371 whose 3- and 5-modular restrictions are
+the Brauer characters of the representations
+which we have used in Section&nbsp;<a href="#invs_B">3</a>.
+From &#967; together with the known induced characters,
+we easily compute a list of vectors of norm 1
+such that the input characters are linear combinations of these vectors,
+with nonnegative integer coefficients.
+In the second step,
+we will then <b>not</b> use &#967;
+but we use the vectors found in the first step
+as our candidates for the irreducible characters,
+which just have to be verified.
+
+<div class="p"><!----></div>
+Let us start with the first step, and compute the values of &#967;.
+For each representative of order not divisible by 30,
+we compute the Brauer character value from a representation in
+characteristic coprime to the element order;
+for the remaining classes, we store 'fail' as a preliminary value.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; chi:= [];;
+    gap&#62; for nam in labels do
+    &#62;      slp:= SLPForClassName( nam, cycprg, outputnames );
+    &#62;      ord:= Int( Filtered( nam, IsDigitChar ) );
+    &#62;      if ord mod 2 &lt;&#62; 0 then
+    &#62;        val:= 1 + BrauerCharacterValue(
+    &#62;                      ResultOfStraightLineProgram( slp, gens_2 ) );
+    &#62;      elif ord mod 3 &lt;&#62; 0 then
+    &#62;        val:= BrauerCharacterValue(
+    &#62;                  ResultOfStraightLineProgram( slp, gens_3 ) );
+    &#62;      elif ord mod 5 &lt;&#62; 0 then
+    &#62;        val:= BrauerCharacterValue(
+    &#62;                  ResultOfStraightLineProgram( slp, gens_5 ) );
+    &#62;      else
+    &#62;        val:= fail;
+    &#62;      fi;
+    &#62;      Add( chi, val );
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Next we transfer these values to the class positions in the character table.
+For that, we compute the mapping from the character table head to the labels.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; bfuslabels:= [];;
+    gap&#62; for i in [ 1 .. Length( libBnames ) ] do
+    &#62;      poss:= Filtered( labels, x -&#62; Filtered( libBnames[i], IsDigitChar )
+    &#62;             = Filtered( x, IsDigitChar ) and
+    &#62;             ForAny( Filtered( x, IsAlphaChar ), y -&#62; y in libBnames[i] ) );
+    &#62;      if Length( poss ) &lt;&#62; 1 then
+    &#62;        Print( "problem for ", libBnames[i], "\n" );
+    &#62;      fi;
+    &#62;      bfuslabels[i]:= Position( labels, poss[1] );
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+The character values are unknown for eight classes of element order 30
+and three classes of element order 60.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; chi:= chi{ bfuslabels };
+    [ 4371, -493, 275, -53, 19, 78, -3, -77, 51, 19, -21, 35, -13, 11, 3, -1, -5, 
+      21, -4, -34, 20, 14, -7, 4, -8, 5, -2, 13, 1, 1, 10, -21, 7, -9, 11, -1, 
+      -5, -5, 3, -1, 3, 7, -1, -1, -1, -3, 6, 7, 5, -3, 0, -1, 4, 4, -12, -3, 4, 
+      6, -6, 5, -2, 0, -4, 2, -3, 2, 1, -1, 5, 0, -3, 1, 3, -1, 3, -10, 4, -4, 2, 
+      -2, 3, 2, 3, -5, -1, 3, -1, 3, 1, 1, 2, 2, 2, 2, -2, 1, -2, 1, -7, -2, 3, 
+      1, -1, 1, 0, -1, 2, 0, 1, 2, 0, 1, 1, -2, 0, 2, -4, 0, -3, 2, 1, -2, 0, 1, 
+      1, -1, -1, 1, -1, 1, 0, 2, -2, 0, 0, 0, fail, fail, fail, fail, fail, fail, 
+      fail, fail, 0, 0, 1, 1, -1, -1, 1, -2, 0, 0, 0, 0, 0, -1, 1, 0, -3, 1, -1, 
+      -1, 0, -1, 1, -1, 0, -1, -1, 0, 0, 0, -2, -1, -1, 0, 0, fail, fail, fail, 
+      -1, 0 ]
+    gap&#62; failpos:= Positions( last, fail );
+    [ 137, 138, 139, 140, 141, 142, 143, 144, 180, 181, 182 ]
+    gap&#62; OrdersClassRepresentatives( b ){ failpos };
+    [ 30, 30, 30, 30, 30, 30, 30, 30, 60, 60, 60 ]
+
+</pre>
+
+<div class="p"><!----></div>
+In order to compute the missing values,
+we use the same idea as in Section&nbsp;<a href="#table_c2b">5</a>.
+We know that these values are integers.
+For all classes in question except one,
+the class lengths are at least &#124;B&#124; / 360,
+thus the absolute value of the character value at these classes
+cannot exceed 5.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SizesCentralizers( b ){ failpos };
+    [ 3600, 360, 360, 240, 240, 120, 60, 60, 120, 120, 60 ]
+    gap&#62; bclasses:= SizesConjugacyClasses( b );;
+    gap&#62; normpart:= Sum(
+    &#62;        List( Difference( [ 1 .. Length( bclasses ) ], failpos ),
+    &#62;              i -&#62; bclasses[i] * chi[i]^2 ) );;
+    gap&#62; normpart + 6^2 * Size( b ) / 360 &#62; Size( b );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Since &#967;( g<sup>p</sup> )  &#8801; &#967;(g)  mod p for p  &#8712; { 3, 5 }
+and since the values &#967;( g<sup>p</sup> ) are known,
+we know the congruence class of &#967;( g ) modulo 15 for all missing
+classes except one.
+This determines &#967;.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; for i in failpos do
+    &#62;      v:= ChineseRem( [ 3, 5 ], [ chi[ PowerMap( b, 3, i ) ],
+    &#62;                                  chi[ PowerMap( b, 5, i ) ] ] );
+    &#62;      if v &#62; 5 then
+    &#62;        v:= v - 15;
+    &#62;      fi;
+    &#62;      chi[i]:= v;
+    &#62;    od;
+    gap&#62; chi{ failpos };
+    [ -5, 1, -3, -1, -1, -2, 0, 0, -1, -1, 0 ]
+    gap&#62; Sum( List( [ 1 .. Length( bclasses ) ],
+    &#62;               i -&#62; bclasses[i] * chi[i]^2 ) ) = Size( b );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Now we compute candidates for the irreducibles,
+under the assumption that &#967; is a character.
+The following simple function is later used in a loop.
+It takes a character table <tt>tbl</tt> and three lists of (virtual)
+characters of this table:
+<tt>knownirr</tt> contains known irreducibles,
+<tt>newirr</tt> contains newly found irreducibles,
+and <tt>knownvirt</tt> contains virtual characters.
+The idea is as follows.
+The list <tt>knownirr</tt> gets extended (in place) by <tt>newirr</tt>,
+symmetrizations of the characters in <tt>newirr</tt> and tensor products
+of the characters in <tt>knownirr</tt> with those in <tt>newirr</tt> are
+created, and the concatenation of <tt>knownvirt</tt> and these characters
+gets reduced with <tt>knownirr</tt> and <tt>newirr</tt>;
+this process is iterated as long as new irreducible characters are found
+in the reduction step, with <tt>newirr</tt> replaced by these characters;
+the function returns the list of non-irreducible remainders of
+<tt>knownvirt</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendCandidates:= function( tbl, knownirr, newirr, knownvirt )
+    &#62;      while 0 &lt; Length( newirr ) do
+    &#62;        Append( knownirr, newirr );
+    &#62;        knownvirt:= Concatenation( knownvirt,
+    &#62;                        Concatenation( List( [ 2, 3, 5 ],
+    &#62;                            p -&#62; Symmetrizations( b, newirr, p ) ) ),
+    &#62;                        Set( Tensored( knownirr, newirr ) ) );
+    &#62;        knownvirt:= Reduced( tbl, knownirr, knownvirt );
+    &#62;        newirr:= knownvirt.irreducibles;
+    &#62;        knownvirt:= knownvirt.remainders;
+    &#62;      od;
+    &#62; 
+    &#62;      Print( "#I  ", Length( knownirr ), " irreducibles known\n" );
+    &#62;      return knownvirt;
+    &#62;    end;;
+
+</pre>
+
+<div class="p"><!----></div>
+We start with the trivial character of <font size="+0">B</font> and &#967;,
+and note that the antisymmetric square of &#967; is irreducible.
+We initialize <tt>knownvirt</tt> with the union of the induced characters
+which were generated above.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; psi:= AntiSymmetricParts( b, [ chi ], 2 )[1];;
+    gap&#62; ScalarProduct( b, psi, psi );
+    1
+    gap&#62; testind:= Concatenation( indfi23, indb2b, indhn2, indh, indth, indcyc );;
+
+</pre>
+
+<div class="p"><!----></div>
+Reducing the characters with our three irreducible characters
+and applying the LLL algorithm to the remainders yields 7
+new irreducibles.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; knownirr:= [];;
+    gap&#62; l:= ExtendCandidates( b, knownirr,
+    &#62;         [ TrivialCharacter( b ), chi, psi ], testind );;
+    #I  3 irreducibles known
+    gap&#62; lll:= LLL( b, l, 99/100 );;  Length( lll.irreducibles );
+    7
+
+</pre>
+
+<div class="p"><!----></div>
+We are lucky,
+a short loop of reductions with the new irreducibles and LLL reduction
+yields the complete list of irreducible characters.
+The ch
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; n:= NrConjugacyClasses( b );;
+    gap&#62; while 0 &lt; Length( lll.irreducibles ) and
+    &#62;       Length( lll.irreducibles ) + Length( knownirr ) &lt; n do
+    &#62;      l:= ExtendCandidates( b, knownirr,
+    &#62;                            lll.irreducibles, lll.remainders );;
+    &#62;      lll:= LLL( b, l, 99/100 );;
+    &#62;    od;
+    #I  11 irreducibles known
+    #I  17 irreducibles known
+    gap&#62; Append( knownirr, lll.irreducibles );
+
+</pre>
+
+<div class="p"><!----></div>
+The irreducible characters found this way coincide with the ones from the
+ A<font size="-2">TLAS</font> table of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Set( irr_atlas ) = Set( knownirr );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Now comes step two.
+As stated above, all what remains is to verify the candidate vectors,
+where we are allowed to use the induced characters but not &#967;.
+
+<div class="p"><!----></div>
+For each candidate vector, we compute whether it occurs
+in the <font size="+0">Z</font>-span of the induced characters,
+and if yes, we compute the coefficients of a linear combination in terms
+of them.
+This way, we find/verify the first 30 irreducible characters of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ind:= Concatenation( indfi23, indb2b, indhn2, indh, indcyc );;
+    gap&#62; mat:= MatScalarProducts( b, knownirr, ind );;
+    gap&#62; irr:= [ TrivialCharacter( b ) ];;
+    gap&#62; one:= IdentityMat( NrConjugacyClasses( b ) );;
+    gap&#62; for i in [ 2 .. Length( one ) ] do
+    &#62;      coeffs:= SolutionIntMat( mat, one[i] );
+    &#62;      if coeffs &lt;&#62; fail and ForAll( coeffs, IsInt ) then
+    &#62;        Add( irr, coeffs * ind );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; Length( irr );
+    30
+    gap&#62; Set( List( irr, chi -&#62; ScalarProduct( b, chi, chi ) ) );
+    [ 1 ]
+    gap&#62; ForAll( irr, chi -&#62; chi[1] &#62; 0 );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+In order to get the missing irreducible characters of <font size="+0">B</font>,
+we add symmetrizations and tensor products of the known irreducibles
+to the list of induced characters, and project onto the orthogonal space
+of the space that is spanned by the known irreducibles.
+No new irreducible characters are found directly this way,
+but the <tt>`oracle</tt>' that was used above tells us how to express the missing
+irreducibles as integral linear combinations of the known characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; sym:= Symmetrizations( b, irr, 2 );;
+    gap&#62; Append( sym, Symmetrizations( b, irr, 3 ) );
+    gap&#62; Append( sym, Symmetrizations( b, irr, 5 ) );
+    gap&#62; ten:= Set( Tensored( irr, irr ) );;
+    gap&#62; cand:= Reduced( b, irr, Concatenation( sym, ten, ind ) );;
+    gap&#62; cand.irreducibles;
+    [  ]
+    gap&#62; cand:= cand.remainders;;
+    gap&#62; newirr:= [];;
+    gap&#62; mat:= MatScalarProducts( b, knownirr, cand );;
+    gap&#62; for i in [ 2 .. Length( one ) ] do
+    &#62;      coeffs:= SolutionIntMat( mat, one[i] );
+    &#62;      if coeffs &lt;&#62; fail and ForAll( coeffs, IsInt ) then
+    &#62;        Add( newirr, coeffs * cand );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; Length( newirr );
+    154
+    gap&#62; Set( List( newirr, chi -&#62; ScalarProduct( b, chi, chi ) ) );
+    [ 1 ]
+    gap&#62; ForAll( newirr, chi -&#62; chi[1] &#62; 0 );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+It is not surprising that
+the irreducible characters found this way coincide with the ones from the
+ A<font size="-2">TLAS</font> table of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Append( irr, newirr );
+    gap&#62; Set( irr_atlas ) = Set( irr );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc8">
+8</a>&nbsp;&nbsp;Appendix: Standardizing the generators of Co<sub>2</sub></h2><a name="slp_co2">
+</a>
+
+<div class="p"><!----></div>
+In Section&nbsp;<a href="#table_c2b">5</a>, we have restricted the 3-modular
+4371-dimensional representation of <font size="+0">B</font> to a subgroup C of the structure
+2<sup>1+22</sup>.Co<sub>2</sub>, and obtained a 23-dimensional composition factor
+with a faithful action of the factor group Co<sub>2</sub>,
+with generators x and y, say.
+Our aim is to find short words in terms of x and y
+that yield <em>standard</em> generators for Co<sub>2</sub>,
+that is, elements a, b from the classes <tt>2A</tt> and <tt>5A</tt>
+of Co<sub>2</sub>, with the properties that the product a b has order 28
+and that a and b generate the full group Co<sub>2</sub>.
+
+<div class="p"><!----></div>
+The classes <tt>2A</tt> and <tt>5A</tt> of Co<sub>2</sub> are determined by the
+Brauer character values &#8722;9 and &#8722;2, respectively,
+in the unique irreducible 23-dimensional 3-modular representation
+of Co<sub>2</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; t:= CharacterTable( "Co2" ) mod 3;;
+    gap&#62; dim23:= Filtered( Irr( t ), chi -&#62; chi[1] = 23 );;
+    gap&#62; Length( dim23 );
+    1
+    gap&#62; pos:= PositionsProperty( OrdersClassRepresentatives( t ),
+    &#62;                             x -&#62; x in [ 2, 5 ] );
+    [ 2, 3, 4, 12, 13 ]
+    gap&#62; dim23[1]{ pos };
+    [ -9, 7, -1, -2, 3 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The 12-th power of the second generator yields a <tt>2A</tt> element.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; List( co2gens, Order );
+    [ 2, 24 ]
+    gap&#62; BrauerCharacterValue( co2gens[1] );
+    7
+    gap&#62; a:= co2gens[2]^12;;
+    gap&#62; BrauerCharacterValue( a );
+    -9
+
+</pre>
+
+<div class="p"><!----></div>
+A short word that defines a <tt>5A</tt> element is (y<sup>4</sup> x)<sup>4</sup>.
+It can be found as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; f:= FreeMonoid( 2 );;
+    gap&#62; fgens:= GeneratorsOfMonoid( f );
+    [ m1, m2 ]
+    gap&#62; for w in Iterator( f ) do
+    &#62;      m:= MappedWord( w, fgens, co2gens );
+    &#62;      ord:= Order( m );
+    &#62;      if ord mod 5 = 0 then
+    &#62;        cand:= m^( ord / 5 );
+    &#62;        if BrauerCharacterValue( cand ) = -2 then
+    &#62;          break;
+    &#62;        fi;
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; w;
+    m2^4*m1
+    gap&#62; ord;
+    20
+
+</pre>
+
+<div class="p"><!----></div>
+Similarly, we find a conjugate of the <tt>5A</tt> element such that
+the product has order 28.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; for w in Iterator( f ) do
+    &#62;      m:= MappedWord( w, fgens, co2gens );
+    &#62;      b:= cand ^ m;
+    &#62;      if Order( a * b ) = 28 then
+    &#62;        break;
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; w;
+    m2*(m2*m1)^3
+
+</pre>
+
+<div class="p"><!----></div>
+In order to show that the two elements <tt>a</tt> and <tt>b</tt>
+really generate Co<sub>2</sub>,
+we use the fact that no proper subgroup of Co<sub>2</sub> contains elements
+of the orders 23 and 30.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; t:= CharacterTable( "Co2" );;
+    gap&#62; mx:= List( Maxes( t ), CharacterTable );;
+    gap&#62; ForAny( List( Maxes( t ), CharacterTable ),
+    &#62;            x -&#62; IsSubset( OrdersClassRepresentatives( x ),
+    &#62;                           [ 23, 30 ] ) );
+    false
+
+</pre>
+
+<div class="p"><!----></div>
+It suffices to find products of the generators that have these orders.
+We compute random elements until we are successful.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; u:= Group( a, b );;
+    gap&#62; found:= [];;
+    gap&#62; repeat
+    &#62;      x:= Order( PseudoRandom( u ) );
+    &#62;      if x in [ 23, 30 ] then
+    &#62;        AddSet( found, x );
+    &#62;      fi;
+    &#62;    until Length( found ) = 2;
+    gap&#62; found;
+    [ 23, 30 ]
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc9">
+9</a>&nbsp;&nbsp;Appendix: Words for generators of the kernel 2<sup>22</sup></h2><a name="slp_kernel">
+</a>
+
+<div class="p"><!----></div>
+We assume (see Section&nbsp;<a href="#table_c2b">5</a>)
+that we have permutation generators <tt>stdperms</tt> on 4060 points
+for the group P  &#8773; 2<sup>22</sup>.Co<sub>2</sub> such that mapping them to
+standard generators of Co<sub>2</sub> defines an epimorphism.
+Our aim is to find (short) words in terms of <tt>stdperms</tt> for
+generators of the elementary abelian normal subgroup of order 2<sup>22</sup>.
+
+<div class="p"><!----></div>
+For that, we work in parallel with standard generators <tt>co2permgens</tt>
+of Co<sub>2</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; co2permgens:= GeneratorsOfGroup( AtlasGroup( "Co2" ) );;
+    gap&#62; f:= FreeMonoid( 2 );;
+    gap&#62; fgens:= GeneratorsOfMonoid( f );;
+    gap&#62; kernelgens:= [];;
+    gap&#62; kernelwords:= [];;
+    gap&#62; kernel:= Group( () );;
+    gap&#62; for w in Iterator( f ) do
+    &#62;      m1:= MappedWord( w, fgens, stdperms );
+    &#62;      m2:= MappedWord( w, fgens, co2permgens );
+    &#62;      ord1:= Order( m1 );
+    &#62;      ord2:= Order( m2 );
+    &#62;      if ord1 &lt;&#62; ord2 then
+    &#62;        cand:= m1 ^ ord2;
+    &#62;        if not cand in kernel then
+    &#62;          Add( kernelgens, cand );
+    &#62;          Add( kernelwords, [ w, ord2 ] );
+    &#62;          kernel:= ClosureGroup( kernel, cand );
+    &#62;        fi;
+    &#62;      fi;
+    &#62;      if Length( kernelgens ) = 22 then
+    &#62;        break;
+    &#62;      fi;
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+The kernel generators obtained with the above procedure are equal to
+the results of the straight line program <tt>slp_ker</tt>
+from Section&nbsp;<a href="#table_c2b">5</a>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ResultOfStraightLineProgram( slp_ker, fgens )
+    &#62;    = List( kernelwords, pair -&#62; pair[1]^pair[2] );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc10">
+10</a>&nbsp;&nbsp;Appendix: Words for class representatives of 2<sup>22</sup>.Co<sub>2</sub></h2><a name="slp_classreps">
+</a>
+
+<div class="p"><!----></div>
+The group P  &#8773; 2<sup>22</sup>.Co<sub>2</sub> from Section&nbsp;<a href="#table_c2b">5</a>
+has 388 conjugacy classes, as we can compute from the permutation
+representation on 4060 points.
+Our aim is to find (short) words in terms of the generators <tt>stdperms</tt>
+for conjugacy class representatives of P.
+
+<div class="p"><!----></div>
+For that, we first compute preimages in P of class representatives
+of its factor group Co<sub>2</sub>,
+using the straight line program <tt>slp_co2classreps</tt> from&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>],
+and use them to initialize lists of known class representatives and of words
+for each class of Co<sub>2</sub>.
+In the lists of words, we record the indices of kernel generators with
+which we have to multiply the preimage; thus the preimages themselves
+are denoted by empty lists.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; factccls:= ResultOfStraightLineProgram( slp_co2classreps.program,
+    &#62;                   stdperms );;
+    gap&#62; classreps:= List( factccls, x -&#62; [ x ] );;
+    gap&#62; classwords:= List( factccls, x -&#62; [ [] ] );;
+
+</pre>
+
+<div class="p"><!----></div>
+The preimage of the identity element in Co<sub>2</sub> is not the identity in P.
+Since it would be hard to get the identity as a product of this preimage
+with a product of kernel generators,
+we add the identity element by hand, and denote it by the word <tt>[ 0 ]</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; classreps[1]:= Concatenation( [ () ], classreps[1] );;
+    gap&#62; classwords[1]:= Concatenation( [ [ 0 ] ], classwords[1] );;
+
+</pre>
+
+<div class="p"><!----></div>
+Now we multiply the class representatives by words (of increasing length)
+in terms of the kernel generators
+and add the elements if they yields new classes,
+until we have found enough class representatives.
+
+<div class="p"><!----></div>
+The conjugacy checks in the following piece of <font face="helvetica">GAP</font> code
+cannot be executed with <font face="helvetica">GAP</font>&nbsp;4.9.3  or earlier versions in reasonable time.
+We have done these computations via delegations to <font face="helvetica">MAGMA</font>&nbsp;[<a href="#Magma" name="CITEMagma">BCP97</a>],
+using the auxiliary function <tt>IsConjugateViaMagma</tt>.
+(We hope that eventually the necessary functionality will become available
+also in <font face="helvetica">GAP</font>.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; if CTblLib.IsMagmaAvailable() then
+    &#62;      IsConjugateViaMagma:= function( permgroup, pi, known )
+    &#62;        local path, inputs, str, out, result, pos;
+    &#62; 
+    &#62;        path:= UserPreference( "CTblLib", "MagmaPath" );
+    &#62;        inputs:= [ CTblLib.MagmaStringOfPermGroup( permgroup, "G" ),
+    &#62;                   Concatenation( "p:= G!", String( pi ), ";" ),
+    &#62;                   "l:= [" ];
+    &#62;        if Length( known ) &#62; 0 then
+    &#62;          Append( inputs,
+    &#62;                List( known, p -&#62; Concatenation( "G!", String( p ), "," ) ) );
+    &#62;          Remove( inputs[ Length( inputs ) ] );
+    &#62;        fi;
+    &#62;        Append( inputs,
+    &#62;                [ "];",
+    &#62;                  "conj:= false;",
+    &#62;                  "for q in l do",
+    &#62;                  "  conj:= IsConjugate( G, p, q );",
+    &#62;                  "  if conj then break; end if;",
+    &#62;                  "end for;",
+    &#62;                  "if conj then",
+    &#62;                  "  print true;",
+    &#62;                  "else",       # Do not call '# Class( G, p );'.
+    &#62;                  "  print \"#\", # Centralizer( G, p );",
+    &#62;                  "end if;" ] );
+    &#62;        str:= "";
+    &#62;        out:= OutputTextString( str, true );
+    &#62;        result:= Process( DirectoryCurrent(), path,
+    &#62;            InputTextString( JoinStringsWithSeparator( inputs, "\n" ) ),
+    &#62;            out, [] );
+    &#62;        CloseStream( out );
+    &#62;        if result &lt;&#62; 0 then
+    &#62;          Error( "Process returned ", result );
+    &#62;        fi;
+    &#62;        pos:= PositionSublist( str, "\n# " );
+    &#62;        if pos &lt;&#62; fail then
+    &#62;          return Int( str{ [ pos + 3 .. Position( str, '\n', pos+1 )-1 ] } );
+    &#62;        elif PositionSublist( str, "true" ) &lt;&#62; fail then
+    &#62;          # 'pi' is conjugate to a perm. in 'known'
+    &#62;          return true;
+    &#62;        else
+    &#62;          Error( "Magma failed" );
+    &#62;        fi;
+    &#62;      end;
+    &#62;      co2tbl:= CharacterTable( "Co2" );;
+    &#62;      g:= Group( stdperms );;
+    &#62;      for i in [ 1 .. Length( factccls ) ] do
+    &#62;        iclasses:= List( classreps[i], x -&#62; ConjugacyClass( g, x ) );
+    &#62;        sum:= 2^22 * SizesConjugacyClasses( co2tbl )[i]
+    &#62;              - Sum( List( iclasses, Size ) );
+    &#62;        len:= 1;
+    &#62;        while sum &#62; 0 do
+    &#62;          for tup in Combinations( [ 1 .. 22 ], len ) do
+    &#62;            cand:= factccls[i] * Product( kernelgens{ tup } );
+    &#62;            # We call Magma anyhow in order to compute the class length.
+    &#62;            conj:= IsConjugateViaMagma( g, cand, classreps[i] );
+    &#62;            if conj &lt;&#62; true then
+    &#62;              Add( classreps[i], cand );
+    &#62;              Add( classwords[i], tup );
+    &#62;              sum:= sum - Size( g ) / conj;
+    &#62;              if sum &lt;= 0 then
+    &#62;                break;
+    &#62;              fi;
+    &#62;            fi;
+    &#62;          od;
+    &#62;          len:= len + 1;;
+    &#62;        od;
+    &#62;      od;
+    &#62;    fi;
+
+</pre>
+
+<div class="p"><!----></div>
+Let us check whether the class representatives fit to the ones
+used in Section&nbsp;<a href="#table_c2b">5</a> (up to ordering).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; if CTblLib.IsMagmaAvailable() then
+    &#62;      Print( ForAll( [ 1 .. Length( factccls ) ],
+    &#62;        i -&#62; Set( classrepsinfo[i][2] ) = Set( classwords[i] ) ), "\n" );
+    true
+    &#62;    else
+    &#62;      Print( "Magma not available, no check of class representatives\n" );
+    &#62;    fi;
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc11">
+11</a>&nbsp;&nbsp;Appendix: About the character table of 2<sup>9+16</sup>.S<sub>8</sub>(2)</h2><a name="2Dnormalizer">
+</a>
+
+<div class="p"><!----></div>
+As has been stated in Section&nbsp;<a href="#sect:classes">6</a>,
+we use the character table of a maximal subgroup of <font size="+0">B</font>
+that normalizes an elementary abelian group of order 2<sup>8</sup>
+instead of the table of the <tt>2D</tt> normalizer in <font size="+0">B</font>.
+The character table of this maximal subgroup,
+of the structure 2<sup>9+16</sup>.S<sub>8</sub>(2),
+had been computed from a matrix representation of the group.
+We verify that this matrix group can indeed be obtained from the
+restriction of one of our certified matrix representations of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+First we restrict our representation of <font size="+0">B</font> over the field with
+two elements to the fourth maximal subgroup.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; prg:= AtlasProgram( "B", "maxes", 4 );;
+    gap&#62; gens:= ResultOfStraightLineProgram( prg.program, gens_2 );;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we compute a 180 dimensional representation of this group.
+(The fact that this representation is faithful follows from the
+computations with it; this is beyond the scope of this note.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; m:= GModuleByMats( gens, GF(2) );;
+    gap&#62; a:= gens[1];;  b:= gens[2];;
+    gap&#62; mat:= a^2 + a*b^2 + b^3 * a * b^2 + b*a + b^3 * a;;
+    gap&#62; nsp:= NullspaceMat( mat );;  Length( nsp );
+    5
+    gap&#62; s:= MTX.SubGModule( m, nsp[4] );;
+    gap&#62; ind:= MTX.InducedActionSubmodule( m, s );;
+    gap&#62; MTX.Dimension( ind );
+    206
+    gap&#62; css:= MTX.BasesCompositionSeries( ind );;
+    gap&#62; List( css, Length );
+    [ 0, 26, 27, 35, 163, 171, 172, 198, 206 ]
+    gap&#62; ind2:= MTX.InducedActionFactorModule( ind, css[2] );;
+    gap&#62; MTX.Dimension( ind2 );
+    180
+
+</pre>
+
+<div class="p"><!----></div>
+The word used above has a 3 dimensional nullspace
+on the 180 dimensional module.
+We try each nonzero vector in that space as a seed vector,
+and consider the standard bases of the submodules generated by them;
+for that, we apply the function <tt>StdBasis</tt> from Section&nbsp;<a href="#pres_B">2</a>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; gensnew:= ind2.generators;;
+    gap&#62; a:= gensnew[1];;  b:= gensnew[2];;
+    gap&#62; mat:= a^2 + a*b^2 + b^3 * a * b^2 + b*a + b^3 * a;;
+    gap&#62; nsp:= NullspaceMat( mat );;  Length( nsp );
+    3
+    gap&#62; stdbasnew:= List( NormedRowVectors( VectorSpace( GF(2), nsp ) ),
+    &#62;                      seed -&#62; StdBasis( GF(2), gensnew, seed ) );;
+    gap&#62; List( stdbasnew, Length );
+    [ 180, 180, 9, 180, 145, 145, 180 ]
+    gap&#62; stdbasnew:= Filtered( stdbasnew, x -&#62; Length( x ) = 180 );;
+    gap&#62; stdgensnew:= List( stdbasnew, x -&#62; List( gensnew, m -&#62; x*m*x^-1 ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+We repeat the same process with the matrix generators from which
+the character table of the maximal subgroup 2<sup>9+16</sup>.S<sub>8</sub>(2) of <font size="+0">B</font>
+has been computed.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; gensold:= OneAtlasGeneratingSet( "2^(9+16).S8(2)", Dimension, 180 );;
+    gap&#62; gensold.repname;
+    "Bmax4G0-f2r180B0"
+    gap&#62; gensold:= gensold.generators;;
+    gap&#62; a:= gensold[1];;  b:= gensold[2];;
+    gap&#62; mat:= a^2 + a*b^2 + b^3 * a * b^2 + b*a + b^3 * a;;
+    gap&#62; nsp:= NullspaceMat( mat );;  Length( nsp );
+    3
+    gap&#62; stdbasold:= List( NormedRowVectors( VectorSpace( GF(2), nsp ) ),
+    &#62;                      seed -&#62; StdBasis( GF(2), gensold, seed ) );;
+    gap&#62; List( stdbasold, Length) ;
+    [ 180, 180, 9, 180, 145, 145, 180 ]
+    gap&#62; stdbasold:= Filtered( stdbasold, x -&#62; Length( x ) = 180 );;
+    gap&#62; stdgensold:= List( stdbasold, x -&#62; List( gensold, m -&#62; x*m*x^-1 ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+It turns out that the normal forms obtained this way coincide.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; List( stdgensnew, x -&#62; Position( stdgensold, x ) );
+    [ 1, 2, 4, 3 ]
+
+</pre>
+
+<div class="p"><!----></div>
+
+
+<h2>References</h2>
+
+<dl compact="compact">
+ <dt><a href="#CITEMagma" name="Magma">[BCP97]</a></dt><dd>
+W.&nbsp;Bosma, J.&nbsp;Cannon, and C.&nbsp;Playoust, <em>The Magma algebra system. I.
+  The user language</em>, J. Symbolic Comput. <b>24</b> (1997),
+  no.&nbsp;3-4, 235-265. MR 1484478
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEAtlas2017" name="Atlas2017">[BGH<sup>+</sup>17]</a></dt><dd>
+M.&nbsp;Bhargava, R.&nbsp;Guralnick, G.&nbsp;Hiss, K.&nbsp;Lux, and P.&nbsp;H. Tiep (eds.), <em>Finite
+  simple groups: thirty years of the Atlas and beyond</em>, Contemporary
+  Mathematics, vol. 694, Providence, RI, American Mathematical Society, 2017.
+  MR 3682583
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEBMO17" name="BMO17">[BMO17]</a></dt><dd>
+T.&nbsp;Breuer, G.&nbsp;Malle, and E.&nbsp;A. O'Brien, <em>Reliability and reproducibility
+  of Atlas information</em>, in Bhargava et&nbsp;al. [<a href="#Atlas2017" name="CITEAtlas2017">BGH<sup>+</sup>17</a>],
+  p.&nbsp;21-31. MR 3682588
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEBMverify" name="BMverify">[BMW20]</a></dt><dd>
+T.&nbsp;Breuer, K.&nbsp;Magaard, and R.&nbsp;A. Wilson, <em>Verification of the ordinary
+  character table of the Baby Monster</em>, J. Algebra <b>561</b> (2020),
+  111-130. MR 4135540
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITECCN85" name="CCN85">[CCN<sup>+</sup>85]</a></dt><dd>
+J.&nbsp;H. Conway, R.&nbsp;T. Curtis, S.&nbsp;P. Norton, R.&nbsp;A. Parker, and R.&nbsp;A. Wilson,
+  <em>Atlas of finite groups</em>, Oxford University Press, Eynsham, 1985,
+  Maximal subgroups and ordinary characters for simple groups, With
+  computational assistance from J. G. Thackray. MR 827219 (88g:20025)
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEGAP" name="GAP">[GAP24]</a></dt><dd>
+<em><font face="helvetica">GAP</font> - Groups, Algorithms, and Programming,
+  Version 4.13.1</em>, <a href="https://www.gap-system.org"><tt>https://www.gap<tt>-</tt>system.org</tt></a>, Mar 2024.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEPah07" name="Pah07">[Pah07]</a></dt><dd>
+H.&nbsp;Pahlings, <em>The character table of 2<sup>1+22</sup><sub>+</sub>.<span class="roman">Co</span><sub>2</sub></em>, J.
+  Algebra <b>315</b> (2007), no.&nbsp;1, 301-325. MR 2344348
+  (2008g:20023)
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEStr76b" name="Str76b">[Str76]</a></dt><dd>
+G.&nbsp;Stroth, <em>A characterization of Fischer's sporadic simple group of the
+  order 2<sup>41</sup> &#183;3<sup>13</sup> &#183;5<sup>6</sup> &#183;7<sup>2</sup> &#183;11 &#183;13 &#183;17 &#183;19 &#183;23 &#183;31 &#183;47</em>, J. Algebra <b>40</b> (1976), no.&nbsp;2,
+  499-531. MR 0417277 (54 #5334)
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEWil96" name="Wil96">[Wil96]</a></dt><dd>
+R.&nbsp;A. Wilson, <em>Standard generators for sporadic simple groups</em>, J. Algebra
+  <b>184</b> (1996), no.&nbsp;2, 505-515. MR 1409225 (98e:20025)
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEAGRv3" name="AGRv3">[WWT<sup>+</sup>]</a></dt><dd>
+R.&nbsp;A. Wilson, P.&nbsp;Walsh, J.&nbsp;Tripp, I.&nbsp;Suleiman, R.&nbsp;A. Parker, S.&nbsp;P. Norton,
+  S.&nbsp;Nickerson, S.&nbsp;Linton, J.&nbsp;Bray, and R.&nbsp;Abbott, <em>ATLAS of Finite Group
+  Representations</em>, <a href="http://brauer.maths.qmul.ac.uk/Atlas/v3"><tt>http://brauer.maths.qmul.ac.uk/</tt>
+<tt>Atlas/v3</tt></a>.</dd>
+</dl>
+
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.59.<br />On 22 May 2025, 15:03.</small>
+</html>

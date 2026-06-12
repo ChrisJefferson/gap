@@ -1,0 +1,11 @@
+  
+  [1X7 [33X[0;0YDistributing packages via the [5XGAP[105X[101X[1X sites[133X[101X
+  
+  [33X[0;0YThis  chapter  describes  how  to  collect  information  on  packages and to
+  maintain their re-distribution by The [5XGAP[105X Group.[133X
+  
+  
+  [1X7.1 [33X[0;0Y...[133X[101X
+  
+  [33X[0;0Y[Transfer existing READMEs to Manual format][133X
+  

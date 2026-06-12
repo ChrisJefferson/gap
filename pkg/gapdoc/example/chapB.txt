@@ -1,0 +1,555 @@
+  
+  [1XB [33X[0;0YThe Source[133X[101X
+  
+  
+  [1XB.1 [33X[0;0YTitlePage (Source)[133X[101X
+  
+  [4X[32X[104X
+    [4X<TitlePage>[104X
+    [4X  <Title>A Complete Example (&see; <Ref Sect="One"/>)</Title>[104X
+    [4X  <Subtitle>Every element shows up</Subtitle>[104X
+    [4X  <Version>Version 1.6.7[104X
+    [4X</Version>[104X
+    [4X  <TitleComment>[104X
+    [4X  If the subtitle ist not sufficient, this &lt;TitleComment> [104X
+    [4X  element can be used for a slightly longer text on the front page.[104X
+    [4X  </TitleComment>[104X
+    [4X  <Author>Frank Lübeck [104X
+    [4X          <Email>Frank.Luebeck@Math.RWTH-Aachen.De</Email> [104X
+    [4X  </Author>[104X
+    [4X  <Author> Max Neunhöffer [104X
+    [4X          <Email>neunhoef at mcs.st-and.ac.uk</Email>[104X
+    [4X  </Author>[104X
+    [4X  <Date>January 2022</Date>[104X
+    [4X  <Address>[104X
+    [4X  Lehrstuhl für Algebra und Zahlentheorie<Br/>Pontdriesch [104X
+    [4X  14/16<Br/> 52062 Aachen<Br/> (Germany)[104X
+    [4X  </Address>[104X
+    [4X  <Abstract>This document tries to use all elements that exist in &GAPDoc;.[104X
+    [4X            In addition, the final output not only contains the usual[104X
+    [4X            content, but also an appendix with the source text. There[104X
+    [4X            are also links from the usual content to the corresponding[104X
+    [4X            source text. This should enable new users to learn &GAPDoc;[104X
+    [4X            quickly.[104X
+    [4X  </Abstract>[104X
+    [4X  <Copyright>&copyright; 2000-2022 by Frank Lübeck and Max Neunhöffer[104X
+    [4X  </Copyright>[104X
+    [4X  <Acknowledgements>We thank Lehrstuhl für Algebra und Zahlentheorie [104X
+    [4X  (former Lehrstuhl D für Mathematik).[104X
+    [4X  </Acknowledgements>[104X
+    [4X  <Colophon>This is the Colophon page.[104X
+    [4X  </Colophon>[104X
+    [4X</TitlePage>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.2 [33X[0;0YBefore First Chapter (Source)[133X[101X
+  
+  [4X[32X[104X
+    [4X<TableOfContents/>[104X
+    [4X[104X
+    [4X<Body>[104X
+    [4X[104X
+    [4X  Text before chapter <Ref Chap="First"/>.[104X
+    [4X[104X
+    [4X<Chapter Label="First"><Heading>Sectioning Elements</Heading>[104X
+    [4X[104X
+    [4X  Text before the section <Ref Sect="FirstSect"/>.[104X
+  [4X[32X[104X
+  
+  
+  [1XB.3 [33X[0;0YFirst Chapter (Source)[133X[101X
+  
+  [33X[0;0Y[[14X1.0[114X][133X
+  
+  [4X[32X[104X
+    [4X<Section Label="FirstSect"><Heading>Normal subsections</Heading>[104X
+    [4X[104X
+    [4X  <Subsection Label="Asub"><Heading>A subsection</Heading>[104X
+    [4X[104X
+    [4X   This is text in the first subsection.[104X
+    [4X[104X
+    [4X  </Subsection>[104X
+    [4X[104X
+    [4X  <Subsection Label="Another"><Heading>Another subsection</Heading>[104X
+    [4X   [104X
+    [4X   This is text in the second subsection. This subsection [104X
+    [4X   has a label, such that one can reference it.[104X
+    [4X[104X
+    [4X  </Subsection>[104X
+    [4X[104X
+    [4X </Section>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.4 [33X[0;0YManSections (Source)[133X[101X
+  
+  [33X[0;0Y[[14X1.2[114X][133X
+  
+  [4X[32X[104X
+    [4X<Section><Heading>ManSections</Heading>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Func Name="f" Arg="x[,y]" Comm="calculates something"/>[104X
+    [4X   <Returns>an element in <Ref Filt="IsBlubb" /> or <K>fail</K>.</Returns>[104X
+    [4X   <Description>[104X
+    [4X    This function calculates something.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Meth Name="\^\{\}\[\]\&lt;\&amp;" Arg="c" [104X
+    [4X         Label="for nothing" Comm="tricky name"/>[104X
+    [4X   <Description>[104X
+    [4X    This method is for an operation with a tricky name.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Oper Name="MyOperation" Arg="x" Comm="calculates something"/>[104X
+    [4X   <Description>[104X
+    [4X    The operation <Ref Oper="MyOperation"/> operates on <Arg>x</Arg>.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X   [104X
+    [4X  <ManSection>[104X
+    [4X   <Meth Name="MyOperation" Label="First" Arg="x" [104X
+    [4X         Comm="generic method"/>[104X
+    [4X   <Description>[104X
+    [4X    This method calculates something by the generic method.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Meth Name="MyOperation" Label="for bla" Arg="x[, good_hint]"[104X
+    [4X         Comm="for bla arguments"/>[104X
+    [4X   <Description>[104X
+    [4X    This is the super-fast method for the operation[104X
+    [4X    <Ref Oper="MyOperation"/> if the argument <A>x</A> is in the[104X
+    [4X    representation <Ref Filt="IsBla"/>. It will become even faster if[104X
+    [4X    the optional argument <A>good_hint</A> is given.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Constr Name="MyConstructor" Arg="filt, x" Comm="constructs something"/>[104X
+    [4X   <Description>[104X
+    [4X    The constructor <Ref Oper="MyConstructor"/> constructs from <Arg>x</Arg>[104X
+    [4X    an object in <A>filt</A>.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Filt Name="IsBla" Arg="obj" Comm="representation bla"[104X
+    [4X         Type="representation"/>[104X
+    [4X   <Description>[104X
+    [4X    For objects in this representation there is a super-fast method[104X
+    [4X    (see <Ref Meth="MyOperation" Label="for bla"/>) for the operation[104X
+    [4X    <Ref Oper="MyOperation"/>.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Prop Name="IsBlubb" Arg="obj" Comm="property, whether object is blubb"/>[104X
+    [4X   <Description>[104X
+    [4X    A property.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Attr Name="NumberBlobbs" Arg="obj" Comm="number of blobbs"/>[104X
+    [4X   <Description>[104X
+    [4X    An attribute. Number of blobbs.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Var Name="AllBlibbs" Comm="list of all blibbs in the system"/>[104X
+    [4X   <Description>[104X
+    [4X    This global variable holds a list of all blibbs.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <Fam Name="BlibbsFamily" Comm="family of blibbs"/>[104X
+    [4X   <Description>[104X
+    [4X    Family of all blibbs.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X[104X
+    [4X  <ManSection>[104X
+    [4X   <InfoClass Name="InfoBlibbs" Comm="InfoClass for the library of blibbs"/>[104X
+    [4X   <Description>[104X
+    [4X    This info class is used throughout the library of blibbs.[104X
+    [4X   </Description>[104X
+    [4X  </ManSection>[104X
+    [4X    [104X
+    [4X </Section>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.5 [33X[0;0YVarious Types of Text (Source)[133X[101X
+  
+  [33X[0;0Y[[14X2.0[114X][133X
+  
+  [4X[32X[104X
+    [4X<Chapter><Heading>Other Markup</Heading>[104X
+    [4X[104X
+    [4X<Section><Heading>Various types of text</Heading>[104X
+    [4X[104X
+    [4XIn this section we present examples for all the various types of text[104X
+    [4Xthat are possible in &GAPDoc;: [104X
+    [4X<List>[104X
+    [4X <Item>[104X
+    [4X  <Emph>This</Emph> is <E>emphasized</E>.</Item>[104X
+    [4X <Item>[104X
+    [4X  <E>Keywords</E> are typeset like <Keyword>this</Keyword> and <K>that</K>.[104X
+    [4X  </Item>[104X
+    [4X <Item>[104X
+    [4X  <E>Arguments</E> of functions have an element. They look like this: [104X
+    [4X    <Arg>x</Arg> and <A>y</A>.</Item>[104X
+    [4X <Item> [104X
+    [4X  <E>Code</E> can be written with the Code element: [104X
+    [4X    <Code>if x = y then Print("Equal"); fi;</Code> or[104X
+    [4X    <C>while true do Print("Hello"); od;</C>.</Item> [104X
+    [4X <Item>[104X
+    [4X  <E>Filenames</E> have their own element:[104X
+    [4X    <File>/usr/local/ca/gap4r2</File> or <F>pkg/xgap/doc</F>.</Item>[104X
+    [4X <Item>[104X
+    [4X  <E>Buttons</E>, <E>menus</E>, <E>menu entries</E>, and such things[104X
+    [4X    are also supported: <B>OK</B> or <Button>Cancel</Button>.</Item>[104X
+    [4X <Item>[104X
+    [4X  <E>Packages</E> are typeset like this: [104X
+    [4X    <Package>Small Groups Library</Package>[104X
+    [4X </Item>[104X
+    [4X <Item>[104X
+    [4X  <E>Quoted</E> text: <Q>This is a text in quotes.</Q>[104X
+    [4X </Item>[104X
+    [4X</List>[104X
+    [4X[104X
+    [4X<E>Paragraphs</E> are separated by the empty <C>Par</C> or <C>P</C> element.[104X
+    [4X<Par/><E>Alternatives</E> for different output formats:[104X
+    [4X[104X
+    [4X<Alt Only="LaTeX">This is &LaTeX; output.</Alt>[104X
+    [4X<Alt Not="LaTeX">This is other than &LaTeX; output, namely:[104X
+    [4X<Alt Only="HTML"><![CDATA[<b>HTML</b>]]></Alt>[104X
+    [4X<Alt Only="Text">Text</Alt> output.</Alt>[104X
+    [4X[104X
+    [4X<P/>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.6 [33X[0;0YVerbatim-like text (Source)[133X[101X
+  
+  [33X[0;0Y[[14X2.1[114X][133X
+  
+  [4X[32X[104X
+    [4XThere are also three elements to typeset <Q>verbatim-like</Q> text.[104X
+    [4X<P/>[104X
+    [4XThe first is a <E>Listing</E>:[104X
+    [4X[104X
+    [4X<Listing Type="GAP code">[104X
+    [4X<![CDATA[Sieve := function(n)[104X
+    [4X  # Returns the primes less than n[104X
+    [4X  local l,p,i;[104X
+    [4X  l := [1..n]; Unbind(l[1]);[104X
+    [4X  p := 2;[104X
+    [4X  while p^2 <= n do[104X
+    [4X      if IsBound(l[p]) then[104X
+    [4X          i := 2 * p;[104X
+    [4X          while i <= n do Unbind(l[i]); i := i + p; od;[104X
+    [4X      fi;[104X
+    [4X      p := p + 1;[104X
+    [4X  od;[104X
+    [4X  return Compacted(l);[104X
+    [4Xend;]]>[104X
+    [4X</Listing>[104X
+    [4X[104X
+    [4XHere is a <E>Log</E> of a &GAP; session using this function:[104X
+    [4X[104X
+    [4X<Log>[104X
+    [4Xgap&gt; Sieve(100);[104X
+    [4X[ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,[104X
+    [4X  67, 71, 73, 79, 83, 89, 97 ][104X
+    [4Xgap&gt; Length(last);[104X
+    [4X25[104X
+    [4X</Log>[104X
+    [4X[104X
+    [4XHere is a &GAP; <E>Example</E> session that is automatically tested:[104X
+    [4X[104X
+    [4X<Example>[104X
+    [4Xgap&gt; s := Size(CharacterTable("M"));[104X
+    [4X808017424794512875886459904961710757005754368000000000[104X
+    [4Xgap&gt; s &lt; 10^53;                     [104X
+    [4Xfalse[104X
+    [4Xgap&gt; s &lt; 10^54;[104X
+    [4Xtrue[104X
+    [4X</Example>[104X
+    [4X[104X
+    [4X</Section>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.7 [33X[0;0YFormulae (Source)[133X[101X
+  
+  [33X[0;0Y[[14X2.2[114X][133X
+  
+  [4X[32X[104X
+    [4X<Section><Heading>Formulae</Heading>[104X
+    [4X[104X
+    [4XThere are three types of formulae. <P/>[104X
+    [4XThe first is the <E>normal math mode</E> of &LaTeX;: [104X
+    [4X[104X
+    [4X<Math>b_i \cdot b_j = \sum_{k=1}^d h_{ijk} b_k</Math>. [104X
+    [4X[104X
+    [4XThen there are <E>displayed formulae</E>:[104X
+    [4X<Display>[104X
+    [4X   \Longrightarrow \quad \left(\sum_{i=1}^d x_i b_i \right) \cdot[104X
+    [4X   \left(\sum_{j=1}^d y_j b_j \right) =[104X
+    [4X   \sum_{k=1}^d \left( \sum_{i,j} x_i y_j h_{ijk} \right) b_k [104X
+    [4X</Display>[104X
+    [4X[104X
+    [4XIf possible,  use the <C>Alt</C> element  to specify a better  readable text[104X
+    [4Xversion of such a formula as in the following example:<P/>[104X
+    [4X[104X
+    [4X<Alt Not="Text,HTML"><Display>[104X
+    [4X   \Longrightarrow \quad \left(\sum_{i=1}^d x_i b_i \right) \cdot[104X
+    [4X   \left(\sum_{j=1}^d y_j b_j \right) =[104X
+    [4X   \sum_{k=1}^d \left( \sum_{i,j} x_i y_j h_{ijk} \right) b_k [104X
+    [4X</Display></Alt>[104X
+    [4X<Alt Only="Text,HTML"><Verb>[104X
+    [4X         d                d                 d   [104X
+    [4X       -----            -----             -----  -----                 [104X
+    [4X        \                \                 \      \                    [104X
+    [4X ==> (   )  x_i b_i )(    )  y_i b_i ) =    )  (   )  x_i y_j h_ijk ) b_k[104X
+    [4X        /                /                 /      /                    [104X
+    [4X       -----            -----             -----  -----                [104X
+    [4X       i = 1            i = 1             k = 1   i,j                [104X
+    [4X</Verb><P/></Alt>[104X
+    [4X[104X
+    [4XFor small formulae without <Q>difficult</Q> parts use the <C>M</C>[104X
+    [4Xelement: <M>b_i</M>,[104X
+    [4X<M>x^2</M>, <M>x^2 + 2x + 1 = (x + 1)^2</M>. Note that here whitespace [104X
+    [4Xmatters for text (or HTML) output).<P/>[104X
+    [4X[104X
+    [4XHere are two formulae containing less than characters which are special[104X
+    [4Xcharacters for XML:[104X
+    [4X<M><![CDATA[a < b < c < d]]></M> and  <M>e &lt; f</M>.[104X
+    [4X</Section>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.8 [33X[0;0YCrossreferencing (Source)[133X[101X
+  
+  [33X[0;0Y[[14X2.3[114X][133X
+  
+  [4X[32X[104X
+    [4X<Section Label="Cross"><Heading>Crossreferencing</Heading>[104X
+    [4X[104X
+    [4X<Label Name="there"/>[104X
+    [4X[104X
+    [4XIn this section we demonstrate various references to parts of this[104X
+    [4Xdocument. Here is a reference to this section: <Ref Sect="Cross"/>.[104X
+    [4XHere is a reference to chapter <Ref Chap="First"/>, to appendix[104X
+    [4X<Ref Appendix="Appendix"/>, and to subsection <Ref Subsect="Asub"/>. [104X
+    [4X<P/>[104X
+    [4X[104X
+    [4XWe distinguish among others references [104X
+    [4X to functions (see <Ref Func="f"/>), [104X
+    [4X to methods with tricky name (see [104X
+    [4X                 <Ref Meth="\^\{\}\[\]\&lt;\&amp;" Label="for nothing"/>),[104X
+    [4X to operations (see <Ref Oper="MyOperation"/>), [104X
+    [4X to methods (see <Ref Meth="MyOperation" Label="First"/> or [104X
+    [4X                 <Ref Meth="MyOperation" Label="for bla"/>), [104X
+    [4X to filters (see <Ref Filt="IsBla"/>), [104X
+    [4X to properties (see <Ref Prop="IsBlubb"/>),[104X
+    [4X to attributes (see <Ref Attr="NumberBlobbs"/>), [104X
+    [4X to variables (<Ref Var="AllBlibbs"/>), [104X
+    [4X to families (see <Ref Fam="BlibbsFamily"/>),[104X
+    [4X and to info classes (see <Ref InfoClass="InfoBlibbs"/>).[104X
+    [4X<P/>[104X
+    [4X[104X
+    [4XThere are also references to labels: see <Ref Text="here" Label="there"/>,[104X
+    [4Xto other books: see <Ref Sect="syntaxXML" BookName="gapdoc"/> or[104X
+    [4X<Ref Oper="IsSubgroup" BookName="ref"/> in the &GAP; reference[104X
+    [4Xmanual.[104X
+    [4X<P/>[104X
+    [4X[104X
+    [4XReferences to sections come in two styles: [104X
+    [4X<Ref Chap="First" Style="Number"/>[104X
+    [4Xor <Ref Chap="First" Style="Text"/>.[104X
+    [4X<P/>[104X
+    [4X[104X
+    [4XAnother type of cross referencing is bibliography. Here is a [104X
+    [4Xcitation: <Cite Key="CR1" Where="(5.22)"/> is an interesting lemma.[104X
+    [4X<P/>[104X
+    [4X[104X
+    [4XThere are also URLs:<P/>[104X
+    [4X[104X
+    [4X<URL>https://www.math.rwth-aachen.de/LDfM/</URL><P/>[104X
+    [4X[104X
+    [4XEmail addresses have a special element:[104X
+    [4X<Email>Frank.Luebeck@Math.RWTH-Aachen.De</Email>[104X
+    [4X<P/>[104X
+    [4X[104X
+    [4Xand Homepages another one:[104X
+    [4X<Homepage>https://www.math.rwth-aachen.de/~Frank.Luebeck/</Homepage>[104X
+    [4X<P/>[104X
+    [4X[104X
+    [4XOne can generate index entries as follows (look up the words [104X
+    [4X<Q>&TeX;-UserGroup</Q>, <Q>RWTH</Q>, and <Q>Aachen, Hauptbahnhof</Q>).[104X
+    [4X<Index Key="TeX-Usergroup">&TeX;-UserGroup</Index>[104X
+    [4X<Index>RWTH</Index>[104X
+    [4X<Index>Aachen <Subkey>Hauptbahnhof</Subkey></Index>[104X
+    [4X<Index Key="GAPDoc" Subkey="for GAP programmers">&GAPDoc; [104X
+    [4X<Subkey>for &GAP; programmers</Subkey></Index>[104X
+    [4X[104X
+    [4X</Section>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.9 [33X[0;0YLists and Tables (Source)[133X[101X
+  
+  [33X[0;0Y[[14X2.4[114X][133X
+  
+  [4X[32X[104X
+    [4X<Section><Heading>Lists and Tables</Heading>[104X
+    [4X[104X
+    [4XThere are[104X
+    [4X<List>[104X
+    [4X <Item>lists</Item>[104X
+    [4X <Item>enumerations, and</Item>[104X
+    [4X <Item>tables</Item>[104X
+    [4X</List>[104X
+    [4Xor:[104X
+    [4X<Enum>[104X
+    [4X <Item>lists</Item>[104X
+    [4X <Item>enumerations, and</Item>[104X
+    [4X <Item>tables</Item>[104X
+    [4X</Enum>[104X
+    [4Xor with marks:[104X
+    [4X<List>[104X
+    [4X <Mark>lists:</Mark><Item> not numbered</Item>[104X
+    [4X <Mark>enumerations:</Mark><Item> numbered</Item>[104X
+    [4X <Mark>tables:</Mark><Item> two-dimensional</Item>[104X
+    [4X</List>[104X
+    [4X[104X
+    [4XLists can also be nested:[104X
+    [4X<Enum>[104X
+    [4X <Item>[104X
+    [4X   <Enum>[104X
+    [4X     <Item>first item of inner enumeration </Item>[104X
+    [4X     <Item>second item of inner enumeration </Item>[104X
+    [4X   </Enum>[104X
+    [4X </Item>[104X
+    [4X <Item>[104X
+    [4X   <List>[104X
+    [4X     <Item>first item of inner list </Item>[104X
+    [4X     <Item>second item of inner list </Item>[104X
+    [4X   </List>[104X
+    [4X  </Item>[104X
+    [4X</Enum>[104X
+    [4X[104X
+    [4XHere is a <E>table</E>:[104X
+    [4X[104X
+    [4X<Table Align="|r|c|l|">[104X
+    [4X <Caption>Prices</Caption>[104X
+    [4X <HorLine/>[104X
+    [4X  <Row>[104X
+    [4X   <Item>Object</Item><Item>Price</Item><Item>available</Item>[104X
+    [4X  </Row>[104X
+    [4X <HorLine/>[104X
+    [4X <HorLine/>[104X
+    [4X  <Row>[104X
+    [4X   <Item>Shoe</Item><Item>$1,00</Item><Item>there</Item>[104X
+    [4X  </Row>[104X
+    [4X <HorLine/>[104X
+    [4X  <Row>[104X
+    [4X   <Item>Hat</Item><Item>$2,00</Item><Item>not there</Item>[104X
+    [4X  </Row>[104X
+    [4X <HorLine/>[104X
+    [4X</Table>[104X
+    [4X[104X
+    [4X</Section>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.10 [33X[0;0YEntities and Special Characters (Source)[133X[101X
+  
+  [33X[0;0Y[[14X2.5[114X][133X
+  
+  [4X[32X[104X
+    [4X<Section><Heading>Entities and Special Characters</Heading>[104X
+    [4X<Label Name="TenBack"/>[104X
+    [4X[104X
+    [4X[&see; <Ref Sect="Ten"/>]<P/>[104X
+    [4X[104X
+    [4XHere is a table of special characters, the first two are special for[104X
+    [4XXML and must be typed in by entities in &GAPDoc; documents. The other [104X
+    [4Xcharacters are special for &LaTeX; but in &GAPDoc; they can be typed[104X
+    [4Xdirectly. [104X
+    [4X[104X
+    [4X<Table Align="|c|c|c|c|c|c|c|c|c|c|c|c|c|" Label="charsInCDATA"> [104X
+    [4X <Caption>Special characters in character data</Caption>[104X
+    [4X <HorLine/> <Row> [104X
+    [4X  <Item><C>&amp;</C></Item>[104X
+    [4X  <Item><C>&lt;</C></Item>[104X
+    [4X  <Item><C>></C></Item>[104X
+    [4X  <Item><C>#</C></Item>[104X
+    [4X  <Item><C>$</C></Item>[104X
+    [4X  <Item><C>%</C></Item>[104X
+    [4X  <Item><C>~</C></Item>[104X
+    [4X  <Item><C>\</C></Item>   [104X
+    [4X  <Item><C>{</C></Item>[104X
+    [4X  <Item><C>}</C></Item>[104X
+    [4X  <Item><C>_</C></Item>[104X
+    [4X  <Item><C>^</C></Item>[104X
+    [4X  <Item><C>&nbsp;</C></Item>[104X
+    [4X </Row> <HorLine/>[104X
+    [4X</Table>[104X
+    [4X[104X
+    [4XAnd here are the predefined entities in &GAPDoc;:[104X
+    [4X[104X
+    [4X<Table Align="|l|l|">[104X
+    [4X<Caption>Predefined Entities in the &GAPDoc; system</Caption>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;GAP;</C></Item>       <Item>&GAP;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;GAPDoc;</C></Item>    <Item>&GAPDoc;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;TeX;</C></Item>       <Item>&TeX;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;LaTeX;</C></Item>     <Item>&LaTeX;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;BibTeX;</C></Item>    <Item>&BibTeX;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;MeatAxe;</C></Item>   <Item>&MeatAxe;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;XGAP;</C></Item>      <Item>&XGAP;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X<Row> <Item><C>&amp;copyright;</C></Item> <Item>&copyright;</Item> </Row>[104X
+    [4X<HorLine/>[104X
+    [4X</Table>[104X
+    [4X[104X
+    [4XAnd some more for mathematical symbols: [104X
+    [4X&CC;, &ZZ;, &NN;, &PP;, &QQ;, &HH;, &RR;.[104X
+    [4X[104X
+    [4X</Section>[104X
+    [4X[104X
+    [4X</Chapter>[104X
+    [4X[104X
+    [4X</Body>[104X
+  [4X[32X[104X
+  
+  
+  [1XB.11 [33X[0;0YAppendix (Source)[133X[101X
+  
+  [33X[0;0Y[[14XA.0[114X][133X
+  
+  [4X[32X  GAPDoc source  [32X[104X
+    [4X<Appendix><Heading>An Appendix</Heading>[104X
+    [4X[104X
+    [4XThis is an appendix.[104X
+    [4X</Appendix>[104X
+  [4X[32X[104X
+  

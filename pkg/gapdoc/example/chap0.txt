@@ -1,0 +1,109 @@
+  
+  
+                           [1XA Complete Example (→ [14XB.1[114X)[101X
+  
+  
+                             [1XEvery element shows up[101X
+  
+  
+                                 Version 1.6.7
+  
+  
+                                 February 2024
+  
+  
+                                  Frank Lübeck
+  
+                                 Max Neunhöffer
+  
+  
+  
+            [33X[0;10YIf  the  subtitle is not sufficient, this <TitleComment>
+            element  can  be  used for a slightly longer text on the
+            front page.[133X
+  
+  
+  
+  Frank Lübeck
+      Email:    [7Xmailto:Frank.Luebeck@Math.RWTH-Aachen.De[107X
+  Max Neunhöffer
+      Email:    [7Xmailto:neunhoef at mcs.st-and.ac.uk[107X
+  
+  
+  Address: [33X[0;9YLehrstuhl für Algebra und Zahlentheorie[133X
+           [33X[0;9YPontdriesch 14/16[133X
+           [33X[0;9Y52062 Aachen[133X
+           [33X[0;9Y(Germany)[133X
+  
+  
+  -------------------------------------------------------
+  [1XAbstract[101X
+  [33X[0;0YThis  document  tries to use all elements that exist in [5XGAPDoc[105X. In addition,
+  the  final  output not only contains the usual content, but also an appendix
+  with  the  source  text.  There are also links from the usual content to the
+  corresponding  source  text.  This  should  enable new users to learn [5XGAPDoc[105X
+  quickly.[133X
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2000-2024 by Frank Lübeck and Max Neunhöffer[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YWe  thank  Lehrstuhl  für  Algebra und Zahlentheorie (former Lehrstuhl D für
+  Mathematik).[133X
+  
+  
+  -------------------------------------------------------
+  [1XColophon[101X
+  [33X[0;0YThis is the Colophon page.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (GAPDoc Example)[101X
+  
+  1 [33X[0;0YSectioning Elements[133X
+    1.1 [33X[0;0YNormal subsections[133X
+      1.1-1 [33X[0;0YA subsection[133X
+      1.1-2 [33X[0;0YAnother subsection[133X
+    1.2 [33X[0;0YManSections[133X
+      1.2-1 f
+      1.2-2 \^\{\}\[\]\<\&
+      1.2-3 MyOperation
+      1.2-4 MyOperation
+      1.2-5 MyOperation
+      1.2-6 MyConstructor
+      1.2-7 IsBla
+      1.2-8 IsBlubb
+      1.2-9 NumberBlobbs
+      1.2-10 AllBlibbs
+      1.2-11 BlibbsFamily
+      1.2-12 InfoBlibbs
+  2 [33X[0;0YOther Markup[133X
+    2.1 [33X[0;0YVarious types of text[133X
+    2.2 [33X[0;0YFormulae[133X
+    2.3 [33X[0;0YCrossreferencing[133X
+    2.4 [33X[0;0YLists and Tables[133X
+    2.5 [33X[0;0YEntities and Special Characters[133X
+  A [33X[0;0YAn Appendix[133X
+  B [33X[0;0YThe Source[133X
+    B.1 [33X[0;0YTitlePage (Source)[133X
+    B.2 [33X[0;0YBefore First Chapter (Source)[133X
+    B.3 [33X[0;0YFirst Chapter (Source)[133X
+    B.4 [33X[0;0YManSections (Source)[133X
+    B.5 [33X[0;0YVarious Types of Text (Source)[133X
+    B.6 [33X[0;0YVerbatim-like text (Source)[133X
+    B.7 [33X[0;0YFormulae (Source)[133X
+    B.8 [33X[0;0YCrossreferencing (Source)[133X
+    B.9 [33X[0;0YLists and Tables (Source)[133X
+    B.10 [33X[0;0YEntities and Special Characters (Source)[133X
+    B.11 [33X[0;0YAppendix (Source)[133X
+  
+  
+  [32X
+  [33X[0;0YText before chapter [14X1[114X. (→ [14XB.2[114X)[133X
+  

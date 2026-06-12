@@ -1,0 +1,225 @@
+  
+  
+                                     [1X[5XGAPDoc[105X[101X
+  
+  
+                               ( Version 1.6.7 )
+  
+  
+                                 February 2024
+  
+  
+                                  Frank Lübeck
+  
+                                 Max Neunhöffer
+  
+  
+  
+  Frank Lübeck
+      Email:    [7Xmailto:Frank.Luebeck@Math.RWTH-Aachen.De[107X
+      Homepage: [7Xhttps://www.math.rwth-aachen.de/~Frank.Luebeck[107X
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2000-2024 by Frank Lübeck and Max Neunhöffer[133X
+  
+  [33X[0;0Y[5XGAPDoc[105X  is free software; you can redistribute it and/or modify it under the
+  terms        of       the       GNU       General       Public       License
+  ([7Xhttps://www.fsf.org/licenses/gpl.html[107X)  as  published  by the Free Software
+  Foundation;  either  version 2 of the License, or (at your option) any later
+  version.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (GAPDoc)[101X
+  
+  1 [33X[0;0YIntroduction and Example[133X
+    1.1 [33X[0;0YXML[133X
+    1.2 [33X[0;0YA complete example[133X
+    1.3 [33X[0;0YSome questions[133X
+  2 [33X[0;0YHow To Type a [5XGAPDoc[105X Document[133X
+    2.1 [33X[0;0YGeneral XML Syntax[133X
+      2.1-1 [33X[0;0YHead of XML Document[133X
+      2.1-2 [33X[0;0YComments[133X
+      2.1-3 [33X[0;0YProcessing Instructions[133X
+      2.1-4 [33X[0;0YNames in XML and Whitespace[133X
+      2.1-5 [33X[0;0YElements[133X
+      2.1-6 [33X[0;0YStart Tags[133X
+      2.1-7 [33X[0;0YEnd Tags[133X
+      2.1-8 [33X[0;0YCombined Tags for Empty Elements[133X
+      2.1-9 [33X[0;0YEntities[133X
+      2.1-10 [33X[0;0YSpecial Characters in XML[133X
+      2.1-11 [33X[0;0YRules for Attribute Values[133X
+      2.1-12 [33X[0;0Y[10XCDATA[110X[133X
+      2.1-13 [33X[0;0YEncoding of an XML Document[133X
+      2.1-14 [33X[0;0YWell Formed and Valid XML Documents[133X
+    2.2 [33X[0;0YEntering [5XGAPDoc[105X Documents[133X
+      2.2-1 [33X[0;0YOther special characters[133X
+      2.2-2 [33X[0;0YMathematical Formulae[133X
+      2.2-3 [33X[0;0YMore Entities[133X
+  3 [33X[0;0YThe Document Type Definition[133X
+    3.1 [33X[0;0YWhat is a DTD?[133X
+    3.2 [33X[0;0YOverall Document Structure[133X
+      3.2-1 [33X[0;0Y[10X<Book>[110X[133X
+      3.2-2 [33X[0;0Y[10X<TitlePage>[110X[133X
+      3.2-3 [33X[0;0Y[10X<Title>[110X[133X
+      3.2-4 [33X[0;0Y[10X<Subtitle>[110X[133X
+      3.2-5 [33X[0;0Y[10X<Version>[110X[133X
+      3.2-6 [33X[0;0Y[10X<TitleComment>[110X[133X
+      3.2-7 [33X[0;0Y[10X<Author>[110X[133X
+      3.2-8 [33X[0;0Y[10X<Date>[110X[133X
+      3.2-9 [33X[0;0Y[10X<Address>[110X[133X
+      3.2-10 [33X[0;0Y[10X<Abstract>[110X[133X
+      3.2-11 [33X[0;0Y[10X<Copyright>[110X[133X
+      3.2-12 [33X[0;0Y[10X<Acknowledgements>[110X[133X
+      3.2-13 [33X[0;0Y[10X<Colophon>[110X[133X
+      3.2-14 [33X[0;0Y[10X<TableOfContents>[110X[133X
+      3.2-15 [33X[0;0Y[10X<Bibliography>[110X[133X
+      3.2-16 [33X[0;0Y[10X<TheIndex>[110X[133X
+    3.3 [33X[0;0YSectioning Elements[133X
+      3.3-1 [33X[0;0Y[10X<Body>[110X[133X
+      3.3-2 [33X[0;0Y[10X<Chapter>[110X[133X
+      3.3-3 [33X[0;0Y[10X<Heading>[110X[133X
+      3.3-4 [33X[0;0Y[10X<Appendix>[110X[133X
+      3.3-5 [33X[0;0Y[10X<Section>[110X[133X
+      3.3-6 [33X[0;0Y[10X<Subsection>[110X[133X
+    3.4 [33X[0;0YManSection–a special kind of subsection[133X
+      3.4-1 [33X[0;0Y[10X<ManSection>[110X[133X
+      3.4-2 [33X[0;0Y[10X<Func>[110X[133X
+      3.4-3 [33X[0;0Y[10X<Oper>[110X[133X
+      3.4-4 [33X[0;0Y[10X<Constr>[110X[133X
+      3.4-5 [33X[0;0Y[10X<Meth>[110X[133X
+      3.4-6 [33X[0;0Y[10X<Filt>[110X[133X
+      3.4-7 [33X[0;0Y[10X<Prop>[110X[133X
+      3.4-8 [33X[0;0Y[10X<Attr>[110X[133X
+      3.4-9 [33X[0;0Y[10X<Var>[110X[133X
+      3.4-10 [33X[0;0Y[10X<Fam>[110X[133X
+      3.4-11 [33X[0;0Y[10X<InfoClass>[110X[133X
+    3.5 [33X[0;0YCross Referencing and Citations[133X
+      3.5-1 [33X[0;0Y[10X<Ref>[110X[133X
+      3.5-2 [33X[0;0Y[10X<Label>[110X[133X
+      3.5-3 [33X[0;0Y[10X<Cite>[110X[133X
+      3.5-4 [33X[0;0Y[10X<Index>[110X[133X
+      3.5-5 [33X[0;0Y[10X<URL>[110X[133X
+      3.5-6 [33X[0;0Y[10X<Email>[110X[133X
+      3.5-7 [33X[0;0Y[10X<Homepage>[110X[133X
+    3.6 [33X[0;0YStructural Elements like Lists[133X
+      3.6-1 [33X[0;0Y[10X<List>[110X[133X
+      3.6-2 [33X[0;0Y[10X<Mark>[110X[133X
+      3.6-3 [33X[0;0Y[10X<Item>[110X[133X
+      3.6-4 [33X[0;0Y[10X<Enum>[110X[133X
+      3.6-5 [33X[0;0Y[10X<Table>[110X[133X
+    3.7 [33X[0;0YTypes of Text[133X
+      3.7-1 [33X[0;0Y[10X<Emph>[110X and [10X<E>[110X[133X
+      3.7-2 [33X[0;0Y[10X<Quoted>[110X and [10X<Q>[110X[133X
+      3.7-3 [33X[0;0Y[10X<Keyword>[110X and [10X<K>[110X[133X
+      3.7-4 [33X[0;0Y[10X<Arg>[110X and [10X<A>[110X[133X
+      3.7-5 [33X[0;0Y[10X<Code>[110X and [10X<C>[110X[133X
+      3.7-6 [33X[0;0Y[10X<File>[110X and [10X<F>[110X[133X
+      3.7-7 [33X[0;0Y[10X<Button>[110X and [10X<B>[110X[133X
+      3.7-8 [33X[0;0Y[10X<Package>[110X[133X
+      3.7-9 [33X[0;0Y[10X<Listing>[110X[133X
+      3.7-10 [33X[0;0Y[10X<Log>[110X and [10X<Example>[110X[133X
+      3.7-11 [33X[0;0Y[10X<Verb>[110X[133X
+    3.8 [33X[0;0YElements for Mathematical Formulae[133X
+      3.8-1 [33X[0;0Y[10X<Math>[110X and [10X<Display>[110X[133X
+      3.8-2 [33X[0;0Y[10X<M>[110X[133X
+    3.9 [33X[0;0YEverything else[133X
+      3.9-1 [33X[0;0Y[10X<Alt>[110X[133X
+      3.9-2 [33X[0;0Y[10X<Par>[110X and [10X<P>[110X[133X
+      3.9-3 [33X[0;0Y[10X<Br>[110X[133X
+      3.9-4 [33X[0;0Y[10X<Ignore>[110X[133X
+  4 [33X[0;0YDistributing a Document into Several Files[133X
+    4.1 [33X[0;0YThe Conventions[133X
+    4.2 [33X[0;0YA Tool for Collecting a Document[133X
+      4.2-1 ComposedDocument
+      4.2-2 OriginalPositionDocument
+      4.2-3 FilenameGAP
+  5 [33X[0;0YThe Converters and an XML Parser[133X
+    5.1 [33X[0;0YProducing Documentation from Source Files[133X
+      5.1-1 MakeGAPDocDoc
+    5.2 [33X[0;0YParsing XML Documents[133X
+      5.2-1 ParseTreeXMLString
+      5.2-2 StringXMLElement
+      5.2-3 EntitySubstitution
+      5.2-4 DisplayXMLStructure
+      5.2-5 ApplyToNodesParseTree
+      5.2-6 GetTextXMLTree
+      5.2-7 XMLElements
+      5.2-8 CheckAndCleanGapDocTree
+      5.2-9 AddParagraphNumbersGapDocTree
+      5.2-10 InfoXMLParser
+      5.2-11 XMLValidate
+      5.2-12 ValidateGAPDoc
+    5.3 [33X[0;0YThe Converters[133X
+      5.3-1 GAPDoc2LaTeX
+      5.3-2 GAPDoc2Text
+      5.3-3 GAPDoc2TextPrintTextFiles
+      5.3-4 AddPageNumbersToSix
+      5.3-5 PrintSixFile
+      5.3-6 SetGAPDocTextTheme
+      5.3-7 GAPDoc2HTML
+      5.3-8 GAPDoc2HTMLPrintHTMLFiles
+      5.3-9 [33X[0;0YStylesheet files[133X
+      5.3-10 CopyHTMLStyleFiles
+      5.3-11 SetGAPDocHTMLStyle
+      5.3-12 InfoGAPDoc
+      5.3-13 SetGapDocLanguage
+    5.4 [33X[0;0YTesting Manual Examples[133X
+      5.4-1 ExtractExamples
+      5.4-2 RunExamples
+  6 [33X[0;0YString and Text Utilities[133X
+    6.1 [33X[0;0YText Utilities[133X
+      6.1-1 WHITESPACE
+      6.1-2 TextAttr
+      6.1-3 WrapTextAttribute
+      6.1-4 FormatParagraph
+      6.1-5 SubstitutionSublist
+      6.1-6 StripBeginEnd
+      6.1-7 StripEscapeSequences
+      6.1-8 RepeatedString
+      6.1-9 NumberDigits
+      6.1-10 LabelInt
+      6.1-11 PositionMatchingDelimiter
+      6.1-12 WordsString
+      6.1-13 Base64String
+    6.2 [33X[0;0YUnicode Strings[133X
+      6.2-1 [33X[0;0YUnicode Strings and Characters[133X
+      6.2-2 Encode
+      6.2-3 [33X[0;0YLengths of UTF-8 strings[133X
+      6.2-4 InitialSubstringUTF8String
+    6.3 [33X[0;0YPrint Utilities[133X
+      6.3-1 PrintTo1
+      6.3-2 StringPrint
+      6.3-3 PrintFormattedString
+      6.3-4 Page
+      6.3-5 StringFile
+  7 [33X[0;0YUtilities for Bibliographies[133X
+    7.1 [33X[0;0YParsing BibTeX Files[133X
+      7.1-1 ParseBibFiles
+      7.1-2 NormalizedNameAndKey
+      7.1-3 WriteBibFile
+      7.1-4 LabelsFromBibTeX
+      7.1-5 InfoBibTools
+    7.2 [33X[0;0YThe BibXMLext Format[133X
+    7.3 [33X[0;0YUtilities for BibXMLext data[133X
+      7.3-1 [33X[0;0YTranslating BibTeX to BibXMLext[133X
+      7.3-2 HeuristicTranslationsLaTeX2XML.Apply
+      7.3-3 StringBibAsXMLext
+      7.3-4 ParseBibXMLextString
+      7.3-5 WriteBibXMLextFile
+      7.3-6 [33X[0;0YBibliography Entries as Records[133X
+      7.3-7 RecBibXMLEntry
+      7.3-8 AddHandlerBuildRecBibXMLEntry
+      7.3-9 StringBibXMLEntry
+      7.3-10 TemplateBibXML
+    7.4 [33X[0;0YGetting BibTeX entries from [5XMathSciNet[105X[133X
+      7.4-1 SearchMR
+  A [33X[0;0YThe File [11X3k+1.xml[111X[133X
+  B [33X[0;0YThe File [11Xgapdoc.dtd[111X[133X
+  C [33X[0;0YThe File [11Xbibxmlext.dtd[111X[133X
+  
+  
+  [32X

@@ -1,0 +1,32 @@
+  
+  [1X4 [33X[0;0YMaintaining the [5XGAP[105X[101X[1X documentation[133X[101X
+  
+  [33X[0;0YThis chapter explains shortly how the [5XGAP[105X documentation is organized and how
+  to produce the viewable documents from the sources.[133X
+  
+  
+  [1X4.1 [33X[0;0YThe source of the [5XGAP[105X[101X[1X documentation[133X[101X
+  
+  [33X[0;0YMention  that  manual  examples  should  fit in 72 character width, and that
+  examples  should  run as shown if all examples within a chapter are run in a
+  fresh [5XGAP[105X in default configuration with [10XScreenSize([72]);[110X.[133X
+  
+  
+  [1X4.2 [33X[0;0YHow to compile the [5XGAP[105X[101X[1X manuals from the sources[133X[101X
+  
+  [33X[0;0YTo compile the [5XGAP[105X manuals from sources, call[133X
+  
+  make doc
+  
+  [33X[0;0Yin  the  [5XGAP[105X  root  directory.  This will compile each of the three main [5XGAP[105X
+  manuals twice to ensure that cross-references are resolved.[133X
+  
+  [33X[0;0YIf you need to compile a single manual book, call[133X
+  
+  gap makedocrel.g
+  
+  [33X[0;0Yin  the  corresponding  directory ([11Xref[111X, [11Xtut[111X, [11Xhpc[111X or [11Xdev[111X). This is convenient
+  when  you're  working  on the documentation and want to check if the changed
+  manual  book  compiles,  so  you need not to recompile all manual books from
+  scratch.[133X
+  

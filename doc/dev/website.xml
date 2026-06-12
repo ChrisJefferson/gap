@@ -1,0 +1,47 @@
+<!--
+
+  website.xml          GAP documentation
+
+  Copyright (C) 2005,  The GAP Group
+
+Maintaining www.gap-system.org
+
+-->
+
+<Chapter Label="Chap-GAPWeb">
+<Heading>Maintaining the &GAP; website</Heading>
+
+This chapter describes how the information accessible on
+<URL>https://www.gap-system.org/</URL> is stored
+and collected, and how it is transformed into web pages.
+
+<Section Label="WPOverview">
+<Heading>Overview</Heading>
+
+
+<P/>
+All the sources for the web pages are kept in the git repository
+<C>https://github.com/gap-system/GapWWW</C>. So you can clone this repository using
+
+<Verb>
+git clone https://github.com/gap-system/GapWWW
+</Verb>
+
+The website is hosted on a web server at RPTU Kaiserslautern-Landau.
+It use a clone of the above git repository. Whenever a commit is pushed
+to its &master; branch, the server automatically fetches the changes,
+runs the Jekyll tool and then serves the pages. 
+
+<P/>
+The <F>README.md</F> and <F>etc/README.server.md</F> in that repository
+explain the technical details about the website setup.
+
+<P/>
+Furthermore the file <F>dev/releases/README.md</F> in the main GAP git repository
+contains instructions on how to update the website when a new GAP release is made.
+
+
+</Section>
+
+</Chapter>
+

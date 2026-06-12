@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (GAPDoc Example) - Appendix B: The Source</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chapB"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chapA.html">A</a>  <a href="chapB.html">B</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chapA.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chapB_mj.html">[MathJax on]</a></p>
+<p><a id="X7B4F7623844A7E32" name="X7B4F7623844A7E32"></a></p>
+<div class="ChapSects"><a href="chapB.html#X7B4F7623844A7E32">B <span class="Heading">The Source</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X7CFACB517D259F59">B.1 <span class="Heading">TitlePage (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X7A4D1C8680D81F2A">B.2 <span class="Heading">Before First Chapter (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X78308EBC7C2FF426">B.3 <span class="Heading">First Chapter (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X814E3376826E1DB0">B.4 <span class="Heading">ManSections (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X82A731CA83FB9ADD">B.5 <span class="Heading">Various Types of Text (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X824BD70087820CF0">B.6 <span class="Heading">Verbatim-like text (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X8516FAA07A95BBB5">B.7 <span class="Heading">Formulae (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X7D19CF4782309661">B.8 <span class="Heading">Crossreferencing (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X7BB822947F626E1A">B.9 <span class="Heading">Lists and Tables (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X80B478CD7E584F6F">B.10 <span class="Heading">Entities and Special Characters (Source)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chapB.html#X85E7E6BA81367928">B.11 <span class="Heading">Appendix (Source)</span></a>
+</span>
+</div>
+</div>
+
+<h3>B <span class="Heading">The Source</span></h3>
+
+<p><a id="X7CFACB517D259F59" name="X7CFACB517D259F59"></a></p>
+
+<h4>B.1 <span class="Heading">TitlePage (Source)</span></h4>
+
+
+<div class="example"><pre>
+&lt;TitlePage&gt;
+  &lt;Title&gt;A Complete Example (&amp;see; &lt;Ref Sect="One"/&gt;)&lt;/Title&gt;
+  &lt;Subtitle&gt;Every element shows up&lt;/Subtitle&gt;
+  &lt;Version&gt;Version 1.6.7
+&lt;/Version&gt;
+  &lt;TitleComment&gt;
+  If the subtitle ist not sufficient, this &amp;lt;TitleComment&gt; 
+  element can be used for a slightly longer text on the front page.
+  &lt;/TitleComment&gt;
+  &lt;Author&gt;Frank Lübeck 
+          &lt;Email&gt;Frank.Luebeck@Math.RWTH-Aachen.De&lt;/Email&gt; 
+  &lt;/Author&gt;
+  &lt;Author&gt; Max Neunhöffer 
+          &lt;Email&gt;neunhoef at mcs.st-and.ac.uk&lt;/Email&gt;
+  &lt;/Author&gt;
+  &lt;Date&gt;January 2022&lt;/Date&gt;
+  &lt;Address&gt;
+  Lehrstuhl für Algebra und Zahlentheorie&lt;Br/&gt;Pontdriesch 
+  14/16&lt;Br/&gt; 52062 Aachen&lt;Br/&gt; (Germany)
+  &lt;/Address&gt;
+  &lt;Abstract&gt;This document tries to use all elements that exist in &amp;GAPDoc;.
+            In addition, the final output not only contains the usual
+            content, but also an appendix with the source text. There
+            are also links from the usual content to the corresponding
+            source text. This should enable new users to learn &amp;GAPDoc;
+            quickly.
+  &lt;/Abstract&gt;
+  &lt;Copyright&gt;&amp;copyright; 2000-2022 by Frank Lübeck and Max Neunhöffer
+  &lt;/Copyright&gt;
+  &lt;Acknowledgements&gt;We thank Lehrstuhl für Algebra und Zahlentheorie 
+  (former Lehrstuhl D für Mathematik).
+  &lt;/Acknowledgements&gt;
+  &lt;Colophon&gt;This is the Colophon page.
+  &lt;/Colophon&gt;
+&lt;/TitlePage&gt;
+</pre></div>
+
+<p><a id="X7A4D1C8680D81F2A" name="X7A4D1C8680D81F2A"></a></p>
+
+<h4>B.2 <span class="Heading">Before First Chapter (Source)</span></h4>
+
+
+<div class="example"><pre>
+&lt;TableOfContents/&gt;
+
+&lt;Body&gt;
+
+  Text before chapter &lt;Ref Chap="First"/&gt;.
+
+&lt;Chapter Label="First"&gt;&lt;Heading&gt;Sectioning Elements&lt;/Heading&gt;
+
+  Text before the section &lt;Ref Sect="FirstSect"/&gt;.
+</pre></div>
+
+<p><a id="X78308EBC7C2FF426" name="X78308EBC7C2FF426"></a></p>
+
+<h4>B.3 <span class="Heading">First Chapter (Source)</span></h4>
+
+<p>[<a href="chap1.html#X80E2AD7481DD69D9"><span class="RefLink">1.</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Section Label="FirstSect"&gt;&lt;Heading&gt;Normal subsections&lt;/Heading&gt;
+
+  &lt;Subsection Label="Asub"&gt;&lt;Heading&gt;A subsection&lt;/Heading&gt;
+
+   This is text in the first subsection.
+
+  &lt;/Subsection&gt;
+
+  &lt;Subsection Label="Another"&gt;&lt;Heading&gt;Another subsection&lt;/Heading&gt;
+   
+   This is text in the second subsection. This subsection 
+   has a label, such that one can reference it.
+
+  &lt;/Subsection&gt;
+
+ &lt;/Section&gt;
+</pre></div>
+
+<p><a id="X814E3376826E1DB0" name="X814E3376826E1DB0"></a></p>
+
+<h4>B.4 <span class="Heading">ManSections (Source)</span></h4>
+
+<p>[<a href="chap1.html#X7C2D89087EA8BC84"><span class="RefLink">1.2</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Section&gt;&lt;Heading&gt;ManSections&lt;/Heading&gt;
+
+  &lt;ManSection&gt;
+   &lt;Func Name="f" Arg="x[,y]" Comm="calculates something"/&gt;
+   &lt;Returns&gt;an element in &lt;Ref Filt="IsBlubb" /&gt; or &lt;K&gt;fail&lt;/K&gt;.&lt;/Returns&gt;
+   &lt;Description&gt;
+    This function calculates something.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Meth Name="\^\{\}\[\]\&amp;lt;\&amp;amp;" Arg="c" 
+         Label="for nothing" Comm="tricky name"/&gt;
+   &lt;Description&gt;
+    This method is for an operation with a tricky name.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Oper Name="MyOperation" Arg="x" Comm="calculates something"/&gt;
+   &lt;Description&gt;
+    The operation &lt;Ref Oper="MyOperation"/&gt; operates on &lt;Arg&gt;x&lt;/Arg&gt;.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+   
+  &lt;ManSection&gt;
+   &lt;Meth Name="MyOperation" Label="First" Arg="x" 
+         Comm="generic method"/&gt;
+   &lt;Description&gt;
+    This method calculates something by the generic method.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Meth Name="MyOperation" Label="for bla" Arg="x[, good_hint]"
+         Comm="for bla arguments"/&gt;
+   &lt;Description&gt;
+    This is the super-fast method for the operation
+    &lt;Ref Oper="MyOperation"/&gt; if the argument &lt;A&gt;x&lt;/A&gt; is in the
+    representation &lt;Ref Filt="IsBla"/&gt;. It will become even faster if
+    the optional argument &lt;A&gt;good_hint&lt;/A&gt; is given.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Constr Name="MyConstructor" Arg="filt, x" Comm="constructs something"/&gt;
+   &lt;Description&gt;
+    The constructor &lt;Ref Oper="MyConstructor"/&gt; constructs from &lt;Arg&gt;x&lt;/Arg&gt;
+    an object in &lt;A&gt;filt&lt;/A&gt;.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Filt Name="IsBla" Arg="obj" Comm="representation bla"
+         Type="representation"/&gt;
+   &lt;Description&gt;
+    For objects in this representation there is a super-fast method
+    (see &lt;Ref Meth="MyOperation" Label="for bla"/&gt;) for the operation
+    &lt;Ref Oper="MyOperation"/&gt;.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Prop Name="IsBlubb" Arg="obj" Comm="property, whether object is blubb"/&gt;
+   &lt;Description&gt;
+    A property.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Attr Name="NumberBlobbs" Arg="obj" Comm="number of blobbs"/&gt;
+   &lt;Description&gt;
+    An attribute. Number of blobbs.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Var Name="AllBlibbs" Comm="list of all blibbs in the system"/&gt;
+   &lt;Description&gt;
+    This global variable holds a list of all blibbs.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;Fam Name="BlibbsFamily" Comm="family of blibbs"/&gt;
+   &lt;Description&gt;
+    Family of all blibbs.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+
+  &lt;ManSection&gt;
+   &lt;InfoClass Name="InfoBlibbs" Comm="InfoClass for the library of blibbs"/&gt;
+   &lt;Description&gt;
+    This info class is used throughout the library of blibbs.
+   &lt;/Description&gt;
+  &lt;/ManSection&gt;
+    
+ &lt;/Section&gt;
+</pre></div>
+
+<p><a id="X82A731CA83FB9ADD" name="X82A731CA83FB9ADD"></a></p>
+
+<h4>B.5 <span class="Heading">Various Types of Text (Source)</span></h4>
+
+<p>[<a href="chap2.html#X82793A7E7A3F2A54"><span class="RefLink">2.</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Chapter&gt;&lt;Heading&gt;Other Markup&lt;/Heading&gt;
+
+&lt;Section&gt;&lt;Heading&gt;Various types of text&lt;/Heading&gt;
+
+In this section we present examples for all the various types of text
+that are possible in &amp;GAPDoc;: 
+&lt;List&gt;
+ &lt;Item&gt;
+  &lt;Emph&gt;This&lt;/Emph&gt; is &lt;E&gt;emphasized&lt;/E&gt;.&lt;/Item&gt;
+ &lt;Item&gt;
+  &lt;E&gt;Keywords&lt;/E&gt; are typeset like &lt;Keyword&gt;this&lt;/Keyword&gt; and &lt;K&gt;that&lt;/K&gt;.
+  &lt;/Item&gt;
+ &lt;Item&gt;
+  &lt;E&gt;Arguments&lt;/E&gt; of functions have an element. They look like this: 
+    &lt;Arg&gt;x&lt;/Arg&gt; and &lt;A&gt;y&lt;/A&gt;.&lt;/Item&gt;
+ &lt;Item&gt; 
+  &lt;E&gt;Code&lt;/E&gt; can be written with the Code element: 
+    &lt;Code&gt;if x = y then Print("Equal"); fi;&lt;/Code&gt; or
+    &lt;C&gt;while true do Print("Hello"); od;&lt;/C&gt;.&lt;/Item&gt; 
+ &lt;Item&gt;
+  &lt;E&gt;Filenames&lt;/E&gt; have their own element:
+    &lt;File&gt;/usr/local/ca/gap4r2&lt;/File&gt; or &lt;F&gt;pkg/xgap/doc&lt;/F&gt;.&lt;/Item&gt;
+ &lt;Item&gt;
+  &lt;E&gt;Buttons&lt;/E&gt;, &lt;E&gt;menus&lt;/E&gt;, &lt;E&gt;menu entries&lt;/E&gt;, and such things
+    are also supported: &lt;B&gt;OK&lt;/B&gt; or &lt;Button&gt;Cancel&lt;/Button&gt;.&lt;/Item&gt;
+ &lt;Item&gt;
+  &lt;E&gt;Packages&lt;/E&gt; are typeset like this: 
+    &lt;Package&gt;Small Groups Library&lt;/Package&gt;
+ &lt;/Item&gt;
+ &lt;Item&gt;
+  &lt;E&gt;Quoted&lt;/E&gt; text: &lt;Q&gt;This is a text in quotes.&lt;/Q&gt;
+ &lt;/Item&gt;
+&lt;/List&gt;
+
+&lt;E&gt;Paragraphs&lt;/E&gt; are separated by the empty &lt;C&gt;Par&lt;/C&gt; or &lt;C&gt;P&lt;/C&gt; element.
+&lt;Par/&gt;&lt;E&gt;Alternatives&lt;/E&gt; for different output formats:
+
+&lt;Alt Only="LaTeX"&gt;This is &amp;LaTeX; output.&lt;/Alt&gt;
+&lt;Alt Not="LaTeX"&gt;This is other than &amp;LaTeX; output, namely:
+&lt;Alt Only="HTML"&gt;&lt;![CDATA[&lt;b&gt;HTML&lt;/b&gt;]]&gt;&lt;/Alt&gt;
+&lt;Alt Only="Text"&gt;Text&lt;/Alt&gt; output.&lt;/Alt&gt;
+
+&lt;P/&gt;
+</pre></div>
+
+<p><a id="X824BD70087820CF0" name="X824BD70087820CF0"></a></p>
+
+<h4>B.6 <span class="Heading">Verbatim-like text (Source)</span></h4>
+
+<p>[<a href="chap2.html#X7A480B9A795EF264"><span class="RefLink">2.1</span></a>]</p>
+
+
+<div class="example"><pre>
+There are also three elements to typeset &lt;Q&gt;verbatim-like&lt;/Q&gt; text.
+&lt;P/&gt;
+The first is a &lt;E&gt;Listing&lt;/E&gt;:
+
+&lt;Listing Type="GAP code"&gt;
+&lt;![CDATA[Sieve := function(n)
+  # Returns the primes less than n
+  local l,p,i;
+  l := [1..n]; Unbind(l[1]);
+  p := 2;
+  while p^2 &lt;= n do
+      if IsBound(l[p]) then
+          i := 2 * p;
+          while i &lt;= n do Unbind(l[i]); i := i + p; od;
+      fi;
+      p := p + 1;
+  od;
+  return Compacted(l);
+end;]]&gt;
+&lt;/Listing&gt;
+
+Here is a &lt;E&gt;Log&lt;/E&gt; of a &amp;GAP; session using this function:
+
+&lt;Log&gt;
+gap&amp;gt; Sieve(100);
+[ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
+  67, 71, 73, 79, 83, 89, 97 ]
+gap&amp;gt; Length(last);
+25
+&lt;/Log&gt;
+
+Here is a &amp;GAP; &lt;E&gt;Example&lt;/E&gt; session that is automatically tested:
+
+&lt;Example&gt;
+gap&amp;gt; s := Size(CharacterTable("M"));
+808017424794512875886459904961710757005754368000000000
+gap&amp;gt; s &amp;lt; 10^53;                     
+false
+gap&amp;gt; s &amp;lt; 10^54;
+true
+&lt;/Example&gt;
+
+&lt;/Section&gt;
+</pre></div>
+
+<p><a id="X8516FAA07A95BBB5" name="X8516FAA07A95BBB5"></a></p>
+
+<h4>B.7 <span class="Heading">Formulae (Source)</span></h4>
+
+<p>[<a href="chap2.html#X7AA5BF0279938BE0"><span class="RefLink">2.2</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Section&gt;&lt;Heading&gt;Formulae&lt;/Heading&gt;
+
+There are three types of formulae. &lt;P/&gt;
+The first is the &lt;E&gt;normal math mode&lt;/E&gt; of &amp;LaTeX;: 
+
+&lt;Math&gt;b_i \cdot b_j = \sum_{k=1}^d h_{ijk} b_k&lt;/Math&gt;. 
+
+Then there are &lt;E&gt;displayed formulae&lt;/E&gt;:
+&lt;Display&gt;
+   \Longrightarrow \quad \left(\sum_{i=1}^d x_i b_i \right) \cdot
+   \left(\sum_{j=1}^d y_j b_j \right) =
+   \sum_{k=1}^d \left( \sum_{i,j} x_i y_j h_{ijk} \right) b_k 
+&lt;/Display&gt;
+
+If possible,  use the &lt;C&gt;Alt&lt;/C&gt; element  to specify a better  readable text
+version of such a formula as in the following example:&lt;P/&gt;
+
+&lt;Alt Not="Text,HTML"&gt;&lt;Display&gt;
+   \Longrightarrow \quad \left(\sum_{i=1}^d x_i b_i \right) \cdot
+   \left(\sum_{j=1}^d y_j b_j \right) =
+   \sum_{k=1}^d \left( \sum_{i,j} x_i y_j h_{ijk} \right) b_k 
+&lt;/Display&gt;&lt;/Alt&gt;
+&lt;Alt Only="Text,HTML"&gt;&lt;Verb&gt;
+         d                d                 d   
+       -----            -----             -----  -----                 
+        \                \                 \      \                    
+ ==&gt; (   )  x_i b_i )(    )  y_i b_i ) =    )  (   )  x_i y_j h_ijk ) b_k
+        /                /                 /      /                    
+       -----            -----             -----  -----                
+       i = 1            i = 1             k = 1   i,j                
+&lt;/Verb&gt;&lt;P/&gt;&lt;/Alt&gt;
+
+For small formulae without &lt;Q&gt;difficult&lt;/Q&gt; parts use the &lt;C&gt;M&lt;/C&gt;
+element: &lt;M&gt;b_i&lt;/M&gt;,
+&lt;M&gt;x^2&lt;/M&gt;, &lt;M&gt;x^2 + 2x + 1 = (x + 1)^2&lt;/M&gt;. Note that here whitespace 
+matters for text (or HTML) output).&lt;P/&gt;
+
+Here are two formulae containing less than characters which are special
+characters for XML:
+&lt;M&gt;&lt;![CDATA[a &lt; b &lt; c &lt; d]]&gt;&lt;/M&gt; and  &lt;M&gt;e &amp;lt; f&lt;/M&gt;.
+&lt;/Section&gt;
+</pre></div>
+
+<p><a id="X7D19CF4782309661" name="X7D19CF4782309661"></a></p>
+
+<h4>B.8 <span class="Heading">Crossreferencing (Source)</span></h4>
+
+<p>[<a href="chap2.html#X833C410D85CF96A4"><span class="RefLink">2.3</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Section Label="Cross"&gt;&lt;Heading&gt;Crossreferencing&lt;/Heading&gt;
+
+&lt;Label Name="there"/&gt;
+
+In this section we demonstrate various references to parts of this
+document. Here is a reference to this section: &lt;Ref Sect="Cross"/&gt;.
+Here is a reference to chapter &lt;Ref Chap="First"/&gt;, to appendix
+&lt;Ref Appendix="Appendix"/&gt;, and to subsection &lt;Ref Subsect="Asub"/&gt;. 
+&lt;P/&gt;
+
+We distinguish among others references 
+ to functions (see &lt;Ref Func="f"/&gt;), 
+ to methods with tricky name (see 
+                 &lt;Ref Meth="\^\{\}\[\]\&amp;lt;\&amp;amp;" Label="for nothing"/&gt;),
+ to operations (see &lt;Ref Oper="MyOperation"/&gt;), 
+ to methods (see &lt;Ref Meth="MyOperation" Label="First"/&gt; or 
+                 &lt;Ref Meth="MyOperation" Label="for bla"/&gt;), 
+ to filters (see &lt;Ref Filt="IsBla"/&gt;), 
+ to properties (see &lt;Ref Prop="IsBlubb"/&gt;),
+ to attributes (see &lt;Ref Attr="NumberBlobbs"/&gt;), 
+ to variables (&lt;Ref Var="AllBlibbs"/&gt;), 
+ to families (see &lt;Ref Fam="BlibbsFamily"/&gt;),
+ and to info classes (see &lt;Ref InfoClass="InfoBlibbs"/&gt;).
+&lt;P/&gt;
+
+There are also references to labels: see &lt;Ref Text="here" Label="there"/&gt;,
+to other books: see &lt;Ref Sect="syntaxXML" BookName="gapdoc"/&gt; or
+&lt;Ref Oper="IsSubgroup" BookName="ref"/&gt; in the &amp;GAP; reference
+manual.
+&lt;P/&gt;
+
+References to sections come in two styles: 
+&lt;Ref Chap="First" Style="Number"/&gt;
+or &lt;Ref Chap="First" Style="Text"/&gt;.
+&lt;P/&gt;
+
+Another type of cross referencing is bibliography. Here is a 
+citation: &lt;Cite Key="CR1" Where="(5.22)"/&gt; is an interesting lemma.
+&lt;P/&gt;
+
+There are also URLs:&lt;P/&gt;
+
+&lt;URL&gt;https://www.math.rwth-aachen.de/LDfM/&lt;/URL&gt;&lt;P/&gt;
+
+Email addresses have a special element:
+&lt;Email&gt;Frank.Luebeck@Math.RWTH-Aachen.De&lt;/Email&gt;
+&lt;P/&gt;
+
+and Homepages another one:
+&lt;Homepage&gt;https://www.math.rwth-aachen.de/~Frank.Luebeck/&lt;/Homepage&gt;
+&lt;P/&gt;
+
+One can generate index entries as follows (look up the words 
+&lt;Q&gt;&amp;TeX;-UserGroup&lt;/Q&gt;, &lt;Q&gt;RWTH&lt;/Q&gt;, and &lt;Q&gt;Aachen, Hauptbahnhof&lt;/Q&gt;).
+&lt;Index Key="TeX-Usergroup"&gt;&amp;TeX;-UserGroup&lt;/Index&gt;
+&lt;Index&gt;RWTH&lt;/Index&gt;
+&lt;Index&gt;Aachen &lt;Subkey&gt;Hauptbahnhof&lt;/Subkey&gt;&lt;/Index&gt;
+&lt;Index Key="GAPDoc" Subkey="for GAP programmers"&gt;&amp;GAPDoc; 
+&lt;Subkey&gt;for &amp;GAP; programmers&lt;/Subkey&gt;&lt;/Index&gt;
+
+&lt;/Section&gt;
+</pre></div>
+
+<p><a id="X7BB822947F626E1A" name="X7BB822947F626E1A"></a></p>
+
+<h4>B.9 <span class="Heading">Lists and Tables (Source)</span></h4>
+
+<p>[<a href="chap2.html#X7F10E951789D6EDF"><span class="RefLink">2.4</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Section&gt;&lt;Heading&gt;Lists and Tables&lt;/Heading&gt;
+
+There are
+&lt;List&gt;
+ &lt;Item&gt;lists&lt;/Item&gt;
+ &lt;Item&gt;enumerations, and&lt;/Item&gt;
+ &lt;Item&gt;tables&lt;/Item&gt;
+&lt;/List&gt;
+or:
+&lt;Enum&gt;
+ &lt;Item&gt;lists&lt;/Item&gt;
+ &lt;Item&gt;enumerations, and&lt;/Item&gt;
+ &lt;Item&gt;tables&lt;/Item&gt;
+&lt;/Enum&gt;
+or with marks:
+&lt;List&gt;
+ &lt;Mark&gt;lists:&lt;/Mark&gt;&lt;Item&gt; not numbered&lt;/Item&gt;
+ &lt;Mark&gt;enumerations:&lt;/Mark&gt;&lt;Item&gt; numbered&lt;/Item&gt;
+ &lt;Mark&gt;tables:&lt;/Mark&gt;&lt;Item&gt; two-dimensional&lt;/Item&gt;
+&lt;/List&gt;
+
+Lists can also be nested:
+&lt;Enum&gt;
+ &lt;Item&gt;
+   &lt;Enum&gt;
+     &lt;Item&gt;first item of inner enumeration &lt;/Item&gt;
+     &lt;Item&gt;second item of inner enumeration &lt;/Item&gt;
+   &lt;/Enum&gt;
+ &lt;/Item&gt;
+ &lt;Item&gt;
+   &lt;List&gt;
+     &lt;Item&gt;first item of inner list &lt;/Item&gt;
+     &lt;Item&gt;second item of inner list &lt;/Item&gt;
+   &lt;/List&gt;
+  &lt;/Item&gt;
+&lt;/Enum&gt;
+
+Here is a &lt;E&gt;table&lt;/E&gt;:
+
+&lt;Table Align="|r|c|l|"&gt;
+ &lt;Caption&gt;Prices&lt;/Caption&gt;
+ &lt;HorLine/&gt;
+  &lt;Row&gt;
+   &lt;Item&gt;Object&lt;/Item&gt;&lt;Item&gt;Price&lt;/Item&gt;&lt;Item&gt;available&lt;/Item&gt;
+  &lt;/Row&gt;
+ &lt;HorLine/&gt;
+ &lt;HorLine/&gt;
+  &lt;Row&gt;
+   &lt;Item&gt;Shoe&lt;/Item&gt;&lt;Item&gt;$1,00&lt;/Item&gt;&lt;Item&gt;there&lt;/Item&gt;
+  &lt;/Row&gt;
+ &lt;HorLine/&gt;
+  &lt;Row&gt;
+   &lt;Item&gt;Hat&lt;/Item&gt;&lt;Item&gt;$2,00&lt;/Item&gt;&lt;Item&gt;not there&lt;/Item&gt;
+  &lt;/Row&gt;
+ &lt;HorLine/&gt;
+&lt;/Table&gt;
+
+&lt;/Section&gt;
+</pre></div>
+
+<p><a id="X80B478CD7E584F6F" name="X80B478CD7E584F6F"></a></p>
+
+<h4>B.10 <span class="Heading">Entities and Special Characters (Source)</span></h4>
+
+<p>[<a href="chap2.html#X83A355E68485D6D1"><span class="RefLink">2.5</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Section&gt;&lt;Heading&gt;Entities and Special Characters&lt;/Heading&gt;
+&lt;Label Name="TenBack"/&gt;
+
+[&amp;see; &lt;Ref Sect="Ten"/&gt;]&lt;P/&gt;
+
+Here is a table of special characters, the first two are special for
+XML and must be typed in by entities in &amp;GAPDoc; documents. The other 
+characters are special for &amp;LaTeX; but in &amp;GAPDoc; they can be typed
+directly. 
+
+&lt;Table Align="|c|c|c|c|c|c|c|c|c|c|c|c|c|" Label="charsInCDATA"&gt; 
+ &lt;Caption&gt;Special characters in character data&lt;/Caption&gt;
+ &lt;HorLine/&gt; &lt;Row&gt; 
+  &lt;Item&gt;&lt;C&gt;&amp;amp;&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;&amp;lt;&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;&gt;&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;#&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;$&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;%&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;~&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;\&lt;/C&gt;&lt;/Item&gt;   
+  &lt;Item&gt;&lt;C&gt;{&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;}&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;_&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;^&lt;/C&gt;&lt;/Item&gt;
+  &lt;Item&gt;&lt;C&gt;&amp;nbsp;&lt;/C&gt;&lt;/Item&gt;
+ &lt;/Row&gt; &lt;HorLine/&gt;
+&lt;/Table&gt;
+
+And here are the predefined entities in &amp;GAPDoc;:
+
+&lt;Table Align="|l|l|"&gt;
+&lt;Caption&gt;Predefined Entities in the &amp;GAPDoc; system&lt;/Caption&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;GAP;&lt;/C&gt;&lt;/Item&gt;       &lt;Item&gt;&amp;GAP;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;GAPDoc;&lt;/C&gt;&lt;/Item&gt;    &lt;Item&gt;&amp;GAPDoc;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;TeX;&lt;/C&gt;&lt;/Item&gt;       &lt;Item&gt;&amp;TeX;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;LaTeX;&lt;/C&gt;&lt;/Item&gt;     &lt;Item&gt;&amp;LaTeX;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;BibTeX;&lt;/C&gt;&lt;/Item&gt;    &lt;Item&gt;&amp;BibTeX;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;MeatAxe;&lt;/C&gt;&lt;/Item&gt;   &lt;Item&gt;&amp;MeatAxe;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;XGAP;&lt;/C&gt;&lt;/Item&gt;      &lt;Item&gt;&amp;XGAP;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;Row&gt; &lt;Item&gt;&lt;C&gt;&amp;amp;copyright;&lt;/C&gt;&lt;/Item&gt; &lt;Item&gt;&amp;copyright;&lt;/Item&gt; &lt;/Row&gt;
+&lt;HorLine/&gt;
+&lt;/Table&gt;
+
+And some more for mathematical symbols: 
+&amp;CC;, &amp;ZZ;, &amp;NN;, &amp;PP;, &amp;QQ;, &amp;HH;, &amp;RR;.
+
+&lt;/Section&gt;
+
+&lt;/Chapter&gt;
+
+&lt;/Body&gt;
+</pre></div>
+
+<p><a id="X85E7E6BA81367928" name="X85E7E6BA81367928"></a></p>
+
+<h4>B.11 <span class="Heading">Appendix (Source)</span></h4>
+
+<p>[<a href="chapA.html#X7B53252784137533"><span class="RefLink">A.</span></a>]</p>
+
+
+<div class="example"><pre>
+&lt;Appendix&gt;&lt;Heading&gt;An Appendix&lt;/Heading&gt;
+
+This is an appendix.
+&lt;/Appendix&gt;
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chapA.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chapA.html">A</a>  <a href="chapB.html">B</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,0 +1,257 @@
+  
+  [1X2 [33X[0;0YOther Markup[133X[101X
+  
+  
+  [1X2.1 [33X[0;0YVarious types of text[133X[101X
+  
+  [33X[0;0Y[→ [14XB.5[114X][133X
+  
+  [33X[0;0YIn  this  section we present examples for all the various types of text that
+  are possible in [5XGAPDoc[105X:[133X
+  
+  [30X    [33X[0;6Y[13XThis[113X is [13Xemphasized[113X.[133X
+  
+  [30X    [33X[0;6Y[13XKeywords[113X are typeset like [9Xthis[109X and [9Xthat[109X.[133X
+  
+  [30X    [33X[0;6Y[13XArguments[113X of functions have an element. They look like this: [3Xx[103X and [3Xy[103X.[133X
+  
+  [30X    [33X[0;6Y[13XCode[113X   can   be  written  with  the  Code  element:  [10Xif  x  =  y  then
+        Print("Equal"); fi;[110X or [10Xwhile true do Print("Hello"); od;[110X.[133X
+  
+  [30X    [33X[0;6Y[13XFilenames[113X    have   their   own   element:   [11X/usr/local/ca/gap4r2[111X   or
+        [11Xpkg/xgap/doc[111X.[133X
+  
+  [30X    [33X[0;6Y[13XButtons[113X,  [13Xmenus[113X,  [13Xmenu entries[113X, and such things are also supported: [12XOK[112X
+        or [12XCancel[112X.[133X
+  
+  [30X    [33X[0;6Y[13XPackages[113X are typeset like this: [5XSmall Groups Library[105X[133X
+  
+  [30X    [33X[0;6Y[13XQuoted[113X text: [21XThis is a text in quotes.[121X[133X
+  
+  [33X[0;0Y[13XParagraphs[113X are separated by the empty [10XPar[110X or [10XP[110X element.[133X
+  
+  [33X[0;0Y[13XAlternatives[113X  for different output formats: This is other than LaTeX output,
+  namely: Text output.[133X
+  
+  [33X[0;0YThere are also three elements to typeset [21Xverbatim-like[121X text. (→ [14XB.6[114X)[133X
+  
+  [33X[0;0YThe first is a [13XListing[113X:[133X
+  
+  [4X[32X  GAP code  [32X[104X
+    [4XSieve := function(n)[104X
+    [4X  # Returns the primes less than n[104X
+    [4X  local l,p,i;[104X
+    [4X  l := [1..n]; Unbind(l[1]);[104X
+    [4X  p := 2;[104X
+    [4X  while p^2 <= n do[104X
+    [4X      if IsBound(l[p]) then[104X
+    [4X          i := 2 * p;[104X
+    [4X          while i <= n do Unbind(l[i]); i := i + p; od;[104X
+    [4X      fi;[104X
+    [4X      p := p + 1;[104X
+    [4X  od;[104X
+    [4X  return Compacted(l);[104X
+    [4Xend;[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere is a [13XLog[113X of a [5XGAP[105X session using this function:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSieve(100);[127X[104X
+    [4X[28X[ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,[128X[104X
+    [4X[28X  67, 71, 73, 79, 83, 89, 97 ][128X[104X
+    [4X[25Xgap>[125X [27XLength(last);[127X[104X
+    [4X[28X25[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere is a [5XGAP[105X [13XExample[113X session that is automatically tested:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs := Size(CharacterTable("M"));[127X[104X
+    [4X[28X808017424794512875886459904961710757005754368000000000[128X[104X
+    [4X[25Xgap>[125X [27Xs < 10^53;                     [127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xs < 10^54;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2 [33X[0;0YFormulae[133X[101X
+  
+  [33X[0;0Y[→ [14XB.7[114X][133X
+  
+  [33X[0;0YThere are three types of formulae.[133X
+  
+  [33X[0;0YThe  first  is  the  [13Xnormal math mode[113X of LaTeX: [23Xb_i \cdot b_j = \sum_{k=1}^d
+  h_{ijk} b_k[123X. Then there are [13Xdisplayed formulae[113X:[133X
+  
+  
+  [24X[33X[0;6Y\Longrightarrow    \quad    \left(\sum_{i=1}^d   x_i   b_i   \right)   \cdot
+  \left(\sum_{j=1}^d  y_j b_j \right) = \sum_{k=1}^d \left( \sum_{i,j} x_i y_j
+  h_{ijk} \right) b_k[133X
+  
+  [124X
+  
+  [33X[0;0YIf  possible,  use the [10XAlt[110X element to specify a better readable text version
+  of such a formula as in the following example:[133X
+  
+           d                d                 d   
+         -----            -----             -----  -----                 
+          \                \                 \      \                    
+   ==> (   )  x_i b_i )(    )  y_j b_j ) =    )  (   )  x_i y_j h_ijk ) b_k
+          /                /                 /      /                    
+         -----            -----             -----  -----                
+         i = 1            j = 1             k = 1   i,j                
+  
+  [33X[0;0YFor  small formulae without [21Xdifficult[121X parts use the [10XM[110X element: [22Xb_i[122X, [22Xx^2[122X, [22Xx^2
+  +  2x  + 1 = (x + 1)^2[122X. Note that here whitespace matters for text (or HTML)
+  output.[133X
+  
+  [33X[0;0YHere  are  two  formulae  containing  less than characters which are special
+  characters for XML: [22Xa < b < c < d[122X and [22Xe < f[122X.[133X
+  
+  [33X[0;0YUsing the [10XMode[110X attribute of a [10XDisplay[110X element formulae like[133X
+  
+  
+  [24X[33X[0;6Ya ⟶ a mod m'[133X[124X
+  
+  [33X[0;0Ycan also be displayed nicely in text and HTML output.[133X
+  
+  
+  [1X2.3 [33X[0;0YCrossreferencing[133X[101X
+  
+  [33X[0;0Y[→ [14XB.8[114X][133X
+  
+  [33X[0;0YIn this section we demonstrate various references to parts of this document.
+  Here  is a reference to this section: [14X2.3[114X. Here is a reference to chapter [14X1[114X,
+  to appendix [14XA[114X, and to subsection [14X1.1-1[114X.[133X
+  
+  [33X[0;0YWe  distinguish  among  others  references  to functions (see [2Xf[102X ([14X1.2-1[114X)), to
+  methods  with  tricky  name (see [2X\^\{\}\[\]\<\&[102X ([14X1.2-2[114X)), to operations (see
+  [2XMyOperation[102X  ([14X1.2-3[114X)),  to  methods  (see [2XMyOperation[102X ([14X1.2-4[114X) or [2XMyOperation[102X
+  ([14X1.2-5[114X)),  to  filters  (see  [2XIsBla[102X  ([14X1.2-7[114X)),  to  properties  (see [2XIsBlubb[102X
+  ([14X1.2-8[114X)),  to attributes (see [2XNumberBlobbs[102X ([14X1.2-9[114X)), to variables ([2XAllBlibbs[102X
+  ([14X1.2-10[114X)), to families (see [2XBlibbsFamily[102X ([14X1.2-11[114X)), and to info classes (see
+  [2XInfoBlibbs[102X ([14X1.2-12[114X)).[133X
+  
+  [33X[0;0YThere  are  also references to labels: see [14X2.3[114X, to other books: see [14X'GAPDoc:
+  What  is  a DTD?'[114X or [2XIsSubgroup[102X ([14XReference: IsSubgroup[114X) in the [5XGAP[105X reference
+  manual.[133X
+  
+  [33X[0;0YReferences to sections come in two styles: [14X1[114X or [14X'[33X[0;0YSectioning Elements[133X'[114X.[133X
+  
+  [33X[0;0YAnother  type  of  cross  referencing  is  bibliography. Here is a citation:
+  [CR81, (5.22)] is an interesting lemma.[133X
+  
+  [33X[0;0YThere are also URLs:[133X
+  
+  [33X[0;0Y[7Xhttps://www.math.rwth-aachen.de/[107X[133X
+  
+  [33X[0;0YEmail         addresses         have        a        special        element:
+  [7Xmailto:Frank.Luebeck@Math.RWTH-Aachen.De[107X[133X
+  
+  [33X[0;0Yand Homepages another one: [7Xhttps://www.math.rwth-aachen.de/~Frank.Luebeck/[107X[133X
+  
+  [33X[0;0YAnd      here      is      a      link      to     the     [5XEDIM[105X     archives
+  ([7Xhttps://www.math.rwth-aachen.de/~Frank.Luebeck/gap/EDIM/index.html#ARCHS[107X).[133X
+  
+  [33X[0;0YOne  can generate index entries as follows (look up the words [21XTeX-UserGroup[121X,
+  [21XRWTH[121X, [21XAachen, Hauptbahnhof[121X, and [21X[5XGAPDoc[105X, for [5XGAP[105X programmers[121X).[133X
+  
+  
+  [1X2.4 [33X[0;0YLists and Tables[133X[101X
+  
+  [33X[0;0Y[→ [14XB.9[114X][133X
+  
+  [33X[0;0YThere are[133X
+  
+  [30X    [33X[0;6Ylists[133X
+  
+  [30X    [33X[0;6Yenumerations, and[133X
+  
+  [30X    [33X[0;6Ytables[133X
+  
+  [33X[0;0Yor:[133X
+  
+  [31X1[131X   [33X[0;6Ylists[133X
+  
+  [31X2[131X   [33X[0;6Yenumerations, and[133X
+  
+  [31X3[131X   [33X[0;6Ytables[133X
+  
+  [33X[0;0Yor with marks:[133X
+  
+  [8Xlists:[108X
+        [33X[0;6Ynot numbered[133X
+  
+  [8Xenumerations:[108X
+        [33X[0;6Ynumbered[133X
+  
+  [8Xtables:[108X
+        [33X[0;6Ytwo-dimensional[133X
+  
+  [33X[0;0YLists can also be nested:[133X
+  
+  [31X1[131X   [31X1[131X   [33X[0;12Yfirst item of inner enumeration[133X
+  
+        [31X2[131X   [33X[0;12Ysecond item of inner enumeration[133X
+  
+  [31X2[131X   [30X    [33X[0;12Yfirst item of inner list[133X
+  
+        [30X    [33X[0;12Ysecond item of inner list[133X
+  
+  [33X[0;0YHere is a [13Xtable[113X:[133X
+  
+      ┌────────┬───────┬───────────┐
+      │ Object │ Price │ available │ 
+      ├────────┼───────┼───────────┤
+      ├────────┼───────┼───────────┤
+      │   Shoe │ $1,00 │ there     │ 
+      ├────────┼───────┼───────────┤
+      │    Hat │ $2,00 │ not there │ 
+      └────────┴───────┴───────────┘
+  
+       [1XTable:[101X Prices
+  
+  
+  
+  [1X2.5 [33X[0;0YEntities and Special Characters[133X[101X
+  
+  [33X[0;0Y[→ [14XB.10[114X][133X
+  
+  [33X[0;0YHere is a table of special characters, the first two are special for XML and
+  must  be  typed in by entities in [5XGAPDoc[105X documents. The other characters are
+  special for LaTeX but in [5XGAPDoc[105X they can be typed directly.[133X
+  
+      ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+      │ [10X&[110X │ [10X<[110X │ [10X>[110X │ [10X#[110X │ [10X$[110X │ [10X%[110X │ [10X~[110X │ [10X\[110X │ [10X{[110X │ [10X}[110X │ [10X_[110X │ [10X^[110X │ [10X [110X │ 
+      └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+  
+       [1XTable:[101X Special characters in character data
+  
+  
+  [33X[0;0YAnd here are the predefined entities in [5XGAPDoc[105X:[133X
+  
+      ┌─────────────┬─────────┐
+      │ [10X&GAP;[110X       │ [5XGAP[105X     │ 
+      ├─────────────┼─────────┤
+      │ [10X&GAPDoc;[110X    │ [5XGAPDoc[105X  │ 
+      ├─────────────┼─────────┤
+      │ [10X&TeX;[110X       │ TeX     │ 
+      ├─────────────┼─────────┤
+      │ [10X&LaTeX;[110X     │ LaTeX   │ 
+      ├─────────────┼─────────┤
+      │ [10X&BibTeX;[110X    │ BibTeX  │ 
+      ├─────────────┼─────────┤
+      │ [10X&MeatAxe;[110X   │ [5XMeatAxe[105X │ 
+      ├─────────────┼─────────┤
+      │ [10X&XGAP;[110X      │ [5XXGAP[105X    │ 
+      ├─────────────┼─────────┤
+      │ [10X&copyright;[110X │ ©       │ 
+      └─────────────┴─────────┘
+  
+       [1XTable:[101X Predefined Entities in the [5XGAPDoc[105X system
+  
+  
+  [33X[0;0YAnd some more for mathematical symbols: ℂ, ℤ, ℕ, ℙ, ℚ, ℍ, ℝ.[133X
+  

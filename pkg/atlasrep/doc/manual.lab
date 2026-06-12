@@ -1,0 +1,229 @@
+\GAPDocLabFile{atlasrep}
+\makelabel{atlasrep:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{atlasrep:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{atlasrep:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{atlasrep:Introduction to the AtlasRep Package}{1}{X780A68B584B7F3DF}
+\makelabel{atlasrep:The ATLAS of Group Representations}{1.1}{X7A76DF957E7AF8AE}
+\makelabel{atlasrep:The GAP Interface to the ATLAS of Group Representations}{1.2}{X8033B61682EE6A23}
+\makelabel{atlasrep:What's New in AtlasRep, Compared to Older Versions?}{1.3}{X7B864EDC7CB211FD}
+\makelabel{atlasrep:What's New in Version 2.1.9? (August 2024)}{1.3.1}{X7E024E377C2E8C27}
+\makelabel{atlasrep:What's New in Version 2.1.8? (January 2024)}{1.3.2}{X85FE8BE580751F58}
+\makelabel{atlasrep:What's New in Version 2.1.7? (August 2023)}{1.3.3}{X7B5DB23579AD1066}
+\makelabel{atlasrep:What's New in Version 2.1.6? (October 2022)}{1.3.4}{X7D4644167F6C9D4C}
+\makelabel{atlasrep:What's New in Version 2.1.5? (August 2022)}{1.3.5}{X823B2D767C11246A}
+\makelabel{atlasrep:What's New in Version 2.1.4? (August 2022)}{1.3.6}{X7BEBD3618260FE03}
+\makelabel{atlasrep:What's New in Version 2.1.3? (August 2022)}{1.3.7}{X7DB709CD7FECC9B1}
+\makelabel{atlasrep:What's New in Version 2.1.2? (March 2022)}{1.3.8}{X7A2A60D7841AF2CE}
+\makelabel{atlasrep:What's New in Version 2.1.1? (February 2022)}{1.3.9}{X7B0E14E57E9FC37E}
+\makelabel{atlasrep:What's New in Version 2.1.0? (May 2019)}{1.3.10}{X7DA8E7647A422775}
+\makelabel{atlasrep:What's New in Version 1.5.1? (March 2016)}{1.3.11}{X7EACAC887E257302}
+\makelabel{atlasrep:What's New in Version 1.5? (July 2011)}{1.3.12}{X86002B747AE0741B}
+\makelabel{atlasrep:What's New in Version 1.4? (June 2008)}{1.3.13}{X878EBA108716DDF0}
+\makelabel{atlasrep:What's New in Version 1.3.1? (October 2007)}{1.3.14}{X87A53CE182C9E086}
+\makelabel{atlasrep:What's New in Version 1.3? (June 2007)}{1.3.15}{X79CCC5517897924C}
+\makelabel{atlasrep:What's New in Version 1.2? (November 2003)}{1.3.16}{X7BDCA94D83DCFFB8}
+\makelabel{atlasrep:What's New in Version 1.1? (October 2002)}{1.3.17}{X831628B47F669B29}
+\makelabel{atlasrep:Acknowledgements}{1.4}{X82A988D47DFAFCFA}
+\makelabel{atlasrep:Tutorial for the AtlasRep Package}{2}{X8171B3798425E183}
+\makelabel{atlasrep:Accessing a Specific Group in AtlasRep}{2.1}{X79CECBFE7A8EE2C2}
+\makelabel{atlasrep:Accessing a Group in AtlasRep via its Name}{2.1.1}{X87CD0FFB87D0BDD7}
+\makelabel{atlasrep:Accessing a Maximal Subgroup of a Group in AtlasRep}{2.1.2}{X826C681B7EB3B67A}
+\makelabel{atlasrep:Accessing Specific Generators in AtlasRep}{2.2}{X7F616D9685292471}
+\makelabel{atlasrep:Basic Concepts used in AtlasRep}{2.3}{X7D3A29F879B140D3}
+\makelabel{atlasrep:Groups, Generators, and Representations}{2.3.1}{X7E2FB5E5852AD970}
+\makelabel{atlasrep:Straight Line Programs}{2.3.2}{X7DC99E4284093FBB}
+\makelabel{atlasrep:Examples of Using the AtlasRep Package}{2.4}{X87ACE06E82B68589}
+\makelabel{atlasrep:Example: Class Representatives}{2.4.1}{X8563D96878AC685C}
+\makelabel{atlasrep:Example: Permutation and Matrix Representations}{2.4.2}{X81C9233778A3A817}
+\makelabel{atlasrep:Example: Outer Automorphisms}{2.4.3}{X8284D7E87D38889C}
+\makelabel{atlasrep:Example: Using Semi-presentations and Black Box Programs}{2.4.4}{X794D669E7A507310}
+\makelabel{atlasrep:Example: Using the GAP Library of Tables of Marks}{2.4.5}{X7CE7C2068017525C}
+\makelabel{atlasrep:Example: Index 770 Subgroups in M22}{2.4.6}{X82550A9683E0DCA2}
+\makelabel{atlasrep:Example: Index 462 Subgroups in M22}{2.4.7}{X84F9D163795B7DE1}
+\makelabel{atlasrep:The User Interface of the AtlasRep Package}{3}{X87EAF8E578D95793}
+\makelabel{atlasrep:Accessing vs. Constructing Representations}{3.1}{X87D26B13819A8209}
+\makelabel{atlasrep:Group Names Used in the AtlasRep Package}{3.2}{X81BF52FC7B8C08D4}
+\makelabel{atlasrep:Standard Generators Used in the AtlasRep Package}{3.3}{X795DB7E486E0817D}
+\makelabel{atlasrep:Class Names Used in the AtlasRep Package}{3.4}{X861CD545803B97E8}
+\makelabel{atlasrep:Definition of ATLAS Class Names}{3.4.1}{X850EEDEE831EE039}
+\makelabel{atlasrep:Accessing Data via AtlasRep}{3.5}{X7CC88B2287A72204}
+\makelabel{atlasrep:Examples for DisplayAtlasInfo}{3.5.2}{X7CE4FF2380DB47F2}
+\makelabel{atlasrep:AtlasGroup}{3.5.8}{X80AABEE783363B70}
+\makelabel{atlasrep:AtlasSubgroup}{3.5.9}{X7A3E460C82B3D9A3}
+\makelabel{atlasrep:EvaluatePresentation}{3.5.11}{X87B012B080D01413}
+\makelabel{atlasrep:StandardGeneratorsData}{3.5.12}{X79F63403821C1E24}
+\makelabel{atlasrep:Browse Applications Provided by AtlasRep}{3.6}{X790D5F8C7E8E6947}
+\makelabel{atlasrep:Customizations of the AtlasRep Package}{4}{X797694467B534D0E}
+\makelabel{atlasrep:Installing the AtlasRep Package}{4.1}{X7F25ECBA7B675901}
+\makelabel{atlasrep:User Preferences of the AtlasRep Package}{4.2}{X851A50E6810EF8C5}
+\makelabel{atlasrep:User preference AtlasRepAccessRemoteFiles}{4.2.1}{X7C3293A98577EE68}
+\makelabel{atlasrep:User preference AtlasRepDataDirectory}{4.2.2}{X7C36E9A78021A71A}
+\makelabel{atlasrep:User preference AtlasRepTOCData}{4.2.3}{X7F21FFBE7F8108E4}
+\makelabel{atlasrep:User preference CompressDownloadedMeatAxeFiles}{4.2.4}{X8766BE5D7AD6C526}
+\makelabel{atlasrep:User preference FileAccessFunctions}{4.2.5}{X81AD105979465162}
+\makelabel{atlasrep:User preference AtlasRepLocalServerPath}{4.2.6}{X85C48D6D81095161}
+\makelabel{atlasrep:User preference HowToReadMeatAxeTextFiles}{4.2.7}{X79993585808450FA}
+\makelabel{atlasrep:User preference WriteHeaderFormatOfMeatAxeFiles}{4.2.8}{X7B8F757B85F87936}
+\makelabel{atlasrep:User preference WriteMeatAxeFilesOfMode2}{4.2.9}{X7941C4378261E28A}
+\makelabel{atlasrep:User preference BaseOfMeatAxePermutation}{4.2.10}{X877E40DB7A4E36C9}
+\makelabel{atlasrep:User preference DisplayFunction}{4.2.11}{X81F055037F9D3068}
+\makelabel{atlasrep:User preference AtlasRepMarkNonCoreData}{4.2.12}{X862C660878D422FA}
+\makelabel{atlasrep:User preference DebugFileLoading}{4.2.13}{X80958D068147325B}
+\makelabel{atlasrep:User preference AtlasRepJsonFilesAddresses}{4.2.14}{X850D135E79EFF3F7}
+\makelabel{atlasrep:Web Contents for the AtlasRep Package}{4.3}{X7C50F18587ADC3B5}
+\makelabel{atlasrep:Extending the ATLAS Database}{4.4}{X7FB64AD37D4620E6}
+\makelabel{atlasrep:Extensions of the AtlasRep Package}{5}{X7B0718A178BB10CA}
+\makelabel{atlasrep:Notify Additional Data}{5.1}{X78E7F7347DE8A125}
+\makelabel{atlasrep:AtlasOfGroupRepresentationsNotifyData}{5.1.1}{X81B5FA0578257653}
+\makelabel{atlasrep:The Effect of Extensions on the User Interface}{5.2}{X7A6024EC87A95E0B}
+\makelabel{atlasrep:An Example of Extending the AtlasRep Data}{5.3}{X7E7307FC835D09DF}
+\makelabel{atlasrep:New GAP Objects and Utility Functions provided by the AtlasRep Package}{6}{X83827EDB7D36C407}
+\makelabel{atlasrep:Straight Line Decisions}{6.1}{X8121E9567A7137C9}
+\makelabel{atlasrep:Semi-Presentations and Presentations}{6.1.7}{X7C94ECAC8583CEAE}
+\makelabel{atlasrep:Black Box Programs}{6.2}{X7BE856BC785A9E8F}
+\makelabel{atlasrep:Representations of Minimal Degree}{6.3}{X87E1F08D80C9E069}
+\makelabel{atlasrep:Criteria Used to Compute Minimality Information}{6.3.4}{X7FC33DFF8481F8D1}
+\makelabel{atlasrep:A JSON Interface}{6.4}{X7E5CB1637F127B2E}
+\makelabel{atlasrep:Why JSON?}{6.4.1}{X7870BBB184574D18}
+\makelabel{atlasrep:Technicalities of the AtlasRep Package}{7}{X7F77634D817156B3}
+\makelabel{atlasrep:Global Variables Used by the AtlasRep Package}{7.1}{X7DC2B7917DC30B28}
+\makelabel{atlasrep:How to Customize the Access to Data files}{7.2}{X81C5B5E78215169D}
+\makelabel{atlasrep:Reading and Writing MeatAxe Format Files}{7.3}{X7D76D4437A9646E7}
+\makelabel{atlasrep:Reading and Writing ATLAS Straight Line Programs}{7.4}{X7FEE162B7F63BEA0}
+\makelabel{atlasrep:Data Types Used in the AtlasRep Package}{7.5}{X809898027EFDA56E}
+\makelabel{atlasrep:Filenames Used in the AtlasRep Package}{7.6}{X7A86627B80980F61}
+\makelabel{atlasrep:The record component identifier used by the AtlasRep Package}{7.7}{X7CCA3DE97E756F01}
+\makelabel{atlasrep:AtlasRepIdentifier}{7.7.1}{X81685FC979BC3FB8}
+\makelabel{atlasrep:The Tables of Contents of the AtlasRep Package}{7.8}{X7B1DECF080AEB806}
+\makelabel{atlasrep:Sanity Checks for the AtlasRep Package}{7.9}{X79C5F2267ACCF52A}
+\makelabel{atlasrep:Sanity Checks for a Table of Contents}{7.9.1}{X86FDCF0B85496AE5}
+\makelabel{atlasrep:Other Sanity Checks}{7.9.2}{X7FBFA8D287B807D2}
+\makelabel{atlasrep:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{atlasrep:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{atlasrep:Index}{Ind}{X83A0356F839C696F}
+\makelabel{atlasrep:AtlasRep}{}{X7D2C85EC87DD46E5}
+\makelabel{atlasrep:black box program}{1.1}{X7A76DF957E7AF8AE}
+\makelabel{atlasrep:straight line program}{1.1}{X7A76DF957E7AF8AE}
+\makelabel{atlasrep:MeatAxe}{1.1}{X7A76DF957E7AF8AE}
+\makelabel{atlasrep:Magma}{1.1}{X7A76DF957E7AF8AE}
+\makelabel{atlasrep:C-MeatAxe}{1.2}{X8033B61682EE6A23}
+\makelabel{atlasrep:wget}{1.3.15}{X79CCC5517897924C}
+\makelabel{atlasrep:ftp}{1.3.15}{X79CCC5517897924C}
+\makelabel{atlasrep:perl}{1.3.15}{X79CCC5517897924C}
+\makelabel{atlasrep:wget}{1.3.17}{X831628B47F669B29}
+\makelabel{atlasrep:gzip}{1.3.17}{X831628B47F669B29}
+\makelabel{atlasrep:perl}{1.4}{X82A988D47DFAFCFA}
+\makelabel{atlasrep:AtlasClassNames}{3.4.2}{X78166D1D7D18EFBF}
+\makelabel{atlasrep:AtlasCharacterNames}{3.4.3}{X7B14A254870BA5A1}
+\makelabel{atlasrep:DisplayAtlasInfo}{3.5.1}{X79DACFFA7E2D1A99}
+\makelabel{atlasrep:DisplayAtlasInfo for a group name, and optionally further restrictions}{3.5.1}{X79DACFFA7E2D1A99}
+\makelabel{atlasrep:straight line program}{3.5.1}{X79DACFFA7E2D1A99}
+\makelabel{atlasrep:AtlasGenerators}{3.5.3}{X7D1CCCF8852DFF39}
+\makelabel{atlasrep:AtlasGenerators for an identifier}{3.5.3}{X7D1CCCF8852DFF39}
+\makelabel{atlasrep:AtlasProgram}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:AtlasProgram for an identifier}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program for maximal subgroups}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:maximal subgroups}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program for normal subgroups}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program for kernels of epimorphisms}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program for class representatives}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:class representatives}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program for representatives of cyclic subgroups}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:cyclic subgroups}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:maximally cyclic subgroups}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program for outer automorphisms}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:automorphisms}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line decision for checking standard generators}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line decision encoding a presentation}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:black box program for finding standard generators}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program for restandardizing}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:straight line program free format}{3.5.4}{X801F2E657C8A79ED}
+\makelabel{atlasrep:AtlasProgramInfo}{3.5.5}{X83DFD8967E6BC831}
+\makelabel{atlasrep:OneAtlasGeneratingSetInfo}{3.5.6}{X841478AB7CD06D44}
+\makelabel{atlasrep:AllAtlasGeneratingSetInfos}{3.5.7}{X84C2D76482E60E42}
+\makelabel{atlasrep:AtlasGroup for various arguments}{3.5.8}{X80AABEE783363B70}
+\makelabel{atlasrep:AtlasGroup for an identifier record}{3.5.8}{X80AABEE783363B70}
+\makelabel{atlasrep:AtlasSubgroup for a group name (and various arguments) and a number}{3.5.9}{X7A3E460C82B3D9A3}
+\makelabel{atlasrep:AtlasSubgroup for an identifier record and a number}{3.5.9}{X7A3E460C82B3D9A3}
+\makelabel{atlasrep:AtlasSubgroup for a group and a number}{3.5.9}{X7A3E460C82B3D9A3}
+\makelabel{atlasrep:AtlasRepInfoRecord for a group}{3.5.10}{X87BC7D9C7BA2F27A}
+\makelabel{atlasrep:AtlasRepInfoRecord for a string}{3.5.10}{X87BC7D9C7BA2F27A}
+\makelabel{atlasrep:EvaluatePresentation for a group, a group name (and a number)}{3.5.11}{X87B012B080D01413}
+\makelabel{atlasrep:EvaluatePresentation for a list of generators, a group name (and a number)}{3.5.11}{X87B012B080D01413}
+\makelabel{atlasrep:StandardGeneratorsData for a group, a group name (and a number)}{3.5.12}{X79F63403821C1E24}
+\makelabel{atlasrep:StandardGeneratorsData for a list of generators, a group name (and a number)}{3.5.12}{X79F63403821C1E24}
+\makelabel{atlasrep:BrowseMinimalDegrees}{3.6.1}{X7F31A7CB841FE63F}
+\makelabel{atlasrep:BrowseBibliographySporadicSimple}{3.6.2}{X84ED4FC182C28198}
+\makelabel{atlasrep:AtlasRepAccessRemoteFiles}{4.2.1}{X7C3293A98577EE68}
+\makelabel{atlasrep:local access}{4.2.1}{X7C3293A98577EE68}
+\makelabel{atlasrep:remote access}{4.2.1}{X7C3293A98577EE68}
+\makelabel{atlasrep:AtlasRepDataDirectory}{4.2.2}{X7C36E9A78021A71A}
+\makelabel{atlasrep:AtlasRepTOCData}{4.2.3}{X7F21FFBE7F8108E4}
+\makelabel{atlasrep:CompressDownloadedMeatAxeFiles}{4.2.4}{X8766BE5D7AD6C526}
+\makelabel{atlasrep:compress}{4.2.4}{X8766BE5D7AD6C526}
+\makelabel{atlasrep:gzip}{4.2.4}{X8766BE5D7AD6C526}
+\makelabel{atlasrep:FileAccessFunctions}{4.2.5}{X81AD105979465162}
+\makelabel{atlasrep:AtlasRepLocalServerPath}{4.2.6}{X85C48D6D81095161}
+\makelabel{atlasrep:HowToReadMeatAxeTextFiles}{4.2.7}{X79993585808450FA}
+\makelabel{atlasrep:WriteHeaderFormatOfMeatAxeFiles}{4.2.8}{X7B8F757B85F87936}
+\makelabel{atlasrep:WriteMeatAxeFilesOfMode2}{4.2.9}{X7941C4378261E28A}
+\makelabel{atlasrep:BaseOfMeatAxePermutation}{4.2.10}{X877E40DB7A4E36C9}
+\makelabel{atlasrep:DisplayFunction}{4.2.11}{X81F055037F9D3068}
+\makelabel{atlasrep:AtlasRepMarkNonCoreData}{4.2.12}{X862C660878D422FA}
+\makelabel{atlasrep:DebugFileLoading}{4.2.13}{X80958D068147325B}
+\makelabel{atlasrep:AtlasRepJsonFilesAddresses}{4.2.14}{X850D135E79EFF3F7}
+\makelabel{atlasrep:AtlasOfGroupRepresentationsNotifyData for a local directory of private data}{5.1.1}{X81B5FA0578257653}
+\makelabel{atlasrep:AtlasOfGroupRepresentationsNotifyData for a local file describing private data}{5.1.1}{X81B5FA0578257653}
+\makelabel{atlasrep:AtlasOfGroupRepresentationsNotifyData for a remote file describing private data}{5.1.1}{X81B5FA0578257653}
+\makelabel{atlasrep:AtlasOfGroupRepresentationsForgetData}{5.1.2}{X7E0DC24681F17A9D}
+\makelabel{atlasrep:StringOfAtlasTableOfContents}{5.1.3}{X81C5440983E47DBD}
+\makelabel{atlasrep:IsStraightLineDecision}{6.1.1}{X8787E2EC7DB85A89}
+\makelabel{atlasrep:LinesOfStraightLineDecision}{6.1.2}{X82AFAD9F7FA5CE8A}
+\makelabel{atlasrep:NrInputsOfStraightLineDecision}{6.1.3}{X7B1A43427BD97FDF}
+\makelabel{atlasrep:ScanStraightLineDecision}{6.1.4}{X82A3632782E45F35}
+\makelabel{atlasrep:StraightLineDecision}{6.1.5}{X825C4E4180F3D989}
+\makelabel{atlasrep:StraightLineDecisionNC}{6.1.5}{X825C4E4180F3D989}
+\makelabel{atlasrep:ResultOfStraightLineDecision}{6.1.6}{X7E7B328A84685480}
+\makelabel{atlasrep:semi-presentation}{6.1.7}{X7C94ECAC8583CEAE}
+\makelabel{atlasrep:presentation}{6.1.7}{X7C94ECAC8583CEAE}
+\makelabel{atlasrep:AsStraightLineDecision}{6.1.8}{X7C13D08C7D55E20A}
+\makelabel{atlasrep:StraightLineProgramFromStraightLineDecision}{6.1.9}{X7EA613C57DDC67D5}
+\makelabel{atlasrep:IsBBoxProgram}{6.2.1}{X87CAF2DE870D0E3B}
+\makelabel{atlasrep:ScanBBoxProgram}{6.2.2}{X7EA20532868F9863}
+\makelabel{atlasrep:RunBBoxProgram}{6.2.3}{X7D211A5D8602B330}
+\makelabel{atlasrep:ResultOfBBoxProgram}{6.2.4}{X869BACFB80A3CC87}
+\makelabel{atlasrep:AsBBoxProgram}{6.2.5}{X826ACFE887E0B6B8}
+\makelabel{atlasrep:AsStraightLineProgram}{6.2.6}{X7D36DFA87C8B2C48}
+\makelabel{atlasrep:MinimalRepresentationInfo}{6.3.1}{X7DC66D8282B2BB7F}
+\makelabel{atlasrep:MinimalRepresentationInfoData}{6.3.2}{X7E1B76DC86A8C405}
+\makelabel{atlasrep:SetMinimalRepresentationInfo}{6.3.3}{X79C4C9F683E919C9}
+\makelabel{atlasrep:AGR.JsonText}{6.4.2}{X87A307D284975AA9}
+\makelabel{atlasrep:AGR.GapObjectOfJsonText}{6.4.3}{X79DF4DC67DCFE27B}
+\makelabel{atlasrep:InfoAtlasRep}{7.1.1}{X8006BE167EB81E16}
+\makelabel{atlasrep:InfoCMeatAxe}{7.1.2}{X78601C3A87921E08}
+\makelabel{atlasrep:InfoBBox}{7.1.3}{X80D5EF9A7FEF124B}
+\makelabel{atlasrep:AGR}{7.1.4}{X84A157BF7D0CB270}
+\makelabel{atlasrep:AtlasOfGroupRepresentationsInfo}{7.1.5}{X7BEC94A6781E126E}
+\makelabel{atlasrep:matrix MeatAxe format}{7.3}{X7D76D4437A9646E7}
+\makelabel{atlasrep:permutation MeatAxe format}{7.3}{X7D76D4437A9646E7}
+\makelabel{atlasrep:ScanMeatAxeFile}{7.3.1}{X83D5103780E1238F}
+\makelabel{atlasrep:zcv}{7.3.1}{X83D5103780E1238F}
+\makelabel{atlasrep:MeatAxeString}{7.3.2}{X7DDD09BE87063052}
+\makelabel{atlasrep:MeatAxeString for permutations and a degree}{7.3.2}{X7DDD09BE87063052}
+\makelabel{atlasrep:MeatAxeString for a permutation, q, and dims}{7.3.2}{X7DDD09BE87063052}
+\makelabel{atlasrep:MeatAxeString for a matrix of integers}{7.3.2}{X7DDD09BE87063052}
+\makelabel{atlasrep:FFList}{7.3.3}{X79D9AE4878E9DFA6}
+\makelabel{atlasrep:FFLists}{7.3.3}{X79D9AE4878E9DFA6}
+\makelabel{atlasrep:CMtxBinaryFFMatOrPerm}{7.3.4}{X8477AA668733255C}
+\makelabel{atlasrep:FFMatOrPermCMtxBinary}{7.3.5}{X872FA00C7F791FBB}
+\makelabel{atlasrep:ScanStraightLineProgram}{7.4.1}{X7D6617E47B013A37}
+\makelabel{atlasrep:AtlasStringOfProgram}{7.4.2}{X82842D807A7B7DF7}
+\makelabel{atlasrep:AtlasStringOfProgram for MeatAxe format output}{7.4.2}{X82842D807A7B7DF7}
+\makelabel{atlasrep:AGR.DeclareDataType}{7.5.1}{X836AA4EA8346BE5B}
+\makelabel{atlasrep:semi-presentation}{7.6}{X7A86627B80980F61}
+\makelabel{atlasrep:presentation}{7.6}{X7A86627B80980F61}
+\makelabel{atlasrep:black box program for finding standard generators}{7.6}{X7A86627B80980F61}
+\makelabel{atlasrep:AGR.ParseFilenameFormat}{7.6.1}{X8486CCB181FC99A3}
+\makelabel{atlasrep:AGR.FileContents}{7.6.2}{X78AB92DB7C2CAB6E}
+\makelabel{atlasrep:AtlasRepIdentifier convert an old type identifier to a new type one}{7.7.1}{X81685FC979BC3FB8}
+\makelabel{atlasrep:AtlasRepIdentifier convert a new type identifier to an old type one}{7.7.1}{X81685FC979BC3FB8}

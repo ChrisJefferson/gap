@@ -1,0 +1,106 @@
+  
+  [1X7 [33X[0;0YUtility Functions Provided by the [5XCTblLib[105X[101X[1X Package[133X[101X
+  
+  [33X[0;0YThis  chapter  describes  [5XGAP[105X  functions  that  are  provided by the [5XCTblLib[105X
+  package but that might be of general interest.[133X
+  
+  [33X[0;0YFor  the  moment, there are just two features to describe, the generation of
+  [5XAtlas[105X  irrationalities  from  cyclotomic integers (see Section [14X7.1[114X), and the
+  generation  of  information  about  the  group structure from identifiers of
+  character tables (see Section [14X7.2[114X).[133X
+  
+  
+  [1X7.1 [33X[0;0YWrite Character Values in Terms of Atomic [5XAtlas[105X[101X[1X Irrationalities[133X[101X
+  
+  [1X7.1-1 CTblLib.StringOfAtlasIrrationality[101X
+  
+  [33X[1;0Y[29X[2XCTblLib.StringOfAtlasIrrationality[102X( [3Xcyc[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string that describes the cyclotomic integer [3Xcyc[103X.[133X
+  
+  [33X[0;0YThis  function  is  intended  for expressing the cyclotomic integer [3Xcyc[103X as a
+  linear  combination  of so-called [21Xatomic [5XAtlas[105X irrationalities[121X (see [CCN+85,
+  p. xxvii]), with integer coefficients.[133X
+  
+  [33X[0;0YOften there is no [21Xoptimal[121X expression of that kind for [3Xcyc[103X, and this function
+  uses certain heuristics for finding a not too bad expression. Concerning the
+  character tables in the [5XAtlas[105X of Finite Groups [CCN+85], an explicit mapping
+  between  the values which are computed by this function and the descriptions
+  that  are  shown in the book is available, see [10XCTblLib.IrrationalityMapping[110X.
+  Such  a mapping is not yet available for the character tables from the [5XAtlas[105X
+  of  Brauer Characters [JLPW95], [13Xthis function is only experimental[113X for these
+  tables, it is likely to be changed in the future.[133X
+  
+  [33X[0;0Y[2XCTblLib.StringOfAtlasIrrationality[102X is used by [2XBrowseAtlasTable[102X ([14X3.5-9[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xvalues:= List( [ "e31", "y'24+3", "r2+i", "r2+i2" ],[127X[104X
+    [4X[25X>[125X [27X                  AtlasIrrationality );;[127X[104X
+    [4X[25Xgap>[125X [27XList( values, CTblLib.StringOfAtlasIrrationality );[127X[104X
+    [4X[28X[ "e31", "y'24+3", "z8-&3+i", "2z8" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe implementation uses the following heuristics for computing a description
+  of the cyclotomic integer [3Xcyc[103X with conductor [22XN[122X, say.[133X
+  
+  [30X    [33X[0;6YIf  [22XN[122X is not squarefree the let [22XN_0[122X be the squarefree part of [22XN[122X, split
+        [3Xcyc[103X  into  the  sum  of its odd squarefree part and its non-squarefree
+        part,  and  consider  the  two  values  separately;  note that the odd
+        squarefree part is well-defined by the fact that the basis of the [22XN[122X-th
+        cyclotomic  field  given  by  [2XZumbroichBase[102X ([14XReference: ZumbroichBase[114X)
+        contains  all  primitive  [22XN_0[122X-th roots of unity. Also note that except
+        for  quadratic  irrationalities  (where [22XN[122X is squarefree), all roots of
+        unity   that   are   involved   in   the   representation   of  atomic
+        irrationalities  w. r. t. this  basis  have  the  same  multiplicative
+        order.[133X
+  
+  [30X    [33X[0;6YIf  [3Xcyc[103X is a multiple of a root of unity then write it as such, i. e.,
+        as a string involving [22Xz_N[122X.[133X
+  
+  [30X    [33X[0;6YOtherwise,  if [3Xcyc[103X lies in a quadratic number field then write it as a
+        linear  combination  of  an  integer. Usually the string involves [22Xr_N[122X,
+        [22Xi_N[122X,  or  [22Xb_N[122X,  but also multiples of [22Xb_M[122X may occur, where [22XM[122X is a –not
+        squarefree– multiple of [22XN[122X.[133X
+  
+  [30X    [33X[0;6YOtherwise,  find  a  large  cyclic  subgroup  of the stabilizer of [3Xcyc[103X
+        inside  the  Galois group over the Rationals –this subgroup defines an
+        atomic  irrationality–  and express [3Xcyc[103X as a linear combination of the
+        orbit  sums. In the worst case, there is no nontrivial stabilizer, and
+        we find only a description as a sum of roots of unity.[133X
+  
+  [33X[0;0YThere  is  of course a lot of space for improvements. For example, one could
+  use  the  Bosma  basis  representation  (see  [2XBosmaBase[102X  ([14X6.5-1[114X)) of [3Xcyc[103X for
+  splitting  the  value  into a sum of values from strictly smaller cyclotomic
+  fields, which would be useful at least if their conductors are coprime. Note
+  that  the  Bosma basis of the [22XN[122X-th cyclotomic field has the property that it
+  is  a  union  of  bases for the cyclotomic fields with conductor dividing [22XN[122X.
+  Thus  one can easily find out that [22Xsqrt{5} + sqrt{7}[122X can be written as a sum
+  of  two  values  in  terms  of  [22X5[122X-th and [22X7[122X-th roots of unity. In non-coprime
+  situations,  this  argument  fails.  For  example, one can still detect that
+  [22Xsqrt{15}  + sqrt{21}[122X involves only [22X15[122X-th and [22X21[122X-th roots of unity, but it is
+  not obvious how to split the value into the two parts.[133X
+  
+  
+  [1X7.2 [33X[0;0YCreate a String that Describes the Group Structure[133X[101X
+  
+  [1X7.2-1 StructureDescriptionCharacterTableName[101X
+  
+  [33X[1;0Y[29X[2XStructureDescriptionCharacterTableName[102X( [3Xname[103X ) [32X function[133X
+  
+  [33X[0;0YFor  a  string  [3Xname[103X  that  is  an  admissible  name  of  a character table,
+  [2XStructureDescriptionCharacterTableName[102X  returns a string that is intended as
+  a description of the structure of the underlying group.[133X
+  
+  [33X[0;0YNote  that  many identifiers of character tables (see [2XIdentifier[102X ([14XReference:
+  Identifier  for character tables[114X)) do not describe the group structure in an
+  appropriate way. One reason for choosing such identifiers on purpose is that
+  several  character  tables  for  isomorphic  groups  can be contained in the
+  library, because the groups have different class fusions into another group.
+  For  example,  the  Mathieu  group  [22XM_12[122X  contains  two classes of subgroups
+  isomorphic   with   [22XM_11[122X,  and  the  identifiers  of  the  character  tables
+  corresponding to these subgroups are [10X"M11"[110X and [10X"M12M2"[110X, respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XStructureDescriptionCharacterTableName( "M12M2" );[127X[104X
+    [4X[28X"M11"[128X[104X
+  [4X[32X[104X
+  

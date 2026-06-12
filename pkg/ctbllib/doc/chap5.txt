@@ -1,0 +1,681 @@
+  
+  [1X5 [33X[0;0YFunctions for Character Table Constructions[133X[101X
+  
+  [33X[0;0YThe  functions  described  in  this  chapter  deal  with the construction of
+  character  tables  from other character tables. So they fit to the functions
+  in Section [14X'Reference: Constructing Character Tables from Others'[114X. But since
+  they  are  used  in  situations that are typical for the [5XGAP[105X Character Table
+  Library, they are described here.[133X
+  
+  [33X[0;0YAn  important  ingredient  of  the  constructions  is the description of the
+  action of a group automorphism on the classes by a permutation. In practice,
+  these  permutations are usually chosen from the group of table automorphisms
+  of  the  character  table  in question, see [2XAutomorphismsOfTable[102X ([14XReference:
+  AutomorphismsOfTable[114X).[133X
+  
+  [33X[0;0YSection [14X5.1[114X  deals  with  groups  of  the structure [22XM.G.A[122X, where the upwards
+  extension  [22XG.A[122X acts suitably on the central extension [22XM.G[122X. Section [14X5.2[114X deals
+  with  groups  that  have  a factor group of type [22XS_3[122X. Section [14X5.3[114X deals with
+  upward  extensions  of a group by a Klein four group. Section [14X5.4[114X deals with
+  downward  extensions of a group by a Klein four group. Section [14X5.6[114X describes
+  the  construction  of  certain Brauer tables. Section [14X5.7[114X deals with special
+  cases  of  the  construction  of character tables of central extensions from
+  known  character tables of suitable factor groups. Section [14X5.8[114X documents the
+  functions used to encode certain tables in the [5XGAP[105X Character Table Library.[133X
+  
+  [33X[0;0YExamples can be found in [Breb] and [Bref].[133X
+  
+  
+  [1X5.1 [33X[0;0YCharacter Tables of Groups of Structure [22XM.G.A[122X[101X[1X[133X[101X
+  
+  [33X[0;0YFor  the functions in this section, let [22XH[122X be a group with normal subgroups [22XN[122X
+  and  [22XM[122X  such that [22XH/N[122X is cyclic, [22XM ≤ N[122X holds, and such that each irreducible
+  character  of [22XN[122X that does not contain [22XM[122X in its kernel induces irreducibly to
+  [22XH[122X. (This is satisfied for example if [22XN[122X has prime index in [22XH[122X and [22XM[122X is a group
+  of  prime order that is central in [22XN[122X but not in [22XH[122X.) Let [22XG = N/M[122X and [22XA = H/N[122X,
+  so [22XH[122X has the structure [22XM.G.A[122X. For some examples, see [Bre11].[133X
+  
+  [1X5.1-1 PossibleCharacterTablesOfTypeMGA[101X
+  
+  [33X[1;0Y[29X[2XPossibleCharacterTablesOfTypeMGA[102X( [3XtblMG[103X, [3XtblG[103X, [3XtblGA[103X, [3Xorbs[103X, [3Xidentifier[103X ) [32X function[133X
+  
+  [33X[0;0YLet [22XH[122X, [22XN[122X, and [22XM[122X be as described at the beginning of the section.[133X
+  
+  [33X[0;0YLet  [3XtblMG[103X, [3XtblG[103X, [3XtblGA[103X be the ordinary character tables of the groups [22XM.G =
+  N[122X,  [22XG[122X,  and  [22XG.A  = H/M[122X, respectively, and [3Xorbs[103X be the list of orbits on the
+  class  positions  of  [3XtblMG[103X  that  is  induced  by  the  action of [22XH[122X on [22XM.G[122X.
+  Furthermore, let the class fusions from [3XtblMG[103X to [3XtblG[103X and from [3XtblG[103X to [3XtblGA[103X
+  be  stored  on  [3XtblMG[103X  and  [3XtblG[103X,  respectively (see [2XStoreFusion[102X ([14XReference:
+  StoreFusion[114X)).[133X
+  
+  [33X[0;0Y[2XPossibleCharacterTablesOfTypeMGA[102X  returns  a  list of records describing all
+  possible ordinary character tables for groups [22XH[122X that are compatible with the
+  arguments.  Note that in general there may be several possible groups [22XH[122X, and
+  it  may  also  be  that  [21Xcharacter tables[121X are constructed for which no group
+  exists.[133X
+  
+  [33X[0;0YEach of the records in the result has the following components.[133X
+  
+  [8X[10Xtable[110X[8X[108X
+        [33X[0;6Ya possible ordinary character table for [22XH[122X, and[133X
+  
+  [8X[10XMGfusMGA[110X[8X[108X
+        [33X[0;6Ythe fusion map from [3XtblMG[103X into the table stored in [10Xtable[110X.[133X
+  
+  [33X[0;0YThe  possible  tables  differ  w. r. t. some power maps, and perhaps element
+  orders and table automorphisms; in particular, the [10XMGfusMGA[110X component is the
+  same in all records.[133X
+  
+  [33X[0;0YThe returned tables have the [2XIdentifier[102X ([14XReference: Identifier for character
+  tables[114X) value [3Xidentifier[103X. The classes of these tables are sorted as follows.
+  First  come the classes contained in [22XM.G[122X, sorted compatibly with the classes
+  in  [3XtblMG[103X,  then  the classes in [22XH ∖ M.G[122X follow, in the same ordering as the
+  classes of [22XG.A ∖ G[122X.[133X
+  
+  [1X5.1-2 BrauerTableOfTypeMGA[101X
+  
+  [33X[1;0Y[29X[2XBrauerTableOfTypeMGA[102X( [3XmodtblMG[103X, [3XmodtblGA[103X, [3XordtblMGA[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [22XH[122X,  [22XN[122X,  and  [22XM[122X  be  as  described  at the beginning of the section, let
+  [3XmodtblMG[103X  and [3XmodtblGA[103X be the [22Xp[122X-modular character tables of the groups [22XN[122X and
+  [22XH/M[122X, respectively, and let [3XordtblMGA[103X be the [22Xp[122X-modular Brauer table of [22XH[122X, for
+  some  prime  integer [22Xp[122X. Furthermore, let the class fusions from the ordinary
+  character  table of [3XmodtblMG[103X to [3XordtblMGA[103X and from [3XordtblMGA[103X to the ordinary
+  character table of [3XmodtblGA[103X be stored.[133X
+  
+  [33X[0;0Y[2XBrauerTableOfTypeMGA[102X returns the [22Xp[122X-modular character table of [22XH[122X.[133X
+  
+  [1X5.1-3 PossibleActionsForTypeMGA[101X
+  
+  [33X[1;0Y[29X[2XPossibleActionsForTypeMGA[102X( [3XtblMG[103X, [3XtblG[103X, [3XtblGA[103X ) [32X function[133X
+  
+  [33X[0;0YLet  the  arguments  be  as  described  for [2XPossibleCharacterTablesOfTypeMGA[102X
+  ([14X5.1-1[114X).  [2XPossibleActionsForTypeMGA[102X returns the set of orbit structures [22XΩ[122X on
+  the  class  positions of [3XtblMG[103X that can be induced by the action of [22XH[122X on the
+  classes  of  [22XM.G[122X  in  the  sense  that  [22XΩ[122X  is  the  set of orbits of a table
+  automorphism      of     [3XtblMG[103X     (see [2XAutomorphismsOfTable[102X     ([14XReference:
+  AutomorphismsOfTable[114X)) that is compatible with the stored class fusions from
+  [3XtblMG[103X  to  [3XtblG[103X  and  from [3XtblG[103X to [3XtblGA[103X. Note that the number of such orbit
+  structures   can  be  smaller  than  the  number  of  the  underlying  table
+  automorphisms.[133X
+  
+  [33X[0;0YInformation   about   the   progress  is  reported  if  the  info  level  of
+  [2XInfoCharacterTable[102X   ([14XReference:   InfoCharacterTable[114X)   is   at   least   [22X1[122X
+  (see [2XSetInfoLevel[102X ([14XReference: InfoLevel[114X)).[133X
+  
+  
+  [1X5.2 [33X[0;0YCharacter Tables of Groups of Structure [22XG.S_3[122X[101X[1X[133X[101X
+  
+  
+  [1X5.2-1 [33X[0;0YCharacterTableOfTypeGS3[133X[101X
+  
+  [33X[1;0Y[29X[2XCharacterTableOfTypeGS3[102X( [3Xtbl[103X, [3Xtbl2[103X, [3Xtbl3[103X, [3Xaut[103X, [3Xidentifier[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XCharacterTableOfTypeGS3[102X( [3Xmodtbl[103X, [3Xmodtbl2[103X, [3Xmodtbl3[103X, [3Xordtbls3[103X, [3Xidentifier[103X ) [32X function[133X
+  
+  [33X[0;0YLet [22XH[122X be a group with a normal subgroup [22XG[122X such that [22XH/G ≅ S_3[122X, the symmetric
+  group  on  three  points,  and  let [22XG.2[122X and [22XG.3[122X be preimages of subgroups of
+  order  [22X2[122X  and [22X3[122X, respectively, under the natural projection onto this factor
+  group.[133X
+  
+  [33X[0;0YIn  the  first form, let [3Xtbl[103X, [3Xtbl2[103X, [3Xtbl3[103X be the ordinary character tables of
+  the  groups  [22XG[122X,  [22XG.2[122X,  and  [22XG.3[122X, respectively, and [3Xaut[103X be the permutation of
+  classes  of  [3Xtbl3[103X induced by the action of [22XH[122X on [22XG.3[122X. Furthermore assume that
+  the   class   fusions   from  [3Xtbl[103X  to  [3Xtbl2[103X  and  [3Xtbl3[103X  are  stored  on  [3Xtbl[103X
+  (see [2XStoreFusion[102X  ([14XReference:  StoreFusion[114X)).  In  particular, the two class
+  fusions  must  be  compatible  in  the  sense that the induced action on the
+  classes of [3Xtbl[103X describes an action of [22XS_3[122X.[133X
+  
+  [33X[0;0YIn  the second form, let [3Xmodtbl[103X, [3Xmodtbl2[103X, [3Xmodtbl3[103X be the [22Xp[122X-modular character
+  tables  of  the  groups  [22XG[122X,  [22XG.2[122X, and [22XG.3[122X, respectively, and [3Xordtbls3[103X be the
+  ordinary character table of [22XH[122X.[133X
+  
+  [33X[0;0Y[2XCharacterTableOfTypeGS3[102X returns a record with the following components.[133X
+  
+  [8X[10Xtable[110X[8X[108X
+        [33X[0;6Ythe ordinary or [22Xp[122X-modular character table of [22XH[122X, respectively,[133X
+  
+  [8X[10Xtbl2fustbls3[110X[8X[108X
+        [33X[0;6Ythe fusion map from [3Xtbl2[103X into the table of [22XH[122X, and[133X
+  
+  [8X[10Xtbl3fustbls3[110X[8X[108X
+        [33X[0;6Ythe fusion map from [3Xtbl3[103X into the table of [22XH[122X.[133X
+  
+  [33X[0;0YThe  returned  table  of  [22XH[122X  has  the  [2XIdentifier[102X ([14XReference: Identifier for
+  character tables[114X) value [3Xidentifier[103X. The classes of the table of [22XH[122X are sorted
+  as  follows. First come the classes contained in [22XG.3[122X, sorted compatibly with
+  the  classes  in  [3Xtbl3[103X,  then  the  classes  in  [22XH ∖ G.3[122X follow, in the same
+  ordering as the classes of [22XG.2 ∖ G[122X.[133X
+  
+  [33X[0;0YIn  fact  the  code  is  applicable  in  the more general case that [22XH/G[122X is a
+  Frobenius  group  [22XF  =  K C[122X with abelian kernel [22XK[122X and cyclic complement [22XC[122X of
+  prime  order,  see [Bref].  Besides  [22XF  =  S_3[122X,  e. g.,  the case [22XF = A_4[122X is
+  interesting.[133X
+  
+  [1X5.2-2 PossibleActionsForTypeGS3[101X
+  
+  [33X[1;0Y[29X[2XPossibleActionsForTypeGS3[102X( [3Xtbl[103X, [3Xtbl2[103X, [3Xtbl3[103X ) [32X function[133X
+  
+  [33X[0;0YLet  the  arguments  be  as  described  for [2XCharacterTableOfTypeGS3[102X ([14X5.2-1[114X).
+  [2XPossibleActionsForTypeGS3[102X  returns  the  set  of  those  table automorphisms
+  (see [2XAutomorphismsOfTable[102X  ([14XReference:  AutomorphismsOfTable[114X))  of [3Xtbl3[103X that
+  can be induced by the action of [22XH[122X on the classes of [3Xtbl3[103X.[133X
+  
+  [33X[0;0YInformation   about   the   progress  is  reported  if  the  info  level  of
+  [2XInfoCharacterTable[102X   ([14XReference:   InfoCharacterTable[114X)   is   at   least   [22X1[122X
+  (see [2XSetInfoLevel[102X ([14XReference: InfoLevel[114X)).[133X
+  
+  
+  [1X5.3 [33X[0;0YCharacter Tables of Groups of Structure [22XG.2^2[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  following  functions are thought for constructing the possible ordinary
+  character  tables of a group of structure [22XG.2^2[122X from the known tables of the
+  three normal subgroups of type [22XG.2[122X.[133X
+  
+  
+  [1X5.3-1 [33X[0;0YPossibleCharacterTablesOfTypeGV4[133X[101X
+  
+  [33X[1;0Y[29X[2XPossibleCharacterTablesOfTypeGV4[102X( [3XtblG[103X, [3XtblsG2[103X, [3Xacts[103X, [3Xidentifier[103X[, [3XtblGfustblsG2[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XPossibleCharacterTablesOfTypeGV4[102X( [3XmodtblG[103X, [3XmodtblsG2[103X, [3XordtblGV4[103X[, [3XordtblsG2fusordtblG4[103X] ) [32X function[133X
+  
+  [33X[0;0YLet  [22XH[122X  be  a  group  with a normal subgroup [22XG[122X such that [22XH/G[122X is a Klein four
+  group,  and  let [22XG.2_1[122X, [22XG.2_2[122X, and [22XG.2_3[122X be the three subgroups of index two
+  in [22XH[122X that contain [22XG[122X.[133X
+  
+  [33X[0;0YIn  the  first  version,  let [3XtblG[103X be the ordinary character table of [22XG[122X, let
+  [3XtblsG2[103X  be a list containing the three character tables of the groups [22XG.2_i[122X,
+  and  let  [3Xacts[103X be a list of three permutations describing the action of [22XH[122X on
+  the  conjugacy  classes  of the corresponding tables in [3XtblsG2[103X. If the class
+  fusions  from  [3XtblG[103X  into  the  tables in [3XtblsG2[103X are not stored on [3XtblG[103X (for
+  example,  because  the  three  tables are equal) then the three maps must be
+  entered in the list [3XtblGfustblsG2[103X.[133X
+  
+  [33X[0;0YIn  the  second  version, let [3XmodtblG[103X be the [22Xp[122X-modular character table of [22XG[122X,
+  [3XmodtblsG[103X  be  the  list  of [22Xp[122X-modular Brauer tables of the groups [22XG.2_i[122X, and
+  [3XordtblGV4[103X  be  the  ordinary  character  table of [22XH[122X. In this case, the class
+  fusions  from the ordinary character tables of the groups [22XG.2_i[122X to [3XordtblGV4[103X
+  can be entered in the list [3XordtblsG2fusordtblG4[103X.[133X
+  
+  [33X[0;0Y[2XPossibleCharacterTablesOfTypeGV4[102X  returns  a  list of records describing all
+  possible  (ordinary  or  [22Xp[122X-modular)  character  tables for groups [22XH[122X that are
+  compatible  with  the  arguments.  Note that in general there may be several
+  possible  groups [22XH[122X, and it may also be that [21Xcharacter tables[121X are constructed
+  for  which  no  group  exists.  Each  of  the  records in the result has the
+  following components.[133X
+  
+  [8X[10Xtable[110X[8X[108X
+        [33X[0;6Ya possible (ordinary or [22Xp[122X-modular) character table for [22XH[122X, and[133X
+  
+  [8X[10XG2fusGV4[110X[8X[108X
+        [33X[0;6Ythe  list  of  fusion  maps  from  the tables in [3XtblsG2[103X into the [10Xtable[110X
+        component.[133X
+  
+  [33X[0;0YThe possible tables differ w.r.t. the irreducible characters and perhaps the
+  table  automorphisms;  in  particular, the [10XG2fusGV4[110X component is the same in
+  all records.[133X
+  
+  [33X[0;0YThe returned tables have the [2XIdentifier[102X ([14XReference: Identifier for character
+  tables[114X) value [3Xidentifier[103X. The classes of these tables are sorted as follows.
+  First come the classes contained in [22XG[122X, sorted compatibly with the classes in
+  [3XtblG[103X,  then  the  outer  classes in the tables in [3XtblsG2[103X follow, in the same
+  ordering as in these tables.[133X
+  
+  [1X5.3-2 PossibleActionsForTypeGV4[101X
+  
+  [33X[1;0Y[29X[2XPossibleActionsForTypeGV4[102X( [3XtblG[103X, [3XtblsG2[103X ) [32X function[133X
+  
+  [33X[0;0YLet  the  arguments  be  as  described  for [2XPossibleCharacterTablesOfTypeGV4[102X
+  ([14X5.3-1[114X).  [2XPossibleActionsForTypeGV4[102X returns the list of those triples [22X[ π_1,
+  π_2,  π_3  ][122X  of  permutations  for  which a group [22XH[122X may exist that contains
+  [22XG.2_1[122X,  [22XG.2_2[122X,  [22XG.2_3[122X  as  index  [22X2[122X subgroups which intersect in the index [22X4[122X
+  subgroup [22XG[122X.[133X
+  
+  [33X[0;0YInformation   about   the   progress   is   reported   if   the   level   of
+  [2XInfoCharacterTable[102X   ([14XReference:   InfoCharacterTable[114X)   is   at   least   [22X1[122X
+  (see [2XSetInfoLevel[102X ([14XReference: InfoLevel[114X)).[133X
+  
+  
+  [1X5.4 [33X[0;0YCharacter Tables of Groups of Structure [22X2^2.G[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  following  functions are thought for constructing the possible ordinary
+  or  Brauer  character  tables  of  a group of structure [22X2^2.G[122X from the known
+  tables  of  the three factor groups modulo the normal order two subgroups in
+  the central Klein four group.[133X
+  
+  [33X[0;0YNote that in the ordinary case, only a list of possibilities can be computed
+  whereas  in  the modular case, where the ordinary character table is assumed
+  to be known, the desired table is uniquely determined.[133X
+  
+  
+  [1X5.4-1 [33X[0;0YPossibleCharacterTablesOfTypeV4G[133X[101X
+  
+  [33X[1;0Y[29X[2XPossibleCharacterTablesOfTypeV4G[102X( [3XtblG[103X, [3Xtbls2G[103X, [3Xid[103X[, [3Xfusions[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XPossibleCharacterTablesOfTypeV4G[102X( [3XtblG[103X, [3Xtbl2G[103X, [3Xaut[103X, [3Xid[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [22XH[122X  be  a group with a central subgroup [22XN[122X of type [22X2^2[122X, and let [22XZ_1[122X, [22XZ_2[122X,
+  [22XZ_3[122X be the order [22X2[122X subgroups of [22XN[122X.[133X
+  
+  [33X[0;0YIn  the  first  form,  let  [3XtblG[103X be the ordinary character table of [22XH/N[122X, and
+  [3Xtbls2G[103X  be  a list of length three, the entries being the ordinary character
+  tables  of  the  groups [22XH/Z_i[122X. In the second form, let [3Xtbl2G[103X be the ordinary
+  character  table  of [22XH/Z_1[122X and [3Xaut[103X be a permutation; here it is assumed that
+  the  groups  [22XZ_i[122X  are  permuted under an automorphism [22Xσ[122X of order [22X3[122X of [22XH[122X, and
+  that [22Xσ[122X induces the permutation [3Xaut[103X on the classes of [3XtblG[103X.[133X
+  
+  [33X[0;0YThe class fusions onto [3XtblG[103X are assumed to be stored on the tables in [3Xtbls2G[103X
+  or  [3Xtbl2G[103X,  respectively,  except  if  they  are  explicitly entered via the
+  optional argument [3Xfusions[103X.[133X
+  
+  [33X[0;0Y[2XPossibleCharacterTablesOfTypeV4G[102X  returns the list of all possible character
+  tables  for  [22XH[122X  in  this  situation. The returned tables have the [2XIdentifier[102X
+  ([14XReference: Identifier for character tables[114X) value [3Xid[103X.[133X
+  
+  
+  [1X5.4-2 [33X[0;0YBrauerTableOfTypeV4G[133X[101X
+  
+  [33X[1;0Y[29X[2XBrauerTableOfTypeV4G[102X( [3XordtblV4G[103X, [3Xmodtbls2G[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XBrauerTableOfTypeV4G[102X( [3XordtblV4G[103X, [3Xmodtbl2G[103X, [3Xaut[103X ) [32X function[133X
+  
+  [33X[0;0YLet [22XH[122X be a group with a central subgroup [22XN[122X of type [22X2^2[122X, and let [3XordtblV4G[103X be
+  the  ordinary  character  table  of  [22XH[122X.  Let  [22XZ_1[122X,  [22XZ_2[122X,  [22XZ_3[122X be the order [22X2[122X
+  subgroups  of  [22XN[122X.  In  the  first  form,  let  [3Xmodtbls2G[103X  be the list of the
+  [22Xp[122X-modular  Brauer  tables  of the factor groups [22XH/Z_1[122X, [22XH/Z_2[122X, and [22XH/Z_3[122X, for
+  some  prime  integer  [22Xp[122X.  In  the second form, let [3Xmodtbl2G[103X be the [22Xp[122X-modular
+  Brauer  table of [22XH/Z_1[122X and [3Xaut[103X be a permutation; here it is assumed that the
+  groups  [22XZ_i[122X are permuted under an automorphism [22Xσ[122X of order [22X3[122X of [22XH[122X, and that [22Xσ[122X
+  induces  the  permutation [3Xaut[103X on the classes of the ordinary character table
+  of [22XH[122X that is stored in [3XordtblV4G[103X.[133X
+  
+  [33X[0;0YThe  class  fusions  from  [3XordtblV4G[103X to the ordinary character tables of the
+  tables in [3Xmodtbls2G[103X or [3Xmodtbl2G[103X are assumed to be stored.[133X
+  
+  [33X[0;0Y[2XBrauerTableOfTypeV4G[102X returns the [22Xp[122X-modular character table of [22XH[122X.[133X
+  
+  
+  [1X5.5 [33X[0;0YCharacter Tables of Subdirect Products of Index Two[133X[101X
+  
+  [33X[0;0YThe  following function is thought for constructing the (ordinary or Brauer)
+  character  tables of certain subdirect products from the known tables of the
+  factor groups and normal subgroups involved.[133X
+  
+  [1X5.5-1 CharacterTableOfIndexTwoSubdirectProduct[101X
+  
+  [33X[1;0Y[29X[2XCharacterTableOfIndexTwoSubdirectProduct[102X( [3XtblH1[103X, [3XtblG1[103X, [3XtblH2[103X, [3XtblG2[103X, [3Xidentifier[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya record containing the character table of the subdirect product [22XG[122X
+            that is described by the first four arguments.[133X
+  
+  [33X[0;0YLet  [3XtblH1[103X,  [3XtblG1[103X, [3XtblH2[103X, [3XtblG2[103X be the character tables of groups [22XH_1[122X, [22XG_1[122X,
+  [22XH_2[122X, [22XG_2[122X, such that [22XH_1[122X and [22XH_2[122X have index two in [22XG_1[122X and [22XG_2[122X, respectively,
+  and such that the class fusions corresponding to these embeddings are stored
+  on [3XtblH1[103X and [3XtblH1[103X, respectively.[133X
+  
+  [33X[0;0YIn  this  situation,  the  direct  product  of [22XG_1[122X and [22XG_2[122X contains a unique
+  subgroup  [22XG[122X of index two that contains the direct product of [22XH_1[122X and [22XH_2[122X but
+  does not contain any of the groups [22XG_1[122X, [22XG_2[122X.[133X
+  
+  [33X[0;0YThe  function [2XCharacterTableOfIndexTwoSubdirectProduct[102X returns a record with
+  the following components.[133X
+  
+  [8X[10Xtable[110X[8X[108X
+        [33X[0;6Ythe character table of [22XG[122X,[133X
+  
+  [8X[10XH1fusG[110X[8X[108X
+        [33X[0;6Ythe class fusion from [3XtblH1[103X into the table of [22XG[122X, and[133X
+  
+  [8X[10XH2fusG[110X[8X[108X
+        [33X[0;6Ythe class fusion from [3XtblH2[103X into the table of [22XG[122X.[133X
+  
+  [33X[0;0YIf  the  first  four  arguments are [13Xordinary[113X character tables then the fifth
+  argument  [3Xidentifier[103X  must  be  a  string;  this  is  used as the [2XIdentifier[102X
+  ([14XReference: Identifier for character tables[114X) value of the result table.[133X
+  
+  [33X[0;0YIf  the  first  four  arguments  are  [13XBrauer[113X  character  tables for the same
+  characteristic  then the fifth argument must be the ordinary character table
+  of the desired subdirect product.[133X
+  
+  [1X5.5-2 ConstructIndexTwoSubdirectProduct[101X
+  
+  [33X[1;0Y[29X[2XConstructIndexTwoSubdirectProduct[102X( [3Xtbl[103X, [3XtblH1[103X, [3XtblG1[103X, [3XtblH2[103X, [3XtblG2[103X, [3Xpermclasses[103X, [3Xpermchars[103X ) [32X function[133X
+  
+  [33X[0;0Y[2XConstructIndexTwoSubdirectProduct[102X  constructs  the irreducible characters of
+  the  ordinary  character  table [3Xtbl[103X of the subdirect product of index two in
+  the  direct product of [3XtblG1[103X and [3XtblG2[103X, which contains the direct product of
+  [3XtblH1[103X and [3XtblH2[103X but does not contain any of the direct factors [3XtblG1[103X, [3XtblG2[103X.
+  W. r. t. the    default    ordering    obtained    from    that   given   by
+  [2XCharacterTableDirectProduct[102X  ([14XReference:  CharacterTableDirectProduct[114X),  the
+  columns  and  the  rows  of the matrix of irreducibles are permuted with the
+  permutations [3Xpermclasses[103X and [3Xpermchars[103X, respectively.[133X
+  
+  [1X5.5-3 ConstructIndexTwoSubdirectProductInfo[101X
+  
+  [33X[1;0Y[29X[2XConstructIndexTwoSubdirectProductInfo[102X( [3Xtbl[103X[, [3XtblH1[103X, [3XtblG1[103X, [3XtblH2[103X, [3XtblG2[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya   list   of   constriction   descriptions,   or  a  construction
+            description, or [9Xfail[109X.[133X
+  
+  [33X[0;0YCalled  with  one  argument [3Xtbl[103X, an ordinary character table of the group [22XG[122X,
+  say,  [2XConstructIndexTwoSubdirectProductInfo[102X  analyzes  the  possibilities to
+  construct  [3Xtbl[103X from character tables of subgroups [22XH_1[122X, [22XH_2[122X and factor groups
+  [22XG_1[122X, [22XG_2[122X, using [2XCharacterTableOfIndexTwoSubdirectProduct[102X ([14X5.5-1[114X). The return
+  value is a list of records with the following components.[133X
+  
+  [8X[10Xkernels[110X[8X[108X
+        [33X[0;6Ythe list of class positions of [22XH_1[122X, [22XH_2[122X in [3Xtbl[103X,[133X
+  
+  [8X[10Xkernelsizes[110X[8X[108X
+        [33X[0;6Ythe list of orders of [22XH_1[122X, [22XH_2[122X,[133X
+  
+  [8X[10Xfactors[110X[8X[108X
+        [33X[0;6Ythe  list  of  [2XIdentifier[102X ([14XReference: Identifier for character tables[114X)
+        values  of the [5XGAP[105X library tables of the factors [22XG_2[122X, [22XG_1[122X of [22XG[122X by [22XH_1[122X,
+        [22XH_2[122X; if no such table is available then the entry is [9Xfail[109X, and[133X
+  
+  [8X[10Xsubgroups[110X[8X[108X
+        [33X[0;6Ythe  list  of  [2XIdentifier[102X ([14XReference: Identifier for character tables[114X)
+        values of the [5XGAP[105X library tables of the subgroups [22XH_2[122X, [22XH_1[122X of [22XG[122X; if no
+        such tables are available then the entries are [9Xfail[109X.[133X
+  
+  [33X[0;0YIf  the  returned  list  is  empty then either [3Xtbl[103X does not have the desired
+  structure  as  a  subdirect  product,  [13Xor[113X [3Xtbl[103X is in fact a nontrivial direct
+  product.[133X
+  
+  [33X[0;0YCalled  with  five  arguments, the ordinary character tables of [22XG[122X, [22XH_1[122X, [22XG_1[122X,
+  [22XH_2[122X,  [22XG_2[122X,  [2XConstructIndexTwoSubdirectProductInfo[102X returns a list that can be
+  used  as  the [2XConstructionInfoCharacterTable[102X ([14X3.7-4[114X) value for the character
+  table    of    [22XG[122X    from    the    other   four   character   tables   using
+  [2XCharacterTableOfIndexTwoSubdirectProduct[102X  ([14X5.5-1[114X);  if  this is not possible
+  then [9Xfail[109X is returned.[133X
+  
+  
+  [1X5.6 [33X[0;0YBrauer Tables of Extensions by [22Xp[122X[101X[1X-regular Automorphisms[133X[101X
+  
+  [33X[0;0YAs  for  the  construction of Brauer character tables from known tables, the
+  functions  [2XPossibleCharacterTablesOfTypeMGA[102X ([14X5.1-1[114X), [2XCharacterTableOfTypeGS3[102X
+  ([14X5.2-1[114X), and [2XPossibleCharacterTablesOfTypeGV4[102X ([14X5.3-1[114X) work for both ordinary
+  and  Brauer  tables. The following function is designed specially for Brauer
+  tables.[133X
+  
+  [1X5.6-1 IBrOfExtensionBySingularAutomorphism[101X
+  
+  [33X[1;0Y[29X[2XIBrOfExtensionBySingularAutomorphism[102X( [3Xmodtbl[103X, [3Xact[103X ) [32X function[133X
+  
+  [33X[0;0YLet [3Xmodtbl[103X be a [22Xp[122X-modular Brauer table of the group [22XG[122X, say, and suppose that
+  the group [22XH[122X, say, is an upward extension of [22XG[122X by an automorphism of order [22Xp[122X.[133X
+  
+  [33X[0;0YThe second argument [3Xact[103X describes the action of this automorphism. It can be
+  either  a permutation of the columns of [3Xmodtbl[103X, or a list of the [22XH[122X-orbits on
+  the  columns  of  [3Xmodtbl[103X, or the ordinary character table of [22XH[122X such that the
+  class fusion from the ordinary table of [3Xmodtbl[103X into this table is stored. In
+  all  these  cases,  [2XIBrOfExtensionBySingularAutomorphism[102X  returns the values
+  lists of the irreducible [22Xp[122X-modular Brauer characters of [22XH[122X.[133X
+  
+  [33X[0;0YNote  that  the  table  head  of the [22Xp[122X-modular Brauer table of [22XH[122X, in general
+  without  the  [2XIrr[102X  ([14XReference:  Irr[114X)  attribute, can be obtained by applying
+  [2XCharacterTableRegular[102X  ([14XReference:  CharacterTableRegular[114X)  to  the ordinary
+  character  table  of [22XH[122X, but [2XIBrOfExtensionBySingularAutomorphism[102X can be used
+  also  if  the  ordinary  character  table  of  [22XH[122X  is not known, and just the
+  [22Xp[122X-modular  character  table of [22XG[122X and the action of [22XH[122X on the classes of [22XG[122X are
+  given.[133X
+  
+  
+  [1X5.7 [33X[0;0YCharacter Tables of Coprime Central Extensions[133X[101X
+  
+  [1X5.7-1 CharacterTableOfCommonCentralExtension[101X
+  
+  [33X[1;0Y[29X[2XCharacterTableOfCommonCentralExtension[102X( [3XtblG[103X, [3XtblmG[103X, [3XtblnG[103X, [3Xid[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [3XtblG[103X  be  the ordinary character table of a group [22XG[122X, say, and let [3XtblmG[103X
+  and [3XtblnG[103X be the ordinary character tables of central extensions [22Xm.G[122X and [22Xn.G[122X
+  of  [22XG[122X by cyclic groups of prime orders [22Xm[122X and [22Xn[122X, respectively, with [22Xm ≠ n[122X. We
+  assume  that  the  factor fusions from [3XtblmG[103X and [3XtblnG[103X to [3XtblG[103X are stored on
+  the tables. [2XCharacterTableOfCommonCentralExtension[102X returns a record with the
+  following components.[133X
+  
+  [8X[10XtblmnG[110X[8X[108X
+        [33X[0;6Ythe  character table [22Xt[122X, say, of the corresponding central extension of
+        [22XG[122X by a cyclic group of order [22Xm n[122X that factors through [22Xm.G[122X and [22Xn.G[122X; the
+        [2XIdentifier[102X  ([14XReference: Identifier for character tables[114X) value of this
+        table is [3Xid[103X,[133X
+  
+  [8X[10XIsComplete[110X[8X[108X
+        [33X[0;6Y[9Xtrue[109X  if  the  [2XIrr[102X  ([14XReference:  Irr[114X)  value is stored in [22Xt[122X, and [9Xfalse[109X
+        otherwise,[133X
+  
+  [8X[10Xirreducibles[110X[8X[108X
+        [33X[0;6Ythe list of irreducibles of [22Xt[122X that are known; it contains the inflated
+        characters  of  the factor groups [22Xm.G[122X and [22Xn.G[122X, plus those irreducibles
+        that were found in tensor products of characters of these groups.[133X
+  
+  [33X[0;0YNote  that  the  conjugacy  classes  and  the  power  maps of [22Xt[122X are uniquely
+  determined  by the input data. Concerning the irreducible characters, we try
+  to  extract  them from the tensor products of characters of the given factor
+  groups  by  reducing  with known irreducibles and applying the LLL algorithm
+  (see [2XReducedClassFunctions[102X    ([14XReference:   ReducedClassFunctions[114X)   and [2XLLL[102X
+  ([14XReference: LLL[114X)).[133X
+  
+  
+  [1X5.8 [33X[0;0YConstruction Functions used in the Character Table Library[133X[101X
+  
+  [33X[0;0YThe  following  functions  are  used in the [5XGAP[105X Character Table Library, for
+  encoding  table  constructions  via  the  mechanism  that  is  based  on the
+  attribute [2XConstructionInfoCharacterTable[102X ([14X3.7-4[114X). All construction functions
+  take  as  their  first  argument  a  record  that  describes the table to be
+  constructed,  and  the  function adds only those components that are not yet
+  contained in this record.[133X
+  
+  [1X5.8-1 ConstructMGA[101X
+  
+  [33X[1;0Y[29X[2XConstructMGA[102X( [3Xtbl[103X, [3Xsubname[103X, [3Xfactname[103X, [3Xplan[103X, [3Xperm[103X ) [32X function[133X
+  
+  [33X[0;0Y[2XConstructMGA[102X constructs the irreducible characters of the ordinary character
+  table [3Xtbl[103X of a group [22Xm.G.a[122X where the automorphism [22Xa[122X (a group of prime order)
+  of  [22Xm.G[122X  acts  nontrivially on the central subgroup [22Xm[122X of [22Xm.G[122X. [3Xsubname[103X is the
+  name  of  the  subgroup  [22Xm.G[122X  which  is  a  (not necessarily cyclic) central
+  extension  of  the (not necessarily simple) group [22XG[122X, [3Xfactname[103X is the name of
+  the  factor  group [22XG.a[122X. Then the faithful characters of [3Xtbl[103X are induced from
+  [22Xm.G[122X.[133X
+  
+  [33X[0;0Y[3Xplan[103X  is  a list, each entry being a list containing positions of characters
+  of [22Xm.G[122X that form an orbit under the action of [22Xa[122X (the induction of characters
+  is encoded this way).[133X
+  
+  [33X[0;0Y[3Xperm[103X  is the permutation that must be applied to the list of characters that
+  is  obtained on appending the faithful characters to the inflated characters
+  of the factor group. A nonidentity permutation occurs for example for groups
+  of  structure  [22X12.G.2[122X  that are encoded via the subgroup [22X12.G[122X and the factor
+  group  [22X6.G.2[122X,  where the faithful characters of [22X4.G.2[122X shall precede those of
+  [22X6.G.2[122X, as in the [5XAtlas[105X.[133X
+  
+  [33X[0;0YExamples  where [2XConstructMGA[102X is used to encode library tables are the tables
+  of [22X3.F_{3+}.2[122X (subgroup [22X3.F_{3+}[122X, factor group [22XF_{3+}.2[122X) and [22X12_1.U_4(3).2_2[122X
+  (subgroup [22X12_1.U_4(3)[122X, factor group [22X6_1.U_4(3).2_2[122X).[133X
+  
+  [1X5.8-2 ConstructMGAInfo[101X
+  
+  [33X[1;0Y[29X[2XConstructMGAInfo[102X( [3XtblmGa[103X, [3XtblmG[103X, [3XtblGa[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [3XtblmGa[103X  be  the  ordinary character table of a group of structure [22Xm.G.a[122X
+  where  the  factor  group  of  prime order [22Xa[122X acts nontrivially on the normal
+  subgroup  of order [22Xm[122X that is central in [22Xm.G[122X, [3XtblmG[103X be the character table of
+  [22Xm.G[122X, and [3XtblGa[103X be the character table of the factor group [22XG.a[122X.[133X
+  
+  [33X[0;0Y[2XConstructMGAInfo[102X  returns  the  list  that  is  to  be stored in the library
+  version  of  [3XtblmGa[103X:  the  first  entry  is  the  string [10X"ConstructMGA"[110X, the
+  remaining  four  entries  are  the  last  four  arguments  for  the  call to
+  [2XConstructMGA[102X ([14X5.8-1[114X).[133X
+  
+  [1X5.8-3 ConstructGS3[101X
+  
+  [33X[1;0Y[29X[2XConstructGS3[102X( [3Xtbls3[103X, [3Xtbl2[103X, [3Xtbl3[103X, [3Xind2[103X, [3Xind3[103X, [3Xext[103X, [3Xperm[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XConstructGS3Info[102X( [3Xtbl2[103X, [3Xtbl3[103X, [3Xtbls3[103X ) [32X function[133X
+  
+  [33X[0;0Y[2XConstructGS3[102X  constructs  the  irreducibles  of  an ordinary character table
+  [3Xtbls3[103X  of  type  [22XG.S_3[122X  from  the  tables  with  names  [3Xtbl2[103X and [3Xtbl3[103X, which
+  correspond  to  the  groups  [22XG.2[122X  and  [22XG.3[122X,  respectively. [3Xind2[103X is a list of
+  numbers  referring  to  irreducibles  of [3Xtbl2[103X. [3Xind3[103X is a list of pairs, each
+  referring to irreducibles of [3Xtbl3[103X. [3Xext[103X is a list of pairs, each referring to
+  one  irreducible  character  of  [3Xtbl2[103X and one of [3Xtbl3[103X. [3Xperm[103X is a permutation
+  that must be applied to the irreducibles after the construction.[133X
+  
+  [33X[0;0Y[2XConstructGS3Info[102X returns a record with the components [10Xind2[110X, [10Xind3[110X, [10Xext[110X, [10Xperm[110X,
+  and [10Xlist[110X, as are needed for [2XConstructGS3[102X.[133X
+  
+  [1X5.8-4 ConstructV4G[101X
+  
+  [33X[1;0Y[29X[2XConstructV4G[102X( [3Xtbl[103X, [3Xfacttbl[103X, [3Xaut[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [3Xtbl[103X  be  the  character  table  of a group of type [22X2^2.G[122X where an outer
+  automorphism  of  order [22X3[122X permutes the three involutions in the central [22X2^2[122X.
+  Let  [3Xaut[103X  be the permutation of classes of [3Xtbl[103X induced by that automorphism,
+  and [3Xfacttbl[103X be the name of the character table of the factor group [22X2.G[122X. Then
+  [2XConstructV4G[102X   constructs  the  irreducible  characters  of  [3Xtbl[103X  from  that
+  information.[133X
+  
+  [1X5.8-5 ConstructProj[101X
+  
+  [33X[1;0Y[29X[2XConstructProj[102X( [3Xtbl[103X, [3Xirrinfo[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XConstructProjInfo[102X( [3Xtbl[103X, [3Xkernel[103X ) [32X function[133X
+  
+  [33X[0;0Y[2XConstructProj[102X  constructs  the irreducible characters of the record encoding
+  the  ordinary  character  table  [3Xtbl[103X from projective characters of tables of
+  factor  groups, which are stored in the [2XProjectivesInfo[102X ([14X3.7-2[114X) value of the
+  smallest  factor;  the  information  about  the  name of this factor and the
+  projectives to take is stored in [3Xirrinfo[103X.[133X
+  
+  [33X[0;0Y[2XConstructProjInfo[102X takes an ordinary character table [3Xtbl[103X and a list [3Xkernel[103X of
+  class  positions  of  a  cyclic  kernel  of order dividing [22X12[122X, and returns a
+  record with the components[133X
+  
+  [8X[10Xtbl[110X[8X[108X
+        [33X[0;6Ya  character table that is permutation isomorphic with [3Xtbl[103X, and sorted
+        such  that classes that differ only by multiplication with elements in
+        the classes of [3Xkernel[103X are consecutive,[133X
+  
+  [8X[10Xprojectives[110X[8X[108X
+        [33X[0;6Ya  record being the entry for the [10Xprojectives[110X list of the table of the
+        factor  of  [3Xtbl[103X by [3Xkernel[103X, describing this part of the irreducibles of
+        [3Xtbl[103X, and[133X
+  
+  [8X[10Xinfo[110X[8X[108X
+        [33X[0;6Ythe  value of [3Xirrinfo[103X that is needed for constructing the irreducibles
+        of  the  [10Xtbl[110X  component  of  the  result  ([13Xnot[113X the irreducibles of the
+        argument [3Xtbl[103X!) via [2XConstructProj[102X.[133X
+  
+  [1X5.8-6 ConstructDirectProduct[101X
+  
+  [33X[1;0Y[29X[2XConstructDirectProduct[102X( [3Xtbl[103X, [3Xfactors[103X[, [3Xpermclasses[103X, [3Xpermchars[103X] ) [32X function[133X
+  
+  [33X[0;0YThe  direct  product  of  the library character tables described by the list
+  [3Xfactors[103X  of  table  names  is  constructed using [2XCharacterTableDirectProduct[102X
+  ([14XReference:  CharacterTableDirectProduct[114X),  and  all its components that are
+  not yet stored on [3Xtbl[103X are added to [3Xtbl[103X.[133X
+  
+  [33X[0;0YThe  [2XComputedClassFusions[102X  ([14XReference: ComputedClassFusions[114X) value of [3Xtbl[103X is
+  enlarged by the factor fusions from the direct product to the factors.[133X
+  
+  [33X[0;0YIf  the optional arguments [3Xpermclasses[103X, [3Xpermchars[103X are given then the classes
+  and characters of the result are sorted accordingly.[133X
+  
+  [33X[0;0Y[3Xfactors[103X must have length at least two; use [2XConstructPermuted[102X ([14X5.8-11[114X) in the
+  case of only one factor.[133X
+  
+  [1X5.8-7 ConstructCentralProduct[101X
+  
+  [33X[1;0Y[29X[2XConstructCentralProduct[102X( [3Xtbl[103X, [3Xfactors[103X, [3XDclasses[103X[, [3Xpermclasses[103X, [3Xpermchars[103X] ) [32X function[133X
+  
+  [33X[0;0YThe library table [3Xtbl[103X is completed with help of the table obtained by taking
+  the  direct  product  of the tables with names in the list [3Xfactors[103X, and then
+  factoring  out  the  normal  subgroup  that is given by the list [3XDclasses[103X of
+  class positions.[133X
+  
+  [33X[0;0YIf  the optional arguments [3Xpermclasses[103X, [3Xpermchars[103X are given then the classes
+  and characters of the result are sorted accordingly.[133X
+  
+  [1X5.8-8 ConstructSubdirect[101X
+  
+  [33X[1;0Y[29X[2XConstructSubdirect[102X( [3Xtbl[103X, [3Xfactors[103X, [3Xchoice[103X ) [32X function[133X
+  
+  [33X[0;0YThe library table [3Xtbl[103X is completed with help of the table obtained by taking
+  the  direct  product  of the tables with names in the list [3Xfactors[103X, and then
+  taking the table consisting of the classes in the list [3Xchoice[103X.[133X
+  
+  [33X[0;0YNote that in general, the restriction to the classes of a normal subgroup is
+  not  sufficient  for  describing  the  irreducible characters of this normal
+  subgroup.[133X
+  
+  [1X5.8-9 ConstructWreathSymmetric[101X
+  
+  [33X[1;0Y[29X[2XConstructWreathSymmetric[102X( [3Xtbl[103X, [3Xsubname[103X, [3Xn[103X[, [3Xpermclasses[103X, [3Xpermchars[103X] ) [32X function[133X
+  
+  [33X[0;0YThe  wreath  product  of  the  library character table with identifier value
+  [3Xsubname[103X   with  the  symmetric  group  on  [3Xn[103X  points  is  constructed  using
+  [2XCharacterTableWreathSymmetric[102X   ([14XReference:  CharacterTableWreathSymmetric[114X),
+  and all its components that are not yet stored on [3Xtbl[103X are added to [3Xtbl[103X.[133X
+  
+  [33X[0;0YIf  the optional arguments [3Xpermclasses[103X, [3Xpermchars[103X are given then the classes
+  and characters of the result are sorted accordingly.[133X
+  
+  [1X5.8-10 ConstructIsoclinic[101X
+  
+  [33X[1;0Y[29X[2XConstructIsoclinic[102X( [3Xtbl[103X, [3Xfactors[103X[, [3Xnsg[103X[, [3Xcentre[103X]][, [3Xpermclasses[103X, [3Xpermchars[103X] ) [32X function[133X
+  
+  [33X[0;0Yconstructs  first  the direct product of library tables as given by the list
+  [3Xfactors[103X  of  admissible  character  table  names,  and  then  constructs the
+  isoclinic table of the result.[133X
+  
+  [33X[0;0YIf   the   argument   [3Xnsg[103X   is   present   and  a  record  or  a  list  then
+  [2XCharacterTableIsoclinic[102X  ([14XReference:  CharacterTableIsoclinic[114X)  gets called,
+  and [3Xnsg[103X (as well as [3Xcentre[103X if present) is passed to this function.[133X
+  
+  [33X[0;0YIn  both  cases,  if the optional arguments [3Xpermclasses[103X, [3Xpermchars[103X are given
+  then the classes and characters of the result are sorted accordingly.[133X
+  
+  [1X5.8-11 ConstructPermuted[101X
+  
+  [33X[1;0Y[29X[2XConstructPermuted[102X( [3Xtbl[103X, [3Xlibnam[103X[, [3Xpermclasses[103X, [3Xpermchars[103X] ) [32X function[133X
+  
+  [33X[0;0YThe  library  table  [3Xtbl[103X  is  computed  from the library table with the name
+  [3Xlibnam[103X,  by  permuting  the  classes  and the characters by the permutations
+  [3Xpermclasses[103X and [3Xpermchars[103X, respectively.[133X
+  
+  [33X[0;0YSo  [3Xtbl[103X  and  the  library  table  with  the  name  [3Xlibnam[103X  are  permutation
+  equivalent.  With  the more general function [2XConstructAdjusted[102X ([14X5.8-12[114X), one
+  can derive character tables that are not necessarily permutation equivalent,
+  by additionally replacing some defining data.[133X
+  
+  [33X[0;0YThe  two  permutations  are  optional. If they are missing then the lists of
+  irreducible  characters  and  the  power  maps  of  the two character tables
+  coincide.  However, different class fusions may be stored on the two tables.
+  This  is used for example in situations where a group has several classes of
+  isomorphic  maximal  subgroups  whose class fusions are different; different
+  character  tables  (with different identifiers) are stored for the different
+  classes,  each  with  appropriate class fusions, and all these tables except
+  the  one for the first class of subgroups can be derived from this table via
+  [2XConstructPermuted[102X.[133X
+  
+  [1X5.8-12 ConstructAdjusted[101X
+  
+  [33X[1;0Y[29X[2XConstructAdjusted[102X( [3Xtbl[103X, [3Xlibnam[103X, [3Xpairs[103X[, [3Xpermclasses[103X, [3Xpermchars[103X] ) [32X function[133X
+  
+  [33X[0;0YThe  defining  attribute  values  of  the library table [3Xtbl[103X are given by the
+  attribute values described by the list [3Xpairs[103X and –for those attributes which
+  do  not  appear  in [3Xpairs[103X– by the attribute values of the library table with
+  the  name  [3Xlibnam[103X,  whose  classes  and characters have been permuted by the
+  optional permutations [3Xpermclasses[103X and [3Xpermchars[103X, respectively.[133X
+  
+  [33X[0;0YThis  construction  can  be  used  to  derive a character table from another
+  library  table  (the  one  with  the  name  [3Xlibnam[103X)  that is [13Xnot[113X permutation
+  equivalent  to  this  table.  For  example, it may happen that the character
+  tables  of  a  split and a nonsplit extension differ only by some power maps
+  and  element  orders.  In  this  case,  one can encode one of the tables via
+  [2XConstructAdjusted[102X, by prescribing just the power maps in the list [3Xpairs[103X.[133X
+  
+  [33X[0;0YIf  no  replacement  of  components  is  needed  then  one should better use
+  [2XConstructPermuted[102X  ([14X5.8-11[114X),  because  the  system can then exploit the fact
+  that the two tables are permutation equivalent.[133X
+  
+  [1X5.8-13 ConstructFactor[101X
+  
+  [33X[1;0Y[29X[2XConstructFactor[102X( [3Xtbl[103X, [3Xlibnam[103X, [3Xkernel[103X ) [32X function[133X
+  
+  [33X[0;0YThe  library table [3Xtbl[103X is completed with help of the library table with name
+  [3Xlibnam[103X, by factoring out the classes in the list [3Xkernel[103X.[133X
+  

@@ -1,0 +1,2597 @@
+
+<!-- %W  hamilcyc.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+<Chapter Label="chap:hamilcyc">
+
+<Heading>&GAP; Computations Concerning Hamiltonian Cycles in the Generating Graphs of Finite Groups</Heading>
+
+Date: April 24th, 2012
+
+<P/>
+
+This is a collection of examples showing how
+the &GAP; system&nbsp;<Cite Key="GAP"/>
+can be used to compute information about the generating graphs of
+finite groups.
+It includes all examples that were needed for the computational results
+in&nbsp;<Cite Key="GMN"/>.
+
+<P/>
+
+The purpose of this writeup is twofold.
+On the one hand, the computations are documented this way.
+On the other hand, the &GAP; code shown for the examples can be used as
+test input for automatic checking of the data and the functions used.
+
+<P/>
+
+A first version of this document, which was based on &GAP;&nbsp;4.4.12,
+is available in the arXiv at <URL>http://arxiv.org/abs/0911.5589v1</URL>
+since November&nbsp;2009.
+The differences between this file and the current document are as follows.
+
+<P/>
+
+<List>
+<Item>
+  The format of the &GAP; output was adjusted to the changed behaviour
+  of &GAP;&nbsp;4.5.
+</Item>
+<Item>
+  The records returned by
+  <Ref Func="IsomorphismTypeInfoFiniteSimpleGroup" BookName="ref"/>
+  contain a component <C>"shortname"</C> since &GAP;&nbsp;4.11.
+</Item>
+<Item>
+  The lower bounds computed for the sporadic simple Monster group
+  have been improved in three steps.
+
+  <P/>
+
+  First, the existence of exactly one class of maximal subgroups of the type
+  <M>&PSL;(2, 41)</M> (see&nbsp;<Cite Key="NW12"/>)
+  and the nonexistence of maximal subgroups with socle <M>&PSL;(2, 27)</M>
+  (see&nbsp;<Cite Key="Wil10"/>)
+  have been incorporated.
+
+  <P/>
+
+  Second, the classification of classes of maximal subgroups of the Monster
+  has been completed in <Cite Key="DLP25"/>.
+  As a consequence, the nonexistence of maximal subgroups with socle
+  Sz<M>(8)</M> and <M>&PSU;(3, 8)</M>
+  and the existence of exactly one class of maximal subgroups with the
+  isomorphism types <M>&PSL;(2, 13).2</M> and <M>&PSU;(3, 4).4</M>
+  have been proved,
+  and the proof of the nonexistence of the previously claimed subgroups
+  of the type <M>L_2(59)</M> yields that the Monster has maximal subgroups
+  of the type <M>59:29</M>.
+  Moreover, meanwhile also all class fusions of the maximal subgroups are
+  known;
+  previously, we got only candidates for some primitive permutation characters.
+
+  <P/>
+
+  Third, all character tables of maximal subgroups of the Monster group
+  and their class fusions are available since version 1.3.10 of
+  &CTblLib;,
+  hence no special treatment for the Monster group is needed anymore
+  in order to compute its primitive permutation characters.
+  In particular, the data file <F>data/prim_perm_M.json</F> of &CTblLib;
+  is no longer needed.
+  In earlier versions, that file had been used to collect information about
+  primitive permutation characters for which the character table was not yet
+  available.
+
+  <P/>
+
+  See Section <Ref Subsect="Monster"/> for comments on earlier versions,
+  and for the bounds that had been computed from the partial information
+  that was available at that time.
+</Item>
+</List>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Overview">
+<Heading>Overview</Heading>
+
+The purpose of this note is to document the &GAP; computations
+that were carried out in order to obtain the computational results
+in&nbsp;<Cite Key="GMN"/>.
+
+<P/>
+
+In order to keep this note self-contained,
+we first describe the theory needed,
+in Section&nbsp;<Ref Subsect="background"/>.
+The translation of the relevant formulae into &GAP; functions
+can be found in Section&nbsp;<Ref Subsect="functions"/>.
+Then Section&nbsp;<Ref Subsect="chartheor"/> describes the computations
+that only require (ordinary) character tables in the
+&GAP; Character Table Library&nbsp;<Cite Key="CTblLib"/>.
+Computations using also the groups are shown in
+Section&nbsp;<Ref Subsect="grouptheor"/>.
+
+<P/>
+
+The examples use the &GAP; Character Table Library
+and the &GAP; Library of Tables of Marks,
+so we first load these packages in the required versions.
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#W  hamilcyc.g        Hamiltonian cycles in finite groups       Thomas Breuer
+##
+#Y  Copyright (C)  2009,   Lehrstuhl D für Mathematik,  RWTH Aachen,  Germany
+##
+
+
+#############################################################################
+##
+##  The examples use the GAP Character Table Library
+##  and the GAP Library of Tables of Marks,
+##  so we first load these packages in the required versions.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> if not CompareVersionNumbers( GAPInfo.Version, "4.5" ) then
+>      Error( "need GAP in version at least 4.5" );
+>    fi;
+gap> LoadPackage( "ctbllib", "1.2", false );
+true
+gap> LoadPackage( "tomlib", "1.1.1", false );
+true
+]]></Example>
+
+</Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="background">
+<Heading>Theoretical Background</Heading>
+
+Let <M>G</M> be a finite noncyclic group
+and denote by <M>G^{\times}</M> the set of nonidentity elements in <M>G</M>.
+We define the <E>generating graph</E> <M>\Gamma(G)</M> as the undirected graph
+on the vertex set <M>G^{\times}</M> by joining two elements
+<M>x, y \in G^{\times}</M>
+by an edge if and only if <M>\langle x, y \rangle = G</M> holds.
+For <M>x \in G^{\times}</M>, the <E>vertex degree</E> <M>d(\Gamma, x)</M> is
+<M>|\{ y \in G^{\times}; \langle x, y \rangle = G \}|</M>.
+The <E>closure</E> <M>&cl;(\Gamma)</M> of the graph <M>\Gamma</M> with
+<M>m</M> vertices is defined as the graph with the same vertex set as
+<M>\Gamma</M>,
+where the vertices <M>x, y</M> are joined by an edge
+if they are joined by an edge in <M>\Gamma</M>
+or if <M>d(\Gamma, x) + d(\Gamma, y) \geq m</M>.
+We denote iterated closures by
+<M>&cl;^{(i)}(\Gamma) = &cl;(&cl;^{(i-1)}(\Gamma))</M>,
+where <M>&cl;^{(0)}(\Gamma) = \Gamma</M>.
+
+<P/>
+
+In the following, we will show that the generating graphs of the following
+groups contain a Hamiltonian cycle:
+
+<List>
+<Item>
+    Nonabelian simple groups of orders at most <M>10^7</M>,
+</Item>
+<Item>
+    groups <M>G</M> containing a unique minimal normal subgroup <M>N</M>
+    such that <M>N</M> has order at most <M>10^6</M>, <M>N</M> is nonsolvable,
+    and <M>G/N</M> is cyclic,
+<!-- this covers in particular
+     almost simple groups such that <M>G/</M>Soc<M>(G)</M> is cyclic and
+     Soc<M>(G)</M> has order at most <M>10^6</M> -->
+</Item>
+<Item>
+    sporadic simple groups and their automorphism groups.
+</Item>
+</List>
+
+<P/>
+
+Clearly the condition that <M>G/N</M> is cyclic for all nontrivial normal
+subgroups <M>N</M> of <M>G</M> is necessary for <M>\Gamma(G)</M> being
+connected,
+and&nbsp;<Cite Where="Conjecture 1.6" Key="GMN"/> states
+that this condition is also sufficient.
+By&nbsp;<Cite Where="Proposition 1.1" Key="GMN"/>,
+this conjecture is true for all solvable groups,
+and the second entry in the above list implies that this conjecture holds
+for all nonsolvable groups of order up to <M>10^6</M>.
+
+<P/>
+
+The question whether a graph <M>\Gamma</M> contains a Hamiltonian cycle
+(i.&nbsp;e., a closed path in <M>\Gamma</M> that visits each vertex
+exactly once)
+can be answered using the following sufficient criteria
+(see&nbsp;<Cite Key="GMN"/>).
+Let <M>d_1 \leq d_2 \leq \cdots \leq d_m</M> be the vertex degrees
+in <M>\Gamma</M>.
+
+<P/>
+
+<List>
+<Mark>Pósa's criterion:</Mark>
+<Item>
+    If <M>d_k \geq k+1</M> holds for <M>1 \leq k &lt; m/2</M>
+    then <M>\Gamma</M> contains a Hamiltonian cycle.
+</Item>
+<Mark>Chvátal's criterion:</Mark>
+<Item>
+    If <M>d_k \geq k+1</M> or <M>d_{m-k} \geq m-k</M> holds for
+    <M>1 \leq k &lt; m/2</M>
+    then <M>\Gamma</M> contains a Hamiltonian cycle.
+</Item>
+<Mark>Closure criterion:</Mark>
+<Item>
+    A graph contains a Hamiltonian cycle if and only if its closure
+    contains a Hamiltonian cycle.
+</Item>
+</List>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="sect:Character-Theoretic Lower Bounds for Vertex Degrees">
+<Heading>Character-Theoretic Lower Bounds for Vertex Degrees</Heading>
+
+Using character-theoretic methods similar to those used to obtain the
+results in&nbsp;<Cite Key="BGK"/>
+(the computations for that paper are shown in&nbsp;<Cite Key="ProbGenArxiv"/>),
+we can compute lower bounds for the vertex degrees in generating graphs,
+as follows.
+
+<P/>
+
+Let <M>R</M> be a set of representatives of conjugacy classes of nonidentity
+elements in <M>G</M>,
+fix <M>s \in G^{\times}</M>,
+let <M>&M;(G,s)</M> denote the set of those maximal subgroups of <M>G</M>
+that contain <M>s</M>,
+let <M>&M;(G,s)/\sim</M> denote a set of representatives in <M>&M;(G,s)</M>
+w.&nbsp;r.&nbsp;t.&nbsp;conjugacy in <M>G</M>.
+For a subgroup <M>M</M> of <M>G</M>,
+the <E>permutation character</E> <M>1_M^G</M> is defined by
+
+<Display Mode="M">
+   1_M^G(g):= (|G| \cdot |g^G \cap M|) / (|M| \cdot |g^G|),
+</Display>
+
+where <M>g^G = \{ g^x; x \in G \}</M>, with <M>g^x = x^{-1} g x</M>,
+denotes the conjugacy class of <M>g</M> in <M>G</M>.
+So we have <M>1_M^G(1) = |G|/|M|</M>
+and thus <M>|g^G \cap M| = |g^G| \cdot 1_M^G(g) / 1_M^G(1)</M>.
+
+<P/>
+
+Doubly counting the set <M>\{ (s^x, M^y); x, y \in G, s^x \in M^y \}</M>
+yields
+<M>|M^G| \cdot |s^G \cap M| = |s^G| \cdot |\{ M^x; x \in G, s \in M^x \}|</M>
+and thus
+<M>|\{ M^x; x \in G, s \in M^x \}| =
+ |M^G| \cdot 1_M^G(s) / 1_M^G(1) \leq 1_M^G(s)</M>.
+(If <M>M</M> is a <E>maximal</E> subgroup of <M>G</M>
+then either <M>M</M> is normal in <M>G</M> or self-normalizing,
+and in the latter case the inequality is in fact an equality.)
+
+<P/>
+
+Let <M>\Pi</M> denote the multiset of <E>primitive</E> permutation characters
+of <M>G</M>, i.&nbsp;e.,
+of the permutation characters <M>1_M^G</M> where <M>M</M> ranges over
+representatives of the conjugacy classes of maximal subgroups of <M>G</M>.
+
+<P/>
+
+Define
+
+<Display Mode="M">
+   \delta(s, g^G):= |g^G| \cdot \max\left\{ 0, 1 - \sum_{{\pi \in \Pi}}
+                                     \pi(g) \cdot \pi(s) / \pi(1) \right\}
+</Display>
+
+and <M>d(s, g^G):= |\{ x \in g^G; \langle s, x \rangle = G \}|</M>,
+the contribution of the class <M>g^G</M> to the vertex degree of <M>s</M>.
+Then we have <M>d(\Gamma(G), s) = \sum_{{x \in R}} d(s, x^G)</M> and
+
+<Alt Only="LaTeX"><![CDATA[
+\begin{eqnarray*}
+   d(s, g^G)
+       & = & |g^G| - |\bigcup_{M \in {{\cal M}}(G,s)}
+                \{ x \in g^G; \langle x, s \rangle \subseteq M \}| \\
+    & \geq & \max\left\{ 0, |g^G| - \sum_{M \in {{\cal M}}(G,s)}
+                                      |g^G \cap M| \right\} \\
+       & = & |g^G| \cdot \max\left\{ 0, 1 - \sum_{M \in {{\cal M}}(G,s)}
+                                      1_M^G(g) / 1_M^G(1) \right\} \\
+    & \geq & |g^G| \cdot \max\left\{ 0, 1 - \sum_{M \in {{\cal M}}(G,s)/\sim}
+                       1_M^G(g) \cdot 1_M^G(s) / 1_M^G(1) \right\} \\
+       & = & \delta(s, g^G)
+\end{eqnarray*}
+]]></Alt>
+
+<Alt Only="Text">
+<Verb>
+   d(s, g^G)  =  |g^G| - |⋃_{M ∈ M(G,s)} { x ∈ g^G; ⟨ x, s ⟩ ⊆ M }|
+              ≥  max{ 0, |g^G| - Σ_{M ∈ M(G,s)} |g^G ∩ M| }
+              =  |g^G| ⋅ max{ 0, 1 - Σ_{M ∈ M(G,s)} 1_M^G(g) / 1_M^G(1) }
+              ≥  |g^G| ⋅ max{ 0, 1 - Σ_{M ∈ M(G,s)/∼}
+                                         1_M^G(g) ⋅ 1_M^G(s) / 1_M^G(1) }
+              =  δ(s, g^G)
+</Verb>
+</Alt>
+
+<Alt Only="HTML"><![CDATA[
+<div class="pcenter"><table>
+<tr>
+  <td class="tdright"><span class="SimpleMath">d(s, g^G)</span></td>
+  <td class="tdcenter"><span class="SimpleMath">=</span></td>
+  <td class="tdleft"><span class="SimpleMath">|g^G| - |⋃_{M ∈ M(G,s)} { x ∈ g^G; ⟨ x, s ⟩ ⊆ M }|</span></td>
+</tr>
+  <td class="tdright"><span class="SimpleMath">&nbsp;</span></td>
+  <td class="tdcenter"><span class="SimpleMath">≥</span></td>
+  <td class="tdleft"><span class="SimpleMath">|g^G| ⋅ max{ 0, 1 - Σ_{M ∈ M(G,s)} 1_M^G(g) / 1_M^G(1) }</span></td>
+<tr>
+  <td class="tdright"><span class="SimpleMath">&nbsp;</span></td>
+  <td class="tdcenter"><span class="SimpleMath">=</span></td>
+  <td class="tdcenter"><span class="SimpleMath">|g^G| ⋅ max{ 0, 1 - Σ_{M ∈ M(G,s)} 1_M^G(g) / 1_M^G(1) }</span></td>
+</tr>
+<tr>
+  <td class="tdright"><span class="SimpleMath">&nbsp;</span></td>
+  <td class="tdcenter"><span class="SimpleMath">≥</span></td>
+  <td class="tdcenter"><span class="SimpleMath">|g^G| ⋅ max{ 0, 1 - Σ_{M ∈ M(G,s)/∼}
+                                         1_M^G(g) ⋅ 1_M^G(s) / 1_M^G(1) }</span></td>
+</tr>
+<tr>
+  <td class="tdright"><span class="SimpleMath">&nbsp;</span></td>
+  <td class="tdcenter"><span class="SimpleMath">=</span></td>
+  <td class="tdcenter"><span class="SimpleMath">δ(s, g^G)</span></td>
+</tr>
+</table>
+</div>
+]]></Alt>
+
+<P/>
+
+So <M>\delta(s):= \sum_{x \in R} \delta(s, x^G)</M> is a lower bound
+for the vertex degree of <M>s</M>; this bound can be computed if <M>\Pi</M> is known.
+
+<P/>
+
+For computing the vertex degrees of the iterated closures of <M>\Gamma(G)</M>,
+we define <M>d^{(0)}(s, g^G):= d(s, g^G)</M> and
+
+<Alt Only="LaTeX"><![CDATA[
+\[
+    d^{(i+1)}(s, g^G):= \left\{ \begin{array}{lcl}
+         |g^G|           & ; & d^{(i)}(\Gamma(G), s) + d^{(i)}(\Gamma(G), g)
+                               \geq |G|-1 \\
+         d^{(i)}(s, g^G) & ; & \mbox{\rm otherwise}
+                               \end{array} \right..
+\]
+]]></Alt>
+<Alt Only="Text">
+<Verb>
+                    ┌
+                    │ |g^G|        ; d^(i)(Г(G),s) + d^(i)(Г(G),g) ≥ |G|-1
+   d^(i+1)(s,g^G):= ┥
+                    │ d^(i)(s,g^G) ; otherwise
+                    └
+</Verb>
+</Alt>
+
+<Alt Only="HTML"><![CDATA[
+d^(i+1)(s,g^G):= |g^G| if d^(i)(Г(G),s) + d^(i)(Г(G),g) ≥ |G|-1, and
+d^(i+1)(s,g^G):= d^(i)(s,g^G) otherwise.
+</Alt>
+
+<!-- %T Attila: o.k.?? -->
+
+Then <M>d(&cl;^{(i)}(\Gamma(G)), s) = \sum_{{x \in R}} d^{(i)}(s, g^G)</M>
+holds.
+
+<P/>
+
+Analogously, we set <M>\delta^{(0)}(s, g^G):= \delta(s, g^G)</M>,
+
+<Alt Only="LaTeX"><![CDATA[
+\[
+    \delta^{(i+1)}(s, g^G):= \left\{ \begin{array}{lcl}
+         |g^G|          & ; & \delta^{(i)}(s) + \delta^{(i)}(g) \geq |G|-1 \\
+         \delta^{(i)}(s, g^G) & ; & \mbox{\rm otherwise}
+                             \end{array} \right.
+\]
+]]></Alt>
+
+<Alt Only="Text">
+<Verb>
+                     ┌
+                     │ |g^G|         ; δ^(i)(s) + δ^(i)(g) ≥ |G|-1
+   δ^(i+1)(s, g^G):= ┥
+                     │ δ^(i)(s, g^G) ; otherwise
+                     └
+</Verb>
+</Alt>
+
+<Alt Only="HTML"><![CDATA[
+δ^(i+1)(s, g^G):= |g^G| if δ^(i)(s) + δ^(i)(g) ≥ |G|-1,
+δ^(i+1)(s, g^G):= δ^(i)(s, g^G) otherwise,
+]]></Alt>
+
+and <M>\delta^{(i)}(s):= \sum_{{x \in R}} \delta^{(i)}(s, x^G)</M>,
+a lower bound for <M>d(&cl;^{(i)}(\Gamma(G)), s)</M>
+that can be computed if <M>\Pi</M> is known.
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="critcheck">
+<Heading>Checking the Criteria</Heading>
+
+Let us assume that we know lower bounds <M>\beta(s)</M> for the vertex degrees
+<M>d(&cl;^{(i)}(\Gamma(G)), s)</M>, for some fixed <M>i</M>,
+and let us choose representatives <M>s_1, s_2, \ldots, s_l</M> of the nonidentity
+conjugacy classes of <M>G</M>
+such that <M>\beta(s_1) \leq \beta(s_2) \leq \cdots \leq \beta(s_l)</M> holds.
+Let <M>c_k = |s_k^G|</M> be the class lengths of these representatives.
+
+<P/>
+
+Then the first <M>c_1</M> vertex degrees, ordered by increasing size,
+are larger than or equal to <M>\beta(s_1)</M>,
+the next <M>c_2</M> vertex degrees are larger than or equal to <M>\beta(s_2)</M>,
+and so on.
+
+<P/>
+
+Then the set of indices in the <M>k</M>-th nonidentity class of <M>G</M>
+for which Pósa's criterion is not guaranteed by the given bounds is
+
+<Display Mode="M">
+   \{ x; c_1 + c_2 + \cdots + c_{k-1} &lt; x \leq c_1 + c_2 + \cdots c_k,
+         x &lt; (|G| - 1) / 2, \beta(s_k) &lt; x+1 \}.
+</Display>
+
+This is an interval <M>\{ L_k, L_k + 1, \ldots, U_k \}</M> with
+
+<Display Mode="M">
+   L_k = \max\left\{ 1 + c_1 + c_2 + \cdots + c_{k-1},
+                     \beta(s_k)  \right\}
+</Display>
+
+and
+
+<Display Mode="M">
+   U_k = \min\left\{ c_1 + c_2 + \cdots + c_k,
+                     \left\lfloor |G|/2 \right\rfloor - 1 \right\} .
+</Display>
+
+(Note that the generating graph has <M>m = |G|-1</M> vertices,
+and that <M>x &lt; m/2</M> is equivalent to
+<M>x \leq \left\lfloor |G|/2 \right\rfloor - 1</M>.)
+
+<P/>
+
+The generating graph <M>\Gamma(G)</M> satisfies Pósa's criterion
+if all these intervals are empty,
+i.&nbsp;e., if <M>L_k &gt; U_k</M> holds for <M>1 \leq k \leq l</M>.
+
+<P/>
+
+The set of indices for which Chvátal's criterion is not guaranteed
+is the intersection of
+
+<Display Mode="M">
+   \{ m-k; 1 \leq m-k &lt; m/2, d_k &lt; k \}
+</Display>
+
+with the set of indices for which Pósa's criterion is not guaranteed.
+
+<P/>
+
+Analogously to the above considerations,
+the set of indices <M>m-x</M> in the former set for which Chvátal's criterion
+is not guaranteed by the given bounds
+and such that <M>x</M> is an index in the <M>k</M>-th nonidentity class of <M>G</M>
+is
+
+<Display Mode="M">
+   \{ m-x; c_1 + c_2 + \cdots + c_{k-1} &lt; x \leq c_1 + c_2 + \cdots c_k,
+         1 \leq m-x &lt; (|G| - 1) / 2, \beta(s_k) &lt; x \}.
+</Display>
+
+This is again an interval
+<M>\{ L^{\prime}_k, L^{\prime}_k + 1, \ldots, U^{\prime}_k \}</M>
+with
+
+<Display Mode="M">
+   L^{\prime}_k = \max\left\{ 1, m - ( c_1 + c_2 + \cdots + c_k ) \right\}
+</Display>
+
+and
+
+<Display Mode="M">
+   U^{\prime}_k = \min\left\{ m - ( c_1 + c_2 + \cdots + c_{k-1} ) - 1,
+                     \left\lfloor |G|/2 \right\rfloor - 1,
+                     m-1 - \beta(s_k) \right\} .
+</Display>
+
+The generating graph <M>\Gamma(G)</M> satisfies Chvátal's criterion if
+the union of the intervals
+<M>\{ L^{\prime}_k, L^{\prime}_k + 1, \ldots, U^{\prime}_k \}</M>,
+for <M>1 \leq k \leq l</M>
+is disjoint to the union of the intervals <M>\{ L_k, L_k + 1, \ldots, U_k \}</M>,
+for <M>1 \leq k \leq l</M>.
+
+</Subsection>
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="functions">
+<Heading>&GAP; Functions for the Computations</Heading>
+
+We describe two approaches to compute, for a given group <M>G</M>,
+vertex degrees for the generating graph of <M>G</M> or lower bounds for them,
+by calculating exact vertex degrees from <M>G</M> itself
+(see Section&nbsp;<Ref Subsect="groups"/>)
+or by deriving lower bounds for the vertex degrees using just
+character-theoretic information about <M>G</M> and its subgroups
+(see Section&nbsp;<Ref Subsect="characters"/>).
+Finally, Section&nbsp;<Ref Subsect="clos"/> deals with deriving lower bounds
+of vertex degrees of iterated closures.
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="groups">
+<Heading>Computing Vertex Degrees from the Group</Heading>
+
+In this section,
+the task is to compute the vertex degrees <M>d(s,g^G)</M> using explicit
+computations with the group <M>G</M>.
+
+<P/>
+
+The function <C>IsGeneratorsOfTransPermGroup</C> checks whether the permutations
+in the list <C>list</C> generate the permutation group <C>G</C>,
+<E>provided that</E> <C>G</C> is transitive on its moved points.
+(Note that testing the necessary condition that the elements in <C>list</C>
+generate a transitive group is usually much faster than testing generation.)
+This function has been used already in&nbsp;<Cite Key="ProbGenArxiv"/>.
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  IsGeneratorsOfTransPermGroup( <G>, <list> )
+##
+##  Let <G> be a finite group that acts *transitively* on its moved points,
+##  and <list> a list of elements in <G>.
+##
+##  'IsGeneratorsOfTransPermGroup' returns 'true' if the permutations in
+##  <list> generate <G>, and 'false' otherwise.
+##  The main point is that the return value 'true' requires the group
+##  generated by 'list' to be transitive, and the check for transitivity
+##  is much cheaper than the test whether this group is equal to 'G'.
+##
+##  (The same function is used also in another examples file,
+##  do not use 'BindGlobal'.)
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> IsGeneratorsOfTransPermGroup:= function( G, list )
+>     local S;
+> 
+>     if not IsTransitive( G ) then
+>       Error( "<G> must be transitive on its moved points" );
+>     fi;
+>     S:= SubgroupNC( G, list );
+> 
+>     return IsTransitive( S, MovedPoints( G ) )
+>            and Size( S ) = Size( G );
+> end;;
+]]></Example>
+
+<P/>
+
+The function <C>VertexDegreesGeneratingGraph</C> takes a
+<E>transitive</E> permutation group <M>G</M>
+(in order to be allowed to use <C>IsGeneratorsOfTransPermGroup</C>),
+the list <C>classes</C> of conjugacy classes of <M>G</M>
+(in order to prescribe an ordering of the classes),
+and a list <C>normalsubgroups</C> of proper normal subgroups of <M>G</M>,
+and returns the matrix <M>[ d(s, g^G) ]_{s, g}</M> of vertex degrees,
+with rows and columns indexed by nonidentity class representatives
+ordered as in the list <C>classes</C>.
+(The class containing the identity element may be contained in <C>classes</C>.)
+
+<P/>
+
+The following criteria are used in this function.
+
+<P/>
+
+<List>
+<Item>
+    The function tests the (non)generation only for representatives of
+    <M>C_G(g)</M>-<M>C_G(s)</M>-double cosets,
+    where <M>C_G(g):= \{ x \in G; g x = x g \}</M>
+    denotes the centralizer of <M>g</M> in <M>G</M>.
+    Note that for <M>c_1 \in C_G(g)</M>, <M>c_2 \in C_G(s)</M>,
+    and a representative <M>r \in G</M>, we have
+    <M>\langle s, g^{c_1 r c_2} \rangle = \langle s, g^r \rangle^{c_2}</M>.
+    If <M>\langle s, g^r \rangle = G</M> then
+    the double coset <M>D = C_G(g) r C_G(s)</M> contributes <M>|D|/|C_G(g)|</M>
+    to the vertex degree <M>d(s, g^G)</M>,
+    otherwise the contribution is zero.
+<!-- % explicitly: -->
+<!-- % \begin{eqnarray*} -->
+<!-- %    d(s,g^G) & = & |\{ x \in g^G, \langle s, x \rangle = G \}| \\ -->
+<!-- %             & = & |\{ x \in G, \langle s, g^x \rangle = G \}| / |C_G(g)| \\ -->
+<!-- %             & = & \sum_{r \in R} |\{ x \in C_G(g) r C_G(s), -->
+<!-- %                       \langle s, g^r \rangle = G \}| / |C_G(g)| \\ -->
+<!-- %             & = & \sum_{r} |C_G(g) r C_G(s)| / |C_G(g)|, -->
+<!-- % \end{eqnarray*} -->
+<!-- % where <M>R</M> is a set of double coset representatives, i.&nbsp;e., -->
+<!-- % \[ -->
+<!-- %    G = \bigcup_{r \in R} C_G(g) r C_G(s), -->
+<!-- % \] -->
+<!-- % and the last sum runs over all those representatives <M>r</M> such that -->
+<!-- % <M>\langle s, g^r \rangle = G</M> holds. -->
+</Item>
+<Item>
+    We have <M>d(s, g^G) \cdot |C_G(g)| = d(g, s^G) \cdot |C_G(s)|</M>.
+    (To see this,
+    either establish a bijection of the above double cosets,
+    or doubly count the edges between elements of the conjugacy classes
+    of <M>s</M> and <M>g</M>.)
+</Item>
+<Item>
+    If <M>\langle s_1 \rangle = \langle s_2 \rangle</M> and
+    <M>\langle g_1 \rangle = \langle g_2 \rangle</M> hold then we have
+    <M>d(s_1, g_1^G) = d(s_2, g_1^G) = d(s_1, g_2^G) = d(s_2, g_2^G)</M>,
+    so only one of these values must be computed.
+</Item>
+<Item>
+    If both <M>s</M> and <M>g</M> are contained in one of the normal subgroups given
+    then <M>d(s, g^G)</M> is zero.
+</Item>
+<Item>
+    If <M>G</M> is not a dihedral group and both <M>s</M> and <M>g</M> are involutions
+    then <M>d(s, g^G)</M> is zero.
+</Item>
+</List>
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  VertexDegreesGeneratingGraph( <G>, <classes>, <normalsubgroups> )
+##
+##  Let <G> be a finite group that acts *transitively* on its moved points,
+##  <classes> be the list of conjugacy classes of <G>
+##  (in order to prescribe an ordering of the classes),
+##  and <normalsubgroups> be a list of proper normal subgroups of <G>.
+##
+##  'VertexDegreesGeneratingGraph' returns the matrix $d(g_i, g_j^G)$,
+##  with rows and columns indexed by nonidentity class representatives
+##  ordered as in the list <classes>.
+##  (The class containing the identity element may be contained in
+##  'classes'.)
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> BindGlobal( "VertexDegreesGeneratingGraph",
+>     function( G, classes, normalsubgroups )
+>     local nccl, matrix, cents, powers, normalsubgroupspos, i, j, g_i,
+>           nsg, g_j, gen, pair, d, pow;
+> 
+>     if not IsTransitive( G ) then
+>       Error( "<G> must be transitive on its moved points" );
+>     fi;
+> 
+>     classes:= Filtered( classes,
+>                         C -> Order( Representative( C ) ) <> 1 );
+>     nccl:= Length( classes );
+>     matrix:= [];
+>     cents:= [];
+>     powers:= [];
+>     normalsubgroupspos:= [];
+>     for i in [ 1 .. nccl ] do
+>       matrix[i]:= [];
+>       if IsBound( powers[i] ) then
+>         # The i-th row equals the earlier row 'powers[i]'.
+>         for j in [ 1 .. i ] do
+>           matrix[i][j]:= matrix[ powers[i] ][j];
+>           matrix[j][i]:= matrix[j][ powers[i] ];
+>         od;
+>       else
+>         # We have to compute the values.
+>         g_i:= Representative( classes[i] );
+>         nsg:= Filtered( [ 1 .. Length( normalsubgroups ) ],
+>                         i -> g_i in normalsubgroups[i] );
+>         normalsubgroupspos[i]:= nsg;
+>         cents[i]:= Centralizer( G, g_i );
+>         for j in [ 1 .. i ] do
+>           g_j:= Representative( classes[j] );
+>           if IsBound( powers[j] ) then
+>             matrix[i][j]:= matrix[i][ powers[j] ];
+>             matrix[j][i]:= matrix[ powers[j] ][i];
+>           elif not IsEmpty( Intersection( nsg, normalsubgroupspos[j] ) )
+>                or ( Order( g_i ) = 2 and Order( g_j ) = 2
+>                     and not IsDihedralGroup( G ) ) then
+>             matrix[i][j]:= 0;
+>             matrix[j][i]:= 0;
+>           else
+>             # Compute $d(g_i, g_j^G)$.
+>             gen:= 0;
+>             for pair in DoubleCosetRepsAndSizes( G, cents[j],
+>                             cents[i] ) do
+>               if IsGeneratorsOfTransPermGroup( G,
+>                      [ g_i, g_j^pair[1] ] ) then
+>                 gen:= gen + pair[2];
+>               fi;
+>             od;
+>             matrix[i][j]:= gen / Size( cents[j] );
+>             if i <> j then
+>               matrix[j][i]:= gen / Size( cents[i] );
+>             fi;
+>           fi;
+>         od;
+> 
+>         # For later, provide information about algebraic conjugacy.
+>         for d in Difference( PrimeResidues( Order( g_i ) ), [ 1 ] ) do
+>           pow:= g_i^d;
+>           for j in [ i+1 .. nccl ] do
+>             if not IsBound( powers[j] ) and pow in classes[j] then
+>               powers[j]:= i;
+>               break;
+>             fi;
+>           od;
+>         od;
+>       fi;
+>     od;
+> 
+>     return matrix;
+> end );
+]]></Example>
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="characters">
+<Heading>Computing Lower Bounds for Vertex Degrees</Heading>
+
+In this section,
+the task is to compute the lower bounds <M>\delta(s, g^G)</M> for the
+vertex degrees <M>d(s, g^G)</M> using character-theoretic methods.
+
+<P/>
+
+We provide &GAP; functions for computing
+the multiset <M>\Pi</M> of the primitive permutation characters
+of a given group <M>G</M> and
+for computing the lower bounds <M>\delta(s, g^G)</M> from <M>\Pi</M>.
+
+<P/>
+
+For many almost simple groups, the &GAP; libraries of character tables
+and of tables of marks contain information for quickly computing
+the primitive permutation characters of the group in question.
+Therefore, the function <C>PrimitivePermutationCharacters</C> takes as its
+argument not the group <M>G</M> but its character table <M>T</M>, say.
+(This function is shown already in&nbsp;<Cite Key="ProbGenArxiv"/>.)
+
+<P/>
+
+If <M>T</M> is contained in the &GAP; Character Table Library
+(see&nbsp;<Cite Key="CTblLib"/>)
+then the complete set of primitive permutation characters
+can be easily computed if the character tables of all maximal
+subgroups and their class fusions into <M>T</M> are known
+(in this case, we check whether the attribute
+<Ref Func="Maxes" BookName="ctbllib"/>
+of <M>T</M> is bound)
+or if the table of marks of <M>G</M> and the class fusion from <M>T</M> into this
+table of marks are known
+(in this case, we check whether the attribute
+<Ref Func="FusionToTom" BookName="ctbllib"/>
+of <M>T</M> is bound).
+If the attribute
+<Ref Func="UnderlyingGroup" BookName="ref"/>
+of <M>T</M> is bound then the group
+stored as the value of this attribute
+can be used to compute the primitive permutation characters.
+The latter happens if <M>T</M> was computed from the group <M>G</M>;
+for tables in the &GAP; Character Table Library,
+this is not the case by default.
+
+<P/>
+
+The &GAP; function <C>PrimitivePermutationCharacters</C> tries to compute
+the primitive permutation characters of a group using this information;
+it returns the required list of characters if this can be computed this way,
+otherwise <K>fail</K> is returned.
+(For convenience, we use the &GAP; mechanism of <E>attributes</E>
+in order to store the permutation characters in the character table object
+once they have been computed.)
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#A  PrimitivePermutationCharacters( <tbl> )
+##
+##  For an ordinary character table <tbl> for which either the value of one
+##  of the attributes 'Maxes' or 'UnderlyingGroup' is stored or the table of
+##  marks is contained in the GAP library of tables of marks,
+##  'PrimitivePermutationCharacters' returns the list of all primitive
+##  permutation characters of <tbl>.
+##  Otherwise 'fail' is returned.
+##
+##  We use 'InstallOtherMethod' not 'InstallMethod' because another test file
+##  declares the same attribute and installs the same method.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> DeclareAttribute( "PrimitivePermutationCharacters",
+>                      IsCharacterTable );
+gap> InstallOtherMethod( PrimitivePermutationCharacters,
+>     [ IsCharacterTable ],
+>     function( tbl )
+>     local maxes, i, fus, poss, tom, G;
+> 
+>     if HasMaxes( tbl ) then
+>       maxes:= List( Maxes( tbl ), CharacterTable );
+>       for i in [ 1 .. Length( maxes ) ] do
+>         fus:= GetFusionMap( maxes[i], tbl );
+>         if fus = fail then
+>           fus:= PossibleClassFusions( maxes[i], tbl );
+>           poss:= Set( fus,
+>             map -> InducedClassFunctionsByFusionMap(
+>                        maxes[i], tbl,
+>                        [ TrivialCharacter( maxes[i] ) ], map )[1] );
+>           if Length( poss ) = 1 then
+>             maxes[i]:= poss[1];
+>           else
+>             return fail;
+>           fi;
+>         else
+>           maxes[i]:= TrivialCharacter( maxes[i] )^tbl;
+>         fi;
+>       od;
+>       return maxes;
+>     elif HasFusionToTom( tbl ) then
+>       tom:= TableOfMarks( tbl );
+>       maxes:= MaximalSubgroupsTom( tom );
+>       return PermCharsTom( tbl, tom ){ maxes[1] };
+>     elif HasUnderlyingGroup( tbl ) then
+>       G:= UnderlyingGroup( tbl );
+>       return List( MaximalSubgroupClassReps( G ),
+>                    M -> TrivialCharacter( M )^tbl );
+>     fi;
+> 
+>     return fail;
+> end );
+]]></Example>
+<!-- % improve: if HasMaxes but not all fusions available?  (Babymonster!) -->
+
+<P/>
+
+The next function computes the lower bounds <M>\delta(s, g^G)</M> from
+the two lists <C>classlengths</C> of conjugacy class lengths of the group <M>G</M>
+and <C>prim</C> of all primitive permutation characters of <M>G</M>.
+(The first entry in <C>classlengths</C> is assumed to represent the class
+containing the identity element of <M>G</M>.)
+The return value is the matrix that contains in row <M>i</M> and column <M>j</M>
+the value <M>\delta(s, g^G)</M>, where <M>s</M> and <M>g</M> are in the conjugacy classes
+represented by the <M>(i+1)</M>-st and <M>(j+1)</M>-st column of <C>tbl</C>, respectively.
+So the row sums of this matrix are the values <M>\delta(s)</M>.
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  LowerBoundsVertexDegrees( <classlengths>, <prim> )
+##
+##  For two lists <classlengths> of the conjugacy class lengths and <prim> of
+##  all primitive permutation characters of a group $G$, say,
+##  'LowerBoundsVertexDegrees' returns a matrix <delta> such that
+##  '<delta>[i][j] = '$\delta(s, g^G)$ holds,
+##  for $s$ and $g$ in the 'i+1'-st and 'j+1'-st class of $G$,
+##  respectively.
+##
+##  So the row sums in <delta> are the values $\delta(s)$.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> LowerBoundsVertexDegrees:= function( classlengths, prim )
+>     local sizes, nccl;
+> 
+>     nccl:= Length( classlengths );
+>     return List( [ 2 .. nccl ],
+>              i -> List( [ 2 .. nccl ],
+>                     j -> Maximum( 0, classlengths[j] - Sum( prim,
+>                     pi -> classlengths[j] * pi[j] * pi[i]
+>                               / pi[1] ) ) ) );
+> end;;
+]]></Example>
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="clos">
+<Heading>Evaluating the (Lower Bounds for the) Vertex Degrees</Heading>
+
+In this section,
+the task is to compute (lower bounds for) the vertex degrees of iterated
+closures of a generating graph from (lower bounds for) the vertex degrees
+of the graph itself,
+and then to check the criteria of Pósa and Chvátal.
+
+<P/>
+
+The arguments of all functions defined in this section are
+the list <C>classlengths</C> of conjugacy class lengths for the group <M>G</M>
+(including the class of the identity element, in the first position)
+and a matrix <C>bounds</C> of the values <M>d^{(i)}(s, g^G)</M>
+or <M>\delta^{(i)}(s, g^G)</M>,
+with rows and columns indexed by nonidentity class representatives
+<M>s</M> and <M>g</M>, respectively.
+Such a matrix is returned by the functions <C>VertexDegreesGeneratingGraph</C> or
+<C>LowerBoundsVertexDegrees</C>, respectively.
+
+<P/>
+
+The function <C>LowerBoundsVertexDegreesOfClosure</C> returns the corresponding
+matrix of the values <M>d^{(i+1)}(s, g^G)</M> or <M>\delta^{(i+1)}(s, g^G)</M>,
+respectively.
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  LowerBoundsVertexDegreesOfClosure( <classlengths>, <bounds> )
+##
+##  Given the list <classlengths> of conjugacy class lengths for the group
+##  $G$ and a matrix <bounds> of the values $d^{(i)}(s, g^G)$ or
+##  $\delta^{(i)}(s, g^G)$,
+##  as is returned by 'VertexDegreesGeneratingGraph' or
+##  'LowerBoundsVertexDegrees',
+##  the following function returns the corresponding matrix of the values
+##  $d^{(i+1)}(s, g^G)$ or $\delta^{(i+1)}(s, g^G)$, respectively.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> LowerBoundsVertexDegreesOfClosure:= function( classlengths, bounds )
+>     local delta, newbounds, size, i, j;
+> 
+>     delta:= List( bounds, Sum );
+>     newbounds:= List( bounds, ShallowCopy );
+>     size:= Sum( classlengths );
+>     for i in [ 1 .. Length( bounds ) ] do
+>       for j in [ 1 .. Length( bounds ) ] do
+>         if delta[i] + delta[j] >= size - 1 then
+>           newbounds[i][j]:= classlengths[ j+1 ];
+>         fi;
+>       od;
+>     od;
+> 
+>     return newbounds;
+> end;;
+]]></Example>
+
+<P/>
+
+Once the values <M>d^{(i)}(s, g^G)</M> or <M>\delta^{(i)}(s, g^G)</M> are known,
+we can check whether Pósa's or Chvátal's criterion is satisfied
+for the graph <M>&cl;^{(i)}(\Gamma(G))</M>,
+using the function <C>CheckCriteriaOfPosaAndChvatal</C> shown below.
+(Of course a <E>negative</E> result is meaningless in the case that only
+lower bounds for the vertex degrees are used.)
+
+<P/>
+
+The idea is to compute the row sums of the given matrix,
+and to compute the intervals <M>\{ L_k, L_k + 1, \ldots, U_k \}</M>
+and <M>\{ L^{\prime}_k, L^{\prime}_k + 1, \ldots, U^{\prime}_k \}</M>
+that were introduced in Section&nbsp;<Ref Subsect="critcheck"/>.
+
+<P/>
+
+The function <C>CheckCriteriaOfPosaAndChvatal</C> returns,
+given the list of class lengths of <M>G</M> and the matrix of (bounds for the)
+vertex degrees, a record with the components
+<C>badForPosa</C> (the list of those pairs <M>[ L_k, U_k ]</M> with the property
+<M>L_k \leq U_k</M>),
+<C>badForChvatal</C> (the list of pairs of lower and upper bounds of
+nonempty intervals where Chvátal's criterion may be violated),
+and <C>data</C> (the sorted list of triples <M>[ \delta(g_k), |g_k^G|, \iota(k) ]</M>,
+where <M>\iota(k)</M> is the row and column position of <M>g_k</M> in the matrix
+<C>bounds</C>).
+The ordering of class lengths must of course be compatible with the
+ordering of rows and columns of the matrix,
+and the identity element of <M>G</M> must belong to the first entry in the
+list of class lengths.
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  CheckCriteriaOfPosaAndChvatal( <classlengths>, <bounds> )
+##
+##  Let <classlengths> be list of conjugacy class lengths of a group $G$,
+##  say, and <bounds> be a matrix of the values $d^{(i)}(s, g^G)$ or
+##  $\delta^{(i)}(s, g^G)$,
+##  as is returned for example by 'LowerBoundsVertexDegrees' or
+##  'LowerBoundsVertexDegreesOfClosure'.
+##
+##  'CheckCriteriaOfPosaAndChvatal' returns a record with the following
+##  components.
+##
+##  'badForPosa':
+##      the list of those pairs $[ L_k, U_k ]$ with the property
+##      $L_k \leq U_k$,
+##
+##  'badForChvatal':
+##      the list of pairs of lower and upper bounds of nonempty intervals
+##      where Chvátal's criterion may be violated, and
+##
+##  'data':
+##      the sorted list of triples $[ \delta(g_k), |g_k^G|, \iota(k) ]$,
+##      where $\iota(k)$ is the row and column position of $g_k$
+##      in the matrix <bounds>.
+##
+##  The generating graph $\Gamma(G)$ satisfies Pósa's criterion
+##  if the 'badForPosa' component is empty;
+##  the graph satisfies Chvátal's criterion if the 'badForChvatal'
+##  component is empty.
+##
+##  The ordering of class lengths must of course be compatible with the
+##  ordering of rows and columns of the matrix,
+##  and the identity element of $G$ must belong to the first entry in the
+##  list of class lengths.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> CheckCriteriaOfPosaAndChvatal:= function( classlengths, bounds )
+>     local size, degs, addinterval, badForPosa, badForChvatal1, pos,
+>           half, i, low1, upp2, upp1, low2, badForChvatal, interval1,
+>           interval2;
+> 
+>     size:= Sum( classlengths );
+>     degs:= List( [ 2 .. Length( classlengths ) ],
+>                  i -> [ Sum( bounds[ i-1 ] ), classlengths[i], i ] );
+>     Sort( degs );
+> 
+>     addinterval:= function( intervals, low, upp )
+>       if low <= upp then
+>         Add( intervals, [ low, upp ] );
+>       fi;
+>     end;
+> 
+>     badForPosa:= [];
+>     badForChvatal1:= [];
+>     pos:= 1;
+>     half:= Int( size / 2 ) - 1;
+>     for i in [ 1 .. Length( degs ) ] do
+>       # We have pos = c_1 + c_2 + \cdots + c_{i-1} + 1
+>       low1:= Maximum( pos, degs[i][1] );  # L_i
+>       upp2:= Minimum( half, size-1-pos, size-1-degs[i][1] ); # U'_i
+>       pos:= pos + degs[i][2];
+>       upp1:= Minimum( half, pos-1 ); # U_i
+>       low2:= Maximum( 1, size-pos ); # L'_i
+>       addinterval( badForPosa, low1, upp1 );
+>       addinterval( badForChvatal1, low2, upp2 );
+>     od;
+> 
+>     # Intersect intervals.
+>     badForChvatal:= [];
+>     for interval1 in badForPosa do
+>       for interval2 in badForChvatal1 do
+>         addinterval( badForChvatal,
+>                      Maximum( interval1[1], interval2[1] ),
+>                      Minimum( interval1[2], interval2[2] ) );
+>       od;
+>     od;
+> 
+>     return rec( badForPosa:= badForPosa,
+>                 badForChvatal:= Set( badForChvatal ),
+>                 data:= degs );
+> end;;
+]]></Example>
+
+<P/>
+
+Finally, the function <C>HamiltonianCycleInfo</C> assumes that the matrix <C>bounds</C>
+contains lower bounds for the vertex degrees in the generating graph
+<M>\Gamma</M>, and returns a string that describes the minimal <M>i</M> with the
+property that the given bounds suffice to show that <M>cl^{(i)}(\Gamma)</M>
+satisfies Pósa's or Chvátal's criterion,
+if such a closure exists.
+If no closure has this property, the string <C>"no decision"</C> is returned.
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  HamiltonianCycleInfo( <classlengths>, <bounds> )
+##
+##  Let <classlengths> be list of conjugacy class lengths of a group $G$,
+##  say, and <bounds> be a matrix of the values $d^{(i)}(s, g^G)$ or
+##  $\delta^{(i)}(s, g^G)$,
+##  as is returned for example by 'LowerBoundsVertexDegrees' or
+##  'LowerBoundsVertexDegreesOfClosure'.
+##
+##  'HamiltonianCycleInfo' returns a string that describes the minimal $i$
+##  with the property that the given bounds suffice to show that
+##  $cl^{(i)}(\Gamma(G))$ satisfies Pósa's or Chvátal's criterion,
+##  if such a closure exists.
+##  If no closure has this property, the string '"no decision"' is returned.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> HamiltonianCycleInfo:= function( classlengths, bounds )
+>     local i, result, res, oldbounds;
+> 
+>     i:= 0;
+>     result:= rec( Posa:= fail, Chvatal:= fail );
+>     repeat
+>       res:= CheckCriteriaOfPosaAndChvatal( classlengths, bounds );
+>       if result.Posa = fail and IsEmpty( res.badForPosa ) then
+>         result.Posa:= i;
+>       fi;
+>       if result.Chvatal = fail and IsEmpty( res.badForChvatal ) then
+>         result.Chvatal:= i;
+>       fi;
+>       i:= i+1;
+>       oldbounds:= bounds;
+>       bounds:= LowerBoundsVertexDegreesOfClosure( classlengths,
+>                    bounds );
+>     until oldbounds = bounds;
+> 
+>     if result.Posa <> fail then
+>       if result.Posa <> result.Chvatal then
+>         return Concatenation(
+>             "Chvatal for ", Ordinal( result.Chvatal ), " closure, ",
+>             "Posa for ", Ordinal( result.Posa ), " closure" );
+>       else
+>         return Concatenation( "Posa for ", Ordinal( result.Posa ),
+>             " closure" );
+>       fi;
+>     elif result.Chvatal <> fail then
+>       return Concatenation( "Chvatal for ", Ordinal( result.Chvatal ),
+>                             " closure" );
+>     else
+>       return "no decision";
+>     fi;
+> end;;
+]]></Example>
+
+</Subsection>
+</Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="chartheor">
+<Heading>Character-Theoretic Computations</Heading>
+
+In this section, we apply the functions introduced in Section&nbsp;<Ref Subsect="functions"/>
+to character tables of almost simple groups
+that are available in the &GAP; Character Table Library.
+
+<P/>
+
+Our first examples are the sporadic simple groups, in Section&nbsp;<Ref Subsect="spor"/>,
+then their automorphism groups are considered in Section&nbsp;<Ref Subsect="sporaut"/>.
+Small alternating and symmetric groups are treated in
+Section&nbsp;<Ref Subsect="symmalt"/>.
+
+<P/>
+
+For our convenience, we provide a small function that takes as its
+argument only the character table in question,
+and returns a string, either <C>"no prim. perm. characters"</C> or the
+return value of <C>HamiltonianCycleInfo</C> for the bounds computed from
+the primitive permutation characters.
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  HamiltonianCycleInfoFromCharacterTable( <tbl> )
+##
+##  For a character table <tbl>, this function returns a string,
+##  either '"no prim. perm. characters"' or the return value of
+##  'HamiltonianCycleInfo' for the bounds computed from the primitive
+##  permutation characters.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> HamiltonianCycleInfoFromCharacterTable:= function( tbl )
+>     local prim, classlengths, bounds;
+> 
+>     prim:= PrimitivePermutationCharacters( tbl );
+>     if prim = fail then
+>       return "no prim. perm. characters";
+>     fi;
+>     classlengths:= SizesConjugacyClasses( tbl );
+>     bounds:= LowerBoundsVertexDegrees( classlengths, prim );
+>     return HamiltonianCycleInfo( classlengths, bounds );
+> end;;
+]]></Example>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="spor">
+<Heading>Sporadic Simple Groups</Heading>
+
+Since version 1.3.10 of &CTblLib;,
+the &GAP; Character Table Library contains the tables of maximal subgroups
+of all sporadic simple groups.
+
+<P/>
+
+<!-- % For the Baby Monster, -->
+<!-- % currently the class fusion of the 6-th maximal subgroup is not known. -->
+<!-- % It takes several hours of CPU time to verify that the permutation -->
+<!-- % character is uniquely determined by the character tables. -->
+
+So the function <C>PrimitivePermutationCharacters</C>
+can be used to compute all their primitive permutation characters.
+
+<P/>
+
+<Example><![CDATA[
+gap> spornames:= AllCharacterTableNames( IsSporadicSimple, true,
+>                    IsDuplicateTable, false );
+[ "B", "Co1", "Co2", "Co3", "F3+", "Fi22", "Fi23", "HN", "HS", "He", 
+  "J1", "J2", "J3", "J4", "Ly", "M", "M11", "M12", "M22", "M23", 
+  "M24", "McL", "ON", "Ru", "Suz", "Th" ]
+gap> for tbl in List( spornames, CharacterTable ) do
+>      info:= HamiltonianCycleInfoFromCharacterTable( tbl );
+>      if info <> "Posa for 0th closure" then
+>        Print( Identifier( tbl ), ": ", info, "\n" );
+>      fi;
+>    od;
+]]></Example>
+
+<P/>
+
+It turns out that the information available in the
+&GAP; Character Table Library is sufficient to prove that
+the generating graph contains a Hamiltonian cycle.
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="Monster">
+<Heading>The Monster</Heading>
+
+In the original version of this file, a special treatment of the Monster
+group had been necessary because not all character tabes of its maximal
+subgroups were available, and also not all class fusions from some
+maximal subgroups were known whose character tables were available.
+This section shows the computations that were used at that time.
+
+<P/>
+
+Meanwhile the maximal subgroups of the Monster are classified,
+see <Cite Key="DLP25"/>, their character tables are available,
+and also all class fusions from the maximal subgroups are known.
+Thus we can easily compute the primitive permutation characters
+of the Monster group.
+The computations shown in this section are not needed to prove the claims
+from&nbsp;<Cite Key="GMN"/>, they are kept just for historical reasons.
+Thus this section is an example how the availability of the full list of
+primitive permutation characters of the Monster simplifies proofs.
+
+<P/>
+
+The situation for the following arguments is as follows.
+We do not assume the knowledge of all primitive permutation characters of the
+Monster group <M>M</M>, and we use only some of the character tables of the
+maximal subgroups of <M>M</M> and only partial information on their
+class fusions.
+Note that for some maximal subgroups of <M>M</M>,
+the permutation character is not uniquely determined by the character tables
+involved.
+However, we can compute upper bounds for the values of the primitive
+permutation characters <M>1_S^M</M> from the possible class fusions
+from <M>S</M> into <M>M</M> if the character table of <M>S</M> is known.
+For the other subgroups <M>S</M>, the permutation characters <M>1_S^M</M>
+have been computed with other methods.
+Using this information, we will show that the generating graph of <M>M</M>
+satisfies Pósa's criterion.
+
+<P/>
+
+The list <C>primdata</C> defined below has length <M>46</M>.
+The entry at position <M>i</M> is a list of length one or two.
+If <C>primdata[</C><M>i</M><C>]</C> has length one then its unique entry is
+the identifier of the library character table of the <M>i</M>-th maximal
+subgroup of <M>M</M>.
+If <C>primdata[</C><M>i</M><C>]</C> has length two then its entries are
+a string describing the structure of the <M>i</M>-th maximal subgroup
+<M>S</M> of <M>M</M> and the permutation character <M>1_S^M</M>.
+
+<P/>
+
+(The construction of the explicitly given characters in this list
+will be documented elsewhere.
+Some of the constructions can be found
+in Section <Ref Sect="sect:monsterperm"/>.)
+
+<P/>
+
+<Example><![CDATA[
+gap> dir:= DirectoriesPackageLibrary( "ctbllib", "data" );;
+gap> filename:= Filename( dir, "prim_perm_M.json" );;
+gap> primdata:= EvalString( StringFile( filename ) )[2];;
+gap> Length( primdata );
+46
+gap> m:= CharacterTable( "M" );;
+]]></Example>
+
+<P/>
+
+We compute upper bounds for the permutation character values
+in the cases where the characters are not given explicitly.
+(We could improve this by using additional information about the class
+fusions, but this will not be necessary.)
+
+<P/>
+
+<Example><![CDATA[
+gap> s:= "dummy";;      #  Avoid a message about an unbound variable ...
+gap> poss:= "dummy";;   #  Avoid a message about an unbound variable ...
+gap> for entry in primdata do
+>      if not IsBound( entry[2] ) then
+>        s:= CharacterTable( entry[1] );
+>        poss:= Set( PossibleClassFusions( s, m ),
+>                    x -> InducedClassFunctionsByFusionMap( s, m,
+>                             [ TrivialCharacter( s ) ], x )[1] );
+>        entry[2]:= List( [ 1 .. NrConjugacyClasses( m ) ],
+>                         i -> Maximum( List( poss, x -> x[i] ) ) );
+>      fi;
+>    od;
+]]></Example>
+
+<!-- This loop required about half an hour of CPU time in 2012,
+     but just six minutes in 2023. -->
+
+<P/>
+
+Now we estimate the lower bounds <M>\delta(s, g^G)</M> introduced in
+Section&nbsp;<Ref Subsect="characters"/>.
+Let <M>&M;</M> denote a set of representatives of the
+classes of maximal subgroups of <M>M</M>.
+Then
+
+<Display Mode="M">
+   \delta(s, g^G) =
+     |s^G| - |s^G| \cdot \sum_{{S \in &M;}} 1_S^M(s) \cdot 1_S^M(g) / 1_S^M(1) ,
+</Display>
+
+hence <M>\delta(s)</M> can be computed from the corresponding primitive
+permutation characters,
+and a lower bound for <M>\delta(s)</M> can be computed from the upper bounds for
+the characters <M>1_S^G</M> which are given by the list <C>primdata</C>.
+
+<P/>
+
+This means that modifying the output of <C>LowerBoundsVertexDegrees</C>
+as follows really yields lower bounds for the vertex degrees.
+
+<P/>
+
+<Example><![CDATA[
+gap> prim:= List( primdata, x -> x[2] );;
+gap> classlengths:= SizesConjugacyClasses( m );;
+gap> bounds:= LowerBoundsVertexDegrees( classlengths, prim );;
+]]></Example>
+
+<P/>
+
+Now we sum up the bounds for the individual classes.
+It turns out that the minimal vertex degree is more than <M>99.99998</M>
+percent of <M>|M|</M>.
+This proves that the generating graph of the Monster
+satisfies Pósa's criterion.
+
+<P/>
+
+<Example><![CDATA[
+gap> degs:= List( bounds, Sum );;
+gap> Int( 100000000 * Minimum( degs ) / Size( m ) );
+99999987
+]]></Example>
+
+<P/>
+
+<E>Without</E> the results from <Cite Key="DLP25"/>,
+we can argue as follows.
+(This was the situation in earlier versions of this example file.)
+
+<P/>
+
+According to&nbsp;<Cite Key="NW12"/>,
+any maximal subgroup of the Monster is either among the <M>44</M> known
+classes from the above list except L<M>_2(13).2</M> and U<M>_3(4).4</M>,
+or it is an almost simple group whose socle is one of
+L<M>_2(13)</M>, Sz<M>(8)</M>, U<M>_3(4)</M>, and U<M>_3(8)</M>.
+<!-- % -> has been ruled out: L<M>_2(27)</M>,  -->
+
+<P/>
+
+We show that the elements of such subgroups are contained in
+the union of <M>55</M> conjugacy classes of the Monster
+that cover less than one percent of the elements in the Monster.
+For that, we compute the possible class fusions from the abovementioned
+simple groups <M>S</M> into the Monster, and then the possible class fusions
+from the automorphic extensions of <M>S</M> into the Monster,
+using the possible class fusions of <M>S</M>.
+(This approach is faster than computing each class fusion from scratch.)
+
+<P/>
+
+After the following computations,
+the list <C>badclasses</C> will contain the positions of all those classes
+of <M>M</M> that may contain elements in some of the hypothetical
+maximal subgroups.
+
+<P/>
+
+For each simple group in question, we enter the identifiers of the
+character tables of the automorphic extensions that can occur.
+Note that the automorphism groups of the four groups have the structures
+L<M>_2(13).2</M>, Sz<M>(8).3</M>, U<M>_3(4).4</M>,
+and U<M>_3(8).(3 \times S_3)</M>, respectively.
+We need not consider the groups U<M>_3(8).3^2</M> and
+U<M>_3(8).(3 \times S_3)</M>
+because already U<M>_3(8).3_2</M> does not admit an embedding into <M>M</M>,
+and we need not consider the group U<M>_3(8).S_3</M> because its set of
+elements is covered by its subgroups of the types U<M>_3(8).2</M> and
+U<M>_3(8).3_2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> PossibleClassFusions( CharacterTable( "U3(8).3_2" ), m );
+[  ]
+gap> badclasses:= [];;
+gap> names:= [
+>    [ "L2(13)", "L2(13).2" ],
+>    [ "Sz(8)", "Sz(8).3" ],
+>    [ "U3(4)", "U3(4).2", "U3(4).4" ],
+>    [ "U3(8)", "U3(8).2", "U3(8).3_1", "U3(8).3_2", "U3(8).3_3",
+>               "U3(8).6" ],
+>    ];;
+gap> for list in names do
+>      t:= CharacterTable( list[1] );
+>      tfusm:= PossibleClassFusions( t, m );
+>      UniteSet( badclasses, Flat( tfusm ) );
+>      for nam in list{ [ 2 .. Length( list ) ] } do
+>        ext:= CharacterTable( nam );
+>        for map1 in PossibleClassFusions( t, ext ) do
+>          inv:= InverseMap( map1 );
+>          for map2 in tfusm do
+>            init:= CompositionMaps( map2, inv );
+>            UniteSet( badclasses, Flat( PossibleClassFusions( ext, m,
+>                rec( fusionmap:= init ) ) ) );
+>          od;
+>        od;
+>      od;
+>    od;
+gap> badclasses;
+[ 1, 3, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 17, 18, 19, 20, 21, 22, 
+  24, 25, 27, 28, 30, 32, 33, 35, 36, 38, 39, 40, 42, 43, 44, 45, 46, 
+  48, 49, 50, 51, 52, 53, 54, 55, 56, 60, 61, 62, 63, 70, 72, 73, 78, 
+  82, 85, 86 ]
+gap> Length( badclasses );
+55
+gap> bad:= Sum( classlengths{ badclasses } ) / Size( m );;
+gap> Int( 10000 * bad ); 
+97
+]]></Example>
+
+<P/>
+
+<E>In the original version of this file, also hypothetical maximal
+subgroups with socle</E> L<M>_2(27)</M> <E>had been considered.
+As a consequence, the list</E> <C>badclasses</C> <E>computed above had length
+<M>59</M> in the original version;
+the list contained also the classes at the positions <M>90, 94, 95</M>,
+and <M>96</M>,
+that is, the classes</E> <C>26B</C>, <C>28B</C>, <C>28C</C>, <C>28D</C>.
+<E>The proportion</E> <C>bad</C> <E>of elements in the classes of <M>M</M>
+described by</E>
+<C>badclasses</C> <E>was about <M>2.05</M> percent of <M>|M|</M>,
+compared to the about <M>0.98</M> percent in the current version.</E>
+
+<!-- % If we ignore L<M>_2(27)</M> then we do not get the classes [ 90, 94, 95, 96 ], -->
+<!-- % i.e., [ "26b", "28b", "28c", "28d" ]. -->
+
+<P/>
+
+Now we estimate the lower bounds <M>\delta(s, g^G)</M> introduced in
+Section&nbsp;<Ref Subsect="characters"/>.
+Let <M>&B;</M> denote the union of the classes described by <C>badclasses</C>,
+and let <M>&M;</M> denote a set of representatives of the
+<M>44</M> known classes of maximal subgroups of <M>M</M>.
+
+<P/>
+
+If <M>s \notin &B;</M> then
+
+<Display Mode="M">
+   \delta(s, g^G) =
+     |s^G| - |s^G| \cdot \sum_{{S \in &M;}} 1_S^M(s) \cdot 1_S^M(g) / 1_S^M(1) ,
+</Display>
+
+hence <M>\delta(s)</M> can be computed from the corresponding primitive
+permutation characters,
+and a lower bound for <M>\delta(s)</M> can be computed from the upper bounds for
+the characters <M>1_S^G</M> which are given by the list <C>primdata</C>.
+
+<P/>
+
+If <M>s \in &B;</M> then the above equation for <M>\delta(s, g^G)</M> holds
+at least for <M>g \notin &B;</M>,
+so <M>\sum_{{g \in R \setminus &B;}} \delta(s, g^G)</M> is a lower bound
+for <M>\delta(s)</M>.
+So <C>primdata</C> yields a lower bound for <M>\delta(s)</M> also for
+<M>s \in &B;</M>,
+by ignoring the pairs <M>(s, g)</M> where both <M>s</M> and <M>g</M> lie in
+<M>&B;</M>.
+
+<P/>
+
+This means that modifying the output of <C>LowerBoundsVertexDegrees</C>
+as follows really yields lower bounds for the vertex degrees.
+(Note that the row and column positions in the matrix returned by
+<C>LowerBoundsVertexDegrees</C> are shifted by one,
+compared to <C>badclasses</C>.)
+
+<P/>
+
+<Example><![CDATA[
+gap> prim:= List( primdata, x -> x[2] );;
+gap> badpos:= Difference( badclasses, [ 1 ] ) - 1;;
+gap> bounds:= LowerBoundsVertexDegrees( classlengths, prim );;
+gap> for i in badpos do
+>      for j in badpos do
+>        bounds[i][j]:= 0;
+>      od;
+>    od;
+]]></Example>
+
+<P/>
+
+Now we sum up the bounds for the individual classes.
+It turns out that the minimal vertex degree is more than <M>99</M> percent
+of <M>|M|</M>.
+This proves that the generating graph of the Monster
+satisfies Pósa's criterion.
+
+<P/>
+
+(And the minimal vertex degree of elements outside <M>&B;</M>
+is more than <M>99.99998</M> percent of <M>|M|</M>.)
+
+<P/>
+
+<E>In the original version of this file,
+we got only <M>97.95</M> percent of <M>|M|</M> as the lower bound
+for the minimal vertex degree.
+The bound for elements outside <M>&B;</M> was the same
+in the original version.
+The fact that the maximal subgroups of type</E> L<M>_2(41)</M>
+<E>had been ignored in the original version
+did not affect the lower bound for the minimal vertex degree.</E>
+
+<P/>
+
+<Example><![CDATA[
+gap> degs:= List( bounds, Sum );;
+gap> Int( 10000 * Minimum( degs ) / Size( m ) );
+9902
+gap> goodpos:= Difference( [ 1 .. NrConjugacyClasses( m ) - 1 ],
+>                          badpos );;
+gap> Int( 100000000 * Minimum( degs{ goodpos } ) / Size( m ) );
+99999987
+]]></Example>
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="sporaut">
+<Heading>Nonsimple Automorphism Groups of Sporadic Simple Groups</Heading>
+
+Next we consider the nonsimple automorphism groups of the sporadic simple
+groups.
+Nontrivial outer automorphisms exist exactly in <M>12</M> cases,
+and then the simple group has index <M>2</M> in its automorphism group.
+The character tables of the groups and their maximal subgroups are
+available in &GAP;.
+
+<P/>
+
+<Example><![CDATA[
+gap> spornames:= AllCharacterTableNames( IsSporadicSimple, true,
+>                    IsDuplicateTable, false );;
+gap> sporautnames:= AllCharacterTableNames( IsSporadicSimple, true,
+>                       IsDuplicateTable, false,
+>                       OfThose, AutomorphismGroup );;
+gap> sporautnames:= Difference( sporautnames, spornames );
+[ "F3+.2", "Fi22.2", "HN.2", "HS.2", "He.2", "J2.2", "J3.2", "M12.2", 
+  "M22.2", "McL.2", "ON.2", "Suz.2" ]
+gap> for tbl in List( sporautnames, CharacterTable ) do
+>      info:= HamiltonianCycleInfoFromCharacterTable( tbl );
+>      Print( Identifier( tbl ), ": ", info, "\n" );
+>    od;
+F3+.2: Chvatal for 0th closure, Posa for 1st closure
+Fi22.2: Chvatal for 0th closure, Posa for 1st closure
+HN.2: Chvatal for 0th closure, Posa for 1st closure
+HS.2: Chvatal for 1st closure, Posa for 2nd closure
+He.2: Chvatal for 0th closure, Posa for 1st closure
+J2.2: Chvatal for 0th closure, Posa for 1st closure
+J3.2: Chvatal for 0th closure, Posa for 1st closure
+M12.2: Chvatal for 0th closure, Posa for 1st closure
+M22.2: Posa for 1st closure
+McL.2: Chvatal for 0th closure, Posa for 1st closure
+ON.2: Chvatal for 0th closure, Posa for 1st closure
+Suz.2: Chvatal for 0th closure, Posa for 1st closure
+]]></Example>
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="symmalt">
+<Heading>Alternating and Symmetric Groups <M>A_n</M>, <M>S_n</M>,
+for <M>5 \leq n \leq 13</M></Heading>
+
+For alternating and symmetric groups <M>A_n</M> and <M>S_n</M>, respectively,
+with <M>5 \leq n \leq 13</M>,
+the table of marks or the character tables of the group
+and all its maximal subgroups are available in &GAP;.
+So we can compute the character-theoretic bounds for vertex degrees.
+
+<P/>
+
+<Example><![CDATA[
+gap> for tbl in List( [ 5 .. 13 ], i -> CharacterTable(
+>                 Concatenation( "A", String( i ) ) ) )  do
+>      info:= HamiltonianCycleInfoFromCharacterTable( tbl );
+>      if info <> "Posa for 0th closure" then
+>        Print( Identifier( tbl ), ": ", info, "\n" );
+>      fi;
+>    od;
+]]></Example>
+
+<P/>
+
+No messages are printed, so the generating graphs of the alternating
+groups in question satisfy Pósa's criterion.
+
+<P/>
+
+<Example><![CDATA[
+gap> for tbl in List( [ 5 .. 13 ], i -> CharacterTable(
+>                 Concatenation( "S", String( i ) ) ) )  do
+>      info:= HamiltonianCycleInfoFromCharacterTable( tbl );
+>      Print( Identifier( tbl ), ": ", info, "\n" );
+>    od;
+A5.2: no decision
+A6.2_1: Chvatal for 4th closure, Posa for 5th closure
+A7.2: Posa for 1st closure
+A8.2: Chvatal for 2nd closure, Posa for 3rd closure
+A9.2: Chvatal for 2nd closure, Posa for 3rd closure
+A10.2: Chvatal for 2nd closure, Posa for 3rd closure
+A11.2: Posa for 1st closure
+A12.2: Chvatal for 2nd closure, Posa for 3rd closure
+A13.2: Posa for 1st closure
+]]></Example>
+
+<P/>
+
+We see that sufficiently large closures of the generating graphs of the
+symmetric groups in question satisfy Pósa's criterion,
+except that the bounds for the symmetric group <M>S_5</M> are not sufficient
+for the proof.
+In Section&nbsp;<Ref Subsect="smallalmostsimple"/>,
+it is shown that the 2nd closure of the generating graph of <M>S_5</M>
+satisfies Pósa's criterion.
+
+<P/>
+
+(We could find slightly better bounds derived only from character tables
+which suffice to prove that the generating graph for <M>S_5</M> contains a
+Hamiltonian cycle, but this seems to be not worth while.)
+
+</Subsection>
+</Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="grouptheor">
+<Heading>Computations With Groups</Heading>
+
+We prove in Section&nbsp;<Ref Subsect="smallsimp"/> that the generating
+graphs of the nonabelian simple groups of order up to <M>10^6</M>
+satisfy Pósa's criterion,
+and that the same holds for those nonabelian simple
+groups of order between <M>10^6</M> and <M>10^7</M> that are not isomorphic
+with some <M>&PSL;(2,q)</M>.
+(In Section&nbsp;<Ref Subsect="psl2q"/>,
+it is shown that the generating graph of
+<M>&PSL;(2,q)</M> satifies Pósa's criterion for any prime power <M>q</M>.)
+Nonsimple nonsolvable groups of order up to <M>10^6</M>
+are treated in Section&nbsp;<Ref Subsect="smallalmostsimple"/>.
+
+<P/>
+
+(We could increase the bounds <M>10^6</M> and <M>10^7</M> with more
+computations, using the same methods.)
+
+<P/>
+
+For our convenience, we provide a small function that takes as its
+argument only the group in question,
+and returns a string, the
+return value of <C>HamiltonianCycleInfo</C> for the vertex degrees computed
+from the group.
+(In order to speed up the computations,
+the function computes the proper normal subgroups that contain the derived
+subgroup of the given group, and enters the list of these groups as the
+third argument of <C>VertexDegreesGeneratingGraph</C>.)
+
+<P/>
+
+<Ignore Remark="gapfilecomments"><![CDATA[
+#############################################################################
+##
+#F  HamiltonianCycleInfoFromGroup( <G> )
+##
+##  For a group <G>, this function returns a string,
+##  the return value of 'HamiltonianCycleInfo' for the vertex degrees
+##  computed from the group.
+##
+]]></Ignore>
+<Example><![CDATA[
+gap> HamiltonianCycleInfoFromGroup:= function( G )
+>     local ccl, nsg, der, degrees, classlengths;
+>     ccl:= ConjugacyClasses( G );
+>     if IsPerfect( G ) then
+>       nsg:= [];
+>     else
+>       der:= DerivedSubgroup( G );
+>       nsg:= Concatenation( [ der ],
+>                 IntermediateSubgroups( G, der ).subgroups );
+>     fi;
+>     degrees:= VertexDegreesGeneratingGraph( G, ccl, nsg );
+>     classlengths:= List( ccl, Size );
+>     return HamiltonianCycleInfo( classlengths, degrees );        
+> end;;
+]]></Example>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="smallsimp">
+<Heading>Nonabelian Simple Groups of Order up to <M>10^7</M></Heading>
+
+Representatives of the <M>56</M> isomorphism types of nonabelian simple groups
+of order up to <M>10^6</M> can be accessed in &GAP; with the function
+<C>AllSmallNonabelianSimpleGroups</C>.
+
+<P/>
+
+<Example><![CDATA[
+gap> grps:= AllSmallNonabelianSimpleGroups( [ 1 .. 10^6 ] );;         
+gap> Length( grps );
+56
+gap> List( grps, StructureDescription );
+[ "A5", "PSL(3,2)", "A6", "PSL(2,8)", "PSL(2,11)", "PSL(2,13)", 
+  "PSL(2,17)", "A7", "PSL(2,19)", "PSL(2,16)", "PSL(3,3)", 
+  "PSU(3,3)", "PSL(2,23)", "PSL(2,25)", "M11", "PSL(2,27)", 
+  "PSL(2,29)", "PSL(2,31)", "A8", "PSL(3,4)", "PSL(2,37)", "O(5,3)", 
+  "Sz(8)", "PSL(2,32)", "PSL(2,41)", "PSL(2,43)", "PSL(2,47)", 
+  "PSL(2,49)", "PSU(3,4)", "PSL(2,53)", "M12", "PSL(2,59)", 
+  "PSL(2,61)", "PSU(3,5)", "PSL(2,67)", "J1", "PSL(2,71)", "A9", 
+  "PSL(2,73)", "PSL(2,79)", "PSL(2,64)", "PSL(2,81)", "PSL(2,83)", 
+  "PSL(2,89)", "PSL(3,5)", "M22", "PSL(2,97)", "PSL(2,101)", 
+  "PSL(2,103)", "HJ", "PSL(2,107)", "PSL(2,109)", "PSL(2,113)", 
+  "PSL(2,121)", "PSL(2,125)", "O(5,4)" ]
+gap> for g in grps do                                             
+>      info:= HamiltonianCycleInfoFromGroup( g );
+>      if info <> "Posa for 0th closure" then
+>        Print( StructureDescription( g ), ": ", info, "\n" );
+>      fi;
+>    od;
+]]></Example>
+
+<!-- % runtimes:
+     % A5: Posa for 0th closure
+     % 115359
+     % PSL(3,2): Posa for 0th closure
+     % 115571
+     % A6: Posa for 0th closure
+     % 115891
+     % PSL(2,8): Posa for 0th closure
+     % 116115
+     % PSL(2,11): Posa for 0th closure
+     % 116515
+     % PSL(2,13): Posa for 0th closure
+     % 117155
+     % PSL(2,17): Posa for 0th closure
+     % 118467
+     % A7: Posa for 0th closure
+     % 120415
+     % PSL(2,19): Posa for 0th closure
+     % 121907
+     % PSL(2,16): Posa for 0th closure
+     % 122755
+     % PSL(3,3): Posa for 0th closure
+     % 126391
+     % PSU(3,3): Posa for 0th closure
+     % 131180
+     % PSL(2,23): Posa for 0th closure
+     % 134076
+     % PSL(2,25): Posa for 0th closure
+     % 137816
+     % M11: Posa for 0th closure
+     % 144329
+     % PSL(2,27): Posa for 0th closure
+     % 146293
+     % PSL(2,29): Posa for 0th closure
+     % 150957
+     % PSL(2,31): Posa for 0th closure
+     % 157489
+     % A8: Posa for 0th closure
+     % 172518
+     % PSL(3,4): Posa for 0th closure
+     % 188731
+     % PSL(2,37): Posa for 0th closure
+     % 196056
+     % O(5,3): Posa for 0th closure
+     % 224362
+     % Sz(8): Posa for 0th closure
+     % 248671
+     % PSL(2,32): Posa for 0th closure
+     % 253043
+     % PSL(2,41): Posa for 0th closure
+     % 267688
+     % PSL(2,43): Posa for 0th closure
+     % 277205
+     % PSL(2,47): Posa for 0th closure
+     % 296426
+     % PSL(2,49): Posa for 0th closure
+     % 324768
+     % PSU(3,4): Posa for 0th closure
+     % 354622
+     % PSL(2,53): Posa for 0th closure
+     % 370487
+     % M12: Posa for 0th closure
+     % 492478
+     % PSL(2,59): Posa for 0th closure
+     % 523880
+     % PSL(2,61): Posa for 0th closure
+     % 559134
+     % PSU(3,5): Posa for 0th closure
+     % 755063
+     % PSL(2,67): Posa for 0th closure
+     % 779000
+     % J1: Posa for 0th closure
+     % 964060
+     % PSL(2,71): Posa for 0th closure
+     % 1046577
+     % A9: Posa for 0th closure
+     % 1279479
+     % PSL(2,73): Posa for 0th closure
+     % 1349084
+     % PSL(2,79): Posa for 0th closure
+     % 1439725
+     % PSL(2,64): Posa for 0th closure
+     % 1476068
+     % PSL(2,81): Posa for 0th closure
+     % 1546992
+     % PSL(2,83): Posa for 0th closure
+     % 1622993
+     % PSL(2,89): Posa for 0th closure
+     % 1755533
+     % PSL(3,5): Posa for 0th closure
+     % 1974339
+     % M22: Posa for 0th closure
+     % 2603102
+     % PSL(2,97): Posa for 0th closure
+     % 2773005
+     % PSL(2,101): Posa for 0th closure
+     % 2817128
+     % PSL(2,103): Posa for 0th closure
+     % 2859090
+     % HJ: Posa for 0th closure
+     % 4488448
+     % PSL(2,107): Posa for 0th closure
+     % 4533779
+     % PSL(2,109): Posa for 0th closure
+     % 4599359
+     % PSL(2,113): Posa for 0th closure
+     % 4690701
+     % PSL(2,121): Posa for 0th closure
+     % 4799887
+     % PSL(2,125): Posa for 0th closure
+     % 4908382
+     % O(5,4): Posa for 0th closure
+     % 6538184
+     % gap> time;
+     % 6422893 -->
+
+<P/>
+
+Nothing is printed during these computations,
+so the generating graphs of all processed groups satisfy
+Pósa's criterion.
+
+<P/>
+
+(On my notebook,
+the above computations needed about <M>6300</M> seconds of CPU time.)
+
+<P/>
+
+For simple groups of order larger than <M>10^6</M>, there is not such an easy
+way (yet) to access representatives for each isomorphism type.
+Therefore, first we compute the orders of nonabelian simple groups
+between <M>10^6</M> and <M>10^7</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> orders:= Filtered( [ 10^6+4, 10^6+8 .. 10^7 ],
+>      n -> IsomorphismTypeInfoFiniteSimpleGroup( n ) <> fail );
+[ 1024128, 1123980, 1285608, 1342740, 1451520, 1653900, 1721400, 
+  1814400, 1876896, 1934868, 2097024, 2165292, 2328648, 2413320, 
+  2588772, 2867580, 2964780, 3265920, 3483840, 3594432, 3822588, 
+  3940200, 4245696, 4680000, 4696860, 5515776, 5544672, 5663616, 
+  5848428, 6004380, 6065280, 6324552, 6825840, 6998640, 7174332, 
+  7906500, 8487168, 9095592, 9732420, 9951120, 9999360 ]
+gap> Length( orders );
+41
+gap> info:= List( orders, IsomorphismTypeInfoFiniteSimpleGroup );;
+gap> Number( info, x -> IsBound( x.series ) and x.series = "L"
+>                       and x.parameter[1] = 2 );
+31
+]]></Example>
+
+<P/>
+
+We see that there are <M>31</M> groups of the type <M>&PSL;(2,q)</M> and
+<M>10</M> other nonabelian simple groups with order in the range from
+<M>10^6</M> to <M>10^7</M>.
+The former groups can be ignored because the generating graphs of any
+group <M>&PSL;(2,q)</M> satisfies Pósa's criterion,
+see Section&nbsp;<Ref Subsect="psl2q"/>.
+For the latter groups, we can apply the character-theoretic method
+to prove that the generating graph satisfies Pósa's criterion.
+
+<P/>
+
+<Example><![CDATA[
+gap> info:= Filtered( info, x -> not IsBound( x.series ) or
+>             x.series <> "L" or x.parameter[1] <> 2 );
+[ rec( name := "B(3,2) = O(7,2) ~ C(3,2) = S(6,2)", 
+      parameter := [ 3, 2 ], series := "B", shortname := "S6(2)" ), 
+  rec( name := "A(10)", parameter := 10, series := "A", 
+      shortname := "A10" ), 
+  rec( name := "A(2,7) = L(3,7) ", parameter := [ 3, 7 ], 
+      series := "L", shortname := "L3(7)" ), 
+  rec( name := "2A(3,3) = U(4,3) ~ 2D(3,3) = O-(6,3)", 
+      parameter := [ 3, 3 ], series := "2A", shortname := "U4(3)" ), 
+  rec( name := "G(2,3)", parameter := 3, series := "G", 
+      shortname := "G2(3)" ), 
+  rec( name := "B(2,5) = O(5,5) ~ C(2,5) = S(4,5)", 
+      parameter := [ 2, 5 ], series := "B", shortname := "S4(5)" ), 
+  rec( name := "2A(2,8) = U(3,8)", parameter := [ 2, 8 ], 
+      series := "2A", shortname := "U3(8)" ), 
+  rec( name := "2A(2,7) = U(3,7)", parameter := [ 2, 7 ], 
+      series := "2A", shortname := "U3(7)" ), 
+  rec( name := "A(3,3) = L(4,3) ~ D(3,3) = O+(6,3) ", 
+      parameter := [ 4, 3 ], series := "L", shortname := "L4(3)" ), 
+  rec( name := "A(4,2) = L(5,2) ", parameter := [ 5, 2 ], 
+      series := "L", shortname := "L5(2)" ) ]
+gap> names:= [ "S6(2)", "A10", "L3(7)", "U4(3)", "G2(3)", "S4(5)",
+>              "U3(8)", "U3(7)", "L4(3)", "L5(2)" ];;
+gap> for tbl in List( names, CharacterTable ) do
+>      info:= HamiltonianCycleInfoFromCharacterTable( tbl );
+>      if info <> "Posa for 0th closure" then
+>        Print( Identifier( tbl ), ": ", info, "\n" );
+>      fi;
+>    od;
+]]></Example>
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="smallalmostsimple">
+<Heading>Nonsimple Groups with Nonsolvable Socle of Order at most <M>10^6</M></Heading>
+
+Let <M>G</M> be a nonsolvable group such that <M>G/N</M> is cyclic
+for all nontrivial normal subgroups <M>N</M> of <M>G</M>.
+Then the socle Soc<M>(G)</M> of <M>G</M> is the unique minimal normal subgroup.
+Moreover, Soc<M>(G)</M> is nonsolvable and thus a direct product of isomorphic
+nonabelian simple groups,
+and <M>G</M> is isomorphic to a subgroup of Aut<M>(</M>Soc<M>(G))</M>.
+
+<P/>
+
+In order to deal with all such groups <M>G</M> for which additionally
+<M>|</M>Soc<M>(G)| \leq 10^6</M> holds,
+it is sufficient to run over the simple groups <M>S</M> of order up to
+<M>10^6</M> and to consider those subgroups <M>G</M> of Aut<M>(S^n)</M>,
+with <M>|S|^n \leq 10^6</M>, for which Inn<M>(G)</M> is the unique
+minimal normal subgroup and <M>G / </M>Inn<M>(G)</M> is cyclic.
+
+<P/>
+
+We show that for each such group,
+a sufficient closure of the generating graph satisfies Pósa's criterion.
+
+<P/>
+
+<Example><![CDATA[
+gap> grps:= AllSmallNonabelianSimpleGroups( [ 1 .. 10^6 ] );;         
+gap> epi:= "dummy";;   #  Avoid a message about an unbound variable ...
+gap> for simple in grps do
+>      for n in [ 1 .. LogInt( 10^6, Size( simple ) ) ] do
+>        # Compute the n-fold direct product S^n.
+>        soc:= CallFuncList( DirectProduct,
+>                            ListWithIdenticalEntries( n, simple ) );
+>        # Compute Aut(S^n) as a permutation group.
+>        aut:= Image( IsomorphismPermGroup( AutomorphismGroup( soc ) ) );
+>        aut:= Image( SmallerDegreePermutationRepresentation( aut ) );
+>        # Compute class representatives of subgroups of
+>        # Aut(S^n)/Inn(S^n).
+>        socle:= Socle( aut );
+>        epi:= NaturalHomomorphismByNormalSubgroup( aut, socle );
+>        # Compute the candidates for G.  (By the above computations,
+>        # we need not consider simple groups.)
+>        reps:= List( ConjugacyClassesSubgroups( Image( epi ) ),
+>                     Representative );
+>        reps:= Filtered( reps, x -> IsCyclic( x ) and Size( x ) <> 1 );
+>        greps:= Filtered( List( reps, x -> PreImages( epi, x ) ),
+>                      x -> Length( MinimalNormalSubgroups( x ) ) = 1 );
+>        for g in greps do
+>          # We have to deal with a *transitive* permutation group.
+>          # (Each group in question acts faithfully on an orbit.)
+>          if not IsTransitive( g ) then
+>            g:= First( List( Orbits( g, MovedPoints( g ) ),
+>                             x -> Action( g, x ) ),
+>                       x -> Size( x ) = Size( g ) );
+>          fi;
+>          # Check this group G.
+>          info:= HamiltonianCycleInfoFromGroup( g );
+>          Print( Name( simple ), "^", n, ".", Size( g ) / Size( soc ),
+>                 ": ", info, "\n" );
+>        od;
+>      od;
+>    od;
+A5^1.2: Posa for 2nd closure
+A5^2.2: Posa for 0th closure
+A5^2.4: Posa for 0th closure
+A5^3.3: Posa for 0th closure
+A5^3.6: Chvatal for 1st closure, Posa for 2nd closure
+PSL(2,7)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,7)^2.2: Posa for 0th closure
+PSL(2,7)^2.4: Posa for 0th closure
+A6^1.2: Chvatal for 0th closure, Posa for 1st closure
+A6^1.2: Chvatal for 4th closure, Posa for 5th closure
+A6^1.2: Chvatal for 0th closure, Posa for 1st closure
+A6^2.2: Posa for 0th closure
+A6^2.4: Posa for 0th closure
+A6^2.4: Posa for 0th closure
+A6^2.4: Posa for 0th closure
+PSL(2,8)^1.3: Posa for 0th closure
+PSL(2,8)^2.2: Posa for 0th closure
+PSL(2,8)^2.6: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,11)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,11)^2.2: Posa for 0th closure
+PSL(2,11)^2.4: Posa for 0th closure
+PSL(2,13)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,17)^1.2: Chvatal for 0th closure, Posa for 1st closure
+A7^1.2: Posa for 1st closure
+PSL(2,19)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,16)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,16)^1.4: Chvatal for 0th closure, Posa for 1st closure
+PSL(3,3)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSU(3,3)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,23)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,25)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,25)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,25)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,27)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,27)^1.3: Posa for 0th closure
+PSL(2,27)^1.6: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,29)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,31)^1.2: Chvatal for 0th closure, Posa for 1st closure
+A8^1.2: Chvatal for 2nd closure, Posa for 3rd closure
+PSL(3,4)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(3,4)^1.2: Chvatal for 1st closure, Posa for 2nd closure
+PSL(3,4)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(3,4)^1.3: Posa for 0th closure
+PSL(3,4)^1.6: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,37)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSp(4,3)^1.2: Chvatal for 1st closure, Posa for 2nd closure
+Sz(8)^1.3: Posa for 0th closure
+PSL(2,32)^1.5: Posa for 0th closure
+PSL(2,41)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,43)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,47)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,49)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,49)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,49)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSU(3,4)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSU(3,4)^1.4: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,53)^1.2: Chvatal for 0th closure, Posa for 1st closure
+M12^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,59)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,61)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSU(3,5)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSU(3,5)^1.3: Posa for 0th closure
+PSL(2,67)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,71)^1.2: Chvatal for 0th closure, Posa for 1st closure
+A9^1.2: Chvatal for 2nd closure, Posa for 3rd closure
+PSL(2,73)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,79)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,64)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,64)^1.3: Posa for 0th closure
+PSL(2,64)^1.6: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,81)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,81)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,81)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,81)^1.4: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,81)^1.4: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,83)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,89)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(3,5)^1.2: Chvatal for 0th closure, Posa for 1st closure
+M22^1.2: Posa for 1st closure
+PSL(2,97)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,101)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,103)^1.2: Chvatal for 0th closure, Posa for 1st closure
+J_2^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,107)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,109)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,113)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,121)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,121)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,121)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,125)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSL(2,125)^1.3: Posa for 0th closure
+PSL(2,125)^1.6: Chvatal for 0th closure, Posa for 1st closure
+PSp(4,4)^1.2: Chvatal for 0th closure, Posa for 1st closure
+PSp(4,4)^1.4: Posa for 0th closure
+]]></Example>
+
+<!--
+If we would have used <C>StructureDescription</C> for showing the groups,
+these calls would have been as expensive as the calls of
+<C>HamiltonianCycleInfoFromGroup</C>.
+
+As an alternative to dealing with automorphism groups,
+we could enter an explicit list of almost simple groups.
+Note that we might make errors when typing the input ...
+
+gap> grps:= [
+>     AtlasGroup( "A5.2", IsPermGroup, true ),
+>     AtlasGroup( "L3(2).2", IsPermGroup, true ),
+>     AtlasGroup( "A6.2_1", IsPermGroup, true ),
+>     AtlasGroup( "A6.2_2", IsPermGroup, true ),
+>     AtlasGroup( "A6.2_3", IsPermGroup, true ),
+>     AtlasGroup( "L2(8).3", IsPermGroup, true ),
+>     AtlasGroup( "L2(11).2", IsPermGroup, true ),
+>     AtlasGroup( "L2(13).2", IsPermGroup, true ),
+>     AtlasGroup( "L2(17).2", IsPermGroup, true ),
+>     AtlasGroup( "A7.2", IsPermGroup, true ),
+>     AtlasGroup( "L2(19).2", IsPermGroup, true ),
+>     PrimitiveGroup( 17, 7 ), # L2(16).2
+>     PrimitiveGroup( 17, 8 ), # L2(16).4
+>     AtlasGroup( "L3(3).2", IsPermGroup, true ),
+>     AtlasGroup( "U3(3).2", IsPermGroup, true ),
+>     PrimitiveGroup( 24, 3 ), # L2(23).2
+>     PrimitiveGroup( 26, 2 ), # L2(25).2_1
+>     PrimitiveGroup( 26, 3 ), # L2(25).2_2
+>     PrimitiveGroup( 26, 4 ), # L2(25).2_3
+>     PrimitiveGroup( 28, 10 ), # L2(27).2
+>     PrimitiveGroup( 28, 11 ), # L2(27).3
+>     PrimitiveGroup( 28, 12 ), # L2(27).6
+>     PGL(2,29), # L2(29).2
+>     PrimitiveGroup( 32, 5 ), # L2(31).2
+>     AtlasGroup( "A8.2", IsPermGroup, true ),
+>     PrimitiveGroup( 56, 3 ), # L3(4).2_1
+>     PrimitiveGroup( 56, 4 ), # L3(4).2_2
+>     PrimitiveGroup( 56, 2 ), # L3(4).2_3
+>     PrimitiveGroup( 21, 6 ), # L3(4).3
+>     PrimitiveGroup( 105, 5 ), # L3(4).6
+>     PGL(2,37), # L2(37).2
+>     AtlasGroup( "U4(2).2", IsPermGroup, true ),
+>     AtlasGroup( "Sz(8).3", IsPermGroup, true ),
+>     AtlasGroup( "L2(32).5", IsPermGroup, true ),
+>     PGL(2,41), # L2(41).2
+>     PGL(2,43), # L2(43).2
+>     PGL(2,47), # L2(47).2
+>     PrimitiveGroup( 50, 4 ), # L2(49).2_1
+>     PrimitiveGroup( 50, 5 ), # L2(49).2_2
+>     PrimitiveGroup( 50, 6 ), # L2(49).2_3
+>     AtlasGroup( "U3(4).2", IsPermGroup, true ),
+>     AtlasGroup( "U3(4).4", IsPermGroup, true ),
+>     PGL(2,53), # L2(53).2
+>     AtlasGroup( "M12.2", IsPermGroup, true ),
+>     PGL(2,59), # L2(59).2
+>     PGL(2,61), # L2(61).2
+>     AtlasGroup( "U3(5).2", IsPermGroup, true ),
+>     PrimitiveGroup( 126, 5 ), # U3(5).3
+>     PGL(2,67), # L2(67).2
+>     PGL(2,71), # L2(71).2
+>     AtlasGroup( "A9.2", IsPermGroup, true ),
+>     PGL(2,73), # L2(73).2
+>     PGL(2,79), # L2(79).2
+>     PrimitiveGroup( 65,  9 ), # L2(64).2
+>     PrimitiveGroup( 65, 10 ), # L2(64).3
+>     PrimitiveGroup( 65, 11 ), # L2(64).6
+>     PrimitiveGroup( 82,  2 ), # L2(81).2_1
+>     PrimitiveGroup( 82,  3 ), # L2(81).2_2
+>     PrimitiveGroup( 82,  4 ), # L2(81).2_3
+>     PrimitiveGroup( 82,  6 ), # L2(81).4_1
+>     PrimitiveGroup( 82,  7 ), # L2(81).4_2
+>     PGL(2,83), # L2(83).2
+>     PGL(2,89), # L2(89).2
+>     AtlasGroup( "L3(5).2", IsPermGroup, true ),
+>     AtlasGroup( "M22.2", IsPermGroup, true ),
+>     PGL(2,97), # L2(97).2
+>     PGL(2,101), # L2(101).2
+>     PGL(2,103), # L2(103).2
+>     AtlasGroup( "J2.2", IsPermGroup, true ),
+>     PGL(2,107), # L2(107).2
+>     PGL(2,109), # L2(109).2
+>     PGL(2,113), # L2(113).2
+>     PrimitiveGroup( 122,  2 ), # L2(121).2_1
+>     PrimitiveGroup( 122,  3 ), # L2(121).2_2
+>     PrimitiveGroup( 122,  4 ), # L2(121).2_3
+>     PrimitiveGroup( 126, 15 ), # L2(125).2
+>     PrimitiveGroup( 126, 16 ), # L2(125).3
+>     PrimitiveGroup( 126, 17 ), # L2(125).6
+>     PrimitiveGroup( 85, 2 ), # S4(4).2
+>     AtlasGroup( "S4(4).4", IsPermGroup, true ),
+> ];;
+gap> for g in grps do
+>      info:= HamiltonianCycleInfoFromGroup( g );
+>      Print( StructureDescription( g ), ": ", info, "\n" );
+>    od;
+-->
+
+</Subsection>
+</Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="psl2q">
+<Heading>The Groups <M>&PSL;(2,q)</M></Heading>
+
+We show that the generating graph of any group <M>&PSL;(2,q)</M>,
+for <M>q \geq 2</M>, satisfies Pósa's criterion.
+Throughout this section,
+let <M>q = p^f</M> for a prime integer <M>p</M>, and <M>G = &PSL;(2,q)</M>.
+Set <M>k = \gcd(q-1, 2)</M>.
+
+<P/>
+
+<E>Lemma 1:</E> (see&nbsp;<Cite Where="II., § 8" Key="Hup67"/>)
+The subgroups of <M>G</M> are
+<List>
+<Mark>(1)</Mark>
+<Item>
+    cyclic groups of order dividing <M>(q \pm 1)/k</M>,
+    and their normalizers,
+    which are dihedral groups of order <M>2 (q \pm 1)/k</M>,
+</Item>
+<Mark>(2)</Mark>
+<Item>
+    subgroups of Sylow <M>p</M> normalizers, which are semidirect products of
+    elementary abelian groups of order <M>q</M> with cyclic groups of order
+    <M>(q-1)/k</M>,
+</Item>
+<Mark>(3)</Mark>
+<Item>
+    subgroups isomorphic with <M>&PSL;(2, p^m)</M> if <M>m</M> divides <M>f</M>,
+    and isomorphic with <M>&PGL;(2, p^m)</M> if <M>2 m</M> divides <M>f</M>,
+</Item>
+<Mark>(4)</Mark>
+<Item>
+    subgroups isomorphic with <M>A_4</M>, <M>S_4</M>, or <M>A_5</M>,
+    for appropriate values of <M>q</M>.
+</Item>
+</List>
+
+<P/>
+
+<M>G</M> contains exactly one conjugacy class of cyclic subgroups of each of
+the orders <M>(q-1)/k</M> and <M>(q+1)/k</M>,
+and each nonidentity element of <M>G</M> is contained in exactly one of these
+subgroups or in exactly one Sylow <M>p</M> subgroup of <M>G</M>.
+<!-- end of lemma -->
+
+<P/>
+
+We estimate the number of elements that are contained in subgroups
+of type&nbsp;(3).
+
+<P/>
+
+<E>Lemma 2:</E>
+Let <M>n_{sf}(q)</M> denote the number of those nonidentity elements in
+<M>G</M> that are contained in proper subgroups of type&nbsp;(3).
+Then <M>n_{sf}(q) \leq q^2 (2 p (\sqrt{q}-1) / (p-1) - 1)</M>.
+If <M>f</M> is a prime then <M>n_{sf}(q) \leq (2p-1) q^2</M> holds,
+and if <M>p = q</M> then we have of course <M>n_{sf}(q) = 0</M>.
+<!-- end of lemma -->
+
+<P/>
+
+<E>Proof:</E>
+The group <M>&PGL;(2, p^m)</M> is equal to <M>&PSL;(2, p^m)</M> for
+<M>p = 2</M>, and contains <M>&PSL;(2, p^m)</M> as a subgroup of index two
+if <M>p \ne 2</M>.
+So the largest element order in <M>&PGL;(2, p^m)</M> is at most <M>p^m+1</M>.
+Let <M>C</M> be a cyclic subgroup of order <M>(q + \epsilon)/k</M> in <M>G</M>,
+for <M>\epsilon \in \{ \pm 1 \}</M>.
+The intersection of <M>C</M> with any subgroup of <M>G</M> isomorphic with
+<M>&PGL;(2, p^m)</M> or <M>&PSL;(2, p^m)</M>
+is contained in the union of the unique subgroups of the orders
+<M>\gcd(|C|, p^m + 1)</M> and <M>\gcd(|C|, p^m - 1)</M> in <M>C</M>.
+So <M>C</M> contains at most <M>2 p^m - 2</M> nonidentity elements
+that can lie inside subgroups isomorphic with <M>&PGL;(2, p^m)</M> or
+<M>&PSL;(2, p^m)</M>.
+Hence <M>C</M> contains at most <M>\sum_m (2 p^m - 2)</M> nonidentity elements
+in proper subgroups of type&nbsp;(3),
+where <M>m</M> runs over the proper divisors of <M>f</M>.
+This sum is bounded from above by
+<M>\sum_{{m=1}}^{{f/2}} (2 p^m - 2) \leq 2 p (\sqrt{{q}}-1) / (p-1) - 2</M>.
+
+<P/>
+
+The numbers of cyclic subgroups of the orders <M>(q + \epsilon)/k</M> in
+<M>G</M> are <M>q (q - \epsilon) / 2</M>,
+so <M>G</M> contains altogether <M>q^2</M> such cyclic subgroups.
+They contain at most <M>q^2 (2 p (\sqrt{{q}}-1) / (p-1) - 2)</M>
+elements inside proper subgroups of the type (3).
+
+<P/>
+
+All elements of order <M>p</M> in <M>G</M> are contained in subgroups of
+type&nbsp;(3), and there are exactly <M>q^2 - 1</M> such elements.
+This yields the claimed bound for <M>n_{sf}(q)</M>.
+The better bound for the case that <M>f</M> is a prime follows from
+<M>\sum_m (2 p^m - 2) = 2 p - 2</M> if <M>m</M> ranges over the proper
+divisors of <M>f</M>.
+&endproof;
+<!-- end of proof -->
+
+<P/>
+
+Using these bounds, we see that the vertex degree of any element in <M>G</M>
+that does not lie in subgroups of type&nbsp;(4) is larger than <M>|G|/2</M>.
+(In fact we could use the calculations below to derive a better
+asymptotic bound, but this is not an issue here.)
+
+<P/>
+
+<E>Lemma 3:</E>
+Let <M>s \in G</M> be an element of order larger than <M>5</M>.
+Then <M>|\{ g \in G; \langle g, s \rangle = G \}| > |G|/2</M>.
+<!-- end of lemma -->
+
+<P/>
+
+<E>Proof:</E>
+First suppose that the order of <M>s</M> divides <M>(q+1)/k</M> or
+<M>(q-1)/k</M>.
+If <M>g \in G</M> such that <M>U = \langle s, g \rangle</M>
+is a proper subgroup of <M>G</M> then <M>U \leq N_G(\langle s \rangle)</M> or
+<M>U</M> lies in a Sylow <M>p</M> normalizer of <M>G</M> or <M>U</M> lies
+in a subgroup of type&nbsp;(3).
+Since <M>s</M> is contained in at most two Sylow <M>p</M> normalizers
+(each Sylow <M>p</M> normalizer contains <M>q</M> cyclic subgroups of order
+<M>(q-1)/k</M>,
+and <M>G</M> contains <M>q+1</M> Sylow normalizers and <M>q (q+1)/2</M>
+cyclic subgroups of order <M>(q-1)/k</M>),
+the number of <M>g \in G</M> with the property that
+<M>\langle s, g \rangle &noteq; G</M> is at most
+<M>N = 2(q+1)/k + 2 q(q-1)/k + n_{sf}(q) = 2(q^2+1)/k + n_{sf}(q)</M>;
+for <M>s</M> of order equal to <M>(q+1)/k</M> or <M>(q-1)/k</M>,
+we can set <M>N = 2(q^2+1)/k</M>.
+
+<P/>
+
+Any element <M>s</M> of order <M>p</M> (larger than <M>5</M>),
+lies only in a unique Sylow <M>p</M> normalizer and in subgroups
+of type&nbsp;(3), so the bound <M>N</M> holds also in this case.
+
+<P/>
+
+For <M>f = 1</M>, <M>N</M> is smaller than <M>|G|/2 = q (q^2-1) / (2 k)</M>
+if <M>q \geq 5</M>.
+(The statement of the lemma is trivially true for <M>q \leq 5</M>.)
+
+<P/>
+
+For primes <M>f</M>, <M>N</M> is smaller than <M>|G|/2</M>
+if <M>q^2 (q-8p) > q+4</M> holds, which is true for <M>p^f > 8p</M>.
+Only the following values of <M>p^f</M> with prime <M>f</M> do not satisfy
+this condition:
+<M>2^2</M> and <M>3^2</M> (where no element of order larger than <M>5</M>
+exists),
+<M>2^3</M> (where only elements of order equal to <M>q \pm 1</M> must be
+considered),
+<M>5^2</M> and <M>7^2</M> (where <M>n_{sf}(q) &lt; (p-1) q (q+1)</M> because
+in these cases the cyclic subgroups of order <M>(q+1)/k</M> cannot contain
+nonidentity elements in subgroups of type&nbsp;(3)).
+
+<P/>
+
+Finally, if <M>f</M> is not a prime then <M>N</M> is smaller than <M>|G|/2</M>
+if <M>q^2 (q - 8p (\sqrt{{q}}-1) / (p-1)) &gt; q+4</M> holds,
+which is true for <M>q \geq 256</M>.
+The only values of <M>p^f</M> with non-prime <M>f</M> that do not satisfy
+this condition are <M>2^4</M>, <M>2^6</M>, and <M>3^4</M>.
+In all three cases, we have in fact <M>N &lt; |G|/2</M>,
+where we have to use the better bound <M>n_{sf}(q) &lt; 16 q^2</M>
+in the third case.
+&endproof;
+<!-- end of proof -->
+
+<P/>
+
+In order to show that the generating graph of <M>G</M> satisfies
+Pósa's criterion,
+it suffices to show that the vertex degrees of involutions is larger than
+the number of involutions, and that the vertex degrees of elements of orders
+<M>2</M>, <M>3</M>, <M>4</M>, and <M>5</M> are larger than the number of
+elements whose order is at most <M>5</M>.
+
+<P/>
+
+<E>Lemma 4:</E>
+Let <M>n(q, m)</M> denote the number of elements of order <M>m</M> in <M>G</M>,
+and let <M>\varphi(m)</M> denote the number of prime residues modulo <M>m</M>.
+<List>
+<Item>
+    We have <M>n(q, 2) = q^2 - 1</M> if <M>q</M> is even
+    and <M>n(q, 2) \leq q (q+1)/2</M> if <M>q</M> is odd.
+</Item>
+<Item>
+    For <M>m \in \{ 3, 4, 5 \}</M>,
+    we have <M>n(q, m) \leq \varphi(m) q (q+1)/2</M>.
+</Item>
+<Item>
+    We have <M>n(q, (q+1)/k) = \varphi((q+1)/k) q (q-1)/2</M>.
+</Item>
+</List>
+<!-- end of lemma -->
+
+<!-- Proof? -->
+
+<P/>
+
+<E>Lemma 5:</E>
+If <M>q > 11</M>
+then each involution in <M>G</M> has vertex degree larger than <M>n(q, 2)</M>.
+
+<P/>
+
+If <M>\varphi((q+1)/k) \geq 12</M> then each element of order <M>3</M>,
+<M>4</M>, or <M>5</M> has vertex degree larger than
+<M>\sum_{{m=2}}^5 n(q, m)</M>.
+<!-- end of lemma -->
+
+<P/>
+
+<E>Proof:</E>
+Let <M>s \in G</M> of order at most <M>5</M>.
+For each element <M>g \in G</M> of order <M>(q+1)/k</M>,
+<M>U = \langle g, s \rangle</M> is either <M>G</M> or contained in the
+dihedral group of order <M>2(q+1)/k</M> that normalizes
+<M>\langle g \rangle</M>.
+
+<P/>
+
+If <M>s</M> is an involution then the number of such dihedral groups
+that contain <M>s</M> is at most <M>(q+3)/2</M>,
+<!-- % concrete: the number is x, where
+     % x = q/2 if 2|q,
+     % x = (q-1)/2 if 4|(q-1),
+     % x = (q+3)/2 if 4|(q+1). -->
+and at least
+<M>n(q, (q+1)/k) - \varphi((q+1)/k) (q+3)/2 = \varphi((q+1)/k) (q^2-2q-3)/2</M>
+elements of order <M>(q+1)/k</M> contribute to the vertex degree of <M>s</M>.
+This number is larger than <M>q^2 - 1 \geq n(q, 2)</M>
+if <M>q > 11</M> (and hence <M>\varphi((q+1)/k) \geq 3</M>) holds.
+
+<P/>
+
+If <M>s</M> is an element of order <M>3</M>, <M>4</M>, or <M>5</M>
+then <M>U &noteq; G</M> means that <M>s \in \langle g \rangle</M>,
+so at least
+<M>n(q, (q+1)/k) - 4</M> elements of order <M>(q+1)/k</M>
+contribute to the vertex degree of <M>s</M>.
+This number is larger than <M>5 q (q+1) > \sum_{{m=2}}^5 n(q, m)</M>
+if <M>\varphi((q+1)/k) \geq 12</M>.
+&endproof;
+<!-- end of proof -->
+
+<P/>
+
+It remains to deal with the values <M>q</M> where
+<M>\varphi((q+1)/k) &lt; 12</M>, that is, <M>(q+1)/k \leq 30</M>.
+We compute that the statement of Lemma&nbsp;5 is true also for
+prime powers <M>q</M> with <M>11 &lt; q \leq 59</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> TestL2q:= function( t )
+>    local name, orders, nccl, cl, prim, bds, n, ord;
+> 
+>    name:= Identifier( t );
+>    orders:= OrdersClassRepresentatives( t );
+>    nccl:= Length( orders );
+>    cl:= SizesConjugacyClasses( t );
+>    prim:= PrimitivePermutationCharacters( t );
+>    bds:= List( LowerBoundsVertexDegrees( cl, prim ), Sum );
+>    n:= List( [ 1 .. 5 ], i -> Sum( cl{ Filtered( [ 1 .. nccl ],
+>                                        x -> orders[x] = i ) } ) );
+>    if ForAny( Filtered( [ 1 .. nccl ], i -> orders[i] > 5 ),
+>               i -> bds[i-1] <= Size( t ) / 2 ) then
+>      Error( "problem with large orders for ", name );
+>    elif ForAny( Filtered( [ 1 .. nccl ], i -> orders[i] = 2 ),
+>                 i -> bds[i-1] <= n[2] ) then
+>      Error( "problem with order 2 for ", name, "\n" );
+>    elif ForAny( Filtered( [ 1 .. nccl ],
+>                           i -> orders[i] in [ 3 .. 5 ] ),
+>                 i -> bds[i-1] <= Sum( n{ [ 2 .. 5 ] } ) ) then
+>      Error( "problem with order in [ 3 .. 5 ] for ", name );
+>    fi;
+> end;;
+gap> for q in Filtered( [ 13 .. 59 ], IsPrimePowerInt ) do
+>      TestL2q( CharacterTable(
+>                   Concatenation( "L2(", String( q ), ")" ) ) );
+>    od;
+]]></Example>
+
+<P/>
+
+For <M>2 \leq q \leq 11</M>, the statement of Lemma&nbsp;5 is not true
+but Pósa's criterion is satisfied for the generating graphs of the
+groups <M>&PSL;(2,q)</M> with <M>2 \leq q \leq 11</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> for q in Filtered( [ 2 .. 11 ], IsPrimePowerInt ) do
+>      info:= HamiltonianCycleInfoFromGroup( PSL( 2, q ) );
+>      if info <> "Posa for 0th closure" then
+>        Print( q, ": ", info, "\n" );
+>      fi;
+>    od;
+]]></Example>
+
+</Section>
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+

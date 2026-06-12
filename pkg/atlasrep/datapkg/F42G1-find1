@@ -1,0 +1,52 @@
+
+# Black box algorithm to find standard generators of F4(2):
+# Standard generators of F4(2) are a, b where a is in class 2C,
+# b is in class 3C,
+# ab is in class 17
+# and ababababbababbabb is in class 13. 
+# 
+# - find an element a of order 20, then the 10th power is in 2C
+# - find an element b of order 18, then the 6th power is in 3C
+# - conjugate b s. t. ab has order 17 and ababababbababbabb has order 13
+# 
+
+        set V 0
+lbl SEMISTD
+        rand 1
+        ord 1 A
+        incr V
+        if V gt 1000 then timeout
+        if A notin 1 2 3 4 5 6 7 8 9 10 12 13 14 15 16 17 18 20 21 24 28 30 then fail
+        if A noteq 20 then jmp SEMISTD
+
+lbl SEMISTD2
+        rand 2
+        ord 2 B
+        incr V
+        if V gt 1000 then timeout
+        if B notin 1 2 3 4 5 6 7 8 9 10 12 13 14 15 16 17 18 20 21 24 28 30 then fail
+        if B noteq 18 then jmp SEMISTD2
+
+        pwr 10 1 3
+        pwr 6 2 4
+
+        set X 0
+lbl CONJUGATE
+        incr X
+        if X gt 1000 then timeout
+        rand 5
+        cjr 4 5
+        mu 3 4 6
+        ord 6 D
+        if D noteq 17 then jmp CONJUGATE
+        mu 6 4 7
+        mu 6 7 8
+        mu 8 8 9
+        mu 9 7 10
+        mu 6 10 11
+        mu 6 11 12
+        ord 12 E
+        if E noteq 13 then jmp CONJUGATE
+
+        oup 2 3 4
+

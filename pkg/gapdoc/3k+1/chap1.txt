@@ -1,0 +1,37 @@
+  
+  [1X1 [33X[0;0YThe [22X3k+1[122X[101X[1X Problem[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YTheory[133X[101X
+  
+  [33X[0;0YLet [22Xk ∈ ℕ[122X be a natural number. We consider the sequence [22Xn(i, k), i ∈ ℕ,[122X with
+  [22Xn(1,  k)  = k[122X and else [22Xn(i+1, k) = n(i, k) / 2[122X if [22Xn(i, k)[122X is even and [22Xn(i+1,
+  k) = 3 n(i, k) + 1[122X if [22Xn(i, k)[122X is odd.[133X
+  
+  [33X[0;0YIt  is not known whether for any natural number [22Xk ∈ ℕ[122X there is an [22Xm ∈ ℕ[122X with
+  [22Xn(m, k) = 1[122X.[133X
+  
+  [33X[0;0Y[5XThreeKPlusOne[105X provides the function [2XThreeKPlusOneSequence[102X ([14X1.2-1[114X) to explore
+  this  for  given [22Xn[122X. If you really want to know something about this problem,
+  see             [Wir98]             or             this             homepage
+  ([7Xhttps://www.ku.de/mgf/mathematik/statistik/personen-des-lehrstuhls/prof-dr-guenther-wirsching[107X)
+  for more details (and forget this package).[133X
+  
+  
+  [1X1.2 [33X[0;0YProgram[133X[101X
+  
+  [33X[0;0YIn this section we describe the main function of this package.[133X
+  
+  [1X1.2-1 ThreeKPlusOneSequence[101X
+  
+  [33X[1;0Y[29X[2XThreeKPlusOneSequence[102X( [3Xk[103X[, [3Xmax[103X] ) [32X function[133X
+  
+  [33X[0;0YThis  function computes for a natural number [3Xk[103X the beginning of the sequence
+  [22Xn(i,  k)[122X  defined  in  section  [14X1.1[114X. The sequence stops at the first [22X1[122X or at
+  [22Xn([3Xmax[103X, k)[122X, if [3Xmax[103X is given.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XThreeKPlusOneSequence(101);[127X[104X
+    [4X[28X"Sorry, not yet implemented. Wait for Version 84 of the package"[128X[104X
+  [4X[32X[104X
+  

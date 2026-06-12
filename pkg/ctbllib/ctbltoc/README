@@ -1,0 +1,32 @@
+Create HTML files for tables in the GAP Character Table library,
+and HTML overviews of these files,
+in subdirectories of the 'ctbltoc' directory.
+
+Load the feature into a GAP session (start GAP with the '-A' option) via
+
+    ReadPackage( "ctbllib", "ctbltoc/init.g" );
+
+If the data directories do not yet exist then create them.
+
+    dir:= DirectoriesPackageLibrary( "ctbllib", "ctbltoc" )[1];
+    CreateDir( Filename( dir, "data" ) );
+    CreateDir( Filename( dir, "views" ) );
+
+For updating the local copy of the table of contents,
+start GAP 4, read 'init.g', and call
+
+    for nam in HTMLViewsGlobals.documents do
+      HTMLCreateGroupInfoFile( nam );
+    od;
+    for name in RecNames( HTMLCreateView ) do
+      HTMLCreateView.( name )();
+    od;
+
+Then copy the files in question to the appropriate directory
+in the home directory of the package.
+For that, cd to the 'ctbltoc' directory, call
+
+    tar cvzf ctbltoc.tgz ctbltoc.css index.html data views
+
+and unpack the archive in the right place.
+

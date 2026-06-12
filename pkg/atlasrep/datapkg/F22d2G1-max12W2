@@ -1,0 +1,15 @@
+mu 1 2 3
+mu 3 2 4
+mu 4 3 5
+mu 4 5 6
+mu 2 2 5
+mu 4 5 3
+pwr 3 6 7
+mu 3 5 2
+mu 4 3 5
+mu 2 5 3
+iv 3 2
+mu 2 7 5
+mu 5 3 2
+mu 4 6 3
+pwr 15 3 1

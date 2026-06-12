@@ -1,0 +1,455 @@
+  
+  [1XB [33X[0;0YThe File [11Xgapdoc.dtd[111X[101X[1X[133X[101X
+  
+  [33X[0;0YFor  easier  reference  we  repeat  here  the  complete  content of the file
+  [11Xgapdoc.dtd[111X.[133X
+  
+  [4X[32X  gapdoc.dtd  [32X[104X
+    [4X<?xml version="1.0" encoding="UTF-8"?>[104X
+    [4X<!-- ==================================================================[104X
+    [4X     gapdoc.dtd - XML Document type definition for GAP documentation[104X
+    [4X     By Frank Lübeck and Max Neunhöffer[104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- Note that this definition goes "bottom-up" because entities can only[104X
+    [4X     be used after their definition in the file. -->[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- ==================================================================[104X
+    [4X     Some entities:[104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X<!-- The standard XML entities: -->[104X
+    [4X[104X
+    [4X<!ENTITY lt     "&#38;#60;"> [104X
+    [4X<!ENTITY gt     "&#62;"> [104X
+    [4X<!ENTITY amp    "&#38;#38;"> [104X
+    [4X<!ENTITY apos   "&#39;"> [104X
+    [4X<!ENTITY quot   "&#34;">[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- The following were introduced in GAPDoc version < 1.0, it is no longer[104X
+    [4X     necessary to take care of LaTeX special characters[104X
+    [4X     (we keep the entities with simplified definitions for compatibility) -->[104X
+    [4X     [104X
+    [4X<!ENTITY tamp "&amp;">[104X
+    [4X<!ENTITY tlt "&lt;">[104X
+    [4X<!ENTITY tgt "&gt;">[104X
+    [4X<!ENTITY hash "#">[104X
+    [4X<!ENTITY dollar "$">[104X
+    [4X<!ENTITY percent "&#37;">[104X
+    [4X<!ENTITY tilde "~">[104X
+    [4X<!ENTITY bslash "\\">[104X
+    [4X<!ENTITY obrace "{">[104X
+    [4X<!ENTITY cbrace "}">[104X
+    [4X<!ENTITY uscore "_">[104X
+    [4X<!ENTITY circum "^">[104X
+    [4X[104X
+    [4X<!-- ==================================================================[104X
+    [4X     Our predefined entities:[104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X<!ENTITY nbsp "&#160;">[104X
+    [4X<!ENTITY ndash "&#x2013;">[104X
+    [4X<!ENTITY GAP    "<Package>GAP</Package>">[104X
+    [4X<!ENTITY GAPDoc "<Package>GAPDoc</Package>">[104X
+    [4X<!ENTITY TeX    [104X
+    [4X  "<Alt Only='LaTeX'>{\TeX}</Alt><Alt Not='LaTeX'>TeX</Alt>">[104X
+    [4X<!ENTITY LaTeX  [104X
+    [4X  "<Alt Only='LaTeX'>{\LaTeX}</Alt><Alt Not='LaTeX'>LaTeX</Alt>">[104X
+    [4X<!ENTITY BibTeX [104X
+    [4X  "<Alt Only='LaTeX'>{Bib\TeX}</Alt><Alt Not='LaTeX'>BibTeX</Alt>">[104X
+    [4X<!ENTITY MeatAxe "<Package>MeatAxe</Package>">[104X
+    [4X<!ENTITY XGAP   "<Package>XGAP</Package>">[104X
+    [4X<!ENTITY copyright "&#169;">[104X
+    [4X[104X
+    [4X<!-- and unicode math symbols -->[104X
+    [4X<!ENTITY CC "&#x2102;" > <!-- double struck -->[104X
+    [4X<!ENTITY ZZ "&#x2124;" >[104X
+    [4X<!ENTITY NN "&#x2115;" >[104X
+    [4X<!ENTITY PP "&#x2119;" >[104X
+    [4X<!ENTITY QQ "&#x211a;" >[104X
+    [4X<!ENTITY HH "&#x210d;" >[104X
+    [4X<!ENTITY RR "&#x211d;" >[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- ==================================================================[104X
+    [4X     The following describes the "innermost" documentation text which [104X
+    [4X     can occur at various places in the document like for example[104X
+    [4X     section headings. It does neither contain further sectioning [104X
+    [4X     elements nor environments like Enums or Lists. [104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X<!ENTITY % InnerText "#PCDATA |[104X
+    [4X                      Alt |[104X
+    [4X                      Emph | E |[104X
+    [4X                      Par | P | Br |[104X
+    [4X                      Keyword | K | Arg | A | Quoted | Q | Code | C | [104X
+    [4X                      File | F | Button | B | Package |[104X
+    [4X                      M | Math | Display | [104X
+    [4X                      Example | Listing | Log | Verb |[104X
+    [4X                      URL | Email | Homepage | Address | Cite | Label | [104X
+    [4X                      Ref | Index |[104X
+    [4X                      Ignore" >[104X
+    [4X[104X
+    [4X[104X
+    [4X<!ELEMENT Alt (%InnerText;)*>     <!-- This is only to allow "Only" and[104X
+    [4X                                       "Not" attributes for normal text -->[104X
+    [4X<!ATTLIST Alt Only CDATA #IMPLIED[104X
+    [4X              Not  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!-- The following elements declare a certain block of InnerText to[104X
+    [4X     have a certain property. They are non-terminal and can contain[104X
+    [4X     any InnerText recursively. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Emph (%InnerText;)*>    <!-- Emphasize something -->[104X
+    [4X<!ELEMENT E    (%InnerText;)*>    <!-- the same as shortcut -->[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- The following is an empty element marking a paragraph boundary. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Par EMPTY>    <!-- this is intentionally empty! -->[104X
+    [4X<!ELEMENT P EMPTY>      <!-- the same as shortcut  -->[104X
+    [4X[104X
+    [4X<!-- And here is an element for forcing a line break, not starting[104X
+    [4X     a new paragraph. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Br EMPTY>     <!-- a forced line break  -->[104X
+    [4X[104X
+    [4X<!-- The following elements mark a word or sentence to be of a certain[104X
+    [4X     kind, such that it can  be typeset differently. They are terminal[104X
+    [4X     elements that should only contain  character data. But we have to[104X
+    [4X     allow  Alt elements  for handling  special characters.  For these[104X
+    [4X     elements we introduce  a long name - which is  easy to remember -[104X
+    [4X     and a  short name - which  you may prefer because  of the shorter[104X
+    [4X     markup. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Keyword (#PCDATA|Alt)*>  <!-- Keyword -->[104X
+    [4X<!ELEMENT K (#PCDATA|Alt)*>        <!-- Keyword (shortcut) -->[104X
+    [4X[104X
+    [4X<!ELEMENT Arg (#PCDATA|Alt)*>      <!-- Argument -->[104X
+    [4X<!ELEMENT A (#PCDATA|Alt)*>        <!-- Argument (shortcut) -->[104X
+    [4X[104X
+    [4X<!ELEMENT Code (#PCDATA|Alt|A|Arg)*> <!-- GAP code -->[104X
+    [4X<!ELEMENT C (#PCDATA|Alt|A|Arg)*>    <!-- GAP code (shortcut) -->[104X
+    [4X[104X
+    [4X<!ELEMENT File (#PCDATA|Alt)*>     <!-- Filename -->[104X
+    [4X<!ELEMENT F (#PCDATA|Alt)*>        <!-- Filename (shortcut) -->[104X
+    [4X[104X
+    [4X<!ELEMENT Button (#PCDATA|Alt)*>   <!-- "Button" (also Menu, Key) -->[104X
+    [4X<!ELEMENT B (#PCDATA|Alt)*>        <!-- "Button" (shortcut) -->[104X
+    [4X[104X
+    [4X<!ELEMENT Package (#PCDATA|Alt)*>  <!-- A package name -->[104X
+    [4X[104X
+    [4X<!ELEMENT Quoted (%InnerText;)*>   <!-- Quoted (in quotes) text -->[104X
+    [4X<!ELEMENT Q (%InnerText;)*>        <!-- Quoted text (shortcut) -->[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- The following elements contain mathematical formulae. They are [104X
+    [4X     terminal elements that contain character data in TeX notation. -->[104X
+    [4X[104X
+    [4X<!-- Math with well defined translation to text output -->[104X
+    [4X<!ELEMENT M (#PCDATA|A|Arg|Alt)*>[104X
+    [4X<!-- Normal TeX math mode formula -->[104X
+    [4X<!ELEMENT Math (#PCDATA|A|Arg|Alt)*>   [104X
+    [4X<!-- TeX displayed math mode formula -->[104X
+    [4X<!ELEMENT Display (#PCDATA|A|Arg|Alt)*>[104X
+    [4X<!-- Mode="M" causes <M>-style formatting -->[104X
+    [4X<!ATTLIST Display Mode CDATA #IMPLIED>  [104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- The  following  elements  contain  GAP related  text  like  code,[104X
+    [4X     session  logs or  examples. They  are all  terminal elements  and[104X
+    [4X     consist of character data which is normally typeset verbatim. The[104X
+    [4X     different  types  of  the  elements only  control  how  they  are[104X
+    [4X     treated. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Example (#PCDATA)>  <!-- This is subject to the automatic [104X
+    [4X                                   example checking mechanism -->[104X
+    [4X<!ELEMENT Log (#PCDATA)>      <!-- This not -->[104X
+    [4X<!ELEMENT Listing (#PCDATA)>  <!-- This is just for code listings -->[104X
+    [4X<!ATTLIST Listing Type CDATA #IMPLIED> <!-- a comment about the type of[104X
+    [4X                                            listed code, may appear in[104X
+    [4X                                            output -->[104X
+    [4X[104X
+    [4X<!-- One  further  verbatim element,  this is truely  verbatim without[104X
+    [4X     any processing and intended  for ASCII substitutes of complicated[104X
+    [4X     displayed formulae or tables. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Verb  (#PCDATA)> [104X
+    [4X[104X
+    [4X<!-- The following  elements are  for cross-referencing  purposes like[104X
+    [4X     URLs, citations,  references, and  the index. All  these elements[104X
+    [4X     are  terminal and  need special  methods  to make  up the  actual[104X
+    [4X     output during document generation. -->[104X
+    [4X[104X
+    [4X<!ELEMENT URL (#PCDATA|Alt|Link|LinkText)*>  <!-- Link, LinkText[104X
+    [4X     variant for case where text needs further markup -->[104X
+    [4X<!ATTLIST URL Text CDATA #IMPLIED>   <!-- This is for output formats[104X
+    [4X                                          that have links like HTML -->[104X
+    [4X<!ELEMENT Link     (%InnerText;)*> <!-- the URL -->[104X
+    [4X<!ELEMENT LinkText (%InnerText;)*> <!-- text for links, can contain markup -->[104X
+    [4X<!-- The following two are actually URLs, but the element name determines[104X
+    [4X     the type. -->[104X
+    [4X<!ELEMENT Email (#PCDATA|Alt|Link|LinkText)*>[104X
+    [4X<!ELEMENT Homepage (#PCDATA|Alt|Link|LinkText)*>[104X
+    [4X[104X
+    [4X<!-- Those who still want to give postal addresses can use the following[104X
+    [4X     element. Use <Br/> for specifying typical line breaks  -->[104X
+    [4X[104X
+    [4X<!ELEMENT Address (#PCDATA|Alt|Br)*>[104X
+    [4X[104X
+    [4X<!ELEMENT Cite EMPTY>[104X
+    [4X<!ATTLIST Cite Key CDATA #REQUIRED[104X
+    [4X               Where CDATA #IMPLIED>[104X
+    [4X               [104X
+    [4X<!ELEMENT Label EMPTY>[104X
+    [4X<!ATTLIST Label Name CDATA #REQUIRED>[104X
+    [4X[104X
+    [4X<!ELEMENT Ref EMPTY>[104X
+    [4X<!ATTLIST Ref Func      CDATA #IMPLIED[104X
+    [4X              Oper      CDATA #IMPLIED[104X
+    [4X              Constr    CDATA #IMPLIED[104X
+    [4X              Meth      CDATA #IMPLIED[104X
+    [4X              Filt      CDATA #IMPLIED[104X
+    [4X              Prop      CDATA #IMPLIED[104X
+    [4X              Attr      CDATA #IMPLIED[104X
+    [4X              Var       CDATA #IMPLIED[104X
+    [4X              Fam       CDATA #IMPLIED[104X
+    [4X              InfoClass CDATA #IMPLIED[104X
+    [4X              Chap      CDATA #IMPLIED[104X
+    [4X              Sect      CDATA #IMPLIED[104X
+    [4X              Subsect   CDATA #IMPLIED[104X
+    [4X              Appendix  CDATA #IMPLIED[104X
+    [4X              Text      CDATA #IMPLIED[104X
+    [4X[104X
+    [4X              Label     CDATA #IMPLIED[104X
+    [4X              BookName  CDATA #IMPLIED[104X
+    [4X              Style (Text|Number) #IMPLIED>  <!-- normally automatic -->[104X
+    [4X[104X
+    [4X<!-- Note that  only one attribute  of Ref is used  normally. BookName[104X
+    [4X     and  Style  can  be  specified in  addition  to  handle  external[104X
+    [4X     references and the typesetting style of the reference. -->[104X
+    [4X[104X
+    [4X<!-- For explicit index entries (Func and so on should cause an[104X
+    [4X     automatically generated index entry). Use the attributes Key,[104X
+    [4X     Subkey for sorting (simplified, without markup). The Subkey value[104X
+    [4X     also gets printed. Use the optional Subkey element if the printed[104X
+    [4X     version needs some markup.                                        -->[104X
+    [4X<!ELEMENT Index (%InnerText;|Subkey)*>[104X
+    [4X<!ATTLIST Index Key    CDATA #IMPLIED[104X
+    [4X                Subkey CDATA #IMPLIED>[104X
+    [4X<!ELEMENT Subkey (%InnerText;)*>[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- ==================================================================[104X
+    [4X     The following  describes the normal documentation  text which can[104X
+    [4X     occur  at various  places in  the document.  It does  not contain[104X
+    [4X     further sectioning elements. In addition to InnerText it can contain [104X
+    [4X     environments like enumerations, lists, and such.[104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X<!ENTITY % Text "%InnerText; | List | Enum | Table">[104X
+    [4X[104X
+    [4X<!ELEMENT Item ( %Text;)*>[104X
+    [4X<!ELEMENT Mark ( %InnerText;)*>[104X
+    [4X[104X
+    [4X<!ELEMENT List ( ((Mark,Item)|Item)+ )>[104X
+    [4X<!ATTLIST List Only CDATA #IMPLIED[104X
+    [4X               Not  CDATA #IMPLIED>[104X
+    [4X<!ELEMENT Enum ( Item+ )>[104X
+    [4X<!ATTLIST Enum Only CDATA #IMPLIED[104X
+    [4X               Not  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT Table ( Caption?, (Row | HorLine)+ )>[104X
+    [4X<!ATTLIST Table Label   CDATA #IMPLIED[104X
+    [4X                Only    CDATA #IMPLIED[104X
+    [4X                Not     CDATA #IMPLIED[104X
+    [4X                Align   CDATA #REQUIRED>    <!-- A TeX tabular string -->[104X
+    [4X                <!-- We allow | and l,c,r, nothing else -->[104X
+    [4X<!ELEMENT Row   ( Item+ )>[104X
+    [4X<!ELEMENT HorLine EMPTY>[104X
+    [4X<!ELEMENT Caption ( %InnerText;)*>[104X
+    [4X[104X
+    [4X<!-- ==================================================================[104X
+    [4X     We start defining some things within the overall structure:[104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X<!-- The TitlePage consists of several sub-elements: -->[104X
+    [4X[104X
+    [4X<!ELEMENT TitlePage (Title, Subtitle?, Version?, TitleComment?, [104X
+    [4X                     Author+, Date?, Address?, Abstract?, Copyright?, [104X
+    [4X                     Acknowledgements? , Colophon? )>[104X
+    [4X[104X
+    [4X<!ELEMENT Title (%Text;)*>[104X
+    [4X<!ELEMENT Subtitle (%Text;)*>[104X
+    [4X<!ELEMENT Version (%Text;)*>[104X
+    [4X<!ELEMENT TitleComment (%Text;)*>[104X
+    [4X<!ELEMENT Author (%Text;)*>    <!-- There may be more than one Author! -->[104X
+    [4X<!ELEMENT Date (%Text;)*>[104X
+    [4X<!ELEMENT Abstract (%Text;)*>[104X
+    [4X<!ELEMENT Copyright (%Text;)*>[104X
+    [4X<!ELEMENT Acknowledgements (%Text;)*>  [104X
+    [4X<!ELEMENT Colophon (%Text;)*>[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- The following things just specify some information about the[104X
+    [4X     corresponding parts of the Book: -->[104X
+    [4X[104X
+    [4X<!ELEMENT TableOfContents EMPTY>[104X
+    [4X<!ELEMENT Bibliography EMPTY>[104X
+    [4X<!ATTLIST Bibliography Databases CDATA #REQUIRED[104X
+    [4X                       Style CDATA #IMPLIED>[104X
+    [4X<!ELEMENT TheIndex EMPTY>[104X
+    [4X[104X
+    [4X<!-- ==================================================================[104X
+    [4X     The Ignore element can be used everywhere to include further[104X
+    [4X     information in a GAPDoc document which is not intended for the [104X
+    [4X     standard converters (e.g., source code, not yet finished stuff,[104X
+    [4X     and so on. This information can be extracted by special converter [104X
+    [4X     routines, more precise information about the content of an Ignore[104X
+    [4X     element can be given by the "Remark" attribute.[104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X<!ELEMENT Ignore (%Text;| Chapter | Section | Subsection | ManSection |[104X
+    [4X                  Heading)*>[104X
+    [4X<!ATTLIST Ignore Remark CDATA #IMPLIED>[104X
+    [4X     [104X
+    [4X<!-- ==================================================================[104X
+    [4X     Now we go on with the overall structure by defining the sectioning [104X
+    [4X     structure, which includes the Synopsis element: [104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X[104X
+    [4X<!ELEMENT Subsection (%Text;| Heading)*>[104X
+    [4X<!ATTLIST Subsection Label CDATA #IMPLIED> <!-- For reference purposes -->[104X
+    [4X[104X
+    [4X<!ELEMENT ManSection ( Heading?, [104X
+    [4X                      ((Func, Returns?) | (Oper, Returns?) | [104X
+    [4X                       (Meth, Returns?) | (Filt, Returns?) | [104X
+    [4X                       (Prop, Returns?) | (Attr, Returns?) |[104X
+    [4X                       (Constr, Returns?) |[104X
+    [4X                       Var | Fam | InfoClass)+, Description )>[104X
+    [4X<!ATTLIST ManSection Label CDATA #IMPLIED> <!-- For reference purposes -->[104X
+    [4X[104X
+    [4X<!ELEMENT Returns (%Text;)*>[104X
+    [4X<!ELEMENT Description (%Text;)*>[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- Note that  the ManSection element  is actually a  subsection with[104X
+    [4X     respect  to labelling,  referencing, and  counting of  sectioning[104X
+    [4X     elements. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Func EMPTY>[104X
+    [4X<!ATTLIST Func Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!-- Note  that Arg  contains the  full list  of arguments,  including[104X
+    [4X     optional  parts,  which  are   denoted  by  square  brackets  [].[104X
+    [4X     Arguments   are  separated   by  whitespace,   commas  count   as[104X
+    [4X     whitespace. -->[104X
+    [4X[104X
+    [4X<!-- Note further that although Name and Label are  CDATA (and not ID)[104X
+    [4X     Label must make up a unique identifier. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Oper EMPTY>[104X
+    [4X<!ATTLIST Oper Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT Constr EMPTY>[104X
+    [4X<!ATTLIST Constr Name  CDATA #REQUIRED[104X
+    [4X                 Label CDATA #IMPLIED[104X
+    [4X                 Arg   CDATA #REQUIRED[104X
+    [4X                 Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT Meth EMPTY>[104X
+    [4X<!ATTLIST Meth Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT Filt EMPTY>[104X
+    [4X<!ATTLIST Filt Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #IMPLIED[104X
+    [4X               Comm  CDATA #IMPLIED[104X
+    [4X               Type  CDATA #IMPLIED>  [104X
+    [4X[104X
+    [4X<!ELEMENT Prop EMPTY>[104X
+    [4X<!ATTLIST Prop Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT Attr EMPTY>[104X
+    [4X<!ATTLIST Attr Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT Var  EMPTY>[104X
+    [4X<!ATTLIST Var  Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT Fam  EMPTY>[104X
+    [4X<!ATTLIST Fam  Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X<!ELEMENT InfoClass EMPTY>[104X
+    [4X<!ATTLIST InfoClass Name  CDATA #REQUIRED[104X
+    [4X                    Label CDATA #IMPLIED[104X
+    [4X                    Comm  CDATA #IMPLIED>[104X
+    [4X[104X
+    [4X[104X
+    [4X<!ELEMENT Heading (%InnerText;)*>[104X
+    [4X[104X
+    [4X<!ELEMENT Section (%Text;| Heading | Subsection | ManSection)*>[104X
+    [4X<!ATTLIST Section Label CDATA #IMPLIED>    <!-- For reference purposes -->[104X
+    [4X[104X
+    [4X[104X
+    [4X<!ELEMENT Chapter (%Text;| Heading | Section)*>[104X
+    [4X<!ATTLIST Chapter Label CDATA #IMPLIED>    <!-- For reference purposes -->[104X
+    [4X[104X
+    [4X[104X
+    [4X<!-- Note that  the entity %InnerText; is  documentation that contains[104X
+    [4X     neither sectioning  elements nor environments  like enumerations,[104X
+    [4X     but  only  formulae,  labels, references,  citations,  and  other[104X
+    [4X     terminal elements. -->[104X
+    [4X[104X
+    [4X<!ELEMENT Appendix (%Text;| Heading | Section)*>[104X
+    [4X<!ATTLIST Appendix Label CDATA #IMPLIED>   <!-- For reference purposes -->[104X
+    [4X[104X
+    [4X<!-- Note that  an Appendix  is exactly  the same  as a  Chapter. They[104X
+    [4X     differ only in the numbering. -->[104X
+    [4X[104X
+    [4X<!-- ==================================================================[104X
+    [4X     At last we define the overall structure of a gapdoc Book:[104X
+    [4X     ================================================================== -->[104X
+    [4X[104X
+    [4X<!ELEMENT Body  ( %Text;| Chapter | Section )*>[104X
+    [4X[104X
+    [4X<!ELEMENT Book (TitlePage,[104X
+    [4X                TableOfContents?,[104X
+    [4X                Body,[104X
+    [4X                Appendix*,[104X
+    [4X                Bibliography?,[104X
+    [4X                TheIndex?)>[104X
+    [4X<!ATTLIST Book Name CDATA #REQUIRED>[104X
+    [4X               [104X
+    [4X<!-- Note  that  the  entity  %Text; is  documentation  that  contains[104X
+    [4X     no  further sectioning  elements but  possibly environments  like[104X
+    [4X     enumerations,  and formulae,  labels, references,  and citations.[104X
+    [4X     -->[104X
+    [4X[104X
+    [4X<!-- ============================================================== -->[104X
+    [4X[104X
+    [4X[104X
+  [4X[32X[104X
+  

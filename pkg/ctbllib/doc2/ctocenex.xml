@@ -1,0 +1,1052 @@
+
+<!-- %W  ctocenex.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+<Chapter Label="chap:CCE">
+<Heading>Constructing Character Tables of Central Extensions in &GAP;</Heading>
+
+Date: February 19th, 2004
+
+<P/>
+
+This chapter has three aims.
+First it shows how the &GAP; system&nbsp;<Cite Key="GAP"/> can be utilized to
+construct character tables of certain central extensions from known
+character tables;
+the &GAP; functions used for that are part of the &GAP; Character Table
+Library&nbsp;<Cite Key="CTblLib"/>.
+Second it documents several constructions of character tables which are
+contained in the &GAP; Character Table Library.
+Third it serves as a testfile for the &GAP; functions.
+
+<P/>
+
+A typo (wrong sign of <M>\varepsilon^5</M>)
+in the picture in Section&nbsp;<Ref Subsect="compat"/>
+has been corrected in 2013.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="cce">
+<Heading>Coprime Central Extensions</Heading>
+
+In this section, we will deal with the following situation.
+Let <M>H</M> be a group, <M>Z</M> be a cyclic central subgroup in <M>H</M>,
+and <M>Z = Z_1 Z_2</M> for subgroups <M>Z_1</M> and <M>Z_2</M> of coprime orders
+<M>m</M> and <M>n</M>, say.
+For the sake of simplicity, suppose that both <M>m</M> and <M>n</M> are primes;
+the general case is then obtained by iterating the construction process.
+
+<P/>
+
+Our aim is to compute the character table of <M>H</M> from the character tables
+of <M>H/Z_1</M> and <M>H/Z_2</M>.
+We assume that the factor fusions from these tables to that of the common
+factor group <M>H/Z</M> are known.
+Again for the sake of simplicity, we will take the character table of <M>H/Z</M>
+as an input.
+(See Section&nbsp;<Ref Subsect="3F3pN2B"/> for an example where two different orderings of
+classes and characters of <M>H/Z</M> arise from the tables of <M>H/Z_1</M> and
+<M>H/Z_2</M>.)
+
+<P/>
+
+For example, the character table of <M>H = 12.M_{22}</M> can be computed from
+those of <M>6.M_{22}</M> and <M>4.M_{22}</M>,
+and the character table of <M>6.M_{22}</M> can be computed from those of
+<M>3.M_{22}</M> and <M>2.M_{22}</M> (see Section&nbsp;<Ref Subsect="12M22"/>).
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:The Character Table Head">
+<Heading>The Character Table Head</Heading>
+
+The conjugacy classes and power maps of <M>H</M> are uniquely determined by
+the input data specified above.
+
+<P/>
+
+<Alt Only='HTML'><![CDATA[
+<center>
+<img src="ctocenex1.png" alt="setup: common epimorphisms from group H with trivially intersecting kernels"/>
+</center>
+]]></Alt>
+
+<Alt Only='Text'>
+<Verb>
+                  H
+                  │
+                  │            H/Z2  ──▶  H/Z
+                  Z
+                 ╱ ╲            ▲          ▲
+                ╱   ╲           │          │
+              Z1     Z2
+                ╲   ╱           H    ──▶  H/Z1 
+                 ╲ ╱
+                  1
+</Verb>
+</Alt>
+
+<Alt Only='LaTeX'>
+<!-- BP ctocenex1 -->
+<![CDATA[
+\begin{center}
+\setlength{\unitlength}{3pt}
+\begin{picture}(70,40)
+\put(0,0){\begin{picture}(30,40)
+\put(15, 5){\circle*{1}} % trivial group
+\put( 5,15){\circle*{1}} \put(2,15){\makebox(0,0){$Z_1$}}
+\put(25,15){\circle*{1}} \put(28,15){\makebox(0,0){$Z_2$}}
+\put(15,25){\circle*{1}} \put(18,25){\makebox(0,0){$Z$}}
+\put(15,35){\circle*{1}} \put(15,38){\makebox(0,0){$H$}}
+\put(15, 5){\line(-1,1){10}}
+\put(15, 5){\line( 1,1){10}}
+\put( 5,15){\line( 1,1){10}}
+\put(25,15){\line(-1,1){10}}
+\put(15,25){\line( 0,1){10}}
+\end{picture}}
+\put(40,2){\begin{picture}(30,40)
+\put( 5,20){\makebox(0,0){$H/Z_1$}}
+\put(20, 5){\makebox(0,0){$H$}}
+\put(20,35){\makebox(0,0){$H/Z$}}
+\put(35,20){\makebox(0,0){$H/Z_2$}}
+\put( 7,22){\vector(1,1){11}}
+\put(18, 7){\vector(-1,1){11}}
+\put(22, 7){\vector(1,1){11}}
+\put(33,22){\vector(-1,1){11}}
+\end{picture}}
+\end{picture}
+\end{center}
+]]>
+<!-- EP -->
+</Alt>
+
+<P/>
+
+Suppose that a class <M>C</M> of elements of <M>H/Z</M> has <M>n_C</M> preimage classes
+in <M>H/Z_1</M> and <M>m_C</M> preimage classes in <M>H/Z_2</M>;
+then <M>n_C</M> is either <M>1</M> or <M>n</M>, and <M>m_C</M> is either <M>1</M> or <M>m</M>.
+The preimage classes of <M>C</M> in <M>H/Z_1</M> and <M>H/Z_2</M> are parametrized by
+<M>\{ j; 0 \leq j &lt; n_C \}</M> and <M>\{ i; 0 \leq i &lt; m_C \}</M>, respectively,
+and the preimage classes in <M>H</M> are parametrized by the pairs
+<M>\{ (i,j); 0 \leq i &lt; m_C, 0 \leq j &lt; n_C \}</M>.
+
+<P/>
+
+The centralizer orders of these classes in <M>H</M> are <M>m_C n_C</M> times the
+centralizer order of <M>C</M> in <M>H/Z</M>.
+
+<P/>
+
+The factor fusion onto <M>H/Z_1</M> is then given by mapping the class with the
+parameter <M>(i,j)</M> to the class with the parameter <M>j</M>;
+analogously, the factor fusion onto <M>H/Z_2</M> maps this class to the class
+with the parameter <M>i</M>.
+To see this, let <M>Z = \langle z \rangle</M>,
+and set <M>z_1 = z^n</M> and <M>z_2 = z^m</M>.
+Now take an element <M>g \in H</M> for which <M>g Z</M> lies in <M>C</M>.
+Then the elements
+<M>g z_1^i z_2^j</M>, <M>1 \leq i \leq m_C</M>, <M>1 \leq j \leq n_C</M>
+form a set of representatives of the preimage classes of <M>C</M> in <M>H</M>.
+In <M>H/Z_1</M> and <M>H/Z_2</M>, these elements map to
+<M>g z_2^j Z_1</M>, <M>1 \leq j \leq n_C</M> and
+<M>g z_1^i Z_2</M>, <M>1 \leq i \leq m_C</M>, respectively,
+which are sets of representatives of the classes in question in these groups.
+
+<P/>
+
+For each prime <M>p</M>,
+the factor fusions determine the <M>p</M>-th power map of <M>H</M> from the <M>p</M>-th
+power maps of <M>H/Z_1</M> and <M>H/Z_2</M>.
+To see this, take a class <M>C_0</M> in <M>H</M> that is a preimage
+of the class <M>C</M> of <M>H/Z</M>,
+and let <M>K</M> be the class of <M>p</M>-th powers of the elements in <M>C</M>.
+Then the image of <M>C_0</M> under the <M>p</M>-th power map
+is one of the preimages of <M>K</M>.
+We know the images of <M>C_0</M> under the factor fusions to <M>H/Z_1</M> and
+<M>H/Z_2</M>, and thus also their images <M>K_1</M> and <M>K_2</M> under the <M>p</M>-th power
+maps of these groups.
+So the class of <M>p</M>-th powers of the elements in <M>C_0</M> is the unique
+class that is mapped to <M>K_1</M> and <M>K_2</M> under the factor fusions.
+
+<P/>
+
+The construction of the character table head of <M>H</M> from the input data
+specified above is implemented by the &GAP; function
+<Ref Func="CharacterTableOfCommonCentralExtension" BookName="ctbllib"/>.
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:The Irreducible Characters">
+<Heading>The Irreducible Characters</Heading>
+
+First of all, it should be said that it is not obvious how the irreducible
+characters of <M>H</M> can be computed from the irreducible characters of
+<M>H/Z_1</M> and <M>H/Z_2</M>.
+Clearly the irreducible characters of the two factor groups can be inflated
+to <M>H</M> via the factor fusions, so we have to find those irreducibles that
+have neither <M>Z_1</M> nor <M>Z_2</M> in their kernels.
+
+<P/>
+
+For that, we use the following heuristic.
+Let <M>\varepsilon_z</M> be a complex primitive <M>|z|</M>-th root of unity.
+For integers <M>i</M>, set
+<M>&Irr;_{{z,i}}(H) = \{ \chi \in &Irr;(H); \chi(z) = \varepsilon_z^i \chi(1) \}</M>.
+Then <M>&Irr;(H) = \bigcup_{{i=0}}^{{|z|-1}} &Irr;_{{z,i}}(H)</M>, as a disjoint union.
+If <M>i</M> is a multiple of <M>m</M> or <M>n</M>, respectively,
+then <M>&Irr;_{{z,i}}(H)</M> consists of the inflations of certain irreducible
+characters of <M>H/Z_1</M> or <M>H/Z_2</M>, respectively.
+The remaining irreducible characters of <M>H</M> lie in <M>&Irr;_{{z,i}}(H)</M> with
+<M>i</M> coprime to <M>|z|</M>.
+These characters are algebraic conjugates of <M>&Irr;_{{z,1}}(H)</M>,
+so it suffices to compute this subset;
+the conjugates are then derived as the last step.
+
+<P/>
+
+Since <M>&Irr;_{{z,i}}(H) \otimes &Irr;_{{z,j}}(H) \subset &ZZ;[ &Irr;_{{z,i+j}}(H) ]</M>
+holds,
+we start with the tensor products of the known irreducible characters
+in <M>&Irr;_{{z,i}}(H)</M> and <M>&Irr;_{{z,j}}(H)</M> with the property
+<M>i+j \equiv 1 \bmod m n</M>.
+
+<P/>
+
+For example, if we have <M>m = 2</M> and <M>n = 3</M> then <M>&Irr;_{{z,3}}(H)</M> consists of
+the inflations of those characters in <M>&Irr;(H/Z_2)</M> that are not
+characters of <M>H/Z</M>,
+and <M>&Irr;_{{z,4}}(H)</M> consists of the inflations of certain characters in
+<M>&Irr;(H/Z_1)</M> that are not characters of <M>H/Z</M>.
+The tensor products of these sets of characters lie in the span of
+<M>&Irr;_{{z,1}}(H)</M>.
+
+<P/>
+
+In general these tensor products are reducible, but some of them may be
+in fact irreducible, so we first take these irreducibles, and reduce the
+other tensor products with them.
+(If <M>H</M> is a direct product of <M>Z</M> and <M>H/Z</M> then all missing irreducibles
+are obtained this way.)
+
+<P/>
+
+Then we tensor algebraic conjugates of the known characters in the span of
+<M>&Irr;_{{z,1}}(H)</M> with characters in suitable sets
+<M>&Irr;_{{z,i}}(H)</M>, in order to get more characters in <M>&Irr;_{{z,1}}(H)</M>;
+for example, <M>&Irr;_{{z,1}}(H) \otimes &Irr;_{{z,0}}(H)</M> is a subset of
+<M>&ZZ;[&Irr;_{{z,1}}(H)]</M>.
+
+<P/>
+
+In the case <M>m = 2</M> and <M>n = 3</M>, also <M>&Irr;_{{z,5}}(H) \otimes Irr_{{z,2}}(H)</M>
+yields linear combinations of <M>&Irr;_{{z,1}}(H)</M>.
+Note that <M>&Irr;_{{z,5}}(H)</M> consists of the complex conjugates of
+<M>&Irr;_{{z,1}}(H)</M>.
+
+<P/>
+
+In the next step, we apply the LLL algorithm (implemented via the &GAP;
+function
+<Ref Func="LLL" BookName="ref"/>) to the set of reducible characters in <M>&ZZ;[&Irr;_{{z,1}}(H)]</M>
+which we got from the tensor products, and hope to find irreducibles.
+In the examples shown below, this step yields all desired irreducible
+characters.
+
+<!-- % If this does not suffice then more criteria could be applied, -->
+<!-- % for example computing orthogonal embeddings. -->
+
+<P/>
+
+The &GAP; function
+<Ref Func="CharacterTableOfCommonCentralExtension" BookName="ctbllib"/>
+implements the strategy sketched above.
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="classes">
+<Heading>Ordering of Conjugacy Classes</Heading>
+
+One <Q>natural</Q> choice for the ordering of the columns in the character table
+of <M>H</M> is given by respecting the ordering of columns in the character table
+of <M>H/Z</M>, and taking the preimage of the class <M>C</M> corresponding to the
+parameter <M>(k \bmod m_C, k \bmod n_C)</M> as the <M>k</M>-th class for <M>C</M>.
+<!-- % Note that this definition is symmetric in <M>H/Z_1</M> and <M>H/Z_2</M>. -->
+
+<P/>
+
+If the preimages of <M>C</M> in <M>H/Z_1</M> and <M>H/Z_2</M> have class representatives
+<M>g Z_1</M>, <M>g z_2 Z_1</M>, <M>g z_2^2 Z_1</M>, <M>\ldots</M> and
+<M>g Z_2</M>, <M>g z_1 Z_2</M>, <M>g z_1^2 Z_2</M>, <M>\ldots</M>,
+respectively (in this ordering),
+then the above rule yields representatives of preimages in <M>H</M>
+in the ordering 
+<M>g</M>, <M>g (z_1 z_2)</M>, <M>g (z_1 z_2)^2</M>, <M>\ldots</M>.
+
+<P/>
+
+In the case <M>m = 2</M>, <M>n = 3</M>, the following pattern arises for classes
+of <M>H/Z</M> that have <M>m</M> and <M>n</M> preimages in <M>H/Z_1</M> and <M>H/Z_2</M>,
+respectively.
+The vertices are labelled by the roots of unity with which the
+values of the characters in the set <M>&Irr;_{{z,1}}(H)</M> on the first preimage
+must be multiplied in order to obtain the values on the given class;
+we have <M>\omega = \exp(2 \pi i/3)</M>.
+
+<P/>
+
+<Alt Only='HTML'><![CDATA[
+<center>
+<img src="ctocenex2.png" alt="factor fusions for the cyclic group of order six"/>
+</center>
+]]></Alt>
+
+<Alt Only='Text'>
+<Verb>
+           1     1    1     1    1    1            G
+
+           ▲     ▲    ▲     ▲    ▲    ▲            ▲
+           │     │    │     │    │    │            │
+
+           1     ω   ω^2    1    ω   ω^2          3.G
+
+           ▲     ▲    ▲     ▲    ▲    ▲            ▲
+           │     │    │     │    │    │            │
+
+           1    -ω   ω^2   -1    ω  -ω^2          6.G
+
+           │     │    │     │    │    │            │
+           ▼     ▼    ▼     ▼    ▼    ▼            ▼
+
+           1    -1    1    -1    1   -1           2.G
+
+           │     │    │     │    │    │            │
+           ▼     ▼    ▼     ▼    ▼    ▼            ▼
+
+           1     1    1     1    1    1            G
+</Verb>
+</Alt>
+
+<Alt Only='LaTeX'>
+<!-- BP ctocenex2 -->
+<![CDATA[
+\begin{center}
+\setlength{\unitlength}{3pt}
+\begin{picture}(130,70)
+\put(55, 5){\makebox(0,0){$1$}}
+\put(120, 5){\makebox(0,0){$G$}}
+\put(25,20){\makebox(0,0){$1$}}
+\put(85,20){\makebox(0,0){$-1$}}
+\put(120,20){\makebox(0,0){$2.G$}}
+\put( 5,35){\makebox(0,0){$1$}}
+\put(25,35){\makebox(0,0){$-\omega$}}
+\put(45,35){\makebox(0,0){$\omega^2$}}
+\put(65,35){\makebox(0,0){$-1$}}
+\put(85,35){\makebox(0,0){$\omega$}}
+\put(105,35){\makebox(0,0){$-\omega^2$}}
+\put(120,35){\makebox(0,0){$6.G$}}
+\put(35,50){\makebox(0,0){$1$}}
+\put(55,50){\makebox(0,0){$\omega$}}
+\put(75,50){\makebox(0,0){$\omega^2$}}
+\put(120,50){\makebox(0,0){$3.G$}}
+\put(55,65){\makebox(0,0){$1$}}
+\put(120,65){\makebox(0,0){$G$}}
+\put(53, 7){\line(-2,1){26}}
+\put(57, 7){\line( 2,1){26}}
+\put(23,22){\line(-4,3){16}}
+\put(27,22){\line( 4,3){15}}
+\put(27,21){\line( 4,1){55}}
+\put(87,22){\line( 4,3){16}}
+\put(83,22){\line(-4,3){15}}
+\put(83,21){\line(-4,1){55}}
+\put( 7,36){\line( 2,1){26}}
+\put(28,36){\line( 2,1){25}}
+\put(47,36){\line( 2,1){25}}
+\put(63,36){\line(-2,1){25}}
+\put(82,36){\line(-2,1){25}}
+\put(103,36){\line(-2,1){26}}
+\put(37,52){\line( 4,3){16}}
+\put(55,52){\line( 0,1){11}}
+\put(73,52){\line(-4,3){16}}
+\end{picture}
+\end{center}
+]]>
+<!-- EP -->
+</Alt>
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="compat">
+<Heading>Compatibility with Smaller Factor Groups</Heading>
+
+It may happen that a cyclic central subgroup <M>Z_0</M> of <M>H</M> contains <M>Z</M>
+properly.
+Then we choose a class ordering relative to that in the factor group
+<M>H/Z_0</M>,
+mainly because the &ATLAS; tables of this type are sorted this way.
+
+<P/>
+
+The typical case is the character table of a central extension of the type
+<M>12.G</M> that shall be constructed from the character tables of the groups of
+the types <M>4.G</M> and <M>6.G</M>; here we prefer to order the preimages of a class
+in the smaller factor group of the type <M>G</M> according to the above rule.
+This results in the following pattern,
+where <M>\varepsilon = \exp(2 \pi i/12)</M> holds (cf. Section <Q>ATLAS Tables</Q>
+in the manual of the &GAP; Character Table Library).
+
+<P/>
+
+<Alt Only='HTML'><![CDATA[
+<center>
+<img src="ctocenex3.png" alt="factor fusions for the cyclic group of order twelve"/>
+</center>
+]]></Alt>
+
+<Alt Only='Text'>
+<Verb>
+     1   1     1    1   1    1    1   1   1    1   1    1         G
+
+     ▲   ▲     ▲    ▲   ▲    ▲    ▲   ▲   ▲    ▲   ▲    ▲         ▲
+     │   │     │    │   │    │    │   │   │    │   │    │         │
+
+     1  -1     1   -1   1   -1    1  -1   1   -1   1   -1        2.G
+
+     ▲   ▲     ▲    ▲   ▲    ▲    ▲   ▲   ▲    ▲   ▲    ▲         ▲
+     │   │     │    │   │    │    │   │   │    │   │    │         │
+
+     1  -ω    ω^2  -1   ω  -ω^2   1  -ω  ω^2  -1   ω  -ω^2       6.G
+
+     ▲   ▲     ▲    ▲   ▲    ▲    ▲   ▲   ▲    ▲   ▲    ▲         ▲
+     │   │     │    │   │    │    │   │   │    │   │    │         │
+
+     1  ϵ^7  -ω^2  -i   ω  ϵ^11  -1   ϵ  ω^2   i  -ω   ϵ^5      12.G
+
+     │   │     │    │   │    │    │   │   │    │   │    │         │
+     ▼   ▼     ▼    ▼   ▼    ▼    ▼   ▼   ▼    ▼   ▼    ▼         ▼
+
+     1  -i    -1    i   1   -i   -1   i   1   -i  -1    i        4.G
+
+     │   │     │    │   │    │    │   │   │    │   │    │         │
+     ▼   ▼     ▼    ▼   ▼    ▼    ▼   ▼   ▼    ▼   ▼    ▼         ▼
+
+     1  -1     1   -1   1   -1    1  -1   1   -1   1   -1        2.G
+
+     │   │     │    │   │    │    │   │   │    │   │    │         │
+     ▼   ▼     ▼    ▼   ▼    ▼    ▼   ▼   ▼    ▼   ▼    ▼         ▼
+
+     1   1     1    1   1    1    1   1   1    1   1    1         G
+</Verb>
+</Alt>
+
+<Alt Only='LaTeX'>
+<!-- BP ctocenex3 -->
+<![CDATA[
+\begin{center}
+\setlength{\unitlength}{3pt}
+\begin{picture}(140,100)
+\put(60, 5){\makebox(0,0){$1$}}
+\put(130, 5){\makebox(0,0){$G$}}
+\put(30,20){\makebox(0,0){$1$}}
+\put(90,20){\makebox(0,0){$-1$}}
+\put(130,20){\makebox(0,0){$2.G$}}
+\put(15,35){\makebox(0,0){$1$}}
+\put(45,35){\makebox(0,0){$-i$}}
+\put(75,35){\makebox(0,0){$-1$}}
+\put(105,35){\makebox(0,0){$i$}}
+\put(130,35){\makebox(0,0){$4.G$}}
+\put( 5,50){\makebox(0,0){$1$}}
+\put(15,50){\makebox(0,0){$\varepsilon^7$}}
+\put(25,50){\makebox(0,0){$-\omega^2$}}
+\put(35,50){\makebox(0,0){$-i$}}
+\put(45,50){\makebox(0,0){$\omega$}}
+\put(55,50){\makebox(0,0){$\varepsilon^{11}$}}
+\put(65,50){\makebox(0,0){$-1$}}
+\put(75,50){\makebox(0,0){$\varepsilon$}}
+\put(85,50){\makebox(0,0){$\omega^2$}}
+\put(95,50){\makebox(0,0){$i$}}
+\put(105,50){\makebox(0,0){$-\omega$}}
+\put(115,50){\makebox(0,0){$\varepsilon^5$}}
+\put(130,50){\makebox(0,0){$12.G$}}
+\put(10,65){\makebox(0,0){$1$}}
+\put(30,65){\makebox(0,0){$-\omega$}}
+\put(50,65){\makebox(0,0){$\omega^2$}}
+\put(70,65){\makebox(0,0){$-1$}}
+\put(90,65){\makebox(0,0){$\omega$}}
+\put(110,65){\makebox(0,0){$-\omega^2$}}
+\put(130,65){\makebox(0,0){$6.G$}}
+\put(30,80){\makebox(0,0){$1$}}
+\put(90,80){\makebox(0,0){$-1$}}
+\put(130,80){\makebox(0,0){$2.G$}}
+\put(60,95){\makebox(0,0){$1$}}
+\put(130,95){\makebox(0,0){$G$}}
+\put(58, 7){\line(-2,1){25}}
+\put(62, 7){\line( 2,1){25}}
+\put(28,22){\line(-1,1){11}}
+\put(32,21){\line( 3,1){39}}
+\put(88,21){\line(-3,1){39}}
+\put(92,22){\line( 1,1){11}}
+\put(13,37){\line(-2,3){7}}
+\put(43,36){\line(-2,1){26}}
+\put(72,35){\line(-3,1){42}}
+\put(103,35){\line(-5,1){65}}
+\put(17,36){\line( 2,1){26}}
+\put(46,37){\line( 2,3){7}}
+\put(74,37){\line(-2,3){7}}
+\put(103,36){\line(-2,1){26}}
+\put(17,35){\line( 5,1){65}}
+\put(48,35){\line( 3,1){42}}
+\put(77,36){\line( 2,1){26}}
+\put(107,37){\line( 2,3){7}}
+\put( 6,53){\line(1,3){3}}
+\put(17,52){\line(1,1){11}}
+\put(28,52){\line(5,3){19}}
+\put(38,51){\line(2,1){28}}
+\put(47,51){\line(3,1){40}}
+\put(57,51){\line(4,1){50}}
+\put(63,51){\line(-4,1){50}}
+\put(73,51){\line(-3,1){40}}
+\put(82,51){\line(-2,1){28}}
+\put(92,52){\line(-5,3){19}}
+\put(103,52){\line(-1,1){11}}
+\put(114,53){\line(-1,3){3}}
+\put(28,78){\line(-4,-3){16}}
+\put(32,78){\line( 4,-3){15}}
+\put(32,79){\line( 4,-1){55}}
+\put(92,78){\line( 4,-3){16}}
+\put(88,78){\line(-4,-3){15}}
+\put(88,79){\line(-4,-1){55}}
+\put(58,93){\line(-2,-1){26}}
+\put(62,93){\line( 2,-1){26}}
+\end{picture}
+\end{center}
+]]>
+<!-- EP -->
+</Alt>
+
+<P/>
+
+A more important aspect concerns the computation of the irreducible
+characters.
+Let <M>Z_0 = \langle z_0 \rangle</M>.
+Instead of computing <M>&Irr;_{{z,1}}(H)</M>,
+we compute the set <M>&Irr;_{{z_0,1}}(H)</M>.
+
+<P/>
+
+In the computation of the character table of a central extension of the
+type <M>12.G</M> as mentioned above, with <M>|z_0| = 12</M>,
+we start with the characters
+
+<Display Mode="M">
+  &Irr;_{{z_0,3}}(H) \otimes &Irr;_{{z_0,10}}(H) \cup
+  &Irr;_{{z_0,4}}(H) \otimes &Irr;_{{z_0,9}}(H) \subseteq
+  &ZZ;[&Irr;_{{z_0,1}}(H)],
+</Display>
+
+and later form tensor products involving algebraic conjugates of the
+characters in the span of <M>&Irr;_{{z_0,1}}(H)</M>, using that
+
+<Display Mode="M">
+  &Irr;_{{z_0,1}}(H) \otimes &Irr;_{{z_0,0}}(H) \cup
+  &Irr;_{{z_0,2}}(H) \otimes &Irr;_{{z_0,11}}(H) \cup
+  &Irr;_{{z_0,5}}(H) \otimes &Irr;_{{z_0,8}}(H) \cup
+  &Irr;_{{z_0,6}}(H) \otimes &Irr;_{{z_0,7}}(H)
+</Display>
+
+is a subset of <M>&ZZ;[&Irr;_{{z_0,1}}(H)]</M>.
+
+<P/>
+
+Without that modification, the computation of irreducibles is significantly
+more involved.
+
+<P/>
+
+The &GAP; function
+<Ref Func="CharacterTableOfCommonCentralExtension" BookName="ctbllib"/>
+chooses the
+class ordering relative to larger cyclic factor groups,
+as in the above picture,
+and also uses the above refinement for the computation of irreducible
+characters.
+
+</Subsection>
+
+</Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Examples">
+<Heading>Examples</Heading>
+
+The following examples use the &GAP; Character Table Library,
+so we first load this package.
+
+<P/>
+
+<Example><![CDATA[
+gap> LoadPackage( "ctbllib", false );
+true
+]]></Example>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="12M22">
+<Heading>Central Extensions of Simple &ATLAS; Groups</Heading>
+
+For the following groups,
+the &ATLAS; contains the character tables of central extensions <M>M.G</M> of
+simple groups <M>G</M> with <M>|M|</M> divisible by two different primes;
+in all these cases, we have <M>M \in \{ 6, 12 \}</M>.
+
+<P/>
+
+(The entry concerning <M>6.{}^2E_6(2)</M> has been added to the list
+after the character table of <M>3.{}^2E_6(2)</M> became available.
+This table has been computed by Frank Lübeck.)
+
+<P/>
+
+<Example><![CDATA[
+gap> list:= [
+>     #         G          m.G          n.G           mn.G
+> 
+>     [      "A6",      "2.A6",      "3.A6",        "6.A6" ],
+>     [      "A7",      "2.A7",      "3.A7",        "6.A7" ],
+>     [   "L3(4)",   "2.L3(4)",   "3.L3(4)",     "6.L3(4)" ],
+>     [ "2.L3(4)", "4_1.L3(4)",   "6.L3(4)",  "12_1.L3(4)" ],
+>     [ "2.L3(4)", "4_2.L3(4)",   "6.L3(4)",  "12_2.L3(4)" ],
+>     [     "M22",     "2.M22",     "3.M22",       "6.M22" ],
+>     [   "2.M22",     "4.M22",     "6.M22",      "12.M22" ],
+>     [   "U4(3)",   "2.U4(3)", "3_1.U4(3)",   "6_1.U4(3)" ],
+>     [   "U4(3)",   "2.U4(3)", "3_2.U4(3)",   "6_2.U4(3)" ],
+>     [ "2.U4(3)",   "4.U4(3)", "6_1.U4(3)",  "12_1.U4(3)" ],
+>     [ "2.U4(3)",   "4.U4(3)", "6_2.U4(3)",  "12_2.U4(3)" ],
+>     [   "O7(3)",   "2.O7(3)",   "3.O7(3)",     "6.O7(3)" ],
+>     [   "U6(2)",   "2.U6(2)",   "3.U6(2)",     "6.U6(2)" ],
+>     [     "Suz",     "2.Suz",     "3.Suz",       "6.Suz" ],
+>     [    "Fi22",    "2.Fi22",    "3.Fi22",      "6.Fi22" ],
+>     [  "2E6(2)",  "2.2E6(2)",  "3.2E6(2)",    "6.2E6(2)" ],
+>   ];;
+]]></Example>
+
+<P/>
+
+As was discussed in the sections&nbsp;<Ref Subsect="classes"/> and&nbsp;<Ref Subsect="compat"/>,
+the class ordering of the result tables is the same as that in the &GAP;
+library tables,
+so it is enough to check whether the set of characters in the computed
+table coincides with the set of characters in the library table.
+
+<P/>
+
+In order to list information about the progress, we set the relevant
+info level to <M>1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> SetInfoLevel( InfoCharacterTable, 1 );
+gap> for entry in list do
+>   id    := entry[4];
+>   tblG  := CharacterTable( entry[1] );
+>   tblmG := CharacterTable( entry[2] );
+>   tblnG := CharacterTable( entry[3] );
+>   lib   := CharacterTable( id );
+>   res:= CharacterTableOfCommonCentralExtension( tblG, tblmG, tblnG, id );
+>   if not res.IsComplete then
+>     Print( "#E  not complete: ", id, "\n" );
+>   fi;
+>   if not IsSubset( Irr( lib ), res.irreducibles ) then
+>     Print( "#E  inconsistent: ", id, "\n" );
+>   fi;
+> od;
+#I  6.A6: need 4 faithful irreducibles
+#I  6.A6: 4 found by tensoring
+#I  6.A7: need 5 faithful irreducibles
+#I  6.A7: 5 found by tensoring
+#I  6.L3(4): need 7 faithful irreducibles
+#I  6.L3(4): 7 found by LLL
+#I  12_1.L3(4): need 5 faithful irreducibles
+#I  12_1.L3(4): 2 found by tensoring
+#I  12_1.L3(4): 3 found by tensoring
+#I  12_2.L3(4): need 6 faithful irreducibles
+#I  12_2.L3(4): 6 found by LLL
+#I  6.M22: need 10 faithful irreducibles
+#I  6.M22: 1 found by tensoring
+#I  6.M22: 9 found by LLL
+#I  12.M22: need 7 faithful irreducibles
+#I  12.M22: 7 found by LLL
+#I  6_1.U4(3): need 15 faithful irreducibles
+#I  6_1.U4(3): 1 found by tensoring
+#I  6_1.U4(3): 14 found by LLL
+#I  6_2.U4(3): need 12 faithful irreducibles
+#I  6_2.U4(3): 12 found by LLL
+#I  12_1.U4(3): need 12 faithful irreducibles
+#I  12_1.U4(3): 4 found by tensoring
+#I  12_1.U4(3): 8 found by tensoring
+#I  12_2.U4(3): need 9 faithful irreducibles
+#I  12_2.U4(3): 9 found by LLL
+#I  6.O7(3): need 12 faithful irreducibles
+#I  6.O7(3): 2 found by tensoring
+#I  6.O7(3): 10 found by LLL
+#I  6.U6(2): need 28 faithful irreducibles
+#I  6.U6(2): 2 found by tensoring
+#I  6.U6(2): 26 found by LLL
+#I  6.Suz: need 29 faithful irreducibles
+#I  6.Suz: 29 found by LLL
+#I  6.Fi22: need 34 faithful irreducibles
+#I  6.Fi22: 4 found by tensoring
+#I  6.Fi22: 30 found by LLL
+#I  6.2E6(2): need 60 faithful irreducibles
+#I  6.2E6(2): 60 found by LLL
+gap> SetInfoLevel( InfoCharacterTable, 0 );
+]]></Example>
+
+<P/>
+
+We see that in all cases, the irreducible characters of the groups <M>M.G</M>
+are obtained by reducing tensor products and applying the LLL algorithm.
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:Central Extensions of Other ATLAS Groups">
+<Heading>Central Extensions of Other &ATLAS; Groups</Heading>
+
+The following cases also fit to the pattern introduced above.
+
+<P/>
+
+(The following examples were added in October&nbsp;2006.)
+
+<P/>
+
+The group <M>(2^2 \times 3).L_3(4)</M> can be viewed as a
+common central extension of its factor group <M>2.L_3(4)</M>
+by the two groups <M>2^2.L_3(4)</M> and <M>6.L_3(4)</M>.
+
+<P/>
+
+Analogously, the group <M>(4^2 \times 3).L_3(4)</M> can be viewed as a
+common central extension of its factor group <M>(2 \times 4).L_3(4)</M>
+by the two groups <M>4^2.L_3(4)</M> and <M>(2 \times 12).L_3(4)</M>.
+
+<P/>
+
+Finally, the group <M>(2 \times 12).L_3(4)</M> can be viewed as a
+common central extension of the factor group <M>2^2.L_3(4)</M>
+by the two groups <M>(2 \times 4).L_3(4)</M> and <M>(2^2 \times 3).L_3(4)</M>.
+
+<P/>
+
+The construction of the character tables of the involved factor groups
+<M>2^2.L_3(4)</M> and <M>(2 \times 4).L_3(4)</M>,
+as well as an alternative construction of the table of
+<M>(2 \times 12).L_3(4)</M>
+can be found in the sections <Ref Subsect="subsect:V4GATLAS"/>
+and <Ref Subsect="subsect:MultL34"/>.
+
+<!-- &nbsp;<Cite Key="Auto"/>. -->
+
+<P/>
+
+<Example><![CDATA[
+gap> list2:= [
+>     [ "2.L3(4)",     "2^2.L3(4)",   "6.L3(4)",       "(2^2x3).L3(4)" ],
+>     [ "2^2.L3(4)",   "(2x4).L3(4)", "(2^2x3).L3(4)", "(2x12).L3(4)"  ],
+>     [ "(2x4).L3(4)", "4^2.L3(4)",   "(2x12).L3(4)",  "(4^2x3).L3(4)" ],
+>   ];;
+]]></Example>
+
+<!-- % Viewing <M>(2 \times 12).L_3(4)</M> as a common central extension of -->
+<!-- % <M>4_1.L_3(4)</M> by <M>(2 \times 4).L_3(4)</M> and <M>12_1.L_3(4)</M>, or of -->
+<!-- % <M>4_2.L_3(4)</M> by <M>(2 \times 4).L_3(4)</M> and <M>12_2.L_3(4)</M> does not work, -->
+<!-- % since the function wants to have an element of maximal order in the centre -->
+<!-- % of the target group that projects to elements of strictly smaller order -->
+<!-- % in the two factors. -->
+
+<P/>
+
+(The following examples were added in December&nbsp;2010.)
+
+<P/>
+
+The group <M>(3^2 \times 2).U_4(3)</M> can be viewed
+as a common central extension of its factor group <M>3_1.U_4(3)</M>
+by the two groups <M>6_1.U_4(3)</M> and <M>3^2.U_4(3)</M>,
+or as a common central extension of its factor group <M>3_2.U_4(3)</M>
+by the two groups <M>6_2.U_4(3)</M> and <M>3^2.U_4(3)</M>.
+
+<P/>
+
+Analogously, the group <M>(3^2 \times 4).U_4(3)</M> can be viewed
+as a common central extension of its factor group <M>6_1.U_4(3)</M>
+by the two groups <M>12_1.U_4(3)</M> and <M>(3^2 \times 2).U_4(3)</M>,
+or as a common central extension of its factor group <M>6_2.U_4(3)</M>
+by the two groups <M>12_2.U_4(3)</M> and <M>(3^2 \times 2).U_4(3)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> Append( list2, [
+>     [ "3_1.U4(3)",   "6_1.U4(3)",   "3^2.U4(3)",     "(3^2x2).U4(3)" ],
+>     [ "3_2.U4(3)",   "6_2.U4(3)",   "3^2.U4(3)",     "(3^2x2).U4(3)" ],
+>     [ "6_1.U4(3)",   "12_1.U4(3)",  "(3^2x2).U4(3)", "(3^2x4).U4(3)" ],
+>     [ "6_2.U4(3)",   "12_2.U4(3)",  "(3^2x2).U4(3)", "(3^2x4).U4(3)" ],
+>   ] );
+gap> SetInfoLevel( InfoCharacterTable, 1 );
+gap> for entry in list2 do
+>   id    := entry[4];
+>   tblG  := CharacterTable( entry[1] );
+>   tblmG := CharacterTable( entry[2] );
+>   tblnG := CharacterTable( entry[3] );
+>   lib   := CharacterTable( id );
+>   res:= CharacterTableOfCommonCentralExtension(
+>             tblG, tblmG, tblnG, id );
+>   if not res.IsComplete then
+>     Print( "#E  not complete: ", id, "\n" );
+>   fi;
+>   if TransformingPermutationsCharacterTables( res.tblmnG, lib )
+>          = fail then
+>     Print( "#E  inconsistent: ", id, "\n" );
+>   fi;
+> od;
+#I  (2^2x3).L3(4): need 14 faithful irreducibles
+#I  (2^2x3).L3(4): 14 found by tensoring
+#I  (2x12).L3(4): need 11 faithful irreducibles
+#I  (2x12).L3(4): 7 found by tensoring
+#I  (2x12).L3(4): 4 found by LLL
+#I  (4^2x3).L3(4): need 22 faithful irreducibles
+#I  (4^2x3).L3(4): 14 found by tensoring
+#I  (4^2x3).L3(4): 8 found by LLL
+#I  (3^2x2).U4(3): need 39 faithful irreducibles
+#I  (3^2x2).U4(3): 27 found by tensoring
+#I  (3^2x2).U4(3): 12 found by LLL
+#I  (3^2x2).U4(3): need 42 faithful irreducibles
+#I  (3^2x2).U4(3): 2 found by tensoring
+#I  (3^2x2).U4(3): 40 found by LLL
+#I  (3^2x4).U4(3): need 30 faithful irreducibles
+#I  (3^2x4).U4(3): 6 found by tensoring
+#I  (3^2x4).U4(3): 8 found by tensoring
+#I  (3^2x4).U4(3): 16 found by LLL
+#I  (3^2x4).U4(3): need 33 faithful irreducibles
+#I  (3^2x4).U4(3): 9 found by tensoring
+#I  (3^2x4).U4(3): 18 found by tensoring
+#I  (3^2x4).U4(3): 6 found by further tensoring
+gap> SetInfoLevel( InfoCharacterTable, 0 );
+]]></Example>
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:Compatible Central Extensions of Maximal Subgroups">
+<Heading>Compatible Central Extensions of Maximal Subgroups</Heading>
+
+The &GAP; Character Table Library contains the character tables of all
+maximal subgroups of the groups <M>4.M_{22}</M>, <M>3.M_{22}</M>, <M>2.Suz</M>, and <M>3.Suz</M>.
+So we can use the approach from Section&nbsp;<Ref Sect="cce"/> for computing the character
+tables of the maximal subgroups of <M>6.M_{22}</M>, <M>12.M_{22}</M>, and <M>6.Suz</M>.
+
+<P/>
+
+These tables are contained in the &GAP; Character Table Library.
+Several of the groups are direct products,
+and the library tables of direct products are usually stored in the form of
+Kronecker products of the tables of the factors,
+so the class ordering of the result tables does not necessarily coincide with
+the class ordering in the library tables.
+
+<P/>
+
+<Example><![CDATA[
+gap> sublist:= list{ [ 6, 7, 14 ] };
+[ [ "M22", "2.M22", "3.M22", "6.M22" ], 
+  [ "2.M22", "4.M22", "6.M22", "12.M22" ], 
+  [ "Suz", "2.Suz", "3.Suz", "6.Suz" ] ]
+gap> for entry in sublist do
+>   tblG  := CharacterTable( entry[1] );
+>   tblmG := CharacterTable( entry[2] );
+>   tblnG := CharacterTable( entry[3] );
+>   lib   := CharacterTable( entry[4] );
+> 
+>   maxesG   := List( Maxes( tblG ), CharacterTable );
+>   maxesmG  := List( Maxes( tblmG ), CharacterTable );
+>   maxesnG  := List( Maxes( tblnG ), CharacterTable );
+>   maxeslib := List( Maxes( lib ), CharacterTable );
+> 
+>   for i in [ 1 .. Length( maxesG ) ] do
+>     id:= Identifier( maxeslib[i] );
+>     res:= CharacterTableOfCommonCentralExtension( maxesG[i],
+>               maxesmG[i], maxesnG[i], id );
+>     if not res.IsComplete then
+>       Print( "#E  not complete: ", id, "\n" );
+>     fi;
+>     if not IsSubset( Irr( maxeslib[i] ), res.irreducibles ) then
+>       trans:= TransformingPermutationsCharacterTables( maxeslib[i],
+>                                                        res.tblmnG );
+>       if not IsRecord( trans ) then
+>         Print( "#E  not transformable: ", id, "\n" );
+>       fi;
+>     fi;
+>   od;
+> od;
+]]></Example>
+
+<P/>
+
+Since we get no output, all tables in question can be computed with the
+&GAP; functions, and coincide (up to permutations of rows and columns)
+with the library tables.
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="3F3pN2B">
+<Heading>The <C>2B</C> Centralizer in <M>3.Fi_{24}'</M> (January 2004)</Heading>
+
+As is stated in&nbsp;<Cite Key="CCN85" Where="p. 207"/>,
+the <C>2B</C> centralizer <M>N_0</M> in the sporadic simple Fischer group
+<M>Fi_{24}'</M>
+has the structure <M>2^{{1+12}}_+.3U_4(3).2_2</M>.
+The character table of <M>N_0</M> is contained in the &GAP; Character
+Table Library since the year <M>2000</M>.
+
+<P/>
+
+Our aim is to compute the character table of the preimage <M>N</M> of
+<M>N_0</M> in the central extension <M>3.Fi_{24}'</M> of <M>Fi_{24}'</M>;
+let <M>Z_1</M> denote the centre of <M>3.Fi_{24}'</M>.
+
+<P/>
+
+Using the <Q>dihedral group method</Q> in the faithful permutation
+representation of degree <M>920\,808</M> for <M>3.Fi_{24}'</M>,
+we first compute a generating set of <M>N</M>.
+This group has three orbits of the lengths <M>774\,144</M>, <M>145\,152</M>,
+and <M>1\,512</M>;
+the actions on the first two orbits are faithful,
+and the action on the orbit of length <M>1\,512</M>
+(which consists of the fixed points of the central involution of <M>N</M>)
+has kernel exactly the central subgroup <M>Z_2</M>, say,
+of order <M>2</M> in <M>N</M>.
+
+<P/>
+
+Since the permutation representation on <M>1\,512</M> points is so small,
+it is straightforward to compute the character table of <M>N/Z_2</M> using the
+implementation of Dixon's algorithm in &GAP;;
+now this table is part of the &GAP; Character Table Library.
+
+<P/>
+
+Note that <M>N</M> is a central extension of <M>N_0/Z(N_0)</M>
+by the cyclic group <M>Z = Z_1 Z_2</M> of order <M>6</M>,
+and that we know the character tables of the groups <M>N/Z_1</M> and
+<M>N/Z_2</M>.
+So we can apply the method described in Section&nbsp;<Ref Sect="cce"/>
+for computing the character table of <M>N</M>.
+
+<P/>
+
+First we fetch the input data.
+
+<P/>
+
+<Example><![CDATA[
+gap> tblmG := CharacterTable( "F3+N2B" );;
+gap> tblG  := tblmG / ClassPositionsOfCentre( tblmG );;
+gap> tblnG := CharacterTable( "2^12.3^2.U4(3).2_2'" );;
+]]></Example>
+
+<P/>
+
+The character tables of the library table of <M>N_0</M>
+and the character table of <M>N/Z_2</M> obtained from the permutation group
+are not compatible in the sense that the tables of the factor groups modulo
+the centres are not sorted compatibly,
+so we have to compute and store the fusion from <C>tblnG</C> to <C>tblG</C>.
+<P/>
+<Example><![CDATA[
+gap> f2:= tblnG / ClassPositionsOfCentre( tblnG );;
+gap> trans:= TransformingPermutationsCharacterTables( f2, tblG );;
+gap> tblnGfustblG:= OnTuples( GetFusionMap( tblnG, f2 ),
+>                             trans.columns );;
+gap> StoreFusion( tblnG, tblnGfustblG, tblG );
+gap> IsSubset( Irr( tblnG ),
+>              List( Irr( tblG ), x -> x{ tblnGfustblG } ) );
+true
+]]></Example>
+
+<P/>
+
+Now we apply
+<Ref Func="CharacterTableOfCommonCentralExtension" BookName="ctbllib"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> SetInfoLevel( InfoCharacterTable, 1 );
+gap> id:= "3.2^(1+12).3U4(3).2";;
+gap> res:= CharacterTableOfCommonCentralExtension(
+>              tblG, tblmG, tblnG, id );;
+#I  3.2^(1+12).3U4(3).2: need 36 faithful irreducibles
+#I  3.2^(1+12).3U4(3).2: 16 found by tensoring
+#I  3.2^(1+12).3U4(3).2: 20 found by LLL
+gap> SetInfoLevel( InfoCharacterTable, 0 );
+]]></Example>
+
+<P/>
+
+So we have found all missing irreducibles of <M>N</M>.
+Let us check whether the result table coincides with the table in the &GAP;
+Character Table Library.
+
+<P/>
+
+<Example><![CDATA[
+gap> lib:= CharacterTable( "3.F3+N2B" );;
+gap> IsRecord( TransformingPermutationsCharacterTables(
+>                  res.tblmnG, lib ) );
+true
+]]></Example>
+
+<P/>
+
+We were interested in the character table because <M>N</M> is a
+maximal subgroup of <M>3.Fi_{24}'</M>.
+So the class fusion into the table of this group is an interesting
+information.
+We assume that the class fusion of <M>N_0</M> into <M>Fi_{24}'</M> is known,
+and compute only those possible class fusions that are compatible with this
+map.
+
+<P/>
+
+<Example><![CDATA[
+gap> 3f3p:= CharacterTable( "3.F3+" );;
+gap> f3p:= CharacterTable( "F3+" );;
+gap> approxfus:= CompositionMaps(
+>                    InverseMap( GetFusionMap( 3f3p, f3p ) ),
+>                    CompositionMaps( GetFusionMap( tblmG, f3p ),
+>                        GetFusionMap( lib, tblmG ) ) );;
+gap> poss:= PossibleClassFusions( lib, 3f3p,
+>               rec( fusionmap:= approxfus ) );;
+gap> Length( poss );
+1
+]]></Example>
+
+<P/>
+
+It turns out that only one map has this property.
+(Without the condition on the compatibility, we would have got <M>128</M>
+possibilities, which form one orbit under table automorphisms.)
+
+</Subsection>
+</Section>
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+

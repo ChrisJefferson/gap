@@ -1,0 +1,183 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  others.xml          Utils documentation                Stefan Kohl -->
+<!--                                                   Sebastian Gutsche -->
+<!--                                                            Max Horn -->
+<!--  Copyright (C) 2015-2025, The GAP Group                             --> 
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-others">
+<Heading>Various other functions</Heading>
+
+
+<Section Label="sec-log2html">
+<Heading>File operations</Heading>
+
+<ManSection>
+  <Func Name="Log2HTML" 
+        Arg="filename"/>
+<Description>
+This function has been transferred from package &RCWA;. 
+<P/>
+This function converts the &GAP; logfile <File>filename</File> to HTML. 
+It appears that the logfile should be in your current directory. 
+The extension of the input file must be <File>*.log</File>. 
+The name of the output file is the same as the one of the input file 
+except that the extension <File>*.log</File> is replaced by <File>*.html</File>. 
+There is a sample CSS file in <File>utils/doc/gaplog.css</File>, 
+which you can adjust to your taste. 
+<P/>
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> LogTo( "triv.log" );
+gap> a := 33^5;
+39135393
+gap> LogTo(); 
+gap> Log2HTML( "triv.log" );     
+]]>
+</Example>
+
+</Section>
+
+
+<Section Label="sec-latex">
+<Heading>&LaTeX; strings</Heading>
+
+<ManSection>
+  <Func Name="IntOrOnfinityToLaTeX" 
+        Arg="n"/>
+<Description>
+This function has been transferred from package &ResClasses;. 
+<P/>
+<C>IntOrInfinityToLaTeX(n)</C> returns the &LaTeX; string for <A>n</A>. 
+<P/>
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> IntOrInfinityToLaTeX( 10^3 );
+"1000"
+gap> IntOrInfinityToLaTeX( infinity );
+"\\infty"
+]]>
+</Example>
+
+<ManSection>
+  <Func Name="LaTeXStringFactorsInt" 
+        Arg="n"/>
+<Description>
+This function has been transferred from package &RCWA;. 
+<P/>
+It returns the prime factorization of the integer <M>n</M> as a string in 
+&LaTeX; format.
+<P/>
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> LaTeXStringFactorsInt( Factorial(12) );
+"2^{10} \\cdot 3^5 \\cdot 5^2 \\cdot 7 \\cdot 11"
+]]>
+</Example>
+
+</Section>
+
+
+<Section Label="sec-magma">
+<Heading>Conversion to &Magma; strings</Heading>
+
+<ManSection>
+  <Func Name="ConvertToMagmaInputString" 
+        Arg="arg"/>
+<Description>
+The function <C>ConvertToMagmaInputString( obj [, str] )</C> 
+attempts to output a string <C>s</C> which can be read into 
+&Magma; <Cite Key="MAGMA" />
+so as to produce the same group in that computer algebra system. 
+In the second form the user specifies the name of the resulting object, 
+so that the output string has the form <C>"str := ..."</C>.
+<P/>
+When <C>obj</C> is a permutation group, the operation 
+<C>PermGroupToMagmaFormat(obj)</C> is called. 
+<Index>PermGroupToMagmaFormat</Index> 
+This function has been taken from <File>other.gi</File> in the main library 
+where it was called <C>MagmaInputString</C>.
+<P/>
+When <C>obj</C> is a pc-group, the operation 
+<C>PcGroupToMagmaFormat(obj)</C> is called. 
+<Index>PcGroupToMagmaFormat</Index> 
+This function was private code of Max Horn. 
+<P/>
+When <C>obj</C> is a matrix group over a finite field, 
+the operation <C>MatrixGroupToMagmaFormat(obj)</C> is called. 
+<Index>MatrixGroupToMagmaFormat</Index> 
+This function is a modification of private code of Frank L&#xfc;beck. 
+<P/>
+Hopefully code for other types of group will be added in due course. 
+<P/>
+These functions should be considered <E>experimental</E>, 
+and more testing is desirable. 
+<P/>
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> ## permutation groups
+gap> ConvertToMagmaInputString( Group( (1,2,3,4,5), (3,4,5) ) );
+"PermutationGroup<5|(1,2,3,4,5),\n(3,4,5)>;\n"
+gap> ConvertToMagmaInputString( Group( (1,2,3,4,5) ), "c5" );        
+"c5 := PermutationGroup<5|(1,2,3,4,5)>;\n"
+gap> ## pc-group
+gap> ConvertToMagmaInputString( DihedralGroup( IsPcGroup, 10 ) );
+"PolycyclicGroup< f1,f2 |\nf1^2,\nf2^5,\nf2^f1 = f2^4\n>;\n"
+gap> ## fp-group
+gap> F2 := FreeGroup( 2 );;
+gap> f := F2.1;;  g := F2.2;;
+gap> relq8 := [ f^4, g^4, f*g*f*g^-1, f^2*g^2 ];; 
+gap> q8 := F2/relq8;; 
+gap> ConvertToMagmaInputString( q8 );
+no conversion function yet available for fp-groups
+fail
+gap> ## matrix group
+gap> M := GL(2,5);;  Size(M); 
+480
+gap> s1 := ConvertToMagmaInputString( M );
+"F := GF(5);\nP := GL(2,F);\ngens := [\nP![2,0,0,1],\nP![4,1,4,0]\n];\nsub<P |\
+ gens>;\n"
+gap> Print( s1 );
+F := GF(5);
+P := GL(2,F);
+gens := [
+P![2,0,0,1],
+P![4,1,4,0]
+];
+sub<P | gens>;
+gap> n1 := [ [ Z(9)^0, Z(9)^0 ], [ Z(9)^0, Z(9) ] ];;
+gap> n2 := [ [ Z(9)^0, Z(9)^3 ], [ Z(9)^4, Z(9)^2 ] ];;
+gap> N := Group( n1, n2 );;  Size( N );
+5760
+gap> s2 := ConvertToMagmaInputString( N, "gpN" );;
+gap> Print( s2 );
+F := GF(3^2);
+P := GL(2,F);
+w := PrimitiveElement(F);
+gens := [
+P![ 1, 1, 1,w^1],
+P![ 1,w^3, 2,w^2]
+];
+gpN := sub<P | gens>;
+]]>
+</Example>
+
+</Section>
+
+</Chapter> 

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (dev) - Chapter 8: Maintaining the GAP website</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap8"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap7_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap9_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap8.html">[MathJax off]</a></p>
+<p><a id="X83EA107F8604BF05" name="X83EA107F8604BF05"></a></p>
+<div class="ChapSects"><a href="chap8_mj.html#X83EA107F8604BF05">8 <span class="Heading">Maintaining the <strong class="pkg">GAP</strong> website</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X8389AD927B74BA4A">8.1 <span class="Heading">Overview</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X7B1863E17896BCE1">8.2 <span class="Heading">Getting started</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X834E4B6C803BCC83">8.3 <span class="Heading">Git usage</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X85F384C77F6DE105">8.4 <span class="Heading">The web server in St Andrews</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X868CFB5587409D40">8.5 <span class="Heading">Installation on the web server</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8_mj.html#X7F6C26DE8716D8E4">8.5-1 <span class="Heading">Needed ingredients</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8_mj.html#X7F9860F087C945E6">8.5-2 <span class="Heading">Installation procedure</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8_mj.html#X7F7E53617EC4B7AF">8.5-3 <span class="Heading"> Installing updated versions </span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X816DE34780E28F3B">8.6 <span class="Heading">The <strong class="pkg">GAP</strong> manuals on the web pages</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X836F4BD285D140CB">8.7 <span class="Heading">The <strong class="pkg">GAP</strong> packages on the web pages</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8_mj.html#X87A022527B07691C">8.8 <span class="Heading">The <strong class="pkg">GAP</strong> forum archive</span></a>
+</span>
+</div>
+</div>
+
+<h3>8 <span class="Heading">Maintaining the <strong class="pkg">GAP</strong> website</span></h3>
+
+<p>This chapter describes how the information accessible on <span class="URL"><a href="https://www.gap-system.org/">www.gap-system.org</a></span> is stored and collected, and how it is transformed into web pages.</p>
+
+<p><a id="X8389AD927B74BA4A" name="X8389AD927B74BA4A"></a></p>
+
+<h4>8.1 <span class="Heading">Overview</span></h4>
+
+<p>The <strong class="pkg">GAP</strong> website (in the following just called "website") has a tree structure for easier navigation and overview. Each node and each leaf of the tree is a web page. Every single page resides somewhere in this tree. This position is shown in the navigation bar on the left hand side, and the user can navigate through the tree using this navigation bar. However, pages can still link to other pages that reside in some other branch of the tree.</p>
+
+<p>All the sources for the web pages are kept in the git repository <code class="code">https://github.com/gap-system/GapWWW</code>. So you can clone this repository using</p>
+
+
+<pre class="normal">
+
+git clone https://github.com/gap-system/GapWWW
+
+</pre>
+
+<p>The web server in St Andrews also uses its clone, updates it to the latest revision of the <code class="keyw">master</code> branch, runs the Jekyll tool and then serves the pages. Another named branch is called <code class="keyw">testing</code> and it is served on the password protected version of the <strong class="pkg">GAP</strong> website at <span class="URL"><a href="https://test.gap-system.org">https://test.gap-system.org</a></span> where work in progress may be published to be reviewed internally.</p>
+
+<p>The <strong class="pkg">GAP</strong> website has some pages that are treated specially such as the <strong class="pkg">GAP</strong> manuals, the pages for the <strong class="pkg">GAP</strong> packages, the pages for the <strong class="pkg">GAP</strong> bibliography, and the (old) <strong class="pkg">GAP</strong> forum archive. The setup for these special pages is described in Sections <a href="chap8_mj.html#X816DE34780E28F3B"><span class="RefLink">8.6</span></a> to <a href="chap8_mj.html#X87A022527B07691C"><span class="RefLink">8.8</span></a> in this chapter.</p>
+
+<p><a id="X7B1863E17896BCE1" name="X7B1863E17896BCE1"></a></p>
+
+<h4>8.2 <span class="Heading">Getting started</span></h4>
+
+<p>There are several possible workflows dependently on how much efforts you would like to commit to the website maintenance.</p>
+
+<p>A minimalistic scenario for small improvements (e.g. correcting details and fixing typos) only requires to install <span class="URL"><a href="https://git-scm.com/">git</a></span> and then:</p>
+
+<ol>
+<li><p>Clone the Website repository: <code class="code">git clone https://github.com/gap-system/GapWWW</code></p>
+
+</li>
+<li><p>Make changes in a feature branch</p>
+
+</li>
+<li><p>Submit your changes as GitHub pull request so that website administrator(s) can review and merge this update.</p>
+
+</li>
+</ol>
+<p>If you are one of website administrator(s), then you will also need to be able to access the web server in St Andrews via <code class="code">ssh</code> to run certain update scripts and copy necessary data.</p>
+
+<p><a id="X834E4B6C803BCC83" name="X834E4B6C803BCC83"></a></p>
+
+<h4>8.3 <span class="Heading">Git usage</span></h4>
+
+<p>We assume here that you are familiar with the standard git commands <code class="code">git clone</code>, <code class="code">git pull</code>, <code class="code">git push</code>, <code class="code">git update</code>, <code class="code">git commit</code> etc.</p>
+
+<p>The source files for the web site are kept in the git repository <code class="code">https://github.com/gap-system/GapWWW</code>. You may clone it by doing</p>
+
+
+<pre class="normal">
+
+git clone https://github.com/gap-system/GapWWW
+
+</pre>
+
+<p>This command creates in your current directory a directory <code class="file">GapWWW</code> with the complete source tree of the web site.</p>
+
+<p>Source files are treated like any other source file in the git repository, that is you can update, modify, commit, add, remove them as usual.</p>
+
+<p>The only thing one has to understand with respect to git is which implications the branch in which the change has appeared will have on the process of its publication:</p>
+
+
+<ul>
+<li><p>Changes in the <code class="keyw">master</code> branch will not be automatically published on the web server. They will be reviewed by the website administrator who will then have to run the update script on the server in St Andrews as described in Section <a href="chap8_mj.html#X85F384C77F6DE105"><span class="RefLink">8.4</span></a> to make them available online.</p>
+
+</li>
+<li><p>Changes in feature branches (which you may create to keep some work in progress) will not be visible anywhere.</p>
+
+</li>
+</ul>
+<p>A little comment on the rationale behind this setup might be in order. It allows that more than one person works independently on the website and those people exchange versions via git, without publishing them immediately. The actual guidelines who does what in this process should be agreed on separately.</p>
+
+<p><a id="X85F384C77F6DE105" name="X85F384C77F6DE105"></a></p>
+
+<h4>8.4 <span class="Heading">The web server in St Andrews</span></h4>
+
+<p>Currently, the actually published version of the web site is contained in the directory <code class="file">/gap/GapWWW</code> on the following machine in St Andrews:</p>
+
+
+<pre class="normal">
+
+    gap-web.host.cs.st-andrews.ac.uk
+
+</pre>
+
+<p>To get access to this data the easiest and most secure way is probably to create an RSA key pair, append the public key to <code class="file">/gap/.ssh/authorized_keys</code> and to keep the private key in the <code class="file">.ssh</code> subdirectory of the user's home directory.</p>
+
+<p>Before performing an update on <code class="file">gap-web</code>, it is wise to check first whether <strong class="pkg">jekyll</strong> runs without an error message in your own checked out version of the website.</p>
+
+<p>The next step then is to test it on the online test version of the website. To do so, ssh into <code class="file">gap-web</code> and the enter these commands:</p>
+
+
+<pre class="normal">
+
+  cd ~/test.gap-system.org
+  git pull
+  jekyll build
+
+</pre>
+
+<p>Assuming this worked without error message, you can review the results at <span class="URL"><a href="https://test.gap-system.org">https://test.gap-system.org</a></span>.</p>
+
+<p>Finally, to update the actual website, use the following:</p>
+
+
+<pre class="normal">
+
+  cd ~/www.gap-system.org
+  git pull
+  jekyll build
+
+</pre>
+
+<p><a id="X868CFB5587409D40" name="X868CFB5587409D40"></a></p>
+
+<h4>8.5 <span class="Heading">Installation on the web server</span></h4>
+
+<p>This section describes the procedure to install the <strong class="pkg">GAP</strong> web site on a machine from scratch. Thus, this section is usually not needed because all this is already done on the machine <code class="file">gap-web.host.cs.st-andrews.ac.uk</code>. However, if one wants to have an exact copy of the web site or have to install it somewhere anew, this section is needed.</p>
+
+<p><a id="X7F6C26DE8716D8E4" name="X7F6C26DE8716D8E4"></a></p>
+
+<h5>8.5-1 <span class="Heading">Needed ingredients</span></h5>
+
+
+<ul>
+<li><p>standard tools: <code class="code">git</code>, <code class="code">tar</code>, <code class="code">gzip</code>, <code class="code">make</code>, <code class="code">sh</code></p>
+
+</li>
+<li><p><strong class="pkg">jekyll</strong></p>
+
+</li>
+<li><p>a web server if pages shall be published</p>
+
+</li>
+<li><p>a copy of the full <code class="file">doc</code> directory from a <strong class="pkg">GAP</strong> installation for references into the manual (this can reside on some web site)</p>
+
+</li>
+<li><p>setup for automatic creation of the pages for packages</p>
+
+</li>
+</ul>
+<p><a id="X7F9860F087C945E6" name="X7F9860F087C945E6"></a></p>
+
+<h5>8.5-2 <span class="Heading">Installation procedure</span></h5>
+
+<ol>
+<li><p>Clone the git repository GapWWW:</p>
+
+
+<pre class="normal">
+
+git clone https://github.com/gap-system/GapWWW
+
+</pre>
+
+<p>This creates a subdirectory <code class="file">GapWWW</code> in the current directory.</p>
+
+</li>
+<li><p>Unpack some (frozen) subtrees, which are in archives:</p>
+
+
+<pre class="normal">
+
+    cd GapWWW
+    gzip -dc ForumArchive.tar.gz | tar xvf -
+    cd Gap3
+    gzip -dc Manual3.tar.gz | tar xvf -
+    cd ..
+
+</pre>
+
+</li>
+<li><p>TODO/FIXME/WARNING: everything after this is outdated!!!</p>
+
+<p>Edit <code class="file">GapWWW/lib/config</code>, see that file for instructions:</p>
+
+
+<pre class="normal">
+
+    vi lib/config
+
+</pre>
+
+<p>In this file a few variables have to be defined to adapt the web pages to the local conditions.</p>
+
+</li>
+<li><p>Copy a whole <code class="file">doc</code> directory of a <strong class="pkg">GAP</strong> distribution to the place mentioned in <code class="file">GapWWW/lib/config</code> (see step 4.) in the variable <code class="code">GAPManualLink</code> (this is <code class="file">GapWWW/Manuals</code> in the current setup).</p>
+
+</li>
+<li><p>The files for the <strong class="pkg">GAP</strong> bibliography have been included into this directory tree in the repository.</p>
+
+<p>Create the html and PDF versions by:</p>
+
+
+<pre class="normal">
+
+    cd Doc/Bib
+    gap4 convbib.g
+    cd ../..
+
+</pre>
+
+<p>Some more information about this is in <code class="file">GapWWW/Doc/Bib/INFO</code> which is unchanges since 2010 and may be somewhat outdated.</p>
+
+</li>
+<li><p>Install package manuals:</p>
+
+<p>Copy the result of Frank's scripts to the place mentioned in <code class="file">GapWWW/lib/config</code> (in the variable <code class="file">pkgmixerpath</code>). (currently, this is <code class="file">GapWWW/Manuals</code>, copy the whole <code class="file">pkg</code> directory)</p>
+
+<p>To update the package pages, copy all <code class="file">.mixer</code> files and <code class="file">pkgconf.py</code> to <code class="file">GapWWW/Packages</code> and rerun the <strong class="pkg">Mixer</strong>.</p>
+
+</li>
+<li><p>Make sure that the file <code class="file">GapWWW/lib/AllLinksOfAllHelpSections.data</code> is always up-to-date (this has to be adjusted whenever the released manuals change).</p>
+
+<p>In the development version of <strong class="pkg">GAP</strong> there is a file <code class="file">dev/LinksOfAllHelpSections.g</code>. Read this with a current <strong class="pkg">GAP</strong> version with all currently released packages installed and call <code class="code">WriteAllLinksOfAllHelpSections()</code>, this writes the file <code class="file">AllLinksOfAllHelpSections.data</code>. It has then to be checked in to its place under the <code class="file">GapWWW</code> tree. Do not forget to publish the latest revision.</p>
+
+</li>
+<li><p>Run Jekyll:</p>
+
+
+<pre class="normal">
+
+    jekyll build
+
+</pre>
+
+</li>
+</ol>
+<p><a id="X7F7E53617EC4B7AF" name="X7F7E53617EC4B7AF"></a></p>
+
+<h5>8.5-3 <span class="Heading"> Installing updated versions </span></h5>
+
+<p>If things are changed in the repository, all that has to be done to update the pages locally is:</p>
+
+
+<pre class="normal">
+
+git pull
+
+</pre>
+
+<p>in the <code class="file">GapWWW</code> directory, followed by a</p>
+
+
+<pre class="normal">
+
+  jekyll build
+
+</pre>
+
+<p><a id="X816DE34780E28F3B" name="X816DE34780E28F3B"></a></p>
+
+<h4>8.6 <span class="Heading">The <strong class="pkg">GAP</strong> manuals on the web pages</span></h4>
+
+<p>All <strong class="pkg">GAP</strong> manuals are available in HTML format via the web pages. This works by simply copying the <code class="file">doc</code> directory of a complete <strong class="pkg">GAP</strong> installation to the place specified by the variable <code class="file">GAPManualLink</code> in <code class="file">GapWWW/lib/config</code> (which is <code class="file">GapWWW/Manuals</code> in the current setup). Note that those files are <em>not</em> under version control there, they are only copied to checked out working copies, like for example on the web server in St Andrews.</p>
+
+<p>The single remaining point to explain is how one can specify links to manual sections on the web pages. This is done with a special <strong class="pkg">Mixer</strong> tag like the following:</p>
+
+
+<pre class="normal">
+
+    &lt;mixer manual="Reference: Lists"&gt;Chapter about lists&lt;/mixer&gt;
+
+</pre>
+
+<p>This element creates a link to the manual section which would appear in the <strong class="pkg">GAP</strong> help system when called with "<code class="code">?Reference: Lists</code>", which happens to be the chapter in the reference manual about lists. The text of the link would be "Chapter about lists".</p>
+
+<p>This works, because the <strong class="pkg">Mixer</strong> has access to a file containing the links to all manual sections. This file resides in <code class="file">GapWWW/lib/AllLinksOfAllHelpSections.data</code>, which is created using <code class="file">dev/LinksOfAllHelpSections.g</code> in the development version of <strong class="pkg">GAP</strong> as described in Section <a href="chap8_mj.html#X868CFB5587409D40"><span class="RefLink">8.5</span></a>.</p>
+
+<p>The value of the attribute "manual" in the "mixer" tag must be the complete text of the section heading the link should point to.</p>
+
+<p><a id="X836F4BD285D140CB" name="X836F4BD285D140CB"></a></p>
+
+<h4>8.7 <span class="Heading">The <strong class="pkg">GAP</strong> packages on the web pages</span></h4>
+
+<p>The archives and web pages for the <strong class="pkg">GAP</strong> packages are generated by yet another set of tools described in Chapter <a href="chap7_mj.html#X83A4D48480312567"><span class="RefLink">7</span></a>. These generate for every package a <code class="file">.mixer</code>-file and for all packages together a file <code class="file">pkgconf.py</code>. All these files have to be put under version control in the directory <code class="file">GapWWW/Packages</code>. These nodes then only have to be put into the tree by mentioning them in the <code class="file">tree</code> file there.</p>
+
+<p><a id="X87A022527B07691C" name="X87A022527B07691C"></a></p>
+
+<h4>8.8 <span class="Heading">The <strong class="pkg">GAP</strong> forum archive</span></h4>
+
+<p>Until December 2003 the <strong class="pkg">GAP</strong> forum archive was handled by a tool written especially for this task. At that point it was switched to <code class="code">mailman</code>, a generic tool for mailing list, which also does the archiving. Therefore the old forum archives are frozen in form of a huge amount of HTML pages. These are not kept under version control as single files but as one big binary archive under <code class="file">GapWWW/ForumArchive.tar.gz</code>.</p>
+
+<p>To install those pages in a checked out working copy one just has to extract this archive by doing</p>
+
+
+<pre class="normal">
+
+    gzip -dc ForumArchive.tar.gz | tar xf -
+
+</pre>
+
+<p>in the <code class="file">GapWWW</code> directory as explained in Section <a href="chap8_mj.html#X868CFB5587409D40"><span class="RefLink">8.5</span></a>.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap7_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap9_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

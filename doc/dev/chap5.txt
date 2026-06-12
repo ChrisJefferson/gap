@@ -1,0 +1,253 @@
+  
+  [1X5 [33X[0;0YTesting [5XGAP[105X[101X[1X[133X[101X
+  
+  [33X[0;0Y[13XTODO: This chapter is partially outdated and has to be revised[113X[133X
+  
+  [33X[0;0YIn  this chapter we describe several tests which should be applied regularly
+  to  the  development  and  release  candidate versions of [5XGAP[105X in the hope to
+  reduce  the  number  of bugs and potential other problems (such as conflicts
+  between the main [5XGAP[105X system and packages) in the released version.[133X
+  
+  [33X[0;0YThese  tests  cover  [5XGAP[105X  computations,  in  the sense that actual output is
+  compared   with   expected   output,  as  well  as  formal  aspects  of  the
+  documentation.[133X
+  
+  
+  [1X5.1 [33X[0;0Y[10X.tst[110X[101X[1X-files[133X[101X
+  
+  [33X[0;0YThe  directory  [11Xtst[111X  in the [5XGAP[105X root directory contains directories, each of
+  which contains files whose names have the suffix [10X.tst[110X. The format of each of
+  these  files  must  be  suitable  for being read with the function [10XTest[110X, see
+  section  [14X'Reference:  Test  Files'[114X.  If  functionality  from [5XGAP[105X packages is
+  needed  in  a [10Xtst[110X file then it is recommended to execute these tests only if
+  the  packages are really available, and to load the packages explicitly, for
+  example as follows.[133X
+  
+  [4X[32X[104X
+    [4Xgap> if LoadPackage( "ctbllib" ) <> fail then[104X
+    [4X>      if Irr( CharacterTable( "WeylD", 4 ) )[1] <>[104X
+    [4X>           [ 3, -1, 3, -1, 1, -1, 3, -1, -1, 0, 0, -1, 1 ] then[104X
+    [4X>        Print( "problem with Irr( CharacterTable( \"WeylD\", 4 ) )[1]\n" );[104X
+    [4X>      fi;[104X
+    [4X>    fi;[104X
+  [4X[32X[104X
+  
+  [33X[0;0YMoreover,  it  is  recommended  to  group  tests that require packages to be
+  performed after all other tests are completed. The directory [11Xtst/testinstall[111X
+  contains  a  subset of tests which are recommended after installing [5XGAP[105X, see
+  [7Xhttps://www.gap-system.org/Download/INSTALL[107X.  The  idea is that the examples
+  in  these  [10X.tst[110X  files  are typical [5XGAP[105X computations, and that running these
+  tests requires only a few minutes. The [5XGAP[105X script [11Xtst/testinstall.g[111X will run
+  the tests in [11Xtst/testinstall[111X.[133X
+  
+  [33X[0;0YFurther    tests    are    contained   in   [11Xtst/teststandard[111X.   The   script
+  [11Xtst/teststandard.g[111X   will   run  all  tests  in  both  [11Xtst/teststandard[111X  and
+  [11Xtst/testinstall[111X.[133X
+  
+  
+  [1X5.2 [33X[0;0YChecking examples in the main manuals[133X[101X
+  
+  [33X[0;0YThe  reproducibility  of the output of examples in the main [5XGAP[105X manuals (the
+  two  manuals  in  the  directories  [11Xref[111X  and  [11Xtut[111X)  is  promised  in section
+  [14X'Tutorial:  Starting and Leaving GAP'[114X, under the condition that all examples
+  of a manual chapter are run immediately after starting [5XGAP[105X. Section [14X'GAPDoc:
+  Testing  Manual Examples'[114X contains another paragraph about the use of manual
+  examples for testing purposes.[133X
+  
+  [33X[0;0YThere  is no guarantee that package manuals behave this way. It is up to the
+  package  authors  whether  they  want to promise something similar for their
+  package.[133X
+  
+  
+  [1X5.3 [33X[0;0YTests for packages[133X[101X
+  
+  [33X[0;0YBesides  tests  of  the functionality of packages, we are also interested in
+  the  effects of packages on the functionality of the main system. The output
+  that  is  shown in examples in the [5XGAP[105X manuals as well as the output that is
+  prescribed  in  the  test  files  in  [10Xtst[110X should be the same when [5XGAP[105X is run
+  without packages or with all packages available. Therefore, the tests in the
+  standard  test suite (see [14X5.6[114X) are run several times, in a [5XGAP[105X that loads no
+  packages and in a [5XGAP[105X that loads all available packages and/or all available
+  autoloaded packages.[133X
+  
+  [33X[0;0YConcerning  tests of package functionality, in principle the package authors
+  are responsible for providing and running tests for their packages. However,
+  it makes sense to provide test files analogous to those described in section
+  [14X5.1[114X.[133X
+  
+  [33X[0;0YIf  the record in the [11XPackageInfo.g[111X file of the package (see [14X'Reference: The
+  PackageInfo.g  File'[114X) contains the component [10XTestFile[110X then the file given by
+  the  value is read as a part of the regular [5XGAP[105X test suite, see section [14X5.6[114X.
+  So this file should contain [10XTest[110X statements for suitable files that are part
+  of  the  package  distribution.  Since  these  tests  are intended to be run
+  regularly,  they  should  require not more than a few hours of CPU time. (Of
+  course  also longer examples can make sense but they should not be listed in
+  the file given by the [10XTestFile[110X component.)[133X
+  
+  [33X[0;0YNote  that  the  inclusion  of  the above package tests refers to the latest
+  released version of each package, not to its development version.[133X
+  
+  [33X[0;0YSince the format of the documentation for a package is not prescribed, there
+  is no generic tool for checking manual examples of packages. One possibility
+  to  include  the  examples  from package manuals in the standard tests is to
+  create   a  [10X.tst[110X  file  with  these  examples  from  the  manual.  (For  one
+  implementation  of  this approach, see the script [11Xetc/makexpl[111X in the [10Xctbllib[110X
+  package.  It  produces  a  file  [11Xtst/docxpl.tst[111X  in  the  package directory,
+  containing all examples from the package manual.)[133X
+  
+  
+  [1X5.4 [33X[0;0YChecking references and cross-references of manuals[133X[101X
+  
+  [33X[0;0YThis is still to be provided (and then documented here). Perhaps the easiest
+  way  is  a check of cross-references in and between the HTML versions of the
+  manuals;  and  perhaps  this  should be viewed as a part of the more general
+  task  to  check  the validity of (in particular cross-references in) the [5XGAP[105X
+  website.[133X
+  
+  [33X[0;0Y(Possible        ingedients        are       [11Xdoc/test/CheckBooks.g[111X       and
+  [11Xdev/LinksOfAllHelpSections.g[111X.)[133X
+  
+  [33X[0;0YFor the manuals in the formats given by the [5XGAPDoc[105X package, multiply defined
+  labels  and  non-resolved  references  will  be reported at the manual build
+  stage.[133X
+  
+  
+  [1X5.5 [33X[0;0YDetecting potential naming conflicts[133X[101X
+  
+  [33X[0;0YAlso this is still to be provided (and then documented here).[133X
+  
+  
+  [1X5.6 [33X[0;0YThe standard test suite[133X[101X
+  
+  [33X[0;0YThe  standard  test suite is given by several targets in the [11XMakefile[111X in the
+  [5XGAP[105X   root   directory.  (So  the  file  [11XMakefile.in[111X  is  relevant  for  the
+  maintenance.) It consists of[133X
+  
+  [30X    [33X[0;6YThe tests contained in [11Xtst/testinstall[111X, see [14X5.1[114X,[133X
+  
+  [30X    [33X[0;6YAll tests in all subdirectories of [10Xtst[110X, see [14X5.1[114X,[133X
+  
+  [30X    [33X[0;6Ythe tests of the main manuals described in section [14X5.2[114X,[133X
+  
+  [30X    [33X[0;6Ythe   package   tests   described   by   the  [10XTestFile[110X  components  of
+        [11XPackageInfo.g[111X files of all accepted or deposited packages, and[133X
+  
+  [30X    [33X[0;6Ythe   tests   of   packages   loading   with  [2XLoadPackage[102X  ([14XReference:
+        LoadPackage[114X) and [2XLoadAllPackages[102X ([14XReference: LoadAllPackages[114X)[133X
+  
+  [33X[0;0YAs  is stated in Section [14X5.3[114X, each test is run at least twice, once in a [5XGAP[105X
+  that  loads  no packages and then in a [5XGAP[105X that loads all available packages
+  and/or all available autoloaded packages.[133X
+  
+  [33X[0;0YBefore  running  these  tests, you should make sure that the system is up to
+  date, in particular,[133X
+  
+  [30X    [33X[0;6Ycompile package executables where applicable,[133X
+  
+  [30X    [33X[0;6Ycall  [10Xmake  doc[110X  in  the  root directory, in order to process the main
+        documentation,[133X
+  
+  [33X[0;0YThen proceed as follows in the [5XGAP[105X root directory.[133X
+  
+  [30X    [33X[0;6YCall  [10Xmake  testinstall[110X.  This reads the file [10Xtst/testinstall.g[110X, which
+        should require just a few minutes.[133X
+  
+  [30X    [33X[0;6YCall [10Xmake testmanuals[110X. This runs the examples in the main [5XGAP[105X manuals,
+        and  should  also  require  only  a  few minutes. (Note that a new [5XGAP[105X
+        process  is  started  for  each manual chapter. In order to accelerate
+        this,  a [5XGAP[105X workspace is created in the beginning, is reused for each
+        chapter, and removed in the end.)[133X
+  
+  [30X    [33X[0;6YCall  [10Xmake teststandard[110X. This runs the tests in [10Xtst[110X, and may require a
+        couple of hours.[133X
+  
+  [30X    [33X[0;6YCall  [10Xmake  testpackages[110X.  This  starts  a  new  [5XGAP[105X  session for each
+        accepted  or  deposited  package,  and  reads  the  file  given by the
+        component  [10XTestFile[110X  in the [11XPackageInfo.g[111X file (if this is available).
+        It may require several hours.[133X
+  
+  [30X    [33X[0;6YCall  [10Xmake  testpackagesloading[110X. This loads each accepted or deposited
+        package  in a new [5XGAP[105X session, then starts a new [5XGAP[105X session and calls
+        [2XLoadAllPackages[102X   ([14XReference:   LoadAllPackages[114X)  to  check  that  all
+        packages may be loaded simultaneosuly. It require just a few minutes.[133X
+  
+  [33X[0;0YIn each case, [5XGAP[105X is called with the command line options [10X-m 100m -o 550m -A
+  -N  -q  -x  80  -r[110X, cf. [14X'Reference: Command Line Options'[114X, and the assertion
+  level is set to 2 before the tests.[133X
+  
+  [33X[0;0YThe  output  is  written  to  files in the directory [11Xdev/log[111X, which does not
+  belong to the distribution of [5XGAP[105X. The file names start with the name of the
+  target ([10Xtestinstall[110X, [10Xteststandard[110X, etc.), followed by [10X1[110X for the case that no
+  packages are loaded before the tests, by [10X2[110X if all packages are loaded before
+  the tests, and by [10XA[110X if only autoloaded packages are loaded before the tests,
+  followed  by  the  date  and  time  when the test was started, in the format
+  [10X_YY_MM_DD_HH_MM[110X.  For  the  package  tests,  the  output for each package in
+  question  is  written to a file of its own, and the package name is appended
+  to the file name.[133X
+  
+  [33X[0;0YNote that in the case that no package is loaded initially, some packages may
+  be  loaded  during  the  tests,  due to [2XLoadPackage[102X ([14XReference: LoadPackage[114X)
+  statements  in  the test files. So a list of all packages that are loaded at
+  the end of the tests can be found at the end of the output files.[133X
+  
+  
+  [1X5.7 [33X[0;0YTest evaluation[133X[101X
+  
+  [33X[0;0YAfter  the  tests,  please  inspect  the  output  files  and  deal  with the
+  differences that were found. The following situations may be expected.[133X
+  
+  [30X    [33X[0;6YThere  are  differences  between  the prescribed output and the actual
+        output.  This  may  be  the  result  of  code  improvements  and  thus
+        intentional;  then  the  prescribed  output  should be replaced by the
+        actual  one.  It may be a side-effect of code changes, for example new
+        or  changed  methods  may choose different generators for a group or a
+        different  ordering  of  conjugacy  classes; then one should make sure
+        that the changed output is not caused by worse methods being used than
+        before.  If  the  prescribed  and  the  actual  value  are essentially
+        different  (e.g.,  [9Xtrue[109X  vs. [9Xfalse[109X or different numerical values) then
+        probably  we have a serious problem n the sense that (at least) one of
+        the two values is wrong.[133X
+  
+  [30X    [33X[0;6YThere  are  differences between the results of a test without packages
+        and  the  same  test  with  packages  loaded. It may be that a package
+        provides  a  better  solution  than the one that was expected when the
+        input example had been prepared; in this case, it is perhaps advisable
+        to  ask  the maintainers of the relevant code to modify the example in
+        question,  since  it  is  apparently no longer typical. It may also be
+        that  a  new  package  version breaks functionality; in this case, the
+        package authors should be informed.[133X
+  
+  [30X    [33X[0;6YA  more  subtle difference is a change in the runtime, which is listed
+        more  or  less  detailed in the output files. If the runtime increases
+        w.r.t.  an earlier [5XGAP[105X version then this should be reported to the [5XGAP[105X
+        group.  If  the  runtime  with  packages  is substantially bigger than
+        without packages then the package authors should be informed.[133X
+  
+  [33X[0;0YWhen  test input is adjusted to the current behaviour, it should be adjusted
+  for  the  situation  that no packages are loaded. (In the case of test input
+  for  a package, this means that only the needed packages are loaded, see the
+  component  [10XDependencies.NeededOtherPackages[110X in the file [11XPackageInfo.g[111X.) Note
+  that testing the changed behaviour introduced by another package would be an
+  issue for tests that belong to this package.[133X
+  
+  
+  [1X5.8 [33X[0;0YTest Issues for Releases[133X[101X
+  
+  [33X[0;0YThe following additional issues are related to testing when a new version of
+  [5XGAP[105X is to be released.[133X
+  
+  [30X    [33X[0;6YRun all tests.[133X
+  
+  
+  [1X5.9 [33X[0;0YOpen items concerning tests[133X[101X
+  
+  [30X    [33X[0;6YAdd   a   paragraph   about  general  tests  for  features:  When  new
+        documentation is added, add meaningful examples to this documentation,
+        from which users get an idea what typical uses are. In a corresponding
+        file  in the [10Xtst[110X directory, add examples which cover also pathological
+        input  such  as  empty lists. Add also interesting computations to the
+        tests  which  are perhaps to be excluded from the regular testing; for
+        features  in a package, perhaps distinguish between the tests that are
+        covered  by  the [10XTestFile[110X component of the [11XPackageInfo.g[111X file and hard
+        tests.[133X
+  

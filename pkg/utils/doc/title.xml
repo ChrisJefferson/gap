@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    utils
+  </Title>
+  <Subtitle>
+    Utility functions in &GAP;
+  </Subtitle>
+  <Version>
+    0.77dev
+  </Version>
+  <Author>
+    Thomas Breuer<Alt Only="LaTeX"><Br/></Alt>
+<Email>sam@math.rwth-aachen.de</Email>
+<Homepage>https://www.math.rwth-aachen.de/~Thomas.Breuer</Homepage>
+
+  </Author>
+  <Author>
+    Sebastian Gutsche<Alt Only="LaTeX"><Br/></Alt>
+<Email>gutsche@mathematik.uni-seigen.de</Email>
+<Homepage>https://sebasguts.github.io/</Homepage>
+
+  </Author>
+  <Author>
+    Max Horn<Alt Only="LaTeX"><Br/></Alt>
+<Email>horn@mathematik.uni-kl.de</Email>
+<Homepage>https://github.com/mhorn</Homepage>
+
+  </Author>
+  <Author>
+    Alexander Hulpke<Alt Only="LaTeX"><Br/></Alt>
+<Email>hulpke@math.colostate.edu</Email>
+<Homepage>https://www.math.colostate.edu/~hulpke</Homepage>
+
+  </Author>
+  <Author>
+    Stefan Kohl<Alt Only="LaTeX"><Br/></Alt>
+<Email>stefan@mcs.st-and.ac.uk</Email>
+<Homepage>https://www.gap-system.org/DevelopersPages/StefanKohl/</Homepage>
+
+  </Author>
+  <Author>
+    Frank Lübeck<Alt Only="LaTeX"><Br/></Alt>
+<Email>Frank.Luebeck@Math.RWTH-Aachen.De</Email>
+<Homepage>https://www.math.rwth-aachen.de/~Frank.Luebeck</Homepage>
+
+  </Author>
+  <Author>
+    Chris Wensley<Alt Only="LaTeX"><Br/></Alt>
+<Email>c.d.wensley@bangor.ac.uk</Email>
+<Homepage>https://github.com/cdwensley</Homepage>
+
+  </Author>
+  <Date>
+    4 October 2022
+  </Date>
+  <Abstract>
+    The &Utils; package provides a space for utility functions in a variety of &GAP; packages to be collected together into a single package.  In this way it is hoped that they will become more visible to package authors.
+<P/>
+Any package author who transfers a function to &Utils; will become an author of &Utils;.
+<P/>
+If deemed appropriate, functions may also be transferred from the main library.
+<P/>
+Bug reports, suggestions and comments are, of course, welcome.
+Please contact the last author at <Email>c.d.wensley@bangor.ac.uk</Email> or submit an issue at the GitHub repository <URL>https://github.com/gap-packages/utils/issues/</URL>.
+  </Abstract>
+  <Copyright>
+    &copyright; 2015-2022, The GAP Group. <P/>
+The &Utils; package is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+  </Copyright>
+  <Acknowledgements>
+    This documentation was prepared using the &GAPDoc; <Cite Key='GAPDoc'/> and &AutoDoc; <Cite Key='AutoDoc'/> packages.<P/>
+The procedure used to produce new releases uses the package <Package>GitHubPagesForGAP</Package> <Cite Key='GitHubPagesForGAP' /> and the package <Package>ReleaseTools</Package>.<P/>
+  </Acknowledgements>
+  </TitlePage>

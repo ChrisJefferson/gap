@@ -1,0 +1,71 @@
+\makelabel{crystcat:The Crystallographic Groups Catalog}{1}
+\makelabel{crystcat:How to access the data of the book}{1.1}
+\makelabel{crystcat:Representation of space groups}{1.2}
+\makelabel{crystcat:Crystal Families}{1.3}
+\makelabel{crystcat:NrCrystalFamilies}{1.3.1}
+\makelabel{crystcat:DisplayCrystalFamily}{1.3.2}
+\makelabel{crystcat:Crystal Systems}{1.4}
+\makelabel{crystcat:NrCrystalSystems}{1.4.1}
+\makelabel{crystcat:DisplayCrystalSystem}{1.4.2}
+\makelabel{crystcat:Q-Classes}{1.5}
+\makelabel{crystcat:NrQClassesCrystalSystem}{1.5.1}
+\makelabel{crystcat:DisplayQClass}{1.5.2}
+\makelabel{crystcat:DisplayQClass}{1.5.2}
+\makelabel{crystcat:DisplayQClass}{1.5.2}
+\makelabel{crystcat:FpGroupQClass}{1.5.3}
+\makelabel{crystcat:FpGroupQClass}{1.5.3}
+\makelabel{crystcat:FpGroupQClass}{1.5.3}
+\makelabel{crystcat:PcGroupQClass}{1.5.4}
+\makelabel{crystcat:PcGroupQClass}{1.5.4}
+\makelabel{crystcat:PcGroupQClass}{1.5.4}
+\makelabel{crystcat:CharTableQClass}{1.5.5}
+\makelabel{crystcat:CharTableQClass}{1.5.5}
+\makelabel{crystcat:CharTableQClass}{1.5.5}
+\makelabel{crystcat:Z-Classes}{1.6}
+\makelabel{crystcat:NrZClassesQClass}{1.6.1}
+\makelabel{crystcat:NrZClassesQClass}{1.6.1}
+\makelabel{crystcat:NrZClassesQClass}{1.6.1}
+\makelabel{crystcat:DisplayZClass}{1.6.2}
+\makelabel{crystcat:DisplayZClass}{1.6.2}
+\makelabel{crystcat:DisplayZClass}{1.6.2}
+\makelabel{crystcat:MatGroupZClass}{1.6.3}
+\makelabel{crystcat:MatGroupZClass}{1.6.3}
+\makelabel{crystcat:MatGroupZClass}{1.6.3}
+\makelabel{crystcat:NormalizerZClass}{1.6.4}
+\makelabel{crystcat:NormalizerZClass}{1.6.4}
+\makelabel{crystcat:NormalizerZClass}{1.6.4}
+\makelabel{crystcat:Dade groups}{1.7}
+\makelabel{crystcat:NrDadeGroups}{1.7.1}
+\makelabel{crystcat:DadeGroup}{1.7.2}
+\makelabel{crystcat:DadeGroupNumbersZClass}{1.7.3}
+\makelabel{crystcat:DadeGroupNumbersZClass}{1.7.3}
+\makelabel{crystcat:DadeGroupNumbersZClass}{1.7.3}
+\makelabel{crystcat:ZClassRepsDadeGroup}{1.7.4}
+\makelabel{crystcat:ZClassRepsDadeGroup}{1.7.4}
+\makelabel{crystcat:ZClassRepsDadeGroup}{1.7.4}
+\makelabel{crystcat:Space groups and space group types}{1.8}
+\makelabel{crystcat:NrSpaceGroupTypesZClass}{1.8.1}
+\makelabel{crystcat:NrSpaceGroupTypesZClass}{1.8.1}
+\makelabel{crystcat:NrSpaceGroupTypesZClass}{1.8.1}
+\makelabel{crystcat:DisplaySpaceGroupType}{1.8.2}
+\makelabel{crystcat:DisplaySpaceGroupType}{1.8.2}
+\makelabel{crystcat:DisplaySpaceGroupType}{1.8.2}
+\makelabel{crystcat:DisplaySpaceGroupGenerators}{1.8.3}
+\makelabel{crystcat:DisplaySpaceGroupGenerators}{1.8.3}
+\makelabel{crystcat:DisplaySpaceGroupGenerators}{1.8.3}
+\makelabel{crystcat:SpaceGroupOnLeftBBNWZ}{1.8.4}
+\makelabel{crystcat:SpaceGroupOnLeftBBNWZ}{1.8.4}
+\makelabel{crystcat:SpaceGroupOnLeftBBNWZ}{1.8.4}
+\makelabel{crystcat:SpaceGroupOnRightBBNWZ}{1.8.5}
+\makelabel{crystcat:SpaceGroupOnRightBBNWZ}{1.8.5}
+\makelabel{crystcat:SpaceGroupOnRightBBNWZ}{1.8.5}
+\makelabel{crystcat:SpaceGroupOnRightBBNWZ}{1.8.5}
+\makelabel{crystcat:SpaceGroupBBNWZ}{1.8.6}
+\makelabel{crystcat:SpaceGroupBBNWZ}{1.8.6}
+\makelabel{crystcat:SpaceGroupBBNWZ}{1.8.6}
+\makelabel{crystcat:FpGroupSpaceGroupBBNWZ}{1.8.7}
+\makelabel{crystcat:Bibliography}{}
+\setcitlab {BBNWZ78}{BBNWZ78}
+\setcitlab {Hah95}{Hah95}
+\setcitlab {NPW81}{NPW81}
+\makelabel{crystcat:Index}{}

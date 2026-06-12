@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    ResClasses
+  </Title>
+  <Subtitle>
+    Set-Theoretic Computations with Residue Classes
+  </Subtitle>
+  <Version>
+    4.7.4
+  </Version>
+  <Author>
+    Stefan Kohl<Alt Only="LaTeX"><Br/></Alt>
+<Email>sk239@st-andrews.ac.uk</Email>
+<Homepage>https://stefan-kohl.github.io/</Homepage>
+
+  </Author>
+  <Date>
+    24 September 2025
+  </Date>
+  <Abstract>
+    <#Include SYSTEM "abstract.xml">
+  </Abstract>
+  <Copyright>
+    &copyright; 2003 - 2017 by Stefan Kohl. <P/>
+
+&ResClasses; is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version. <P/>
+
+&ResClasses; is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details. <P/>
+
+For a copy of the GNU General Public License, see 
+the file <F>GPL</F> in the <F>etc</F> directory of the &GAP;
+distribution or see <URL>https://www.gnu.org/licenses/gpl.html</URL>.
+        
+  </Copyright>
+  </TitlePage>

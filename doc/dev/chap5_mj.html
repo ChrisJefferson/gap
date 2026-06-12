@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (dev) - Chapter 5: Testing GAP</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap5"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap5.html">[MathJax off]</a></p>
+<p><a id="X7E322F907A91E93C" name="X7E322F907A91E93C"></a></p>
+<div class="ChapSects"><a href="chap5_mj.html#X7E322F907A91E93C">5 <span class="Heading">Testing <strong class="pkg">GAP</strong></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7A8164FA845633C4">5.1 <span class="Heading"><code class="code">.tst</code>-files</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7C3CA111819C3B70">5.2 <span class="Heading">Checking examples in the main manuals</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X86A3BA8286875488">5.3 <span class="Heading">Tests for packages</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7C9AC516810C5B9B">5.4 <span class="Heading">Checking references and cross-references of manuals</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X81532DCF84DF5130">5.5 <span class="Heading">Detecting potential naming conflicts</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7A7205ED7D3C47E5">5.6 <span class="Heading">The standard test suite</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7E3E6D44826B524E">5.7 <span class="Heading">Test evaluation</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7D745E5F7EC8BF06">5.8 <span class="Heading">Test Issues for Releases</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X864F14B185FDD394">5.9 <span class="Heading">Open items concerning tests</span></a>
+</span>
+</div>
+</div>
+
+<h3>5 <span class="Heading">Testing <strong class="pkg">GAP</strong></span></h3>
+
+<p><em>TODO: This chapter is partially outdated and has to be revised</em></p>
+
+<p>In this chapter we describe several tests which should be applied regularly to the development and release candidate versions of <strong class="pkg">GAP</strong> in the hope to reduce the number of bugs and potential other problems (such as conflicts between the main <strong class="pkg">GAP</strong> system and packages) in the released version.</p>
+
+<p>These tests cover <strong class="pkg">GAP</strong> computations, in the sense that actual output is compared with expected output, as well as formal aspects of the documentation.</p>
+
+<p><a id="X7A8164FA845633C4" name="X7A8164FA845633C4"></a></p>
+
+<h4>5.1 <span class="Heading"><code class="code">.tst</code>-files</span></h4>
+
+<p>The directory <code class="file">tst</code> in the <strong class="pkg">GAP</strong> root directory contains directories, each of which contains files whose names have the suffix <code class="code">.tst</code>. The format of each of these files must be suitable for being read with the function <code class="code">Test</code>, see section <a href="../../doc/ref/chap7_mj.html#X801051CC86594630"><span class="RefLink">Reference: Test Files</span></a>. If functionality from <strong class="pkg">GAP</strong> packages is needed in a <code class="code">tst</code> file then it is recommended to execute these tests only if the packages are really available, and to load the packages explicitly, for example as follows.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">if LoadPackage( "ctbllib" ) &lt;&gt; fail then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     if Irr( CharacterTable( "WeylD", 4 ) )[1] &lt;&gt;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          [ 3, -1, 3, -1, 1, -1, 3, -1, -1, 0, 0, -1, 1 ] then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       Print( "problem with Irr( CharacterTable( \"WeylD\", 4 ) )[1]\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   fi;</span>
+</pre></div>
+
+<p>Moreover, it is recommended to group tests that require packages to be performed after all other tests are completed. The directory <code class="file">tst/testinstall</code> contains a subset of tests which are recommended after installing <strong class="pkg">GAP</strong>, see <span class="URL"><a href="https://www.gap-system.org/Download/INSTALL">https://www.gap-system.org/Download/INSTALL</a></span>. The idea is that the examples in these <code class="code">.tst</code> files are typical <strong class="pkg">GAP</strong> computations, and that running these tests requires only a few minutes. The <strong class="pkg">GAP</strong> script <code class="file">tst/testinstall.g</code> will run the tests in <code class="file">tst/testinstall</code>.</p>
+
+<p>Further tests are contained in <code class="file">tst/teststandard</code>. The script <code class="file">tst/teststandard.g</code> will run all tests in both <code class="file">tst/teststandard</code> and <code class="file">tst/testinstall</code>.</p>
+
+<p><a id="X7C3CA111819C3B70" name="X7C3CA111819C3B70"></a></p>
+
+<h4>5.2 <span class="Heading">Checking examples in the main manuals</span></h4>
+
+<p>The reproducibility of the output of examples in the main <strong class="pkg">GAP</strong> manuals (the two manuals in the directories <code class="file">ref</code> and <code class="file">tut</code>) is promised in section <a href="../../doc/tut/chap2_mj.html#X84063FD486665C97"><span class="RefLink">Tutorial: Starting and Leaving GAP</span></a>, under the condition that all examples of a manual chapter are run immediately after starting <strong class="pkg">GAP</strong>. Section <a href="../../pkg/gapdoc/doc/chap5_mj.html#X800299827B88ABBE"><span class="RefLink">GAPDoc: Testing Manual Examples</span></a> contains another paragraph about the use of manual examples for testing purposes.</p>
+
+<p>There is no guarantee that package manuals behave this way. It is up to the package authors whether they want to promise something similar for their package.</p>
+
+<p><a id="X86A3BA8286875488" name="X86A3BA8286875488"></a></p>
+
+<h4>5.3 <span class="Heading">Tests for packages</span></h4>
+
+<p>Besides tests of the functionality of packages, we are also interested in the effects of packages on the functionality of the main system. The output that is shown in examples in the <strong class="pkg">GAP</strong> manuals as well as the output that is prescribed in the test files in <code class="code">tst</code> should be the same when <strong class="pkg">GAP</strong> is run without packages or with all packages available. Therefore, the tests in the standard test suite (see <a href="chap5_mj.html#X7A7205ED7D3C47E5"><span class="RefLink">5.6</span></a>) are run several times, in a <strong class="pkg">GAP</strong> that loads no packages and in a <strong class="pkg">GAP</strong> that loads all available packages and/or all available autoloaded packages.</p>
+
+<p>Concerning tests of package functionality, in principle the package authors are responsible for providing and running tests for their packages. However, it makes sense to provide test files analogous to those described in section <a href="chap5_mj.html#X7A8164FA845633C4"><span class="RefLink">5.1</span></a>.</p>
+
+<p>If the record in the <code class="file">PackageInfo.g</code> file of the package (see <a href="../../doc/ref/chap76_mj.html#X85C8DE357EE424D8"><span class="RefLink">Reference: The PackageInfo.g File</span></a>) contains the component <code class="code">TestFile</code> then the file given by the value is read as a part of the regular <strong class="pkg">GAP</strong> test suite, see section <a href="chap5_mj.html#X7A7205ED7D3C47E5"><span class="RefLink">5.6</span></a>. So this file should contain <code class="code">Test</code> statements for suitable files that are part of the package distribution. Since these tests are intended to be run regularly, they should require not more than a few hours of CPU time. (Of course also longer examples can make sense but they should not be listed in the file given by the <code class="code">TestFile</code> component.)</p>
+
+<p>Note that the inclusion of the above package tests refers to the latest released version of each package, not to its development version.</p>
+
+<p>Since the format of the documentation for a package is not prescribed, there is no generic tool for checking manual examples of packages. One possibility to include the examples from package manuals in the standard tests is to create a <code class="code">.tst</code> file with these examples from the manual. (For one implementation of this approach, see the script <code class="file">etc/makexpl</code> in the <code class="code">ctbllib</code> package. It produces a file <code class="file">tst/docxpl.tst</code> in the package directory, containing all examples from the package manual.)</p>
+
+<p><a id="X7C9AC516810C5B9B" name="X7C9AC516810C5B9B"></a></p>
+
+<h4>5.4 <span class="Heading">Checking references and cross-references of manuals</span></h4>
+
+<p>This is still to be provided (and then documented here). Perhaps the easiest way is a check of cross-references in and between the HTML versions of the manuals; and perhaps this should be viewed as a part of the more general task to check the validity of (in particular cross-references in) the <strong class="pkg">GAP</strong> website.</p>
+
+<p>(Possible ingedients are <code class="file">doc/test/CheckBooks.g</code> and <code class="file">dev/LinksOfAllHelpSections.g</code>.)</p>
+
+<p>For the manuals in the formats given by the <strong class="pkg">GAPDoc</strong> package, multiply defined labels and non-resolved references will be reported at the manual build stage.</p>
+
+<p><a id="X81532DCF84DF5130" name="X81532DCF84DF5130"></a></p>
+
+<h4>5.5 <span class="Heading">Detecting potential naming conflicts</span></h4>
+
+<p>Also this is still to be provided (and then documented here).</p>
+
+<p><a id="X7A7205ED7D3C47E5" name="X7A7205ED7D3C47E5"></a></p>
+
+<h4>5.6 <span class="Heading">The standard test suite</span></h4>
+
+<p>The standard test suite is given by several targets in the <code class="file">Makefile</code> in the <strong class="pkg">GAP</strong> root directory. (So the file <code class="file">Makefile.in</code> is relevant for the maintenance.) It consists of</p>
+
+
+<ul>
+<li><p>The tests contained in <code class="file">tst/testinstall</code>, see <a href="chap5_mj.html#X7A8164FA845633C4"><span class="RefLink">5.1</span></a>,</p>
+
+</li>
+<li><p>All tests in all subdirectories of <code class="code">tst</code>, see <a href="chap5_mj.html#X7A8164FA845633C4"><span class="RefLink">5.1</span></a>,</p>
+
+</li>
+<li><p>the tests of the main manuals described in section <a href="chap5_mj.html#X7C3CA111819C3B70"><span class="RefLink">5.2</span></a>,</p>
+
+</li>
+<li><p>the package tests described by the <code class="code">TestFile</code> components of <code class="file">PackageInfo.g</code> files of all accepted or deposited packages, and</p>
+
+</li>
+<li><p>the tests of packages loading with <code class="func">LoadPackage</code> (<a href="../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) and <code class="func">LoadAllPackages</code> (<a href="../../doc/ref/chap76_mj.html#X80A0D21D78CF8494"><span class="RefLink">Reference: LoadAllPackages</span></a>)</p>
+
+</li>
+</ul>
+<p>As is stated in Section <a href="chap5_mj.html#X86A3BA8286875488"><span class="RefLink">5.3</span></a>, each test is run at least twice, once in a <strong class="pkg">GAP</strong> that loads no packages and then in a <strong class="pkg">GAP</strong> that loads all available packages and/or all available autoloaded packages.</p>
+
+<p>Before running these tests, you should make sure that the system is up to date, in particular,</p>
+
+
+<ul>
+<li><p>compile package executables where applicable,</p>
+
+</li>
+<li><p>call <code class="code">make doc</code> in the root directory, in order to process the main documentation,</p>
+
+</li>
+</ul>
+<p>Then proceed as follows in the <strong class="pkg">GAP</strong> root directory.</p>
+
+
+<ul>
+<li><p>Call <code class="code">make testinstall</code>. This reads the file <code class="code">tst/testinstall.g</code>, which should require just a few minutes.</p>
+
+</li>
+<li><p>Call <code class="code">make testmanuals</code>. This runs the examples in the main <strong class="pkg">GAP</strong> manuals, and should also require only a few minutes. (Note that a new <strong class="pkg">GAP</strong> process is started for each manual chapter. In order to accelerate this, a <strong class="pkg">GAP</strong> workspace is created in the beginning, is reused for each chapter, and removed in the end.)</p>
+
+</li>
+<li><p>Call <code class="code">make teststandard</code>. This runs the tests in <code class="code">tst</code>, and may require a couple of hours.</p>
+
+</li>
+<li><p>Call <code class="code">make testpackages</code>. This starts a new <strong class="pkg">GAP</strong> session for each accepted or deposited package, and reads the file given by the component <code class="code">TestFile</code> in the <code class="file">PackageInfo.g</code> file (if this is available). It may require several hours.</p>
+
+</li>
+<li><p>Call <code class="code">make testpackagesloading</code>. This loads each accepted or deposited package in a new <strong class="pkg">GAP</strong> session, then starts a new <strong class="pkg">GAP</strong> session and calls <code class="func">LoadAllPackages</code> (<a href="../../doc/ref/chap76_mj.html#X80A0D21D78CF8494"><span class="RefLink">Reference: LoadAllPackages</span></a>) to check that all packages may be loaded simultaneosuly. It require just a few minutes.</p>
+
+</li>
+</ul>
+<p>In each case, <strong class="pkg">GAP</strong> is called with the command line options <code class="code">-m 100m -o 550m -A -N -q -x 80 -r</code>, cf. <a href="../../doc/ref/chap3_mj.html#X782751D5858A6EAF"><span class="RefLink">Reference: Command Line Options</span></a>, and the assertion level is set to 2 before the tests.</p>
+
+<p>The output is written to files in the directory <code class="file">dev/log</code>, which does not belong to the distribution of <strong class="pkg">GAP</strong>. The file names start with the name of the target (<code class="code">testinstall</code>, <code class="code">teststandard</code>, etc.), followed by <code class="code">1</code> for the case that no packages are loaded before the tests, by <code class="code">2</code> if all packages are loaded before the tests, and by <code class="code">A</code> if only autoloaded packages are loaded before the tests, followed by the date and time when the test was started, in the format <code class="code">_YY_MM_DD_HH_MM</code>. For the package tests, the output for each package in question is written to a file of its own, and the package name is appended to the file name.</p>
+
+<p>Note that in the case that no package is loaded initially, some packages may be loaded during the tests, due to <code class="func">LoadPackage</code> (<a href="../../doc/ref/chap76_mj.html#X79B373A77B29D1F5"><span class="RefLink">Reference: LoadPackage</span></a>) statements in the test files. So a list of all packages that are loaded at the end of the tests can be found at the end of the output files.</p>
+
+<p><a id="X7E3E6D44826B524E" name="X7E3E6D44826B524E"></a></p>
+
+<h4>5.7 <span class="Heading">Test evaluation</span></h4>
+
+<p>After the tests, please inspect the output files and deal with the differences that were found. The following situations may be expected.</p>
+
+
+<ul>
+<li><p>There are differences between the prescribed output and the actual output. This may be the result of code improvements and thus intentional; then the prescribed output should be replaced by the actual one. It may be a side-effect of code changes, for example new or changed methods may choose different generators for a group or a different ordering of conjugacy classes; then one should make sure that the changed output is not caused by worse methods being used than before. If the prescribed and the actual value are essentially different (e.g., <code class="keyw">true</code> vs. <code class="keyw">false</code> or different numerical values) then probably we have a serious problem n the sense that (at least) one of the two values is wrong.</p>
+
+</li>
+<li><p>There are differences between the results of a test without packages and the same test with packages loaded. It may be that a package provides a better solution than the one that was expected when the input example had been prepared; in this case, it is perhaps advisable to ask the maintainers of the relevant code to modify the example in question, since it is apparently no longer typical. It may also be that a new package version breaks functionality; in this case, the package authors should be informed.</p>
+
+</li>
+<li><p>A more subtle difference is a change in the runtime, which is listed more or less detailed in the output files. If the runtime increases w.r.t. an earlier <strong class="pkg">GAP</strong> version then this should be reported to the <strong class="pkg">GAP</strong> group. If the runtime with packages is substantially bigger than without packages then the package authors should be informed.</p>
+
+</li>
+</ul>
+<p>When test input is adjusted to the current behaviour, it should be adjusted for the situation that no packages are loaded. (In the case of test input for a package, this means that only the needed packages are loaded, see the component <code class="code">Dependencies.NeededOtherPackages</code> in the file <code class="file">PackageInfo.g</code>.) Note that testing the changed behaviour introduced by another package would be an issue for tests that belong to this package.</p>
+
+<p><a id="X7D745E5F7EC8BF06" name="X7D745E5F7EC8BF06"></a></p>
+
+<h4>5.8 <span class="Heading">Test Issues for Releases</span></h4>
+
+<p>The following additional issues are related to testing when a new version of <strong class="pkg">GAP</strong> is to be released.</p>
+
+
+<ul>
+<li><p>Run all tests.</p>
+
+</li>
+</ul>
+<p><a id="X864F14B185FDD394" name="X864F14B185FDD394"></a></p>
+
+<h4>5.9 <span class="Heading">Open items concerning tests</span></h4>
+
+
+<ul>
+<li><p>Add a paragraph about general tests for features: When new documentation is added, add meaningful examples to this documentation, from which users get an idea what typical uses are. In a corresponding file in the <code class="code">tst</code> directory, add examples which cover also pathological input such as empty lists. Add also interesting computations to the tests which are perhaps to be excluded from the regular testing; for features in a package, perhaps distinguish between the tests that are covered by the <code class="code">TestFile</code> component of the <code class="file">PackageInfo.g</code> file and hard tests.</p>
+
+</li>
+</ul>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

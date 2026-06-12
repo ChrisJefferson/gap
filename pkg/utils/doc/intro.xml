@@ -1,0 +1,170 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  intro.xml            Utils documentation            Chris Wensley  -->
+<!--                                                                     -->
+<!--  Copyright (C) 2015-2018, The GAP Group                             --> 
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<Chapter Label="chap-intro">
+
+<Heading>Introduction</Heading>
+
+The &Utils; package provides a space for utility functions from a variety 
+of &GAP; packages to be collected together into a single package. 
+In this way it is hoped that they will become more visible 
+to other package authors. 
+This package was first distributed as part of the &GAP; 4.8.2 distribution. 
+<P/> 
+
+The package is loaded with the command
+<Example>
+<![CDATA[
+gap> LoadPackage( "utils" ); 
+]]>
+</Example>
+<P/>
+Functions have been transferred from the following packages: 
+<List>
+<Item>
+Conversion of a &GAP; group to a &Magma; output string, taken from various 
+sources including <File>other.gi</File> in the main library. 
+</Item>
+</List>
+<P/>
+Transfer is complete (for now) for functions from the following packages:
+<List>
+<Item>
+&AutoDoc; <Cite Key="AutoDoc" /> (with function names changed);
+</Item>
+<Item>
+&ResClasses; <Cite Key="ResClasses" />;
+</Item>
+<Item>
+&RCWA; <Cite Key="RCWA" />;
+</Item>
+<Item>
+&XMod; <Cite Key="XMod" />.
+</Item>
+</List>
+<P/>
+
+The package may be obtained either as a compressed <Code>.tar</Code> file 
+or as a <Code>.zip</Code> file, <File>utils-version_number.tar.gz</File>,
+by ftp from one of the following sites: 
+<List>
+<Item>
+the &Utils; GitHub release site: 
+<URL>https://gap-packages.github.io/utils/</URL>. 
+</Item>
+<Item>
+any &GAP; archive, e.g. 
+<URL>https://www.gap-system.org/Packages/packages.html</URL>; 
+</Item>
+</List> 
+<Index>GitHub repository</Index> 
+The package also has a GitHub repository at: 
+<URL>https://github.com/gap-packages/utils</URL>. 
+<P/> 
+
+
+Once the package is loaded, the manual <Code>doc/manual.pdf</Code> 
+can be found in the documentation folder. 
+The <Code>html</Code> versions, with or without &MathJax;, 
+may be rebuilt as follows: 
+<P/>
+<Example>
+<![CDATA[
+gap> ReadPackage( "utils", "makedoc.g" ); 
+]]>
+</Example>
+<P/>
+It is possible to check that the package has been installed correctly
+by running the test files (which terminates the &GAP; session): 
+<P/>
+<Example>
+<![CDATA[
+gap> ReadPackage( "utils", "tst/testall.g" );
+Architecture: . . . . . 
+testing: . . . . . 
+. . . 
+#I  No errors detected while testing
+]]>
+</Example>
+<P/>
+
+Note that functions listed in this manual that are currently 
+in the process of being transferred 
+are only read from the source package &Home; (say), 
+and so can only be used if &Home; has already been loaded. 
+There are no such functions in transition at present.
+
+
+<Section Label="sect-author-info"> 
+<Heading>Information for package authors</Heading> 
+
+A function (or collection of functions) is suitable for transfer 
+from a package &Home; to &Utils; 
+if the following conditions are satisfied. 
+<List>
+<Item>
+The function is sufficiently non-specialised so that it might be of use 
+to other authors.
+</Item>
+<Item>
+The function does not depend on the remaining functions in &Home; 
+</Item>
+<Item>
+The function does not do what can already be done with a &GAP; library function. 
+</Item>
+<Item>
+Documentation of the function and test examples are available. 
+</Item>
+<Item>
+When there is more than one active author of &Home;, they should all be aware 
+(and content) that the transfer is taking place. 
+</Item>
+</List> 
+<P/>
+
+Authors of packages may be reluctant to let go of their utility functions. 
+The following principles may help to reassure them. 
+(Suggestions for more items here are welcome.) 
+
+<List>
+<Item> 
+A function that has been transferred to &Utils; will not be changed 
+without the approval of the original author. 
+</Item>
+<Item>
+The current package maintainer has every intention of continuing 
+to maintain &Utils;. 
+In the event that this proves impossible, the &GAP; development team 
+will surely find someone to take over. 
+</Item>
+<Item>
+Function names will not be changed unless specifically requested by 
+&Home;'s author(s) or unless they have the form 
+<C>HOME_FunctionName</C>. 
+</Item>
+<Item>
+In order to speed up the transfer process, only functions from one package
+will be in transition at any given time.  
+Hopefully a week or two will suffice for most packages. 
+</Item>
+<Item>
+Any package author who transfers a function to &Utils; will become 
+an author of &Utils;. 
+(In truth, &Utils; does not have <E>authors</E>, 
+just a large number of <E>contributors</E>.) 
+</Item>
+</List>
+<P/>
+The process for transferring utility functions from &Home; to &Utils; 
+is described in Chapter <Ref Chap="chap-transfer" />.
+
+</Section> 
+
+</Chapter>

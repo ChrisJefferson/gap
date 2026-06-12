@@ -1,0 +1,259 @@
+\GAPDocLabFile{polycyclic}
+\makelabel{polycyclic:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{polycyclic:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{polycyclic:Acknowledgements}{}{X82A988D47DFAFCFA}
+\makelabel{polycyclic:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{polycyclic:Preface}{1}{X874E1D45845007FE}
+\makelabel{polycyclic:Introduction to polycyclic presentations}{2}{X792561B378D95B23}
+\makelabel{polycyclic:Collectors}{3}{X792305CC81E8606A}
+\makelabel{polycyclic:Constructing a Collector}{3.1}{X800FD91386C08CD8}
+\makelabel{polycyclic:Accessing Parts of a Collector}{3.2}{X818484817C3BAAE6}
+\makelabel{polycyclic:Special Features}{3.3}{X79AEB3477800DC16}
+\makelabel{polycyclic:Pcp-groups - polycyclically presented groups}{4}{X7E2AF25881CF7307}
+\makelabel{polycyclic:Pcp-elements -- elements of a pc-presented group}{4.1}{X7882F0F57ABEB680}
+\makelabel{polycyclic:Methods for pcp-elements}{4.2}{X790471D07A953E12}
+\makelabel{polycyclic:Pcp-groups - groups of pcp-elements}{4.3}{X7A4EF7C68151905A}
+\makelabel{polycyclic:Basic methods and functions for pcp-groups}{5}{X7B9B85AE7C9B13EE}
+\makelabel{polycyclic:Elementary methods for pcp-groups}{5.1}{X821360107E355B88}
+\makelabel{polycyclic:Elementary properties of pcp-groups}{5.2}{X80E88168866D54F3}
+\makelabel{polycyclic:Subgroups of pcp-groups}{5.3}{X85A7E26C7E14AFBA}
+\makelabel{polycyclic:Polycyclic presentation sequences for subfactors}{5.4}{X803D62BC86EF07D0}
+\makelabel{polycyclic:Factor groups of pcp-groups}{5.5}{X845D29B478CA7656}
+\makelabel{polycyclic:Homomorphisms for pcp-groups}{5.6}{X82E643F178E765EA}
+\makelabel{polycyclic:Changing the defining pc-presentation}{5.7}{X7C873F807D4F3A3C}
+\makelabel{polycyclic:Printing a pc-presentation}{5.8}{X85E681027AF19B1E}
+\makelabel{polycyclic:Converting to and from a presentation}{5.9}{X826ACBBB7A977206}
+\makelabel{polycyclic:Libraries and examples of pcp-groups}{6}{X78CEF1F27ED8D7BB}
+\makelabel{polycyclic:Libraries of various types of polycyclic groups}{6.1}{X84A48FAB83934263}
+\makelabel{polycyclic:Some assorted example groups}{6.2}{X806FBA4A7CB8FB71}
+\makelabel{polycyclic:Higher level methods for pcp-groups}{7}{X85BB6FE078679DAF}
+\makelabel{polycyclic:Subgroup series in pcp-groups}{7.1}{X8266A0A2821D98A1}
+\makelabel{polycyclic:Orbit stabilizer methods for pcp-groups}{7.2}{X7CE2DA437FD2B383}
+\makelabel{polycyclic:Centralizers, Normalizers and Intersections}{7.3}{X80E3B42E792532B3}
+\makelabel{polycyclic:Finite subgroups}{7.4}{X7CF015E87A2B2388}
+\makelabel{polycyclic:Subgroups of finite index and maximal subgroups}{7.5}{X7D9F737F80F6E396}
+\makelabel{polycyclic:Further attributes for pcp-groups based on the Fitting subgroup}{7.6}{X785E0E877AB1D549}
+\makelabel{polycyclic:Functions for nilpotent groups}{7.7}{X878DBDC77CCA4F7E}
+\makelabel{polycyclic:Random methods for pcp-groups}{7.8}{X8640F9D47A1F7434}
+\makelabel{polycyclic:Non-abelian tensor product and Schur extensions}{7.9}{X824142B784453DB9}
+\makelabel{polycyclic:Schur covers}{7.10}{X7D3023697BA5CE5A}
+\makelabel{polycyclic:Cohomology for pcp-groups}{8}{X796AB9787E2A752C}
+\makelabel{polycyclic:Cohomology records}{8.1}{X875758FA7C6F5CE1}
+\makelabel{polycyclic:Cohomology groups}{8.2}{X874759D582393441}
+\makelabel{polycyclic:Extended 1-cohomology}{8.3}{X79610E9178BD0C54}
+\makelabel{polycyclic:Extensions and Complements}{8.4}{X853E51787A24AE00}
+\makelabel{polycyclic:Constructing pcp groups as extensions}{8.5}{X823771527DBD857D}
+\makelabel{polycyclic:Matrix Representations}{9}{X858D1BB07A8FBF87}
+\makelabel{polycyclic:Unitriangular matrix groups}{9.1}{X7D0ED06C7E6A457D}
+\makelabel{polycyclic:Upper unitriangular matrix groups}{9.2}{X79A8A51B84E4BF8C}
+\makelabel{polycyclic:Obsolete Functions and Name Changes}{A}{X874ECE907CAF380D}
+\makelabel{polycyclic:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{polycyclic:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{polycyclic:Index}{Ind}{X83A0356F839C696F}
+\makelabel{polycyclic:License}{}{X81488B807F2A1CF1}
+\makelabel{polycyclic:FromTheLeftCollector}{3.1.1}{X8382A4E78706DE65}
+\makelabel{polycyclic:SetRelativeOrder}{3.1.2}{X79A308B28183493B}
+\makelabel{polycyclic:SetRelativeOrderNC}{3.1.2}{X79A308B28183493B}
+\makelabel{polycyclic:SetPower}{3.1.3}{X7BC319BA8698420C}
+\makelabel{polycyclic:SetPowerNC}{3.1.3}{X7BC319BA8698420C}
+\makelabel{polycyclic:SetConjugate}{3.1.4}{X86A08D887E049347}
+\makelabel{polycyclic:SetConjugateNC}{3.1.4}{X86A08D887E049347}
+\makelabel{polycyclic:SetCommutator}{3.1.5}{X7B25997C7DF92B6D}
+\makelabel{polycyclic:UpdatePolycyclicCollector}{3.1.6}{X7E9903F57BC5CC24}
+\makelabel{polycyclic:IsConfluent}{3.1.7}{X8006790B86328CE8}
+\makelabel{polycyclic:RelativeOrders}{3.2.1}{X7DD0DF677AC1CF10}
+\makelabel{polycyclic:GetPower}{3.2.2}{X844C0A478735EF4B}
+\makelabel{polycyclic:GetPowerNC}{3.2.2}{X844C0A478735EF4B}
+\makelabel{polycyclic:GetConjugate}{3.2.3}{X865160E07FA93E00}
+\makelabel{polycyclic:GetConjugateNC}{3.2.3}{X865160E07FA93E00}
+\makelabel{polycyclic:NumberOfGenerators}{3.2.4}{X7D6A26A4871FF51A}
+\makelabel{polycyclic:ObjByExponents}{3.2.5}{X873ECF388503E5DE}
+\makelabel{polycyclic:ExponentsByObj}{3.2.6}{X85BCB97B8021EAD6}
+\makelabel{polycyclic:IsWeightedCollector}{3.3.1}{X82EE2ACD7B8C178B}
+\makelabel{polycyclic:AddHallPolynomials}{3.3.2}{X7A1D7ED68334282C}
+\makelabel{polycyclic:String}{3.3.3}{X81FB5BE27903EC32}
+\makelabel{polycyclic:FTLCollectorPrintTo}{3.3.4}{X7ED466B6807D16FE}
+\makelabel{polycyclic:FTLCollectorAppendTo}{3.3.5}{X789D9EB37ECFA9D7}
+\makelabel{polycyclic:UseLibraryCollector}{3.3.6}{X808A26FB873A354F}
+\makelabel{polycyclic:USELIBRARYCOLLECTOR}{3.3.7}{X844E195C7D55F8BD}
+\makelabel{polycyclic:DEBUGCOMBINATORIALCOLLECTOR}{3.3.8}{X7945C6B97BECCDA8}
+\makelabel{polycyclic:USECOMBINATORIALCOLLECTOR}{3.3.9}{X7BDFB55D7CB33543}
+\makelabel{polycyclic:PcpElementByExponentsNC}{4.1.1}{X786DB93F7862D903}
+\makelabel{polycyclic:PcpElementByExponents}{4.1.1}{X786DB93F7862D903}
+\makelabel{polycyclic:PcpElementByGenExpListNC}{4.1.2}{X7BBB358C7AA64135}
+\makelabel{polycyclic:PcpElementByGenExpList}{4.1.2}{X7BBB358C7AA64135}
+\makelabel{polycyclic:IsPcpElement}{4.1.3}{X86083E297D68733B}
+\makelabel{polycyclic:IsPcpElementCollection}{4.1.4}{X8695069A7D5073B7}
+\makelabel{polycyclic:IsPcpElementRep}{4.1.5}{X7F2C83AD862910B9}
+\makelabel{polycyclic:IsPcpGroup}{4.1.6}{X8470284A78A6C41B}
+\makelabel{polycyclic:Collector}{4.2.1}{X7E2D258B7DCE8AC9}
+\makelabel{polycyclic:Exponents}{4.2.2}{X85C672E78630C507}
+\makelabel{polycyclic:GenExpList}{4.2.3}{X8571F6FB7E74346C}
+\makelabel{polycyclic:NameTag}{4.2.4}{X82252C5E7B011559}
+\makelabel{polycyclic:Depth}{4.2.5}{X840D32D9837E99F5}
+\makelabel{polycyclic:LeadingExponent}{4.2.6}{X874F1EC178721833}
+\makelabel{polycyclic:RelativeOrder}{4.2.7}{X8008AB61823A76B7}
+\makelabel{polycyclic:RelativeIndex}{4.2.8}{X875D04288577015B}
+\makelabel{polycyclic:FactorOrder}{4.2.9}{X87E070747955F2C1}
+\makelabel{polycyclic:NormingExponent}{4.2.10}{X79A247797F0A8583}
+\makelabel{polycyclic:NormedPcpElement}{4.2.11}{X798BB22B80833441}
+\makelabel{polycyclic:PcpGroupByCollector}{4.3.1}{X7C8FBCAB7F63FACB}
+\makelabel{polycyclic:PcpGroupByCollectorNC}{4.3.1}{X7C8FBCAB7F63FACB}
+\makelabel{polycyclic:Group}{4.3.2}{X7D7B075385435151}
+\makelabel{polycyclic:Subgroup}{4.3.3}{X7C82AA387A42DCA0}
+\makelabel{polycyclic:Size}{5.1.2}{X858ADA3B7A684421}
+\makelabel{polycyclic:Random}{5.1.3}{X79730D657AB219DB}
+\makelabel{polycyclic:Index}{5.1.4}{X83A0356F839C696F}
+\makelabel{polycyclic:Elements}{5.1.6}{X79B130FC7906FB4C}
+\makelabel{polycyclic:ClosureGroup}{5.1.7}{X7D13FC1F8576FFD8}
+\makelabel{polycyclic:NormalClosure}{5.1.8}{X7BDEA0A98720D1BB}
+\makelabel{polycyclic:HirschLength}{5.1.9}{X839B42AE7A1DD544}
+\makelabel{polycyclic:CommutatorSubgroup}{5.1.10}{X7A9A3D5578CE33A0}
+\makelabel{polycyclic:PRump}{5.1.11}{X796DA805853FAC90}
+\makelabel{polycyclic:SmallGeneratingSet}{5.1.12}{X814DBABC878D5232}
+\makelabel{polycyclic:IsSubgroup}{5.2.1}{X7839D8927E778334}
+\makelabel{polycyclic:IsNormal}{5.2.2}{X838186F9836F678C}
+\makelabel{polycyclic:IsNilpotentGroup}{5.2.3}{X87D062608719F2CD}
+\makelabel{polycyclic:IsAbelian}{5.2.4}{X7C12AA7479A6C103}
+\makelabel{polycyclic:IsElementaryAbelian}{5.2.5}{X813C952F80E775D4}
+\makelabel{polycyclic:IsFreeAbelian}{5.2.6}{X84FFC668832F9ED6}
+\makelabel{polycyclic:Igs for a subgroup}{5.3.1}{X815F756286701BE0}
+\makelabel{polycyclic:Igs}{5.3.1}{X815F756286701BE0}
+\makelabel{polycyclic:IgsParallel}{5.3.1}{X815F756286701BE0}
+\makelabel{polycyclic:Ngs for a subgroup}{5.3.2}{X7F4D95C47F9652BA}
+\makelabel{polycyclic:Ngs}{5.3.2}{X7F4D95C47F9652BA}
+\makelabel{polycyclic:Cgs for a subgroup}{5.3.3}{X8077293A787D4571}
+\makelabel{polycyclic:Cgs}{5.3.3}{X8077293A787D4571}
+\makelabel{polycyclic:CgsParallel}{5.3.3}{X8077293A787D4571}
+\makelabel{polycyclic:SubgroupByIgs}{5.3.4}{X83B92A2679EAB1EB}
+\makelabel{polycyclic:SubgroupByIgs with extra generators}{5.3.4}{X83B92A2679EAB1EB}
+\makelabel{polycyclic:AddToIgs}{5.3.5}{X78107DE78728B26B}
+\makelabel{polycyclic:AddToIgsParallel}{5.3.5}{X78107DE78728B26B}
+\makelabel{polycyclic:AddIgsToIgs}{5.3.5}{X78107DE78728B26B}
+\makelabel{polycyclic:Pcp}{5.4.1}{X7DD931697DD93169}
+\makelabel{polycyclic:Pcp for a factor}{5.4.1}{X7DD931697DD93169}
+\makelabel{polycyclic:GeneratorsOfPcp}{5.4.2}{X821FF77086E38B3A}
+\makelabel{polycyclic:Length}{5.4.4}{X780769238600AFD1}
+\makelabel{polycyclic:RelativeOrdersOfPcp}{5.4.5}{X7ABCA7F2790E1673}
+\makelabel{polycyclic:DenominatorOfPcp}{5.4.6}{X7D16C299825887AA}
+\makelabel{polycyclic:NumeratorOfPcp}{5.4.7}{X803AED1A84FCBEE8}
+\makelabel{polycyclic:GroupOfPcp}{5.4.8}{X80BCCF0B81344933}
+\makelabel{polycyclic:OneOfPcp}{5.4.9}{X87F0BA5F7BA0F4B4}
+\makelabel{polycyclic:ExponentsByPcp}{5.4.10}{X7A8C8BBC81581E09}
+\makelabel{polycyclic:PcpGroupByPcp}{5.4.11}{X87D75F7F86FEF203}
+\makelabel{polycyclic:NaturalHomomorphismByNormalSubgroup}{5.5.1}{X80FC390C7F38A13F}
+\makelabel{polycyclic:FactorGroup}{5.5.2}{X7F51DF007F51DF00}
+\makelabel{polycyclic:GroupHomomorphismByImages}{5.6.1}{X7F348F497C813BE0}
+\makelabel{polycyclic:Kernel}{5.6.2}{X7DCD99628504B810}
+\makelabel{polycyclic:Image for a homomorphism}{5.6.3}{X847322667E6166C8}
+\makelabel{polycyclic:Image for a homomorphism and a subgroup}{5.6.3}{X847322667E6166C8}
+\makelabel{polycyclic:Image for a homomorphism and an element}{5.6.3}{X847322667E6166C8}
+\makelabel{polycyclic:PreImage}{5.6.4}{X836FAEAC78B55BF4}
+\makelabel{polycyclic:PreImagesRepresentative}{5.6.5}{X7AE24A1586B7DE79}
+\makelabel{polycyclic:IsInjective}{5.6.6}{X7F065FD7822C0A12}
+\makelabel{polycyclic:RefinedPcpGroup}{5.7.1}{X80E9B60E853B2E05}
+\makelabel{polycyclic:PcpGroupBySeries}{5.7.2}{X7F88F5548329E279}
+\makelabel{polycyclic:PrintPcpPresentation for a group}{5.8.1}{X79D247127FD57FC8}
+\makelabel{polycyclic:PrintPcpPresentation for a pcp}{5.8.1}{X79D247127FD57FC8}
+\makelabel{polycyclic:IsomorphismPcpGroup}{5.9.1}{X8771540F7A235763}
+\makelabel{polycyclic:IsomorphismPcpGroupFromFpGroupWithPcPres}{5.9.2}{X7F5EBF1C831B4BA9}
+\makelabel{polycyclic:IsomorphismPcGroup}{5.9.3}{X873CEB137BA1CD6E}
+\makelabel{polycyclic:IsomorphismFpGroup}{5.9.4}{X7F28268F850F454E}
+\makelabel{polycyclic:AbelianPcpGroup}{6.1.1}{X7AEDE1BA82014B86}
+\makelabel{polycyclic:AbelianPcpGroup rels only}{6.1.1}{X7AEDE1BA82014B86}
+\makelabel{polycyclic:DihedralPcpGroup}{6.1.2}{X7ACF57737D0F12DB}
+\makelabel{polycyclic:UnitriangularPcpGroup}{6.1.3}{X864CEDAB7911CC79}
+\makelabel{polycyclic:SubgroupUnitriangularPcpGroup}{6.1.4}{X812E35B17AADBCD5}
+\makelabel{polycyclic:InfiniteMetacyclicPcpGroup}{6.1.5}{X7A80F7F27FDA6810}
+\makelabel{polycyclic:HeisenbergPcpGroup}{6.1.6}{X81BEC875827D1CC2}
+\makelabel{polycyclic:MaximalOrderByUnitsPcpGroup}{6.1.7}{X87F9B9C9786430D7}
+\makelabel{polycyclic:BurdeGrunewaldPcpGroup}{6.1.8}{X852283A77A2C93DD}
+\makelabel{polycyclic:ExampleOfMetabelianPcpGroup}{6.2.1}{X86293081865CDFC3}
+\makelabel{polycyclic:ExamplesOfSomePcpGroups}{6.2.2}{X83A74A6E7E232FD6}
+\makelabel{polycyclic:PcpSeries}{7.1.1}{X8037DAD77A19D9B2}
+\makelabel{polycyclic:EfaSeries}{7.1.2}{X86C633357ACD342C}
+\makelabel{polycyclic:SemiSimpleEfaSeries}{7.1.3}{X80ED4F8380DC477E}
+\makelabel{polycyclic:DerivedSeriesOfGroup}{7.1.4}{X7A879948834BD889}
+\makelabel{polycyclic:RefinedDerivedSeries}{7.1.5}{X866D4C5C79F26611}
+\makelabel{polycyclic:RefinedDerivedSeriesDown}{7.1.6}{X86F7DE927DE3B5CD}
+\makelabel{polycyclic:LowerCentralSeriesOfGroup}{7.1.7}{X879D55A67DB42676}
+\makelabel{polycyclic:UpperCentralSeriesOfGroup}{7.1.8}{X8428592E8773CD7B}
+\makelabel{polycyclic:TorsionByPolyEFSeries}{7.1.9}{X83CA5DE785AE3F2C}
+\makelabel{polycyclic:PcpsBySeries}{7.1.10}{X7E39431286969377}
+\makelabel{polycyclic:PcpsOfEfaSeries}{7.1.11}{X79789A1C82139854}
+\makelabel{polycyclic:PcpOrbitStabilizer}{7.2.1}{X83E17DB483B33AB5}
+\makelabel{polycyclic:PcpOrbitsStabilizers}{7.2.1}{X83E17DB483B33AB5}
+\makelabel{polycyclic:StabilizerIntegralAction}{7.2.2}{X80694BA480F69A0E}
+\makelabel{polycyclic:OrbitIntegralAction}{7.2.2}{X80694BA480F69A0E}
+\makelabel{polycyclic:NormalizerIntegralAction}{7.2.3}{X875BE4077B32A411}
+\makelabel{polycyclic:ConjugacyIntegralAction}{7.2.3}{X875BE4077B32A411}
+\makelabel{polycyclic:Centralizer for an element}{7.3.1}{X808EE8AD7EE3ECE1}
+\makelabel{polycyclic:IsConjugate for elements}{7.3.1}{X808EE8AD7EE3ECE1}
+\makelabel{polycyclic:Centralizer for a subgroup}{7.3.2}{X849B5C527BAFAAA4}
+\makelabel{polycyclic:Normalizer}{7.3.2}{X849B5C527BAFAAA4}
+\makelabel{polycyclic:IsConjugate for subgroups}{7.3.2}{X849B5C527BAFAAA4}
+\makelabel{polycyclic:Intersection}{7.3.3}{X851069107CACF98E}
+\makelabel{polycyclic:TorsionSubgroup}{7.4.1}{X8036FA507A170DC4}
+\makelabel{polycyclic:NormalTorsionSubgroup}{7.4.2}{X8082CD337972DC63}
+\makelabel{polycyclic:IsTorsionFree}{7.4.3}{X86D92DA17DCE22DD}
+\makelabel{polycyclic:FiniteSubgroupClasses}{7.4.4}{X819058217B4F3DC0}
+\makelabel{polycyclic:FiniteSubgroupClassesBySeries}{7.4.5}{X7E7C32EA81A297B6}
+\makelabel{polycyclic:MaximalSubgroupClassesByIndex}{7.5.1}{X87D62D497A8715FB}
+\makelabel{polycyclic:LowIndexSubgroupClasses}{7.5.2}{X7800133F81BC7674}
+\makelabel{polycyclic:LowIndexNormalSubgroups}{7.5.3}{X7F7067C77F2DC32C}
+\makelabel{polycyclic:NilpotentByAbelianNormalSubgroup}{7.5.4}{X85A5BC447D83175F}
+\makelabel{polycyclic:FittingSubgroup}{7.6.1}{X780552B57C30DD8F}
+\makelabel{polycyclic:IsNilpotentByFinite}{7.6.2}{X86BD63DC844731DF}
+\makelabel{polycyclic:Centre}{7.6.3}{X847ABE6F781C7FE8}
+\makelabel{polycyclic:FCCentre}{7.6.4}{X861C36368435EB09}
+\makelabel{polycyclic:PolyZNormalSubgroup}{7.6.5}{X7E75E2BC806746AC}
+\makelabel{polycyclic:NilpotentByAbelianByFiniteSeries}{7.6.6}{X86800BF783E30D4A}
+\makelabel{polycyclic:MinimalGeneratingSet}{7.7.1}{X81D15723804771E2}
+\makelabel{polycyclic:RandomCentralizerPcpGroup for an element}{7.8.1}{X80AEE73E7D639699}
+\makelabel{polycyclic:RandomCentralizerPcpGroup for a subgroup}{7.8.1}{X80AEE73E7D639699}
+\makelabel{polycyclic:RandomNormalizerPcpGroup}{7.8.1}{X80AEE73E7D639699}
+\makelabel{polycyclic:SchurExtension}{7.9.1}{X79EF28D9845878C9}
+\makelabel{polycyclic:SchurExtensionEpimorphism}{7.9.2}{X84B60EC978A9A05E}
+\makelabel{polycyclic:SchurCover}{7.9.3}{X7DD1E37987612042}
+\makelabel{polycyclic:AbelianInvariantsMultiplier}{7.9.4}{X792BC39D7CEB1D27}
+\makelabel{polycyclic:NonAbelianExteriorSquareEpimorphism}{7.9.5}{X822ED5978647C93B}
+\makelabel{polycyclic:NonAbelianExteriorSquare}{7.9.6}{X8739CD4686301A0E}
+\makelabel{polycyclic:NonAbelianTensorSquareEpimorphism}{7.9.7}{X86553D7B7DABF38F}
+\makelabel{polycyclic:NonAbelianTensorSquare}{7.9.8}{X7C0DF7C97F78C666}
+\makelabel{polycyclic:NonAbelianExteriorSquarePlusEmbedding}{7.9.9}{X7AE75EC1860FFE7A}
+\makelabel{polycyclic:NonAbelianTensorSquarePlusEpimorphism}{7.9.10}{X7D96C84E87925B0F}
+\makelabel{polycyclic:NonAbelianTensorSquarePlus}{7.9.11}{X8746533787C4E8BC}
+\makelabel{polycyclic:WhiteheadQuadraticFunctor}{7.9.12}{X78F9184078B2761A}
+\makelabel{polycyclic:SchurCovers}{7.10.1}{X7D90B44E7B96AFF1}
+\makelabel{polycyclic:CRRecordByMats}{8.1.1}{X7C97442C7B78806C}
+\makelabel{polycyclic:CRRecordBySubgroup}{8.1.2}{X8646DFA1804D2A11}
+\makelabel{polycyclic:CRRecordByPcp}{8.1.2}{X8646DFA1804D2A11}
+\makelabel{polycyclic:OneCoboundariesCR}{8.2.1}{X85EF170387D39D4A}
+\makelabel{polycyclic:OneCocyclesCR}{8.2.1}{X85EF170387D39D4A}
+\makelabel{polycyclic:TwoCoboundariesCR}{8.2.1}{X85EF170387D39D4A}
+\makelabel{polycyclic:TwoCocyclesCR}{8.2.1}{X85EF170387D39D4A}
+\makelabel{polycyclic:OneCohomologyCR}{8.2.1}{X85EF170387D39D4A}
+\makelabel{polycyclic:TwoCohomologyCR}{8.2.1}{X85EF170387D39D4A}
+\makelabel{polycyclic:TwoCohomologyModCR}{8.2.2}{X79B48D697A8A84C8}
+\makelabel{polycyclic:OneCoboundariesEX}{8.3.1}{X7E87E3EA81C84621}
+\makelabel{polycyclic:OneCocyclesEX}{8.3.2}{X8111D2087C16CC0C}
+\makelabel{polycyclic:OneCohomologyEX}{8.3.3}{X84718DDE792FB212}
+\makelabel{polycyclic: ComplementCR}{8.4.1}{X7DA9162085058006}
+\makelabel{polycyclic: ComplementsCR}{8.4.2}{X7F8984D386A813D6}
+\makelabel{polycyclic: ComplementClassesCR}{8.4.3}{X7FAB3EB0803197FA}
+\makelabel{polycyclic: ComplementClassesEfaPcps}{8.4.4}{X8759DC59799DD508}
+\makelabel{polycyclic: ComplementClasses}{8.4.5}{X7B0EC76D81A056AB}
+\makelabel{polycyclic:ExtensionCR}{8.4.6}{X85F3B55C78CF840B}
+\makelabel{polycyclic:ExtensionsCR}{8.4.7}{X81DC85907E0948FD}
+\makelabel{polycyclic:ExtensionClassesCR}{8.4.8}{X7AE16E3687E14B24}
+\makelabel{polycyclic:SplitExtensionPcpGroup}{8.4.9}{X7986997B78AD3292}
+\makelabel{polycyclic:UnitriangularMatrixRepresentation}{9.1.1}{X7E6F320F865E309C}
+\makelabel{polycyclic:IsMatrixRepresentation}{9.1.2}{X7F5E7F5F7DDB2E2C}
+\makelabel{polycyclic:IsomorphismUpperUnitriMatGroupPcpGroup}{9.2.1}{X8434972E7DDB68C1}
+\makelabel{polycyclic:SiftUpperUnitriMatGroup}{9.2.2}{X843C9D427FFA2487}
+\makelabel{polycyclic:RanksLevels}{9.2.3}{X7CF8B8F981931846}
+\makelabel{polycyclic:MakeNewLevel}{9.2.4}{X81F3760186734EA7}
+\makelabel{polycyclic:SiftUpperUnitriMat}{9.2.5}{X851A216C85B74574}
+\makelabel{polycyclic:DecomposeUpperUnitriMat}{9.2.6}{X86D711217C639C2C}
+\makelabel{polycyclic:SchurCovering}{A}{X874ECE907CAF380D}
+\makelabel{polycyclic:SchurMultPcpGroup}{A}{X874ECE907CAF380D}

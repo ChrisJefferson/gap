@@ -1,0 +1,304 @@
+  
+  [1X2 [33X[0;0YHow To Type a [5XGAPDoc[105X[101X[1X Document[133X[101X
+  
+  [33X[0;0YIn  this chapter we give a more formal description of what you need to start
+  to  type  documentation  in  [5XGAPDoc[105X  XML  format.  Many details were already
+  explained by example in Section [14X1.2[114X of the introduction.[133X
+  
+  [33X[0;0YWe  do  [13Xnot[113X  answer  the  question  [21XHow  to [13Xwrite[113X a [5XGAPDoc[105X document?[121X in this
+  chapter. You can (hopefully) find an answer to this question by studying the
+  example in the introduction, see [14X1.2[114X, and learning about more details in the
+  reference Chapter [14X3[114X.[133X
+  
+  [33X[0;0YThe definite source for all details of the official XML standard with useful
+  annotations is:[133X
+  
+  [33X[0;0Y[7Xhttps://www.xml.com/axml/axml.html[107X[133X
+  
+  [33X[0;0YAlthough  this  document  must  be  quite technical, it is surprisingly well
+  readable.[133X
+  
+  
+  [1X2.1 [33X[0;0YGeneral XML Syntax[133X[101X
+  
+  [33X[0;0YWe  will  now  discuss  the  pieces of text which can occur in a general XML
+  document.  We  start with those pieces which do not contribute to the actual
+  content of the document.[133X
+  
+  
+  [1X2.1-1 [33X[0;0YHead of XML Document[133X[101X
+  
+  [33X[0;0YEach XML document should have a head which states that it is an XML document
+  in some encoding and which XML-defined language is used. In case of a [5XGAPDoc[105X
+  document this should always look as in the following example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X<?xml version="1.0" encoding="UTF-8"?>[128X[104X
+    [4X[28X<!DOCTYPE Book SYSTEM "gapdoc.dtd">[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSee [14X2.1-13[114X for a remark on the [21Xencoding[121X statement.[133X
+  
+  [33X[0;0Y(There  may  be  local  entity definitions inside the [10XDOCTYPE[110X statement, see
+  Subsection [14X2.2-3[114X below.)[133X
+  
+  
+  [1X2.1-2 [33X[0;0YComments[133X[101X
+  
+  [33X[0;0YA  [21Xcomment[121X  in XML starts with the character sequence [21X[10X<!--[110X[121X and ends with the
+  sequence  [21X[10X-->[110X[121X. Between these sequences there must not be two adjacent dashes
+  [21X[10X--[110X[121X.[133X
+  
+  
+  [1X2.1-3 [33X[0;0YProcessing Instructions[133X[101X
+  
+  [33X[0;0YA  [21Xprocessing  instruction[121X  in  XML  starts  with  the character sequence [21X[10X<?[110X[121X
+  followed  by  a  name  ([21X[10Xxml[110X[121X  is  only  allowed  at the very beginning of the
+  document  to  declare  it  being an XML document, see [14X2.1-1[114X). After that any
+  characters  may  follow,  except  that the ending sequence [21X[10X?>[110X[121X must not occur
+  within the processing instruction.[133X
+  
+  [33X[0;0Y [133X
+  
+  [33X[0;0YAnd  now  we  turn  to  those  parts of the document which contribute to its
+  actual content.[133X
+  
+  
+  [1X2.1-4 [33X[0;0YNames in XML and Whitespace[133X[101X
+  
+  [33X[0;0YA  [21Xname[121X  in XML (used for element and attribute identifiers, see below) must
+  start  with  a letter (in the encoding of the document) or with a colon [21X[10X:[110X[121X or
+  underscore  [21X[10X_[110X[121X character. The following characters may also be digits, dots [21X[10X.[110X[121X
+  or dashes [21X[10X-[110X[121X.[133X
+  
+  [33X[0;0YThis  is  a  simplified  description of the rules in the standard, which are
+  concerned with lots of unicode ranges to specify what a [21Xletter[121X is.[133X
+  
+  [33X[0;0YSequences  only  consisting  of  the  following characters are considered as
+  [13Xwhitespace[113X:   blanks,   tabs,   carriage  return  characters  and  new  line
+  characters.[133X
+  
+  
+  [1X2.1-5 [33X[0;0YElements[133X[101X
+  
+  [33X[0;0YThe  actual  content of an XML document consists of [21Xelements[121X. An element has
+  some  [21Xcontent[121X  with  a  leading  [21Xstart  tag[121X  ([14X2.1-6[114X)  and a trailing [21Xend tag[121X
+  ([14X2.1-7[114X).  The content can contain further elements but they must be properly
+  nested.  One  can  define  elements  whose  content  is  always empty, those
+  elements can also be entered with a single combined tag ([14X2.1-8[114X).[133X
+  
+  
+  [1X2.1-6 [33X[0;0YStart Tags[133X[101X
+  
+  [33X[0;0YA  [21Xstart-tag[121X  consists of a less-than-character [21X[10X<[110X[121X directly followed (without
+  whitespace)  by  an  element name (see [14X2.1-4[114X), optional attributes, optional
+  whitespace, and a greater-than-character [21X[10X>[110X[121X.[133X
+  
+  [33X[0;0YAn  [21Xattribute[121X  consists  of some whitespace and then its name followed by an
+  equal  sign  [21X[10X=[110X[121X which is optionally enclosed by whitespace, and the attribute
+  value,  which  is  enclosed either in single or double quotes. The attribute
+  value may not contain the type of quote used as a delimiter or the character
+  [21X[10X<[110X[121X,  the  character  [21X[10X&[110X[121X  may  only  appear  to  start an entity, see [14X2.1-9[114X. We
+  describe in [14X2.1-11[114X how to enter special characters in attribute values.[133X
+  
+  [33X[0;0YNote  especially  that  no  whitespace  is  allowed  between  the starting [21X[10X<[110X[121X
+  character  and the element name. The quotes around an attribute value cannot
+  be omitted. The names of elements and attributes are [13Xcase sensitive[113X.[133X
+  
+  
+  [1X2.1-7 [33X[0;0YEnd Tags[133X[101X
+  
+  [33X[0;0YAn  [21Xend  tag[121X  consists  of  the  two  characters [21X[10X</[110X[121X directly followed by the
+  element name, optional whitespace and a greater-than-character [21X[10X>[110X[121X.[133X
+  
+  
+  [1X2.1-8 [33X[0;0YCombined Tags for Empty Elements[133X[101X
+  
+  [33X[0;0YElements  which  always have empty content can be written with a single tag.
+  This   looks   like  a  start  tag  (see [14X2.1-6[114X)  [13Xexcept[113X  that  the  trailing
+  greater-than-character [21X[10X>[110X[121X is substituted by the two character sequence [21X[10X/>[110X[121X.[133X
+  
+  
+  [1X2.1-9 [33X[0;0YEntities[133X[101X
+  
+  [33X[0;0YAn  [21Xentity[121X in XML is a macro for some substitution text. There are two types
+  of entities.[133X
+  
+  [33X[0;0YA  [21Xcharacter entity[121X can be used to specify characters in the encoding of the
+  document  (can  be useful for entering non-ASCII characters which you cannot
+  manage  to  type in directly). They are entered with a sequence [21X[10X&#[110X[121X, directly
+  followed  by either some decimal digits or an [21X[10Xx[110X[121X and some hexadecimal digits,
+  directly  followed  by  a semicolon [21X[10X;[110X[121X. Using such a character entity is just
+  equivalent to typing the corresponding character directly.[133X
+  
+  [33X[0;0YThen  there  are  references  to  [21Xnamed  entities[121X.  They are entered with an
+  ampersand character [21X[10X&[110X[121X directly followed by a name which is directly followed
+  by  a  semicolon  [21X[10X;[110X[121X.  Such  entities  must be declared somewhere by giving a
+  substitution text. This text is included in the document and the document is
+  parsed  again  afterwards. The exact rules are a bit subtle but you probably
+  want  to  use  this only in simple cases. Predefined entities for [5XGAPDoc[105X are
+  described in [14X2.1-10[114X and [14X2.2-3[114X.[133X
+  
+  
+  [1X2.1-10 [33X[0;0YSpecial Characters in XML[133X[101X
+  
+  [33X[0;0YWe  have  seen  that the less-than-character [21X[10X<[110X[121X and the ampersand character [21X[10X&[110X[121X
+  start  a  tag  or  entity reference in XML. To get these characters into the
+  document  text  one  has  to use entity references, namely [21X[10X&lt;[110X[121X to get [21X[10X<[110X[121X and
+  [21X[10X&amp;[110X[121X  to  get [21X[10X&[110X[121X. Furthermore [21X[10X&gt;[110X[121X must be used to get [21X[10X>[110X[121X when the string [21X[10X]]>[110X[121X
+  appears  in  element  content  (and  not  as  delimiter  of  a [10XCDATA[110X section
+  explained below).[133X
+  
+  [33X[0;0YAnother possibility is to use a [10XCDATA[110X statement explained in [14X2.1-12[114X.[133X
+  
+  
+  [1X2.1-11 [33X[0;0YRules for Attribute Values[133X[101X
+  
+  [33X[0;0YAttribute values can contain entities which are substituted recursively. But
+  except  for the entities &lt; or a character entity it is not allowed that a
+  <  character  is introduced by the substitution (there is no XML parsing for
+  evaluating the attribute value, just entity substitutions).[133X
+  
+  
+  [1X2.1-12 [33X[0;0Y[10XCDATA[110X[101X[1X[133X[101X
+  
+  [33X[0;0YPieces  of text which contain many characters which can be misinterpreted as
+  markup  can  be  enclosed  by  the  character  sequences  [21X[10X<![CDATA[[110X[121X and [21X[10X]]>[110X[121X.
+  Everything  between these sequences is considered as content of the document
+  and  is  not further interpreted as XML text. All the rules explained so far
+  in  this  section  do  [13Xnot  apply[113X  to  such a part of the document. The only
+  document  content  which cannot be entered directly inside a [10XCDATA[110X statement
+  is  the  sequence  [21X[10X]]>[110X[121X.  This  can  be  entered  as [21X[10X]]&gt;[110X[121X outside the [10XCDATA[110X
+  statement.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XA nesting of tags like <a> <b> </a> </b> is not allowed.[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.1-13 [33X[0;0YEncoding of an XML Document[133X[101X
+  
+  [33X[0;0YWe  suggest  to use the UTF-8 encoding for writing [5XGAPDoc[105X XML documents. But
+  the  tools  described  in  Chapter  [14X5[114X  also  work  with ASCII or the various
+  ISO-8859-X  encodings  (ISO-8859-1  is  also  called  latin1 and covers most
+  special characters for western European languages).[133X
+  
+  
+  [1X2.1-14 [33X[0;0YWell Formed and Valid XML Documents[133X[101X
+  
+  [33X[0;0YWe  want  to mention two further important words which are often used in the
+  context of XML documents. A piece of text becomes a [21Xwell formed[121X XML document
+  if all the formal rules described in this section are fulfilled.[133X
+  
+  [33X[0;0YBut  this  says  nothing  about  the  content  of the document. To give this
+  content  a  meaning one needs a declaration of the element and corresponding
+  attribute  names as well as of named entities which are allowed. Furthermore
+  there  may  be restrictions how such elements can be nested. This [13Xdefinition
+  of  an  XML  based markup language[113X is done in a [21Xdocument type definition[121X. An
+  XML  document  which  contains only elements and entities declared in such a
+  document  type  definition  and  obeys the rules given there is called [21Xvalid
+  (with respect to this document type definition)[121X.[133X
+  
+  [33X[0;0YThe  main  file  of  the  [5XGAPDoc[105X package is [11Xgapdoc.dtd[111X. This contains such a
+  definition  of  a  markup  language.  We are not going to explain the formal
+  syntax rules for document type definitions in this section. But in Chapter [14X3[114X
+  we will explain enough about it to understand the file [11Xgapdoc.dtd[111X and so the
+  markup language defined there.[133X
+  
+  
+  [1X2.2 [33X[0;0YEntering [5XGAPDoc[105X[101X[1X Documents[133X[101X
+  
+  [33X[0;0YHere are some additional rules for writing [5XGAPDoc[105X XML documents.[133X
+  
+  
+  [1X2.2-1 [33X[0;0YOther special characters[133X[101X
+  
+  [33X[0;0YAs  [5XGAPDoc[105X  documents  are  used  to  produce  LaTeX and HTML documents, the
+  question arises how to deal with characters with a special meaning for other
+  applications  (for  example  [21X[10X&[110X[121X,  [21X[10X#[110X[121X,  [21X[10X$[110X[121X,  [21X[10X%[110X[121X,  [21X[10X~[110X[121X,  [21X[10X\[110X[121X, [21X[10X{[110X[121X, [21X[10X}[110X[121X, [21X[10X_[110X[121X, [21X[10X^[110X[121X, [21X[10X [110X[121X (this is a
+  non-breakable  space, [21X[10X~[110X[121X in LaTeX) have a special meaning for LaTeX and [21X[10X&[110X[121X, [21X[10X<[110X[121X,
+  [21X[10X>[110X[121X  have a special meaning for HTML (and XML). In [5XGAPDoc[105X you can usually just
+  type  these  characters  directly,  it is the task of the converter programs
+  which  translate  to  some  output  format  to  take  care  of  such special
+  characters. The exceptions to this simple rule are:[133X
+  
+  [30X    [33X[0;6Y& and < must be entered as [10X&amp;[110X and [10X&lt;[110X as explained in [14X2.1-10[114X.[133X
+  
+  [30X    [33X[0;6YThe  content of the [5XGAPDoc[105X elements [10X<M>[110X, [10X<Math>[110X and [10X<Display>[110X is LaTeX
+        code, see [14X3.8[114X.[133X
+  
+  [30X    [33X[0;6YThe  content of an [10X<Alt>[110X element with [10XOnly[110X attribute contains code for
+        the specified output type, see [14X3.9-1[114X.[133X
+  
+  [33X[0;0YRemark:  In former versions of [5XGAPDoc[105X one had to use particular entities for
+  all  the  special  characters  mentioned  above  ([10X&tamp;[110X,  [10X&hash;[110X, [10X&dollar;[110X,
+  [10X&percent;[110X, [10X&tilde;[110X, [10X&bslash;[110X, [10X&obrace;[110X, [10X&cbrace;[110X, [10X&uscore;[110X, [10X&circum;[110X, [10X&tlt;[110X,
+  [10X&tgt;[110X). These are no longer needed, but they are still defined for backwards
+  compatibility with older [5XGAPDoc[105X documents.[133X
+  
+  
+  [1X2.2-2 [33X[0;0YMathematical Formulae[133X[101X
+  
+  [33X[0;0YMathematical  formulae  in  [5XGAPDoc[105X  are  typed as in LaTeX. They must be the
+  content of one of three types of [5XGAPDoc[105X elements concerned with mathematical
+  formulae:  [21X[10XMath[110X[121X,  [21X[10XDisplay[110X[121X,  and  [21X[10XM[110X[121X  (see  Sections [14X3.8-1[114X  and [14X3.8-2[114X for more
+  details).  The  first  two  correspond to LaTeX's math mode and display math
+  mode.  The last one is a special form of the [21X[10XMath[110X[121X element type, that imposes
+  certain  restrictions  on the content. On the other hand the content of an [21X[10XM[110X[121X
+  element is processed in a well defined way for text terminal or HTML output.
+  The [21X[10XDisplay[110X[121X element also has an attribute such that its content is processed
+  as in [21X[10XM[110X[121X elements.[133X
+  
+  [33X[0;0YNote  that  the  content  of  these  element  is LaTeX code, but the special
+  characters  [21X[10X<[110X[121X  and  [21X[10X&[110X[121X  for  XML  must  be entered via the entities described
+  in [14X2.1-10[114X or by using a [10XCDATA[110X statement, see [14X2.1-12[114X.[133X
+  
+  
+  [1X2.2-3 [33X[0;0YMore Entities[133X[101X
+  
+  [33X[0;0YIn [5XGAPDoc[105X there are some more predefined entities:[133X
+  
+      ┌─────────────┬─────────┐
+      │ [10X&GAP;[110X       │ [5XGAP[105X     │ 
+      ├─────────────┼─────────┤
+      │ [10X&GAPDoc;[110X    │ [5XGAPDoc[105X  │ 
+      ├─────────────┼─────────┤
+      │ [10X&TeX;[110X       │ TeX     │ 
+      ├─────────────┼─────────┤
+      │ [10X&LaTeX;[110X     │ LaTeX   │ 
+      ├─────────────┼─────────┤
+      │ [10X&BibTeX;[110X    │ BibTeX  │ 
+      ├─────────────┼─────────┤
+      │ [10X&MeatAxe;[110X   │ [5XMeatAxe[105X │ 
+      ├─────────────┼─────────┤
+      │ [10X&XGAP;[110X      │ [5XXGAP[105X    │ 
+      ├─────────────┼─────────┤
+      │ [10X&copyright;[110X │ ©       │ 
+      ├─────────────┼─────────┤
+      │ [10X&nbsp;[110X      │ [21X [121X     │ 
+      ├─────────────┼─────────┤
+      │ [10X&ndash;[110X     │ –       │ 
+      └─────────────┴─────────┘
+  
+       [1XTable:[101X Predefined Entities in the [5XGAPDoc[105X system
+  
+  
+  [33X[0;0YHere [10X&nbsp;[110X is a non-breakable space character.[133X
+  
+  [33X[0;0YAdditional  entities  are defined for some mathematical symbols, see [14X3.8[114X for
+  more details.[133X
+  
+  [33X[0;0YOne can define further local entities right inside the head (see [14X2.1-1[114X) of a
+  [5XGAPDoc[105X XML document as in the following example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X<?xml version="1.0" encoding="UTF-8"?>[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X<!DOCTYPE Book SYSTEM "gapdoc.dtd"[128X[104X
+    [4X[28X  [ <!ENTITY MyEntity "some longish <E>text</E> possibly with markup">[128X[104X
+    [4X[28X  ]>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese  additional  definitions go into the [10X<!DOCTYPE[110X tag in square brackets.
+  Such new entities are used like this: [10X&MyEntity;[110X[133X
+  

@@ -1,0 +1,16 @@
+  
+  [1X1 [33X[0;0YStructure of the [5XGAP[105X[101X[1X distribution[133X[101X
+  
+  [33X[0;0YHere  is  a  short  overview  of  the  structure of the [5XGAP[105X distribution and
+  repository.[133X
+  
+  
+  [1X1.1 [33X[0;0YKernel, library, documentation, package interface, development part[133X[101X
+  
+  [33X[0;0Y...[133X
+  
+  
+  [1X1.2 [33X[0;0YThe directories of the [5XGAP[105X[101X[1X distribution and repository[133X[101X
+  
+  [33X[0;0Y...[133X
+  

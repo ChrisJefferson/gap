@@ -1,0 +1,38 @@
+inp 11 19 5 12 8 10 14 15 6 17 3 7
+pwr 2 10 37DEF
+pwr 2 7 27A\'
+pwr 2 8 13DEF
+pwr 2 3 21A\'
+pwr 2 6 9E\'
+pwr 2 17 9F\'
+pwr 2 5 7A
+pwr 2 15 9D\'
+pwr 2 14 3D\'
+pwr 2 27A\' 27C
+pwr 2 13DEF 13ABC
+pwr 2 9E\' 9E
+pwr 2 9F\' 9F
+pwr 2 3D\' 3D
+pwr 2 27C 27B\'
+pwr 2 27B\' 27A
+pwr 2 27A 27C\'
+pwr 3 7 9B
+pwr 3 6 6A
+pwr 3 17 6B
+pwr 3 19 3A
+pwr 3 14 2A 
+pwr 3 27A\' 9C
+pwr 3 9E\' 3C
+pwr 3 9F\' 3B
+pwr 3 3D\' 1A
+pwr 7 8 26DEF
+pwr 5 14 6C\'
+pwr 5 6 18A\'
+pwr 5 17 18B\'
+echo "Classes 1A 2A 3A 3B 3C 6A 6B 7A 9A 9B 9C 13ABC 13DEF 14ABC 19ABC"
+oup 15 1A 2A 3A 3B 3C 6A 6B 7A 19 9B 9C 13ABC 13DEF 5 12
+echo "Classes 26ABC 26DEF 37ABC 37DEF 3D 3D' 6C 6C' 9D 9D' 9E 9E' 9F 9F'"
+oup 14 8 26DEF 10 37DEF 3D 3D\' 14 6C\' 15 9D\' 9E 9E\' 9F 9F\'
+echo "Classes 18A 18A' 18B 18B' 21A 21A' 27A 27A' 27B 27B' 27C 27C'"
+oup 12 6 18A\' 17 18B\' 3 21A\' 27A 27A\' 7 27B\' 27C 27C\'
+

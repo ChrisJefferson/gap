@@ -1,0 +1,314 @@
+  
+  [1X1 [33X[0;0YIntroduction and Example[133X[101X
+  
+  [33X[0;0YThe  main  purpose  of  the  [5XGAPDoc[105X  package  is to define a file format for
+  documentation  of  [5XGAP[105X-programs  and -packages (see [GAP06]). The problem is
+  that  such  documentation  should be readable in several output formats. For
+  example  it should be possible to read the documentation inside the terminal
+  in  which  [5XGAP[105X  is  running  (a  text  mode) and there should be a printable
+  version in high typesetting quality (produced by some version of TeX). It is
+  also   popular  to  view  [5XGAP[105X's  online  help  with  a  Web-browser  via  an
+  HTML-version  of  the documentation. Nowadays one can use LaTeX and standard
+  viewer  programs  to  produce  and view on the screen [10Xdvi[110X- or [10Xpdf[110X-files with
+  full  support  of  internal and external hyperlinks. Certainly there will be
+  other  interesting  document  formats  and  tools  in  this direction in the
+  future.[133X
+  
+  [33X[0;0YOur  aim  is  to  find a [13Xformat for writing[113X the documentation which allows a
+  relatively easy translation into the output formats just mentioned and which
+  hopefully makes it easy to translate to future output formats as well.[133X
+  
+  [33X[0;0YTo  make documentation written in the [5XGAPDoc[105X format directly usable, we also
+  provide   a  set  of  programs,  called  converters,  which  produce  text-,
+  hyperlinked  LaTeX-  and  HTML-output  versions  of a [5XGAPDoc[105X document. These
+  programs are developed by the first named author. They run completely inside
+  [5XGAP[105X, i.e., no external programs are needed. You only need [10Xlatex[110X and [10Xpdflatex[110X
+  to process the LaTeX output. These programs are described in Chapter [14X5[114X.[133X
+  
+  
+  [1X1.1 [33X[0;0YXML[133X[101X
+  
+  [33X[0;0YThe  definition  of  the  [5XGAPDoc[105X  format  uses  XML,  the  [21XeXtendible Markup
+  Language[121X.   This   is  a  standard  (defined  by  the  W3C  consortium,  see
+  [7Xhttps://www.w3c.org[107X)  which  lays  down  a  syntax  for  adding  markup to a
+  document  or  to  some  data.  It  allows  to define document structures via
+  introducing markup [13Xelements[113X and certain relations between them. This is done
+  in  a [13Xdocument type definition[113X. The file [11Xgapdoc.dtd[111X contains such a document
+  type definition and is the central part of the [5XGAPDoc[105X package.[133X
+  
+  [33X[0;0YThe easiest way for getting a good idea about this is probably to look at an
+  example.  The Appendix [14XA[114X contains a short but complete [5XGAPDoc[105X document for a
+  fictitious  share  package.  In  the  next  section  we will go through this
+  document,  explain  basic  facts about XML and the [5XGAPDoc[105X document type, and
+  give pointers to more details in later parts of this documentation.[133X
+  
+  [33X[0;0YIn  the  last Section [14X1.3[114X of this introductory chapter we try to answer some
+  general questions about the decisions which lead to the [5XGAPDoc[105X package.[133X
+  
+  
+  [1X1.2 [33X[0;0YA complete example[133X[101X
+  
+  [33X[0;0YIn  this section we recall the lines from the example document in Appendix [14XA[114X
+  and give some explanations.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<?xml version="1.0" encoding="UTF-8"?> [104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis line just tells a human reader and computer programs that the file is a
+  document with XML markup and that the text is encoded in the UTF-8 character
+  set (other common encodings are ASCII or ISO-8895-X encodings).[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<!--   A complete "fake package" documentation   [104X
+    [4X-->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YEverything  in  a XML file between [21X[10X<!--[110X[121X and [21X[10X-->[110X[121X is a comment and not part of
+  the document content.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<!DOCTYPE Book SYSTEM "gapdoc.dtd">[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  line  says  that  the document contains markup which is defined in the
+  system  file  [11Xgapdoc.dtd[111X  and that the markup obeys certain rules defined in
+  that  file  (the ending [11Xdtd[111X means [21Xdocument type definition[121X). It further says
+  that  the  actual  content  of the document consists of an element with name
+  [21XBook[121X.  And we can really see that the remaining part of the file is enclosed
+  as follows:[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<Book Name="3k+1">[104X
+    [4X  [...] (content omitted)[104X
+    [4X</Book>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis demonstrates the basics of the markup in XML. This part of the document
+  is  an [21Xelement[121X. It consists of the [21Xstart tag[121X [10X<Book Name="3k+1">[110X, the [21Xelement
+  content[121X  and  the  [21Xend  tag[121X  [10X</Book>[110X  (end  tags always start with [10X</[110X). This
+  element also has an [21Xattribute[121X [10XName[110X whose [21Xvalue[121X is [10X3k+1[110X.[133X
+  
+  [33X[0;0YIf  you  know  HTML,  this  will  look  familiar  to you. But there are some
+  important  differences:  The  element  name [10XBook[110X and attribute name [10XName[110X are
+  [13Xcase sensitive[113X. The value of an attribute must [13Xalways[113X be enclosed in quotes.
+  In  XML  [13Xevery[113X  element  has  a start and end tag (which can be combined for
+  elements defined as [21Xempty[121X, see for example [10X<TableOfContents/>[110X below).[133X
+  
+  [33X[0;0YIf  you  know  LaTeX, you are familiar with quite different types of markup,
+  for example: The equivalent of the [10XBook[110X element in LaTeX is [10X\begin{document}
+  ...  \end{document}[110X.  The  sectioning in LaTeX is not done by explicit start
+  and  end  markup,  but  implicitly via heading commands like [10X\section[110X. Other
+  markup  is done by using braces [10X{}[110X and putting some commands inside. And for
+  mathematical  formulae  one  can  use the [10X$[110X for the start [13Xand[113X the end of the
+  markup. In XML [13Xall[113X markup looks similar to that of the [10XBook[110X element.[133X
+  
+  [33X[0;0YThe content of the book starts with a title page.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<TitlePage>[104X
+    [4X  <Title>The <Package>ThreeKPlusOne</Package> Package</Title>[104X
+    [4X  <Version>Version 42</Version>[104X
+    [4X  <Author>Dummy Authör[104X
+    [4X    <Email>3kplusone@dev.null</Email>[104X
+    [4X  </Author>[104X
+    [4X[104X
+    [4X  <Copyright>&copyright; 2000 The Author. <P/>[104X
+    [4X    You can do with this package what you want.<P/> Really.[104X
+    [4X  </Copyright>[104X
+    [4X</TitlePage>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  content  of  the  [10XTitlePage[110X  element  consists  again  of  elements. In
+  Chapter [14X3[114X we describe which elements are allowed within a [10XTitlePage[110X and that
+  their  ordering  is  prescribed  in  this  case. In the (stupid) name of the
+  author  you  see  that  a  German  umlaut  is  used  directly (in ISO-latin1
+  encoding).[133X
+  
+  [33X[0;0YContrary to LaTeX- or HTML-files this markup does not say anything about the
+  actual  layout  of  the title page in any output version of the document. It
+  just adds information about the [13Xmeaning[113X of pieces of text.[133X
+  
+  [33X[0;0YWithin  the  [10XCopyright[110X  element there are two more things to learn about XML
+  markup.  The [10X<P/>[110X is a complete element. It is a combined start and end tag.
+  This  shortcut is allowed for elements which are defined to be always [21Xempty[121X,
+  i.e.,  to have no content. You may have already guessed that [10X<P/>[110X is used as
+  a  paragraph  separator.  Note  that  empty lines do not separate paragraphs
+  (contrary to LaTeX).[133X
+  
+  [33X[0;0YThe  other  construct  we  see here is [10X&copyright;[110X. This is an example of an
+  [21Xentity[121X  in  XML  and  is  a macro for some substitution text. Here we use an
+  entity  as  a  shortcut for a complicated expression which makes it possible
+  that  the  term  [13Xcopyright[113X is printed as some text like [10X(C)[110X in text terminal
+  output  and  as  a copyright character in other output formats. In [5XGAPDoc[105X we
+  predefine  some  entities.  Certain  [21Xspecial  characters[121X  must  be typed via
+  entities, for example [21X<[121X, [21X>[121X and [21X&[121X to avoid a misinterpretation as XML markup.
+  It  is  possible  to define additional entities for your document inside the
+  [10X<!DOCTYPE ...>[110X declaration, see [14X2.2-3[114X.[133X
+  
+  [33X[0;0YNote  that  elements  in  XML  must  always  be  properly nested, as in this
+  example. A construct like [10X<a><b>...</a></b>[110X is [13Xnot[113X allowed.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<TableOfContents/>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  is  another example of an [21Xempty element[121X. It just means that a table of
+  contents  for  the whole document should be included into any output version
+  of the document.[133X
+  
+  [33X[0;0YAfter  this  the main text of the document follows inside certain sectioning
+  elements:[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<Body>[104X
+    [4X  <Chapter> <Heading>The <M>3k+1</M> Problem</Heading>[104X
+    [4X    <Section Label="sec:theory"> <Heading>Theory</Heading>[104X
+    [4X      [...] (content omitted)[104X
+    [4X    </Section>[104X
+    [4X    <Section> <Heading>Program</Heading>[104X
+    [4X      [...] (content omitted) [104X
+    [4X    </Section>[104X
+    [4X  </Chapter>[104X
+    [4X</Body>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese  elements  are  used  similarly to [21X\chapter[121X and [21X\section[121X in LaTeX. But
+  note that the explicit end tags are necessary here.[133X
+  
+  [33X[0;0YThe  sectioning  commands  allow to assign an optional attribute [21XLabel[121X. This
+  can be used for referring to a section inside the document.[133X
+  
+  [33X[0;0YThe  text of the first section starts as follows. The whitespace in the text
+  is unimportant and the indenting is not necessary.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X[104X
+    [4X      Let  <M>k \in  &NN;</M> be  a  natural number.  We consider  the[104X
+    [4X      sequence <M>n(i, k), i \in &NN;,</M> with <M>n(1, k) = k</M> and[104X
+    [4X      else [104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  we  come to the interesting question how to type mathematical formulae
+  in  a  [5XGAPDoc[105X document. We did not find any alternative for writing formulae
+  in  TeX  syntax. (There is MATHML, but even simple formulae contain a lot of
+  markup, become quite unreadable and they are cumbersome to type. Furthermore
+  there  seem to be no tools available which translate such formulae in a nice
+  way  into  TeX  and  text.)  So, formulae are essentially typed as in LaTeX.
+  (Actually,   it  is  also  possible  to  type  unicode  characters  of  some
+  mathematical  symbols directly, or via an entity like the [10X&NN;[110X above.) There
+  are  three  types  of elements containing formulae: [21XM[121X, [21XMath[121X and [21XDisplay[121X. The
+  first  two are for in-text formulae and the third is for displayed formulae.
+  Here  [21XM[121X  and  [21XMath[121X  are  equivalent, when translating a [5XGAPDoc[105X document into
+  LaTeX. But they are handled differently for terminal text (and HTML) output.
+  For  the  content  of an [21XM[121X-element there are defined rules for a translation
+  into  well  readable terminal text. More complicated formulae are in [21XMath[121X or
+  [21XDisplay[121X elements and they are just printed as they are typed in text output.
+  So,  to make a section well readable inside a terminal window you should try
+  to  put as many formulae as possible into [21XM[121X-elements. In our example text we
+  used  the notation [10Xn(i, k)[110X instead of [10Xn_i(k)[110X because it is easier to read in
+  text mode. See Sections [14X2.2-2[114X and [14X3.9[114X for more details.[133X
+  
+  [33X[0;0YA few lines further on we find two non-internal references.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X      problem, see <Cite Key="Wi98"/> or[104X
+    [4X      <URL>http://mathsrv.ku-eichstaett.de/MGF/homes/wirsching/</URL>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  first  within  the [21XCite[121X-element is the citation of a book. In [5XGAPDoc[105X we
+  use  the  widely  used BibTeX database format for reference lists. This does
+  not  use XML but has a well documented structure which is easy to parse. And
+  many people have collections of references readily available in this format.
+  The reference list in an output version of the document is produced with the
+  empty element[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<Bibliography Databases="3k+1" />[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yclose  to  the  end  of  our  example file. The attribute [21XDatabases[121X give the
+  name(s) of the database ([11X.bib[111X) files which contain the references.[133X
+  
+  [33X[0;0YPutting  a  Web-address into an [21XURL[121X-element allows one to create a hyperlink
+  in output formats which allow this.[133X
+  
+  [33X[0;0YThe  second  section  of  our  example contains a special kind of subsection
+  defined in [5XGAPDoc[105X.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X      <ManSection> [104X
+    [4X        <Func Name="ThreeKPlusOneSequence" Arg="k[, max]"/>[104X
+    [4X        <Description>[104X
+    [4X          This  function computes  for a  natural number  <A>k</A> the[104X
+    [4X          beginning of the sequence  <M>n(i, k)</M> defined in section[104X
+    [4X          <Ref Sect="sec:theory"/>.  The sequence  stops at  the first[104X
+    [4X          <M>1</M>  or at  <M>n(<A>max</A>, k)</M>,  if <A>max</A>  is[104X
+    [4X          given.[104X
+    [4X<Example>[104X
+    [4Xgap> ThreeKPlusOneSequence(101);[104X
+    [4X"Sorry, not yet implemented. Wait for Version 84 of the package"[104X
+    [4X</Example>[104X
+    [4X        </Description>[104X
+    [4X      </ManSection>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YA  [21XManSection[121X  contains the description of some function, operation, method,
+  filter  and  so on. The [21XFunc[121X-element describes the name of a [13Xfunction[113X (there
+  are  also  similar  elements  [21XOper[121X,  [21XMeth[121X, [21XFilt[121X and so on) and names for its
+  arguments,  optional  arguments enclosed in square brackets. See Section [14X3.4[114X
+  for more details.[133X
+  
+  [33X[0;0YIn  the  [21XDescription[121X  we  write  the  argument  names  as [21XA[121X-elements. A good
+  description  of a function should usually contain an example of its use. For
+  this  there  are  some  verbatim-like elements in [5XGAPDoc[105X, like [21XExample[121X above
+  (here,   clearly,   whitespace  matters  which  causes  a  slightly  strange
+  indenting).[133X
+  
+  [33X[0;0YThe  text  contains  an  internal  reference  to  the  first section via the
+  explicitly defined label [10Xsec:theory[110X.[133X
+  
+  [33X[0;0YThe  first  section also contains a [21XRef[121X-element which refers to the function
+  described  here.  Note that there is no explicit label for such a reference.
+  The  pair  [10X<Func  Name="ThreeKPlusOneSequence"  Arg="k[,  max]"/>[110X  and  [10X<Ref
+  Func="ThreeKPlusOneSequence"/>[110X  does the cross referencing (and hyperlinking
+  if possible) implicitly via the name of the function.[133X
+  
+  [33X[0;0YHere  is  one  further  element  from  our example document which we want to
+  explain.[133X
+  
+  [4X[32X  from 3k+1.xml  [32X[104X
+    [4X<TheIndex/>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis is again an empty element which just says that an output version of the
+  document  should  contain an index. Many entries for the index are generated
+  automatically  because the [21XFunc[121X and similar elements implicitly produce such
+  entries.  It  is also possible to include explicit additional entries in the
+  index.[133X
+  
+  
+  [1X1.3 [33X[0;0YSome questions[133X[101X
+  
+  [8XAre those XML files too ugly to read and edit?[108X
+        [33X[0;6YJust have a look and decide yourself. The markup needs more characters
+        than  most  TeX  or LaTeX markup. But the structure of the document is
+        easier  to see. If you configure your favorite editor well, you do not
+        need more key strokes for typing the markup than in LaTeX.[133X
+  
+  [8XWhy do we not use LaTeX alone?[108X
+        [33X[0;6YLaTeX  is  good  for  writing  books.  But  LaTeX  files are generally
+        difficult  to  parse  and to process to other output formats like text
+        for  browsing  in  a terminal window or HTML (or new formats which may
+        become popular in the future). [5XGAPDoc[105X markup is one step more abstract
+        than  LaTeX  insofar  as it describes meaning instead of appearance of
+        text. The inner workings of LaTeX are too complicated to learn without
+        pain,  which  makes  it  difficult  to  overcome  problems  that occur
+        occasionally.[133X
+  
+  [8XWhy XML and not a newly defined markup language?[108X
+        [33X[0;6YXML is a well defined standard that is more and more widely used. Lots
+        of  people  have  thought about it. Years of experience with SGML went
+        into  the  design.  It  is  easy to explain, easy to parse and lots of
+        tools are available, there will be more in the future.[133X
+  

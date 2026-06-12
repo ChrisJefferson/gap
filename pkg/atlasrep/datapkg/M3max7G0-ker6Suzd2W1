@@ -1,0 +1,29 @@
+# take the conjugates of the 3rd generator by the first powers
+# of the product of the first two generators
+inp 4
+mu 1 2 5
+iv 5 6
+mu 6 3 7
+mu 7 5 8
+mu 6 8 9
+mu 9 5 10
+mu 6 10 11
+mu 11 5 12
+mu 6 12 13
+mu 13 5 14
+mu 6 14 15
+mu 15 5 16
+mu 6 16 17
+mu 17 5 18
+mu 6 18 19
+mu 19 5 20
+mu 6 20 21
+mu 21 5 22
+mu 6 22 23
+mu 23 5 24
+mu 6 24 25
+mu 25 5 26
+mu 6 26 27
+mu 27 5 28
+oup 12 3 8 10 12 14 16 18 20 22 24 26 28
+

@@ -1,0 +1,3623 @@
+
+<!-- %W  maintain.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+<Chapter Label="chap:maintain">
+
+<Heading>Maintenance Issues for the &GAP; Character Table Library</Heading>
+
+This chapter collects examples of computations that arose
+in the context of maintaining the &GAP; Character Table Library.
+The sections have been added when the issues in question arose;
+the dates of the additions are shown in the section titles.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:disprove">
+<Heading>Disproving Possible Character Tables (November 2006)</Heading>
+
+I do not know a necessary and sufficient criterion for checking
+whether a given matrix together with a list of power maps
+describes the character table of a finite group.
+Examples of <E>pseudo character tables</E>
+(tables which satisfy certain necessary conditions
+but for which actually no group exists) have been given
+in&nbsp;<Cite Key="Gag86"/>.
+
+Another such example is described in
+Section&nbsp;<Ref Subsect="subsect:pseudo"/>.
+
+The tables in the &GAP; Character Table Library satisfy the usual tests.
+However,
+there are table candidates for which these tests are not good enough.
+
+<!-- (mention that this should be run when a table is going to be added) -->
+<!-- (example: the candidate with nonintegral structure constants) -->
+
+Another question would be whether a given character table
+belongs to the group for which it is claimed to belong,
+see Section <Ref Subsect="subsect:LyN2"/> for an example.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:perfect_pseudo">
+<Heading>A Perfect Pseudo Character Table (November 2006)</Heading>
+
+(This example arose from a discussion with Jack Schmidt.)
+
+<P/>
+
+Up to version&nbsp;1.1.3 of the &GAP; Character Table Library,
+the table with identifier <C>"P41/G1/L1/V4/ext2"</C> was not correct.
+The problem occurs already in the microfiches
+that are attached to&nbsp;<Cite Key="HP89"/>.
+
+<P/>
+
+In the following, we show that this table is not the character table
+of a finite group,
+using the &GAP; library of perfect groups.
+Currently we do not know how to prove this inconsistency
+alone from the table.
+
+<P/>
+
+We start with the construction of the inconsistent table;
+apart from a little editing,
+the following input equals the data formerly stored
+in the file <F>data/ctoholpl.tbl</F> of the &GAP; Character Table Library.
+
+<P/>
+
+<Example><![CDATA[
+gap> tbl:= rec(
+>   Identifier:= "P41/G1/L1/V4/ext2",
+>   InfoText:= Concatenation( [
+>     "origin: Hanrath library,\n",
+>     "structure is 2^7.L2(8),\n",
+>     "characters sorted with permutation (12,14,15,13)(19,20)" ] ),
+>   UnderlyingCharacteristic:= 0,
+>   SizesCentralizers:= [64512,1024,1024,64512,64,64,64,64,128,128,64,
+>     64,128,128,18,18,14,14,14,14,14,14,18,18,18,18,18,18],
+>   ComputedPowerMaps:= [,[1,1,1,1,2,3,3,2,3,2,2,1,3,2,16,16,20,20,22,
+>     22,18,18,26,26,27,27,23,23],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,4,
+>     1,21,22,17,18,19,20,16,15,15,16,16,15],,,,[1,2,3,4,5,6,7,8,9,10,
+>     11,12,13,14,15,16,4,1,4,1,4,1,26,25,28,27,23,24]],
+>   Irr:= 0,
+>   AutomorphismsOfTable:= Group( [(23,26,27)(24,25,28),(9,13)(10,14),
+>     (17,19,21)(18,20,22)] ),
+>   ConstructionInfoCharacterTable:= ["ConstructClifford",[[[1,2,3,4,
+>     5,6,7,8,9],[1,7,8,3,9,2],[1,4,5,6,2],[1,2,2,2,2,2,2,2]],
+>     [["L2(8)"],["Dihedral",18],["Dihedral",14],["2^3"]],[[[1,2,3,4],
+>     [1,1,1,1],["elab",4,25]],[[1,2,3,4,4,4,4,4,4,4],[2,6,5,2,3,4,5,
+>     6,7,8],["elab",10,17]],[[1,2],[3,4],[[1,1],[-1,1]]],[[1,3],[4,
+>     2],[[1,1],[-1,1]]],[[1,3],[5,3],[[1,1],[-1,1]]],[[1,3],[6,4],
+>     [[1,1],[-1,1]]],[[1,2],[7,2],[[1,1],[1,-1]]],[[1,2],[8,3],[[1,
+>     1],[-1,1]]],[[1,2],[9,5],[[1,1],[1,-1]]]]]],
+>   );;
+gap> ConstructClifford( tbl, tbl.ConstructionInfoCharacterTable[2] );
+gap> ConvertToLibraryCharacterTableNC( tbl );;
+]]></Example>
+
+<P/>
+
+Suppose that there is a group <M>G</M>, say, with this table.
+Then <M>G</M> is perfect since the table has only one linear character.
+
+<P/>
+
+<Example><![CDATA[
+gap> Length( LinearCharacters( tbl ) );
+1
+gap> IsPerfectCharacterTable( tbl );
+true
+]]></Example>
+
+<P/>
+
+The table satisfies the orthogonality relations,
+the structure constants are nonnegative integers,
+and symmetrizations of the irreducibles decompose
+into the irreducibles, with nonnegative integral coefficients.
+
+<P/>
+
+<Example><![CDATA[
+gap> IsInternallyConsistent( tbl );
+true
+gap> irr:= Irr( tbl );;
+gap> test:= Concatenation( List( [ 2 .. 7 ],
+>               n -> Symmetrizations( tbl, irr, n ) ) );;
+gap> Append( test, Set( Tensored( irr, irr ) ) );
+gap> fail in Decomposition( irr, test, "nonnegative" );
+false
+gap> if ForAny( Tuples( [ 1 .. NrConjugacyClasses( tbl ) ], 3 ),
+>      t -> not ClassMultiplicationCoefficient( tbl, t[1], t[2], t[3] )
+>               in NonnegativeIntegers ) then
+>      Error( "contradiction" );
+> fi;
+]]></Example>
+
+<P/>
+
+The &GAP; Library of Perfect Groups contains representatives of the
+four isomorphism types of perfect groups of order <M>|G| = 64\,512</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> n:= Size( tbl );
+64512
+gap> NumberPerfectGroups( n );
+4
+gap> grps:= List( [ 1 .. 4 ], i -> PerfectGroup( IsPermGroup, n, i ) );
+[ L2(8) 2^6 E 2^1, L2(8) N 2^6 E 2^1 I, L2(8) N 2^6 E 2^1 II, 
+  L2(8) N 2^6 E 2^1 III ]
+]]></Example>
+
+<P/>
+
+If we believe that the classification of perfect groups of order <M>|G|</M>
+is correct then all we have to do is to show that none of the
+character tables of these four groups is equivalent to the given table.
+
+<P/>
+
+<Example><![CDATA[
+gap> tbls:= List( grps, CharacterTable );;
+gap> List( tbls,
+>          x -> TransformingPermutationsCharacterTables( x, tbl ) );
+[ fail, fail, fail, fail ]
+]]></Example>
+
+<P/>
+
+In fact, already the matrices of irreducible characters of the four groups
+do not fit to the given table.
+
+<P/>
+
+<Example><![CDATA[
+gap> List( tbls,
+>          t -> TransformingPermutations( Irr( t ), Irr( tbl ) ) );
+[ fail, fail, fail, fail ]
+]]></Example>
+
+<P/>
+
+Let us look closer at the tables in question.
+Each character table of a perfect group of order <M>64\,512</M>
+has exactly one irreducible character of degree <M>63</M> that takes exactly
+the values <M>-1</M>, <M>0</M>, <M>7</M>, and <M>63</M>;
+moreover, the value <M>7</M> occurs in exactly two classes.
+
+<P/>
+
+<Example><![CDATA[
+gap> testchars:= List( tbls,
+>   t -> Filtered( Irr( t ),
+>          x -> x[1] = 63 and Set( x ) = [ -1, 0, 7, 63 ] ) );;
+gap> List( testchars, Length );
+[ 1, 1, 1, 1 ]
+gap> List( testchars, l -> Number( l[1], x -> x = 7 ) );
+[ 2, 2, 2, 2 ]
+]]></Example>
+
+<P/>
+
+(Another way to state this is that in each of the four tables <M>t</M> in
+question,
+there are ten preimage classes of the involution class in the simple
+factor group <M>L_2(8)</M>,
+there are eight preimage classes of this class in the factor group
+<M>2^6.L_2(8)</M>,
+and that the unique class in which an irreducible degree <M>63</M> character
+of this factor group takes the value <M>7</M> splits in <M>t</M>.)
+
+<P/>
+
+In the erroneous table, however,
+there is only one class with the value <M>7</M> in this character.
+
+<P/>
+
+<Example><![CDATA[
+gap> testchars:= List( [ tbl ],
+>   t -> Filtered( Irr( t ),
+>          x -> x[1] = 63 and Set( x ) = [ -1, 0, 7, 63 ] ) );;
+gap> List( testchars, Length );
+[ 1 ]
+gap> List( testchars, l -> Number( l[1], x -> x = 7 ) );
+[ 1 ]
+]]></Example>
+
+<P/>
+
+This property can be checked easily for the displayed table stored
+in fiche <M>2</M>, row <M>4</M>, column <M>7</M> of&nbsp;<Cite Key="HP89"/>,
+with the name <C>6L1&lt;>Z^7&lt;>L2(8); V4; MOD 2</C>,
+and it turns out that this table is not correct.
+
+<P/>
+
+Note that these microfiches contain <E>two</E> tables of order <M>64\,512</M>,
+and there were <E>three</E> tables of groups of that order
+in the &GAP; Character Table Library
+that contain <C>origin: Hanrath library</C> in their
+<Ref Func="InfoText" BookName="ref"/>
+value.
+Besides the incorrect table, these library tables are
+the character tables of the groups
+<C>PerfectGroup( 64512, 1 )</C> and <C>PerfectGroup( 64512, 3 )</C>,
+respectively.
+(The matrices of irreducible characters of these tables are equivalent.)
+
+<P/>
+
+<Example><![CDATA[
+gap> Filtered( [ 1 .. 4 ], i ->
+>        TransformingPermutationsCharacterTables( tbls[i],
+>            CharacterTable( "P41/G1/L1/V1/ext2" ) ) <> fail );
+[ 1 ]
+gap> Filtered( [ 1 .. 4 ], i ->
+>        TransformingPermutationsCharacterTables( tbls[i],
+>            CharacterTable( "P41/G1/L1/V2/ext2" ) ) <> fail );
+[ 3 ]
+gap> TransformingPermutations( Irr( tbls[1] ), Irr( tbls[3] ) ) <> fail;
+true
+]]></Example>
+
+<P/>
+
+Since version&nbsp;1.2 of the &GAP; Character Table Library,
+the character table with the
+<Ref Func="Identifier" BookName="ref"/>
+value
+<C>"P41/G1/L1/V4/ext2"</C> corresponds to the group
+<C>PerfectGroup( 64512, 4 )</C>.
+The choice of this group was somewhat arbitrary since the vector system
+<C>V4</C> seems to be not defined in&nbsp;<Cite Key="HP89"/>;
+anyhow, this group and the remaining perfect group,
+<C>PerfectGroup( 64512, 2 )</C>,
+have equivalent matrices of irreducibles.
+
+<Example><![CDATA[
+gap> Filtered( [ 1 .. 4 ], i ->
+>        TransformingPermutationsCharacterTables( tbls[i],
+>            CharacterTable( "P41/G1/L1/V4/ext2" ) ) <> fail );
+[ 4 ]
+gap> TransformingPermutations( Irr( tbls[2] ), Irr( tbls[4] ) ) <> fail;
+true
+]]></Example>
+
+<!--
+% Let us suppose that we are not convinced yet,
+% perhaps because it might be that a perfect group of order <M>64\,512</M>
+% has been overlooked up to now.
+% Then we consider the factor group <M>F</M> of <M>G</M> modulo its centre.
+% 
+% <Example><![CDATA[
+% gap> cen:= ClassPositionsOfCentre( tbl );
+% [ 1, 4 ]
+% gap> facttbl:= tbl / cen;
+% CharacterTable( "P41/G1/L1/V4/ext2/[ 1, 4 ]" )
+% ]]></Example>
+% 
+% The group <M>F</M> is a perfect group of order <M>32\,256</M>.
+% According to the &GAP; Library of Perfect Groups,
+% there are exactly two such groups, up to isomorphism,
+% and <M>F</M> must be isomorphic to the second of these groups.
+% 
+% <Example><![CDATA[
+% gap> factgrps:= List( [ 1 .. 2 ], i -> PerfectGroup( IsPermGroup, n/2, i ) );
+% [ L2(8) 2^6, L2(8) N 2^6 ]
+% gap> facttbls:= List( factgrps, CharacterTable );;                        
+% gap> List( facttbls, x -> IsRecord(
+% >            TransformingPermutationsCharacterTables( x, facttbl ) ) );
+% [ false, true ]
+% ]]></Example>
+% 
+% (In fact the situation is a bit more subtle:
+% The matrices of irreducibles of the two perfect groups of order <M>32\,256</M>
+% are equivalent,
+% the two character tables differ just by their second power maps and,
+% as a consequence, by their element orders.
+% However, the second power map of the given table of <M>G</M>
+% is uniquely determined by the matrix of irreducibles of this table.)
+% 
+% No!!
+% 
+% -> what about element orders?
+% 
+% <Example><![CDATA[
+% gap> IsRecord( TransformingPermutations(
+% >                  Irr( facttbls[1] ), Irr( facttbls[2] ) ) );
+% true
+% gap> IsRecord( TransformingPermutationsCharacterTables(
+% >                  facttbls[1], facttbls[2] ) );
+% false
+% 
+% ]]></Example>
+% 
+% 
+% ...
+% 
+% (And the power maps are uniquely det. by the matrix.)
+% 
+% (and not equiv. to the other!
+% note that one is split, the other nonsplit, 
+% and the matrices of irreds are equivalent)
+% 
+% So if we believe that there is no other perfect group of order <M>32\,256</M>
+% that has the same character table
+% then <M>G</M> is a central extension of this group by a group of order two.
+% 
+% We compute the possible central extensions of a maximal subgroup
+% of the structure <M>2^6.2^3:7</M>,
+% and show that none of them admits an embedding into the table.
+% 
+% (Note that the extensions can be computed for solvable groups,
+% that's why we switch to a subgroup.)
+% 
+% <Example><![CDATA[
+% gap> sort;
+% CharacterTable( "P41/G1/L1/V4/ext2" )
+% gap> g:= PerfectGroup( IsPermGroup, 32256, 2 );;
+% gap> nsg:= NormalSubgroups( g );
+% ...
+% gap> epi:= NaturalHomomorphismByNormalSubgroup( g, nsg[2] );;
+% gap> img:= Image( epi );;
+% gap> mx:= MaximalSubgroupClassReps( img );
+% [ Group([ (3,4,8,6,7,5,9), (1,2)(4,9)(5,8)(6,7) ]), Group([ (1,2,3)(4,7,8)(5,6,9), (1,4,9,2,7,5,3,8,6), (2,3)(4,6)(5,7)(8,9) ]), Group([ (2,3)(4,6)(5,7)(8,9), (2,4)(3,6)(5,9)(7,8), (2,5)(3,7)(4,9)(6,8), 
+%       (3,4,8,6,7,5,9) ]) ]
+% gap> List( mx, Size );
+% [ 14, 18, 56 ]
+% gap> pre:= PreImages( epi, mx[3] );;
+% gap> iso:= IsomorphismPcGroup( pre );;
+% gap> G:= Image( iso );;
+% gap> mats:= List( Pcgs( G ), x -> IdentityMat( 1, GF(2) ) );;     
+% gap> M:= GModuleByMats( mats, GF(2) );; 
+% gap> ext:= Extensions( G, M );;                                   
+% gap> Length( ext );
+% 8
+% gap> List( ext, Size );
+% [ 7168, 7168, 7168, 7168, 7168, 7168, 7168, 7168 ]
+% gap> tbls:= List( ext, CharacterTable );;
+% gap> List( tbls, t -> Length( PossibleClassFusions( t, sort ) ) );
+% [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+% ]]></Example>
+% 
+% 
+% now: how to replace the wrong table by the correct one!
+% -> to which of the two?
+% -> note that V1/ext2 and V2/ext2 belong to the first and third group,
+%    they have equiv. matrices;
+%    V4/ext2 is wrong, and there are the second and fourth group,
+%    again with equiv. matrices but different power maps!
+%    (so add two tables? with which names?)
+% 
+% <Example><![CDATA[
+% ]]></Example>
+% 
+-->
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:errorE62">
+<Heading>An Error in the Character Table of <M>E_6(2)</M> (March 2016)</Heading>
+
+In March 2016, Bill Unger computed the character table of the simple group
+<M>E_6(2)</M> with Magma (see <Cite Key="CP96"/>)
+and compared it with the table that was contained in the
+&GAP; Character Table Library since 2000.
+It turned out that the two tables did not coincide.
+
+<P/>
+
+The differences concern irrational character values on classes of element
+order <M>91</M> and power map values on these classes.
+(The character values and power maps fit to each other in both tables;
+thus it may be that the assumption of a wrong power has implied the wrong
+character values, or vice versa.)
+Specifically, the <M>11</M>th power map in the &GAP; table
+fixed all elements of order <M>91</M>.
+Using the smallest matrix representation of <M>E_6(2)</M> over the field with
+two elements, one can easily find an element <M>g</M> of order <M>91</M>,
+and show that the characteristic polynomials of <M>g</M> and <M>g^{11}</M>
+differ.
+Hence these two elements cannot be conjugate in <M>E_6(2)</M>.
+In other words, the &GAP; table was wrong.
+
+<P/>
+
+<Example><![CDATA[
+gap> g:= AtlasGroup( "E6(2)" );;
+gap> repeat x:= PseudoRandom( g ); until Order( x ) = 91;
+gap> CharacteristicPolynomial( x ) = CharacteristicPolynomial( x^11 );
+false
+]]></Example>
+
+<P/>
+
+The wrong &GAP; table has been corrected in version 1.3.0 of the
+&GAP; Character Table Library.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "E6(2)" );;
+gap> ord91:= Positions( OrdersClassRepresentatives( t ), 91 );
+[ 163, 164, 165, 166, 167, 168 ]
+gap> PowerMap( t, 11 ){ ord91 };
+[ 167, 168, 163, 164, 165, 166 ]
+]]></Example>
+
+<!-- The wrong table involved irrationalities
+     E(91)^6+E(91)^20+E(91)^31+E(91)^38+E(91)^48+E(91)^54+E(91)^66+E(91)^68
+     +E(91)^69+E(91)^73+E(91)^75+E(91)^89,
+     and the new one contains irrationalities
+     E(91)^17+E(91)^27+E(91)^34+E(91)^45+E(91)^54+E(91)^59+E(91)^68+E(91)^75
+     +E(91)^83+E(91)^87+E(91)^89+E(91)^90.
+     These values define different subfields of CF(91). -->
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:error2F422">
+<Heading>An Error in a Power Map of the Character Table of <M>2.F_4(2).2</M> (November 2015)</Heading>
+
+As a part of the computations for <Cite Key="BMO17"/>,
+the character table of the group <M>2.F_4(2).2</M> was computed
+automatically from a representation of the group,
+using Magma (see <Cite Key="CP96"/>).
+It turned out that the <M>2</M>-nd power map that had been stored on the
+library character table of <M>2.F_4(2).2</M> had been wrong.
+
+<P/>
+
+In fact, this was the one and only case of a power map for an &ATLAS; group
+which was not determined by the character table,
+and the <Ref Attr="InfoText" BookName="ref"/> value of the character table
+had mentioned the two alternatives.
+
+<P/>
+
+Note that the ambiguity is not present in the table of the factor group
+<M>F_4(2).2</M>, and only four faithful irreducible characters of
+<M>2.F_4(2).2</M> distinguish the four relevant conjugacy classes.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "2.F4(2).2" );;
+gap> f:= CharacterTable( "F4(2).2" );;
+gap> map:= PowerMap( t, 2 );
+[ 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 11, 11, 3, 3, 3, 5, 5, 5, 3, 6, 6, 5, 
+  5, 7, 7, 5, 8, 7, 29, 29, 9, 9, 9, 9, 11, 11, 9, 9, 9, 9, 11, 11, 
+  43, 43, 20, 20, 20, 14, 14, 13, 13, 20, 21, 24, 28, 28, 57, 57, 29, 
+  29, 29, 29, 33, 33, 35, 37, 37, 37, 37, 33, 33, 37, 37, 35, 41, 41, 
+  42, 42, 79, 79, 43, 43, 83, 83, 45, 45, 47, 47, 53, 53, 91, 91, 57, 
+  57, 61, 61, 61, 98, 98, 70, 70, 63, 63, 81, 81, 83, 83, 1, 6, 7, 
+  11, 16, 17, 24, 24, 21, 27, 27, 25, 26, 29, 41, 53, 53, 53, 46, 56, 
+  56, 56, 56, 62, 75, 75, 78, 78, 77, 77, 79, 79, 86, 86, 85, 85, 88, 
+  88, 88, 88, 95, 95, 96, 96 ]
+gap> PositionSublist( map, [ 86, 86, 85, 85 ] );
+140
+gap> OrdersClassRepresentatives( t ){ [ 140 .. 143 ] };
+[ 32, 32, 32, 32 ]
+gap> SizesCentralizers( t ){ [ 140 .. 143 ] };
+[ 64, 64, 64, 64 ]
+gap> GetFusionMap( t, f ){ [ 140 ..143 ] };
+[ 86, 86, 87, 87 ]
+gap> PowerMap( f, 2 ){ [ 86, 87 ] };
+[ 50, 50 ]
+gap> pos:= PositionsProperty( Irr( t ),
+>    x -> x[1] <> x[2] and Length( Set( x{ [ 140 .. 143 ] } ) ) > 1 );
+[ 144, 145, 146, 147 ]
+gap> List( pos, i -> Irr(t)[i]{ [ 140 .. 143 ] } );
+[ [ 2*E(16)-2*E(16)^7, -2*E(16)+2*E(16)^7, 2*E(16)^3-2*E(16)^5, 
+      -2*E(16)^3+2*E(16)^5 ], 
+  [ -2*E(16)+2*E(16)^7, 2*E(16)-2*E(16)^7, -2*E(16)^3+2*E(16)^5, 
+      2*E(16)^3-2*E(16)^5 ], 
+  [ -2*E(16)^3+2*E(16)^5, 2*E(16)^3-2*E(16)^5, 2*E(16)-2*E(16)^7, 
+      -2*E(16)+2*E(16)^7 ], 
+  [ 2*E(16)^3-2*E(16)^5, -2*E(16)^3+2*E(16)^5, -2*E(16)+2*E(16)^7, 
+      2*E(16)-2*E(16)^7 ] ]
+]]></Example>
+
+<P/>
+
+I had not found a suitable subgroup of <M>2.F_4(2).2</M> whose
+character table could be used to decide the question which of the
+two alternatives is the correct one.
+
+</Subsection>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:LyN2">
+<Heading>A Character Table with a Wrong Name (May 2017)</Heading>
+
+(This example is much older.)
+
+<P/>
+
+The character table that is shown in <Cite Key="Ost86" Where="p. 126 f."/>
+is claimed to be the table of a Sylow <M>2</M> subgroup <M>P</M> of the
+sporadic simple Lyons group <M>Ly</M>.
+This table had been contained in the character table library of the
+<Package>CAS</Package> system (see <Cite Key="NPP84"/>),
+which was one of the predecessors of &GAP;.
+
+<P/>
+
+It is easy to see that no subgroup of <M>Ly</M>
+can have this character table.
+Namely,
+the group of that table contains elements of order eight
+with centralizer order <M>2^6</M>,
+and this does not occur in <M>Ly</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tbl:= CharacterTable( "Ly" );;
+gap> orders:= OrdersClassRepresentatives( tbl );;
+gap> order8:= Filtered( [ 1 .. Length( orders ) ], x -> orders[x] = 8 );
+[ 12, 13 ]
+gap> SizesCentralizers( tbl ){ order8 } / 2^6;
+[ 15/2, 3/2 ]
+]]></Example>
+
+<P/>
+
+The table of <M>P</M> has been computed in <Cite Key="Bre91"/>
+with character theoretic methods.
+Nowadays it would be no problem to take a permutation representation of
+<M>Ly</M>, to compute its Sylow <M>2</M> subgroup, and use this group
+to compute its character table.
+However, the task is even easier if we assume that <M>Ly</M> has a subgroup
+of the structure <M>3.McL.2</M>.
+This subgroup is of odd index, hence it contains a conjugate of <M>P</M>.
+Clearly the Sylow <M>2</M> subgroups in the factor group <M>McL.2</M>
+are isomorphic with <M>P</M>.
+Thus we can start with a rather small permutation representation.
+
+<P/>
+
+<Example><![CDATA[
+gap> g:= AtlasGroup( "McL.2" );;
+gap> NrMovedPoints( g );
+275
+gap> syl:= SylowSubgroup( g, 2 );;
+gap> pc:= Image( IsomorphismPcGroup( syl ) );;
+gap> t:= CharacterTable( pc );;
+]]></Example>
+
+<P/>
+
+The character table coincides with the one which is stored in
+the Character Table Library.
+
+<P/>
+
+<Example><![CDATA[
+gap> IsRecord( TransformingPermutationsCharacterTables( t,
+>                  CharacterTable( "LyN2" ) ) );
+true
+]]></Example>
+
+</Subsection>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:spacegroupfactors">
+<Heading>Some finite factor groups of perfect space groups (February 2014)</Heading>
+
+If one wants to find a group to which a given character table from the
+&GAP; Character Table Library belongs,
+one can try the function
+<Ref Func="GroupInfoForCharacterTable" BookName="ctbllib"/>.
+For a long time,
+this was not successful in the case of <M>16</M> character tables
+that had been computed by W.&nbsp;Hanrath (see Section
+<Q>Ordinary and Brauer Tables in the &GAP; Character Table Library</Q>
+in the &CTblLib; manual).
+
+<P/>
+
+Using the information from&nbsp;<Cite Key="HP89"/>,
+it is straightforward to construct
+such groups as factor groups of infinite groups.
+Since version&nbsp;1.3.0 of the &CTblLib; package,
+calling
+<Ref Func="GroupInfoForCharacterTable" BookName="ctbllib"/>
+for the <M>16</M> library tables
+in question yields nonempty lists and thus allows one to access the
+results of these constructions,
+via the function <C>CTblLib.FactorGroupOfPerfectSpaceGroup</C>.
+This is an undocumented auxiliary function that becomes available
+automatically when
+<Ref Func="GroupInfoForCharacterTable" BookName="ctbllib"/>
+has been called for the first time.
+
+<P/>
+
+<Example><![CDATA[
+gap> GroupInfoForCharacterTable( "A5" );;
+gap> IsBound( CTblLib.FactorGroupOfPerfectSpaceGroup );
+true
+]]></Example>
+ 
+<P/>
+
+Below we list the <M>16</M> group constructions.
+In each case, an epimorphism from the space group in question is defined by
+mapping the generators returned by by the function
+<C>generatorsOfPerfectSpaceGroup</C> defined below to the generators
+stored in the attribute
+<Ref Func="GeneratorsOfGroup" BookName="ref"/>
+of the group returned by
+<C>CTblLib.FactorGroupOfPerfectSpaceGroup</C>.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:constructspacegroups">
+<Heading>Constructing the space groups in question</Heading>
+
+In&nbsp;<Cite Key="HP89"/>,
+a space group <M>S</M> is described as a subgroup
+<M>\{ M(g, t); g \in P, t \in T \}</M> of GL<M>(d+1, &ZZ;)</M>,
+where 
+
+<P/>
+
+<Alt Only="LaTeX">
+\[
+   M(g, t) = \left[ \begin{array}{cc}  g &amp; 0 \\
+                                V(g) + t &amp; 1 \end{array} \right],
+\]
+</Alt>
+
+<Alt Only="Text">
+<Verb>
+                          M(g, t) = ⌈      g  0 ⌉
+                                    ⌊ V(g)+t  1 ⌋,
+</Verb>
+</Alt>
+
+<Alt Only="HTML"><![CDATA[
+<div class="pcenter"><table>
+<tr>
+<td class="tdright"><span class="SimpleMath">M(g, t)</span></td>
+<td class="tdcenter"><span class="SimpleMath">&nbsp;=&nbsp;</span></td>
+<td class="tdleft">
+  <table class="GAPDocTable">
+    <tr>
+      <td class="tdright"><span class="SimpleMath">g</span></td>
+      <td class="tdright"><span class="SimpleMath">0</span></td>
+    </tr>
+    <tr>
+      <td class="tdright"><span class="SimpleMath">V(g)+t</span></td>
+      <td class="tdright"><span class="SimpleMath">1</span></td>
+    </tr>
+  </table>
+</td>
+</tr>
+</table>
+</div>
+]]></Alt>
+
+<P/>
+
+the <E>point group</E> <M>P</M> of <M>S</M> is a finite subgroup of
+GL<M>(d, &ZZ;)</M>,
+the <E>translation lattice</E> <M>T</M> of <M>S</M> is a sublattice of
+<M>&ZZ;^d</M>,
+and the <E>vector system</E> <M>V</M> of <M>S</M> is a map from <M>P</M> to
+<M>&ZZ;^d</M>.
+Note that <M>V</M> maps the identity matrix <M>I \in</M> GL<M>(d, &ZZ;)</M>
+to the zero vector,
+and <M>M(T):= \{ M(I, t); t \in T \}</M>
+is a normal subgroup of <M>S</M> that is isomorphic with <M>T</M>.
+More generally, <M>M(n T)</M> is a normal subgroup of <M>S</M>,
+for any positive integer <M>n</M>.
+
+<P/>
+
+Specifically,
+<M>P</M> is given by generators <M>g_1, g_2, \ldots, g_k</M>,
+<M>T</M> is given by a <M>&ZZ;</M>-basis
+<M>B = \{ b_1, b_2, \ldots, b_d \}</M> of <M>T</M>,
+and <M>V</M> is given by the vectors <M>V(g_1), V(g_2), \ldots, V(g_k)</M>.
+
+<P/>
+
+In the examples below, the matrix representation of <M>P</M> is irreducible,
+so we need just the following <M>k+1</M> elements to generate <M>S</M>:
+
+<P/>
+
+<Alt Only="LaTeX">
+\[
+   \left[ \begin{array}{cc}  g_1 &amp; 0 \\ V(g_1) &amp; 1  \end{array} \right],
+   \left[ \begin{array}{cc}  g_2 &amp; 0 \\ V(g_2) &amp; 1  \end{array} \right],
+   \ldots,
+   \left[ \begin{array}{cc}  g_k &amp; 0 \\ V(g_k) &amp; 1  \end{array} \right],
+   \left[ \begin{array}{cc}    I &amp; 0 \\ b_1    &amp; 1  \end{array} \right].
+\]
+</Alt>
+
+<Alt Only="Text">
+<Verb>
+        ⌈    g_1  0 ⌉  ⌈    g_2  0 ⌉       ⌈    g_k  0 ⌉  ⌈   I  0 ⌉
+        ⌊ V(g_1)  1 ⌋, ⌊ V(g_2)  1 ⌋, ..., ⌊ V(g_k)  1 ⌋, ⌊ b_1  1 ⌋.
+</Verb>
+</Alt>
+
+<Alt Only="HTML"><![CDATA[
+<div class="pcenter">
+<table>
+<tr>
+<td class="tdleft">
+  <table class="GAPDocTable">
+    <tr>
+      <td class="tdright"><span class="SimpleMath">g_1</span></td>
+      <td class="tdright"><span class="SimpleMath">0</span></td>
+    </tr>
+    <tr>
+      <td class="tdright"><span class="SimpleMath">V(g_1)</span></td>
+      <td class="tdright"><span class="SimpleMath">1</span></td>
+    </tr>
+  </table>
+<td class="tdleft">
+  ,&nbsp;
+</td>
+</td>
+<td class="tdleft">
+  <table class="GAPDocTable">
+    <tr>
+      <td class="tdright"><span class="SimpleMath">g_2</span></td>
+      <td class="tdright"><span class="SimpleMath">0</span></td>
+    </tr>
+    <tr>
+      <td class="tdright"><span class="SimpleMath">V(g_2)</span></td>
+      <td class="tdright"><span class="SimpleMath">1</span></td>
+    </tr>
+  </table>
+</td>
+<td class="tdleft">
+  , ...,&nbsp;
+</td>
+<td class="tdleft">
+  <table class="GAPDocTable">
+    <tr>
+      <td class="tdright"><span class="SimpleMath">g_k</span></td>
+      <td class="tdright"><span class="SimpleMath">0</span></td>
+    </tr>
+    <tr>
+      <td class="tdright"><span class="SimpleMath">V(g_k)</span></td>
+      <td class="tdright"><span class="SimpleMath">1</span></td>
+    </tr>
+  </table>
+</td>
+<td class="tdleft">
+  ,&nbsp;
+</td>
+<td class="tdleft">
+  <table class="GAPDocTable">
+    <tr>
+      <td class="tdright"><span class="SimpleMath">I</span></td>
+      <td class="tdright"><span class="SimpleMath">0</span></td>
+    </tr>
+    <tr>
+      <td class="tdright"><span class="SimpleMath">b_1</span></td>
+      <td class="tdright"><span class="SimpleMath">1</span></td>
+    </tr>
+  </table>
+</td>
+<td class="tdleft">
+  .
+</td>
+</tr>
+</table>
+</div>
+]]></Alt>
+
+<P/>
+
+These generators are returned by the function
+<C>generatorsOfPerfectSpaceGroup</C>,
+when the inputs are <M>[ g_1, g_2, \ldots, g_k ]</M>,
+<M>[ V(g_1), V(g_2), \ldots, V(g_k) ]</M>, and <M>b_1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> generatorsOfPerfectSpaceGroup:= function( Pgens, V, t )
+>     local d, result, i, m;
+>     d:= Length( Pgens[1] );
+>     result:= [];
+>     for i in [ 1 .. Length( Pgens ) ] do
+>       m:= IdentityMat( d+1 );
+>       m{ [ 1 .. d ] }{ [ 1 .. d ] }:= Pgens[i];
+>       m[ d+1 ]{ [ 1 .. d ] }:= V[i];
+>       result[i]:= m;
+>     od;
+>     m:= IdentityMat( d+1 );
+>     m[ d+1 ]{ [ 1 .. d ] }:= t;
+>     Add( result, m );
+>     return result;
+> end;;
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:constructfactors">
+<Heading>Constructing the factor groups in question</Heading>
+
+The space group <M>S</M> acts on <M>&ZZ;^d</M>,
+via <M>v \cdot M(g, t) = v g + V(g) + t</M>.
+A (not necessarily faithful) representation of <M>S/M(n T)</M>
+can be obtained from the corresponding action of <M>S</M> on
+<M>&ZZ;^d/(n &ZZ;^d)</M>,
+that is, by reducing the vectors modulo <M>n</M>.
+For the &GAP; computations, we work instead with vectors of length <M>d+1</M>,
+extending each vector in <M>&ZZ;^d</M> by <M>1</M> in the last position,
+and acting on these vectors by right multiplicaton with elements of <M>S</M>.
+Multiplication followed by reduction modulo <M>n</M> is implemented by
+the action function returned by <C>multiplicationModulo</C>
+when this is called with argument <M>n</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> multiplicationModulo:= n -> function( v, g )
+>        return List( v * g, x -> x mod n ); end;;
+]]></Example>
+
+<P/>
+
+In some of the examples,
+the representation of <M>P</M> given in&nbsp;<Cite Key="HP89"/>
+is the action on the factor
+of a permutation module modulo its trivial submodule.
+For that, we provide the function <C>deletedPermutationMat</C>,
+cf.&nbsp;<Cite Key="HP89" Where="p. 269"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> deletedPermutationMat:= function( pi, n )
+>     local mat, j, i;
+>     mat:= PermutationMat( pi, n );
+>     mat:= mat{ [ 1 .. n-1 ] }{ [ 1 .. n-1 ] };
+>     j:= n ^ pi;
+>     if j <> n then
+>       for i in [ 1 .. n-1 ] do
+>         mat[i][j]:= -1;
+>       od;
+>     fi;
+>     return mat;
+> end;;
+]]></Example>
+
+<P/>
+
+After constructing permutation generators for the example groups,
+we verify that the groups fit to the character tables from the
+&GAP; Character Table Library and to the permutation generators
+stored for the construction of the group via
+<C>CTblLib.FactorGroupOfPerfectSpaceGroup</C>.
+
+<P/>
+
+<!--
+
+(In earlier versions of &GAP;, a call of the function
+<Ref Func="SmallerDegreePermutationRepresentation" BookName="ref"/>
+was sufficient for computing a reasonably small permutation representation
+of each of the example groups.
+Meanwhile, this function has become more sophisticated,
+with the effect that it requires much more space in some of our cases.
+Therefore, we reduce the number of points by hand.)
+
+<Example><![CDATA[
+gap> verifyFactorGroup:= function( gens, id )
+>     local g, s, sgens, act, sm, stored, hom;
+>     # sm:= SmallerDegreePermutationRepresentation( Group( gens ) );
+>     g:= Group( gens );
+>     s:= NormalClosure( g, Subgroup( g, [ gens[ Length( gens ) ] ] ) );
+>     sgens:= MinimalGeneratingSet( s );
+>     s:= Subgroup( s, sgens{ [ 2 .. Length( sgens ) ] } );
+>     act:= Action( g, RightTransversal( g, s ), OnRight );
+>     if Size( act ) <> Size( g ) then
+>       Error( "wrong group order!" );
+>     fi;
+>     gens:= GeneratorsOfGroup( act );
+>     sm:= SmallerDegreePermutationRepresentation( act );
+>     gens:= List( gens, x -> x^sm );
+>     act:= Images( sm );
+>     if not IsRecord( TransformingPermutationsCharacterTables(
+>                          CharacterTable( act ),
+>                          CharacterTable( id ) ) ) then
+>       return "wrong character table";
+>     fi;
+>     GroupInfoForCharacterTable( id );
+>     stored:= CTblLib.FactorGroupOfPerfectSpaceGroup( id );
+>     hom:= GroupHomomorphismByImages( stored, act,
+>               GeneratorsOfGroup( stored ), gens );
+>     if hom = fail or not IsBijective( hom ) then
+>       return "wrong group";
+>     fi;
+>     return true;
+> end;;
+]]></Example>
+-->
+
+<P/>
+
+<Example><![CDATA[
+gap> verifyFactorGroup:= function( gens, id )
+>     local sm, act, stored, hom;
+>     sm:= SmallerDegreePermutationRepresentation( Group( gens ) );
+>     gens:= List( gens, x -> x^sm );
+>     act:= Images( sm );
+>     if not IsRecord( TransformingPermutationsCharacterTables(
+>                          CharacterTable( act ),
+>                          CharacterTable( id ) ) ) then
+>       return "wrong character table";
+>     fi;
+>     GroupInfoForCharacterTable( id );
+>     stored:= CTblLib.FactorGroupOfPerfectSpaceGroup( id );
+>     hom:= GroupHomomorphismByImages( stored, act,
+>               GeneratorsOfGroup( stored ), gens );
+>     if hom = fail or not IsBijective( hom ) then
+>       return "wrong group";
+>     fi;
+>     return true;
+> end;;
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-A5">
+<Heading>Examples with point group <M>A_5</M></Heading>
+
+There are two examples with <M>d = 5</M>.
+The generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 272"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= deletedPermutationMat( (1,3)(2,4), 6 );;
+gap> b:= deletedPermutationMat( (1,2,3)(4,5,6), 6 );;
+]]></Example>
+
+<P/>
+
+In both cases, the vector system is <M>V_2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= [ [ 2, 2, 0, 0, 1 ], 0 * b[1] ];;
+]]></Example>
+
+<P/>
+
+In the first example,
+the translation lattice is the sublattice <M>L = 2 L_1</M> of the full lattice
+<M>L_1 = &ZZ;^d</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= [ 2, 0, 0, 0, 0 ];;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P1/G2/L1/V2/ext4"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(4 L)</M>, so we compute the action on an orbit modulo <M>8</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 8 );;
+gap> orb:= Orbit( g, [ 1, 0, 0, 0, 0, 1 ], fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P1/G2/L1/V2/ext4" );
+true
+]]></Example>
+
+<P/>
+
+In the second example,
+the translation lattice is the sublattice <M>2 L_2</M> of <M>&ZZ;^d</M>
+where <M>L_2</M> has the following basis.
+
+<P/>
+
+<Example><![CDATA[
+gap> bas:= [ [-1,-1, 1, 1, 1 ],
+>            [-1, 1,-1, 1, 1 ],
+>            [ 1, 1, 1,-1,-1 ],
+>            [ 1, 1,-1,-1, 1 ],
+>            [-1, 1, 1,-1, 1 ] ];;
+]]></Example>
+
+<P/>
+
+For the sake of simplicity, we rewrite the action of the point group
+to one on <M>L_2</M>, and we adjust also the vector system.
+
+<P/>
+
+<Example><![CDATA[
+gap> B:= Basis( Rationals^Length( bas ), bas );;
+gap> abas:= List( bas, x -> Coefficients( B, x * a ) );;
+gap> bbas:= List( bas, x -> Coefficients( B, x * b ) );;
+gap> vbas:= List( v, x -> Coefficients( B, x ) );
+[ [ 3/2, 1, 2, 3/2, -1 ], [ 0, 0, 0, 0, 0 ] ]
+]]></Example>
+
+<P/>
+
+In order to work with integral matrices (which is necessary because
+<C>multiplicationModulo</C> uses &GAP;'s <C>mod</C> operator),
+we double both the vector system and the translation lattice.
+
+<P/>
+
+<Example><![CDATA[
+gap> vbas:= vbas * 2;
+[ [ 3, 2, 4, 3, -2 ], [ 0, 0, 0, 0, 0 ] ]
+gap> t:= 2 * t;
+[ 4, 0, 0, 0, 0 ]
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P1/G2/L2/V2/ext4"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(8 L_2)</M>;
+since we have doubled the lattice,
+we compute the action on an orbit modulo <M>16</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ abas, bbas ], vbas, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 16 );;
+gap> orb:= Orbit( g, [ 0, 0, 0, 0, 0, 1 ], fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P1/G2/L2/V2/ext4" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-L32">
+<Heading>Examples with point group <M>L_3(2)</M></Heading>
+
+There are three examples with <M>d = 6</M>
+and one example with <M>d = 8</M>.
+The generators of the point group for the first three examples are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 290"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= [ [ 0, 1, 0, 1, 0, 0 ],
+>          [ 1, 0, 1, 1, 1, 1 ],
+>          [-1,-1,-1,-1, 0, 0 ],
+>          [ 0, 0,-1,-1,-1,-1 ],
+>          [ 1, 1, 1, 1, 0, 1 ],
+>          [ 0, 0, 1, 0, 1, 0 ] ];;
+gap> b:= [ [-1, 0, 0, 0, 0,-1 ],
+>          [ 0, 0,-1, 0,-1, 0 ],
+>          [ 1, 1, 1, 1, 1, 1 ],
+>          [ 0, 0, 1, 0, 0, 0 ],
+>          [-1,-1,-1, 0, 0, 0 ],
+>          [ 1, 0, 0, 0, 0, 0 ] ];;
+]]></Example>
+
+<P/>
+
+The first vector system is the trivial vector system <M>V_1</M>
+(that is, the space group <M>S</M> is a split extension of the point group
+and the translation lattice),
+and the translation lattice is the full lattice <M>L_1 = &ZZ;^d</M>.
+
+<P/>
+
+The library character table with identifier <C>"P11/G1/L1/V1/ext4"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(4 L_1)</M>, so we compute the action on an orbit modulo <M>4</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= List( [ 1, 2 ], i -> 0 * a[1] );;
+gap> t:= [ 1, 0, 0, 0, 0, 0 ];;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 4 );;
+gap> seed:= [ 1, 0, 0, 0, 0, 0, 1 ];;
+gap> orb:= Orbit( g, seed, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P11/G1/L1/V1/ext4" );
+true
+]]></Example>
+
+<P/>
+
+The second vector system is <M>V_2</M>,
+and the translation lattice is <M>2 L_1</M>.
+
+<P/>
+
+The library character table with identifier <C>"P11/G1/L1/V2/ext4"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(8 L_1)</M>, so we compute the action on an orbit modulo <M>8</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= [ [ 1, 0, 1, 0, 0, 0 ], 0 * a[1] ];;
+gap> t:= [ 2, 0, 0, 0, 0, 0 ];;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 8 );;
+gap> orb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P11/G1/L1/V2/ext4" );
+true
+]]></Example>
+
+<P/>
+
+The third vector system is <M>V_3</M>,
+and the translation lattice is <M>2 L_1</M>.
+
+<P/>
+
+The library character table with identifier <C>"P11/G1/L1/V3/ext4"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(8 L_1)</M>, so we compute the action on an orbit modulo <M>8</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= [ [ 0, 1, 0, 0, 1, 0 ], 0 * a[1] ];;
+gap> t:= [ 2, 0, 0, 0, 0, 0 ];;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 8 );;
+gap> orb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P11/G1/L1/V3/ext4" );
+true
+]]></Example>
+
+<P/>
+
+The generators of the point group for the fourth example are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 293"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= [ [ 1, 0, 0, 1, 0,-1, 0, 1 ],
+>          [ 0,-1, 1, 0,-1, 0, 0, 0 ],
+>          [ 1, 0, 0, 1, 0,-1, 0, 0 ],
+>          [ 0,-1, 0,-1, 0, 1, 1,-1 ],
+>          [ 1, 0,-1, 1, 1,-1, 0, 0 ],
+>          [ 1,-1,-1, 0, 0, 0, 1, 0 ],
+>          [ 0,-1, 1, 0,-1, 1, 0,-1 ],
+>          [ 1, 0,-1, 0, 0, 0, 0, 0 ] ];;
+gap> b:= [ [ 1, 0,-2, 0, 1,-1, 1, 0 ],
+>          [ 0,-1, 0, 0, 0, 0, 1,-1 ],
+>          [ 1, 0,-1, 0, 1,-1, 0, 0 ],
+>          [-1,-1, 1,-1,-1, 2, 0,-1 ],
+>          [ 0, 0, 0,-1, 0, 0, 0, 0 ],
+>          [ 0,-1, 0,-1,-1, 1, 1,-1 ],
+>          [ 1,-1, 0, 0, 0, 0, 0, 0 ],
+>          [ 1, 0, 0, 0, 0, 0, 0, 0 ] ];;
+]]></Example>
+
+<P/>
+
+The vector system is the trivial vector system <M>V_1</M>,
+and the translation lattice is the full lattice <M>L_1 = &ZZ;^d</M>.
+
+<P/>
+
+The library character table with identifier <C>"P11/G4/L1/V1/ext3"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(3 L_1)</M>, so we compute the action on an orbit modulo <M>3</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= List( [ 1, 2 ], i -> 0 * a[1] );;
+gap> t:= [ 1, 0, 0, 0, 0, 0, 0, 0 ];;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 3 );;
+gap> seed:= [ 1, 0, 0, 0, 0, 0, 0, 0, 1 ];;
+gap> orb:= Orbit( g, seed, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P11/G4/L1/V1/ext3" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-sl27">
+<Heading>Example with point group SL<M>_2(7)</M></Heading>
+
+There is one example with <M>d = 8</M>.
+The generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 295"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= KroneckerProduct( IdentityMat( 4 ), [ [ 0, 1 ], [ -1, 0 ] ] );;
+gap> b:= [ [ 0,-1, 0, 0, 0, 0, 0, 0 ],
+>          [ 0, 0, 1, 0, 0, 0, 0, 0 ],
+>          [-1, 0, 0, 0, 0, 0, 0, 0 ],
+>          [ 0, 0, 0, 0, 0, 0,-1, 0 ],
+>          [ 0, 0, 0,-1, 0, 0, 0, 0 ],
+>          [ 0, 0, 0, 0, 0, 1, 0, 0 ],
+>          [ 0, 0, 0, 0, 1, 0, 0, 0 ],
+>          [ 0, 0, 0, 0, 0, 0, 0, 1 ] ];;
+]]></Example>
+
+<P/>
+
+The vector system is the trivial vector system <M>V_1</M>,
+and the translation lattice is the sublattice <M>L_2</M> of <M>&ZZ;^d</M>
+that has the following basis,
+which is called <M>B(2,8)</M> in&nbsp;<Cite Key="HP89" Where="p. 269"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> bas:= [ [ 1, 1, 0, 0, 0, 0, 0, 0 ],
+>            [ 0, 1, 1, 0, 0, 0, 0, 0 ],
+>            [ 0, 0, 1, 1, 0, 0, 0, 0 ],
+>            [ 0, 0, 0, 1, 1, 0, 0, 0 ],
+>            [ 0, 0, 0, 0, 1, 1, 0, 0 ],
+>            [ 0, 0, 0, 0, 0, 1, 1, 0 ],
+>            [ 0, 0, 0, 0, 0, 0, 1, 1 ],
+>            [ 0, 0, 0, 0, 0, 0,-1, 1 ] ];;
+]]></Example>
+
+<P/>
+
+For the sake of simplicity, we rewrite the action to one on <M>L_2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> B:= Basis( Rationals^Length( bas ), bas );;
+gap> abas:= List( bas, x -> Coefficients( B, x * a ) );;
+gap> bbas:= List( bas, x -> Coefficients( B, x * b ) );;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P12/G1/L2/V1/ext2"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(2 L_2)</M>.
+The action on an orbit modulo <M>2</M> is not faithful,
+its kernel contains the centre of SL<M>(2,7)</M>.
+We can compute a faithful representation by acting on pairs:
+One entry is the usual vector and the other entry carries the action
+of the point group.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= List( [ 1, 2 ], i -> 0 * a[1] );;
+gap> t:= [ 1, 0, 0, 0, 0, 0, 0, 0 ];;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ abas, bbas ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 2 );;
+gap> funpairs:= function( pair, g )
+>    return [ fun( pair[1], g ), pair[2] * g ];
+>    end;;
+gap> seed:= [ [ 1, 0, 0, 0, 0, 0, 0, 0, 1 ],
+>             [ 1, 0, 0, 0, 0, 0, 0, 0, 0 ] ];;
+gap> orb:= Orbit( g, seed, funpairs );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, funpairs ) );;
+gap> verifyFactorGroup( permgens, "P12/G1/L2/V1/ext2" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-23L32">
+<Heading>Example with point group <M>2^3.L_3(2)</M></Heading>
+
+There is one example with <M>d = 7</M>.
+The generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 297"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= PermutationMat( (2,4)(5,7), 7 );;
+gap> b:= PermutationMat( (1,3,2)(4,6,5), 7 );;
+gap> c:= DiagonalMat( [ -1, -1, 1, 1, -1, -1, 1 ] );;
+]]></Example>
+
+<P/>
+
+The vector system is the trivial vector system <M>V_1</M>,
+and the translation lattice is the sublattice <M>L_2</M> of <M>&ZZ;^d</M>
+that has the following basis,
+which is called <M>B(2,7)</M> in&nbsp;<Cite Key="HP89" Where="p. 269"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> bas:= [ [ 1, 1, 0, 0, 0, 0, 0 ],
+>            [ 0, 1, 1, 0, 0, 0, 0 ],
+>            [ 0, 0, 1, 1, 0, 0, 0 ],
+>            [ 0, 0, 0, 1, 1, 0, 0 ],
+>            [ 0, 0, 0, 0, 1, 1, 0 ],
+>            [ 0, 0, 0, 0, 0, 1, 1 ],
+>            [ 0, 0, 0, 0, 0,-1, 1 ] ];;
+]]></Example>
+
+<P/>
+
+For the sake of simplicity, we rewrite the action to one on <M>L_2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> B:= Basis( Rationals^Length( bas ), bas );;
+gap> abas:= List( bas, x -> Coefficients( B, x * a ) );;
+gap> bbas:= List( bas, x -> Coefficients( B, x * b ) );;
+gap> cbas:= List( bas, x -> Coefficients( B, x * c ) );;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P13/G1/L2/V1/ext2"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(2 L_2)</M>, so we compute the action on an orbit modulo <M>2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= List( [ 1 .. 3 ], i -> 0 * a[1] );;
+gap> t:= [ 1, 0, 0, 0, 0, 0, 0 ];;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ abas,bbas,cbas ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 2 );;
+gap> orb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 0, 1 ], fun );;
+gap> act:= Action( g, orb, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P13/G1/L2/V1/ext2" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-A6">
+<Heading>Examples with point group <M>A_6</M></Heading>
+
+There are two examples with <M>d = 10</M>.
+In both cases, the generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 307"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> b:= [ [ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0 ], 
+>          [ 0, 0, 0, 0,-1, 0, 0, 0, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 ], 
+>          [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], 
+>          [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ], 
+>          [ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ] ];;
+gap> c:= [ [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 0, 0,-1, 1,-1 ], 
+>          [ 0, 0, 0, 0,-1, 1, 0,-1, 0, 0 ], 
+>          [ 0,-1, 1, 0, 0, 0, 0,-1, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 0, 0, 0, 0,-1 ], 
+>          [ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 ], 
+>          [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ], 
+>          [ 0, 0, 0, 0, 0, 1,-1, 0, 0, 1 ], 
+>          [ 0, 0, 1,-1, 0, 0, 0, 0, 0, 1 ], 
+>          [-1, 0, 1, 0, 0,-1, 0, 0, 0, 0 ] ];;
+]]></Example>
+
+<P/>
+
+In both examples, the vector system is the trivial vector system <M>V_1</M>,
+and the translation lattices are the lattices <M>L_2</M> and <M>L_5</M>,
+respectively, which have the following bases.
+
+<P/>
+
+<Example><![CDATA[
+gap> bas2:= [ [ 0, 1,-1, 0, 0, 0, 0, 0, 0, 0 ],
+>             [ 0, 0, 1,-1, 0, 0, 0, 0, 0, 0 ],
+>             [ 0, 0, 0, 0, 1,-1, 0, 0, 0, 0 ],
+>             [ 0, 0, 0, 0, 0, 1,-1, 0, 0, 0 ],
+>             [ 0, 0, 0, 0, 0, 1, 0,-1, 0, 0 ],
+>             [ 0, 0, 0, 0, 0, 0, 0, 1,-1, 0 ],
+>             [ 0, 0, 0, 0, 0, 0, 0, 0, 1,-1 ],
+>             [ 0, 0, 0, 1, 0, 0, 0, 0, 0,-1 ],
+>             [ 0, 1, 0, 0, 0, 0, 0, 1, 0, 0 ],
+>             [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0 ] ];;
+gap> bas5:= [ [ 0,-1, 1, 1,-1, 1, 1,-1,-1, 0 ],
+>             [ 1, 0,-1,-1,-1, 1, 1,-1,-1, 0 ],
+>             [ 0, 1, 1,-1, 1, 1,-1, 0, 1, 1 ],
+>             [ 1, 1, 0,-1, 0,-1, 1,-1, 1,-1 ],
+>             [-1, 0,-1, 1, 1, 0,-1,-1, 1,-1 ],
+>             [ 0, 1,-1, 1, 1,-1, 1, 1, 0,-1 ],
+>             [-1,-1, 1, 1, 0,-1,-1,-1,-1, 0 ],
+>             [ 1,-1, 0,-1, 1,-1, 1, 1, 0,-1 ],
+>             [-1, 1,-1, 1,-1, 0,-1, 1, 0,-1 ],
+>             [ 1,-1,-1, 1, 1, 1, 0, 0,-1,-1 ] ];;
+]]></Example>
+
+<P/>
+
+For the sake of simplicity, we rewrite the action to actions on <M>L_2</M>
+and <M>L_5</M>, respectively.
+
+<P/>
+
+<Example><![CDATA[
+gap> B2:= Basis( Rationals^Length( bas2 ), bas2 );;
+gap> bbas2:= List( bas2, x -> Coefficients( B2, x * b ) );;
+gap> cbas2:= List( bas2, x -> Coefficients( B2, x * c ) );;
+gap> B5:= Basis( Rationals^Length( bas5 ), bas5 );;
+gap> bbas5:= List( bas5, x -> Coefficients( B5, x * b ) );;
+gap> cbas5:= List( bas5, x -> Coefficients( B5, x * c ) );;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P21/G3/L2/V1/ext2"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(2 L_2)</M>, so we compute the action on an orbit modulo <M>2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= List( [ 1, 2 ], i -> 0 * bbas2[1] );;
+gap> t:= [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ bbas2, cbas2 ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 2 );;
+gap> seed:= [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ];;
+gap> orb:= Orbit( g, seed, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P21/G3/L2/V1/ext2" );
+true
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P21/G3/L5/V1/ext2"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(2 L_5)</M>, so we compute the action on an orbit modulo <M>2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ bbas5, cbas5 ], v, t );;
+gap> g:= Group( sgens );;
+gap> orb:= Orbit( g, seed, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P21/G3/L5/V1/ext2" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-L28">
+<Heading>Examples with point group <M>L_2(8)</M></Heading>
+
+There are two examples with <M>d = 7</M>.
+In both cases, the generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 327"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= [ [ 0,-1, 0, 1, 0,-1, 1],
+>          [ 0, 0,-1, 0, 1,-1, 0],
+>          [ 0, 0, 0,-1, 1, 0, 0],
+>          [ 0, 0, 0,-1, 0, 0, 0],
+>          [ 0, 0, 1,-1, 0, 0, 0],
+>          [ 0,-1, 1, 0,-1, 0, 0],
+>          [ 1,-1, 0, 1, 0,-1, 0] ];;
+gap> b:= [ [-1, 0, 1, 0,-1, 1, 0],
+>          [ 0,-1, 0, 1,-1, 0, 0],
+>          [ 0, 0,-1, 1, 0, 0, 0],
+>          [ 0, 0,-1, 0, 0, 0, 0],
+>          [ 0, 1,-1, 0, 0, 0, 0],
+>          [-1, 1, 0,-1, 0, 0, 0],
+>          [-1, 0, 1, 0,-1, 0, 1] ];;
+]]></Example>
+
+<P/>
+
+In both examples, the vector system is <M>V_2</M>.
+The translation lattice in the first example is the lattice <M>L = 3 &ZZ;^d</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= [ [ 2, 1, 0, 0, 0, 1, 4 ],
+>          [ 2, 0, 0, 0, 0, 0, 0 ] ];;
+gap> t:= [ 3, 0, 0, 0, 0, 0, 0 ];;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P41/G1/L1/V3/ext3"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(3 L)</M>, so we compute the action on an orbit modulo <M>9</M>.
+
+<P/>
+
+The orbits in this action are quite long.
+we choose a seed vector from the fixed space of an element of order <M>7</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> aa:= sgens[1];;
+gap> bb:= sgens[2];;
+gap> elm:= aa*bb;;
+gap> Order( elm );
+7
+gap> fixed:= NullspaceMat( elm - aa^0 );
+[ [ 1, 1, 1, 1, 1, 1, 1, 0 ], [ -4, 1, 1, -5, -5, 2, 0, 1 ] ]
+gap> fun:= multiplicationModulo( 9 );;
+gap> seed:= fun( fixed[2], aa^0 );
+[ 5, 1, 1, 4, 4, 2, 0, 1 ]
+gap> orb:= Orbit( g, seed, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P41/G1/L1/V3/ext3" );
+true
+]]></Example>
+
+<P/>
+
+The translation lattice in the second example is the lattice
+<M>L = 6 &ZZ;^d</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= [ 6, 0, 0, 0, 0, 0, 0 ];;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P41/G1/L1/V4/ext3"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(6 L)</M>, so we compute the action on an orbit modulo <M>18</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> fun:= multiplicationModulo( 18 );;
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> seed:= fun( fixed[2], aa^0 );
+[ 14, 1, 1, 13, 13, 2, 0, 1 ]
+gap> orb:= Orbit( g, seed, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P41/G1/L1/V4/ext3" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-M11">
+<Heading>Example with point group <M>M_{11}</M></Heading>
+
+There is one example with <M>d = 10</M>.
+The generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 334"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= deletedPermutationMat( (1,9)(3,5)(7,11)(8,10), 11 );;
+gap> b:= deletedPermutationMat( (1,4,3,2)(5,8,7,6), 11 );;
+]]></Example>
+
+<P/>
+
+The vector system is <M>V_2</M>,
+and the translation lattice is <M>L = 2 &ZZ;^d</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= [ 0 * a[1],
+>          [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 ] ];;
+gap> t:= [ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P48/G1/L1/V2/ext2"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(2 L)</M>, so we compute the action on an orbit modulo <M>4</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 4 );;
+gap> orb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ], fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P48/G1/L1/V2/ext2" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-U33">
+<Heading>Example with point group <M>U_3(3)</M></Heading>
+
+There is one example with <M>d = 7</M>.
+The generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 335"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= [ [ 0, 0,-1, 1, 0,-1, 1 ],
+>          [ 1, 0,-1, 1, 1,-1, 0 ],
+>          [ 0, 1,-1, 0, 1, 0,-1 ],
+>          [ 0, 1, 0,-1, 1, 0,-1 ],
+>          [-1, 1, 1,-1, 0, 1, 0 ],
+>          [-1, 0, 1,-1, 0, 0, 1 ],
+>          [ 0, 0, 0, 0, 0, 0, 1 ] ];;
+gap> b:= [ [ 0, 0, 0, 0, 0, 0, 1 ],
+>          [ 0, 0,-1, 1, 0,-1, 1 ],
+>          [ 1, 0,-1, 1, 1,-1, 0 ],
+>          [ 0, 1,-1, 0, 1, 0,-1 ],
+>          [ 0, 1, 0,-1, 1, 0,-1 ],
+>          [-1, 1, 1,-1, 0, 1, 0 ],
+>          [-1, 0, 1,-1, 0, 0, 1 ] ];;
+]]></Example>
+
+<P/>
+
+The vector system is <M>V_2</M>,
+and the translation lattice is <M>L = 3 &ZZ;^d</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= [ [ 2, 1, 0, 0, 2, 1, 0 ],
+>          0 * b[1] ];;
+gap> t:= [ 3, 0, 0, 0, 0, 0, 0 ];;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P49/G1/L1/V2/ext3"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(3 L)</M>, so we compute the action on an orbit modulo <M>9</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 9 );;
+]]></Example>
+
+<P/>
+
+The orbits in this action are quite long.
+we choose a seed vector from the fixed space of an element of order <M>12</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> aa:= sgens[1];;
+gap> bb:= sgens[2];;
+gap> elm:= aa*bb^4;;
+gap> Order( elm );
+12
+gap> fixed:= NullspaceMat( elm - aa^0 );
+[ [ -1, -1, 1, 1, -1, -1, 1, 0 ], [ 0, -3, 1, 1, -1, -2, 0, 1 ] ]
+gap> seed:= fun( fixed[2], aa^0 );
+[ 0, 6, 1, 1, 8, 7, 0, 1 ]
+gap> orb:= Orbit( g, seed, fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P49/G1/L1/V2/ext3" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:expl-U42">
+<Heading>Examples with point group <M>U_4(2)</M></Heading>
+
+There are two examples with <M>d = 6</M>.
+In both cases, the generators of the point group are as follows
+(see&nbsp;<Cite Key="HP89" Where="p. 336"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> a:= [ [ 0, 1, 0,-1,-1, 1 ],
+>          [ 1, 0,-1, 0, 1, 0 ],
+>          [ 0, 0, 0,-1, 0, 1 ],
+>          [ 0, 0,-1, 0, 0, 1 ],
+>          [ 0, 0, 0, 0, 1, 0 ],
+>          [ 0, 0, 0, 0, 0, 1 ] ];;
+gap> b:= [ [ 0,-1, 0, 1, 0,-1 ],
+>          [ 0, 1, 0,-1,-1, 0 ],
+>          [ 0, 0, 1, 1, 0,-1 ],
+>          [ 0, 0, 0, 0,-1, 0 ],
+>          [ 0, 1, 0, 0, 0, 0 ],
+>          [ 1, 0, 0, 0, 0, 0 ] ];;
+]]></Example>
+
+<P/>
+
+In both examples, the vector system is the trivial vector system <M>V_1</M>,
+and the translation lattice is the full lattice <M>L_1 = &ZZ;^d</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> v:= List( [ 1, 2 ], i -> 0 * a[1] );;
+gap> t:= [ 1, 0, 0, 0, 0, 0 ];;
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P50/G1/L1/V1/ext3"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(3 L_1)</M>, so we compute the action on an orbit modulo <M>3</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 3 );;
+gap> orb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P50/G1/L1/V1/ext3" );
+true
+]]></Example>
+
+<P/>
+
+The library character table with identifier <C>"P50/G1/L1/V1/ext4"</C>
+belongs to the factor group of <M>S</M> modulo the normal subgroup
+<M>M(4 L_1)</M>, so we compute the action on an orbit modulo <M>4</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> sgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;
+gap> g:= Group( sgens );;
+gap> fun:= multiplicationModulo( 4 );;
+gap> orb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;
+gap> permgens:= List( sgens, x -> Permutation( x, orb, fun ) );;
+gap> verifyFactorGroup( permgens, "P50/G1/L1/V1/ext4" );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:A-remark-on-one-of-the-example-groups">
+<Heading>A remark on one of the example groups</Heading>
+
+The (perfect) character table with identifier <C>"P1/G2/L2/V2/ext4"</C>
+has the property that its character degrees are exactly
+the divisors of <M>60</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> degrees:= CharacterDegrees( CharacterTable( "P1/G2/L2/V2/ext4" ) );
+[ [ 1, 1 ], [ 2, 2 ], [ 3, 2 ], [ 4, 2 ], [ 5, 1 ], [ 6, 5 ], 
+  [ 10, 4 ], [ 12, 4 ], [ 15, 20 ], [ 20, 2 ], [ 30, 29 ], [ 60, 8 ] ]
+gap> List( degrees, x -> x[1] ) = DivisorsInt( 60 );
+true
+]]></Example>
+
+<P/>
+
+There are nilpotent groups with the same set of character degrees,
+for example the direct product of four extraspecial groups of the orders
+<M>2^3</M>, <M>2^3</M>, <M>3^3</M>, and <M>5^3</M>, respectively.
+This phenomenon has been described in&nbsp;<Cite Key="NR14"/>.
+
+</Subsection>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:generalityproblems">
+<Heading>Generality problems (December 2004/October 2015)</Heading>
+
+The term <Q>generality problem</Q> is used for problems concerning
+consistent choices of conjugacy classes of Brauer tables for the same
+group, in different characteristics.
+The definition and some examples are given
+in <Cite Key="JLPW95" Where="p. x"/>.
+
+<P/>
+
+Section <Ref Subsect="subsect:generalityproblems_list"/>
+shows how to detect generality problems
+and lists the known generality problems,
+and Section <Ref Subsect="subsect:generality_J3"/> gives an example
+that actually arose.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:generalityproblems_list">
+<Heading>Listing possible generality problems</Heading>
+
+We use the following idea for finding character tables which
+may involve generality problems.
+(The functions shown in this section are based on &GAP; 3 code
+that was originally written by Jürgen Müller.)
+
+<P/>
+
+If the <M>p</M>-modular Brauer table <M>mtbl</M>, say,
+of a group contributes to a generality problem
+then some choice of conjugacy classes is necessary
+in order to write down this table,
+in the sense that some symmetry of the corresponding ordinary table
+<M>tbl</M>, say, is broken in <M>mtbl</M>.
+This situation can be detected as follows.
+We assume that the class fusion from <M>mtbl</M> to <M>tbl</M>
+has been fixed.
+All possible class fusions are obtained as the orbit of this
+class fusion under the actions of table automorphisms of <M>tbl</M>,
+via mapping the images of the class fusion
+(with the function <Ref Func="OnTuples" BookName="ref"/>),
+and of the table automorphisms of <M>mtbl</M>,
+via permuting the preimages.
+The case of broken symmetries occurs if and only if this orbit
+splits into several orbits when only the action of the
+table automorphisms of <M>mtbl</M> is considered.
+Equivalently, symmetries are broken if and only if the orbit under
+table automorphisms of <M>mtbl</M> is not closed under the action of
+table automorphisms of <M>tbl</M>.
+
+<!-- It is sufficient to test generators of 'taut'
+     because 'orb' is invariant under the action of 'taut'
+     if and only if everey generator leaves 'orb' invariant. -->
+
+<P/>
+
+<Example><![CDATA[
+gap> BrokenSymmetries:= function( ordtbl, modtbl )
+>     local taut, maut, triv, fus, orb;
+>     taut:= AutomorphismsOfTable( ordtbl );
+>     maut:= AutomorphismsOfTable( modtbl );
+>     triv:= TrivialSubgroup( taut );
+>     fus:= GetFusionMap( modtbl, ordtbl );
+>     orb:= MakeImmutable( Set( OrbitFusions( maut, fus, triv ) ) );
+>     return ForAny( GeneratorsOfGroup( taut ),
+>                x -> ForAny( orb,
+>                         fus -> not OnTuples( fus, x ) in orb ) );
+> end;;
+]]></Example>
+
+<P/>
+
+<E>Remark:</E> (Thanks to Klaus Lux for discussions on this topic.)
+
+<List>
+<Item>
+    It may happen that some symmetry <M>\sigma_m</M> of a Brauer table
+    does not belong to a symmetry <M>\sigma_o</M> of the corresponding
+    ordinary table,
+    in the sense that permuting the preimage classes of a fusion <M>f</M>
+    between the two tables with <M>\sigma_m</M>
+    and permuting the image classes with <M>\sigma_o</M> yields <M>f</M>.
+    <P/>
+    For example, consider the group <M>G = 2.A_6.2_1</M>,
+    the double cover of the symmetric group <M>S_6</M> on six points.
+    The <M>2</M>-modular Brauer table of <M>G</M>,
+    which is essentially equal to that of <M>S_6</M>,
+    has a table automorphism group order two,
+    and the nonidentity element in it swaps the two classes
+    of element order three.
+    The automorphism group of the ordinary character table of <M>G</M>,
+    however, fixes the two classes of element order three;
+    note that exactly one of these classes possesses square roots in the
+    <Q>outer half</Q> <M>G \setminus G'</M>.
+    <P/>
+    Thus it is not sufficient to compare the orbit of the fixed class fusion
+    under the automorphisms of the ordinary table with the orbit of the
+    same fusion under the automorphisms of the Brauer table.
+</Item>
+</List>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "2.A6.2_1" );;
+gap> m:= t mod 2;;
+gap> GetFusionMap( m, t );
+[ 1, 4, 6, 9 ]
+gap> AutomorphismsOfTable( t );
+Group([ (16,17), (14,15), (14,15)(16,17) ])
+gap> AutomorphismsOfTable( m );
+Group([ (2,3) ])
+gap> Display( m );
+2.A6.2_1mod2
+
+     2  5  2  2  1
+     3  2  2  2  .
+     5  1  .  .  1
+
+       1a 3a 3b 5a
+    2P 1a 3a 3b 5a
+    3P 1a 1a 1a 5a
+    5P 1a 3a 3b 1a
+
+X.1     1  1  1  1
+X.2     4  1 -2 -1
+X.3     4 -2  1 -1
+X.4    16 -2 -2  1
+gap> Display( t );
+2.A6.2_1
+
+      2  5   5  4  2  2  2  2  3  1   1  4  4  3  2  2   2   2
+      3  2   2  .  2  2  2  2  .  .   .  1  1  .  1  1   1   1
+      5  1   1  .  .  .  .  .  .  1   1  .  .  .  .  .   .   .
+
+        1a  2a 4a 3a 6a 3b 6b 8a 5a 10a 2b 4b 8b 6c 6d 12a 12b
+     2P 1a  1a 2a 3a 3a 3b 3b 4a 5a  5a 1a 2a 4a 3a 3a  6b  6b
+     3P 1a  2a 4a 1a 2a 1a 2a 8a 5a 10a 2b 4b 8b 2b 2b  4b  4b
+     5P 1a  2a 4a 3a 6a 3b 6b 8a 1a  2a 2b 4b 8b 6d 6c 12b 12a
+
+X.1      1   1  1  1  1  1  1  1  1   1  1  1  1  1  1   1   1
+X.2      1   1  1  1  1  1  1  1  1   1 -1 -1 -1 -1 -1  -1  -1
+X.3      5   5  1  2  2 -1 -1 -1  .   .  3 -1  1  .  .  -1  -1
+X.4      5   5  1  2  2 -1 -1 -1  .   . -3  1 -1  .  .   1   1
+X.5      5   5  1 -1 -1  2  2 -1  .   . -1  3  1 -1 -1   .   .
+X.6      5   5  1 -1 -1  2  2 -1  .   .  1 -3 -1  1  1   .   .
+X.7     16  16  . -2 -2 -2 -2  .  1   1  .  .  .  .  .   .   .
+X.8      9   9  1  .  .  .  .  1 -1  -1  3  3 -1  .  .   .   .
+X.9      9   9  1  .  .  .  .  1 -1  -1 -3 -3  1  .  .   .   .
+X.10    10  10 -2  1  1  1  1  .  .   .  2 -2  . -1 -1   1   1
+X.11    10  10 -2  1  1  1  1  .  .   . -2  2  .  1  1  -1  -1
+X.12     4  -4  . -2  2  1 -1  . -1   1  .  .  .  .  .   B  -B
+X.13     4  -4  . -2  2  1 -1  . -1   1  .  .  .  .  .  -B   B
+X.14     4  -4  .  1 -1 -2  2  . -1   1  .  .  .  A -A   .   .
+X.15     4  -4  .  1 -1 -2  2  . -1   1  .  .  . -A  A   .   .
+X.16    16 -16  . -2  2 -2  2  .  1  -1  .  .  .  .  .   .   .
+X.17    20 -20  .  2 -2  2 -2  .  .   .  .  .  .  .  .   .   .
+
+A = E(3)-E(3)^2
+  = Sqrt(-3) = i3
+B = -E(12)^7+E(12)^11
+  = Sqrt(3) = r3
+]]></Example>
+
+<P/>
+
+When considering several characteristics in parallel, one argues as follows.
+The possible class fusions from a Brauer table <M>mtbl</M> to its
+ordinary table <M>tbl</M> are given by the orbit of a fixed class fusion
+under the action of the table automorphisms of <M>tbl</M>.
+If there are several orbits under the action of the automorphisms
+of <M>mtbl</M> then we choose one orbit.
+Due to this choice, only those table automorphisms of <M>tbl</M> are
+admissible for other characteristics that stabilize the chosen orbit.
+For the second characteristic, we take again the set of all class fusions
+from the Brauer table to <M>tbl</M>, and split it into orbits under the
+table automorphisms of the Brauer table.
+Now there are two possibilities.
+Either the action of the admissible subgroup of automorphisms of <M>tbl</M>
+joins these orbits into one orbit or not.
+In the former case, we choose again one of the orbits,
+replace the group of admissible automorphisms of <M>tbl</M> by
+the stabilizer of this orbit, and proceed with the next characteristic.
+In the latter case, we have found a generality problem,
+since we are not free to choose an arbitrary class fusion from the
+set of possibilities.
+
+<P/>
+
+The following function returns the set of primes which may be involved
+in generality problems for the given ordinary character table.
+Note that the procedure sketched above does not tell
+which characteristics are actually involved
+or which classes are affected by the choices;
+for example, we could argue that one is always free to choose a fusion
+for the first characteristics, and that only the other ones cause problems.
+We return <E>all</E> those primes <M>p</M> for which broken symmetries
+between the <M>p</M>-modular table and the ordinary table have been detected.
+
+<P/>
+
+<Example><![CDATA[
+gap> PrimesOfGeneralityProblems:= function( ordtbl )
+>     local consider, p, modtbl, taut, triv, admiss, fusion, maut,
+>           allfusions, orbits, orbit, reps;
+>     # Find the primes for which symmetries are broken.
+>     consider:= [];
+>     for p in Filtered( PrimeDivisors( Size( ordtbl ) ), IsPrimeInt ) do
+>       modtbl:= ordtbl mod p;
+>       if modtbl <> fail and BrokenSymmetries( ordtbl, modtbl ) then
+>         Add( consider, p );
+>       fi;
+>     od;
+>     # Compute the choices and detect generality problems.
+>     taut:= AutomorphismsOfTable( ordtbl );
+>     triv:= TrivialSubgroup( taut );
+>     admiss:= taut;
+>     for p in consider do
+>       modtbl:= ordtbl mod p;
+>       fusion:= GetFusionMap( modtbl, ordtbl );
+>       maut:= AutomorphismsOfTable( modtbl );
+>       # - We need not apply the action of 'maut' here,
+>       #   since 'maut' will later be used to get representatives.
+>       # - We need not apply all elements in 'taut' but only
+>       #   representatives of left cosets of 'admiss' in 'taut',
+>       #   since 'admiss' will later be used to get representatives.
+>       # allfusions:= OrbitFusions( maut, fusion, taut );
+>       allfusions:= Set( RightTransversal( taut, admiss ),
+>                         x -> OnTuples( fusion, x^-1 ) );
+>       # For computing representatives, 'RepresentativesFusions' is not
+>       # suitable because 'allfusions' is in generally not closed
+>       # under the actions.
+>       # reps:= RepresentativesFusions( maut, allfusions, admiss );
+>       orbits:= [];
+>       while not IsEmpty( allfusions ) do
+>         orbit:= OrbitFusions( maut, allfusions[1], admiss );
+>         Add( orbits, orbit );
+>         SubtractSet( allfusions, orbit );
+>       od;
+>       reps:= List( orbits, x -> x[1] );
+>       if Length( reps ) = 1 then
+>         # Reduce the symmetries that are still available.
+>         admiss:= Stabilizer( admiss,
+>                              Set( OrbitFusions( maut, fusion, triv ) ),
+>                              OnSetsTuples );
+>       else
+>         # We have found a generality problem.
+>         return consider;
+>       fi;
+>     od;
+>     # There is no generality problem for this table.
+>     return [];
+> end;;
+]]></Example>
+
+<P/>
+
+Let us look at a small example,
+the <M>5</M>-modular character table of the group <M>2.A_5.2</M>.
+The irreducible characters of degree <M>2</M> have the values
+<M>\pm \sqrt{{-2}}</M> on the classes <C>8a</C> and <C>8b</C>,
+and the values <M>\pm \sqrt{{-3}}</M> on the classes <C>6b</C> and <C>6c</C>.
+When we define which of the two classes of element order <M>8</M> is called
+<C>8a</C>, this will also define which class is called <C>6b</C>.
+The ordinary character table does not relate the two pairs of classes,
+there are table automorphisms which interchange each pair independently.
+This symmetry is thus broken in the <M>5</M>-modular character table.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "2.A5.2" );;
+gap> m:= t mod 5;;
+gap> Display( m );
+2.A5.2mod5
+
+      2  4  4  3  2  2  2  3  3  2  2
+      3  1  1  .  1  1  1  .  .  1  1
+      5  1  1  .  .  .  .  .  .  .  .
+
+        1a 2a 4a 3a 6a 2b 8a 8b 6b 6c
+     2P 1a 1a 2a 3a 3a 1a 4a 4a 3a 3a
+     3P 1a 2a 4a 1a 2a 2b 8a 8b 2b 2b
+     5P 1a 2a 4a 3a 6a 2b 8b 8a 6c 6b
+
+X.1      1  1  1  1  1  1  1  1  1  1
+X.2      1  1  1  1  1 -1 -1 -1 -1 -1
+X.3      3  3 -1  .  .  1 -1 -1 -2 -2
+X.4      3  3 -1  .  . -1  1  1  2  2
+X.5      5  5  1 -1 -1  1 -1 -1  1  1
+X.6      5  5  1 -1 -1 -1  1  1 -1 -1
+X.7      2 -2  . -1  1  .  A -A  B -B
+X.8      2 -2  . -1  1  . -A  A -B  B
+X.9      4 -4  .  1 -1  .  .  .  B -B
+X.10     4 -4  .  1 -1  .  .  . -B  B
+
+A = E(8)+E(8)^3
+  = Sqrt(-2) = i2
+B = E(3)-E(3)^2
+  = Sqrt(-3) = i3
+gap> AutomorphismsOfTable( t );
+Group([ (11,12), (9,10) ])
+gap> AutomorphismsOfTable( m );
+Group([ (7,8)(9,10) ])
+gap> GetFusionMap( m, t );
+[ 1, 2, 3, 4, 5, 8, 9, 10, 11, 12 ]
+gap> BrokenSymmetries( t, m );
+true
+gap> BrokenSymmetries( t, t mod 2 );
+false
+gap> BrokenSymmetries( t, t mod 3 );
+false
+gap> PrimesOfGeneralityProblems( t );
+[  ]
+]]></Example>
+
+<P/>
+
+Since no symmetry is broken in the <M>2</M>- and <M>3</M>-modular
+character tables of <M>G</M>, there is no generality problem
+in this case.
+
+<P/>
+
+For an example of a generality problem,
+we look at the smallest Janko group <M>J_1</M>.
+As is mentioned in <Cite Key="JLPW95" Where="p. x"/>,
+the unique irreducible <M>11</M>-modular Brauer character of degree <M>7</M>
+distinguishes the two (algebraically conjugate) classes
+of element order <M>5</M>.
+Since also the unique irreducible <M>19</M>-modular Brauer character
+of degree <M>22</M> distinguishes these classes,
+we have to choose these classes consistently.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "J1" );;
+gap> m:= t mod 11;;
+gap> Display( m, rec( chars:= Filtered( Irr( m ), x -> x[1] = 7 ) ) );
+J1mod11
+
+     2  3  3  1  1  1  1  .   1   1   .   .   .   .   .
+     3  1  1  1  1  1  1  .   .   .   1   1   .   .   .
+     5  1  1  1  1  1  .  .   1   1   1   1   .   .   .
+     7  1  .  .  .  .  .  1   .   .   .   .   .   .   .
+    11  1  .  .  .  .  .  .   .   .   .   .   .   .   .
+    19  1  .  .  .  .  .  .   .   .   .   .   1   1   1
+
+       1a 2a 3a 5a 5b 6a 7a 10a 10b 15a 15b 19a 19b 19c
+    2P 1a 1a 3a 5b 5a 3a 7a  5b  5a 15b 15a 19b 19c 19a
+    3P 1a 2a 1a 5b 5a 2a 7a 10b 10a  5b  5a 19b 19c 19a
+    5P 1a 2a 3a 1a 1a 6a 7a  2a  2a  3a  3a 19b 19c 19a
+    7P 1a 2a 3a 5b 5a 6a 1a 10b 10a 15b 15a 19a 19b 19c
+   11P 1a 2a 3a 5a 5b 6a 7a 10a 10b 15a 15b 19a 19b 19c
+   19P 1a 2a 3a 5a 5b 6a 7a 10a 10b 15a 15b  1a  1a  1a
+
+Y.1     7 -1  1  A *A -1  .   B  *B   C  *C   D   E   F
+
+A = E(5)+E(5)^4
+  = (-1+Sqrt(5))/2 = b5
+B = -E(5)-2*E(5)^2-2*E(5)^3-E(5)^4
+  = (3+Sqrt(5))/2 = 2+b5
+C = -2*E(5)-2*E(5)^4
+  = 1-Sqrt(5) = 1-r5
+D = -E(19)-E(19)^2-E(19)^3-E(19)^5-E(19)^7-E(19)^8-E(19)^11-E(19)^12-E\
+(19)^14-E(19)^16-E(19)^17-E(19)^18
+E = -E(19)^2-E(19)^3-E(19)^4-E(19)^5-E(19)^6-E(19)^9-E(19)^10-E(19)^13\
+-E(19)^14-E(19)^15-E(19)^16-E(19)^17
+F = -E(19)-E(19)^4-E(19)^6-E(19)^7-E(19)^8-E(19)^9-E(19)^10-E(19)^11-E\
+(19)^12-E(19)^13-E(19)^15-E(19)^18
+gap> m:= t mod 19;;
+gap> Display( m, rec( chars:= Filtered( Irr( m ), x -> x[1] = 22 ) ) );
+J1mod19
+
+     2  3  3  1  1  1  1  .   1   1   .   .   .
+     3  1  1  1  1  1  1  .   .   .   .   1   1
+     5  1  1  1  1  1  .  .   1   1   .   1   1
+     7  1  .  .  .  .  .  1   .   .   .   .   .
+    11  1  .  .  .  .  .  .   .   .   1   .   .
+    19  1  .  .  .  .  .  .   .   .   .   .   .
+
+       1a 2a 3a 5a 5b 6a 7a 10a 10b 11a 15a 15b
+    2P 1a 1a 3a 5b 5a 3a 7a  5b  5a 11a 15b 15a
+    3P 1a 2a 1a 5b 5a 2a 7a 10b 10a 11a  5b  5a
+    5P 1a 2a 3a 1a 1a 6a 7a  2a  2a 11a  3a  3a
+    7P 1a 2a 3a 5b 5a 6a 1a 10b 10a 11a 15b 15a
+   11P 1a 2a 3a 5a 5b 6a 7a 10a 10b  1a 15a 15b
+   19P 1a 2a 3a 5a 5b 6a 7a 10a 10b 11a 15a 15b
+
+Y.1    22 -2  1  A *A  1  1  -A -*A   .   B  *B
+
+A = E(5)+E(5)^4
+  = (-1+Sqrt(5))/2 = b5
+B = -2*E(5)-2*E(5)^4
+  = 1-Sqrt(5) = 1-r5
+]]></Example>
+
+<P/>
+
+Note that the degree <M>7</M> character above also distinguishes
+the three classes of element order <M>19</M>,
+and the same holds for the unique irreducible degree <M>31</M> character
+from characteristic <M>7</M>.
+Thus also the prime <M>7</M> occurs in the list of candidates for
+generality problems.
+
+<P/>
+
+<Example><![CDATA[
+gap> PrimesOfGeneralityProblems( t );
+[ 7, 11, 19 ]
+]]></Example>
+
+<P/>
+
+Finally, we list the candidates for generality problems
+from &GAP;'s Character Table Library.
+
+<P/>
+
+<Example><![CDATA[
+gap> list:= [];;
+gap> isGeneralityProblem:= function( ordtbl )
+>     local res;
+>     res:= PrimesOfGeneralityProblems( ordtbl );
+>     if res = [] then
+>       return false;
+>     fi;
+>     Add( list, [ Identifier( ordtbl ), res ] );
+>     return true;
+> end;;
+gap> AllCharacterTableNames( IsDuplicateTable, false,
+>        isGeneralityProblem, true );;
+gap> PrintArray( SortedList( list ) );
+[ [           (2.A4x2.G2(4)).2,            [ 2, 5, 7, 13 ] ],
+  [          (2^2x3).L3(4).2_1,                   [ 5, 7 ] ],
+  [               (2x12).L3(4),                [ 2, 3, 7 ] ],
+  [              (4^2x3).L3(4),                [ 2, 3, 7 ] ],
+  [                 (7:3xHe):2,               [ 5, 7, 17 ] ],
+  [                 (A5xA12):2,                   [ 2, 3 ] ],
+  [                 (D10xHN).2,     [ 2, 3, 5, 7, 11, 19 ] ],
+  [              (S3x2.Fi22).2,              [ 3, 11, 13 ] ],
+  [                     12.M22,            [ 2, 5, 7, 11 ] ],
+  [                   12.M22.2,            [ 2, 5, 7, 11 ] ],
+  [             12_1.L3(4).2_1,                   [ 5, 7 ] ],
+  [                 12_2.L3(4),                [ 2, 3, 7 ] ],
+  [             12_2.L3(4).2_1,                [ 3, 5, 7 ] ],
+  [             12_2.L3(4).2_2,                [ 2, 3, 7 ] ],
+  [             12_2.L3(4).2_3,                [ 2, 3, 7 ] ],
+  [             2.(A4xG2(4)).2,            [ 2, 5, 7, 13 ] ],
+  [                   2.2E6(2),                 [ 13, 19 ] ],
+  [                 2.2E6(2).2,                 [ 13, 19 ] ],
+  [                      2.A10,                   [ 5, 7 ] ],
+  [                      2.A11,                [ 3, 5, 7 ] ],
+  [                    2.A11.2,               [ 5, 7, 11 ] ],
+  [                      2.A12,             [ 2, 3, 5, 7 ] ],
+  [                    2.A12.2,               [ 5, 7, 11 ] ],
+  [                      2.A13,         [ 2, 3, 5, 7, 11 ] ],
+  [                    2.A13.2,               [ 5, 7, 13 ] ],
+  [                  2.Alt(14),             [ 2, 3, 5, 7 ] ],
+  [                  2.Alt(15),                [ 2, 5, 7 ] ],
+  [                  2.Alt(16),             [ 2, 3, 5, 7 ] ],
+  [                  2.Alt(17),             [ 2, 3, 5, 7 ] ],
+  [                  2.Alt(18),             [ 2, 3, 5, 7 ] ],
+  [                        2.B,                 [ 17, 23 ] ],
+  [                    2.F4(2),           [ 2, 7, 13, 17 ] ],
+  [                   2.Fi22.2,                 [ 11, 13 ] ],
+  [                    2.G2(4),                   [ 2, 7 ] ],
+  [                  2.G2(4).2,               [ 5, 7, 13 ] ],
+  [                       2.HS,            [ 3, 5, 7, 11 ] ],
+  [                     2.HS.2,                  [ 3, 11 ] ],
+  [                2.L3(4).2_1,                   [ 5, 7 ] ],
+  [                       2.Ru,           [ 5, 7, 13, 29 ] ],
+  [                      2.Suz,               [ 2, 5, 11 ] ],
+  [                    2.Suz.2,               [ 3, 7, 13 ] ],
+  [                  2.Sym(15),                [ 3, 5, 7 ] ],
+  [                  2.Sym(16),                [ 3, 5, 7 ] ],
+  [                  2.Sym(17),                [ 3, 5, 7 ] ],
+  [                  2.Sym(18),                   [ 5, 7 ] ],
+  [                    2.Sz(8),               [ 2, 5, 13 ] ],
+  [                 2^2.2E6(2),                 [ 13, 19 ] ],
+  [               2^2.2E6(2).2,                 [ 13, 19 ] ],
+  [                 2^2.Fi22.2,              [ 3, 11, 13 ] ],
+  [              2^2.L3(4).2^2,                   [ 5, 7 ] ],
+  [              2^2.L3(4).2_1,                   [ 5, 7 ] ],
+  [                  2^2.Sz(8),               [ 2, 5, 13 ] ],
+  [                  2x2.F4(2),           [ 2, 7, 13, 17 ] ],
+  [                   2x3.Fi22,                [ 2, 3, 5 ] ],
+  [                   2x6.Fi22,                [ 2, 3, 5 ] ],
+  [                    2x6.M22,               [ 2, 5, 11 ] ],
+  [                   2xFi22.2,                 [ 11, 13 ] ],
+  [                     2xFi23,              [ 3, 17, 23 ] ],
+  [                     3.Fi22,                [ 2, 3, 5 ] ],
+  [                   3.Fi22.2,           [ 2, 5, 11, 13 ] ],
+  [                       3.J3,              [ 2, 17, 19 ] ],
+  [                     3.J3.2,           [ 2, 5, 17, 19 ] ],
+  [                3.L3(4).2_3,                [ 2, 3, 7 ] ],
+  [              3.L3(4).3.2_3,                [ 2, 3, 7 ] ],
+  [                  3.L3(7).2,               [ 3, 7, 19 ] ],
+  [                 3.L3(7).S3,               [ 3, 7, 19 ] ],
+  [                      3.McL,               [ 2, 5, 11 ] ],
+  [                    3.McL.2,            [ 2, 3, 5, 11 ] ],
+  [                       3.ON,       [ 3, 7, 11, 19, 31 ] ],
+  [                     3.ON.2,    [ 3, 5, 7, 11, 19, 31 ] ],
+  [                    3.Suz.2,               [ 2, 3, 13 ] ],
+  [                  3x2.F4(2),           [ 2, 7, 13, 17 ] ],
+  [                 3x2.Fi22.2,                 [ 11, 13 ] ],
+  [                  3x2.G2(4),                   [ 2, 7 ] ],
+  [                     3xFi23,              [ 3, 17, 23 ] ],
+  [                       3xJ1,              [ 7, 11, 19 ] ],
+  [                  3xL3(7).2,               [ 3, 7, 19 ] ],
+  [                     4.HS.2,               [ 5, 7, 11 ] ],
+  [                      4.M22,                   [ 5, 7 ] ],
+  [              4_1.L3(4).2_1,                   [ 5, 7 ] ],
+  [              4_2.L3(4).2_1,                [ 3, 5, 7 ] ],
+  [                     6.Fi22,                [ 2, 3, 5 ] ],
+  [                   6.Fi22.2,           [ 2, 5, 11, 13 ] ],
+  [                6.L3(4).2_1,                   [ 5, 7 ] ],
+  [                      6.M22,               [ 2, 5, 11 ] ],
+  [                    6.O7(3),               [ 3, 5, 13 ] ],
+  [                  6.O7(3).2,               [ 3, 5, 13 ] ],
+  [                      6.Suz,               [ 2, 5, 11 ] ],
+  [                    6.Suz.2,         [ 2, 3, 5, 7, 13 ] ],
+  [                  6x2.F4(2),           [ 2, 7, 13, 17 ] ],
+  [                        A12,                   [ 2, 3 ] ],
+  [                        A14,                [ 2, 5, 7 ] ],
+  [                        A17,                   [ 2, 7 ] ],
+  [                        A18,             [ 2, 3, 5, 7 ] ],
+  [                          B,         [ 13, 17, 23, 31 ] ],
+  [                        F3+,             [ 17, 23, 29 ] ],
+  [                      F3+.2,             [ 17, 23, 29 ] ],
+  [                     Fi22.2,                 [ 11, 13 ] ],
+  [                       Fi23,              [ 3, 17, 23 ] ],
+  [                         HN,           [ 2, 3, 11, 19 ] ],
+  [                       HN.2,           [ 5, 7, 11, 19 ] ],
+  [                         He,                  [ 5, 17 ] ],
+  [                       He.2,               [ 5, 7, 17 ] ],
+  [        Isoclinic(12.M22.2),            [ 2, 5, 7, 11 ] ],
+  [  Isoclinic(12_1.L3(4).2_1),                   [ 5, 7 ] ],
+  [  Isoclinic(12_2.L3(4).2_1),                [ 3, 5, 7 ] ],
+  [  Isoclinic(12_2.L3(4).2_3),                [ 2, 3, 7 ] ],
+  [         Isoclinic(2.A11.2),               [ 5, 7, 11 ] ],
+  [         Isoclinic(2.A12.2),               [ 5, 7, 11 ] ],
+  [         Isoclinic(2.A13.2),               [ 5, 7, 13 ] ],
+  [        Isoclinic(2.Fi22.2),                 [ 11, 13 ] ],
+  [       Isoclinic(2.G2(4).2),               [ 5, 7, 13 ] ],
+  [          Isoclinic(2.HS.2),                  [ 3, 11 ] ],
+  [          Isoclinic(2.HSx2),            [ 3, 5, 7, 11 ] ],
+  [     Isoclinic(2.L3(4).2_1),                   [ 5, 7 ] ],
+  [         Isoclinic(2.Suz.2),               [ 3, 7, 13 ] ],
+  [   Isoclinic(4_1.L3(4).2_1),                   [ 5, 7 ] ],
+  [   Isoclinic(4_2.L3(4).2_1),                [ 3, 5, 7 ] ],
+  [        Isoclinic(6.Fi22.2),           [ 2, 5, 11, 13 ] ],
+  [     Isoclinic(6.L3(4).2_1),                   [ 5, 7 ] ],
+  [       Isoclinic(6.O7(3).2),               [ 3, 5, 13 ] ],
+  [         Isoclinic(6.Suz.2),         [ 2, 3, 5, 7, 13 ] ],
+  [                         J1,              [ 7, 11, 19 ] ],
+  [                       J1x2,              [ 7, 11, 19 ] ],
+  [                         J3,              [ 2, 17, 19 ] ],
+  [                       J3.2,           [ 2, 5, 17, 19 ] ],
+  [                  L3(4).2_3,                   [ 3, 7 ] ],
+  [                L3(4).3.2_3,                [ 2, 3, 7 ] ],
+  [                    L3(7).2,               [ 3, 7, 19 ] ],
+  [                   L3(7).S3,               [ 3, 7, 19 ] ],
+  [                  L3(9).2_1,               [ 3, 7, 13 ] ],
+  [                    L5(2).2,               [ 2, 7, 31 ] ],
+  [                         Ly,              [ 7, 37, 67 ] ],
+  [                        M23,               [ 2, 3, 23 ] ],
+  [                         ON,       [ 3, 7, 11, 19, 31 ] ],
+  [                       ON.2,    [ 3, 5, 7, 11, 19, 31 ] ],
+  [                         Ru,           [ 5, 7, 13, 29 ] ],
+  [                  S3xFi22.2,                 [ 11, 13 ] ],
+  [                      Suz.2,                  [ 3, 13 ] ] ]
+]]></Example>
+
+<P/>
+
+<!-- the list was computed only from those tables which store
+     table automorphisms; there are some huge Brauer tables that are
+     constructed as direct products, this takes quite long time. -->
+
+Note that this list may become longer as new Brauer tables become
+available.
+(For example, the prime <M>2</M> was added to the entries for
+extensions of <M>F_4(2)</M> when the <M>2</M>-modular table of <M>F_4(2)</M>
+became available.)
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:generality_J3">
+<Heading>A generality problem concerning the group <M>J_3</M> (April 2015)</Heading>
+
+<Alt Only="HTML">
+<![CDATA[
+<a name="generality_problem_J3">In March 2015,</a>
+]]>
+</Alt>
+<Alt Not="HTML">
+In March 2015,
+</Alt>
+Klaus Lux reported an inconsistency in the character data of &GAP;:
+
+<P/>
+
+The sporadic simple Janko group <M>J_3</M> has a unique <M>19</M>-modular
+irreducible Brauer character of degree <M>110</M>.
+In the character table that is printed in the
+&ATLAS; of Brauer characters&nbsp;<Cite Key="JLPW95" Where="p. 219"/>,
+the Brauer character value on the class <C>17A</C> is <M>b_{17}</M>.
+The &ATLAS; of Group Representations&nbsp;<Cite Key="AGRv3"/> provides
+a straight line program for computing class representatives of <M>J_3</M>.
+If we compute the Brauer character value in question,
+we do not get <M>b_{17}</M> but its algebraic conjugate, <M>-1-b_{17}</M>.
+
+<P/>
+
+<!-- We cannot show the ``old'' status,
+     since the table has been corrected. -->
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "J3" );;
+gap> m:= t mod 19;;
+gap> cand:= Filtered( Irr( m ), x -> x[1] = 110 );;
+gap> Length( cand );
+1
+gap> slp:= AtlasProgram( "J3", "classes" );;
+gap> 17a:= Position( slp.outputs, "17A" );
+18
+gap> info:= OneAtlasGeneratingSetInfo( "J3", Characteristic, 19,
+>               Dimension, 110 );;
+gap> gens:= AtlasGenerators( info );;
+gap> reps:= ResultOfStraightLineProgram( slp.program,
+>               gens.generators );;
+gap> Quadratic( BrauerCharacterValue( reps[ 17a ] ) );
+rec( ATLAS := "-1-b17", a := -1, b := -1, d := 2, 
+  display := "(-1-Sqrt(17))/2", root := 17 )
+]]></Example>
+
+<P/>
+
+How shall we resolve this inconsistency,
+by replacing the straight line program
+or by swapping the classes <C>17A</C> and <C>17B</C> in the character table?
+Before we decide this, we look at related information.
+
+<P/>
+
+<Alt Only="LaTeX">Table~\ref{valuesJ3}</Alt>
+<Alt Not="LaTeX">The following table</Alt>
+lists the <M>p</M>-modular irreducible characters of <M>J_3</M>,
+according to&nbsp;<Cite Key="JLPW95"/>,
+that can be used to define which of the two classes of element order <M>17</M>
+shall be called <C>17A</C>;
+a <M>+</M> sign in the last column of the table indicates that the
+representation is available in the &ATLAS; of Group Representations.
+
+<!-- and fetching a representation with given char. and degree will have
+     the shown values -->
+
+<P/>
+
+<Table Label="valuesJ3" Align="|r|r|r|r|c|">
+<Caption>Representations of <M>J_3</M> that may define <C>17A</C></Caption>
+<HorLine/>
+<Row>
+<Item><M>p</M></Item>
+<Item><M>\varphi(1)</M></Item>
+<Item><M>\varphi(</M><C>17A</C><M>)</M></Item>
+<Item><M>\varphi(</M><C>17B</C><M>)</M></Item>
+<Item>&ATLAS;?</Item>
+</Row>
+<HorLine/>
+<HorLine/>
+<Row>
+<Item><M>2</M></Item>
+<Item><M>78</M></Item>
+<Item><M>1-b_{17}</M></Item>
+<Item><M>2+b_{17}</M></Item>
+<Item><M>+</M></Item>
+</Row>
+<Row>
+<Item><M>2</M></Item>
+<Item><M>80</M></Item>
+<Item><M>3-b_{17}</M></Item>
+<Item><M>4+b_{17}</M></Item>
+<Item><M>+</M></Item>
+</Row>
+<Row>
+<Item><M>2</M></Item>
+<Item><M>244</M></Item>
+<Item><M>b_{17}-2</M></Item>
+<Item><M>-3-b_{17}</M></Item>
+<Item><M>+</M></Item>
+</Row>
+<Row>
+<Item><M>2</M></Item>
+<Item><M>966</M></Item>
+<Item><M>r_{17}-3</M></Item>
+<Item><M>-3-r_{17}</M></Item>
+<Item><M>+</M></Item>
+</Row>
+<Row>
+<Item><M>19</M></Item>
+<Item><M>110</M></Item>
+<Item><M>b_{17}</M></Item>
+<Item><M>-1-b_{17}</M></Item>
+<Item><M>+</M></Item>
+</Row>
+<Row>
+<Item><M>19</M></Item>
+<Item><M>214</M></Item>
+<Item><M>1-b_{17}</M></Item>
+<Item><M>2+b_{17}</M></Item>
+<Item><M>+</M></Item>
+</Row>
+<Row>
+<Item><M>19</M></Item>
+<Item><M>706</M></Item>
+<Item><M>-b_{17}</M></Item>
+<Item><M>1+b_{17}</M></Item>
+<Item><M>+</M></Item>
+</Row>
+<Row>
+<Item><M>19</M></Item>
+<Item><M>1214</M></Item>
+<Item><M>-1+b_{17}</M></Item>
+<Item><M>-2-b_{17}</M></Item>
+<Item><M>-</M></Item>
+</Row>
+<HorLine/>
+</Table>
+
+<P/>
+
+Note that the irreducible Brauer characters in characteristic <M>3</M> and
+<M>5</M> that distinguish the two classes <C>17A</C> and <C>17B</C> occur
+in pairs of Galois conjugate characters.
+
+<P/>
+
+The following computations show that the given straight line program
+is compatible with the four characters in characteristic <M>2</M>
+but is not compatible with the three available characters in characteristic
+<M>19</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> table:= [];;
+gap> for pair in [ [  2, [ 78, 80, 244, 966 ] ],
+>                  [ 19, [ 110, 214, 706 ] ] ] do
+>      p:= pair[1];
+>      for d in pair[2] do
+>        info:= OneAtlasGeneratingSetInfo( "J3", Characteristic, p,
+>                   Dimension, d );
+>        gens:= AtlasGenerators( info );
+>        reps:= ResultOfStraightLineProgram( slp.program,
+>                   gens.generators );
+>        val:= BrauerCharacterValue( reps[ 17a ] );
+>        Add( table, [ p, d, Quadratic( val ).ATLAS,
+>                            Quadratic( StarCyc( val ) ).ATLAS ] );
+>      od;
+>    od;
+gap> PrintArray( table );
+[ [       2,      78,   1-b17,   2+b17 ],
+  [       2,      80,   3-b17,   4+b17 ],
+  [       2,     244,  -2+b17,  -3-b17 ],
+  [       2,     966,  -3+r17,  -3-r17 ],
+  [      19,     110,  -1-b17,     b17 ],
+  [      19,     214,   2+b17,   1-b17 ],
+  [      19,     706,   1+b17,    -b17 ] ]
+]]></Example>
+
+<P/>
+
+We see that the problem is an inconsistency between the <M>2</M>-modular and
+the <M>19</M>-modular character table of <M>J_3</M>
+in&nbsp;<Cite Key="JLPW95"/>.
+In particular, changing the straight line program would not help to
+resolve the problem.
+
+<P/>
+
+How shall we proceed in order to fix the problem?
+We can decide to keep the <M>19</M>-modular table of <M>J_3</M>,
+and to swap the two classes of element order <M>17</M> in the
+<M>2</M>-modular table;
+then also the straight line program has to be changed,
+and the classes of element orders <M>17</M> and <M>51</M>
+in the <M>2</M>-modular character table of the triple cover <M>3.J_3</M>
+of <M>J_3</M> have to be adjusted.
+Alternatively, we can keep the <M>2</M>-modular table of <M>J_3</M>
+and the straight line program,
+and adjust the conjugacy classes of element orders divisible
+by <M>17</M> in the <M>19</M>-modular character tables of <M>J_3</M>,
+<M>3.J_3</M>, <M>J_3.2</M>, and <M>3.J_3.2</M>.
+
+<P/>
+
+We decide to change the <M>19</M>-modular character tables.
+Note that these character tables &mdash;or equivalently, the corresponding
+Brauer trees&mdash; have been described in&nbsp;<Cite Key="HL89"/>,
+where explicit choices are mentioned that lead to the shown Brauer trees.
+Questions about the consistency with Brauer tables in other characteristic
+had not been an issue in this book.
+(Only the consistency of the Brauer trees among the <M>19</M>-blocks of
+<M>3.J_3</M> is mentioned.)
+In fact, the book mentions that the <M>19</M>-modular Brauer trees for
+<M>J_3</M> had been computed already by W.&nbsp;Feit.
+The inconsistency of Brauer character tables in different characteristic
+has apparently been overlooked when the data for&nbsp;<Cite Key="JLPW95"/>
+have been put together, and had not been detected until now.
+
+<P/>
+
+<E>Remarks:</E>
+
+<List>
+<Item>
+  Such a change of a Brauer table can in general affect the class fusions
+  from and to this table.
+  Note that Brauer tables may impose conditions on the choice of the fusion
+  among possible fusions that are equivalent w.&nbsp;r.&nbsp;t.&nbsp;the
+  table automorphisms of the ordinary table.
+  In this particular case, in fact no class fusion had to be changed,
+  see the sections <Ref Subsect="subsect:L2(16).4_in_J3.2"/> and
+  Section <Ref Subsect="subsect:generality"/>.
+  <!-- the relevant sections in&nbsp;<Cite Key="AmbigFus"/>. -->
+</Item>
+<Item>
+  The change of the character tables affects the decomposition matrices.
+  Thus the PDF files containing the <M>19</M>-modular decomposition
+  matrices had to be updated, see
+  <URL>http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/dec/tex/J3/index.html</URL>.
+</Item>
+<Item>
+  Jürgen Müller has checked that the conjugacy classes of all Brauer tables of
+  <M>J_3</M>, <M>3.J_3</M>, <M>J_3.2</M>, <M>3.J_3.2</M> are consistent
+  after the fix described above.
+</Item>
+</List>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:generality_HN">
+<Heading>A generality problem concerning the group <M>HN</M> (August 2022)</Heading>
+
+The classes <C>20A</C>, <C>20B</C> of the Harada-Norton group <M>HN</M>
+in the <M>11</M>- and <M>19</M>-modular character tables
+are determined by unique Brauer characters that have different values
+on these classes.
+Once we have <E>defined</E> these classes in one characteristic,
+the two Brauer characters tell us how to <E>choose</E> them consistently
+in the other characteristic.
+Thus the question is whether the two Brauer tables are consistent
+w.r.t. this property or not.
+
+<P/>
+
+(Note that this question can be answered independently of all other
+questions of this kind for <M>HN</M>,
+because the permutation that swaps exactly the classes <C>20A</C> and
+<C>20B</C> is a table automorphism of the ordinary character table of
+<M>HN</M>.)
+
+<P/>
+
+We start with the ordinary character table of <M>HN</M>.
+There are exactly two ordinary irreducible characters
+that take different values on the classes <C>20A</C>, <C>20B</C>,
+these are <M>\chi_{51}</M> and <M>\chi_{52}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "HN" );;
+gap> pos20:= Positions( OrdersClassRepresentatives( t ), 20 );
+[ 39, 40, 41, 42, 43 ]
+gap> diff:= Filtered( Irr( t ), x -> x[39] <> x[40] );;
+gap> List( diff, x -> Position( Irr( t ), x ) );
+[ 51, 52 ]
+]]></Example>
+
+<P/>
+
+These values are irrational and lie in the field that is generated by
+the square root of <M>5</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> List( diff, x -> List( x{ [ 1, 39, 40 ] },
+>                           CTblLib.StringOfAtlasIrrationality ) );
+[ [ "5103000", "2r5+1", "-2r5+1" ], [ "5103000", "-2r5+1", "2r5+1" ] ]
+]]></Example>
+
+<P/>
+
+In each of the characteristics <M>p \in \{ 11, 19 \}</M>,
+the <M>p</M>-modular reductions of <M>\chi_{51}</M> and <M>\chi_{52}</M>
+decompose differently into irreducibles.
+Note that the Galois automorphism of the ordinary character table
+that maps <M>\sqrt{5}</M> to <M>-\sqrt{5}</M> does not live in the
+<M>11</M>- and <M>19</M>-modular Brauer tables.
+
+<P/>
+
+For <M>p = 11</M>, the reduction of <M>\chi_{51}</M> is
+<M>\varphi_{40} + \varphi_{48}</M>,
+with <M>\varphi_{40}(1) = 1\,575\,176</M> and
+<M>\varphi_{48}(1) = 3\,527\,824</M>,
+and the reduction of <M>\chi_{52}</M> is
+<M>\varphi_{39} + \varphi_{49}</M>,
+with <M>\varphi_{39}(1) = 1\,361\,919</M> and
+<M>\varphi_{49}(1) = 3\,741\,081</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t11:= t mod 11;;
+gap> rest11:= RestrictedClassFunctions( diff, t11 );;
+gap> dec11:= Decomposition( Irr( t11 ), rest11, "nonnegative" );;
+gap> List( dec11, Set );
+[ [ 0, 1 ], [ 0, 1 ] ]
+gap> List( dec11, x -> Positions( x, 1 ) );
+[ [ 40, 48 ], [ 39, 49 ] ]
+gap> List( Irr( t11 ){ [ 40, 48 ] }, x -> x[1] );
+[ 1575176, 3527824 ]
+gap> List( Irr( t11 ){ [ 39, 49 ] }, x -> x[1] );
+[ 1361919, 3741081 ]
+]]></Example>
+
+<P/>
+
+For <M>p = 19</M>, the reduction of <M>\chi_{51}</M> is
+
+<M>\varphi_{42} + \varphi_{45}</M>,
+with <M>\varphi_{42}(1) = 2\,125\,925</M> and
+<M>\varphi_{45}(1) = 2\,977\,075</M>,
+and the reduction of <M>\chi_{52}</M> is
+<M>\varphi_{33} + \varphi_{48}</M>,
+with <M>\varphi_{33}(1) = 1\,197\,330</M> and
+<M>\varphi_{48}(1) = 3\,905\,670</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t19:= t mod 19;;
+gap> rest19:= RestrictedClassFunctions( diff, t19 );;
+gap> dec19:= Decomposition( Irr( t19 ), rest19, "nonnegative" );;
+gap> List( dec19, Set );
+[ [ 0, 1 ], [ 0, 1 ] ]
+gap> List( dec19, x -> Positions( x, 1 ) );
+[ [ 42, 45 ], [ 33, 48 ] ]
+gap> List( Irr( t19 ){ [ 42, 45 ] }, x -> x[1] );
+[ 2125925, 2977075 ]
+gap> List( Irr( t19 ){ [ 33, 48 ] }, x -> x[1] );
+[ 1197330, 3905670 ]
+]]></Example>
+
+<P/>
+
+The Frobenius-Schur indicators of all involved <M>p</M>-modular constituents
+are <M>+</M>.
+This implies that <M>\chi_{51}</M> reduces orthogonally stably modulo <M>11</M>
+but not orthogonally stably modulo <M>19</M>,
+whereas <M>\chi_{52}</M> reduces orthogonally stably modulo <M>19</M>
+but not orthogonally stably modulo <M>11</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> Indicator( t11, 2 ){ [ 39, 40, 48, 49 ] };
+[ 1, 1, 1, 1 ]
+gap> Indicator( t19, 2 ){ [ 33, 42, 45, 48 ] };
+[ 1, 1, 1, 1 ]
+]]></Example>
+
+<P/>
+
+In version up to 1.3.4 of the character table library,
+this condition was not satisfied:
+The reduction of <M>\chi_{51}</M> modulo both <M>11</M> and <M>19</M> was
+orthogonally stable,
+and the reduction of <M>\chi_{52}</M> modulo both <M>11</M> and <M>19</M> was
+not orthogonally stable.
+However, this cannot happen, due to theoretical results about
+orthogonal discriminants of the involved characters.
+Thus we have found a way to decide the consistency of the classes
+<C>20A</C> and <C>20B</C> in characteristics <M>11</M> and <M>19</M>:
+Either the <M>11</M>-modular character table or the <M>19</M>-modular
+character table of <M>HN</M> had to be changed for version 1.3.5,
+by swapping the classes <C>20A</C> and <C>20B</C>.
+
+<P/>
+
+We decided to change the <M>11</M>-modular table,
+because there are no other generality problems for <M>HN</M> involving the
+<M>19</M>-modular table, and hence we are sure that this table will not
+need to be changed because of new solutions to generality problems.
+
+<P/>
+
+For <M>HN.2</M>, the situation is similar.
+There are additionally two classes of element order <M>40</M> that have to be
+swapped if <C>20A</C> and <C>20B</C> get swapped.
+Thus we have to change the <M>11</M>-modular table of <M>HN.2</M> accordingly.
+
+<P/>
+
+Changes of this kind may affect also derived character tables in the library.
+In this case, the <M>11</M>-modular table with identifier <C>"(D10xHN).2"</C>
+was changed as well.
+Note that this table is not stored explicitly in the data files,
+it gets constructed from ordinary and modular library tables via
+<Ref Func="ConstructIndexTwoSubdirectProduct" BookName="ctbllib"/>.
+
+</Subsection>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:derivebrauercharacters">
+<Heading>Brauer Tables that can be derived from Known Tables</Heading>
+
+In a few situations, one can derive
+the <M>p</M>-modular Brauer character table of a group
+from known character theoretic information.
+
+<P/>
+
+For quite some time, a method is available in &GAP; that computes
+the Brauer characters of <M>p</M>-solvable groups
+(see <Ref Subsect="BrauerTable" BookName="ref"/> and
+<Ref Subsect="IsPSolvableCharacterTable" BookName="ref"/>).
+
+<P/>
+
+The following sections list other situations where Brauer tables
+can be computed by &GAP;.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="sect:brauercharactersbyconstruction">
+<Heading>Brauer Tables via Construction Information</Heading>
+
+If a given ordinary character table <M>t</M>, say,
+has been constructed from other ordinary character tables
+then &GAP; may be able to create the <M>p</M>-modular Brauer table
+of <M>t</M> from the <M>p</M>-modular Brauer tables of the
+<Q>ingredients</Q>.
+This happens currently in the following cases.
+
+<P/>
+
+<List>
+<Item>
+  <M>t</M> has been constructed with
+  <Ref Oper="CharacterTableDirectProduct" BookName="ref"/>,
+  and &GAP; can compute the <M>p</M>-modular Brauer tables
+  of the direct factors.
+</Item>
+<Item>
+  <M>t</M> has been constructed with
+  <Ref Oper="CharacterTableIsoclinic" BookName="ref"/>,
+  and &GAP; can compute the <M>p</M>-modular Brauer table
+  of the table that is stored in <M>t</M> as the value of the attribute
+  <Ref Oper="SourceOfIsoclinicTable" BookName="ref"/>.
+</Item>
+<Item>
+  <M>t</M> has the attribute
+  <Ref Attr="ConstructionInfoCharacterTable" BookName="ctbllib"/> set,
+  the first entry of this list <M>l</M>, say, is one of the strings
+  <C>"ConstructGS3"</C> (see
+  <Ref Subsect="sect:Character Tables of Groups of the Structure G.S_3"/>),
+  <C>"ConstructIndexTwoSubdirectProduct"</C>
+  (see <Ref Subsect="subsect:theorsubdir"/>),
+  <C>"ConstructMGA"</C> (see <Ref Subsect="subsect:theorMGA"/>),
+  <C>"ConstructPermuted"</C>,
+  <C>"ConstructV4G"</C> (see <Ref Subsect="subsect:theorV4G"/>),
+  and &GAP; can construct the <M>p</M>-modular Brauer table(s)
+  of the relevant ordinary character table(s),
+  which are library tables whose names occur in <M>l</M>.
+</Item>
+</List>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="sect:liftablebrauercharacters">
+<Heading>Liftable Brauer Characters (May 2017)</Heading>
+
+Let <M>B</M> be a <M>p</M>-block of cyclic defect for the finite group
+<M>G</M>.
+It can be read off from the set Irr<M>(B)</M>
+of ordinary irreducible characters of <M>B</M>
+whether all irreducible Brauer characters in <M>B</M> are restrictions
+of ordinary characters to the <M>p</M>-regular classes of <M>G</M>,
+as follows.
+
+<P/>
+
+If <M>B</M> has only one irreducible Brauer character then all ordinary
+characters in <M>B</M> restrict to this Brauer character.
+So let us assume that <M>B</M> contains
+at least two irreducible Brauer characters,
+and consider the set <M>S</M>, say, of restrictions of Irr<M>(B)</M>
+to the <M>p</M>-regular classes of <M>G</M>.
+
+<P/>
+
+The block <M>B</M> contains exactly <M>|S| - 1</M> irreducible Brauer
+characters,
+and the decomposition of the characters in <M>S</M> into these Brauer
+characters is described by
+an <M>|S|</M> by <M>|S| - 1</M> matrix <M>M</M>, say,
+whose entries are zero and one, such that exactly two nonzero entries
+occur in each column.
+(See for example <Cite Key="HL89" Where="Theorem 2.1.5"/>,
+which refers to <Cite Key="Dad66"/>.)
+
+<P/>
+
+If all irreducible Brauer characters of <M>B</M> occur in <M>S</M>
+then the matrix <M>M</M> contains <M>|S| - 1</M> rows that contain
+exactly one nonzero entry,
+hence the remaining row consists only of <M>1</M>s.
+This means that the element of largest degree in <M>S</M> is equal to
+the sum of all other elements in <M>S</M>.
+Conversely, if the element of largest degree in <M>S</M> is equal to
+the sum of all other elements in <M>S</M> then
+the matrix <M>M</M> has the structure as stated above,
+hence all irreducible Brauer characters of <M>B</M> occur in <M>S</M>.
+
+<P/>
+
+Alternatively,
+one could state that all irreducible Brauer characters of <M>B</M>
+are restricted ordinary characters if and only if the Brauer tree
+of <M>B</M> is a <E>star</E> (see <Cite Key="HL89" Where="p. 2"/>.
+If <M>B</M> contains at least two irreducible Brauer characters
+then this happens if and only if one of the types <M>\times</M> or
+<M>\circ</M> occurs for exactly one node in the Brauer graph of <M>B</M>,
+see <Cite Key="HL89" Where="Lemma 2.1.13"/>,
+and the distribution to types is determined by Irr<M>(B)</M>.
+
+<P/>
+
+The default method for <Ref Oper="BrauerTableOp" BookName="ref"/>
+that is contained in the &GAP; library has been extended in version 4.11
+such that it checks whether the Sylow <M>p</M>-subgroups of the given group
+<M>G</M> are cyclic and, if yes,
+whether all <M>p</M>-blocks of <M>G</M> have the property discussed above.
+(This feature arose from a discussion with Klaus Lux.)
+
+<P/>
+
+Examples where this method is successful for all blocks
+are the <M>p</M>-modular character tables of the groups PSL<M>(2, q)</M>,
+where <M>p</M> is odd and does not divide <M>q</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( PSL( 2, 11 ) );;
+gap> modt:= t mod 5;;
+gap> modt <> fail;
+true
+gap> InfoText( modt );
+"computed using that all Brauer characters lift to char. zero"
+]]></Example>
+
+<P/>
+
+Another such example is the <M>5</M>-modular table
+of the Mathieu group <M>M_{11}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> lib:= CharacterTable( "M11" );;
+gap> fromgroup:= CharacterTable( MathieuGroup( 11 ) );;
+gap> DecompositionMatrix( lib mod 5 );
+[ [ 1, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0, 0, 0, 0, 0 ], 
+  [ 0, 0, 1, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 1, 0, 0, 0, 0, 0 ], 
+  [ 0, 0, 0, 0, 1, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 1, 0, 0, 0 ], 
+  [ 0, 0, 0, 0, 0, 0, 1, 0, 0 ], [ 1, 0, 0, 0, 1, 1, 1, 0, 0 ], 
+  [ 0, 0, 0, 0, 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 1 ] ]
+gap> fromgroup mod 5 <> fail;
+true
+]]></Example>
+
+<P/>
+
+There are cases where all Brauer characters of a block lift
+to characteristic zero but the defect group of the block is not cyclic,
+thus the method cannot be used.
+An example is the <M>2</M>-modular table of the Mathieu group <M>M_{11}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> DecompositionMatrix( lib mod 2 );
+[ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], 
+  [ 0, 1, 0, 0, 0 ], [ 1, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], 
+  [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ], [ 1, 0, 0, 0, 1 ], 
+  [ 1, 1, 0, 0, 1 ] ]
+gap> fromgroup mod 2;
+fail
+]]></Example>
+
+</Subsection>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:monstersubgroups">
+<Heading>Information about certain subgroups of the Monster group</Heading>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="sect:no2U42inMonster">
+<Heading>The Monster group does not contain subgroups of the type <M>2.U_4(2)</M> (August 2023)</Heading>
+
+In the context of a question about decomposition numbers of the
+sporadic simple Monster group <M>&M;</M>,
+Benjamin Sambale was interested in possible embeddings of certain groups
+<M>G</M> into <M>&M;</M> such that the decomposition matrices of <M>G</M>
+are known.
+For a given <M>G</M>, the first steps were to compute the possible class
+fusions of <M>G</M> in <M>&M;</M> and then to check whether the corresponding
+embeddings would be interesting.
+
+<P/>
+
+Apparently, calling <Ref Func="PossibleClassFusions" BookName="ref"/>
+with its default parameters often runs very long and requires a lot of space
+when <M>G</M> is a small group such as <M>2.U_4(2)</M>.
+We can do better by calling the function with the parameter
+<C>decompose:= false</C>.
+This has the effect that one criterion is omitted that checks the
+decomposability of restricted characters of <M>&M;</M> as an integral
+linear combination of characters of the subgroup.
+As a rule of thumb, if the number of classes of the subgroup is small
+compared to the number of classes of the group
+and if the result consists of many candidates then it might be faster
+to omit the decomposability criterion.
+
+<P/>
+
+<Example><![CDATA[
+gap> s:= CharacterTable( "2.U4(2)" );;
+gap> m:= CharacterTable( "M" );;
+gap> sfusm:= PossibleClassFusions( s, m, rec( decompose:= false ) );;
+gap> Length( sfusm );
+2332
+]]></Example>
+
+<!-- The computation takes about 1928 seconds on my notebook. -->
+
+<P/>
+
+Looking at the (many) candidates,
+we see that all map the central involution of
+<M>2.U_4(2)</M> to the class <C>2B</C> of <M>&M;</M>,
+thus any subgroup of the type <M>2.U_4(2)</M> lies inside the <C>2B</C>
+normalizer in <M>&M;</M>.
+We compute the possible class fusions into this subgroup.
+
+<P/>
+
+<Example><![CDATA[
+gap> Set( List( sfusm, x -> x[2] ) );
+[ 3 ]
+gap> t:= CharacterTable( "MN2B" );
+CharacterTable( "2^1+24.Co1" )
+gap> sfust:= PossibleClassFusions( s, t, rec( decompose:= false ) );;
+gap> Length( sfust );
+0
+]]></Example>
+
+<!-- The computation takes about 29 seconds on my notebook. -->
+
+<P/>
+
+Thus we have shown that <M>&M;</M> does not contain subgroups of the type
+<M>2.U_4(2)</M>.
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="sect:ML34inMonster">
+<Heading>Perfect central extensions of <M>L_3(4)</M> (August 2023)</Heading>
+
+There was <URL><LinkText>the question in MathOverflow</LinkText>
+<Link>https://mathoverflow.net/questions/450255</Link></URL>
+which perfect central extensions of the simple group <M>G = L_3(4)</M> are
+subgroups of the sporadic simple Monster group <M>&M;</M>.
+
+<P/>
+
+First we get the list of perfect central extensions of <M>G</M> (asuming that
+their character tables are contained in the character table library).
+
+<Example><![CDATA[
+gap> simp:= CharacterTable( "L3(4)" );;
+gap> extnames:= AllCharacterTableNames( Identifier,
+>                   x -> EndsWith(x, "L3(4)" ) );;
+gap> ext:= List( extnames, CharacterTable );;
+gap> ext:= Filtered( ext, x -> Length( ClassPositionsOfCentre( x ) ) =
+>                              Size( x ) / Size( simp ) );;
+gap> SortBy( ext, Size );
+gap> names:= List( ext, Identifier );
+[ "L3(4)", "2.L3(4)", "3.L3(4)", "2^2.L3(4)", "4_1.L3(4)", 
+  "4_2.L3(4)", "6.L3(4)", "(2x4).L3(4)", "(2^2x3).L3(4)", 
+  "12_1.L3(4)", "12_2.L3(4)", "4^2.L3(4)", "(2x12).L3(4)", 
+  "(4^2x3).L3(4)" ]
+]]></Example>
+
+<P/>
+
+The fact that <M>G</M> is <E>not</E> isomorphic to a subgroup of <M>&M;</M>
+is shown in <Cite Key="HW08"/> (at the end of this paper).
+
+<!-- In <Cite Key="NW02"/>, $L_3(4)$ is listed as perhaps contained
+     as a subgroup.
+     (And it is stated in Section 4.2 which class fusion such a subgroup
+     would have.) -->
+
+<P/>
+
+And the following embeddings of central extensions of <M>G</M> in <M>&M;</M>
+can be established using known subgroups of <M>&M;</M>.
+
+<List>
+<Item>
+  <M>2.G &lt; 2.U_4(3) &lt; 2^2.U_6(2) &lt; Fi_{23} &lt; 3.Fi_{24}' &lt; &M;</M>.
+</Item>
+<Item>
+  <M>2^2.G &lt; He &lt; 3.Fi_{24}' &lt; &M;</M>.
+</Item>
+<Item>
+  <M>6.G &lt; 2.G_2(4) &lt; 6.Suz &lt; 3^{1+12}_+.2Suz &lt; &M;</M>.
+</Item>
+</List>
+
+Note that <M>G</M> is a subgroup of <M>U_4(3)</M> but not of <M>2.U_4(3)</M>,
+<M>3.G</M> is a subgroup of <M>G_2(4)</M> but not of <M>2.G_2(4)</M>,
+and <M>G_2(4)</M> is a subgroup of <M>Suz</M> but not of <M>2.Suz</M>.
+The positive statements follow from <Cite Key="CCN85" Where="pp. 52, 97, 131"/>
+and the negative ones from the following computations.
+
+<P/>
+
+<Example><![CDATA[
+gap> Length( PossibleClassFusions( CharacterTable( "L3(4)" ),
+>                                  CharacterTable( "2.U4(3)" ) ) );
+0
+gap> Length( PossibleClassFusions( CharacterTable( "3.L3(4)" ),
+>                                  CharacterTable( "2.G2(4)" ) ) );
+0
+gap> Length( PossibleClassFusions( CharacterTable( "G2(4)" ),
+>                                  CharacterTable( "2.Suz" ) ) );
+0
+]]></Example>
+
+<P/>
+
+The group <M>3.G</M> centralizes an element of order three.
+If <M>3.G</M> is a subgroup of <M>&M;</M> then it is contained in
+a <C>3A</C> centralizer (of the structure <M>3.Fi_{24}'</M>),
+a <C>3B</C> centralizer (of the structure <M>3^{1+12}_+.2Suz</M>) or
+a <C>3C</C> centralizer (of the structure <M>3 \times Th</M>).
+Clearly the case <M>3C</M> cannot occur,
+and <C>3B</C> is excluded by the fact that no class fusion between <M>3.G</M>
+and the <M>3B</M> normalizer <M>3^{1+12}_+.2Suz.2</M> is possible.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "MN3B" );
+CharacterTable( "3^(1+12).2.Suz.2" )
+gap> Length( PossibleClassFusions( CharacterTable( "3.L3(4)" ), t ) );
+0
+]]></Example>
+
+<P/>
+
+If <M>3.G</M> is contained in the <C>3A</C> centralizer
+then this embedding induces one of <M>G</M> into some maximal subgroup of
+<M>Fi_{24}'</M>.
+Using the known character tables of these maximal subgroups
+in GAP's character table library,
+one shows that only <M>Fi_{23}</M> admits a class fusion,
+but this subgroup lifts to <M>3 \times Fi_{23}</M> in <M>3.Fi_{24}'</M>
+and thus cannot lead to a subgroup of type <M>3.G</M>..
+
+<P/>
+
+<Example><![CDATA[
+gap> mx:= List( Maxes( CharacterTable( "Fi24'" ) ), CharacterTable );;
+gap> s:= CharacterTable( "L3(4)" );;
+gap> Filtered( mx, x -> Length( PossibleClassFusions( s, x ) ) > 0 );
+[ CharacterTable( "Fi23" ) ]
+]]></Example>
+
+<P/>
+
+The other candidates <M>m.G</M> contain at least one central involution.
+If <M>m.G</M> is a subgroup of <M>&M;</M> then it is contained in
+a <C>2A</C> centralizer (of the structure <M>2.B</M>) or
+a <C>2B</C> centralizer (of the structure <C>2^{1+24}_+.Co_1</C>).
+Again we use <Ref Func="PossibleClassFusions" BookName="ref"/>
+to list all candidates for the class fusion,
+but here we prescribe the central involution of the <C>2A</C> or <C>2B</C>
+centralizer as an image of one central involution in <M>m.G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> done:= [ "L3(4)", "2.L3(4)", "3.L3(4)", "2^2.L3(4)", "6.L3(4)" ];;
+gap> names:= Filtered( names, x -> not x in done );
+[ "4_1.L3(4)", "4_2.L3(4)", "(2x4).L3(4)", "(2^2x3).L3(4)", 
+  "12_1.L3(4)", "12_2.L3(4)", "4^2.L3(4)", "(2x12).L3(4)", 
+  "(4^2x3).L3(4)" ]
+gap> invcent:= List( [ "MN2A", "MN2B" ], CharacterTable );
+[ CharacterTable( "2.B" ), CharacterTable( "2^1+24.Co1" ) ]
+gap> ForAll( invcent, x -> ClassPositionsOfCentre( x ) = [ 1, 2 ] );
+true
+gap> cand:= [];;
+gap> ords:= "dummy";;   #  Avoid a message about an unbound variable ...
+gap> for name in names do
+>      s:= CharacterTable( name );
+>      ords:= OrdersClassRepresentatives( s );
+>      invpos:= Filtered( ClassPositionsOfCentre( s ), i -> ords[i] = 2 );
+>      for i in invpos do
+>        for t in invcent do
+>          init:= InitFusion( s, t );
+>          if init = fail then
+>            continue;
+>          fi;
+>          init[i]:= 2;
+>          fus:= PossibleClassFusions( s, t, rec( fusionmap:= init,
+>                                                 decompose:= false ) );
+>          if fus <> [] then
+>            Add( cand, [ s, t, i, fus ] );
+>          fi;
+>        od;
+>      od;
+>    od;
+gap> List( cand, x -> x{ [ 1 .. 3 ] } );
+[ [ CharacterTable( "4_1.L3(4)" ), CharacterTable( "2^1+24.Co1" ), 3 ]
+    , [ CharacterTable( "(2x4).L3(4)" ), CharacterTable( "2.B" ), 2 ],
+  [ CharacterTable( "(2x4).L3(4)" ), CharacterTable( "2.B" ), 3 ] ]
+]]></Example>
+
+<!-- These computations take about 3445 seconds on my notebook. -->
+
+<P/>
+
+(Note that we have called <Ref Func="PossibleClassFusions" BookName="ref"/>
+with the option <C>decompose:= false</C>, in order to save space and time.
+See Section <Ref Subsect="sect:no2U42inMonster"/> for more details.)
+
+<P/>
+
+Concerning the candidate <M>(2 \times 4).G</M>,
+we see that only fusions are possible for which the central involution
+in question is mapped to a <C>2A</C> element of <M>&M;</M>.
+Since we get candidates only for two out of the three central involutions,
+we see that <M>(2 \times 4).G</M> does not embed into <M>&M;</M>.
+
+<P/>
+
+Thus it turns out that exactly one group <M>m.G</M> cannot be excluded
+this way.
+Namely, these character-theoretical criteria leave the possibility
+that <M>4_1.G</M> may occur as a subgroup of <M>2^{1+24}_+.Co_1</M>.
+
+<P/>
+
+Moreover, we see that if this happens then the centre <M>C</M>
+of <M>4_1.G</M> lies inside the normal subgroup <M>N = 2^{1+24}_+</M>.
+The centralizer of <M>C</M> in <M>N</M> has order <M>2^{24}</M>,
+and the centralizer of <M>C</M> in <M>2^{1+24}_+.Co_1</M> has order
+<M>2^{24} \cdot |Co_3|</M>.
+We see that <M>4_1.G</M>,
+if it exists as a subgroup of <M>2^{1+24}_+.Co_1</M>,
+must lie inside the subgroup <M>[2^{24}].Co_3</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> s:= cand[1][1];
+CharacterTable( "4_1.L3(4)" )
+gap> t:= cand[1][2];
+CharacterTable( "2^1+24.Co1" )
+gap> fus:= cand[1][4];
+[ [ 1, 5, 2, 5, 9, 8, 23, 27, 24, 27, 49, 49, 50, 50, 70, 74, 71, 74, 
+      70, 74, 71, 74, 114, 119, 115, 119, 114, 119, 115, 119 ] ]
+gap> ClassPositionsOfCentre( s );
+[ 1, 2, 3, 4 ]
+gap> 5 in ClassPositionsOfPCore( t, 2 );
+true
+gap> siz:= SizesCentralizers( t )[5] / 2^24;
+495766656000
+gap> mx:= Filtered( List( Maxes( CharacterTable( "Co1" ) ),
+>                         CharacterTable ),
+>                   x -> Size( x ) mod siz = 0 );
+[ CharacterTable( "Co3" ) ]
+gap> Size( mx[1] ) = siz;
+true
+]]></Example>
+
+<!-- Inside Co_3, several maximal subgroups can contain the given L_3(4). -->
+
+<P/>
+
+I do not see a character-theoretic argument that could disprove
+the existence of such an <M>4_1.G</M> type subgroup.
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="sect:2BM12">
+<Heading>The character table of <M>(2 \times O_8^+(3)).S_4 \leq 2.B</M> (October 2023)</Heading>
+
+Consider a maximal subgroup <M>H</M> of type <M>(3^2:2 \times O_8^+(3)).S_4</M>
+in the sporadic simple Monster group.
+The character table of <M>H</M> has been contributed by Tim Burness.
+We can view <M>H</M> as <M>O_8^+(3).(3^2:2S_4) = O_8^+(3).F</M>.
+The character table of <M>H</M> determines that of <M>F</M>, 
+and this table determines the isomorphism type of <M>F</M> as
+<C>SmallGroup( 432, 734 )</C>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tblH:= CharacterTable( "(3^2:2xO8+(3)).S4" );
+CharacterTable( "(3^2:2xO8+(3)).S4" )
+gap> N:= ClassPositionsOfSolvableResiduum( tblH );;
+gap> tblF:= tblH / N;;
+gap> Size( tblF );
+432
+gap> known:= NamesOfEquivalentLibraryCharacterTables( tblF );
+[ "3^2.2.S4", "M12M7" ]
+gap> Filtered( GroupInfoForCharacterTable( known[1] ),
+>              x -> x[1] = "SmallGroup" );
+[ [ "SmallGroup", [ 432, 734 ] ] ]
+]]></Example>
+
+<P/>
+
+(Note that the precomputed
+<Ref Attr="GroupInfoForCharacterTable" BookName="CTblLib"/>
+information about &GAP; library character tables means that exactly
+one isomorphism type of groups fits to the character table of <M>F</M>.)
+
+<P/>
+
+We compute that <M>O_3(F) \cong 3^2</M> has complements in <M>F</M>,
+thus <M>H</M> has a subgroup <M>V</M> of the type <M>O_8^+(3).2S_4</M>,
+which is a complement of <M>O_3(H)</M> in <M>H</M>,
+thus <M>V</M> is isomorphic with <M>H / O_3(H)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> G:= SmallGroup( 432, 734 );;
+gap> P:= PCore( G, 3 );;
+gap> Length( ComplementClassesRepresentatives( G, P ) );
+1
+]]></Example>
+
+<P/>
+
+We can derive the character table of <M>V</M> from that of <M>H</M>,
+and compute that the group structure of <M>V</M> is
+<M>(2 \times O_8^+(3)).S_4</M>.
+For that, we consider the element orders of the unique normal subgroup
+of order <M>2 |O_8^+(3)|</M> in <M>V</M>.
+If this normal subgroup would not be isomorphic with <M>2 \times O_8^+(3)</M>
+then it would have one of the structures <M>O_8^+(3).2_1</M> or
+<M>O_8^+(3).2_2</M>,
+but then it would contain elements of the orders <M>24</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tblV:= tblH / ClassPositionsOfPCore( tblH, 3 );;
+gap> ord:= 2 * Size( tblH ) / Size( tblF );
+9904359628800
+gap> classes:= SizesConjugacyClasses( tblV );;
+gap> 2N:= Filtered( ClassPositionsOfNormalSubgroups( tblV ),
+>                   l -> Sum( classes{ l } ) = ord );;
+gap> Length( 2N );
+1
+gap> Set( OrdersClassRepresentatives( tblV ){ 2N[1] } );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20, 26, 30 ]
+gap> Set( OrdersClassRepresentatives( CharacterTable( "O8+(3)" ) ) );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20 ]
+gap> Set( OrdersClassRepresentatives( CharacterTable( "O8+(3).2_1" ) ) );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20, 24, 26, 28, 
+  30, 36, 40 ]
+gap> Set( OrdersClassRepresentatives( CharacterTable( "O8+(3).2_2" ) ) );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20, 24, 26, 28, 
+  30, 36 ]
+]]></Example>
+
+<P/>
+
+The class fusion of <M>V</M> into the Monster group shows that <M>V</M>
+centralizes a <C>2A</C> element in the Monster,
+hence <M>V</M> is a subgroup of a maximal subgroup of the type <M>2.B</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tblM:= CharacterTable( "M" );;
+gap> VfusM:= PossibleClassFusions( tblV, tblM );;
+gap> Length( VfusM );
+4
+gap> ZV:= ClassPositionsOfCentre( tblV );
+[ 1, 2 ]
+gap> Set( List( VfusM, l -> l{ ZV } ) );
+[ [ 1, 2 ] ]
+]]></Example>
+
+<P/>
+
+From the list of maximal subgroups of <M>B</M>,
+we see that either <M>V</M> is contained in the preimage of <M>Fi_{23}</M>
+under the natural epimorphism from <M>2.B</M> to <M>B</M>,
+or <M>V</M> is equal to the preimage of <M>O_8^+(3).S_4</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tblB:= CharacterTable( "B" );;
+gap> mxB:= List( Maxes( tblB ), CharacterTable );;
+gap> cand:= Filtered( mxB, s -> Size( s ) mod ( Size( tblV ) / 2 ) = 0 );
+[ CharacterTable( "Fi23" ), CharacterTable( "O8+(3).S4" ) ]
+]]></Example>
+
+<P/>
+
+The former possibility is excluded from the fact that the factor of <M>V</M>
+by its center does not admit a class fusion into <M>Fi_{23}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> Length( PossibleClassFusions( tblV / ZV, CharacterTable( "Fi23" ) ) );
+0
+]]></Example>
+
+<P/>
+
+We conclude that <M>V</M> is a maximal subgroup of <M>2.B</M>.
+
+<P/>
+
+Thus we have used the character table of <M>H</M> to construct
+the character table of a maximal subgroup of <M>2.B</M>,
+with very little effort.
+
+<P/>
+
+This table is meanwhile available in the table library,
+with the identifier <C>"(2xO8+(3)).S4"</C>.
+
+<P/>
+
+<Example><![CDATA[
+gap> lib:= CharacterTable( "(2xO8+(3)).S4" );;
+gap> TransformingPermutationsCharacterTables( tblV, lib ) <> fail;
+true
+gap> Irr( lib ) = Irr( tblV );
+true
+]]></Example>
+
+<P/>
+
+In order to add the table to the library,
+we have to provide also the class fusions from <M>V</M> to <M>2.B</M>,
+to the maximal subgroup <M>(2 \times O_8^+(3)).S_4</M> of <M>B</M>,
+and to the maximal subgroup <M>(3^2:2 \times O_8^+(3)).S_4</M> of <M>M</M>,
+such that the compositions of fusions from <M>V</M> to <M>B</M>
+via <M>O_8^+(3).S_4</M> and <M>2.B</M> are compatible, <M>\ldots</M>
+
+<P/>
+
+<Example><![CDATA[
+gap> tblU:= CharacterTable( "O8+(3).S4" );;
+gap> tbl2B:= CharacterTable( "2.B" );;
+gap> CompositionMaps( GetFusionMap( tblU, tblB ),
+>                     GetFusionMap( lib, tblU ) ) =
+>    CompositionMaps( GetFusionMap( tbl2B, tblB ),
+>                     GetFusionMap( lib, tbl2B ) );
+true
+]]></Example>
+
+<P/>
+
+<M>\ldots</M> and that the compositions of fusions from <M>V</M> to <M>M</M>
+via <M>(3^2:2 \times O_8^+(3)).S_4</M> and <M>2.B</M> are compatible.
+
+<P/>
+
+<Example><![CDATA[
+gap> tblH:= CharacterTable( "(3^2:2xO8+(3)).S4" );;
+gap> CompositionMaps( GetFusionMap( tblH, tblM ),
+>                     GetFusionMap( lib, tblH ) ) =
+>    CompositionMaps( GetFusionMap( tbl2B, tblM ),
+>                     GetFusionMap( lib, tbl2B ) );
+true
+]]></Example>
+
+</Subsection>
+</Section>
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+

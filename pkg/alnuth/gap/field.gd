@@ -1,0 +1,48 @@
+#############################################################################
+##
+#W   field.gd       Alnuth - ALgebraic NUmber THeory           Bettina Eick
+#W                                                           Bjoern Assmann
+##
+
+DeclareInfoClass( "InfoAlnuth" );
+
+DeclareRepresentation( "IsBasisOfMatrixField",
+                        IsBasis and IsAttributeStoringRep, [] );
+
+DeclareOperation( "ExponentsOfUnits", [IsNumberField, IsCollection] );
+DeclareOperation( "IsPrimitiveElementOfNumberField", 
+                  [ IsNumberField, IsObject ] );
+DeclareOperation( "RelationLattice", [IsNumberField, IsCollection] );
+
+DeclareProperty( "IsUnitGroup", IsGroup );
+InstallTrueMethod( IsGroup, IsUnitGroup );
+DeclareProperty( "IsUnitGroupIsomorphism", IsMapping);
+DeclareProperty( "IsNumberFieldByMatrices", IsNumberField );
+InstallTrueMethod( IsNumberField, IsNumberFieldByMatrices );
+DeclareProperty( "IsMultGroupByFieldElemsIsomorphism", IsMapping);
+
+DeclareAttribute( "IntegerDefiningPolynomial", IsNumberField );
+DeclareAttribute( "IntegerPrimitiveElement", IsNumberField );
+DeclareAttribute( "EquationOrderBasis", IsNumberField );
+DeclareAttribute( "MaximalOrderBasis", IsNumberField );
+DeclareAttribute( "UnitGroup", IsNumberField );
+DeclareAttribute( "DefiningPolynomial", IsNumberFieldByMatrices );
+DeclareAttribute( "FieldOfUnitGroup", IsGroup );
+
+DeclareGlobalFunction( "FieldOfPolynomial" );
+DeclareGlobalFunction( "FieldByMatricesNC" );
+DeclareGlobalFunction( "FieldByMatrixBasisNC" );
+DeclareGlobalFunction( "FieldByPolynomialNC" );
+DeclareGlobalFunction( "FieldByMatrices" );
+DeclareGlobalFunction( "FieldByMatrixBasis" );
+DeclareGlobalFunction( "FieldByPolynomial" );
+DeclareGlobalFunction( "IntersectionOfUnitSubgroups" );
+DeclareGlobalFunction( "IntersectionOfTFUnitsByCosets" );
+DeclareGlobalFunction( "NormCosetsOfNumberField" );
+DeclareGlobalFunction( "IsUnitOfNumberField" );
+DeclareGlobalFunction( "RelationLatticeOfTFUnits");
+DeclareGlobalFunction( "RelationLatticeModUnits");
+DeclareGlobalFunction( "RelationLatticeTF");
+DeclareGlobalFunction( "RelationLatticeOfUnits");
+DeclareGlobalFunction( "PcpPresentationMultGroupByFieldEl");
+DeclareGlobalFunction( "PcpPresentationOfMultiplicativeSubgroup");

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+[
+<!ENTITY see '<Alt Only="LaTeX">$\to$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
+<!ENTITY FactInt '<Package>FactInt</Package>'>
+]
+>
+<Book Name="FactInt">
+<#Include SYSTEM "title.xml">
+<TableOfContents/>
+<Body>
+<#Include SYSTEM "preface.xml">
+<#Include SYSTEM "general.xml">
+<#Include SYSTEM "methods.xml">
+<#Include SYSTEM "timings.xml">
+</Body>
+<Bibliography Databases="factintbib.xml"/>
+<TheIndex/>
+</Book>

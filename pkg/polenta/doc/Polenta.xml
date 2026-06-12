@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+[
+    [<#Include SYSTEM "_entities.xml">
+]
+>
+<Book Name="Polenta">
+<#Include SYSTEM "title.xml">
+<TableOfContents/>
+<Body>
+<#Include SYSTEM "intro.xml">
+<#Include SYSTEM "methods.xml">
+<#Include SYSTEM "example.xml">
+<#Include SYSTEM "install.xml">
+<#Include SYSTEM "info.xml">
+</Body>
+<Bibliography Databases="polentabib.xml"/>
+<TheIndex/>
+</Book>

@@ -1,0 +1,850 @@
+  
+  [1X7 [33X[0;0YUtilities for Bibliographies[133X[101X
+  
+  [33X[0;0YA  standard  for collecting references (in particular to mathematical texts)
+  is  BibTeX  ([7Xhttps://tug.org/bibtex/[107X).  A disadvantage of BibTeX is that the
+  format  of  the  data  is  specified with the use by LaTeX in mind. The data
+  format is less suited for conversion to other document types like plain text
+  or HTML.[133X
+  
+  [33X[0;0YIn  the first section we describe utilities for using data from BibTeX files
+  in [5XGAP[105X.[133X
+  
+  [33X[0;0YIn the second section we introduce a new XML based data format BibXMLext for
+  bibliographies  which seems better suited for other tasks than using it with
+  LaTeX.[133X
+  
+  [33X[0;0YAnother section will describe utilities to deal with BibXMLext data in [5XGAP[105X.[133X
+  
+  
+  [1X7.1 [33X[0;0YParsing BibTeX Files[133X[101X
+  
+  [33X[0;0YHere  are functions for parsing, normalizing and printing reference lists in
+  BibTeX format. The reference describing this format is [Lam85, Appendix B].[133X
+  
+  [1X7.1-1 ParseBibFiles[101X
+  
+  [33X[1;0Y[29X[2XParseBibFiles[102X( [3Xbibfile1[103X[, [3Xbibfile2[103X[, [3X...[103X]] ) [32X function[133X
+  [33X[1;0Y[29X[2XParseBibStrings[102X( [3Xstr1[103X[, [3Xstr2[103X[, [3X...[103X]] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ylist [10X[list of bib-records, list of abbrevs, list of expansions][110X[133X
+  
+  [33X[0;0YThe  first  function parses the files [3Xbibfile1[103X and so on (if a file does not
+  exist the extension [10X.bib[110X is appended) in BibTeX format and returns a list as
+  follows:  [10X[entries,  strings, texts][110X. Here [10Xentries[110X is a list of records, one
+  record  for  each  reference contained in [3Xbibfile[103X. Then [10Xstrings[110X is a list of
+  abbreviations  defined  by  [10X@string[110X-entries  in  [3Xbibfile[103X and [10Xtexts[110X is a list
+  which  contains  in  the  corresponding  position  the full text for such an
+  abbreviation.[133X
+  
+  [33X[0;0YThe  second  function  does  the same, but the input is given as [5XGAP[105X strings
+  [3Xstr1[103X and so on.[133X
+  
+  [33X[0;0YThe  records  in  [10Xentries[110X store key-value pairs of a BibTeX reference in the
+  form  [10Xrec(key1  = value1, ...)[110X. The names of the keys are converted to lower
+  case.  The type of the reference (i.e., book, article, ...) and the citation
+  key are stored as components [10X.Type[110X and [10X.Label[110X. The records also have a [10X.From[110X
+  field that says that the data are read from a BibTeX source.[133X
+  
+  [33X[0;0YAs an example consider the following BibTeX file.[133X
+  
+  [4X[32X  doc/test.bib  [32X[104X
+    [4X@string{ j  = "Important Journal" }[104X
+    [4X@article{ AB2000, Author=  "Fritz A. First and Sec, X. Y.", [104X
+    [4XTITLE="Short", journal = j, year = 2000 }[104X
+  [4X[32X[104X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgddirs := DirectoriesPackageLibrary("gapdoc","doc");;[127X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(gddirs, "test.bib");;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibFiles(f);[127X[104X
+    [4X[28X[ [ rec( From := rec( BibTeX := true ), Label := "AB2000", [128X[104X
+    [4X[28X          Type := "article", author := "Fritz A. First and Sec, X. Y."[128X[104X
+    [4X[28X            , journal := "Important Journal", title := "Short", [128X[104X
+    [4X[28X          year := "2000" ) ], [ "j" ], [ "Important Journal" ] ][128X[104X
+  [4X[32X[104X
+  
+  [1X7.1-2 NormalizedNameAndKey[101X
+  
+  [33X[1;0Y[29X[2XNormalizedNameAndKey[102X( [3Xnamestr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ylist of strings and names as lists[133X
+  
+  [33X[1;0Y[29X[2XNormalizeNameAndKey[102X( [3Xr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThe  argument  [3Xnamestr[103X  must  be  a string describing an author or a list of
+  authors as described in the BibTeX documentation in [Lam85, Appendix B 1.2].
+  The  function  [2XNormalizedNameAndKey[102X  returns a list of the form [ normalized
+  name  string,  short  key,  long  key, names as lists]. The first entry is a
+  normalized form of the input where names are written as [21Xlastname, first name
+  initials[121X.  The second and third entry are the name parts of a short and long
+  key  for  the  bibliography entry, formed from the (initials of) last names.
+  The  fourth  entry  is  a  list of lists, one for each name, where a name is
+  described  by  three  strings for the last name, the first name initials and
+  the first name(s) as given in the input.[133X
+  
+  [33X[0;0YThe  function  [2XNormalizeNameAndKey[102X  gets  as  argument  [3Xr[103X  a  record  for  a
+  bibliography  entry  as  returned  by  [2XParseBibFiles[102X ([14X7.1-1[114X). It substitutes
+  [10X.author[110X  and  [10X.editor[110X  fields  of  [3Xr[103X  by their normalized form, the original
+  versions are stored in fields [10X.authororig[110X and [10X.editororig[110X.[133X
+  
+  [33X[0;0YFurthermore  a  short  and  a  long  citation key is generated and stored in
+  components [10X.printedkey[110X (only if no [10X.key[110X is already bound) and [10X.keylong[110X.[133X
+  
+  [33X[0;0YWe continue the example from [2XParseBibFiles[102X ([14X7.1-1[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgddirs := DirectoriesPackageLibrary("gapdoc","doc");;[127X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(gddirs, "test.bib");;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibFiles(f);;[127X[104X
+    [4X[25Xgap>[125X [27XNormalizedNameAndKey(bib[1][1].author);[127X[104X
+    [4X[28X[ "First, F. A. and Sec, X. Y.", "FS", "firstsec", [128X[104X
+    [4X[28X  [ [ "First", "F. A.", "Fritz A." ], [ "Sec", "X. Y.", "X. Y." ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XNormalizeNameAndKey(bib[1][1]);[127X[104X
+    [4X[25Xgap>[125X [27Xbib[1][1];[127X[104X
+    [4X[28Xrec( From := rec( BibTeX := true ), Label := "AB2000", [128X[104X
+    [4X[28X  Type := "article", author := "First, F. A. and Sec, X. Y.", [128X[104X
+    [4X[28X  authororig := "Fritz A. First and Sec, X. Y.", [128X[104X
+    [4X[28X  journal := "Important Journal", keylong := "firstsec2000", [128X[104X
+    [4X[28X  printedkey := "FS00", title := "Short", year := "2000" )[128X[104X
+  [4X[32X[104X
+  
+  [1X7.1-3 WriteBibFile[101X
+  
+  [33X[1;0Y[29X[2XWriteBibFile[102X( [3Xbibfile[103X, [3Xbib[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThis  is  the converse of [2XParseBibFiles[102X ([14X7.1-1[114X). Here [3Xbib[103X either must have a
+  format as list of three lists as it is returned by [2XParseBibFiles[102X ([14X7.1-1[114X). Or
+  [3Xbib[103X  can  be  a  record as returned by [2XParseBibXMLextFiles[102X ([14X7.3-4[114X). A BibTeX
+  file  [3Xbibfile[103X is written and the entries are formatted in a uniform way. All
+  given abbreviations are used while writing this file.[133X
+  
+  [33X[0;0YWe continue the example from [2XNormalizeNameAndKey[102X ([14X7.1-2[114X). The command[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XWriteBibFile("nicer.bib", bib);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yproduces a file [11Xnicer.bib[111X as follows:[133X
+  
+  [4X[32X  nicer.bib  [32X[104X
+    [4X@string{j = "Important Journal" }[104X
+    [4X[104X
+    [4X@article{ AB2000,[104X
+    [4X  author =           {First, F. A. and Sec, X. Y.},[104X
+    [4X  title =            {Short},[104X
+    [4X  journal =          j,[104X
+    [4X  year =             {2000},[104X
+    [4X  authororig =       {Fritz A. First and Sec, X. Y.},[104X
+    [4X  keylong =          {firstsec2000},[104X
+    [4X  printedkey =       {FS00}[104X
+    [4X}[104X
+  [4X[32X[104X
+  
+  [1X7.1-4 LabelsFromBibTeX[101X
+  
+  [33X[1;0Y[29X[2XLabelsFromBibTeX[102X( [3Xpath[103X, [3Xkeys[103X, [3Xbibfiles[103X, [3Xstyle[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya list of pairs of strings [10X[key, label][110X[133X
+  
+  [33X[0;0YThis  function uses [10Xbibtex[110X to determine the ordering of a list of references
+  and  a  label  for  each  entry  which is typeset in a document citing these
+  references.[133X
+  
+  [33X[0;0YThe  argument  [3Xpath[103X  is a directory specified as string or directory object.
+  The  argument  [3Xbibfiles[103X  must  be  a  list  of  files in BibTeX format, each
+  specified  by  a  path  relative  to the first argument, or an absolute path
+  (starting  with  [10X'/'[110X) or relative to the [5XGAP[105X roots (starting with [10X"gap://"[110X).
+  The  list  [3Xkeys[103X must contain strings which occur as keys in the given BibTeX
+  files.  Finally  the  string  [3Xstyle[103X must be the name of a bibliography style
+  (like [10X"alpha"[110X).[133X
+  
+  [33X[0;0YThe  list returned by this function contains pairs [10X[key, label][110X where [10Xkey[110X is
+  one  of  the entries of [3Xkeys[103X and [10Xlabel[110X is a string used for citations of the
+  bibliography  entry  in a document. These pairs are ordered as the reference
+  list produced by BibTeX.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(DirectoriesPackageLibrary("gapdoc","doc"), "test.bib");;[127X[104X
+    [4X[25Xgap>[125X [27XLabelsFromBibTeX(".", ["AB2000"], [f], "alpha");[127X[104X
+    [4X[28X[ [ "AB2000", "FS00" ] ][128X[104X
+  [4X[32X[104X
+  
+  [1X7.1-5 InfoBibTools[101X
+  
+  [33X[1;0Y[29X[2XInfoBibTools[102X [32X info class[133X
+  
+  [33X[0;0YThe  default  level  of  this  info class is 1. Functions like [2XParseBibFiles[102X
+  ([14X7.1-1[114X), [10XStringBibAs...[110X are then printing some information. You can suppress
+  it by setting the level of [2XInfoBibTools[102X to 0. With level 2 there may be some
+  more information for debugging purposes.[133X
+  
+  
+  [1X7.2 [33X[0;0YThe BibXMLext Format[133X[101X
+  
+  [33X[0;0YBibliographical  data  in BibTeX files have the disadvantage that the actual
+  data  are given in LaTeX syntax. This makes it difficult to use the data for
+  anything but for LaTeX, say for representations of the data as plain text or
+  HTML.  For  example:  mathematical  formulae  are  in  LaTeX [10X$[110X environments,
+  non-ASCII  characters  can  be  specified  in  many strange ways, and how to
+  specify URLs for links if the output format allows them?[133X
+  
+  [33X[0;0YHere  we propose an XML data format for bibliographical data which addresses
+  these problems, it is called BibXMLext. In the next section we describe some
+  tools  for  generating  (an  approximation  to) this data format from BibTeX
+  data, and for using data given in BibXMLext format for various purposes.[133X
+  
+  [33X[0;0YThe   first   motivation   for   this   development   was  the  handling  of
+  bibliographical  data  in [5XGAPDoc[105X, but the format and the tools are certainly
+  useful for other purposes as well.[133X
+  
+  [33X[0;0YWe  started  from  a  DTD  [11Xbibxml.dtd[111X  which is publicly available, say from
+  [7Xhttps://bibtexml.sf.net/[107X.   This  is  essentially  a  reformulation  of  the
+  definition  of  the  BibTeX  format,  including  several of some widely used
+  further fields. This has already the advantage that a generic XML parser can
+  check  the  validity of the data entries, for example for missing compulsary
+  fields in entries. We applied the following changes and extensions to define
+  the  DTD  for BibXMLext, stored in the file [11Xbibxmlext.dtd[111X which can be found
+  in the root directory of this [5XGAPDoc[105X package (and in Appendix [14XC[114X):[133X
+  
+  [8Xnames[108X
+        [33X[0;6YLists of names in the [10Xauthor[110X and [10Xeditor[110X fields in BibTeX are difficult
+        to  parse.  Here  they  must be given by a sequence of [10X<name>[110X-elements
+        which  each  contain an optional [10X<first>[110X- and a [10X<last>[110X-element for the
+        first and last names, respectively.[133X
+  
+  [8X[10X<M>[110X[8X and [10X<Math>[110X[8X[108X
+        [33X[0;6YThese  elements  enclose  mathematical  formulae, the content is LaTeX
+        code  (without  the [10X$[110X). These should be handled in the same way as the
+        elements  with  the  same  names  in  [5XGAPDoc[105X,  see [14X3.8-2[114X and [14X3.8-1[114X. In
+        particular,  simple  formulae  which  have  a  well defined plain text
+        representation can be given in [10X<M>[110X-elements.[133X
+  
+  [8XEncoding[108X
+        [33X[0;6YNote  that  in  XML  files  we  can  use  the  full  range  of unicode
+        characters,  see  [7Xhttps://www.unicode.org/[107X.  All  non-ASCII characters
+        should  be  specified  as  unicode characters. This makes dealing with
+        special  characters  easy  for  plain  text or HTML, only for use with
+        LaTeX some sort of translation is necessary.[133X
+  
+  [8X[10X<URL>[110X[8X[108X
+        [33X[0;6YThese  elements  are  allowed  everywhere  in  the  text and should be
+        represented by links in converted formats which allow this. It is used
+        in  the  same  way  as  the  element with the same name in [5XGAPDoc[105X, see
+        [14X3.5-5[114X.[133X
+  
+  [8X[10X<Alt Only="...">[110X[8X and [10X<Alt Not="...">[110X[8X[108X
+        [33X[0;6YSometimes  information should be given in different ways, depending on
+        the   output   format   of   the  data.  This  is  possible  with  the
+        [10X<Alt>[110X-elements with the same definition as in [5XGAPDoc[105X, see [14X3.9-1[114X.[133X
+  
+  [8X[10X<C>[110X[8X[108X
+        [33X[0;6YThis  element  should  be  used  to  protect text from case changes by
+        converters (the extra [10X{}[110X characters in BibTeX title fields).[133X
+  
+  [8X[10X<string key="..." value="..."/>[110X[8X and [10X<value key="..."/>[110X[8X[108X
+        [33X[0;6YThe  [10X<string>[110X-element defines key-value pairs which can be used in any
+        field  via  the  [10X<value>[110X-element  (not  only for whole fields but also
+        parts of the text).[133X
+  
+  [8X[10X<other type="...">[110X[8X[108X
+        [33X[0;6YThis  is  a  generic  element  for  fields  which  are  otherwise  not
+        supported.  An  arbitrary number of them is allowed for each entry, so
+        any kind of additional data can be added to entries.[133X
+  
+  [8X[10X<Wrap Name="...">[110X[8X[108X
+        [33X[0;6YThis generic element is allowed inside all fields. This markup will be
+        just  ignored (but not the element content) by our standard tools. But
+        it  can be a useful hook for introducing arbitrary further markup (and
+        our tools can easily be extended to handle it).[133X
+  
+  [8XExtra entities[108X
+        [33X[0;6YThe  DTD  defines  the  standard XML entities ([14X2.1-10[114X and the entities
+        [10X&nbsp;[110X  (non-breakable space), [10X&ndash;[110X and [10X&copyright;[110X. Use [10X&ndash;[110X in
+        page ranges.[133X
+  
+  [33X[0;0YFor  further  details  of  the DTD we refer to the file [11Xbibxmlext.dtd[111X itself
+  which  is  shown in appendix [14XC[114X. That file also recalls some information from
+  the  BibTeX  documentation  on  how the standard fields of entries should be
+  used.  Which entry types and which fields are supported (and the ordering of
+  the  fields  which  is  fixed  by  a DTD) can be either read off the DTD, or
+  within [5XGAP[105X one can use the function [2XTemplateBibXML[102X ([14X7.3-10[114X) to get templates
+  for the various entry types.[133X
+  
+  [33X[0;0YHere is an example of a BibXMLext document:[133X
+  
+  [4X[32X  doc/testbib.xml  [32X[104X
+    [4X<?xml version="1.0" encoding="UTF-8"?>[104X
+    [4X<!DOCTYPE file SYSTEM "bibxmlext.dtd">[104X
+    [4X<file>[104X
+    [4X<string key="j" value="Important Journal"/>[104X
+    [4X<entry id="AB2000"><article>[104X
+    [4X  <author>[104X
+    [4X    <name><first>Fritz A.</first><last>First</last></name>[104X
+    [4X    <name><first>X. Y.</first><last>Sec&#x0151;nd</last></name>[104X
+    [4X  </author>  [104X
+    [4X  <title>The <Wrap Name="Package"> <C>F</C>ritz</Wrap> package for the [104X
+    [4X         formula <M>x^y - l_{{i+1}} \rightarrow \mathbb{R}</M></title>[104X
+    [4X  <journal><value key="j"/></journal>[104X
+    [4X  <year>2000</year>[104X
+    [4X  <number>13</number>[104X
+    [4X  <pages>13&ndash;25</pages>[104X
+    [4X  <note>Online data at <URL Text="Bla Bla Publisher">[104X
+    [4X                  http://www.publish.com/~ImpJ/123#data</URL></note>[104X
+    [4X  <other type="mycomment">very useful</other>[104X
+    [4X</article></entry>[104X
+    [4X</file>[104X
+    [4X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThere  is  a  standard XML header and a [10XDOCTYPE[110X declaration referring to the
+  [11Xbibxmlext.dtd[111X  DTD  mentioned  above. Local entities could be defined in the
+  [10XDOCTYPE[110X  tag  as  shown  in  the example in [14X2.2-3[114X. The actual content of the
+  document   is   inside  a  [10X<file>[110X-element,  it  consists  of  [10X<string>[110X-  and
+  [10X<entry>[110X-elements.  Several  of  the  BibXMLext markup features are shown. We
+  will use this input document for some examples below.[133X
+  
+  
+  [1X7.3 [33X[0;0YUtilities for BibXMLext data[133X[101X
+  
+  
+  [1X7.3-1 [33X[0;0YTranslating BibTeX to BibXMLext[133X[101X
+  
+  [33X[0;0YFirst  we  describe  a  tool  which  can translate bibliography entries from
+  BibTeX  data  to BibXMLext [10X<entry>[110X-elements. It also does some validation of
+  the  data.  In  some  cases  it  is  desirable to improve the result by hand
+  afterwards  (editing  formulae, adding [10X<URL>[110X-elements, translating non-ASCII
+  characters to unicode, ...).[133X
+  
+  [33X[0;0YSee  [2XWriteBibXMLextFile[102X  ([14X7.3-5[114X)  below  for  how  to write the results to a
+  BibXMLext file.[133X
+  
+  [1X7.3-2 HeuristicTranslationsLaTeX2XML.Apply[101X
+  
+  [33X[1;0Y[29X[2XHeuristicTranslationsLaTeX2XML.Apply[102X( [3Xstr[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string[133X
+  
+  [33X[1;0Y[29X[2XHeuristicTranslationsLaTeX2XML.ApplyToFile[102X( [3Xfnam[103X[, [3Xoutnam[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThese  utilities  translate some LaTeX code into text in UTF-8 encoding. The
+  input is given as a string [3Xstr[103X, or a file name [3Xfnam[103X, respectively. The first
+  function  returns  the  translated  string.  The  second  function  with one
+  argument overwrites the given file with the translated text. Optionally, the
+  translated file content can be written to another file, if its name is given
+  as second argument [3Xoutnam[103X.[133X
+  
+  [33X[0;0YThe  record  [10XHeuristicTranslationsLaTeX2XML[110X  mainly contains translations of
+  LaTeX  macros  for special characters which were found in hundreds of BibTeX
+  entries from MathSciNet ([7Xhttps://www.ams.org/mathscinet/[107X). Just look at this
+  record  if  you  want to know how it works. It is easy to extend, and if you
+  have  improvements which may be of general interest, please send them to the
+  [5XGAPDoc[105X author.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs := "\\\"u\\'{e}\\`e{\\ss}";;[127X[104X
+    [4X[25Xgap>[125X [27XPrint(s, "\n");               [127X[104X
+    [4X[28X\"u\'{e}\`e{\ss}[128X[104X
+    [4X[25Xgap>[125X [27XPrint(HeuristicTranslationsLaTeX2XML.Apply(s),"\n");[127X[104X
+    [4X[28Xüéèß[128X[104X
+  [4X[32X[104X
+  
+  [1X7.3-3 StringBibAsXMLext[101X
+  
+  [33X[1;0Y[29X[2XStringBibAsXMLext[102X( [3Xbibentry[103X[, [3Xabbrvs[103X, [3Xvals[103X][, [3Xencoding[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string with XML code, or [9Xfail[109X[133X
+  
+  [33X[0;0YThe  argument [3Xbibentry[103X is a record representing an entry from a BibTeX file,
+  as  returned  in  the first list of the result of [2XParseBibFiles[102X ([14X7.1-1[114X). The
+  optional  two  arguments  [3Xabbrvs[103X  and [3Xvals[103X can be lists of abbreviations and
+  substitution  strings,  as  returned as second and third list element in the
+  result  of  [2XParseBibFiles[102X  ([14X7.1-1[114X). The optional argument [3Xencoding[103X specifies
+  the  character encoding of the string components of [3Xbibentry[103X. If this is not
+  given  it is checked if all strings are valid UTF-8 encoded strings, in that
+  case it is assumed that the encoding is UTF-8, otherwise the latin1 encoding
+  is assumed.[133X
+  
+  [33X[0;0YThe  function  [2XStringBibAsXMLext[102X  creates  XML code of an [10X<entry>[110X-element in
+  [10XBibXMLext[110X  format.  The  result  is  in  UTF-8  encoding  and  contains some
+  heuristic  translations,  like  splitting  name  lists,  finding  places for
+  [10X<C>[110X-elements,   putting   formulae   in   [10X<M>[110X-elements,   substituting  some
+  characters.  The result should always be checked and maybe improved by hand.
+  Some  validity  checks  are  applied  to  the given data, for example if all
+  non-optional  fields  are  given.  If  this check fails the function returns
+  [9Xfail[109X.[133X
+  
+  [33X[0;0YIf your BibTeX input contains LaTeX markup for special characters, it can be
+  convenient to translate this input with [2XHeuristicTranslationsLaTeX2XML.Apply[102X
+  ([14X7.3-2[114X) or [2XHeuristicTranslationsLaTeX2XML.ApplyToFile[102X ([14X7.3-2[114X) before parsing
+  it as BibTeX.[133X
+  
+  [33X[0;0YAs  an example we consider again the short BibTeX file [11Xdoc/test.bib[111X shown in
+  the example for [2XParseBibFiles[102X ([14X7.1-1[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgddirs := DirectoriesPackageLibrary("gapdoc","doc");;[127X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(gddirs, "test.bib");;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibFiles(f);;[127X[104X
+    [4X[25Xgap>[125X [27Xstr := StringBibAsXMLext(bib[1][1], bib[2], bib[3]);;[127X[104X
+    [4X[25Xgap>[125X [27XPrint(str, "\n");[127X[104X
+    [4X[28X<entry id="AB2000"><article>[128X[104X
+    [4X[28X  <author>[128X[104X
+    [4X[28X    <name><first>Fritz A.</first><last>First</last></name>[128X[104X
+    [4X[28X    <name><first>X. Y.</first><last>Sec</last></name>[128X[104X
+    [4X[28X  </author>  [128X[104X
+    [4X[28X  <title>Short</title>[128X[104X
+    [4X[28X  <journal><value key="j"/></journal>[128X[104X
+    [4X[28X  <year>2000</year>[128X[104X
+    [4X[28X</article></entry>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe following functions allow parsing of data which are already in BibXMLext
+  format.[133X
+  
+  [1X7.3-4 ParseBibXMLextString[101X
+  
+  [33X[1;0Y[29X[2XParseBibXMLextString[102X( [3Xstr[103X[, [3Xres[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XParseBibXMLextFiles[102X( [3Xfname1[103X[, [3Xfname2[103X[, [3X...[103X]] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya record with fields [10X.entries[110X, [10X.strings[110X and [10X.entities[110X[133X
+  
+  [33X[0;0YThe  first  function  gets a string [3Xstr[103X containing a [10XBibXMLext[110X document or a
+  part  of  it.  It  returns  a  record  with the three mentioned fields. Here
+  [10X.entries[110X  is  a  list of partial XML parse trees for the [10X<entry>[110X-elements in
+  [3Xstr[103X.   The   field   [10X.strings[110X   is  a  list  of  key-value  pairs  from  the
+  [10X<string>[110X-elements  in [3Xstr[103X. And [10X.strings[110X is a list of name-value pairs of the
+  named entities which were used during the parsing.[133X
+  
+  [33X[0;0YThe  optional  argument  [3Xres[103X  can  be  the  result  of a former call of this
+  function,  in  that  case  the  newly  parsed entries are added to this data
+  structure.[133X
+  
+  [33X[0;0YThe second function [2XParseBibXMLextFiles[102X uses the first on the content of all
+  files  given  by  filenames  [3Xfname1[103X  and so on. It collects the results in a
+  single record.[133X
+  
+  [33X[0;0YAs an example we parse the file [11Xtestbib.xml[111X shown in [14X7.2[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgddirs := DirectoriesPackageLibrary("gapdoc","doc");;[127X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(gddirs, "testbib.xml");;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibXMLextFiles(f);;[127X[104X
+    [4X[25Xgap>[125X [27XSet(RecNames(bib));[127X[104X
+    [4X[28X[ "entities", "entries", "strings" ][128X[104X
+    [4X[25Xgap>[125X [27Xbib.entries;[127X[104X
+    [4X[28X[ <BibXMLext entry: AB2000> ][128X[104X
+    [4X[25Xgap>[125X [27Xbib.strings;[127X[104X
+    [4X[28X[ [ "j", "Important Journal" ] ][128X[104X
+    [4X[25Xgap>[125X [27Xbib.entities[1]; [127X[104X
+    [4X[28X[ "amp", "&#38;#38;" ][128X[104X
+  [4X[32X[104X
+  
+  [1X7.3-5 WriteBibXMLextFile[101X
+  
+  [33X[1;0Y[29X[2XWriteBibXMLextFile[102X( [3Xfname[103X, [3Xbib[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThis function writes a BibXMLext file with name [3Xfname[103X.[133X
+  
+  [33X[0;0YThere  are  three  possibilities  to specify the bibliography entries in the
+  argument  [3Xbib[103X.  It can be a list of three lists as returned by [2XParseBibFiles[102X
+  ([14X7.1-1[114X).  Or  it can be just the first of such three lists in which case the
+  other  two lists are assumed to be empty. To all entries of the (first) list
+  the  function [2XStringBibAsXMLext[102X ([14X7.3-3[114X) is applied and the resulting strings
+  are written to the result file.[133X
+  
+  [33X[0;0YThe  third  possibility is that [3Xbib[103X is a record in the format as returned by
+  [2XParseBibXMLextString[102X  ([14X7.3-4[114X)  and [2XParseBibXMLextFiles[102X ([14X7.3-4[114X). In this case
+  the  entries  for  the  BibXMLext  file  are  produced with [2XStringXMLElement[102X
+  ([14X5.2-2[114X), and if [3Xbib[103X[10X.entities[110X is bound then it is tried to resubstitute parts
+  of the string by the given entities with [2XEntitySubstitution[102X ([14X5.2-3[114X).[133X
+  
+  [33X[0;0YAs   an  example  we  write  back  the  result  of  the  example  shown  for
+  [2XParseBibXMLextFiles[102X ([14X7.3-4[114X) to an equivalent XML file.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgddirs := DirectoriesPackageLibrary("gapdoc","doc");;[127X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(gddirs, "testbib.xml");;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibXMLextFiles(f);;[127X[104X
+    [4X[25Xgap>[125X [27XWriteBibXMLextFile("test.xml", bib);[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X7.3-6 [33X[0;0YBibliography Entries as Records[133X[101X
+  
+  [33X[0;0YFor  working with BibXMLext entries we find it convenient to first translate
+  the parse tree of an entry, as returned by [2XParseBibXMLextFiles[102X ([14X7.3-4[114X), to a
+  record  with  the  field names of the entry as components whose value is the
+  content  of the field as string. These strings are generated with respect to
+  a result type. The records are generated by the following function which can
+  be customized by the user.[133X
+  
+  [1X7.3-7 RecBibXMLEntry[101X
+  
+  [33X[1;0Y[29X[2XRecBibXMLEntry[102X( [3Xentry[103X[, [3Xrestype[103X][, [3Xstrings[103X][, [3Xoptions[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya record with fields as strings[133X
+  
+  [33X[0;0YThis  function  generates  a content string for each field of a bibliography
+  entry  and assigns them to record components. This content may depend on the
+  requested result type and possibly some given options.[133X
+  
+  [33X[0;0YThe  arguments are as follows: [3Xentry[103X is the parse tree of an [10X<entry>[110X element
+  as  returned by [2XParseBibXMLextString[102X ([14X7.3-4[114X) or [2XParseBibXMLextFiles[102X ([14X7.3-4[114X).
+  The optional argument [3Xrestype[103X describes the type of the result. This package
+  supports  currently  the  types  [10X"BibTeX"[110X, [10X"Text"[110X and [10X"HTML"[110X. The default is
+  [10X"BibTeX"[110X. The optional argument [3Xstrings[103X must be a list of key-value pairs as
+  returned  in  the  component  [10X.strings[110X in the result of [2XParseBibXMLextString[102X
+  ([14X7.3-4[114X). The argument [3Xoptions[103X must be a record.[133X
+  
+  [33X[0;0YIf  the  entry  contains an [10Xauthor[110X field then the result will also contain a
+  component  [10X.authorAsList[110X  which  is a list containing for each author a list
+  with  three entries of the form [10X[last name, first name initials, first name][110X
+  (the  third  entry means the first name as given in the data). Similarly, an
+  [10Xeditor[110X field is accompanied by a component [10X.editorAsList[110X.[133X
+  
+  [33X[0;0YThe following [3Xoptions[103X are currently supported.[133X
+  
+  [33X[0;0YIf [10Xoptions.fullname[110X is bound and set to [9Xtrue[109X then the full given first names
+  for  authors and editors will be used, the default is to use the initials of
+  the  first  names.  Also,  if [10Xoptions.namefirstlast[110X is bound and set to [9Xtrue[109X
+  then  the names are written in the form [21Xfirst-name(s) last-name[121X, the default
+  is the form [21Xlast-name, first-name(s)[121X.[133X
+  
+  [33X[0;0YIf [10Xoptions.href[110X is bound and set to [9Xfalse[109X then the [10X"BibTeX"[110X type result will
+  not  use  [10X\href[110X  commands.  The  default  is  to produce [10X\href[110X commands from
+  [10X<URL>[110X-elements  such  that LaTeX with the [10Xhyperref[110X package can produce links
+  for them.[133X
+  
+  [33X[0;0YThe  content  of an [10X<Alt>[110X-element with [10XOnly[110X-attribute is included if [3Xrestype[103X
+  is given in the attribute and ignored otherwise, and vice versa in case of a
+  [10XNot[110X-attribute.  If  [10Xoptions.useAlt[110X is bound, it must be a list of strings to
+  which  [3Xrestype[103X  is  added.  Then  an  [10X<Alt>[110X-element  with  [10XOnly[110X-attribute is
+  evaluated  if  the intersection of [10Xoptions.useAlt[110X and the types given in the
+  attribute  is not empty. In case of a [10XNot[110X-attribute the element is evaluated
+  if this intersection is empty.[133X
+  
+  [33X[0;0YIf  [3Xrestype[103X is [10X"BibTeX"[110X then the string fields in the result will be recoded
+  with  [2XEncode[102X  ([14X6.2-2[114X) and target [10X"LaTeX"[110X. If [10Xoptions.hasLaTeXmarkup[110X is bound
+  and  set  to  [9Xtrue[109X  (for  example, because the data are originally read from
+  BibTeX files), then the target [10X"LaTeXleavemarkup"[110X will be used.[133X
+  
+  [33X[0;0YWe use again the file shown in the example for [2XParseBibXMLextFiles[102X ([14X7.3-4[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgddirs := DirectoriesPackageLibrary("gapdoc","doc");;[127X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(gddirs, "testbib.xml");;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibXMLextFiles(f);;[127X[104X
+    [4X[25Xgap>[125X [27Xe := bib.entries[1];; strs := bib.strings;;[127X[104X
+    [4X[25Xgap>[125X [27XPrint(RecBibXMLEntry(e, "BibTeX", strs), "\n");[127X[104X
+    [4X[28Xrec([128X[104X
+    [4X[28X  From := rec([128X[104X
+    [4X[28X      BibXML := true,[128X[104X
+    [4X[28X      options := rec([128X[104X
+    [4X[28X           ),[128X[104X
+    [4X[28X      type := "BibTeX" ),[128X[104X
+    [4X[28X  Label := "AB2000",[128X[104X
+    [4X[28X  Type := "article",[128X[104X
+    [4X[28X  author := "First, F. A. and Sec{\\H o}nd, X. Y.",[128X[104X
+    [4X[28X  authorAsList := [128X[104X
+    [4X[28X   [ [ "First", "F. A.", "Fritz A." ], [128X[104X
+    [4X[28X      [ "Sec\305\221nd", "X. Y.", "X. Y." ] ],[128X[104X
+    [4X[28X  journal := "Important Journal",[128X[104X
+    [4X[28X  mycomment := "very useful",[128X[104X
+    [4X[28X  note := [128X[104X
+    [4X[28X   "Online data at \\href {http://www.publish.com/~ImpJ/123#data} {Bla\[128X[104X
+    [4X[28X Bla Publisher}",[128X[104X
+    [4X[28X  number := "13",[128X[104X
+    [4X[28X  pages := "13{\\textendash}25",[128X[104X
+    [4X[28X  printedkey := "FS00",[128X[104X
+    [4X[28X  title := [128X[104X
+    [4X[28X   "The  {F}ritz package for the \n         formula $x^y - l_{{i+1}} \[128X[104X
+    [4X[28X\\rightarrow \\mathbb{R}$",[128X[104X
+    [4X[28X  year := "2000" )[128X[104X
+    [4X[25Xgap>[125X [27XPrint(RecBibXMLEntry(e, "HTML", strs).note, "\n");[127X[104X
+    [4X[28XOnline data at <a href="http://www.publish.com/~ImpJ/123#data">Bla Bla\[128X[104X
+    [4X[28X Publisher</a>[128X[104X
+  [4X[32X[104X
+  
+  [1X7.3-8 AddHandlerBuildRecBibXMLEntry[101X
+  
+  [33X[1;0Y[29X[2XAddHandlerBuildRecBibXMLEntry[102X( [3Xelementname[103X, [3Xrestype[103X, [3Xhandler[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThe argument [3Xelementname[103X must be the name of an entry field supported by the
+  BibXMLext  format, the name of one of the special elements [10X"C"[110X, [10X"M"[110X, [10X"Math"[110X,
+  [10X"URL"[110X  or  of  the  form  [10X"Wrap:myname"[110X  or  any string [10X"mytype"[110X (which then
+  corresponds  to entry fields [10X<other type="mytype">[110X). The string [10X"Finish"[110X has
+  an exceptional meaning, see below.[133X
+  
+  [33X[0;0Y[3Xrestype[103X  is  a  string  describing  the result type for which the handler is
+  installed, see [2XRecBibXMLEntry[102X ([14X7.3-7[114X).[133X
+  
+  [33X[0;0YFor  both  arguments,  [3Xelementname[103X  and [3Xrestype[103X, it is also possible to give
+  lists of the described ones for installing several handler at once.[133X
+  
+  [33X[0;0YThe  argument  [3Xhandler[103X  must  be  a function with five arguments of the form
+  [3Xhandler[103X[10X(entry,  r, restype, strings, options)[110X. Here [3Xentry[103X is a parse tree of
+  a  BibXMLext  [10X<entry>[110X-element,  [3Xr[103X  is  a  node  in  this tree for an element
+  [3Xelementname[103X,   and   [3Xrestype[103X,  [3Xstrings[103X  and  [3Xoptions[103X  are  as  explained  in
+  [2XRecBibXMLEntry[102X ([14X7.3-7[114X). The function should return a string representing the
+  content  of  the  node  [3Xr[103X.  If  [3Xelementname[103X is of the form [10X"Wrap:myname"[110X the
+  handler is used for elements of form [10X<Wrap Name="myname">...</Wrap>[110X.[133X
+  
+  [33X[0;0YIf  [3Xelementname[103X  is  [10X"Finish"[110X the handler should look like above except that
+  now  [3Xr[103X  is  the record generated by [2XRecBibXMLEntry[102X ([14X7.3-7[114X) just before it is
+  returned.  Here  the  handler  should  return  nothing.  It  can  be used to
+  manipulate  the  record  [3Xr[103X,  for  example  for  changing the encoding of the
+  strings or for adding some more components.[133X
+  
+  [33X[0;0YThe  installed  handler  is called by [10XBuildRecBibXMLEntry([110X[3Xentry[103X, [3Xr[103X, [3Xrestype[103X,
+  [3Xstrings[103X,  [3Xoptions[103X[10X)[110X.  The  string  for the whole content of an element can be
+  generated   by   [10XContentBuildRecBibXMLEntry([110X[3Xentry[103X,   [3Xr[103X,   [3Xrestype[103X,  [3Xstrings[103X,
+  [3Xoptions[103X[10X)[110X.[133X
+  
+  [33X[0;0YWe  continue  the  example from [2XRecBibXMLEntry[102X ([14X7.3-7[114X) and install a handler
+  for  the [10X<Wrap Name="Package">[110X-element such that LaTeX puts its content in a
+  sans serif font.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAddHandlerBuildRecBibXMLEntry("Wrap:Package", "BibTeX",[127X[104X
+    [4X[25X>[125X [27Xfunction(entry,  r, restype,  strings, options)[127X[104X
+    [4X[25X>[125X [27X  return Concatenation("\\textsf{", ContentBuildRecBibXMLEntry([127X[104X
+    [4X[25X>[125X [27X            entry, r, restype,  strings, options), "}");[127X[104X
+    [4X[25X>[125X [27Xend);[127X[104X
+    [4X[25Xgap>[125X [27X[127X[104X
+    [4X[25Xgap>[125X [27XPrint(RecBibXMLEntry(e, "BibTeX", strs).title, "\n");[127X[104X
+    [4X[28XThe \textsf{ {F}ritz} package for the [128X[104X
+    [4X[28X         formula $x^y - l_{{i+1}} \rightarrow \mathbb{R}$[128X[104X
+    [4X[25Xgap>[125X [27XPrint(RecBibXMLEntry(e, "Text", strs).title, "\n");  [127X[104X
+    [4X[28XThe  Fritz package for the [128X[104X
+    [4X[28X         formula x^y - l_{i+1} → R[128X[104X
+    [4X[25Xgap>[125X [27XAddHandlerBuildRecBibXMLEntry("Wrap:Package", "BibTeX", "Ignore");[127X[104X
+  [4X[32X[104X
+  
+  [1X7.3-9 StringBibXMLEntry[101X
+  
+  [33X[1;0Y[29X[2XStringBibXMLEntry[102X( [3Xentry[103X[, [3Xrestype[103X][, [3Xstrings[103X][, [3Xoptions[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string[133X
+  
+  [33X[0;0YThe  arguments  of  this function have the same meaning as in [2XRecBibXMLEntry[102X
+  ([14X7.3-7[114X) but the return value is a string representing the bibliography entry
+  in a format specified by [3Xrestype[103X (default is [10X"BibTeX"[110X).[133X
+  
+  [33X[0;0YCurrently, the following cases for [3Xrestype[103X are supported:[133X
+  
+  [8X[10X"BibTeX"[110X[8X[108X
+        [33X[0;6YA string with BibTeX source code is generated.[133X
+  
+  [8X[10X"Text"[110X[8X[108X
+        [33X[0;6YA  text  representation  of  the  text is returned. If [10Xoptions.ansi[110X is
+        bound  it  must be a record. The components must have names [10XBib_Label[110X,
+        [10XBib_author[110X,  and so on for all fieldnames. The value of each component
+        is  a  pair  of strings which will enclose the content of the field in
+        the result or the first of these strings in which case the default for
+        the  second  is  [10XTextAttr.reset[110X (see [2XTextAttr[102X ([14X6.1-2[114X)). If you give an
+        empty record here, some default ANSI color markup will be used.[133X
+  
+  [8X[10X"HTML"[110X[8X[108X
+        [33X[0;6YAn HTML representation of the bibliography entry is returned. The text
+        from  each  field  is enclosed in markup (mostly [10X<span>[110X-elements) with
+        the  [10Xclass[110X  attribute  set  to  the field name. This allows a detailed
+        layout of the code via a style sheet file. If [10Xoptions.MathJax[110X is bound
+        and  has the value [9Xtrue[109X then formulae are encoded for display on pages
+        with [5XMathJax[105X support.[133X
+  
+  [8X[10X"Markdown"[110X[8X[108X
+        [33X[0;6YA  representation  of  the  bibliography  entry  in Markdown format is
+        returned. If [10Xoptions.markup[110X is bound it must be a record which is used
+        in the same way as [10Xoptions.ansi[110X for the [10X"Text"[110X version.[133X
+  
+  [33X[0;0YWe use again the file shown in the example for [2XParseBibXMLextFiles[102X ([14X7.3-4[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X   edited for readability [128X[104X
+    [4X[25Xgap>[125X [27Xgddirs := DirectoriesPackageLibrary("gapdoc","doc");;[127X[104X
+    [4X[25Xgap>[125X [27Xf := Filename(gddirs, "testbib.xml");;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibXMLextFiles(f);;[127X[104X
+    [4X[25Xgap>[125X [27Xe := bib.entries[1];; strs := bib.strings;;[127X[104X
+    [4X[25Xgap>[125X [27Xebib := StringBibXMLEntry(e, "BibTeX", strs);;[127X[104X
+    [4X[25Xgap>[125X [27XPrintFormattedString(ebib);[127X[104X
+    [4X[28X@article{ AB2000,[128X[104X
+    [4X[28X  author =           {First, F. A. and Sec{\H o}nd, X. Y.},[128X[104X
+    [4X[28X  title =            {The  {F}ritz  package  for  the formula $x^y -[128X[104X
+    [4X[28X                      l_{{i+1}} \rightarrow \mathbb{R}$},[128X[104X
+    [4X[28X  journal =          {Important Journal},[128X[104X
+    [4X[28X  number =           {13},[128X[104X
+    [4X[28X  year =             {2000},[128X[104X
+    [4X[28X  pages =            {13{\textendash}25},[128X[104X
+    [4X[28X  note =             {Online          data          at         \href[128X[104X
+    [4X[28X                      {http://www.publish.com/~ImpJ/123#data}   {Bla[128X[104X
+    [4X[28X                      Bla Publisher}},[128X[104X
+    [4X[28X  mycomment =        {very useful},[128X[104X
+    [4X[28X  printedkey =       {FS00}[128X[104X
+    [4X[28X}[128X[104X
+    [4X[25Xgap>[125X [27Xetxt := StringBibXMLEntry(e, "Text", strs);;      [127X[104X
+    [4X[25Xgap>[125X [27Xetxt := SimplifiedUnicodeString(Unicode(etxt), "latin1", "single");;[127X[104X
+    [4X[25Xgap>[125X [27Xetxt := Encode(etxt, GAPInfo.TermEncoding);;                        [127X[104X
+    [4X[25Xgap>[125X [27XPrintFormattedString(etxt);[127X[104X
+    [4X[28X[FS00]  First,  F.  A.  and Second, X. Y., The Fritz package for the[128X[104X
+    [4X[28Xformula  x^y  -  l_{i+1}  ?  R, Important Journal, 13 (2000), 13-25,[128X[104X
+    [4X[28X(Online        data        at        Bla        Bla        Publisher[128X[104X
+    [4X[28X(http://www.publish.com/~ImpJ/123#data)).[128X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xehtml := StringBibXMLEntry(e, "HTML", strs, rec(MathJax := true));;[127X[104X
+    [4X[25Xgap>[125X [27Xehtml := Encode(Unicode(ehtml), GAPInfo.TermEncoding);;[127X[104X
+    [4X[25Xgap>[125X [27XPrintFormattedString(ehtml);[127X[104X
+    [4X[28X<p class='BibEntry'>[128X[104X
+    [4X[28X[<span class='BibKey'>FS00</span>]   [128X[104X
+    [4X[28X <b class='BibAuthor'>First, F. A. and Secőnd, X. Y.</b>,[128X[104X
+    [4X[28X <i class='BibTitle'>The  Fritz package for the [128X[104X
+    [4X[28X         formula \(x^y - l_{{i+1}} \rightarrow \mathbb{R}\)</i>,[128X[104X
+    [4X[28X <span class='BibJournal'>Important Journal</span> [128X[104X
+    [4X[28X(<span class='BibNumber'>13</span>)[128X[104X
+    [4X[28X (<span class='BibYear'>2000</span>),[128X[104X
+    [4X[28X <span class='BibPages'>13–25</span><br />[128X[104X
+    [4X[28X(<span class='BibNote'>Online data at [128X[104X
+    [4X[28X<a href="http://www.publish.com/~ImpJ/123#data">Bla Bla [128X[104X
+    [4X[28XPublisher</a></span>).[128X[104X
+    [4X[28X</p>[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  following  command may be useful to generate completly new bibliography
+  entries in BibXMLext format. It also informs about the supported entry types
+  and field names.[133X
+  
+  [1X7.3-10 TemplateBibXML[101X
+  
+  [33X[1;0Y[29X[2XTemplateBibXML[102X( [[3Xtype[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ylist of types or string[133X
+  
+  [33X[0;0YWithout  an  argument  this  function  returns a list of the supported entry
+  types in BibXMLext documents.[133X
+  
+  [33X[0;0YWith  an  argument [3Xtype[103X of one of the supported types the function returns a
+  string  which  is  a  template for a corresponding BibXMLext entry. Optional
+  field  elements  have  a [10X*[110X appended. If an element has the word [10XOR[110X appended,
+  then  either this element or the next must/can be given, not both. If [10XAND/OR[110X
+  is  appended then this and/or the next can/must be given. Elements which can
+  appear several times have a [10X+[110X appended. Places to fill are marked by an [10XX[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XTemplateBibXML();[127X[104X
+    [4X[28X[ "article", "book", "booklet", "conference", "inbook", [128X[104X
+    [4X[28X  "incollection", "inproceedings", "manual", "mastersthesis", "misc", [128X[104X
+    [4X[28X  "phdthesis", "proceedings", "techreport", "unpublished" ][128X[104X
+    [4X[25Xgap>[125X [27XPrint(TemplateBibXML("inbook"));[127X[104X
+    [4X[28X<entry id="X"><inbook>[128X[104X
+    [4X[28X  <author>[128X[104X
+    [4X[28X    <name><first>X</first><last>X</last></name>+[128X[104X
+    [4X[28X  </author>OR[128X[104X
+    [4X[28X  <editor>[128X[104X
+    [4X[28X    <name><first>X</first><last>X</last></name>+[128X[104X
+    [4X[28X  </editor>[128X[104X
+    [4X[28X  <title>X</title>[128X[104X
+    [4X[28X  <chapter>X</chapter>AND/OR[128X[104X
+    [4X[28X  <pages>X</pages>[128X[104X
+    [4X[28X  <publisher>X</publisher>[128X[104X
+    [4X[28X  <year>X</year>[128X[104X
+    [4X[28X  <volume>X</volume>*OR[128X[104X
+    [4X[28X  <number>X</number>*[128X[104X
+    [4X[28X  <series>X</series>*[128X[104X
+    [4X[28X  <type>X</type>*[128X[104X
+    [4X[28X  <address>X</address>*[128X[104X
+    [4X[28X  <edition>X</edition>*[128X[104X
+    [4X[28X  <month>X</month>*[128X[104X
+    [4X[28X  <note>X</note>*[128X[104X
+    [4X[28X  <key>X</key>*[128X[104X
+    [4X[28X  <annotate>X</annotate>*[128X[104X
+    [4X[28X  <crossref>X</crossref>*[128X[104X
+    [4X[28X  <abstract>X</abstract>*[128X[104X
+    [4X[28X  <affiliation>X</affiliation>*[128X[104X
+    [4X[28X  <contents>X</contents>*[128X[104X
+    [4X[28X  <copyright>X</copyright>*[128X[104X
+    [4X[28X  <isbn>X</isbn>*OR[128X[104X
+    [4X[28X  <issn>X</issn>*[128X[104X
+    [4X[28X  <keywords>X</keywords>*[128X[104X
+    [4X[28X  <language>X</language>*[128X[104X
+    [4X[28X  <lccn>X</lccn>*[128X[104X
+    [4X[28X  <location>X</location>*[128X[104X
+    [4X[28X  <mrnumber>X</mrnumber>*[128X[104X
+    [4X[28X  <mrclass>X</mrclass>*[128X[104X
+    [4X[28X  <mrreviewer>X</mrreviewer>*[128X[104X
+    [4X[28X  <price>X</price>*[128X[104X
+    [4X[28X  <size>X</size>*[128X[104X
+    [4X[28X  <url>X</url>*[128X[104X
+    [4X[28X  <category>X</category>*[128X[104X
+    [4X[28X  <other type="X">X</other>*+[128X[104X
+    [4X[28X</inbook></entry>[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X7.4 [33X[0;0YGetting BibTeX entries from [5XMathSciNet[105X[101X[1X[133X[101X
+  
+  [33X[0;0YWe      provide      utilities     to     access     the     [5X     MathSciNet[105X
+  ([7Xhttps://www.ams.org/mathscinet/[107X)  data  base  from  within  GAP.  The first
+  condition  for  this  to  work  is  that one of the programs [10Xwget[110X or [10Xcurl[110X is
+  installed  on  your  system.  The  second  is, of course, that you use these
+  functions from a computer which has access to [5XMathSciNet[105X.[133X
+  
+  [33X[0;0YPlease note, that the usual license for [5XMathSciNet[105X access does not allow for
+  automated searches in the database. Therefore, only use the [2XSearchMR[102X ([14X7.4-1[114X)
+  function for single queries, as you would do using your webbrowser.[133X
+  
+  [1X7.4-1 SearchMR[101X
+  
+  [33X[1;0Y[29X[2XSearchMR[102X( [3Xqurec[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XSearchMRBib[102X( [3Xbib[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya list of strings, a string or [9Xfail[109X[133X
+  
+  [33X[0;0YThe  first  function  [2XSearchMR[102X  provides  the  same functionality as the Web
+  interface  [5X  MathSciNet[105X ([7Xhttps://www.ams.org/mathscinet/[107X). The query strings
+  must  be  given as a record, and the following components of this record are
+  recognized:    [10XAuthor[110X,    [10XAuthorRelated[110X,    [10XTitle[110X,    [10XReviewText[110X,   [10XJournal[110X,
+  [10XInstitutionCode[110X,   [10XSeries[110X,   [10XMSCPrimSec[110X,   [10XMSCPrimary[110X,  [10XMRNumber[110X,  [10XAnywhere[110X,
+  [10XReferences[110X and [10XYear[110X.[133X
+  
+  [33X[0;0YFurthermore,  the component [10Xtype[110X can be specified. It can be one of [10X"bibtex"[110X
+  (the  default  if not given), [10X"pdf"[110X, [10X"html"[110X and probably others. In the last
+  cases  the  function  returns  a  string  with  the  content of the web page
+  returned by [5XMathSciNet[105X. In the first case the [5XMathSciNet[105X interface returns a
+  web  page  with BibTeX entries, for convenience this function returns a list
+  of strings, each containing the BibTeX text for a single result entry.[133X
+  
+  [33X[0;0YIf  a  component [10Xuri[110X is bound and set to [9Xtrue[109X the function does not actually
+  send  a  request to [5XMathSciNet[105X but returns a string with the URI that can be
+  called for the request.[133X
+  
+  [33X[0;0YThe  format  of  a  [10X.Year[110X  component  can  be  either  a  four digit number,
+  optionally  preceded  by one of the characters [10X'<'[110X, [10X'>'[110X or [10X'='[110X, or it can be
+  two four digit numbers separated by a [10X-[110X to specify a year range.[133X
+  
+  [33X[0;0YThe  function [2XSearchMRBib[102X gets a record of a parsed BibTeX entry as input as
+  returned  by  [2XParseBibFiles[102X  ([14X7.1-1[114X) or [2XParseBibStrings[102X ([14X7.1-1[114X). It tries to
+  generate  some  sensible  input from this information for [2XSearchMR[102X and calls
+  that function.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xll := SearchMR(rec(Author:="Gauss", Title:="Disquisitiones"));;[127X[104X
+    [4X[25Xgap>[125X [27Xll2 := List(ll, HeuristicTranslationsLaTeX2XML.Apply);;[127X[104X
+    [4X[25Xgap>[125X [27Xbib := ParseBibStrings(Concatenation(ll2));;[127X[104X
+    [4X[25Xgap>[125X [27Xbibxml := List(bib[1], StringBibAsXMLext);;[127X[104X
+    [4X[25Xgap>[125X [27Xbib2 := ParseBibXMLextString(Concatenation(bibxml));;[127X[104X
+    [4X[25Xgap>[125X [27Xfor b in bib2.entries do [127X[104X
+    [4X[25X>[125X [27X         PrintFormattedString(StringBibXMLEntry(b, "Text")); od;     [127X[104X
+    [4X[28X[Gau95]   Gauss,   C.   F.,  Disquisitiones  arithmeticae,  Academia[128X[104X
+    [4X[28XColombiana   de  Ciencias  Exactas,  Físicas  y  Naturales,  Bogotá,[128X[104X
+    [4X[28XColección   Enrique   Pérez   Arbeláez   [Enrique   Pérez   Arbeláez[128X[104X
+    [4X[28XCollection],  10  (1995), xliv+495 pages, (Translated from the Latin[128X[104X
+    [4X[28Xby  Hugo  Barrantes  Campos,  Michael Josephy and Ángel Ruiz Zúñiga,[128X[104X
+    [4X[28XWith a preface by Ruiz Zúñiga).[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X[Gau86]  Gauss, C. F., Disquisitiones arithmeticae, Springer-Verlag,[128X[104X
+    [4X[28XNew  York  (1986),  xx+472  pages, (Translated and with a preface by[128X[104X
+    [4X[28XArthur  A.  Clarke,  Revised  by  William  C.  Waterhouse, Cornelius[128X[104X
+    [4X[28XGreither and A. W. Grootendorst and with a preface by Waterhouse).[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X[Gau66]  Gauss,  C. F., Disquisitiones arithmeticae, Yale University[128X[104X
+    [4X[28XPress, New Haven, Conn.-London, Translated into English by Arthur A.[128X[104X
+    [4X[28XClarke, S. J (1966), xx+472 pages.[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

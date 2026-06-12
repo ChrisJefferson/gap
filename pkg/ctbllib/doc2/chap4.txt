@@ -1,0 +1,1503 @@
+  
+  [1X4 [33X[0;0Y[5XGAP[105X[101X[1X Computations Concerning Hamiltonian Cycles in the Generating Graphs of[101X
+  [1XFinite Groups[133X[101X
+  
+  [33X[0;0YDate: April 24th, 2012[133X
+  
+  [33X[0;0YThis  is  a collection of examples showing how the [5XGAP[105X system [GAP24] can be
+  used to compute information about the generating graphs of finite groups. It
+  includes  all  examples  that  were  needed  for  the  computational results
+  in [BGL+10].[133X
+  
+  [33X[0;0YThe  purpose  of  this writeup is twofold. On the one hand, the computations
+  are  documented  this  way.  On  the  other hand, the [5XGAP[105X code shown for the
+  examples  can  be  used as test input for automatic checking of the data and
+  the functions used.[133X
+  
+  [33X[0;0YA  first  version  of  this  document,  which  was  based  on [5XGAP[105X 4.4.12, is
+  available   in   the   arXiv   at   [7Xhttp://arxiv.org/abs/0911.5589v1[107X   since
+  November 2009.  The  differences  between this file and the current document
+  are as follows.[133X
+  
+  [30X    [33X[0;6YThe  format of the [5XGAP[105X output was adjusted to the changed behaviour of
+        [5XGAP[105X 4.5.[133X
+  
+  [30X    [33X[0;6YThe    records    returned   by   [2XIsomorphismTypeInfoFiniteSimpleGroup[102X
+        ([14XReference:  IsomorphismTypeInfoFiniteSimpleGroup[114X) contain a component
+        [10X"shortname"[110X since [5XGAP[105X 4.11.[133X
+  
+  [30X    [33X[0;6YThe  lower  bounds computed for the sporadic simple Monster group have
+        been improved in three steps.[133X
+  
+        [33X[0;6YFirst,  the existence of exactly one class of maximal subgroups of the
+        type [22XPSL(2, 41)[122X (see [NW13]) and the nonexistence of maximal subgroups
+        with socle [22XPSL(2, 27)[122X (see [Wil10]) have been incorporated.[133X
+  
+        [33X[0;6YSecond,  the  classification  of  classes  of maximal subgroups of the
+        Monster   has  been  completed  in  [DLP25].  As  a  consequence,  the
+        nonexistence  of  maximal subgroups with socle Sz[22X(8)[122X and [22XPSU(3, 8)[122X and
+        the  existence  of  exactly  one  class  of maximal subgroups with the
+        isomorphism  types  [22XPSL(2, 13).2[122X and [22XPSU(3, 4).4[122X have been proved, and
+        the  proof  of the nonexistence of the previously claimed subgroups of
+        the  type [22XL_2(59)[122X yields that the Monster has maximal subgroups of the
+        type  [22X59:29[122X. Moreover, meanwhile also all class fusions of the maximal
+        subgroups  are  known;  previously,  we  got  only candidates for some
+        primitive permutation characters.[133X
+  
+        [33X[0;6YThird,  all character tables of maximal subgroups of the Monster group
+        and their class fusions are available since version 1.3.10 of [5XCTblLib[105X,
+        hence  no special treatment for the Monster group is needed anymore in
+        order  to compute its primitive permutation characters. In particular,
+        the data file [11Xdata/prim_perm_M.json[111X of [5XCTblLib[105X is no longer needed. In
+        earlier versions, that file had been used to collect information about
+        primitive permutation characters for which the character table was not
+        yet available.[133X
+  
+        [33X[0;6YSee Section [14X4.4-2[114X for comments on earlier versions, and for the bounds
+        that had been computed from the partial information that was available
+        at that time.[133X
+  
+  
+  [1X4.1 [33X[0;0YOverview[133X[101X
+  
+  [33X[0;0YThe  purpose  of  this  note  is  to document the [5XGAP[105X computations that were
+  carried out in order to obtain the computational results in [BGL+10].[133X
+  
+  [33X[0;0YIn  order  to  keep  this  note self-contained, we first describe the theory
+  needed,  in  Section [14X4.2[114X.  The translation of the relevant formulae into [5XGAP[105X
+  functions  can  be  found  in  Section [14X4.3[114X.  Then  Section [14X4.4[114X describes the
+  computations  that  only  require  (ordinary)  character  tables  in the [5XGAP[105X
+  Character  Table  Library [Bre25].  Computations  using  also the groups are
+  shown in Section [14X4.5[114X.[133X
+  
+  [33X[0;0YThe  examples  use  the  [5XGAP[105X  Character Table Library and the [5XGAP[105X Library of
+  Tables of Marks, so we first load these packages in the required versions.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xif not CompareVersionNumbers( GAPInfo.Version, "4.5" ) then[127X[104X
+    [4X[25X>[125X [27X     Error( "need GAP in version at least 4.5" );[127X[104X
+    [4X[25X>[125X [27X   fi;[127X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "ctbllib", "1.2", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "tomlib", "1.1.1", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.2 [33X[0;0YTheoretical Background[133X[101X
+  
+  [33X[0;0YLet  [22XG[122X  be a finite noncyclic group and denote by [22XG^×[122X the set of nonidentity
+  elements  in  [22XG[122X. We define the [13Xgenerating graph[113X [22XΓ(G)[122X as the undirected graph
+  on  the  vertex set [22XG^×[122X by joining two elements [22Xx, y ∈ G^×[122X by an edge if and
+  only if [22X⟨ x, y ⟩ = G[122X holds. For [22Xx ∈ G^×[122X, the [13Xvertex degree[113X [22Xd(Γ, x)[122X is [22X|{ y ∈
+  G^×;  ⟨  x,  y ⟩ = G }|[122X. The [13Xclosure[113X [22Xcl(Γ)[122X of the graph [22XΓ[122X with [22Xm[122X vertices is
+  defined  as the graph with the same vertex set as [22XΓ[122X, where the vertices [22Xx, y[122X
+  are  joined  by  an  edge if they are joined by an edge in [22XΓ[122X or if [22Xd(Γ, x) +
+  d(Γ,  y)  ≥  m[122X.  We denote iterated closures by [22Xcl^(i)(Γ) = cl(cl^(i-1)(Γ))[122X,
+  where [22Xcl^(0)(Γ) = Γ[122X.[133X
+  
+  [33X[0;0YIn  the  following, we will show that the generating graphs of the following
+  groups contain a Hamiltonian cycle:[133X
+  
+  [30X    [33X[0;6YNonabelian simple groups of orders at most [22X10^7[122X,[133X
+  
+  [30X    [33X[0;6Ygroups [22XG[122X containing a unique minimal normal subgroup [22XN[122X such that [22XN[122X has
+        order at most [22X10^6[122X, [22XN[122X is nonsolvable, and [22XG/N[122X is cyclic,[133X
+  
+  [30X    [33X[0;6Ysporadic simple groups and their automorphism groups.[133X
+  
+  [33X[0;0YClearly the condition that [22XG/N[122X is cyclic for all nontrivial normal subgroups
+  [22XN[122X  of  [22XG[122X is necessary for [22XΓ(G)[122X being connected, and [BGL+10, Conjecture 1.6]
+  states that this condition is also sufficient. By [BGL+10, Proposition 1.1],
+  this conjecture is true for all solvable groups, and the second entry in the
+  above  list implies that this conjecture holds for all nonsolvable groups of
+  order up to [22X10^6[122X.[133X
+  
+  [33X[0;0YThe question whether a graph [22XΓ[122X contains a Hamiltonian cycle (i. e., a closed
+  path  in  [22XΓ[122X  that visits each vertex exactly once) can be answered using the
+  following sufficient criteria (see [BGL+10]). Let [22Xd_1 ≤ d_2 ≤ ⋯ ≤ d_m[122X be the
+  vertex degrees in [22XΓ[122X.[133X
+  
+  [8XPósa's criterion:[108X
+        [33X[0;6YIf  [22Xd_k  ≥  k+1[122X  holds  for  [22X1 ≤ k < m/2[122X then [22XΓ[122X contains a Hamiltonian
+        cycle.[133X
+  
+  [8XChvátal's criterion:[108X
+        [33X[0;6YIf  [22Xd_k  ≥  k+1[122X or [22Xd_m-k ≥ m-k[122X holds for [22X1 ≤ k < m/2[122X then [22XΓ[122X contains a
+        Hamiltonian cycle.[133X
+  
+  [8XClosure criterion:[108X
+        [33X[0;6YA  graph  contains  a  Hamiltonian  cycle  if  and only if its closure
+        contains a Hamiltonian cycle.[133X
+  
+  
+  [1X4.2-1 [33X[0;0YCharacter-Theoretic Lower Bounds for Vertex Degrees[133X[101X
+  
+  [33X[0;0YUsing  character-theoretic  methods  similar  to  those  used  to obtain the
+  results in [BGK08] (the computations for that paper are shown in [Breb]), we
+  can  compute  lower  bounds  for the vertex degrees in generating graphs, as
+  follows.[133X
+  
+  [33X[0;0YLet  [22XR[122X  be  a  set  of  representatives  of conjugacy classes of nonidentity
+  elements  in  [22XG[122X,  fix  [22Xs  ∈ G^×[122X, let [22XMM(G,s)[122X denote the set of those maximal
+  subgroups of [22XG[122X that contain [22Xs[122X, let [22XMM(G,s)/∼[122X denote a set of representatives
+  in  [22XMM(G,s)[122X  w. r. t. conjugacy in [22XG[122X. For a subgroup [22XM[122X of [22XG[122X, the [13Xpermutation
+  character[113X [22X1_M^G[122X is defined by[133X
+  
+  
+  [24X[33X[0;6Y1_M^G(g):= (|G| ⋅ |g^G ∩ M|) / (|M| ⋅ |g^G|),[133X[124X
+  
+  [33X[0;0Ywhere [22Xg^G = { g^x; x ∈ G }[122X, with [22Xg^x = x^-1 g x[122X, denotes the conjugacy class
+  of  [22Xg[122X  in  [22XG[122X.  So  we  have  [22X1_M^G(1) = |G|/|M|[122X and thus [22X|g^G ∩ M| = |g^G| ⋅
+  1_M^G(g) / 1_M^G(1)[122X.[133X
+  
+  [33X[0;0YDoubly  counting  the set [22X{ (s^x, M^y); x, y ∈ G, s^x ∈ M^y }[122X yields [22X|M^G| ⋅
+  |s^G  ∩  M|  = |s^G| ⋅ |{ M^x; x ∈ G, s ∈ M^x }|[122X and thus [22X|{ M^x; x ∈ G, s ∈
+  M^x }| = |M^G| ⋅ 1_M^G(s) / 1_M^G(1) ≤ 1_M^G(s)[122X. (If [22XM[122X is a [13Xmaximal[113X subgroup
+  of  [22XG[122X  then  either  [22XM[122X is normal in [22XG[122X or self-normalizing, and in the latter
+  case the inequality is in fact an equality.)[133X
+  
+  [33X[0;0YLet  [22XΠ[122X  denote the multiset of [13Xprimitive[113X permutation characters of [22XG[122X, i. e.,
+  of  the  permutation characters [22X1_M^G[122X where [22XM[122X ranges over representatives of
+  the conjugacy classes of maximal subgroups of [22XG[122X.[133X
+  
+  [33X[0;0YDefine[133X
+  
+  
+  [24X[33X[0;6Yδ(s, g^G):= |g^G| ⋅ max{ 0, 1 - ∑_{π ∈ Π} π(g) ⋅ π(s) / π(1) }[133X[124X
+  
+  [33X[0;0Yand  [22Xd(s,  g^G):= |{ x ∈ g^G; ⟨ s, x ⟩ = G }|[122X, the contribution of the class
+  [22Xg^G[122X to the vertex degree of [22Xs[122X. Then we have [22Xd(Γ(G), s) = ∑_{x ∈ R} d(s, x^G)[122X
+  and[133X
+  
+     d(s, g^G)  =  |g^G| - |⋃_{M ∈ M(G,s)} { x ∈ g^G; ⟨ x, s ⟩ ⊆ M }|
+                ≥  max{ 0, |g^G| - Σ_{M ∈ M(G,s)} |g^G ∩ M| }
+                =  |g^G| ⋅ max{ 0, 1 - Σ_{M ∈ M(G,s)} 1_M^G(g) / 1_M^G(1) }
+                ≥  |g^G| ⋅ max{ 0, 1 - Σ_{M ∈ M(G,s)/∼}
+                                           1_M^G(g) ⋅ 1_M^G(s) / 1_M^G(1) }
+                =  δ(s, g^G)
+  
+  [33X[0;0YSo  [22Xδ(s):=  ∑_x  ∈  R δ(s, x^G)[122X is a lower bound for the vertex degree of [22Xs[122X;
+  this bound can be computed if [22XΠ[122X is known.[133X
+  
+  [33X[0;0YFor computing the vertex degrees of the iterated closures of [22XΓ(G)[122X, we define
+  [22Xd^(0)(s, g^G):= d(s, g^G)[122X and[133X
+  
+                      ┌
+                      │ |g^G|        ; d^(i)(Г(G),s) + d^(i)(Г(G),g) ≥ |G|-1
+     d^(i+1)(s,g^G):= ┥
+                      │ d^(i)(s,g^G) ; otherwise
+                      └
+  
+                       ┌
+                       │ |g^G|         ; δ^(i)(s) + δ^(i)(g) ≥ |G|-1
+     δ^(i+1)(s, g^G):= ┥
+                       │ δ^(i)(s, g^G) ; otherwise
+                       └
+  
+  [33X[0;0Yand [22Xδ^(i)(s):= ∑_{x ∈ R} δ^(i)(s, x^G)[122X, a lower bound for [22Xd(cl^(i)(Γ(G)), s)[122X
+  that can be computed if [22XΠ[122X is known.[133X
+  
+  
+  [1X4.2-2 [33X[0;0YChecking the Criteria[133X[101X
+  
+  [33X[0;0YLet  us  assume  that  we  know  lower  bounds  [22Xβ(s)[122X  for the vertex degrees
+  [22Xd(cl^(i)(Γ(G)), s)[122X, for some fixed [22Xi[122X, and let us choose representatives [22Xs_1,
+  s_2,  ...,  s_l[122X of the nonidentity conjugacy classes of [22XG[122X such that [22Xβ(s_1) ≤
+  β(s_2)  ≤  ⋯ ≤ β(s_l)[122X holds. Let [22Xc_k = |s_k^G|[122X be the class lengths of these
+  representatives.[133X
+  
+  [33X[0;0YThen  the  first  [22Xc_1[122X vertex degrees, ordered by increasing size, are larger
+  than  or  equal  to  [22Xβ(s_1)[122X,  the next [22Xc_2[122X vertex degrees are larger than or
+  equal to [22Xβ(s_2)[122X, and so on.[133X
+  
+  [33X[0;0YThen  the set of indices in the [22Xk[122X-th nonidentity class of [22XG[122X for which Pósa's
+  criterion is not guaranteed by the given bounds is[133X
+  
+  
+  [24X[33X[0;6Y{ x; c_1 + c_2 + ⋯ + c_k-1 < x ≤ c_1 + c_2 + ⋯ c_k, x < (|G| - 1) / 2, β(s_k) < x+1 }.[133X[124X
+  
+  [33X[0;0YThis is an interval [22X{ L_k, L_k + 1, ..., U_k }[122X with[133X
+  
+  
+  [24X[33X[0;6YL_k = max{ 1 + c_1 + c_2 + ⋯ + c_k-1, β(s_k) }[133X[124X
+  
+  [33X[0;0Yand[133X
+  
+  
+  [24X[33X[0;6YU_k = min{ c_1 + c_2 + ⋯ + c_k, ⌊ |G|/2 ⌋ - 1 } .[133X[124X
+  
+  [33X[0;0Y(Note  that the generating graph has [22Xm = |G|-1[122X vertices, and that [22Xx < m/2[122X is
+  equivalent to [22Xx ≤ ⌊ |G|/2 ⌋ - 1[122X.)[133X
+  
+  [33X[0;0YThe  generating graph [22XΓ(G)[122X satisfies Pósa's criterion if all these intervals
+  are empty, i. e., if [22XL_k > U_k[122X holds for [22X1 ≤ k ≤ l[122X.[133X
+  
+  [33X[0;0YThe  set  of  indices for which Chvátal's criterion is not guaranteed is the
+  intersection of[133X
+  
+  
+  [24X[33X[0;6Y{ m-k; 1 ≤ m-k < m/2, d_k < k }[133X[124X
+  
+  [33X[0;0Ywith the set of indices for which Pósa's criterion is not guaranteed.[133X
+  
+  [33X[0;0YAnalogously  to  the  above  considerations,  the  set of indices [22Xm-x[122X in the
+  former  set  for  which  Chvátal's  criterion is not guaranteed by the given
+  bounds and such that [22Xx[122X is an index in the [22Xk[122X-th nonidentity class of [22XG[122X is[133X
+  
+  
+  [24X[33X[0;6Y{ m-x; c_1 + c_2 + ⋯ + c_k-1 < x ≤ c_1 + c_2 + ⋯ c_k, 1 ≤ m-x < (|G| - 1) / 2, β(s_k) < x }.[133X[124X
+  
+  [33X[0;0YThis is again an interval [22X{ L^'_k, L^'_k + 1, ..., U^'_k }[122X with[133X
+  
+  
+  [24X[33X[0;6YL^'_k = max{ 1, m - ( c_1 + c_2 + ⋯ + c_k ) }[133X[124X
+  
+  [33X[0;0Yand[133X
+  
+  
+  [24X[33X[0;6YU^'_k = min{ m - ( c_1 + c_2 + ⋯ + c_k-1 ) - 1, ⌊ |G|/2 ⌋ - 1, m-1 - β(s_k) } .[133X[124X
+  
+  [33X[0;0YThe  generating graph [22XΓ(G)[122X satisfies Chvátal's criterion if the union of the
+  intervals [22X{ L^'_k, L^'_k + 1, ..., U^'_k }[122X, for [22X1 ≤ k ≤ l[122X is disjoint to the
+  union of the intervals [22X{ L_k, L_k + 1, ..., U_k }[122X, for [22X1 ≤ k ≤ l[122X.[133X
+  
+  
+  [1X4.3 [33X[0;0Y[5XGAP[105X[101X[1X Functions for the Computations[133X[101X
+  
+  [33X[0;0YWe  describe  two approaches to compute, for a given group [22XG[122X, vertex degrees
+  for the generating graph of [22XG[122X or lower bounds for them, by calculating exact
+  vertex degrees from [22XG[122X itself (see Section [14X4.3-1[114X) or by deriving lower bounds
+  for  the  vertex  degrees using just character-theoretic information about [22XG[122X
+  and  its  subgroups  (see  Section [14X4.3-2[114X). Finally, Section [14X4.3-3[114X deals with
+  deriving lower bounds of vertex degrees of iterated closures.[133X
+  
+  
+  [1X4.3-1 [33X[0;0YComputing Vertex Degrees from the Group[133X[101X
+  
+  [33X[0;0YIn  this  section,  the task is to compute the vertex degrees [22Xd(s,g^G)[122X using
+  explicit computations with the group [22XG[122X.[133X
+  
+  [33X[0;0YThe function [10XIsGeneratorsOfTransPermGroup[110X checks whether the permutations in
+  the  list  [10Xlist[110X  generate  the  permutation  group  [10XG[110X,  [13Xprovided  that[113X  [10XG[110X is
+  transitive  on  its moved points. (Note that testing the necessary condition
+  that the elements in [10Xlist[110X generate a transitive group is usually much faster
+  than testing generation.) This function has been used already in [Breb].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XIsGeneratorsOfTransPermGroup:= function( G, list )[127X[104X
+    [4X[25X>[125X [27X    local S;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    if not IsTransitive( G ) then[127X[104X
+    [4X[25X>[125X [27X      Error( "<G> must be transitive on its moved points" );[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    S:= SubgroupNC( G, list );[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    return IsTransitive( S, MovedPoints( G ) )[127X[104X
+    [4X[25X>[125X [27X           and Size( S ) = Size( G );[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  function  [10XVertexDegreesGeneratingGraph[110X  takes  a [13Xtransitive[113X permutation
+  group  [22XG[122X  (in  order to be allowed to use [10XIsGeneratorsOfTransPermGroup[110X), the
+  list [10Xclasses[110X of conjugacy classes of [22XG[122X (in order to prescribe an ordering of
+  the  classes),  and  a list [10Xnormalsubgroups[110X of proper normal subgroups of [22XG[122X,
+  and  returns  the matrix [22X[ d(s, g^G) ]_s, g[122X of vertex degrees, with rows and
+  columns  indexed by nonidentity class representatives ordered as in the list
+  [10Xclasses[110X.  (The  class  containing  the  identity element may be contained in
+  [10Xclasses[110X.)[133X
+  
+  [33X[0;0YThe following criteria are used in this function.[133X
+  
+  [30X    [33X[0;6YThe  function  tests  the  (non)generation only for representatives of
+        [22XC_G(g)[122X-[22XC_G(s)[122X-double  cosets,  where  [22XC_G(g):=  {  x  ∈ G; g x = x g }[122X
+        denotes  the  centralizer of [22Xg[122X in [22XG[122X. Note that for [22Xc_1 ∈ C_G(g)[122X, [22Xc_2 ∈
+        C_G(s)[122X,  and a representative [22Xr ∈ G[122X, we have [22X⟨ s, g^c_1 r c_2 ⟩ = ⟨ s,
+        g^r ⟩^c_2[122X. If [22X⟨ s, g^r ⟩ = G[122X then the double coset [22XD = C_G(g) r C_G(s)[122X
+        contributes [22X|D|/|C_G(g)|[122X to the vertex degree [22Xd(s, g^G)[122X, otherwise the
+        contribution is zero.[133X
+  
+  [30X    [33X[0;6YWe  have  [22Xd(s,  g^G)  ⋅ |C_G(g)| = d(g, s^G) ⋅ |C_G(s)|[122X. (To see this,
+        either  establish  a  bijection  of the above double cosets, or doubly
+        count the edges between elements of the conjugacy classes of [22Xs[122X and [22Xg[122X.)[133X
+  
+  [30X    [33X[0;6YIf  [22X⟨  s_1  ⟩ = ⟨ s_2 ⟩[122X and [22X⟨ g_1 ⟩ = ⟨ g_2 ⟩[122X hold then we have [22Xd(s_1,
+        g_1^G) = d(s_2, g_1^G) = d(s_1, g_2^G) = d(s_2, g_2^G)[122X, so only one of
+        these values must be computed.[133X
+  
+  [30X    [33X[0;6YIf  both  [22Xs[122X  and  [22Xg[122X are contained in one of the normal subgroups given
+        then [22Xd(s, g^G)[122X is zero.[133X
+  
+  [30X    [33X[0;6YIf  [22XG[122X  is  not  a dihedral group and both [22Xs[122X and [22Xg[122X are involutions then
+        [22Xd(s, g^G)[122X is zero.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XBindGlobal( "VertexDegreesGeneratingGraph",[127X[104X
+    [4X[25X>[125X [27X    function( G, classes, normalsubgroups )[127X[104X
+    [4X[25X>[125X [27X    local nccl, matrix, cents, powers, normalsubgroupspos, i, j, g_i,[127X[104X
+    [4X[25X>[125X [27X          nsg, g_j, gen, pair, d, pow;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    if not IsTransitive( G ) then[127X[104X
+    [4X[25X>[125X [27X      Error( "<G> must be transitive on its moved points" );[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    classes:= Filtered( classes,[127X[104X
+    [4X[25X>[125X [27X                        C -> Order( Representative( C ) ) <> 1 );[127X[104X
+    [4X[25X>[125X [27X    nccl:= Length( classes );[127X[104X
+    [4X[25X>[125X [27X    matrix:= [];[127X[104X
+    [4X[25X>[125X [27X    cents:= [];[127X[104X
+    [4X[25X>[125X [27X    powers:= [];[127X[104X
+    [4X[25X>[125X [27X    normalsubgroupspos:= [];[127X[104X
+    [4X[25X>[125X [27X    for i in [ 1 .. nccl ] do[127X[104X
+    [4X[25X>[125X [27X      matrix[i]:= [];[127X[104X
+    [4X[25X>[125X [27X      if IsBound( powers[i] ) then[127X[104X
+    [4X[25X>[125X [27X        # The i-th row equals the earlier row 'powers[i]'.[127X[104X
+    [4X[25X>[125X [27X        for j in [ 1 .. i ] do[127X[104X
+    [4X[25X>[125X [27X          matrix[i][j]:= matrix[ powers[i] ][j];[127X[104X
+    [4X[25X>[125X [27X          matrix[j][i]:= matrix[j][ powers[i] ];[127X[104X
+    [4X[25X>[125X [27X        od;[127X[104X
+    [4X[25X>[125X [27X      else[127X[104X
+    [4X[25X>[125X [27X        # We have to compute the values.[127X[104X
+    [4X[25X>[125X [27X        g_i:= Representative( classes[i] );[127X[104X
+    [4X[25X>[125X [27X        nsg:= Filtered( [ 1 .. Length( normalsubgroups ) ],[127X[104X
+    [4X[25X>[125X [27X                        i -> g_i in normalsubgroups[i] );[127X[104X
+    [4X[25X>[125X [27X        normalsubgroupspos[i]:= nsg;[127X[104X
+    [4X[25X>[125X [27X        cents[i]:= Centralizer( G, g_i );[127X[104X
+    [4X[25X>[125X [27X        for j in [ 1 .. i ] do[127X[104X
+    [4X[25X>[125X [27X          g_j:= Representative( classes[j] );[127X[104X
+    [4X[25X>[125X [27X          if IsBound( powers[j] ) then[127X[104X
+    [4X[25X>[125X [27X            matrix[i][j]:= matrix[i][ powers[j] ];[127X[104X
+    [4X[25X>[125X [27X            matrix[j][i]:= matrix[ powers[j] ][i];[127X[104X
+    [4X[25X>[125X [27X          elif not IsEmpty( Intersection( nsg, normalsubgroupspos[j] ) )[127X[104X
+    [4X[25X>[125X [27X               or ( Order( g_i ) = 2 and Order( g_j ) = 2[127X[104X
+    [4X[25X>[125X [27X                    and not IsDihedralGroup( G ) ) then[127X[104X
+    [4X[25X>[125X [27X            matrix[i][j]:= 0;[127X[104X
+    [4X[25X>[125X [27X            matrix[j][i]:= 0;[127X[104X
+    [4X[25X>[125X [27X          else[127X[104X
+    [4X[25X>[125X [27X            # Compute $d(g_i, g_j^G)$.[127X[104X
+    [4X[25X>[125X [27X            gen:= 0;[127X[104X
+    [4X[25X>[125X [27X            for pair in DoubleCosetRepsAndSizes( G, cents[j],[127X[104X
+    [4X[25X>[125X [27X                            cents[i] ) do[127X[104X
+    [4X[25X>[125X [27X              if IsGeneratorsOfTransPermGroup( G,[127X[104X
+    [4X[25X>[125X [27X                     [ g_i, g_j^pair[1] ] ) then[127X[104X
+    [4X[25X>[125X [27X                gen:= gen + pair[2];[127X[104X
+    [4X[25X>[125X [27X              fi;[127X[104X
+    [4X[25X>[125X [27X            od;[127X[104X
+    [4X[25X>[125X [27X            matrix[i][j]:= gen / Size( cents[j] );[127X[104X
+    [4X[25X>[125X [27X            if i <> j then[127X[104X
+    [4X[25X>[125X [27X              matrix[j][i]:= gen / Size( cents[i] );[127X[104X
+    [4X[25X>[125X [27X            fi;[127X[104X
+    [4X[25X>[125X [27X          fi;[127X[104X
+    [4X[25X>[125X [27X        od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X        # For later, provide information about algebraic conjugacy.[127X[104X
+    [4X[25X>[125X [27X        for d in Difference( PrimeResidues( Order( g_i ) ), [ 1 ] ) do[127X[104X
+    [4X[25X>[125X [27X          pow:= g_i^d;[127X[104X
+    [4X[25X>[125X [27X          for j in [ i+1 .. nccl ] do[127X[104X
+    [4X[25X>[125X [27X            if not IsBound( powers[j] ) and pow in classes[j] then[127X[104X
+    [4X[25X>[125X [27X              powers[j]:= i;[127X[104X
+    [4X[25X>[125X [27X              break;[127X[104X
+    [4X[25X>[125X [27X            fi;[127X[104X
+    [4X[25X>[125X [27X          od;[127X[104X
+    [4X[25X>[125X [27X        od;[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    return matrix;[127X[104X
+    [4X[25X>[125X [27Xend );[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.3-2 [33X[0;0YComputing Lower Bounds for Vertex Degrees[133X[101X
+  
+  [33X[0;0YIn  this  section, the task is to compute the lower bounds [22Xδ(s, g^G)[122X for the
+  vertex degrees [22Xd(s, g^G)[122X using character-theoretic methods.[133X
+  
+  [33X[0;0YWe  provide  [5XGAP[105X  functions  for  computing  the multiset [22XΠ[122X of the primitive
+  permutation characters of a given group [22XG[122X and for computing the lower bounds
+  [22Xδ(s, g^G)[122X from [22XΠ[122X.[133X
+  
+  [33X[0;0YFor  many almost simple groups, the [5XGAP[105X libraries of character tables and of
+  tables  of  marks  contain  information  for quickly computing the primitive
+  permutation  characters  of  the  group in question. Therefore, the function
+  [10XPrimitivePermutationCharacters[110X takes as its argument not the group [22XG[122X but its
+  character table [22XT[122X, say. (This function is shown already in [Breb].)[133X
+  
+  [33X[0;0YIf  [22XT[122X is contained in the [5XGAP[105X Character Table Library (see [Bre25]) then the
+  complete  set  of primitive permutation characters can be easily computed if
+  the character tables of all maximal subgroups and their class fusions into [22XT[122X
+  are  known  (in  this  case,  we check whether the attribute [2XMaxes[102X ([14XCTblLib:
+  Maxes[114X)  of  [22XT[122X  is  bound) or if the table of marks of [22XG[122X and the class fusion
+  from  [22XT[122X  into  this table of marks are known (in this case, we check whether
+  the  attribute  [2XFusionToTom[102X  ([14XCTblLib:  FusionToTom[114X)  of [22XT[122X is bound). If the
+  attribute  [2XUnderlyingGroup[102X  ([14XReference: UnderlyingGroup for tables of marks[114X)
+  of  [22XT[122X  is  bound then the group stored as the value of this attribute can be
+  used  to compute the primitive permutation characters. The latter happens if
+  [22XT[122X  was  computed  from  the  group  [22XG[122X; for tables in the [5XGAP[105X Character Table
+  Library, this is not the case by default.[133X
+  
+  [33X[0;0YThe   [5XGAP[105X  function  [10XPrimitivePermutationCharacters[110X  tries  to  compute  the
+  primitive  permutation  characters  of  a  group  using this information; it
+  returns  the  required  list of characters if this can be computed this way,
+  otherwise  [9Xfail[109X  is  returned. (For convenience, we use the [5XGAP[105X mechanism of
+  [13Xattributes[113X  in  order  to  store the permutation characters in the character
+  table object once they have been computed.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDeclareAttribute( "PrimitivePermutationCharacters",[127X[104X
+    [4X[25X>[125X [27X                     IsCharacterTable );[127X[104X
+    [4X[25Xgap>[125X [27XInstallOtherMethod( PrimitivePermutationCharacters,[127X[104X
+    [4X[25X>[125X [27X    [ IsCharacterTable ],[127X[104X
+    [4X[25X>[125X [27X    function( tbl )[127X[104X
+    [4X[25X>[125X [27X    local maxes, i, fus, poss, tom, G;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    if HasMaxes( tbl ) then[127X[104X
+    [4X[25X>[125X [27X      maxes:= List( Maxes( tbl ), CharacterTable );[127X[104X
+    [4X[25X>[125X [27X      for i in [ 1 .. Length( maxes ) ] do[127X[104X
+    [4X[25X>[125X [27X        fus:= GetFusionMap( maxes[i], tbl );[127X[104X
+    [4X[25X>[125X [27X        if fus = fail then[127X[104X
+    [4X[25X>[125X [27X          fus:= PossibleClassFusions( maxes[i], tbl );[127X[104X
+    [4X[25X>[125X [27X          poss:= Set( fus,[127X[104X
+    [4X[25X>[125X [27X            map -> InducedClassFunctionsByFusionMap([127X[104X
+    [4X[25X>[125X [27X                       maxes[i], tbl,[127X[104X
+    [4X[25X>[125X [27X                       [ TrivialCharacter( maxes[i] ) ], map )[1] );[127X[104X
+    [4X[25X>[125X [27X          if Length( poss ) = 1 then[127X[104X
+    [4X[25X>[125X [27X            maxes[i]:= poss[1];[127X[104X
+    [4X[25X>[125X [27X          else[127X[104X
+    [4X[25X>[125X [27X            return fail;[127X[104X
+    [4X[25X>[125X [27X          fi;[127X[104X
+    [4X[25X>[125X [27X        else[127X[104X
+    [4X[25X>[125X [27X          maxes[i]:= TrivialCharacter( maxes[i] )^tbl;[127X[104X
+    [4X[25X>[125X [27X        fi;[127X[104X
+    [4X[25X>[125X [27X      od;[127X[104X
+    [4X[25X>[125X [27X      return maxes;[127X[104X
+    [4X[25X>[125X [27X    elif HasFusionToTom( tbl ) then[127X[104X
+    [4X[25X>[125X [27X      tom:= TableOfMarks( tbl );[127X[104X
+    [4X[25X>[125X [27X      maxes:= MaximalSubgroupsTom( tom );[127X[104X
+    [4X[25X>[125X [27X      return PermCharsTom( tbl, tom ){ maxes[1] };[127X[104X
+    [4X[25X>[125X [27X    elif HasUnderlyingGroup( tbl ) then[127X[104X
+    [4X[25X>[125X [27X      G:= UnderlyingGroup( tbl );[127X[104X
+    [4X[25X>[125X [27X      return List( MaximalSubgroupClassReps( G ),[127X[104X
+    [4X[25X>[125X [27X                   M -> TrivialCharacter( M )^tbl );[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    return fail;[127X[104X
+    [4X[25X>[125X [27Xend );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  next  function  computes  the lower bounds [22Xδ(s, g^G)[122X from the two lists
+  [10Xclasslengths[110X  of  conjugacy  class  lengths  of  the group [22XG[122X and [10Xprim[110X of all
+  primitive  permutation  characters of [22XG[122X. (The first entry in [10Xclasslengths[110X is
+  assumed  to  represent  the class containing the identity element of [22XG[122X.) The
+  return  value  is  the  matrix that contains in row [22Xi[122X and column [22Xj[122X the value
+  [22Xδ(s,  g^G)[122X,  where  [22Xs[122X  and [22Xg[122X are in the conjugacy classes represented by the
+  [22X(i+1)[122X-st  and  [22X(j+1)[122X-st column of [10Xtbl[110X, respectively. So the row sums of this
+  matrix are the values [22Xδ(s)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLowerBoundsVertexDegrees:= function( classlengths, prim )[127X[104X
+    [4X[25X>[125X [27X    local sizes, nccl;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    nccl:= Length( classlengths );[127X[104X
+    [4X[25X>[125X [27X    return List( [ 2 .. nccl ],[127X[104X
+    [4X[25X>[125X [27X             i -> List( [ 2 .. nccl ],[127X[104X
+    [4X[25X>[125X [27X                    j -> Maximum( 0, classlengths[j] - Sum( prim,[127X[104X
+    [4X[25X>[125X [27X                    pi -> classlengths[j] * pi[j] * pi[i][127X[104X
+    [4X[25X>[125X [27X                              / pi[1] ) ) ) );[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.3-3 [33X[0;0YEvaluating the (Lower Bounds for the) Vertex Degrees[133X[101X
+  
+  [33X[0;0YIn  this  section,  the  task  is  to  compute (lower bounds for) the vertex
+  degrees  of  iterated closures of a generating graph from (lower bounds for)
+  the  vertex  degrees  of the graph itself, and then to check the criteria of
+  Pósa and Chvátal.[133X
+  
+  [33X[0;0YThe  arguments  of  all  functions  defined  in  this  section  are the list
+  [10Xclasslengths[110X of conjugacy class lengths for the group [22XG[122X (including the class
+  of  the  identity element, in the first position) and a matrix [10Xbounds[110X of the
+  values  [22Xd^(i)(s,  g^G)[122X  or  [22Xδ^(i)(s,  g^G)[122X, with rows and columns indexed by
+  nonidentity  class  representatives  [22Xs[122X and [22Xg[122X, respectively. Such a matrix is
+  returned     by     the     functions     [10XVertexDegreesGeneratingGraph[110X    or
+  [10XLowerBoundsVertexDegrees[110X, respectively.[133X
+  
+  [33X[0;0YThe  function  [10XLowerBoundsVertexDegreesOfClosure[110X  returns  the corresponding
+  matrix of the values [22Xd^(i+1)(s, g^G)[122X or [22Xδ^(i+1)(s, g^G)[122X, respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLowerBoundsVertexDegreesOfClosure:= function( classlengths, bounds )[127X[104X
+    [4X[25X>[125X [27X    local delta, newbounds, size, i, j;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    delta:= List( bounds, Sum );[127X[104X
+    [4X[25X>[125X [27X    newbounds:= List( bounds, ShallowCopy );[127X[104X
+    [4X[25X>[125X [27X    size:= Sum( classlengths );[127X[104X
+    [4X[25X>[125X [27X    for i in [ 1 .. Length( bounds ) ] do[127X[104X
+    [4X[25X>[125X [27X      for j in [ 1 .. Length( bounds ) ] do[127X[104X
+    [4X[25X>[125X [27X        if delta[i] + delta[j] >= size - 1 then[127X[104X
+    [4X[25X>[125X [27X          newbounds[i][j]:= classlengths[ j+1 ];[127X[104X
+    [4X[25X>[125X [27X        fi;[127X[104X
+    [4X[25X>[125X [27X      od;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    return newbounds;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YOnce  the  values  [22Xd^(i)(s,  g^G)[122X  or  [22Xδ^(i)(s, g^G)[122X are known, we can check
+  whether   Pósa's   or   Chvátal's  criterion  is  satisfied  for  the  graph
+  [22Xcl^(i)(Γ(G))[122X,  using the function [10XCheckCriteriaOfPosaAndChvatal[110X shown below.
+  (Of  course  a  [13Xnegative[113X  result  is meaningless in the case that only lower
+  bounds for the vertex degrees are used.)[133X
+  
+  [33X[0;0YThe  idea is to compute the row sums of the given matrix, and to compute the
+  intervals  [22X{  L_k,  L_k + 1, ..., U_k }[122X and [22X{ L^'_k, L^'_k + 1, ..., U^'_k }[122X
+  that were introduced in Section [14X4.2-2[114X.[133X
+  
+  [33X[0;0YThe  function [10XCheckCriteriaOfPosaAndChvatal[110X returns, given the list of class
+  lengths  of  [22XG[122X  and  the matrix of (bounds for the) vertex degrees, a record
+  with  the  components  [10XbadForPosa[110X (the list of those pairs [22X[ L_k, U_k ][122X with
+  the property [22XL_k ≤ U_k[122X), [10XbadForChvatal[110X (the list of pairs of lower and upper
+  bounds of nonempty intervals where Chvátal's criterion may be violated), and
+  [10Xdata[110X  (the  sorted  list of triples [22X[ δ(g_k), |g_k^G|, ι(k) ][122X, where [22Xι(k)[122X is
+  the  row  and  column position of [22Xg_k[122X in the matrix [10Xbounds[110X). The ordering of
+  class  lengths  must  of  course be compatible with the ordering of rows and
+  columns  of  the  matrix,  and  the identity element of [22XG[122X must belong to the
+  first entry in the list of class lengths.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCheckCriteriaOfPosaAndChvatal:= function( classlengths, bounds )[127X[104X
+    [4X[25X>[125X [27X    local size, degs, addinterval, badForPosa, badForChvatal1, pos,[127X[104X
+    [4X[25X>[125X [27X          half, i, low1, upp2, upp1, low2, badForChvatal, interval1,[127X[104X
+    [4X[25X>[125X [27X          interval2;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    size:= Sum( classlengths );[127X[104X
+    [4X[25X>[125X [27X    degs:= List( [ 2 .. Length( classlengths ) ],[127X[104X
+    [4X[25X>[125X [27X                 i -> [ Sum( bounds[ i-1 ] ), classlengths[i], i ] );[127X[104X
+    [4X[25X>[125X [27X    Sort( degs );[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    addinterval:= function( intervals, low, upp )[127X[104X
+    [4X[25X>[125X [27X      if low <= upp then[127X[104X
+    [4X[25X>[125X [27X        Add( intervals, [ low, upp ] );[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    end;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    badForPosa:= [];[127X[104X
+    [4X[25X>[125X [27X    badForChvatal1:= [];[127X[104X
+    [4X[25X>[125X [27X    pos:= 1;[127X[104X
+    [4X[25X>[125X [27X    half:= Int( size / 2 ) - 1;[127X[104X
+    [4X[25X>[125X [27X    for i in [ 1 .. Length( degs ) ] do[127X[104X
+    [4X[25X>[125X [27X      # We have pos = c_1 + c_2 + \cdots + c_{i-1} + 1[127X[104X
+    [4X[25X>[125X [27X      low1:= Maximum( pos, degs[i][1] );  # L_i[127X[104X
+    [4X[25X>[125X [27X      upp2:= Minimum( half, size-1-pos, size-1-degs[i][1] ); # U'_i[127X[104X
+    [4X[25X>[125X [27X      pos:= pos + degs[i][2];[127X[104X
+    [4X[25X>[125X [27X      upp1:= Minimum( half, pos-1 ); # U_i[127X[104X
+    [4X[25X>[125X [27X      low2:= Maximum( 1, size-pos ); # L'_i[127X[104X
+    [4X[25X>[125X [27X      addinterval( badForPosa, low1, upp1 );[127X[104X
+    [4X[25X>[125X [27X      addinterval( badForChvatal1, low2, upp2 );[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    # Intersect intervals.[127X[104X
+    [4X[25X>[125X [27X    badForChvatal:= [];[127X[104X
+    [4X[25X>[125X [27X    for interval1 in badForPosa do[127X[104X
+    [4X[25X>[125X [27X      for interval2 in badForChvatal1 do[127X[104X
+    [4X[25X>[125X [27X        addinterval( badForChvatal,[127X[104X
+    [4X[25X>[125X [27X                     Maximum( interval1[1], interval2[1] ),[127X[104X
+    [4X[25X>[125X [27X                     Minimum( interval1[2], interval2[2] ) );[127X[104X
+    [4X[25X>[125X [27X      od;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    return rec( badForPosa:= badForPosa,[127X[104X
+    [4X[25X>[125X [27X                badForChvatal:= Set( badForChvatal ),[127X[104X
+    [4X[25X>[125X [27X                data:= degs );[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally,  the  function  [10XHamiltonianCycleInfo[110X assumes that the matrix [10Xbounds[110X
+  contains  lower bounds for the vertex degrees in the generating graph [22XΓ[122X, and
+  returns  a  string  that  describes the minimal [22Xi[122X with the property that the
+  given  bounds  suffice  to show that [22Xcl^(i)(Γ)[122X satisfies Pósa's or Chvátal's
+  criterion,  if  such  a closure exists. If no closure has this property, the
+  string [10X"no decision"[110X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XHamiltonianCycleInfo:= function( classlengths, bounds )[127X[104X
+    [4X[25X>[125X [27X    local i, result, res, oldbounds;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    i:= 0;[127X[104X
+    [4X[25X>[125X [27X    result:= rec( Posa:= fail, Chvatal:= fail );[127X[104X
+    [4X[25X>[125X [27X    repeat[127X[104X
+    [4X[25X>[125X [27X      res:= CheckCriteriaOfPosaAndChvatal( classlengths, bounds );[127X[104X
+    [4X[25X>[125X [27X      if result.Posa = fail and IsEmpty( res.badForPosa ) then[127X[104X
+    [4X[25X>[125X [27X        result.Posa:= i;[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X      if result.Chvatal = fail and IsEmpty( res.badForChvatal ) then[127X[104X
+    [4X[25X>[125X [27X        result.Chvatal:= i;[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X      i:= i+1;[127X[104X
+    [4X[25X>[125X [27X      oldbounds:= bounds;[127X[104X
+    [4X[25X>[125X [27X      bounds:= LowerBoundsVertexDegreesOfClosure( classlengths,[127X[104X
+    [4X[25X>[125X [27X                   bounds );[127X[104X
+    [4X[25X>[125X [27X    until oldbounds = bounds;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    if result.Posa <> fail then[127X[104X
+    [4X[25X>[125X [27X      if result.Posa <> result.Chvatal then[127X[104X
+    [4X[25X>[125X [27X        return Concatenation([127X[104X
+    [4X[25X>[125X [27X            "Chvatal for ", Ordinal( result.Chvatal ), " closure, ",[127X[104X
+    [4X[25X>[125X [27X            "Posa for ", Ordinal( result.Posa ), " closure" );[127X[104X
+    [4X[25X>[125X [27X      else[127X[104X
+    [4X[25X>[125X [27X        return Concatenation( "Posa for ", Ordinal( result.Posa ),[127X[104X
+    [4X[25X>[125X [27X            " closure" );[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    elif result.Chvatal <> fail then[127X[104X
+    [4X[25X>[125X [27X      return Concatenation( "Chvatal for ", Ordinal( result.Chvatal ),[127X[104X
+    [4X[25X>[125X [27X                            " closure" );[127X[104X
+    [4X[25X>[125X [27X    else[127X[104X
+    [4X[25X>[125X [27X      return "no decision";[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.4 [33X[0;0YCharacter-Theoretic Computations[133X[101X
+  
+  [33X[0;0YIn  this  section,  we  apply  the  functions  introduced  in Section [14X4.3[114X to
+  character  tables  of  almost  simple  groups  that are available in the [5XGAP[105X
+  Character Table Library.[133X
+  
+  [33X[0;0YOur  first  examples  are the sporadic simple groups, in Section [14X4.4-1[114X, then
+  their automorphism groups are considered in Section [14X4.4-3[114X. Small alternating
+  and symmetric groups are treated in Section [14X4.4-4[114X.[133X
+  
+  [33X[0;0YFor  our convenience, we provide a small function that takes as its argument
+  only the character table in question, and returns a string, either [10X"no prim.
+  perm. characters"[110X or the return value of [10XHamiltonianCycleInfo[110X for the bounds
+  computed from the primitive permutation characters.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XHamiltonianCycleInfoFromCharacterTable:= function( tbl )[127X[104X
+    [4X[25X>[125X [27X    local prim, classlengths, bounds;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    prim:= PrimitivePermutationCharacters( tbl );[127X[104X
+    [4X[25X>[125X [27X    if prim = fail then[127X[104X
+    [4X[25X>[125X [27X      return "no prim. perm. characters";[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    classlengths:= SizesConjugacyClasses( tbl );[127X[104X
+    [4X[25X>[125X [27X    bounds:= LowerBoundsVertexDegrees( classlengths, prim );[127X[104X
+    [4X[25X>[125X [27X    return HamiltonianCycleInfo( classlengths, bounds );[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.4-1 [33X[0;0YSporadic Simple Groups[133X[101X
+  
+  [33X[0;0YSince  version  1.3.10  of [5XCTblLib[105X, the [5XGAP[105X Character Table Library contains
+  the tables of maximal subgroups of all sporadic simple groups.[133X
+  
+  [33X[0;0YSo  the  function  [10XPrimitivePermutationCharacters[110X can be used to compute all
+  their primitive permutation characters.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xspornames:= AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                   IsDuplicateTable, false );[127X[104X
+    [4X[28X[ "B", "Co1", "Co2", "Co3", "F3+", "Fi22", "Fi23", "HN", "HS", "He", [128X[104X
+    [4X[28X  "J1", "J2", "J3", "J4", "Ly", "M", "M11", "M12", "M22", "M23", [128X[104X
+    [4X[28X  "M24", "McL", "ON", "Ru", "Suz", "Th" ][128X[104X
+    [4X[25Xgap>[125X [27Xfor tbl in List( spornames, CharacterTable ) do[127X[104X
+    [4X[25X>[125X [27X     info:= HamiltonianCycleInfoFromCharacterTable( tbl );[127X[104X
+    [4X[25X>[125X [27X     if info <> "Posa for 0th closure" then[127X[104X
+    [4X[25X>[125X [27X       Print( Identifier( tbl ), ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIt  turns  out  that  the  information  available in the [5XGAP[105X Character Table
+  Library  is  sufficient  to  prove  that  the  generating  graph  contains a
+  Hamiltonian cycle.[133X
+  
+  
+  [1X4.4-2 [33X[0;0YThe Monster[133X[101X
+  
+  [33X[0;0YIn  the  original  version  of this file, a special treatment of the Monster
+  group  had  been  necessary  because  not all character tabes of its maximal
+  subgroups  were  available, and also not all class fusions from some maximal
+  subgroups  were  known  whose  character tables were available. This section
+  shows the computations that were used at that time.[133X
+  
+  [33X[0;0YMeanwhile  the maximal subgroups of the Monster are classified, see [DLP25],
+  their  character  tables  are available, and also all class fusions from the
+  maximal  subgroups  are  known.  Thus  we  can  easily compute the primitive
+  permutation  characters of the Monster group. The computations shown in this
+  section are not needed to prove the claims from [BGL+10], they are kept just
+  for historical reasons. Thus this section is an example how the availability
+  of  the  full  list  of  primitive  permutation  characters  of  the Monster
+  simplifies proofs.[133X
+  
+  [33X[0;0YThe  situation  for  the following arguments is as follows. We do not assume
+  the  knowledge  of all primitive permutation characters of the Monster group
+  [22XM[122X,  and we use only some of the character tables of the maximal subgroups of
+  [22XM[122X  and  only  partial information on their class fusions. Note that for some
+  maximal subgroups of [22XM[122X, the permutation character is not uniquely determined
+  by  the  character tables involved. However, we can compute upper bounds for
+  the  values  of the primitive permutation characters [22X1_S^M[122X from the possible
+  class  fusions  from  [22XS[122X into [22XM[122X if the character table of [22XS[122X is known. For the
+  other  subgroups [22XS[122X, the permutation characters [22X1_S^M[122X have been computed with
+  other  methods.  Using  this  information,  we will show that the generating
+  graph of [22XM[122X satisfies Pósa's criterion.[133X
+  
+  [33X[0;0YThe  list [10Xprimdata[110X defined below has length [22X46[122X. The entry at position [22Xi[122X is a
+  list  of  length  one  or two. If [10Xprimdata[[110X[22Xi[122X[10X][110X has length one then its unique
+  entry  is  the identifier of the library character table of the [22Xi[122X-th maximal
+  subgroup  of  [22XM[122X. If [10Xprimdata[[110X[22Xi[122X[10X][110X has length two then its entries are a string
+  describing  the  structure  of  the  [22Xi[122X-th  maximal  subgroup  [22XS[122X of [22XM[122X and the
+  permutation character [22X1_S^M[122X.[133X
+  
+  [33X[0;0Y(The  construction  of  the explicitly given characters in this list will be
+  documented  elsewhere.  Some  of  the  constructions can be found in Section
+  [14X8.16[114X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdir:= DirectoriesPackageLibrary( "ctbllib", "data" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilename:= Filename( dir, "prim_perm_M.json" );;[127X[104X
+    [4X[25Xgap>[125X [27Xprimdata:= EvalString( StringFile( filename ) )[2];;[127X[104X
+    [4X[25Xgap>[125X [27XLength( primdata );[127X[104X
+    [4X[28X46[128X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "M" );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  compute  upper  bounds for the permutation character values in the cases
+  where  the  characters  are  not given explicitly. (We could improve this by
+  using  additional  information about the class fusions, but this will not be
+  necessary.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= "dummy";;      #  Avoid a message about an unbound variable ...[127X[104X
+    [4X[25Xgap>[125X [27Xposs:= "dummy";;   #  Avoid a message about an unbound variable ...[127X[104X
+    [4X[25Xgap>[125X [27Xfor entry in primdata do[127X[104X
+    [4X[25X>[125X [27X     if not IsBound( entry[2] ) then[127X[104X
+    [4X[25X>[125X [27X       s:= CharacterTable( entry[1] );[127X[104X
+    [4X[25X>[125X [27X       poss:= Set( PossibleClassFusions( s, m ),[127X[104X
+    [4X[25X>[125X [27X                   x -> InducedClassFunctionsByFusionMap( s, m,[127X[104X
+    [4X[25X>[125X [27X                            [ TrivialCharacter( s ) ], x )[1] );[127X[104X
+    [4X[25X>[125X [27X       entry[2]:= List( [ 1 .. NrConjugacyClasses( m ) ],[127X[104X
+    [4X[25X>[125X [27X                        i -> Maximum( List( poss, x -> x[i] ) ) );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we estimate the lower bounds [22Xδ(s, g^G)[122X introduced in Section [14X4.3-2[114X. Let
+  [22XMM[122X denote a set of representatives of the classes of maximal subgroups of [22XM[122X.
+  Then[133X
+  
+  
+  [24X[33X[0;6Yδ(s, g^G) = |s^G| - |s^G| ⋅ ∑_{S ∈ MM} 1_S^M(s) ⋅ 1_S^M(g) / 1_S^M(1) ,[133X[124X
+  
+  [33X[0;0Yhence  [22Xδ(s)[122X  can  be  computed  from the corresponding primitive permutation
+  characters, and a lower bound for [22Xδ(s)[122X can be computed from the upper bounds
+  for the characters [22X1_S^G[122X which are given by the list [10Xprimdata[110X.[133X
+  
+  [33X[0;0YThis  means that modifying the output of [10XLowerBoundsVertexDegrees[110X as follows
+  really yields lower bounds for the vertex degrees.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xprim:= List( primdata, x -> x[2] );;[127X[104X
+    [4X[25Xgap>[125X [27Xclasslengths:= SizesConjugacyClasses( m );;[127X[104X
+    [4X[25Xgap>[125X [27Xbounds:= LowerBoundsVertexDegrees( classlengths, prim );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  sum up the bounds for the individual classes. It turns out that the
+  minimal vertex degree is more than [22X99.99998[122X percent of [22X|M|[122X. This proves that
+  the generating graph of the Monster satisfies Pósa's criterion.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdegs:= List( bounds, Sum );;[127X[104X
+    [4X[25Xgap>[125X [27XInt( 100000000 * Minimum( degs ) / Size( m ) );[127X[104X
+    [4X[28X99999987[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XWithout[113X  the  results  from  [DLP25], we can argue as follows. (This was the
+  situation in earlier versions of this example file.)[133X
+  
+  [33X[0;0YAccording to [NW13], any maximal subgroup of the Monster is either among the
+  [22X44[122X known classes from the above list except L[22X_2(13).2[122X and U[22X_3(4).4[122X, or it is
+  an  almost  simple  group  whose socle is one of L[22X_2(13)[122X, Sz[22X(8)[122X, U[22X_3(4)[122X, and
+  U[22X_3(8)[122X.[133X
+  
+  [33X[0;0YWe show that the elements of such subgroups are contained in the union of [22X55[122X
+  conjugacy  classes  of  the  Monster that cover less than one percent of the
+  elements  in  the  Monster.  For that, we compute the possible class fusions
+  from  the  abovementioned  simple  groups  [22XS[122X  into the Monster, and then the
+  possible  class  fusions  from  the  automorphic  extensions  of  [22XS[122X into the
+  Monster,  using  the  possible  class fusions of [22XS[122X. (This approach is faster
+  than computing each class fusion from scratch.)[133X
+  
+  [33X[0;0YAfter  the  following  computations,  the  list  [10Xbadclasses[110X will contain the
+  positions of all those classes of [22XM[122X that may contain elements in some of the
+  hypothetical maximal subgroups.[133X
+  
+  [33X[0;0YFor each simple group in question, we enter the identifiers of the character
+  tables  of  the  automorphic  extensions  that  can  occur.  Note  that  the
+  automorphism  groups  of  the  four  groups  have  the structures L[22X_2(13).2[122X,
+  Sz[22X(8).3[122X,  U[22X_3(4).4[122X, and U[22X_3(8).(3 × S_3)[122X, respectively. We need not consider
+  the  groups  U[22X_3(8).3^2[122X and U[22X_3(8).(3 × S_3)[122X because already U[22X_3(8).3_2[122X does
+  not admit an embedding into [22XM[122X, and we need not consider the group U[22X_3(8).S_3[122X
+  because  its  set  of  elements  is  covered  by  its subgroups of the types
+  U[22X_3(8).2[122X and U[22X_3(8).3_2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPossibleClassFusions( CharacterTable( "U3(8).3_2" ), m );[127X[104X
+    [4X[28X[  ][128X[104X
+    [4X[25Xgap>[125X [27Xbadclasses:= [];;[127X[104X
+    [4X[25Xgap>[125X [27Xnames:= [[127X[104X
+    [4X[25X>[125X [27X   [ "L2(13)", "L2(13).2" ],[127X[104X
+    [4X[25X>[125X [27X   [ "Sz(8)", "Sz(8).3" ],[127X[104X
+    [4X[25X>[125X [27X   [ "U3(4)", "U3(4).2", "U3(4).4" ],[127X[104X
+    [4X[25X>[125X [27X   [ "U3(8)", "U3(8).2", "U3(8).3_1", "U3(8).3_2", "U3(8).3_3",[127X[104X
+    [4X[25X>[125X [27X              "U3(8).6" ],[127X[104X
+    [4X[25X>[125X [27X   ];;[127X[104X
+    [4X[25Xgap>[125X [27Xfor list in names do[127X[104X
+    [4X[25X>[125X [27X     t:= CharacterTable( list[1] );[127X[104X
+    [4X[25X>[125X [27X     tfusm:= PossibleClassFusions( t, m );[127X[104X
+    [4X[25X>[125X [27X     UniteSet( badclasses, Flat( tfusm ) );[127X[104X
+    [4X[25X>[125X [27X     for nam in list{ [ 2 .. Length( list ) ] } do[127X[104X
+    [4X[25X>[125X [27X       ext:= CharacterTable( nam );[127X[104X
+    [4X[25X>[125X [27X       for map1 in PossibleClassFusions( t, ext ) do[127X[104X
+    [4X[25X>[125X [27X         inv:= InverseMap( map1 );[127X[104X
+    [4X[25X>[125X [27X         for map2 in tfusm do[127X[104X
+    [4X[25X>[125X [27X           init:= CompositionMaps( map2, inv );[127X[104X
+    [4X[25X>[125X [27X           UniteSet( badclasses, Flat( PossibleClassFusions( ext, m,[127X[104X
+    [4X[25X>[125X [27X               rec( fusionmap:= init ) ) ) );[127X[104X
+    [4X[25X>[125X [27X         od;[127X[104X
+    [4X[25X>[125X [27X       od;[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xbadclasses;[127X[104X
+    [4X[28X[ 1, 3, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 17, 18, 19, 20, 21, 22, [128X[104X
+    [4X[28X  24, 25, 27, 28, 30, 32, 33, 35, 36, 38, 39, 40, 42, 43, 44, 45, 46, [128X[104X
+    [4X[28X  48, 49, 50, 51, 52, 53, 54, 55, 56, 60, 61, 62, 63, 70, 72, 73, 78, [128X[104X
+    [4X[28X  82, 85, 86 ][128X[104X
+    [4X[25Xgap>[125X [27XLength( badclasses );[127X[104X
+    [4X[28X55[128X[104X
+    [4X[25Xgap>[125X [27Xbad:= Sum( classlengths{ badclasses } ) / Size( m );;[127X[104X
+    [4X[25Xgap>[125X [27XInt( 10000 * bad ); [127X[104X
+    [4X[28X97[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XIn  the  original  version of this file, also hypothetical maximal subgroups
+  with  socle[113X  L[22X_2(27)[122X  [13Xhad  been  considered.  As  a  consequence,  the  list[113X
+  [10Xbadclasses[110X  [13Xcomputed  above  had length [22X59[122X in the original version; the list
+  contained also the classes at the positions [22X90, 94, 95[122X, and [22X96[122X, that is, the
+  classes[113X [10X26B[110X, [10X28B[110X, [10X28C[110X, [10X28D[110X. [13XThe proportion[113X [10Xbad[110X [13Xof elements in the classes of
+  [22XM[122X  described  by[113X  [10Xbadclasses[110X  [13Xwas about [22X2.05[122X percent of [22X|M|[122X, compared to the
+  about [22X0.98[122X percent in the current version.[113X[133X
+  
+  [33X[0;0YNow  we estimate the lower bounds [22Xδ(s, g^G)[122X introduced in Section [14X4.3-2[114X. Let
+  [22XB[122X denote the union of the classes described by [10Xbadclasses[110X, and let [22XMM[122X denote
+  a set of representatives of the [22X44[122X known classes of maximal subgroups of [22XM[122X.[133X
+  
+  [33X[0;0YIf [22Xs ∉ B[122X then[133X
+  
+  
+  [24X[33X[0;6Yδ(s, g^G) = |s^G| - |s^G| ⋅ ∑_{S ∈ MM} 1_S^M(s) ⋅ 1_S^M(g) / 1_S^M(1) ,[133X[124X
+  
+  [33X[0;0Yhence  [22Xδ(s)[122X  can  be  computed  from the corresponding primitive permutation
+  characters, and a lower bound for [22Xδ(s)[122X can be computed from the upper bounds
+  for the characters [22X1_S^G[122X which are given by the list [10Xprimdata[110X.[133X
+  
+  [33X[0;0YIf  [22Xs ∈ B[122X then the above equation for [22Xδ(s, g^G)[122X holds at least for [22Xg ∉ B[122X, so
+  [22X∑_{g  ∈  R  ∖  B}  δ(s, g^G)[122X is a lower bound for [22Xδ(s)[122X. So [10Xprimdata[110X yields a
+  lower bound for [22Xδ(s)[122X also for [22Xs ∈ B[122X, by ignoring the pairs [22X(s, g)[122X where both
+  [22Xs[122X and [22Xg[122X lie in [22XB[122X.[133X
+  
+  [33X[0;0YThis  means that modifying the output of [10XLowerBoundsVertexDegrees[110X as follows
+  really  yields  lower  bounds for the vertex degrees. (Note that the row and
+  column  positions  in  the  matrix  returned by [10XLowerBoundsVertexDegrees[110X are
+  shifted by one, compared to [10Xbadclasses[110X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xprim:= List( primdata, x -> x[2] );;[127X[104X
+    [4X[25Xgap>[125X [27Xbadpos:= Difference( badclasses, [ 1 ] ) - 1;;[127X[104X
+    [4X[25Xgap>[125X [27Xbounds:= LowerBoundsVertexDegrees( classlengths, prim );;[127X[104X
+    [4X[25Xgap>[125X [27Xfor i in badpos do[127X[104X
+    [4X[25X>[125X [27X     for j in badpos do[127X[104X
+    [4X[25X>[125X [27X       bounds[i][j]:= 0;[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  sum up the bounds for the individual classes. It turns out that the
+  minimal  vertex  degree is more than [22X99[122X percent of [22X|M|[122X. This proves that the
+  generating graph of the Monster satisfies Pósa's criterion.[133X
+  
+  [33X[0;0Y(And  the  minimal vertex degree of elements outside [22XB[122X is more than [22X99.99998[122X
+  percent of [22X|M|[122X.)[133X
+  
+  [33X[0;0Y[13XIn  the  original  version of this file, we got only [22X97.95[122X percent of [22X|M|[122X as
+  the  lower  bound  for  the  minimal  vertex  degree. The bound for elements
+  outside  [22XB[122X  was  the same in the original version. The fact that the maximal
+  subgroups  of  type[113X L[22X_2(41)[122X [13Xhad been ignored in the original version did not
+  affect the lower bound for the minimal vertex degree.[113X[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdegs:= List( bounds, Sum );;[127X[104X
+    [4X[25Xgap>[125X [27XInt( 10000 * Minimum( degs ) / Size( m ) );[127X[104X
+    [4X[28X9902[128X[104X
+    [4X[25Xgap>[125X [27Xgoodpos:= Difference( [ 1 .. NrConjugacyClasses( m ) - 1 ],[127X[104X
+    [4X[25X>[125X [27X                         badpos );;[127X[104X
+    [4X[25Xgap>[125X [27XInt( 100000000 * Minimum( degs{ goodpos } ) / Size( m ) );[127X[104X
+    [4X[28X99999987[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.4-3 [33X[0;0YNonsimple Automorphism Groups of Sporadic Simple Groups[133X[101X
+  
+  [33X[0;0YNext  we  consider  the nonsimple automorphism groups of the sporadic simple
+  groups.  Nontrivial  outer automorphisms exist exactly in [22X12[122X cases, and then
+  the simple group has index [22X2[122X in its automorphism group. The character tables
+  of the groups and their maximal subgroups are available in [5XGAP[105X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xspornames:= AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                   IsDuplicateTable, false );;[127X[104X
+    [4X[25Xgap>[125X [27Xsporautnames:= AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                      IsDuplicateTable, false,[127X[104X
+    [4X[25X>[125X [27X                      OfThose, AutomorphismGroup );;[127X[104X
+    [4X[25Xgap>[125X [27Xsporautnames:= Difference( sporautnames, spornames );[127X[104X
+    [4X[28X[ "F3+.2", "Fi22.2", "HN.2", "HS.2", "He.2", "J2.2", "J3.2", "M12.2", [128X[104X
+    [4X[28X  "M22.2", "McL.2", "ON.2", "Suz.2" ][128X[104X
+    [4X[25Xgap>[125X [27Xfor tbl in List( sporautnames, CharacterTable ) do[127X[104X
+    [4X[25X>[125X [27X     info:= HamiltonianCycleInfoFromCharacterTable( tbl );[127X[104X
+    [4X[25X>[125X [27X     Print( Identifier( tbl ), ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28XF3+.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XFi22.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XHN.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XHS.2: Chvatal for 1st closure, Posa for 2nd closure[128X[104X
+    [4X[28XHe.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XJ2.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XJ3.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XM12.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XM22.2: Posa for 1st closure[128X[104X
+    [4X[28XMcL.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XON.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XSuz.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.4-4 [33X[0;0YAlternating and Symmetric Groups [22XA_n[122X[101X[1X, [22XS_n[122X[101X[1X, for [22X5 ≤ n ≤ 13[122X[101X[1X[133X[101X
+  
+  [33X[0;0YFor alternating and symmetric groups [22XA_n[122X and [22XS_n[122X, respectively, with [22X5 ≤ n ≤
+  13[122X,  the  table  of  marks  or the character tables of the group and all its
+  maximal   subgroups   are   available   in   [5XGAP[105X.  So  we  can  compute  the
+  character-theoretic bounds for vertex degrees.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfor tbl in List( [ 5 .. 13 ], i -> CharacterTable([127X[104X
+    [4X[25X>[125X [27X                Concatenation( "A", String( i ) ) ) )  do[127X[104X
+    [4X[25X>[125X [27X     info:= HamiltonianCycleInfoFromCharacterTable( tbl );[127X[104X
+    [4X[25X>[125X [27X     if info <> "Posa for 0th closure" then[127X[104X
+    [4X[25X>[125X [27X       Print( Identifier( tbl ), ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNo  messages are printed, so the generating graphs of the alternating groups
+  in question satisfy Pósa's criterion.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfor tbl in List( [ 5 .. 13 ], i -> CharacterTable([127X[104X
+    [4X[25X>[125X [27X                Concatenation( "S", String( i ) ) ) )  do[127X[104X
+    [4X[25X>[125X [27X     info:= HamiltonianCycleInfoFromCharacterTable( tbl );[127X[104X
+    [4X[25X>[125X [27X     Print( Identifier( tbl ), ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28XA5.2: no decision[128X[104X
+    [4X[28XA6.2_1: Chvatal for 4th closure, Posa for 5th closure[128X[104X
+    [4X[28XA7.2: Posa for 1st closure[128X[104X
+    [4X[28XA8.2: Chvatal for 2nd closure, Posa for 3rd closure[128X[104X
+    [4X[28XA9.2: Chvatal for 2nd closure, Posa for 3rd closure[128X[104X
+    [4X[28XA10.2: Chvatal for 2nd closure, Posa for 3rd closure[128X[104X
+    [4X[28XA11.2: Posa for 1st closure[128X[104X
+    [4X[28XA12.2: Chvatal for 2nd closure, Posa for 3rd closure[128X[104X
+    [4X[28XA13.2: Posa for 1st closure[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that  sufficiently  large  closures of the generating graphs of the
+  symmetric  groups  in  question  satisfy  Pósa's  criterion, except that the
+  bounds  for  the  symmetric  group  [22XS_5[122X are not sufficient for the proof. In
+  Section [14X4.5-2[114X,  it  is shown that the 2nd closure of the generating graph of
+  [22XS_5[122X satisfies Pósa's criterion.[133X
+  
+  [33X[0;0Y(We  could  find  slightly  better bounds derived only from character tables
+  which  suffice  to  prove  that  the  generating  graph  for  [22XS_5[122X contains a
+  Hamiltonian cycle, but this seems to be not worth while.)[133X
+  
+  
+  [1X4.5 [33X[0;0YComputations With Groups[133X[101X
+  
+  [33X[0;0YWe  prove  in  Section [14X4.5-1[114X  that  the  generating graphs of the nonabelian
+  simple  groups  of  order  up to [22X10^6[122X satisfy Pósa's criterion, and that the
+  same holds for those nonabelian simple groups of order between [22X10^6[122X and [22X10^7[122X
+  that  are  not  isomorphic  with some [22XPSL(2,q)[122X. (In Section [14X4.6[114X, it is shown
+  that  the  generating  graph  of  [22XPSL(2,q)[122X satifies Pósa's criterion for any
+  prime power [22Xq[122X.) Nonsimple nonsolvable groups of order up to [22X10^6[122X are treated
+  in Section [14X4.5-2[114X.[133X
+  
+  [33X[0;0Y(We  could  increase  the bounds [22X10^6[122X and [22X10^7[122X with more computations, using
+  the same methods.)[133X
+  
+  [33X[0;0YFor  our convenience, we provide a small function that takes as its argument
+  only  the  group  in  question,  and  returns  a string, the return value of
+  [10XHamiltonianCycleInfo[110X  for  the  vertex  degrees computed from the group. (In
+  order  to speed up the computations, the function computes the proper normal
+  subgroups  that  contain the derived subgroup of the given group, and enters
+  the    list    of    these    groups    as    the    third    argument    of
+  [10XVertexDegreesGeneratingGraph[110X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XHamiltonianCycleInfoFromGroup:= function( G )[127X[104X
+    [4X[25X>[125X [27X    local ccl, nsg, der, degrees, classlengths;[127X[104X
+    [4X[25X>[125X [27X    ccl:= ConjugacyClasses( G );[127X[104X
+    [4X[25X>[125X [27X    if IsPerfect( G ) then[127X[104X
+    [4X[25X>[125X [27X      nsg:= [];[127X[104X
+    [4X[25X>[125X [27X    else[127X[104X
+    [4X[25X>[125X [27X      der:= DerivedSubgroup( G );[127X[104X
+    [4X[25X>[125X [27X      nsg:= Concatenation( [ der ],[127X[104X
+    [4X[25X>[125X [27X                IntermediateSubgroups( G, der ).subgroups );[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    degrees:= VertexDegreesGeneratingGraph( G, ccl, nsg );[127X[104X
+    [4X[25X>[125X [27X    classlengths:= List( ccl, Size );[127X[104X
+    [4X[25X>[125X [27X    return HamiltonianCycleInfo( classlengths, degrees );        [127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.5-1 [33X[0;0YNonabelian Simple Groups of Order up to [22X10^7[122X[101X[1X[133X[101X
+  
+  [33X[0;0YRepresentatives  of  the [22X56[122X isomorphism types of nonabelian simple groups of
+  order   up   to   [22X10^6[122X   can   be   accessed   in   [5XGAP[105X  with  the  function
+  [10XAllSmallNonabelianSimpleGroups[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgrps:= AllSmallNonabelianSimpleGroups( [ 1 .. 10^6 ] );;         [127X[104X
+    [4X[25Xgap>[125X [27XLength( grps );[127X[104X
+    [4X[28X56[128X[104X
+    [4X[25Xgap>[125X [27XList( grps, StructureDescription );[127X[104X
+    [4X[28X[ "A5", "PSL(3,2)", "A6", "PSL(2,8)", "PSL(2,11)", "PSL(2,13)", [128X[104X
+    [4X[28X  "PSL(2,17)", "A7", "PSL(2,19)", "PSL(2,16)", "PSL(3,3)", [128X[104X
+    [4X[28X  "PSU(3,3)", "PSL(2,23)", "PSL(2,25)", "M11", "PSL(2,27)", [128X[104X
+    [4X[28X  "PSL(2,29)", "PSL(2,31)", "A8", "PSL(3,4)", "PSL(2,37)", "O(5,3)", [128X[104X
+    [4X[28X  "Sz(8)", "PSL(2,32)", "PSL(2,41)", "PSL(2,43)", "PSL(2,47)", [128X[104X
+    [4X[28X  "PSL(2,49)", "PSU(3,4)", "PSL(2,53)", "M12", "PSL(2,59)", [128X[104X
+    [4X[28X  "PSL(2,61)", "PSU(3,5)", "PSL(2,67)", "J1", "PSL(2,71)", "A9", [128X[104X
+    [4X[28X  "PSL(2,73)", "PSL(2,79)", "PSL(2,64)", "PSL(2,81)", "PSL(2,83)", [128X[104X
+    [4X[28X  "PSL(2,89)", "PSL(3,5)", "M22", "PSL(2,97)", "PSL(2,101)", [128X[104X
+    [4X[28X  "PSL(2,103)", "HJ", "PSL(2,107)", "PSL(2,109)", "PSL(2,113)", [128X[104X
+    [4X[28X  "PSL(2,121)", "PSL(2,125)", "O(5,4)" ][128X[104X
+    [4X[25Xgap>[125X [27Xfor g in grps do                                             [127X[104X
+    [4X[25X>[125X [27X     info:= HamiltonianCycleInfoFromGroup( g );[127X[104X
+    [4X[25X>[125X [27X     if info <> "Posa for 0th closure" then[127X[104X
+    [4X[25X>[125X [27X       Print( StructureDescription( g ), ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNothing  is  printed  during these computations, so the generating graphs of
+  all processed groups satisfy Pósa's criterion.[133X
+  
+  [33X[0;0Y(On  my  notebook,  the  above computations needed about [22X6300[122X seconds of CPU
+  time.)[133X
+  
+  [33X[0;0YFor  simple  groups of order larger than [22X10^6[122X, there is not such an easy way
+  (yet)  to access representatives for each isomorphism type. Therefore, first
+  we compute the orders of nonabelian simple groups between [22X10^6[122X and [22X10^7[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xorders:= Filtered( [ 10^6+4, 10^6+8 .. 10^7 ],[127X[104X
+    [4X[25X>[125X [27X     n -> IsomorphismTypeInfoFiniteSimpleGroup( n ) <> fail );[127X[104X
+    [4X[28X[ 1024128, 1123980, 1285608, 1342740, 1451520, 1653900, 1721400, [128X[104X
+    [4X[28X  1814400, 1876896, 1934868, 2097024, 2165292, 2328648, 2413320, [128X[104X
+    [4X[28X  2588772, 2867580, 2964780, 3265920, 3483840, 3594432, 3822588, [128X[104X
+    [4X[28X  3940200, 4245696, 4680000, 4696860, 5515776, 5544672, 5663616, [128X[104X
+    [4X[28X  5848428, 6004380, 6065280, 6324552, 6825840, 6998640, 7174332, [128X[104X
+    [4X[28X  7906500, 8487168, 9095592, 9732420, 9951120, 9999360 ][128X[104X
+    [4X[25Xgap>[125X [27XLength( orders );[127X[104X
+    [4X[28X41[128X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( orders, IsomorphismTypeInfoFiniteSimpleGroup );;[127X[104X
+    [4X[25Xgap>[125X [27XNumber( info, x -> IsBound( x.series ) and x.series = "L"[127X[104X
+    [4X[25X>[125X [27X                      and x.parameter[1] = 2 );[127X[104X
+    [4X[28X31[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe see that there are [22X31[122X groups of the type [22XPSL(2,q)[122X and [22X10[122X other nonabelian
+  simple  groups  with order in the range from [22X10^6[122X to [22X10^7[122X. The former groups
+  can be ignored because the generating graphs of any group [22XPSL(2,q)[122X satisfies
+  Pósa's  criterion,  see Section [14X4.6[114X. For the latter groups, we can apply the
+  character-theoretic  method  to  prove  that  the generating graph satisfies
+  Pósa's criterion.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, x -> not IsBound( x.series ) or[127X[104X
+    [4X[25X>[125X [27X            x.series <> "L" or x.parameter[1] <> 2 );[127X[104X
+    [4X[28X[ rec( name := "B(3,2) = O(7,2) ~ C(3,2) = S(6,2)", [128X[104X
+    [4X[28X      parameter := [ 3, 2 ], series := "B", shortname := "S6(2)" ), [128X[104X
+    [4X[28X  rec( name := "A(10)", parameter := 10, series := "A", [128X[104X
+    [4X[28X      shortname := "A10" ), [128X[104X
+    [4X[28X  rec( name := "A(2,7) = L(3,7) ", parameter := [ 3, 7 ], [128X[104X
+    [4X[28X      series := "L", shortname := "L3(7)" ), [128X[104X
+    [4X[28X  rec( name := "2A(3,3) = U(4,3) ~ 2D(3,3) = O-(6,3)", [128X[104X
+    [4X[28X      parameter := [ 3, 3 ], series := "2A", shortname := "U4(3)" ), [128X[104X
+    [4X[28X  rec( name := "G(2,3)", parameter := 3, series := "G", [128X[104X
+    [4X[28X      shortname := "G2(3)" ), [128X[104X
+    [4X[28X  rec( name := "B(2,5) = O(5,5) ~ C(2,5) = S(4,5)", [128X[104X
+    [4X[28X      parameter := [ 2, 5 ], series := "B", shortname := "S4(5)" ), [128X[104X
+    [4X[28X  rec( name := "2A(2,8) = U(3,8)", parameter := [ 2, 8 ], [128X[104X
+    [4X[28X      series := "2A", shortname := "U3(8)" ), [128X[104X
+    [4X[28X  rec( name := "2A(2,7) = U(3,7)", parameter := [ 2, 7 ], [128X[104X
+    [4X[28X      series := "2A", shortname := "U3(7)" ), [128X[104X
+    [4X[28X  rec( name := "A(3,3) = L(4,3) ~ D(3,3) = O+(6,3) ", [128X[104X
+    [4X[28X      parameter := [ 4, 3 ], series := "L", shortname := "L4(3)" ), [128X[104X
+    [4X[28X  rec( name := "A(4,2) = L(5,2) ", parameter := [ 5, 2 ], [128X[104X
+    [4X[28X      series := "L", shortname := "L5(2)" ) ][128X[104X
+    [4X[25Xgap>[125X [27Xnames:= [ "S6(2)", "A10", "L3(7)", "U4(3)", "G2(3)", "S4(5)",[127X[104X
+    [4X[25X>[125X [27X             "U3(8)", "U3(7)", "L4(3)", "L5(2)" ];;[127X[104X
+    [4X[25Xgap>[125X [27Xfor tbl in List( names, CharacterTable ) do[127X[104X
+    [4X[25X>[125X [27X     info:= HamiltonianCycleInfoFromCharacterTable( tbl );[127X[104X
+    [4X[25X>[125X [27X     if info <> "Posa for 0th closure" then[127X[104X
+    [4X[25X>[125X [27X       Print( Identifier( tbl ), ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.5-2 [33X[0;0YNonsimple Groups with Nonsolvable Socle of Order at most [22X10^6[122X[101X[1X[133X[101X
+  
+  [33X[0;0YLet  [22XG[122X  be  a  nonsolvable  group such that [22XG/N[122X is cyclic for all nontrivial
+  normal  subgroups  [22XN[122X  of [22XG[122X. Then the socle Soc[22X(G)[122X of [22XG[122X is the unique minimal
+  normal  subgroup.  Moreover, Soc[22X(G)[122X is nonsolvable and thus a direct product
+  of isomorphic nonabelian simple groups, and [22XG[122X is isomorphic to a subgroup of
+  Aut[22X([122XSoc[22X(G))[122X.[133X
+  
+  [33X[0;0YIn  order  to  deal with all such groups [22XG[122X for which additionally [22X|[122XSoc[22X(G)| ≤
+  10^6[122X  holds, it is sufficient to run over the simple groups [22XS[122X of order up to
+  [22X10^6[122X  and  to consider those subgroups [22XG[122X of Aut[22X(S^n)[122X, with [22X|S|^n ≤ 10^6[122X, for
+  which Inn[22X(G)[122X is the unique minimal normal subgroup and [22XG /[122XInn[22X(G)[122X is cyclic.[133X
+  
+  [33X[0;0YWe  show  that  for  each such group, a sufficient closure of the generating
+  graph satisfies Pósa's criterion.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgrps:= AllSmallNonabelianSimpleGroups( [ 1 .. 10^6 ] );;         [127X[104X
+    [4X[25Xgap>[125X [27Xepi:= "dummy";;   #  Avoid a message about an unbound variable ...[127X[104X
+    [4X[25Xgap>[125X [27Xfor simple in grps do[127X[104X
+    [4X[25X>[125X [27X     for n in [ 1 .. LogInt( 10^6, Size( simple ) ) ] do[127X[104X
+    [4X[25X>[125X [27X       # Compute the n-fold direct product S^n.[127X[104X
+    [4X[25X>[125X [27X       soc:= CallFuncList( DirectProduct,[127X[104X
+    [4X[25X>[125X [27X                           ListWithIdenticalEntries( n, simple ) );[127X[104X
+    [4X[25X>[125X [27X       # Compute Aut(S^n) as a permutation group.[127X[104X
+    [4X[25X>[125X [27X       aut:= Image( IsomorphismPermGroup( AutomorphismGroup( soc ) ) );[127X[104X
+    [4X[25X>[125X [27X       aut:= Image( SmallerDegreePermutationRepresentation( aut ) );[127X[104X
+    [4X[25X>[125X [27X       # Compute class representatives of subgroups of[127X[104X
+    [4X[25X>[125X [27X       # Aut(S^n)/Inn(S^n).[127X[104X
+    [4X[25X>[125X [27X       socle:= Socle( aut );[127X[104X
+    [4X[25X>[125X [27X       epi:= NaturalHomomorphismByNormalSubgroup( aut, socle );[127X[104X
+    [4X[25X>[125X [27X       # Compute the candidates for G.  (By the above computations,[127X[104X
+    [4X[25X>[125X [27X       # we need not consider simple groups.)[127X[104X
+    [4X[25X>[125X [27X       reps:= List( ConjugacyClassesSubgroups( Image( epi ) ),[127X[104X
+    [4X[25X>[125X [27X                    Representative );[127X[104X
+    [4X[25X>[125X [27X       reps:= Filtered( reps, x -> IsCyclic( x ) and Size( x ) <> 1 );[127X[104X
+    [4X[25X>[125X [27X       greps:= Filtered( List( reps, x -> PreImages( epi, x ) ),[127X[104X
+    [4X[25X>[125X [27X                     x -> Length( MinimalNormalSubgroups( x ) ) = 1 );[127X[104X
+    [4X[25X>[125X [27X       for g in greps do[127X[104X
+    [4X[25X>[125X [27X         # We have to deal with a *transitive* permutation group.[127X[104X
+    [4X[25X>[125X [27X         # (Each group in question acts faithfully on an orbit.)[127X[104X
+    [4X[25X>[125X [27X         if not IsTransitive( g ) then[127X[104X
+    [4X[25X>[125X [27X           g:= First( List( Orbits( g, MovedPoints( g ) ),[127X[104X
+    [4X[25X>[125X [27X                            x -> Action( g, x ) ),[127X[104X
+    [4X[25X>[125X [27X                      x -> Size( x ) = Size( g ) );[127X[104X
+    [4X[25X>[125X [27X         fi;[127X[104X
+    [4X[25X>[125X [27X         # Check this group G.[127X[104X
+    [4X[25X>[125X [27X         info:= HamiltonianCycleInfoFromGroup( g );[127X[104X
+    [4X[25X>[125X [27X         Print( Name( simple ), "^", n, ".", Size( g ) / Size( soc ),[127X[104X
+    [4X[25X>[125X [27X                ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X       od;[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28XA5^1.2: Posa for 2nd closure[128X[104X
+    [4X[28XA5^2.2: Posa for 0th closure[128X[104X
+    [4X[28XA5^2.4: Posa for 0th closure[128X[104X
+    [4X[28XA5^3.3: Posa for 0th closure[128X[104X
+    [4X[28XA5^3.6: Chvatal for 1st closure, Posa for 2nd closure[128X[104X
+    [4X[28XPSL(2,7)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,7)^2.2: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,7)^2.4: Posa for 0th closure[128X[104X
+    [4X[28XA6^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XA6^1.2: Chvatal for 4th closure, Posa for 5th closure[128X[104X
+    [4X[28XA6^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XA6^2.2: Posa for 0th closure[128X[104X
+    [4X[28XA6^2.4: Posa for 0th closure[128X[104X
+    [4X[28XA6^2.4: Posa for 0th closure[128X[104X
+    [4X[28XA6^2.4: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,8)^1.3: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,8)^2.2: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,8)^2.6: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,11)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,11)^2.2: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,11)^2.4: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,13)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,17)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XA7^1.2: Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,19)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,16)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,16)^1.4: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(3,3)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSU(3,3)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,23)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,25)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,25)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,25)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,27)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,27)^1.3: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,27)^1.6: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,29)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,31)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XA8^1.2: Chvatal for 2nd closure, Posa for 3rd closure[128X[104X
+    [4X[28XPSL(3,4)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(3,4)^1.2: Chvatal for 1st closure, Posa for 2nd closure[128X[104X
+    [4X[28XPSL(3,4)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(3,4)^1.3: Posa for 0th closure[128X[104X
+    [4X[28XPSL(3,4)^1.6: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,37)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSp(4,3)^1.2: Chvatal for 1st closure, Posa for 2nd closure[128X[104X
+    [4X[28XSz(8)^1.3: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,32)^1.5: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,41)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,43)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,47)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,49)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,49)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,49)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSU(3,4)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSU(3,4)^1.4: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,53)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XM12^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,59)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,61)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSU(3,5)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSU(3,5)^1.3: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,67)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,71)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XA9^1.2: Chvatal for 2nd closure, Posa for 3rd closure[128X[104X
+    [4X[28XPSL(2,73)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,79)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,64)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,64)^1.3: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,64)^1.6: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,81)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,81)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,81)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,81)^1.4: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,81)^1.4: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,83)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,89)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(3,5)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XM22^1.2: Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,97)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,101)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,103)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XJ_2^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,107)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,109)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,113)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,121)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,121)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,121)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,125)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSL(2,125)^1.3: Posa for 0th closure[128X[104X
+    [4X[28XPSL(2,125)^1.6: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSp(4,4)^1.2: Chvatal for 0th closure, Posa for 1st closure[128X[104X
+    [4X[28XPSp(4,4)^1.4: Posa for 0th closure[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.6 [33X[0;0YThe Groups [22XPSL(2,q)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YWe  show  that  the  generating  graph  of  any  group  [22XPSL(2,q)[122X, for [22Xq ≥ 2[122X,
+  satisfies Pósa's criterion. Throughout this section, let [22Xq = p^f[122X for a prime
+  integer [22Xp[122X, and [22XG = PSL(2,q)[122X. Set [22Xk = gcd(q-1, 2)[122X.[133X
+  
+  [33X[0;0Y[13XLemma 1:[113X (see [Hup67, II., § 8]) The subgroups of [22XG[122X are[133X
+  
+  [8X(1)[108X
+        [33X[0;6Ycyclic  groups  of  order  dividing  [22X(q ± 1)/k[122X, and their normalizers,
+        which are dihedral groups of order [22X2 (q ± 1)/k[122X,[133X
+  
+  [8X(2)[108X
+        [33X[0;6Ysubgroups  of  Sylow  [22Xp[122X  normalizers, which are semidirect products of
+        elementary  abelian  groups  of  order  [22Xq[122X  with cyclic groups of order
+        [22X(q-1)/k[122X,[133X
+  
+  [8X(3)[108X
+        [33X[0;6Ysubgroups  isomorphic  with [22XPSL(2, p^m)[122X if [22Xm[122X divides [22Xf[122X, and isomorphic
+        with [22XPGL(2, p^m)[122X if [22X2 m[122X divides [22Xf[122X,[133X
+  
+  [8X(4)[108X
+        [33X[0;6Ysubgroups  isomorphic with [22XA_4[122X, [22XS_4[122X, or [22XA_5[122X, for appropriate values of
+        [22Xq[122X.[133X
+  
+  [33X[0;0Y[22XG[122X  contains  exactly  one conjugacy class of cyclic subgroups of each of the
+  orders  [22X(q-1)/k[122X  and [22X(q+1)/k[122X, and each nonidentity element of [22XG[122X is contained
+  in exactly one of these subgroups or in exactly one Sylow [22Xp[122X subgroup of [22XG[122X.[133X
+  
+  [33X[0;0YWe  estimate  the  number  of  elements  that  are contained in subgroups of
+  type (3).[133X
+  
+  [33X[0;0Y[13XLemma  2:[113X  Let  [22Xn_sf(q)[122X denote the number of those nonidentity elements in [22XG[122X
+  that  are contained in proper subgroups of type (3). Then [22Xn_sf(q) ≤ q^2 (2 p
+  (sqrtq-1) / (p-1) - 1)[122X. If [22Xf[122X is a prime then [22Xn_sf(q) ≤ (2p-1) q^2[122X holds, and
+  if [22Xp = q[122X then we have of course [22Xn_sf(q) = 0[122X.[133X
+  
+  [33X[0;0Y[13XProof:[113X The group [22XPGL(2, p^m)[122X is equal to [22XPSL(2, p^m)[122X for [22Xp = 2[122X, and contains
+  [22XPSL(2,  p^m)[122X  as  a  subgroup of index two if [22Xp ne 2[122X. So the largest element
+  order  in  [22XPGL(2, p^m)[122X is at most [22Xp^m+1[122X. Let [22XC[122X be a cyclic subgroup of order
+  [22X(q  + ϵ)/k[122X in [22XG[122X, for [22Xϵ ∈ { ± 1 }[122X. The intersection of [22XC[122X with any subgroup of
+  [22XG[122X  isomorphic  with  [22XPGL(2, p^m)[122X or [22XPSL(2, p^m)[122X is contained in the union of
+  the  unique  subgroups of the orders [22Xgcd(|C|, p^m + 1)[122X and [22Xgcd(|C|, p^m - 1)[122X
+  in  [22XC[122X.  So  [22XC[122X  contains  at most [22X2 p^m - 2[122X nonidentity elements that can lie
+  inside  subgroups  isomorphic  with  [22XPGL(2,  p^m)[122X  or  [22XPSL(2,  p^m)[122X. Hence [22XC[122X
+  contains at most [22X∑_m (2 p^m - 2)[122X nonidentity elements in proper subgroups of
+  type (3),  where  [22Xm[122X  runs over the proper divisors of [22Xf[122X. This sum is bounded
+  from above by [22X∑_{m=1}^{f/2} (2 p^m - 2) ≤ 2 p (sqrt{q}-1) / (p-1) - 2[122X.[133X
+  
+  [33X[0;0YThe numbers of cyclic subgroups of the orders [22X(q + ϵ)/k[122X in [22XG[122X are [22Xq (q - ϵ) /
+  2[122X,  so [22XG[122X contains altogether [22Xq^2[122X such cyclic subgroups. They contain at most
+  [22Xq^2  (2  p  (sqrt{q}-1) / (p-1) - 2)[122X elements inside proper subgroups of the
+  type (3).[133X
+  
+  [33X[0;0YAll  elements  of  order  [22Xp[122X in [22XG[122X are contained in subgroups of type (3), and
+  there  are  exactly [22Xq^2 - 1[122X such elements. This yields the claimed bound for
+  [22Xn_sf(q)[122X. The better bound for the case that [22Xf[122X is a prime follows from [22X∑_m (2
+  p^m - 2) = 2 p - 2[122X if [22Xm[122X ranges over the proper divisors of [22Xf[122X. ▒[133X
+  
+  [33X[0;0YUsing  these  bounds, we see that the vertex degree of any element in [22XG[122X that
+  does  not  lie  in  subgroups  of type (4) is larger than [22X|G|/2[122X. (In fact we
+  could  use  the  calculations below to derive a better asymptotic bound, but
+  this is not an issue here.)[133X
+  
+  [33X[0;0Y[13XLemma 3:[113X Let [22Xs ∈ G[122X be an element of order larger than [22X5[122X. Then [22X|{ g ∈ G; ⟨ g,
+  s ⟩ = G }| > |G|/2[122X.[133X
+  
+  [33X[0;0Y[13XProof:[113X  First suppose that the order of [22Xs[122X divides [22X(q+1)/k[122X or [22X(q-1)/k[122X. If [22Xg ∈
+  G[122X  such that [22XU = ⟨ s, g ⟩[122X is a proper subgroup of [22XG[122X then [22XU ≤ N_G(⟨ s ⟩)[122X or [22XU[122X
+  lies in a Sylow [22Xp[122X normalizer of [22XG[122X or [22XU[122X lies in a subgroup of type (3). Since
+  [22Xs[122X  is  contained in at most two Sylow [22Xp[122X normalizers (each Sylow [22Xp[122X normalizer
+  contains  [22Xq[122X  cyclic  subgroups  of  order  [22X(q-1)/k[122X, and [22XG[122X contains [22Xq+1[122X Sylow
+  normalizers  and [22Xq (q+1)/2[122X cyclic subgroups of order [22X(q-1)/k[122X), the number of
+  [22Xg  ∈  G[122X  with  the  property  that  [22X⟨ s, g ⟩ ‡ G[122X is at most [22XN = 2(q+1)/k + 2
+  q(q-1)/k  +  n_sf(q) = 2(q^2+1)/k + n_sf(q)[122X; for [22Xs[122X of order equal to [22X(q+1)/k[122X
+  or [22X(q-1)/k[122X, we can set [22XN = 2(q^2+1)/k[122X.[133X
+  
+  [33X[0;0YAny  element  [22Xs[122X  of  order  [22Xp[122X (larger than [22X5[122X), lies only in a unique Sylow [22Xp[122X
+  normalizer  and  in subgroups of type (3), so the bound [22XN[122X holds also in this
+  case.[133X
+  
+  [33X[0;0YFor  [22Xf  =  1[122X,  [22XN[122X  is  smaller  than [22X|G|/2 = q (q^2-1) / (2 k)[122X if [22Xq ≥ 5[122X. (The
+  statement of the lemma is trivially true for [22Xq ≤ 5[122X.)[133X
+  
+  [33X[0;0YFor  primes  [22Xf[122X,  [22XN[122X is smaller than [22X|G|/2[122X if [22Xq^2 (q-8p) > q+4[122X holds, which is
+  true  for  [22Xp^f  >  8p[122X.  Only the following values of [22Xp^f[122X with prime [22Xf[122X do not
+  satisfy this condition: [22X2^2[122X and [22X3^2[122X (where no element of order larger than [22X5[122X
+  exists),  [22X2^3[122X  (where  only  elements  of  order  equal  to  [22Xq  ±  1[122X must be
+  considered),  [22X5^2[122X  and  [22X7^2[122X  (where [22Xn_sf(q) < (p-1) q (q+1)[122X because in these
+  cases  the  cyclic  subgroups  of  order  [22X(q+1)/k[122X cannot contain nonidentity
+  elements in subgroups of type (3)).[133X
+  
+  [33X[0;0YFinally,  if  [22Xf[122X  is  not a prime then [22XN[122X is smaller than [22X|G|/2[122X if [22Xq^2 (q - 8p
+  (sqrt{q}-1) / (p-1)) > q+4[122X holds, which is true for [22Xq ≥ 256[122X. The only values
+  of [22Xp^f[122X with non-prime [22Xf[122X that do not satisfy this condition are [22X2^4[122X, [22X2^6[122X, and
+  [22X3^4[122X. In all three cases, we have in fact [22XN < |G|/2[122X, where we have to use the
+  better bound [22Xn_sf(q) < 16 q^2[122X in the third case. ▒[133X
+  
+  [33X[0;0YIn  order to show that the generating graph of [22XG[122X satisfies Pósa's criterion,
+  it  suffices  to  show that the vertex degrees of involutions is larger than
+  the number of involutions, and that the vertex degrees of elements of orders
+  [22X2[122X, [22X3[122X, [22X4[122X, and [22X5[122X are larger than the number of elements whose order is at most
+  [22X5[122X.[133X
+  
+  [33X[0;0Y[13XLemma  4:[113X Let [22Xn(q, m)[122X denote the number of elements of order [22Xm[122X in [22XG[122X, and let
+  [22Xφ(m)[122X denote the number of prime residues modulo [22Xm[122X.[133X
+  
+  [30X    [33X[0;6YWe have [22Xn(q, 2) = q^2 - 1[122X if [22Xq[122X is even and [22Xn(q, 2) ≤ q (q+1)/2[122X if [22Xq[122X is
+        odd.[133X
+  
+  [30X    [33X[0;6YFor [22Xm ∈ { 3, 4, 5 }[122X, we have [22Xn(q, m) ≤ φ(m) q (q+1)/2[122X.[133X
+  
+  [30X    [33X[0;6YWe have [22Xn(q, (q+1)/k) = φ((q+1)/k) q (q-1)/2[122X.[133X
+  
+  [33X[0;0Y[13XLemma  5:[113X  If [22Xq > 11[122X then each involution in [22XG[122X has vertex degree larger than
+  [22Xn(q, 2)[122X.[133X
+  
+  [33X[0;0YIf  [22Xφ((q+1)/k)  ≥ 12[122X then each element of order [22X3[122X, [22X4[122X, or [22X5[122X has vertex degree
+  larger than [22X∑_{m=2}^5 n(q, m)[122X.[133X
+  
+  [33X[0;0Y[13XProof:[113X  Let  [22Xs  ∈  G[122X  of  order  at  most [22X5[122X. For each element [22Xg ∈ G[122X of order
+  [22X(q+1)/k[122X,  [22XU  =  ⟨  g,  s ⟩[122X is either [22XG[122X or contained in the dihedral group of
+  order [22X2(q+1)/k[122X that normalizes [22X⟨ g ⟩[122X.[133X
+  
+  [33X[0;0YIf [22Xs[122X is an involution then the number of such dihedral groups that contain [22Xs[122X
+  is  at  most  [22X(q+3)/2[122X,  and  at  least  [22Xn(q, (q+1)/k) - φ((q+1)/k) (q+3)/2 =
+  φ((q+1)/k)  (q^2-2q-3)/2[122X  elements of order [22X(q+1)/k[122X contribute to the vertex
+  degree  of  [22Xs[122X.  This  number is larger than [22Xq^2 - 1 ≥ n(q, 2)[122X if [22Xq > 11[122X (and
+  hence [22Xφ((q+1)/k) ≥ 3[122X) holds.[133X
+  
+  [33X[0;0YIf  [22Xs[122X  is an element of order [22X3[122X, [22X4[122X, or [22X5[122X then [22XU ‡ G[122X means that [22Xs ∈ ⟨ g ⟩[122X, so
+  at  least  [22Xn(q,  (q+1)/k)  -  4[122X  elements of order [22X(q+1)/k[122X contribute to the
+  vertex degree of [22Xs[122X. This number is larger than [22X5 q (q+1) > ∑_{m=2}^5 n(q, m)[122X
+  if [22Xφ((q+1)/k) ≥ 12[122X. ▒[133X
+  
+  [33X[0;0YIt remains to deal with the values [22Xq[122X where [22Xφ((q+1)/k) < 12[122X, that is, [22X(q+1)/k
+  ≤ 30[122X. We compute that the statement of Lemma 5 is true also for prime powers
+  [22Xq[122X with [22X11 < q ≤ 59[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XTestL2q:= function( t )[127X[104X
+    [4X[25X>[125X [27X   local name, orders, nccl, cl, prim, bds, n, ord;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X   name:= Identifier( t );[127X[104X
+    [4X[25X>[125X [27X   orders:= OrdersClassRepresentatives( t );[127X[104X
+    [4X[25X>[125X [27X   nccl:= Length( orders );[127X[104X
+    [4X[25X>[125X [27X   cl:= SizesConjugacyClasses( t );[127X[104X
+    [4X[25X>[125X [27X   prim:= PrimitivePermutationCharacters( t );[127X[104X
+    [4X[25X>[125X [27X   bds:= List( LowerBoundsVertexDegrees( cl, prim ), Sum );[127X[104X
+    [4X[25X>[125X [27X   n:= List( [ 1 .. 5 ], i -> Sum( cl{ Filtered( [ 1 .. nccl ],[127X[104X
+    [4X[25X>[125X [27X                                       x -> orders[x] = i ) } ) );[127X[104X
+    [4X[25X>[125X [27X   if ForAny( Filtered( [ 1 .. nccl ], i -> orders[i] > 5 ),[127X[104X
+    [4X[25X>[125X [27X              i -> bds[i-1] <= Size( t ) / 2 ) then[127X[104X
+    [4X[25X>[125X [27X     Error( "problem with large orders for ", name );[127X[104X
+    [4X[25X>[125X [27X   elif ForAny( Filtered( [ 1 .. nccl ], i -> orders[i] = 2 ),[127X[104X
+    [4X[25X>[125X [27X                i -> bds[i-1] <= n[2] ) then[127X[104X
+    [4X[25X>[125X [27X     Error( "problem with order 2 for ", name, "\n" );[127X[104X
+    [4X[25X>[125X [27X   elif ForAny( Filtered( [ 1 .. nccl ],[127X[104X
+    [4X[25X>[125X [27X                          i -> orders[i] in [ 3 .. 5 ] ),[127X[104X
+    [4X[25X>[125X [27X                i -> bds[i-1] <= Sum( n{ [ 2 .. 5 ] } ) ) then[127X[104X
+    [4X[25X>[125X [27X     Error( "problem with order in [ 3 .. 5 ] for ", name );[127X[104X
+    [4X[25X>[125X [27X   fi;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+    [4X[25Xgap>[125X [27Xfor q in Filtered( [ 13 .. 59 ], IsPrimePowerInt ) do[127X[104X
+    [4X[25X>[125X [27X     TestL2q( CharacterTable([127X[104X
+    [4X[25X>[125X [27X                  Concatenation( "L2(", String( q ), ")" ) ) );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor [22X2 ≤ q ≤ 11[122X, the statement of Lemma 5 is not true but Pósa's criterion is
+  satisfied for the generating graphs of the groups [22XPSL(2,q)[122X with [22X2 ≤ q ≤ 11[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfor q in Filtered( [ 2 .. 11 ], IsPrimePowerInt ) do[127X[104X
+    [4X[25X>[125X [27X     info:= HamiltonianCycleInfoFromGroup( PSL( 2, q ) );[127X[104X
+    [4X[25X>[125X [27X     if info <> "Posa for 0th closure" then[127X[104X
+    [4X[25X>[125X [27X       Print( q, ": ", info, "\n" );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+  [4X[32X[104X
+  

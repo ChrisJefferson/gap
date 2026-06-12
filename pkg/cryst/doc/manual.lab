@@ -1,0 +1,104 @@
+\makelabel{cryst:Introduction}{1}
+\makelabel{cryst:Affine crystallographic groups}{2}
+\makelabel{cryst:SetCrystGroupDefaultAction}{2}
+\makelabel{cryst:Construction}{2.1}
+\makelabel{cryst:AffineCrystGroupOnRight}{2.1.1}
+\makelabel{cryst:AffineCrystGroupOnRight}{2.1.1}
+\makelabel{cryst:AffineCrystGroupOnRight}{2.1.1}
+\makelabel{cryst:AsAffineCrystGroupOnRight}{2.1.2}
+\makelabel{cryst:IsAffineCrystGroupOnRight}{2.1.3}
+\makelabel{cryst:AffineCrystGroupOnLeft}{2.1.4}
+\makelabel{cryst:AffineCrystGroupOnLeft}{2.1.4}
+\makelabel{cryst:AffineCrystGroupOnLeft}{2.1.4}
+\makelabel{cryst:AsAffineCrystGroupOnLeft}{2.1.5}
+\makelabel{cryst:IsAffineCrystGroupOnLeft}{2.1.6}
+\makelabel{cryst:AffineCrystGroup}{2.1.7}
+\makelabel{cryst:AffineCrystGroup}{2.1.7}
+\makelabel{cryst:AffineCrystGroup}{2.1.7}
+\makelabel{cryst:AsAffineCrystGroup}{2.1.8}
+\makelabel{cryst:IsAffineCrystGroup}{2.1.9}
+\makelabel{cryst:TransposedMatrixGroup}{2.1.10}
+\makelabel{cryst:Point group}{2.2}
+\makelabel{cryst:PointGroup}{2.2.1}
+\makelabel{cryst:IsPointGroup}{2.2.2}
+\makelabel{cryst:AffineCrystGroupOfPointGroup}{2.2.3}
+\makelabel{cryst:PointHomomorphism}{2.2.4}
+\makelabel{cryst:IsPointHomomorphism}{2.2.5}
+\makelabel{cryst:Translation lattice}{2.3}
+\makelabel{cryst:TranslationBasis}{2.3.1}
+\makelabel{cryst:InternalBasis}{2.3.2}
+\makelabel{cryst:AddTranslationBasis}{2.3.3}
+\makelabel{cryst:CheckTranslationBasis}{2.3.4}
+\makelabel{cryst:IsSpaceGroup}{2.3.5}
+\makelabel{cryst:IsStandardAffineCrystGroup}{2.3.6}
+\makelabel{cryst:IsStandardSpaceGroup}{2.3.7}
+\makelabel{cryst:StandardAffineCrystGroup}{2.3.8}
+\makelabel{cryst:IsSymmorphicSpaceGroup}{2.3.9}
+\makelabel{cryst:Special methods}{2.4}
+\makelabel{cryst:power!for an `AffineCrystGroup'}{2.4.1}
+\makelabel{cryst:IsomorphismFpGroup!for a `PointGroup'}{2.4.2}
+\makelabel{cryst:IsomorphismFpGroup!for an `AffineCrystGroup'}{2.4.3}
+\makelabel{cryst:IsomorphismPcpGroup!for a `PointGroup'}{2.4.4}
+\makelabel{cryst:IsomorphismPcpGroup!for an `AffineCrystGroup'}{2.4.5}
+\makelabel{cryst:Maximal subgroups}{2.5}
+\makelabel{cryst:MaximalSubgroupClassReps!for an `AffineCrystGroup'}{2.5.1}
+\makelabel{cryst:ConjugacyClassesMaximalSubgroups!for an `AffineCrystGroup'}{2.5.2}
+\makelabel{cryst:Space groups with a given point group}{2.6}
+\makelabel{cryst:SpaceGroupsByPointGroupOnRight}{2.6.1}
+\makelabel{cryst:SpaceGroupsByPointGroupOnRight}{2.6.1}
+\makelabel{cryst:SpaceGroupsByPointGroupOnRight}{2.6.1}
+\makelabel{cryst:SpaceGroupTypesByPointGroupOnRight}{2.6.2}
+\makelabel{cryst:SpaceGroupTypesByPointGroupOnRight}{2.6.2}
+\makelabel{cryst:SpaceGroupsByPointGroupOnLeft}{2.6.3}
+\makelabel{cryst:SpaceGroupsByPointGroupOnLeft}{2.6.3}
+\makelabel{cryst:SpaceGroupsByPointGroupOnLeft}{2.6.3}
+\makelabel{cryst:SpaceGroupTypesByPointGroupOnLeft}{2.6.4}
+\makelabel{cryst:SpaceGroupTypesByPointGroupOnLeft}{2.6.4}
+\makelabel{cryst:SpaceGroupsByPointGroup}{2.6.5}
+\makelabel{cryst:SpaceGroupsByPointGroup}{2.6.5}
+\makelabel{cryst:SpaceGroupsByPointGroup}{2.6.5}
+\makelabel{cryst:SpaceGroupTypesByPointGroupOnLeft}{2.6.6}
+\makelabel{cryst:SpaceGroupTypesByPointGroupOnLeft}{2.6.6}
+\makelabel{cryst:Wyckoff positions}{2.7}
+\makelabel{cryst:WyckoffPositions}{2.7.1}
+\makelabel{cryst:WyckoffPositionsByStabilizer}{2.7.2}
+\makelabel{cryst:IsWyckoffPosition}{2.7.3}
+\makelabel{cryst:WyckoffBasis}{2.7.4}
+\makelabel{cryst:WyckoffTranslation}{2.7.5}
+\makelabel{cryst:WyckoffSpaceGroup}{2.7.6}
+\makelabel{cryst:WyckoffStabilizer}{2.7.7}
+\makelabel{cryst:WyckoffOrbit}{2.7.8}
+\makelabel{cryst:WyckoffGraph}{2.7.9}
+\makelabel{cryst:WyckoffGraph}{2.7.9}
+\makelabel{cryst:Normalizers}{2.8}
+\makelabel{cryst:NormalizerPointGroupInGLnZ}{2.8.1}
+\makelabel{cryst:CentralizerPointGroupInGLnZ}{2.8.2}
+\makelabel{cryst:TranslationNormalizer}{2.8.3}
+\makelabel{cryst:AffineNormalizer}{2.8.4}
+\makelabel{cryst:AffineInequivalentSubgroups}{2.8.5}
+\makelabel{cryst:ConjugatorSpaceGroups}{2.8.6}
+\makelabel{cryst:Color groups}{2.9}
+\makelabel{cryst:ColorGroup}{2.9.1}
+\makelabel{cryst:IsColorGroup}{2.9.2}
+\makelabel{cryst:ColorSubgroup}{2.9.3}
+\makelabel{cryst:ColorCosetList}{2.9.4}
+\makelabel{cryst:ColorOfElement}{2.9.5}
+\makelabel{cryst:ColorPermGroup}{2.9.6}
+\makelabel{cryst:ColorHomomorphism}{2.9.7}
+\makelabel{cryst:Subgroup!for color groups}{2.9.8}
+\makelabel{cryst:Colored AffineCrystGroups}{2.10}
+\makelabel{cryst:PointGroup!for a colored `AffineCrystGroup'}{2.10.1}
+\makelabel{cryst:International Tables}{2.11}
+\makelabel{cryst:SpaceGroupSettingsIT}{2.11.1}
+\makelabel{cryst:SpaceGroupOnRightIT}{2.11.2}
+\makelabel{cryst:SpaceGroupOnRightIT}{2.11.2}
+\makelabel{cryst:SpaceGroupOnLeftIT}{2.11.3}
+\makelabel{cryst:SpaceGroupOnLeftIT}{2.11.3}
+\makelabel{cryst:SpaceGroupIT}{2.11.4}
+\makelabel{cryst:SpaceGroupIT}{2.11.4}
+\makelabel{cryst:Bibliography}{}
+\setcitlab {BBNWZ78}{BBNWZ78}
+\setcitlab {EGN97}{EGN97}
+\setcitlab {Hah95}{Hah95}
+\setcitlab {Won95}{Won95}
+\makelabel{cryst:Index}{}

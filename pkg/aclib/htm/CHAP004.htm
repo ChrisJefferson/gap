@@ -1,0 +1,233 @@
+<html><head><title>[aclib] 4 Example computations with almost crystallographic groups</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP003.htm">Previous</a>] [<a href = "theindex.htm">Index</a>]
+<h1>4 Example computations with almost crystallographic groups</h1><p>
+<P>
+<H3>Sections</H3>
+<oL>
+<li> <A HREF="CHAP004.htm#SECT001">Example computations I</a>
+<li> <A HREF="CHAP004.htm#SECT002">Example computations II</a>
+<li> <A HREF="CHAP004.htm#SECT003">Example computations III</a>
+</ol><p>
+<p>
+<p>
+<h2><a name="SECT001">4.1 Example computations I</a></h2>
+<p><p>
+Using the functions available for pcp groups in the share package 
+<font face="Gill Sans,Helvetica,Arial">polycyclic</font> it is now easy to redo some of the calculations of 
+<a href="biblio.htm#KD"><cite>KD</cite></a>. As a first example we check whether the groups indicated 
+as torsion free in <a href="biblio.htm#KD"><cite>KD</cite></a> are also determined as torsion free
+ones by <font face="Gill Sans,Helvetica,Arial">GAP</font>. In <a href="biblio.htm#KD"><cite>KD</cite></a> these almost Bieberbach groups are listed as 
+``AB-groups''. So for type ``013'' these are the groups with parameters 
+<var>(k,0,1,0,1,0)</var> where <var>k</var> is an even integer. Let's look at some examples 
+in <font face="Gill Sans,Helvetica,Arial">GAP</font>:
+<p>
+<pre>
+gap&gt; G:=AlmostCrystallographicPcpDim4("013",[8,0,1,0,1,0]);
+Pcp-group with orders [ 2, 2, 0, 0, 0, 0 ]
+gap&gt; IsTorsionFree(G);
+true
+gap&gt; G:=AlmostCrystallographicPcpDim4("013",[9,0,1,0,1,0]);
+Pcp-group with orders [ 2, 2, 0, 0, 0, 0 ]
+gap&gt; IsTorsionFree(G);
+false
+</pre>
+<p>
+Further, there is also some cohomology information in the tables 
+of <a href="biblio.htm#KD"><cite>KD</cite></a>. In fact, the groups in this library were obtained
+as extensions <var>E</var> of the form
+<p>
+<p><var>
+1 rightarrow<font face="helvetica,arial">Z</font>rightarrowE rightarrowQ rightarrow1
+<p></var>
+<p>
+where, in the 4-dimensional case <var>Q = E/langled rangle</var>. The 
+cohomology information for the particular example above shows that 
+the groups determined by a parameter set <var>(k<sub>1</sub>,k<sub>2</sub>,k<sub>3</sub>,k<sub>4</sub>,k<sub>4</sub>,k<sub>6</sub>)</var> 
+are equivalent as extensions to the groups determined by the parameters 
+<var>(k<sub>1</sub>, k<sub>2</sub> bmod2, k<sub>3</sub> bmod2, k<sub>4</sub> bmod2, k<sub>5</sub> bmod2, 0)</var>. This is 
+also visible in finding torsion:
+<p>
+<pre>
+gap&gt; G:=AlmostCrystallographicPcpDim4("013",[10,0,2,0,1,0]);
+Pcp-group with orders [ 2, 2, 0, 0, 0, 0 ]
+gap&gt; IsTorsionFree(G);
+false
+gap&gt; G:=AlmostCrystallographicPcpDim4("013",[10,0,3,0,1,9]);
+Pcp-group with orders [ 2, 2, 0, 0, 0, 0 ]
+gap&gt; IsTorsionFree(G);
+true
+</pre>
+<p>
+<p>
+<h2><a name="SECT002">4.2 Example computations II</a></h2>
+<p><p>
+The computation of cohomology groups played an important role in the 
+classification of the almost Bieberbach groups in <a href="biblio.htm#KD"><cite>KD</cite></a>. Using 
+<font face="Gill Sans,Helvetica,Arial">GAP</font>, it is now possible to check these computations. As an example we 
+consider the 4-dimensional almost crystallographic groups of type 85 on 
+page 202 of <a href="biblio.htm#KD"><cite>KD</cite></a>. This group <var>E</var> has 6 generators. In the table, one 
+also finds the information
+<p>
+<p><var>
+H<sup>2</sup>(Q,<font face="helvetica,arial">Z</font>) = <font face="helvetica,arial">Z</font>oplus(<font face="helvetica,arial">Z</font><sub>2</sub>)<sup>2</sup> oplus<font face="helvetica,arial">Z</font><sub>4</sub>
+<p></var>
+<p>
+for <var>Q=E/langled rangle</var> as above. Moreover, the <var>Q</var>--module <var><font face="helvetica,arial">Z</font></var> is 
+in fact the group <var>langled rangle</var>, where the <var>Q</var>-action comes from 
+conjugation inside <var>E</var>. In the case of groups of type 85, <var><font face="helvetica,arial">Z</font></var> is a 
+trivial <var>Q</var>-module. The following example demonstrates how to (re)compute 
+this two-cohomology group <var>H<sup>2</sup>(Q,<font face="helvetica,arial">Z</font>)</var>. 
+<p>
+<pre>
+gap&gt; G:=AlmostCrystallographicPcpGroup(4, "085", false);
+Pcp group with orders [ 2, 4, 0, 0, 0, 0 ]
+gap&gt; GroupGeneratedByd:=Subgroup(G, [G.6] );
+Pcp group with orders [ 0 ]
+gap&gt; Q:=G/GroupGeneratedByd;
+Pcp group with orders [ 2, 4, 0, 0, 0 ]
+gap&gt; action:=List( Pcp(Q), x -&gt; [[1]] );
+[ [ [ 1 ] ], [ [ 1 ] ], [ [ 1 ] ], [ [ 1 ] ], [ [ 1 ] ] ]
+gap&gt; C:=CRRecordByMats( Q, action);;
+gap&gt; TwoCohomologyCR( C ).factor.rels;
+[ 2, 2, 4, 0 ]
+</pre>
+<p>
+This last line gives us the abelian invariants of the second 
+cohomology group <var>H<sup>2</sup>(Q,<font face="helvetica,arial">Z</font>)</var>. So we should read this line as 
+<p>
+<p><var>
+H<sup>2</sup>(Q,<font face="helvetica,arial">Z</font>) = <font face="helvetica,arial">Z</font><sub>2</sub> oplus<font face="helvetica,arial">Z</font><sub>2</sub> oplus<font face="helvetica,arial">Z</font><sub>4</sub> oplus<font face="helvetica,arial">Z</font>
+<p></var>
+<p>
+which indeed coincides with the information in <a href="biblio.htm#KD"><cite>KD</cite></a>.
+<p>
+<p>
+<h2><a name="SECT003">4.3 Example computations III</a></h2>
+<p><p>
+As another application of the capabilities of the combination of
+<code>aclib</code> and <font face="Gill Sans,Helvetica,Arial">polycyclic</font> we check some computations of <a href="biblio.htm#DM"><cite>DM</cite></a>.
+<p>
+Section 5 of the paper <a href="biblio.htm#DM"><cite>DM</cite></a> is completely devoted to an example
+of the computation of the <var>P</var>-localization of a virtually nilpotent group,
+where <var>P</var> is a set of primes. Although it is not our intention to 
+develop the theory of <var>P</var>-localization of groups at this place, let us
+summarize some of the main results concerning this topic here.
+<p>
+For a set of primes <var>P</var>, we say that <var>n inP</var> if and only if <var>n</var> is
+a product of primes in <var>P</var>. A group <var>G</var> is said to be <var>P</var>-local if and 
+only if the map <var>mu<sub>n</sub>:GrightarrowG: g mapstog<sup>n</sup></var> is bijective for 
+all <var>n inP'</var>, where <var>P'</var> is the set of all primes not in <var>P</var>. The 
+<var>P</var>-localization of a group <var>G</var>, is a <var>P</var>-local group <var>G<sub>P</sub></var> together 
+with a morphism <var>alpha:G rightarrowG<sub>P</sub></var> which satisfy the following 
+universal property: For each <var>P</var>-local group <var>L</var> and any morphism 
+<var>varphi: G rightarrowL</var>, there exists a unique morphism <var>psi:G<sub>P</sub> 
+rightarrowL</var>, such that <var>psicircalpha= varphi</var>.
+<p>
+This concept of localization is well developed for finite groups and 
+for nilpotent groups. For a finite group <var>G</var>, the <var>P</var>-localization is 
+the largest quotient of <var>G</var>, having no elements with an order belonging to 
+<var>P'</var> (the morphism <var>alpha</var>, mentioned above is the natural projection).
+<p>
+In <a href="biblio.htm#DM"><cite>DM</cite></a> a contribution is made towards the localization of virtually 
+nilpotent groups. The theory developed in the paper is then illustrated 
+in the last section of the paper by means of the computation of the 
+<var>P</var>-localization of an almost crystallographic group. For their example
+the authors have chosen an almost crystallographic group <var>G</var> of dimension 3
+and type 17. For the set of parameters <var>(k<sub>1</sub>,k<sub>2</sub>,k<sub>3</sub>,k<sub>4</sub>)</var> they have
+considered all cases of the form <var>(k<sub>1</sub>,k<sub>2</sub>,k<sub>3</sub>,k<sub>4</sub>)=(2,0,0,k<sub>4</sub>)</var>. 
+<p>
+Here we will check their computations in two cases <var>k<sub>4</sub>=0</var> and <var>k<sub>4</sub>=1</var>
+using the set of primes <var>P={2}</var>. The holonomy group of these almost 
+crystallographic groups <var>G</var> is the dihedral group <var>calD<sub>6</sub></var> of order 
+12. Thus there is a short exact sequence of the form 
+<p><var> 1 rightarrowFitt(G) rightarrowG 
+     rightarrowcalD<sub>6</sub> rightarrow1. <p></var>
+<p>
+As a first step in their computation, Descheemaeker and Malfait determine
+the group <var>I<sub>P'</sub>calD<sub>6</sub></var>, which is the unique subgroup of order 3 in
+<var>calD<sub>6</sub></var>. One of the main objects in <a href="biblio.htm#DM"><cite>DM</cite></a> is the group <var>K=p<sup>-1</sup> 
+(I<sub>P'</sub>calD<sub>6</sub>)</var>, where <var>p</var> is the natural projection of <var>G</var> onto its 
+holonomy group. It is known that the <var>P</var>-localization of <var>G</var> coincides 
+with the <var>P</var>-localization of <var>G/gamma<sub>3</sub>(K)</var>, where <var>gamma<sub>3</sub>(K)</var> is the 
+third term in the lower central series of <var>K</var>. As <var>G/gamma<sub>3</sub>(K)</var> is 
+finite in this example, we exactly know what this <var>P</var>-localization is. 
+Let us now show, how GAP can be used to compute this <var>P</var>-localization in 
+two cases:
+<p>
+<p>
+First case: The parameters are <var>(k<sub>1</sub>,k<sub>2</sub>,k<sub>3</sub>,k<sub>4</sub>)=(2,0,0,0)</var>
+<pre>
+gap&gt; G := AlmostCrystallographicPcpGroup(3, 17, [2,0,0,0] );
+Pcp group with orders [ 2, 6, 0, 0, 0 ]
+gap&gt; projection := NaturalHomomorphismOnHolonomyGroup( G );
+[ g1, g2, g3, g4, g5 ] -&gt; [ g1, g2, identity, identity, identity ]
+gap&gt; F := HolonomyGroup( G );
+Pcp group with orders [ 2, 6 ]
+gap&gt; IPprimeD6 := Subgroup( F , [F.2^2] );
+Pcp group with orders [ 3 ]
+gap&gt; K := PreImage( projection, IPprimeD6 );
+Pcp group with orders [ 3, 0, 0, 0 ]
+gap&gt; PrintPcpPresentation( K );
+pcp presentation on generators [ g2^2, g3, g4, g5 ]
+g2^2 ^ 3 = identity
+g3 ^ g2^2 = g3^-1*g4^-1
+g3 ^ g2^2^-1 = g4*g5^-2
+g4 ^ g2^2 = g3*g5^2
+g4 ^ g2^2^-1 = g3^-1*g4^-1*g5^2
+g4 ^ g3 = g4*g5^2
+g4 ^ g3^-1 = g4*g5^-2
+gap&gt; Gamma3K := CommutatorSubgroup( K, CommutatorSubgroup( K, K ));
+Pcp group with orders [ 0, 0, 0 ]
+gap&gt; quotient := G/Gamma3K;
+Pcp group with orders [ 2, 6, 3, 3, 2 ]
+gap&gt; S := SylowSubgroup( quotient, 3);
+Pcp group with orders [ 3, 3, 3 ]
+gap&gt; N := NormalClosure( quotient, S);
+Pcp group with orders [ 3, 3, 3 ]
+gap&gt; localization := quotient/N;
+Pcp group with orders [ 2, 2, 2 ]
+gap&gt; PrintPcpPresentation( localization );
+pcp presentation on generators [ g1, g2, g3 ]
+g1 ^ 2 = identity
+g2 ^ 2 = identity
+g3 ^ 2 = identity
+</pre>
+This shows that <var>G<sub>P</sub>cong<font face="helvetica,arial">Z</font><sub>2</sub><sup>3</sup></var>.
+<p>
+<p>
+Second case: The parameters are <var>(k<sub>1</sub>,k<sub>2</sub>,k<sub>3</sub>,k<sub>4</sub>)=(2,0,0,1)</var>
+<pre>
+gap&gt; G := AlmostCrystallographicPcpGroup(3, 17, [2,0,0,1]);;
+gap&gt; projection := NaturalHomomorphismOnHolonomyGroup( G );;
+gap&gt; F := HolonomyGroup( G );;
+gap&gt; IPprimeD6 := Subgroup( F , [F.2^2] );;
+gap&gt; K := PreImage( projection, IPprimeD6 );;
+gap&gt; Gamma3K := CommutatorSubgroup( K, CommutatorSubgroup( K, K ));;
+gap&gt; quotient := G/Gamma3K;;
+gap&gt; S := SylowSubgroup( quotient, 3);;
+gap&gt; N := NormalClosure( quotient, S);;
+gap&gt; localization := quotient/N;
+Pcp group with orders [ 2, 2, 2 ]
+gap&gt; PrintPcpPresentation( localization );
+pcp presentation on generators [ g1, g2, g3 ]
+g1 ^ 2 = identity
+g2 ^ 2 = g3
+g3 ^ 2 = identity
+g2 ^ g1 = g2*g3
+g2 ^ g1^-1 = g2*g3
+</pre>
+<p>
+In this case, we see that <var>G<sub>P</sub>=calD<sub>4</sub></var>.
+<p>
+<p>
+The reader can check that these results coincide with those obtained in 
+<a href="biblio.htm#DM"><cite>DM</cite></a>. Note also that we used a somewhat different scheme to compute 
+this localization than the one used in <a href="biblio.htm#DM"><cite>DM</cite></a>. We invite the reader to
+check the same computations, tracing exactly the steps made in <a href="biblio.htm#DM"><cite>DM</cite></a>.
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP003.htm">Previous</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>aclib manual<br>August 2025
+</address></body></html>

@@ -1,0 +1,2412 @@
+  
+  [1X1 [33X[0;0YMaintenance Issues for the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThis  chapter collects examples of computations that arose in the context of
+  maintaining  the  [5XGAP[105X  Character Table Library. The sections have been added
+  when  the  issues in question arose; the dates of the additions are shown in
+  the section titles.[133X
+  
+  
+  [1X1.1 [33X[0;0YDisproving Possible Character Tables (November 2006)[133X[101X
+  
+  [33X[0;0YI  do  not  know a necessary and sufficient criterion for checking whether a
+  given  matrix  together  with  a  list of power maps describes the character
+  table  of  a finite group. Examples of [13Xpseudo character tables[113X (tables which
+  satisfy certain necessary conditions but for which actually no group exists)
+  have   been   given   in [Gag86].  Another  such  example  is  described  in
+  Section [14X2.4-17[114X.  The  tables  in the [5XGAP[105X Character Table Library satisfy the
+  usual  tests.  However, there are table candidates for which these tests are
+  not  good  enough. Another question would be whether a given character table
+  belongs  to  the  group for which it is claimed to belong, see Section [14X1.1-4[114X
+  for an example.[133X
+  
+  
+  [1X1.1-1 [33X[0;0YA Perfect Pseudo Character Table (November 2006)[133X[101X
+  
+  [33X[0;0Y(This example arose from a discussion with Jack Schmidt.)[133X
+  
+  [33X[0;0YUp  to  version 1.1.3  of  the  [5XGAP[105X  Character Table Library, the table with
+  identifier  [10X"P41/G1/L1/V4/ext2"[110X  was not correct. The problem occurs already
+  in the microfiches that are attached to [HP89].[133X
+  
+  [33X[0;0YIn  the  following,  we show that this table is not the character table of a
+  finite  group,  using the [5XGAP[105X library of perfect groups. Currently we do not
+  know how to prove this inconsistency alone from the table.[133X
+  
+  [33X[0;0YWe  start  with  the  construction  of  the inconsistent table; apart from a
+  little  editing,  the following input equals the data formerly stored in the
+  file [11Xdata/ctoholpl.tbl[111X of the [5XGAP[105X Character Table Library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= rec([127X[104X
+    [4X[25X>[125X [27X  Identifier:= "P41/G1/L1/V4/ext2",[127X[104X
+    [4X[25X>[125X [27X  InfoText:= Concatenation( [[127X[104X
+    [4X[25X>[125X [27X    "origin: Hanrath library,\n",[127X[104X
+    [4X[25X>[125X [27X    "structure is 2^7.L2(8),\n",[127X[104X
+    [4X[25X>[125X [27X    "characters sorted with permutation (12,14,15,13)(19,20)" ] ),[127X[104X
+    [4X[25X>[125X [27X  UnderlyingCharacteristic:= 0,[127X[104X
+    [4X[25X>[125X [27X  SizesCentralizers:= [64512,1024,1024,64512,64,64,64,64,128,128,64,[127X[104X
+    [4X[25X>[125X [27X    64,128,128,18,18,14,14,14,14,14,14,18,18,18,18,18,18],[127X[104X
+    [4X[25X>[125X [27X  ComputedPowerMaps:= [,[1,1,1,1,2,3,3,2,3,2,2,1,3,2,16,16,20,20,22,[127X[104X
+    [4X[25X>[125X [27X    22,18,18,26,26,27,27,23,23],[1,2,3,4,5,6,7,8,9,10,11,12,13,14,4,[127X[104X
+    [4X[25X>[125X [27X    1,21,22,17,18,19,20,16,15,15,16,16,15],,,,[1,2,3,4,5,6,7,8,9,10,[127X[104X
+    [4X[25X>[125X [27X    11,12,13,14,15,16,4,1,4,1,4,1,26,25,28,27,23,24]],[127X[104X
+    [4X[25X>[125X [27X  Irr:= 0,[127X[104X
+    [4X[25X>[125X [27X  AutomorphismsOfTable:= Group( [(23,26,27)(24,25,28),(9,13)(10,14),[127X[104X
+    [4X[25X>[125X [27X    (17,19,21)(18,20,22)] ),[127X[104X
+    [4X[25X>[125X [27X  ConstructionInfoCharacterTable:= ["ConstructClifford",[[[1,2,3,4,[127X[104X
+    [4X[25X>[125X [27X    5,6,7,8,9],[1,7,8,3,9,2],[1,4,5,6,2],[1,2,2,2,2,2,2,2]],[127X[104X
+    [4X[25X>[125X [27X    [["L2(8)"],["Dihedral",18],["Dihedral",14],["2^3"]],[[[1,2,3,4],[127X[104X
+    [4X[25X>[125X [27X    [1,1,1,1],["elab",4,25]],[[1,2,3,4,4,4,4,4,4,4],[2,6,5,2,3,4,5,[127X[104X
+    [4X[25X>[125X [27X    6,7,8],["elab",10,17]],[[1,2],[3,4],[[1,1],[-1,1]]],[[1,3],[4,[127X[104X
+    [4X[25X>[125X [27X    2],[[1,1],[-1,1]]],[[1,3],[5,3],[[1,1],[-1,1]]],[[1,3],[6,4],[127X[104X
+    [4X[25X>[125X [27X    [[1,1],[-1,1]]],[[1,2],[7,2],[[1,1],[1,-1]]],[[1,2],[8,3],[[1,[127X[104X
+    [4X[25X>[125X [27X    1],[-1,1]]],[[1,2],[9,5],[[1,1],[1,-1]]]]]],[127X[104X
+    [4X[25X>[125X [27X  );;[127X[104X
+    [4X[25Xgap>[125X [27XConstructClifford( tbl, tbl.ConstructionInfoCharacterTable[2] );[127X[104X
+    [4X[25Xgap>[125X [27XConvertToLibraryCharacterTableNC( tbl );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSuppose  that  there  is  a group [22XG[122X, say, with this table. Then [22XG[122X is perfect
+  since the table has only one linear character.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLength( LinearCharacters( tbl ) );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XIsPerfectCharacterTable( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe table satisfies the orthogonality relations, the structure constants are
+  nonnegative integers, and symmetrizations of the irreducibles decompose into
+  the irreducibles, with nonnegative integral coefficients.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XIsInternallyConsistent( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xirr:= Irr( tbl );;[127X[104X
+    [4X[25Xgap>[125X [27Xtest:= Concatenation( List( [ 2 .. 7 ],[127X[104X
+    [4X[25X>[125X [27X              n -> Symmetrizations( tbl, irr, n ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XAppend( test, Set( Tensored( irr, irr ) ) );[127X[104X
+    [4X[25Xgap>[125X [27Xfail in Decomposition( irr, test, "nonnegative" );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xif ForAny( Tuples( [ 1 .. NrConjugacyClasses( tbl ) ], 3 ),[127X[104X
+    [4X[25X>[125X [27X     t -> not ClassMultiplicationCoefficient( tbl, t[1], t[2], t[3] )[127X[104X
+    [4X[25X>[125X [27X              in NonnegativeIntegers ) then[127X[104X
+    [4X[25X>[125X [27X     Error( "contradiction" );[127X[104X
+    [4X[25X>[125X [27Xfi;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [5XGAP[105X  Library  of  Perfect  Groups  contains representatives of the four
+  isomorphism types of perfect groups of order [22X|G| = 64512[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn:= Size( tbl );[127X[104X
+    [4X[28X64512[128X[104X
+    [4X[25Xgap>[125X [27XNumberPerfectGroups( n );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27Xgrps:= List( [ 1 .. 4 ], i -> PerfectGroup( IsPermGroup, n, i ) );[127X[104X
+    [4X[28X[ L2(8) 2^6 E 2^1, L2(8) N 2^6 E 2^1 I, L2(8) N 2^6 E 2^1 II, [128X[104X
+    [4X[28X  L2(8) N 2^6 E 2^1 III ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  we  believe  that  the  classification of perfect groups of order [22X|G|[122X is
+  correct  then all we have to do is to show that none of the character tables
+  of these four groups is equivalent to the given table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbls:= List( grps, CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27XList( tbls,[127X[104X
+    [4X[25X>[125X [27X         x -> TransformingPermutationsCharacterTables( x, tbl ) );[127X[104X
+    [4X[28X[ fail, fail, fail, fail ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  fact,  already the matrices of irreducible characters of the four groups
+  do not fit to the given table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( tbls,[127X[104X
+    [4X[25X>[125X [27X         t -> TransformingPermutations( Irr( t ), Irr( tbl ) ) );[127X[104X
+    [4X[28X[ fail, fail, fail, fail ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  us  look  closer  at  the tables in question. Each character table of a
+  perfect group of order [22X64512[122X has exactly one irreducible character of degree
+  [22X63[122X  that  takes  exactly  the values [22X-1[122X, [22X0[122X, [22X7[122X, and [22X63[122X; moreover, the value [22X7[122X
+  occurs in exactly two classes.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtestchars:= List( tbls,[127X[104X
+    [4X[25X>[125X [27X  t -> Filtered( Irr( t ),[127X[104X
+    [4X[25X>[125X [27X         x -> x[1] = 63 and Set( x ) = [ -1, 0, 7, 63 ] ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( testchars, Length );[127X[104X
+    [4X[28X[ 1, 1, 1, 1 ][128X[104X
+    [4X[25Xgap>[125X [27XList( testchars, l -> Number( l[1], x -> x = 7 ) );[127X[104X
+    [4X[28X[ 2, 2, 2, 2 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Another way to state this is that in each of the four tables [22Xt[122X in question,
+  there  are ten preimage classes of the involution class in the simple factor
+  group  [22XL_2(8)[122X,  there are eight preimage classes of this class in the factor
+  group  [22X2^6.L_2(8)[122X,  and that the unique class in which an irreducible degree
+  [22X63[122X character of this factor group takes the value [22X7[122X splits in [22Xt[122X.)[133X
+  
+  [33X[0;0YIn the erroneous table, however, there is only one class with the value [22X7[122X in
+  this character.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtestchars:= List( [ tbl ],[127X[104X
+    [4X[25X>[125X [27X  t -> Filtered( Irr( t ),[127X[104X
+    [4X[25X>[125X [27X         x -> x[1] = 63 and Set( x ) = [ -1, 0, 7, 63 ] ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( testchars, Length );[127X[104X
+    [4X[28X[ 1 ][128X[104X
+    [4X[25Xgap>[125X [27XList( testchars, l -> Number( l[1], x -> x = 7 ) );[127X[104X
+    [4X[28X[ 1 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  property can be checked easily for the displayed table stored in fiche
+  [22X2[122X,  row [22X4[122X, column [22X7[122X of [HP89], with the name [10X6L1<>Z^7<>L2(8); V4; MOD 2[110X, and
+  it turns out that this table is not correct.[133X
+  
+  [33X[0;0YNote  that  these  microfiches  contain [13Xtwo[113X tables of order [22X64512[122X, and there
+  were [13Xthree[113X tables of groups of that order in the [5XGAP[105X Character Table Library
+  that contain [10Xorigin: Hanrath library[110X in their [2XInfoText[102X ([14XReference: InfoText[114X)
+  value.  Besides  the incorrect table, these library tables are the character
+  tables  of the groups [10XPerfectGroup( 64512, 1 )[110X and [10XPerfectGroup( 64512, 3 )[110X,
+  respectively.  (The  matrices  of irreducible characters of these tables are
+  equivalent.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFiltered( [ 1 .. 4 ], i ->[127X[104X
+    [4X[25X>[125X [27X       TransformingPermutationsCharacterTables( tbls[i],[127X[104X
+    [4X[25X>[125X [27X           CharacterTable( "P41/G1/L1/V1/ext2" ) ) <> fail );[127X[104X
+    [4X[28X[ 1 ][128X[104X
+    [4X[25Xgap>[125X [27XFiltered( [ 1 .. 4 ], i ->[127X[104X
+    [4X[25X>[125X [27X       TransformingPermutationsCharacterTables( tbls[i],[127X[104X
+    [4X[25X>[125X [27X           CharacterTable( "P41/G1/L1/V2/ext2" ) ) <> fail );[127X[104X
+    [4X[28X[ 3 ][128X[104X
+    [4X[25Xgap>[125X [27XTransformingPermutations( Irr( tbls[1] ), Irr( tbls[3] ) ) <> fail;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSince  version 1.2  of  the [5XGAP[105X Character Table Library, the character table
+  with  the  [2XIdentifier[102X  ([14XReference:  Identifier  for  tables  of marks[114X) value
+  [10X"P41/G1/L1/V4/ext2"[110X  corresponds  to the group [10XPerfectGroup( 64512, 4 )[110X. The
+  choice of this group was somewhat arbitrary since the vector system [10XV4[110X seems
+  to  be  not  defined in [HP89]; anyhow, this group and the remaining perfect
+  group, [10XPerfectGroup( 64512, 2 )[110X, have equivalent matrices of irreducibles.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFiltered( [ 1 .. 4 ], i ->[127X[104X
+    [4X[25X>[125X [27X       TransformingPermutationsCharacterTables( tbls[i],[127X[104X
+    [4X[25X>[125X [27X           CharacterTable( "P41/G1/L1/V4/ext2" ) ) <> fail );[127X[104X
+    [4X[28X[ 4 ][128X[104X
+    [4X[25Xgap>[125X [27XTransformingPermutations( Irr( tbls[2] ), Irr( tbls[4] ) ) <> fail;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.1-2 [33X[0;0YAn Error in the Character Table of [22XE_6(2)[122X[101X[1X (March 2016)[133X[101X
+  
+  [33X[0;0YIn  March  2016, Bill Unger computed the character table of the simple group
+  [22XE_6(2)[122X  with  Magma  (see  [CP96])  and  compared it with the table that was
+  contained  in the [5XGAP[105X Character Table Library since 2000. It turned out that
+  the two tables did not coincide.[133X
+  
+  [33X[0;0YThe  differences  concern  irrational character values on classes of element
+  order  [22X91[122X  and  power map values on these classes. (The character values and
+  power  maps  fit  to  each  other  in  both  tables; thus it may be that the
+  assumption  of a wrong power has implied the wrong character values, or vice
+  versa.) Specifically, the [22X11[122Xth power map in the [5XGAP[105X table fixed all elements
+  of  order  [22X91[122X.  Using  the smallest matrix representation of [22XE_6(2)[122X over the
+  field  with  two elements, one can easily find an element [22Xg[122X of order [22X91[122X, and
+  show  that  the characteristic polynomials of [22Xg[122X and [22Xg^11[122X differ. Hence these
+  two  elements  cannot  be conjugate in [22XE_6(2)[122X. In other words, the [5XGAP[105X table
+  was wrong.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "E6(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepeat x:= PseudoRandom( g ); until Order( x ) = 91;[127X[104X
+    [4X[25Xgap>[125X [27XCharacteristicPolynomial( x ) = CharacteristicPolynomial( x^11 );[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe wrong [5XGAP[105X table has been corrected in version 1.3.0 of the [5XGAP[105X Character
+  Table Library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "E6(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xord91:= Positions( OrdersClassRepresentatives( t ), 91 );[127X[104X
+    [4X[28X[ 163, 164, 165, 166, 167, 168 ][128X[104X
+    [4X[25Xgap>[125X [27XPowerMap( t, 11 ){ ord91 };[127X[104X
+    [4X[28X[ 167, 168, 163, 164, 165, 166 ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.1-3 [33X[0;0YAn Error in a Power Map of the Character Table of [22X2.F_4(2).2[122X[101X[1X (November[101X
+  [1X2015)[133X[101X
+  
+  [33X[0;0YAs  a part of the computations for [BMO17], the character table of the group
+  [22X2.F_4(2).2[122X  was  computed  automatically from a representation of the group,
+  using  Magma  (see  [CP96]).  It turned out that the [22X2[122X-nd power map that had
+  been stored on the library character table of [22X2.F_4(2).2[122X had been wrong.[133X
+  
+  [33X[0;0YIn  fact,  this  was the one and only case of a power map for an [5XAtlas[105X group
+  which   was  not  determined  by  the  character  table,  and  the  [2XInfoText[102X
+  ([14XReference:  InfoText[114X)  value  of  the character table had mentioned the two
+  alternatives.[133X
+  
+  [33X[0;0YNote  that  the  ambiguity  is  not present in the table of the factor group
+  [22XF_4(2).2[122X,  and  only  four  faithful  irreducible  characters  of [22X2.F_4(2).2[122X
+  distinguish the four relevant conjugacy classes.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "2.F4(2).2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xf:= CharacterTable( "F4(2).2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmap:= PowerMap( t, 2 );[127X[104X
+    [4X[28X[ 1, 1, 1, 1, 1, 1, 1, 1, 9, 9, 11, 11, 3, 3, 3, 5, 5, 5, 3, 6, 6, 5, [128X[104X
+    [4X[28X  5, 7, 7, 5, 8, 7, 29, 29, 9, 9, 9, 9, 11, 11, 9, 9, 9, 9, 11, 11, [128X[104X
+    [4X[28X  43, 43, 20, 20, 20, 14, 14, 13, 13, 20, 21, 24, 28, 28, 57, 57, 29, [128X[104X
+    [4X[28X  29, 29, 29, 33, 33, 35, 37, 37, 37, 37, 33, 33, 37, 37, 35, 41, 41, [128X[104X
+    [4X[28X  42, 42, 79, 79, 43, 43, 83, 83, 45, 45, 47, 47, 53, 53, 91, 91, 57, [128X[104X
+    [4X[28X  57, 61, 61, 61, 98, 98, 70, 70, 63, 63, 81, 81, 83, 83, 1, 6, 7, [128X[104X
+    [4X[28X  11, 16, 17, 24, 24, 21, 27, 27, 25, 26, 29, 41, 53, 53, 53, 46, 56, [128X[104X
+    [4X[28X  56, 56, 56, 62, 75, 75, 78, 78, 77, 77, 79, 79, 86, 86, 85, 85, 88, [128X[104X
+    [4X[28X  88, 88, 88, 95, 95, 96, 96 ][128X[104X
+    [4X[25Xgap>[125X [27XPositionSublist( map, [ 86, 86, 85, 85 ] );[127X[104X
+    [4X[28X140[128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( t ){ [ 140 .. 143 ] };[127X[104X
+    [4X[28X[ 32, 32, 32, 32 ][128X[104X
+    [4X[25Xgap>[125X [27XSizesCentralizers( t ){ [ 140 .. 143 ] };[127X[104X
+    [4X[28X[ 64, 64, 64, 64 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( t, f ){ [ 140 ..143 ] };[127X[104X
+    [4X[28X[ 86, 86, 87, 87 ][128X[104X
+    [4X[25Xgap>[125X [27XPowerMap( f, 2 ){ [ 86, 87 ] };[127X[104X
+    [4X[28X[ 50, 50 ][128X[104X
+    [4X[25Xgap>[125X [27Xpos:= PositionsProperty( Irr( t ),[127X[104X
+    [4X[25X>[125X [27X   x -> x[1] <> x[2] and Length( Set( x{ [ 140 .. 143 ] } ) ) > 1 );[127X[104X
+    [4X[28X[ 144, 145, 146, 147 ][128X[104X
+    [4X[25Xgap>[125X [27XList( pos, i -> Irr(t)[i]{ [ 140 .. 143 ] } );[127X[104X
+    [4X[28X[ [ 2*E(16)-2*E(16)^7, -2*E(16)+2*E(16)^7, 2*E(16)^3-2*E(16)^5, [128X[104X
+    [4X[28X      -2*E(16)^3+2*E(16)^5 ], [128X[104X
+    [4X[28X  [ -2*E(16)+2*E(16)^7, 2*E(16)-2*E(16)^7, -2*E(16)^3+2*E(16)^5, [128X[104X
+    [4X[28X      2*E(16)^3-2*E(16)^5 ], [128X[104X
+    [4X[28X  [ -2*E(16)^3+2*E(16)^5, 2*E(16)^3-2*E(16)^5, 2*E(16)-2*E(16)^7, [128X[104X
+    [4X[28X      -2*E(16)+2*E(16)^7 ], [128X[104X
+    [4X[28X  [ 2*E(16)^3-2*E(16)^5, -2*E(16)^3+2*E(16)^5, -2*E(16)+2*E(16)^7, [128X[104X
+    [4X[28X      2*E(16)-2*E(16)^7 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YI  had  not  found  a  suitable subgroup of [22X2.F_4(2).2[122X whose character table
+  could  be  used  to decide the question which of the two alternatives is the
+  correct one.[133X
+  
+  
+  [1X1.1-4 [33X[0;0YA Character Table with a Wrong Name (May 2017)[133X[101X
+  
+  [33X[0;0Y(This example is much older.)[133X
+  
+  [33X[0;0YThe character table that is shown in [Ost86, p. 126 f.] is claimed to be the
+  table  of  a  Sylow [22X2[122X subgroup [22XP[122X of the sporadic simple Lyons group [22XLy[122X. This
+  table  had  been  contained in the character table library of the [5XCAS[105X system
+  (see [NPP84]), which was one of the predecessors of [5XGAP[105X.[133X
+  
+  [33X[0;0YIt  is  easy  to  see  that no subgroup of [22XLy[122X can have this character table.
+  Namely,  the  group  of  that  table  contains  elements of order eight with
+  centralizer order [22X2^6[122X, and this does not occur in [22XLy[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "Ly" );;[127X[104X
+    [4X[25Xgap>[125X [27Xorders:= OrdersClassRepresentatives( tbl );;[127X[104X
+    [4X[25Xgap>[125X [27Xorder8:= Filtered( [ 1 .. Length( orders ) ], x -> orders[x] = 8 );[127X[104X
+    [4X[28X[ 12, 13 ][128X[104X
+    [4X[25Xgap>[125X [27XSizesCentralizers( tbl ){ order8 } / 2^6;[127X[104X
+    [4X[28X[ 15/2, 3/2 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  table  of  [22XP[122X  has  been  computed  in  [Bre91] with character theoretic
+  methods.   Nowadays   it   would   be  no  problem  to  take  a  permutation
+  representation of [22XLy[122X, to compute its Sylow [22X2[122X subgroup, and use this group to
+  compute  its  character table. However, the task is even easier if we assume
+  that  [22XLy[122X  has  a  subgroup of the structure [22X3.McL.2[122X. This subgroup is of odd
+  index,  hence it contains a conjugate of [22XP[122X. Clearly the Sylow [22X2[122X subgroups in
+  the  factor  group  [22XMcL.2[122X  are  isomorphic  with [22XP[122X. Thus we can start with a
+  rather small permutation representation.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "McL.2" );;[127X[104X
+    [4X[25Xgap>[125X [27XNrMovedPoints( g );[127X[104X
+    [4X[28X275[128X[104X
+    [4X[25Xgap>[125X [27Xsyl:= SylowSubgroup( g, 2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xpc:= Image( IsomorphismPcGroup( syl ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( pc );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  character table coincides with the one which is stored in the Character
+  Table Library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XIsRecord( TransformingPermutationsCharacterTables( t,[127X[104X
+    [4X[25X>[125X [27X                 CharacterTable( "LyN2" ) ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2 [33X[0;0YSome finite factor groups of perfect space groups (February 2014)[133X[101X
+  
+  [33X[0;0YIf  one  wants to find a group to which a given character table from the [5XGAP[105X
+  Character    Table    Library    belongs,   one   can   try   the   function
+  [2XGroupInfoForCharacterTable[102X ([14XCTblLib: GroupInfoForCharacterTable[114X). For a long
+  time,  this  was  not successful in the case of [22X16[122X character tables that had
+  been  computed  by W. Hanrath (see Section [21XOrdinary and Brauer Tables in the
+  [5XGAP[105X Character Table Library[121X in the [5XCTblLib[105X manual).[133X
+  
+  [33X[0;0YUsing  the  information from [HP89], it is straightforward to construct such
+  groups  as  factor  groups  of  infinite  groups. Since version 1.3.0 of the
+  [5XCTblLib[105X     package,     calling     [2XGroupInfoForCharacterTable[102X    ([14XCTblLib:
+  GroupInfoForCharacterTable[114X)  for  the  [22X16[122X  library tables in question yields
+  nonempty  lists  and  thus  allows  one  to  access  the  results  of  these
+  constructions, via the function [10XCTblLib.FactorGroupOfPerfectSpaceGroup[110X. This
+  is  an  undocumented auxiliary function that becomes available automatically
+  when  [2XGroupInfoForCharacterTable[102X  ([14XCTblLib:  GroupInfoForCharacterTable[114X) has
+  been called for the first time.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGroupInfoForCharacterTable( "A5" );;[127X[104X
+    [4X[25Xgap>[125X [27XIsBound( CTblLib.FactorGroupOfPerfectSpaceGroup );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YBelow  we list the [22X16[122X group constructions. In each case, an epimorphism from
+  the space group in question is defined by mapping the generators returned by
+  by   the   function   [10XgeneratorsOfPerfectSpaceGroup[110X  defined  below  to  the
+  generators   stored   in   the   attribute   [2XGeneratorsOfGroup[102X   ([14XReference:
+  GeneratorsOfGroup[114X)        of        the        group       returned       by
+  [10XCTblLib.FactorGroupOfPerfectSpaceGroup[110X.[133X
+  
+  
+  [1X1.2-1 [33X[0;0YConstructing the space groups in question[133X[101X
+  
+  [33X[0;0YIn [HP89],  a space group [22XS[122X is described as a subgroup [22X{ M(g, t); g ∈ P, t ∈
+  T }[122X of GL[22X(d+1, ℤ)[122X, where[133X
+  
+                            M(g, t) = ⌈      g  0 ⌉
+                                      ⌊ V(g)+t  1 ⌋,
+  
+  [33X[0;0Ythe  [13Xpoint  group[113X  [22XP[122X  of [22XS[122X is a finite subgroup of GL[22X(d, ℤ)[122X, the [13Xtranslation
+  lattice[113X [22XT[122X of [22XS[122X is a sublattice of [22Xℤ^d[122X, and the [13Xvector system[113X [22XV[122X of [22XS[122X is a map
+  from [22XP[122X to [22Xℤ^d[122X. Note that [22XV[122X maps the identity matrix [22XI ∈[122X GL[22X(d, ℤ)[122X to the zero
+  vector,  and  [22XM(T):=  {  M(I,  t); t ∈ T }[122X is a normal subgroup of [22XS[122X that is
+  isomorphic with [22XT[122X. More generally, [22XM(n T)[122X is a normal subgroup of [22XS[122X, for any
+  positive integer [22Xn[122X.[133X
+  
+  [33X[0;0YSpecifically,  [22XP[122X  is given by generators [22Xg_1, g_2, ..., g_k[122X, [22XT[122X is given by a
+  [22Xℤ[122X-basis  [22XB  =  {  b_1,  b_2,  ..., b_d }[122X of [22XT[122X, and [22XV[122X is given by the vectors
+  [22XV(g_1), V(g_2), ..., V(g_k)[122X.[133X
+  
+  [33X[0;0YIn  the examples below, the matrix representation of [22XP[122X is irreducible, so we
+  need just the following [22Xk+1[122X elements to generate [22XS[122X:[133X
+  
+          ⌈    g_1  0 ⌉  ⌈    g_2  0 ⌉       ⌈    g_k  0 ⌉  ⌈   I  0 ⌉
+          ⌊ V(g_1)  1 ⌋, ⌊ V(g_2)  1 ⌋, ..., ⌊ V(g_k)  1 ⌋, ⌊ b_1  1 ⌋.
+  
+  [33X[0;0YThese generators are returned by the function [10XgeneratorsOfPerfectSpaceGroup[110X,
+  when the inputs are [22X[ g_1, g_2, ..., g_k ][122X, [22X[ V(g_1), V(g_2), ..., V(g_k) ][122X,
+  and [22Xb_1[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XgeneratorsOfPerfectSpaceGroup:= function( Pgens, V, t )[127X[104X
+    [4X[25X>[125X [27X    local d, result, i, m;[127X[104X
+    [4X[25X>[125X [27X    d:= Length( Pgens[1] );[127X[104X
+    [4X[25X>[125X [27X    result:= [];[127X[104X
+    [4X[25X>[125X [27X    for i in [ 1 .. Length( Pgens ) ] do[127X[104X
+    [4X[25X>[125X [27X      m:= IdentityMat( d+1 );[127X[104X
+    [4X[25X>[125X [27X      m{ [ 1 .. d ] }{ [ 1 .. d ] }:= Pgens[i];[127X[104X
+    [4X[25X>[125X [27X      m[ d+1 ]{ [ 1 .. d ] }:= V[i];[127X[104X
+    [4X[25X>[125X [27X      result[i]:= m;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X    m:= IdentityMat( d+1 );[127X[104X
+    [4X[25X>[125X [27X    m[ d+1 ]{ [ 1 .. d ] }:= t;[127X[104X
+    [4X[25X>[125X [27X    Add( result, m );[127X[104X
+    [4X[25X>[125X [27X    return result;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-2 [33X[0;0YConstructing the factor groups in question[133X[101X
+  
+  [33X[0;0YThe  space  group  [22XS[122X  acts  on [22Xℤ^d[122X, via [22Xv ⋅ M(g, t) = v g + V(g) + t[122X. A (not
+  necessarily  faithful)  representation  of [22XS/M(n T)[122X can be obtained from the
+  corresponding  action  of [22XS[122X on [22Xℤ^d/(n ℤ^d)[122X, that is, by reducing the vectors
+  modulo  [22Xn[122X.  For the [5XGAP[105X computations, we work instead with vectors of length
+  [22Xd+1[122X,  extending  each vector in [22Xℤ^d[122X by [22X1[122X in the last position, and acting on
+  these  vectors  by  right  multiplicaton  with elements of [22XS[122X. Multiplication
+  followed  by  reduction  modulo  [22Xn[122X  is  implemented  by  the action function
+  returned by [10XmultiplicationModulo[110X when this is called with argument [22Xn[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XmultiplicationModulo:= n -> function( v, g )[127X[104X
+    [4X[25X>[125X [27X       return List( v * g, x -> x mod n ); end;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  some  of  the  examples,  the representation of [22XP[122X given in [HP89] is the
+  action  on  the factor of a permutation module modulo its trivial submodule.
+  For that, we provide the function [10XdeletedPermutationMat[110X, cf. [HP89, p. 269].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XdeletedPermutationMat:= function( pi, n )[127X[104X
+    [4X[25X>[125X [27X    local mat, j, i;[127X[104X
+    [4X[25X>[125X [27X    mat:= PermutationMat( pi, n );[127X[104X
+    [4X[25X>[125X [27X    mat:= mat{ [ 1 .. n-1 ] }{ [ 1 .. n-1 ] };[127X[104X
+    [4X[25X>[125X [27X    j:= n ^ pi;[127X[104X
+    [4X[25X>[125X [27X    if j <> n then[127X[104X
+    [4X[25X>[125X [27X      for i in [ 1 .. n-1 ] do[127X[104X
+    [4X[25X>[125X [27X        mat[i][j]:= -1;[127X[104X
+    [4X[25X>[125X [27X      od;[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    return mat;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAfter  constructing permutation generators for the example groups, we verify
+  that  the  groups  fit  to the character tables from the [5XGAP[105X Character Table
+  Library and to the permutation generators stored for the construction of the
+  group via [10XCTblLib.FactorGroupOfPerfectSpaceGroup[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup:= function( gens, id )[127X[104X
+    [4X[25X>[125X [27X    local sm, act, stored, hom;[127X[104X
+    [4X[25X>[125X [27X    sm:= SmallerDegreePermutationRepresentation( Group( gens ) );[127X[104X
+    [4X[25X>[125X [27X    gens:= List( gens, x -> x^sm );[127X[104X
+    [4X[25X>[125X [27X    act:= Images( sm );[127X[104X
+    [4X[25X>[125X [27X    if not IsRecord( TransformingPermutationsCharacterTables([127X[104X
+    [4X[25X>[125X [27X                         CharacterTable( act ),[127X[104X
+    [4X[25X>[125X [27X                         CharacterTable( id ) ) ) then[127X[104X
+    [4X[25X>[125X [27X      return "wrong character table";[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    GroupInfoForCharacterTable( id );[127X[104X
+    [4X[25X>[125X [27X    stored:= CTblLib.FactorGroupOfPerfectSpaceGroup( id );[127X[104X
+    [4X[25X>[125X [27X    hom:= GroupHomomorphismByImages( stored, act,[127X[104X
+    [4X[25X>[125X [27X              GeneratorsOfGroup( stored ), gens );[127X[104X
+    [4X[25X>[125X [27X    if hom = fail or not IsBijective( hom ) then[127X[104X
+    [4X[25X>[125X [27X      return "wrong group";[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    return true;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-3 [33X[0;0YExamples with point group [22XA_5[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  are two examples with [22Xd = 5[122X. The generators of the point group are as
+  follows (see [HP89, p. 272]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= deletedPermutationMat( (1,3)(2,4), 6 );;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= deletedPermutationMat( (1,2,3)(4,5,6), 6 );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn both cases, the vector system is [22XV_2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= [ [ 2, 2, 0, 0, 1 ], 0 * b[1] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn the first example, the translation lattice is the sublattice [22XL = 2 L_1[122X of
+  the full lattice [22XL_1 = ℤ^d[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 2, 0, 0, 0, 0 ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character  table with identifier [10X"P1/G2/L1/V2/ext4"[110X belongs to
+  the  factor  group of [22XS[122X modulo the normal subgroup [22XM(4 L)[122X, so we compute the
+  action on an orbit modulo [22X8[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 1, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P1/G2/L1/V2/ext4" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  the  second  example, the translation lattice is the sublattice [22X2 L_2[122X of
+  [22Xℤ^d[122X where [22XL_2[122X has the following basis.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xbas:= [ [-1,-1, 1, 1, 1 ],[127X[104X
+    [4X[25X>[125X [27X           [-1, 1,-1, 1, 1 ],[127X[104X
+    [4X[25X>[125X [27X           [ 1, 1, 1,-1,-1 ],[127X[104X
+    [4X[25X>[125X [27X           [ 1, 1,-1,-1, 1 ],[127X[104X
+    [4X[25X>[125X [27X           [-1, 1, 1,-1, 1 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  the sake of simplicity, we rewrite the action of the point group to one
+  on [22XL_2[122X, and we adjust also the vector system.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XB:= Basis( Rationals^Length( bas ), bas );;[127X[104X
+    [4X[25Xgap>[125X [27Xabas:= List( bas, x -> Coefficients( B, x * a ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xbbas:= List( bas, x -> Coefficients( B, x * b ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xvbas:= List( v, x -> Coefficients( B, x ) );[127X[104X
+    [4X[28X[ [ 3/2, 1, 2, 3/2, -1 ], [ 0, 0, 0, 0, 0 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  order  to  work  with  integral  matrices  (which  is  necessary because
+  [10XmultiplicationModulo[110X  uses  [5XGAP[105X's  [10Xmod[110X  operator), we double both the vector
+  system and the translation lattice.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xvbas:= vbas * 2;[127X[104X
+    [4X[28X[ [ 3, 2, 4, 3, -2 ], [ 0, 0, 0, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xt:= 2 * t;[127X[104X
+    [4X[28X[ 4, 0, 0, 0, 0 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character  table with identifier [10X"P1/G2/L2/V2/ext4"[110X belongs to
+  the  factor  group  of  [22XS[122X modulo the normal subgroup [22XM(8 L_2)[122X; since we have
+  doubled the lattice, we compute the action on an orbit modulo [22X16[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ abas, bbas ], vbas, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 16 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 0, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P1/G2/L2/V2/ext4" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-4 [33X[0;0YExamples with point group [22XL_3(2)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  are  three  examples  with  [22Xd  =  6[122X  and  one example with [22Xd = 8[122X. The
+  generators  of  the  point group for the first three examples are as follows
+  (see [HP89, p. 290]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= [ [ 0, 1, 0, 1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0, 1, 1, 1, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [-1,-1,-1,-1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0,-1,-1,-1,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 1, 1, 1, 0, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1, 0, 1, 0 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= [ [-1, 0, 0, 0, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0,-1, 0,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 1, 1, 1, 1, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [-1,-1,-1, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0, 0, 0, 0, 0 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe first vector system is the trivial vector system [22XV_1[122X (that is, the space
+  group  [22XS[122X  is  a  split  extension  of  the  point  group and the translation
+  lattice), and the translation lattice is the full lattice [22XL_1 = ℤ^d[122X.[133X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P11/G1/L1/V1/ext4"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(4 L_1)[122X, so we compute the
+  action on an orbit modulo [22X4[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= List( [ 1, 2 ], i -> 0 * a[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 1, 0, 0, 0, 0, 0 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 4 );;[127X[104X
+    [4X[25Xgap>[125X [27Xseed:= [ 1, 0, 0, 0, 0, 0, 1 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P11/G1/L1/V1/ext4" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe second vector system is [22XV_2[122X, and the translation lattice is [22X2 L_1[122X.[133X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P11/G1/L1/V2/ext4"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(8 L_1)[122X, so we compute the
+  action on an orbit modulo [22X8[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= [ [ 1, 0, 1, 0, 0, 0 ], 0 * a[1] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 2, 0, 0, 0, 0, 0 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P11/G1/L1/V2/ext4" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe third vector system is [22XV_3[122X, and the translation lattice is [22X2 L_1[122X.[133X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P11/G1/L1/V3/ext4"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(8 L_1)[122X, so we compute the
+  action on an orbit modulo [22X8[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= [ [ 0, 1, 0, 0, 1, 0 ], 0 * a[1] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 2, 0, 0, 0, 0, 0 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P11/G1/L1/V3/ext4" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  generators  of  the  point  group for the fourth example are as follows
+  (see [HP89, p. 293]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= [ [ 1, 0, 0, 1, 0,-1, 0, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 1, 0,-1, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0, 0, 1, 0,-1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 0,-1, 0, 1, 1,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0,-1, 1, 1,-1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1,-1,-1, 0, 0, 0, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 1, 0,-1, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0,-1, 0, 0, 0, 0, 0 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= [ [ 1, 0,-2, 0, 1,-1, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 0, 0, 0, 0, 1,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0,-1, 0, 1,-1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [-1,-1, 1,-1,-1, 2, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0,-1, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 0,-1,-1, 1, 1,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1,-1, 0, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0, 0, 0, 0, 0, 0, 0 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  vector  system  is  the  trivial vector system [22XV_1[122X, and the translation
+  lattice is the full lattice [22XL_1 = ℤ^d[122X.[133X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P11/G4/L1/V1/ext3"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(3 L_1)[122X, so we compute the
+  action on an orbit modulo [22X3[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= List( [ 1, 2 ], i -> 0 * a[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 1, 0, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xseed:= [ 1, 0, 0, 0, 0, 0, 0, 0, 1 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P11/G4/L1/V1/ext3" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-5 [33X[0;0YExample with point group SL[22X_2(7)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  is  one  example with [22Xd = 8[122X. The generators of the point group are as
+  follows (see [HP89, p. 295]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= KroneckerProduct( IdentityMat( 4 ), [ [ 0, 1 ], [ -1, 0 ] ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= [ [ 0,-1, 0, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [-1, 0, 0, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0,-1, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 1, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 0, 1 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  vector  system  is  the  trivial vector system [22XV_1[122X, and the translation
+  lattice  is the sublattice [22XL_2[122X of [22Xℤ^d[122X that has the following basis, which is
+  called [22XB(2,8)[122X in [HP89, p. 269].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xbas:= [ [ 1, 1, 0, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 1, 1, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 1, 1, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 1, 1, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 0, 1, 1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 0, 0, 1, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 0, 0, 0, 1, 1 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 0, 0, 0,-1, 1 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor the sake of simplicity, we rewrite the action to one on [22XL_2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XB:= Basis( Rationals^Length( bas ), bas );;[127X[104X
+    [4X[25Xgap>[125X [27Xabas:= List( bas, x -> Coefficients( B, x * a ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xbbas:= List( bas, x -> Coefficients( B, x * b ) );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P12/G1/L2/V1/ext2"[110X belongs to
+  the  factor group of [22XS[122X modulo the normal subgroup [22XM(2 L_2)[122X. The action on an
+  orbit  modulo  [22X2[122X is not faithful, its kernel contains the centre of SL[22X(2,7)[122X.
+  We  can  compute  a faithful representation by acting on pairs: One entry is
+  the usual vector and the other entry carries the action of the point group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= List( [ 1, 2 ], i -> 0 * a[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 1, 0, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ abas, bbas ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfunpairs:= function( pair, g )[127X[104X
+    [4X[25X>[125X [27X   return [ fun( pair[1], g ), pair[2] * g ];[127X[104X
+    [4X[25X>[125X [27X   end;;[127X[104X
+    [4X[25Xgap>[125X [27Xseed:= [ [ 1, 0, 0, 0, 0, 0, 0, 0, 1 ],[127X[104X
+    [4X[25X>[125X [27X            [ 1, 0, 0, 0, 0, 0, 0, 0, 0 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, funpairs );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, funpairs ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P12/G1/L2/V1/ext2" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-6 [33X[0;0YExample with point group [22X2^3.L_3(2)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  is  one  example with [22Xd = 7[122X. The generators of the point group are as
+  follows (see [HP89, p. 297]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= PermutationMat( (2,4)(5,7), 7 );;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= PermutationMat( (1,3,2)(4,6,5), 7 );;[127X[104X
+    [4X[25Xgap>[125X [27Xc:= DiagonalMat( [ -1, -1, 1, 1, -1, -1, 1 ] );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  vector  system  is  the  trivial vector system [22XV_1[122X, and the translation
+  lattice  is the sublattice [22XL_2[122X of [22Xℤ^d[122X that has the following basis, which is
+  called [22XB(2,7)[122X in [HP89, p. 269].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xbas:= [ [ 1, 1, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 1, 1, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 1, 1, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 1, 1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 0, 1, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 0, 0, 1, 1 ],[127X[104X
+    [4X[25X>[125X [27X           [ 0, 0, 0, 0, 0,-1, 1 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor the sake of simplicity, we rewrite the action to one on [22XL_2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XB:= Basis( Rationals^Length( bas ), bas );;[127X[104X
+    [4X[25Xgap>[125X [27Xabas:= List( bas, x -> Coefficients( B, x * a ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xbbas:= List( bas, x -> Coefficients( B, x * b ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xcbas:= List( bas, x -> Coefficients( B, x * c ) );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P13/G1/L2/V1/ext2"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(2 L_2)[122X, so we compute the
+  action on an orbit modulo [22X2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= List( [ 1 .. 3 ], i -> 0 * a[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 1, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ abas,bbas,cbas ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xact:= Action( g, orb, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P13/G1/L2/V1/ext2" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-7 [33X[0;0YExamples with point group [22XA_6[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  are  two  examples  with [22Xd = 10[122X. In both cases, the generators of the
+  point group are as follows (see [HP89, p. 307]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= [ [ 0,-1, 0, 0, 0, 0, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0,-1, 0, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xc:= [ [ 0, 0, 0, 0, 0, 0, 0,-1, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 0,-1, 1,-1 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0,-1, 1, 0,-1, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 1, 0, 0, 0, 0,-1, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 0, 0, 0,-1 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 1,-1, 0, 0, 1 ], [127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1,-1, 0, 0, 0, 0, 0, 1 ], [127X[104X
+    [4X[25X>[125X [27X         [-1, 0, 1, 0, 0,-1, 0, 0, 0, 0 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  both  examples,  the vector system is the trivial vector system [22XV_1[122X, and
+  the  translation  lattices are the lattices [22XL_2[122X and [22XL_5[122X, respectively, which
+  have the following bases.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xbas2:= [ [ 0, 1,-1, 0, 0, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 0, 1,-1, 0, 0, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 0, 0, 0, 1,-1, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 0, 0, 0, 0, 1,-1, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 0, 0, 0, 0, 1, 0,-1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 0, 0, 0, 0, 0, 0, 1,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 0, 0, 0, 0, 0, 0, 0, 1,-1 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 0, 0, 1, 0, 0, 0, 0, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 1, 0, 0, 0, 0, 0, 1, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xbas5:= [ [ 0,-1, 1, 1,-1, 1, 1,-1,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 1, 0,-1,-1,-1, 1, 1,-1,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 1, 1,-1, 1, 1,-1, 0, 1, 1 ],[127X[104X
+    [4X[25X>[125X [27X            [ 1, 1, 0,-1, 0,-1, 1,-1, 1,-1 ],[127X[104X
+    [4X[25X>[125X [27X            [-1, 0,-1, 1, 1, 0,-1,-1, 1,-1 ],[127X[104X
+    [4X[25X>[125X [27X            [ 0, 1,-1, 1, 1,-1, 1, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X            [-1,-1, 1, 1, 0,-1,-1,-1,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X            [ 1,-1, 0,-1, 1,-1, 1, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X            [-1, 1,-1, 1,-1, 0,-1, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X            [ 1,-1,-1, 1, 1, 1, 0, 0,-1,-1 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor the sake of simplicity, we rewrite the action to actions on [22XL_2[122X and [22XL_5[122X,
+  respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XB2:= Basis( Rationals^Length( bas2 ), bas2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xbbas2:= List( bas2, x -> Coefficients( B2, x * b ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xcbas2:= List( bas2, x -> Coefficients( B2, x * c ) );;[127X[104X
+    [4X[25Xgap>[125X [27XB5:= Basis( Rationals^Length( bas5 ), bas5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xbbas5:= List( bas5, x -> Coefficients( B5, x * b ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xcbas5:= List( bas5, x -> Coefficients( B5, x * c ) );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P21/G3/L2/V1/ext2"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(2 L_2)[122X, so we compute the
+  action on an orbit modulo [22X2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= List( [ 1, 2 ], i -> 0 * bbas2[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ bbas2, cbas2 ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xseed:= [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P21/G3/L2/V1/ext2" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P21/G3/L5/V1/ext2"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(2 L_5)[122X, so we compute the
+  action on an orbit modulo [22X2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ bbas5, cbas5 ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P21/G3/L5/V1/ext2" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-8 [33X[0;0YExamples with point group [22XL_2(8)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  are  two  examples  with  [22Xd = 7[122X. In both cases, the generators of the
+  point group are as follows (see [HP89, p. 327]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= [ [ 0,-1, 0, 1, 0,-1, 1],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0,-1, 0, 1,-1, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0,-1, 1, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0,-1, 0, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1,-1, 0, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 1, 0,-1, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 1,-1, 0, 1, 0,-1, 0] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= [ [-1, 0, 1, 0,-1, 1, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0,-1, 0, 1,-1, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0,-1, 1, 0, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0,-1, 0, 0, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 1,-1, 0, 0, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [-1, 1, 0,-1, 0, 0, 0],[127X[104X
+    [4X[25X>[125X [27X         [-1, 0, 1, 0,-1, 0, 1] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  both  examples, the vector system is [22XV_2[122X. The translation lattice in the
+  first example is the lattice [22XL = 3 ℤ^d[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= [ [ 2, 1, 0, 0, 0, 1, 4 ],[127X[104X
+    [4X[25X>[125X [27X         [ 2, 0, 0, 0, 0, 0, 0 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 3, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P41/G1/L1/V3/ext3"[110X belongs to
+  the  factor  group of [22XS[122X modulo the normal subgroup [22XM(3 L)[122X, so we compute the
+  action on an orbit modulo [22X9[122X.[133X
+  
+  [33X[0;0YThe  orbits  in this action are quite long. we choose a seed vector from the
+  fixed space of an element of order [22X7[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xaa:= sgens[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xbb:= sgens[2];;[127X[104X
+    [4X[25Xgap>[125X [27Xelm:= aa*bb;;[127X[104X
+    [4X[25Xgap>[125X [27XOrder( elm );[127X[104X
+    [4X[28X7[128X[104X
+    [4X[25Xgap>[125X [27Xfixed:= NullspaceMat( elm - aa^0 );[127X[104X
+    [4X[28X[ [ 1, 1, 1, 1, 1, 1, 1, 0 ], [ -4, 1, 1, -5, -5, 2, 0, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 9 );;[127X[104X
+    [4X[25Xgap>[125X [27Xseed:= fun( fixed[2], aa^0 );[127X[104X
+    [4X[28X[ 5, 1, 1, 4, 4, 2, 0, 1 ][128X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P41/G1/L1/V3/ext3" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe translation lattice in the second example is the lattice [22XL = 6 ℤ^d[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 6, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P41/G1/L1/V4/ext3"[110X belongs to
+  the  factor  group of [22XS[122X modulo the normal subgroup [22XM(6 L)[122X, so we compute the
+  action on an orbit modulo [22X18[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 18 );;[127X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xseed:= fun( fixed[2], aa^0 );[127X[104X
+    [4X[28X[ 14, 1, 1, 13, 13, 2, 0, 1 ][128X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P41/G1/L1/V4/ext3" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-9 [33X[0;0YExample with point group [22XM_11[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  is  one example with [22Xd = 10[122X. The generators of the point group are as
+  follows (see [HP89, p. 334]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= deletedPermutationMat( (1,9)(3,5)(7,11)(8,10), 11 );;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= deletedPermutationMat( (1,4,3,2)(5,8,7,6), 11 );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe vector system is [22XV_2[122X, and the translation lattice is [22XL = 2 ℤ^d[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= [ 0 * a[1],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P48/G1/L1/V2/ext2"[110X belongs to
+  the  factor  group of [22XS[122X modulo the normal subgroup [22XM(2 L)[122X, so we compute the
+  action on an orbit modulo [22X4[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 4 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P48/G1/L1/V2/ext2" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-10 [33X[0;0YExample with point group [22XU_3(3)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  is  one  example with [22Xd = 7[122X. The generators of the point group are as
+  follows (see [HP89, p. 335]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= [ [ 0, 0,-1, 1, 0,-1, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0,-1, 1, 1,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 1,-1, 0, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 1, 0,-1, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [-1, 1, 1,-1, 0, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [-1, 0, 1,-1, 0, 0, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 0, 1 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= [ [ 0, 0, 0, 0, 0, 0, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0,-1, 1, 0,-1, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0,-1, 1, 1,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 1,-1, 0, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 1, 0,-1, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [-1, 1, 1,-1, 0, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [-1, 0, 1,-1, 0, 0, 1 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe vector system is [22XV_2[122X, and the translation lattice is [22XL = 3 ℤ^d[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= [ [ 2, 1, 0, 0, 2, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         0 * b[1] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 3, 0, 0, 0, 0, 0, 0 ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P49/G1/L1/V2/ext3"[110X belongs to
+  the  factor  group of [22XS[122X modulo the normal subgroup [22XM(3 L)[122X, so we compute the
+  action on an orbit modulo [22X9[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 9 );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  orbits  in this action are quite long. we choose a seed vector from the
+  fixed space of an element of order [22X12[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xaa:= sgens[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xbb:= sgens[2];;[127X[104X
+    [4X[25Xgap>[125X [27Xelm:= aa*bb^4;;[127X[104X
+    [4X[25Xgap>[125X [27XOrder( elm );[127X[104X
+    [4X[28X12[128X[104X
+    [4X[25Xgap>[125X [27Xfixed:= NullspaceMat( elm - aa^0 );[127X[104X
+    [4X[28X[ [ -1, -1, 1, 1, -1, -1, 1, 0 ], [ 0, -3, 1, 1, -1, -2, 0, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xseed:= fun( fixed[2], aa^0 );[127X[104X
+    [4X[28X[ 0, 6, 1, 1, 8, 7, 0, 1 ][128X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, seed, fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P49/G1/L1/V2/ext3" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-11 [33X[0;0YExamples with point group [22XU_4(2)[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThere  are  two  examples  with  [22Xd = 6[122X. In both cases, the generators of the
+  point group are as follows (see [HP89, p. 336]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa:= [ [ 0, 1, 0,-1,-1, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0,-1, 0, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0,-1, 0, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0,-1, 0, 0, 1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0, 0, 1 ] ];;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= [ [ 0,-1, 0, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 1, 0,-1,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 1, 1, 0,-1 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 0, 0, 0,-1, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 0, 1, 0, 0, 0, 0 ],[127X[104X
+    [4X[25X>[125X [27X         [ 1, 0, 0, 0, 0, 0 ] ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  both  examples,  the vector system is the trivial vector system [22XV_1[122X, and
+  the translation lattice is the full lattice [22XL_1 = ℤ^d[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv:= List( [ 1, 2 ], i -> 0 * a[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= [ 1, 0, 0, 0, 0, 0 ];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P50/G1/L1/V1/ext3"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(3 L_1)[122X, so we compute the
+  action on an orbit modulo [22X3[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P50/G1/L1/V1/ext3" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library  character table with identifier [10X"P50/G1/L1/V1/ext4"[110X belongs to
+  the factor group of [22XS[122X modulo the normal subgroup [22XM(4 L_1)[122X, so we compute the
+  action on an orbit modulo [22X4[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsgens:= generatorsOfPerfectSpaceGroup( [ a, b ], v, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( sgens );;[127X[104X
+    [4X[25Xgap>[125X [27Xfun:= multiplicationModulo( 4 );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, [ 1, 0, 0, 0, 0, 0, 1 ], fun );;[127X[104X
+    [4X[25Xgap>[125X [27Xpermgens:= List( sgens, x -> Permutation( x, orb, fun ) );;[127X[104X
+    [4X[25Xgap>[125X [27XverifyFactorGroup( permgens, "P50/G1/L1/V1/ext4" );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.2-12 [33X[0;0YA remark on one of the example groups[133X[101X
+  
+  [33X[0;0YThe  (perfect)  character  table  with identifier [10X"P1/G2/L2/V2/ext4"[110X has the
+  property that its character degrees are exactly the divisors of [22X60[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdegrees:= CharacterDegrees( CharacterTable( "P1/G2/L2/V2/ext4" ) );[127X[104X
+    [4X[28X[ [ 1, 1 ], [ 2, 2 ], [ 3, 2 ], [ 4, 2 ], [ 5, 1 ], [ 6, 5 ], [128X[104X
+    [4X[28X  [ 10, 4 ], [ 12, 4 ], [ 15, 20 ], [ 20, 2 ], [ 30, 29 ], [ 60, 8 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( degrees, x -> x[1] ) = DivisorsInt( 60 );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThere  are  nilpotent  groups  with  the  same set of character degrees, for
+  example  the  direct  product of four extraspecial groups of the orders [22X2^3[122X,
+  [22X2^3[122X,  [22X3^3[122X,  and  [22X5^3[122X,  respectively.  This  phenomenon  has  been  described
+  in [NR14].[133X
+  
+  
+  [1X1.3 [33X[0;0YGenerality problems (December 2004/October 2015)[133X[101X
+  
+  [33X[0;0YThe  term  [21Xgenerality  problem[121X  is  used  for problems concerning consistent
+  choices  of  conjugacy  classes  of  Brauer  tables  for  the same group, in
+  different  characteristics.  The  definition  and some examples are given in
+  [JLPW95, p. x].[133X
+  
+  [33X[0;0YSection  [14X1.3-1[114X  shows  how to detect generality problems and lists the known
+  generality problems, and Section [14X1.3-2[114X gives an example that actually arose.[133X
+  
+  
+  [1X1.3-1 [33X[0;0YListing possible generality problems[133X[101X
+  
+  [33X[0;0YWe  use  the  following  idea for finding character tables which may involve
+  generality problems. (The functions shown in this section are based on [5XGAP[105X 3
+  code that was originally written by Jürgen Müller.)[133X
+  
+  [33X[0;0YIf  the  [22Xp[122X-modular  Brauer  table  [22Xmtbl[122X,  say,  of  a group contributes to a
+  generality  problem  then  some  choice of conjugacy classes is necessary in
+  order  to  write  down  this  table,  in the sense that some symmetry of the
+  corresponding ordinary table [22Xtbl[122X, say, is broken in [22Xmtbl[122X. This situation can
+  be detected as follows. We assume that the class fusion from [22Xmtbl[122X to [22Xtbl[122X has
+  been  fixed.  All  possible  class fusions are obtained as the orbit of this
+  class  fusion  under  the actions of table automorphisms of [22Xtbl[122X, via mapping
+  the  images  of  the  class  fusion  (with the function [2XOnTuples[102X ([14XReference:
+  OnTuples[114X)),  and  of  the  table  automorphisms  of  [22Xmtbl[122X, via permuting the
+  preimages.  The  case  of broken symmetries occurs if and only if this orbit
+  splits  into  several orbits when only the action of the table automorphisms
+  of  [22Xmtbl[122X  is  considered. Equivalently, symmetries are broken if and only if
+  the  orbit  under table automorphisms of [22Xmtbl[122X is not closed under the action
+  of table automorphisms of [22Xtbl[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XBrokenSymmetries:= function( ordtbl, modtbl )[127X[104X
+    [4X[25X>[125X [27X    local taut, maut, triv, fus, orb;[127X[104X
+    [4X[25X>[125X [27X    taut:= AutomorphismsOfTable( ordtbl );[127X[104X
+    [4X[25X>[125X [27X    maut:= AutomorphismsOfTable( modtbl );[127X[104X
+    [4X[25X>[125X [27X    triv:= TrivialSubgroup( taut );[127X[104X
+    [4X[25X>[125X [27X    fus:= GetFusionMap( modtbl, ordtbl );[127X[104X
+    [4X[25X>[125X [27X    orb:= MakeImmutable( Set( OrbitFusions( maut, fus, triv ) ) );[127X[104X
+    [4X[25X>[125X [27X    return ForAny( GeneratorsOfGroup( taut ),[127X[104X
+    [4X[25X>[125X [27X               x -> ForAny( orb,[127X[104X
+    [4X[25X>[125X [27X                        fus -> not OnTuples( fus, x ) in orb ) );[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XRemark:[113X (Thanks to Klaus Lux for discussions on this topic.)[133X
+  
+  [30X    [33X[0;6YIt may happen that some symmetry [22Xσ_m[122X of a Brauer table does not belong
+        to  a  symmetry  [22Xσ_o[122X of the corresponding ordinary table, in the sense
+        that  permuting  the  preimage  classes  of a fusion [22Xf[122X between the two
+        tables with [22Xσ_m[122X and permuting the image classes with [22Xσ_o[122X yields [22Xf[122X.[133X
+  
+        [33X[0;6YFor example, consider the group [22XG = 2.A_6.2_1[122X, the double cover of the
+        symmetric  group  [22XS_6[122X  on six points. The [22X2[122X-modular Brauer table of [22XG[122X,
+        which  is  essentially  equal to that of [22XS_6[122X, has a table automorphism
+        group  order  two,  and  the  nonidentity  element in it swaps the two
+        classes of element order three. The automorphism group of the ordinary
+        character  table of [22XG[122X, however, fixes the two classes of element order
+        three;  note  that exactly one of these classes possesses square roots
+        in the [21Xouter half[121X [22XG ∖ G'[122X.[133X
+  
+        [33X[0;6YThus  it  is  not  sufficient  to compare the orbit of the fixed class
+        fusion under the automorphisms of the ordinary table with the orbit of
+        the same fusion under the automorphisms of the Brauer table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "2.A6.2_1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm:= t mod 2;;[127X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, t );[127X[104X
+    [4X[28X[ 1, 4, 6, 9 ][128X[104X
+    [4X[25Xgap>[125X [27XAutomorphismsOfTable( t );[127X[104X
+    [4X[28XGroup([ (16,17), (14,15), (14,15)(16,17) ])[128X[104X
+    [4X[25Xgap>[125X [27XAutomorphismsOfTable( m );[127X[104X
+    [4X[28XGroup([ (2,3) ])[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( m );[127X[104X
+    [4X[28X2.A6.2_1mod2[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X     2  5  2  2  1[128X[104X
+    [4X[28X     3  2  2  2  .[128X[104X
+    [4X[28X     5  1  .  .  1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 3a 3b 5a[128X[104X
+    [4X[28X    2P 1a 3a 3b 5a[128X[104X
+    [4X[28X    3P 1a 1a 1a 5a[128X[104X
+    [4X[28X    5P 1a 3a 3b 1a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1     1  1  1  1[128X[104X
+    [4X[28XX.2     4  1 -2 -1[128X[104X
+    [4X[28XX.3     4 -2  1 -1[128X[104X
+    [4X[28XX.4    16 -2 -2  1[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( t );[127X[104X
+    [4X[28X2.A6.2_1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X      2  5   5  4  2  2  2  2  3  1   1  4  4  3  2  2   2   2[128X[104X
+    [4X[28X      3  2   2  .  2  2  2  2  .  .   .  1  1  .  1  1   1   1[128X[104X
+    [4X[28X      5  1   1  .  .  .  .  .  .  1   1  .  .  .  .  .   .   .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X        1a  2a 4a 3a 6a 3b 6b 8a 5a 10a 2b 4b 8b 6c 6d 12a 12b[128X[104X
+    [4X[28X     2P 1a  1a 2a 3a 3a 3b 3b 4a 5a  5a 1a 2a 4a 3a 3a  6b  6b[128X[104X
+    [4X[28X     3P 1a  2a 4a 1a 2a 1a 2a 8a 5a 10a 2b 4b 8b 2b 2b  4b  4b[128X[104X
+    [4X[28X     5P 1a  2a 4a 3a 6a 3b 6b 8a 1a  2a 2b 4b 8b 6d 6c 12b 12a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1      1   1  1  1  1  1  1  1  1   1  1  1  1  1  1   1   1[128X[104X
+    [4X[28XX.2      1   1  1  1  1  1  1  1  1   1 -1 -1 -1 -1 -1  -1  -1[128X[104X
+    [4X[28XX.3      5   5  1  2  2 -1 -1 -1  .   .  3 -1  1  .  .  -1  -1[128X[104X
+    [4X[28XX.4      5   5  1  2  2 -1 -1 -1  .   . -3  1 -1  .  .   1   1[128X[104X
+    [4X[28XX.5      5   5  1 -1 -1  2  2 -1  .   . -1  3  1 -1 -1   .   .[128X[104X
+    [4X[28XX.6      5   5  1 -1 -1  2  2 -1  .   .  1 -3 -1  1  1   .   .[128X[104X
+    [4X[28XX.7     16  16  . -2 -2 -2 -2  .  1   1  .  .  .  .  .   .   .[128X[104X
+    [4X[28XX.8      9   9  1  .  .  .  .  1 -1  -1  3  3 -1  .  .   .   .[128X[104X
+    [4X[28XX.9      9   9  1  .  .  .  .  1 -1  -1 -3 -3  1  .  .   .   .[128X[104X
+    [4X[28XX.10    10  10 -2  1  1  1  1  .  .   .  2 -2  . -1 -1   1   1[128X[104X
+    [4X[28XX.11    10  10 -2  1  1  1  1  .  .   . -2  2  .  1  1  -1  -1[128X[104X
+    [4X[28XX.12     4  -4  . -2  2  1 -1  . -1   1  .  .  .  .  .   B  -B[128X[104X
+    [4X[28XX.13     4  -4  . -2  2  1 -1  . -1   1  .  .  .  .  .  -B   B[128X[104X
+    [4X[28XX.14     4  -4  .  1 -1 -2  2  . -1   1  .  .  .  A -A   .   .[128X[104X
+    [4X[28XX.15     4  -4  .  1 -1 -2  2  . -1   1  .  .  . -A  A   .   .[128X[104X
+    [4X[28XX.16    16 -16  . -2  2 -2  2  .  1  -1  .  .  .  .  .   .   .[128X[104X
+    [4X[28XX.17    20 -20  .  2 -2  2 -2  .  .   .  .  .  .  .  .   .   .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(3)-E(3)^2[128X[104X
+    [4X[28X  = Sqrt(-3) = i3[128X[104X
+    [4X[28XB = -E(12)^7+E(12)^11[128X[104X
+    [4X[28X  = Sqrt(3) = r3[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWhen considering several characteristics in parallel, one argues as follows.
+  The  possible  class  fusions from a Brauer table [22Xmtbl[122X to its ordinary table
+  [22Xtbl[122X  are  given by the orbit of a fixed class fusion under the action of the
+  table  automorphisms of [22Xtbl[122X. If there are several orbits under the action of
+  the automorphisms of [22Xmtbl[122X then we choose one orbit. Due to this choice, only
+  those  table  automorphisms  of [22Xtbl[122X are admissible for other characteristics
+  that  stabilize  the  chosen  orbit.  For the second characteristic, we take
+  again  the  set of all class fusions from the Brauer table to [22Xtbl[122X, and split
+  it  into orbits under the table automorphisms of the Brauer table. Now there
+  are  two  possibilities.  Either  the  action  of the admissible subgroup of
+  automorphisms of [22Xtbl[122X joins these orbits into one orbit or not. In the former
+  case,  we  choose  again  one of the orbits, replace the group of admissible
+  automorphisms  of  [22Xtbl[122X by the stabilizer of this orbit, and proceed with the
+  next characteristic. In the latter case, we have found a generality problem,
+  since  we  are  not free to choose an arbitrary class fusion from the set of
+  possibilities.[133X
+  
+  [33X[0;0YThe  following  function  returns the set of primes which may be involved in
+  generality  problems  for  the given ordinary character table. Note that the
+  procedure  sketched  above  does not tell which characteristics are actually
+  involved or which classes are affected by the choices; for example, we could
+  argue   that   one  is  always  free  to  choose  a  fusion  for  the  first
+  characteristics,  and that only the other ones cause problems. We return [13Xall[113X
+  those  primes  [22Xp[122X for which broken symmetries between the [22Xp[122X-modular table and
+  the ordinary table have been detected.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPrimesOfGeneralityProblems:= function( ordtbl )[127X[104X
+    [4X[25X>[125X [27X    local consider, p, modtbl, taut, triv, admiss, fusion, maut,[127X[104X
+    [4X[25X>[125X [27X          allfusions, orbits, orbit, reps;[127X[104X
+    [4X[25X>[125X [27X    # Find the primes for which symmetries are broken.[127X[104X
+    [4X[25X>[125X [27X    consider:= [];[127X[104X
+    [4X[25X>[125X [27X    for p in Filtered( PrimeDivisors( Size( ordtbl ) ), IsPrimeInt ) do[127X[104X
+    [4X[25X>[125X [27X      modtbl:= ordtbl mod p;[127X[104X
+    [4X[25X>[125X [27X      if modtbl <> fail and BrokenSymmetries( ordtbl, modtbl ) then[127X[104X
+    [4X[25X>[125X [27X        Add( consider, p );[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X    # Compute the choices and detect generality problems.[127X[104X
+    [4X[25X>[125X [27X    taut:= AutomorphismsOfTable( ordtbl );[127X[104X
+    [4X[25X>[125X [27X    triv:= TrivialSubgroup( taut );[127X[104X
+    [4X[25X>[125X [27X    admiss:= taut;[127X[104X
+    [4X[25X>[125X [27X    for p in consider do[127X[104X
+    [4X[25X>[125X [27X      modtbl:= ordtbl mod p;[127X[104X
+    [4X[25X>[125X [27X      fusion:= GetFusionMap( modtbl, ordtbl );[127X[104X
+    [4X[25X>[125X [27X      maut:= AutomorphismsOfTable( modtbl );[127X[104X
+    [4X[25X>[125X [27X      # - We need not apply the action of 'maut' here,[127X[104X
+    [4X[25X>[125X [27X      #   since 'maut' will later be used to get representatives.[127X[104X
+    [4X[25X>[125X [27X      # - We need not apply all elements in 'taut' but only[127X[104X
+    [4X[25X>[125X [27X      #   representatives of left cosets of 'admiss' in 'taut',[127X[104X
+    [4X[25X>[125X [27X      #   since 'admiss' will later be used to get representatives.[127X[104X
+    [4X[25X>[125X [27X      # allfusions:= OrbitFusions( maut, fusion, taut );[127X[104X
+    [4X[25X>[125X [27X      allfusions:= Set( RightTransversal( taut, admiss ),[127X[104X
+    [4X[25X>[125X [27X                        x -> OnTuples( fusion, x^-1 ) );[127X[104X
+    [4X[25X>[125X [27X      # For computing representatives, 'RepresentativesFusions' is not[127X[104X
+    [4X[25X>[125X [27X      # suitable because 'allfusions' is in generally not closed[127X[104X
+    [4X[25X>[125X [27X      # under the actions.[127X[104X
+    [4X[25X>[125X [27X      # reps:= RepresentativesFusions( maut, allfusions, admiss );[127X[104X
+    [4X[25X>[125X [27X      orbits:= [];[127X[104X
+    [4X[25X>[125X [27X      while not IsEmpty( allfusions ) do[127X[104X
+    [4X[25X>[125X [27X        orbit:= OrbitFusions( maut, allfusions[1], admiss );[127X[104X
+    [4X[25X>[125X [27X        Add( orbits, orbit );[127X[104X
+    [4X[25X>[125X [27X        SubtractSet( allfusions, orbit );[127X[104X
+    [4X[25X>[125X [27X      od;[127X[104X
+    [4X[25X>[125X [27X      reps:= List( orbits, x -> x[1] );[127X[104X
+    [4X[25X>[125X [27X      if Length( reps ) = 1 then[127X[104X
+    [4X[25X>[125X [27X        # Reduce the symmetries that are still available.[127X[104X
+    [4X[25X>[125X [27X        admiss:= Stabilizer( admiss,[127X[104X
+    [4X[25X>[125X [27X                             Set( OrbitFusions( maut, fusion, triv ) ),[127X[104X
+    [4X[25X>[125X [27X                             OnSetsTuples );[127X[104X
+    [4X[25X>[125X [27X      else[127X[104X
+    [4X[25X>[125X [27X        # We have found a generality problem.[127X[104X
+    [4X[25X>[125X [27X        return consider;[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X    # There is no generality problem for this table.[127X[104X
+    [4X[25X>[125X [27X    return [];[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  us  look at a small example, the [22X5[122X-modular character table of the group
+  [22X2.A_5.2[122X.  The  irreducible characters of degree [22X2[122X have the values [22X± sqrt{-2}[122X
+  on  the  classes  [10X8a[110X and [10X8b[110X, and the values [22X± sqrt{-3}[122X on the classes [10X6b[110X and
+  [10X6c[110X. When we define which of the two classes of element order [22X8[122X is called [10X8a[110X,
+  this will also define which class is called [10X6b[110X. The ordinary character table
+  does  not  relate  the  two  pairs of classes, there are table automorphisms
+  which  interchange  each pair independently. This symmetry is thus broken in
+  the [22X5[122X-modular character table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "2.A5.2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm:= t mod 5;;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( m );[127X[104X
+    [4X[28X2.A5.2mod5[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X      2  4  4  3  2  2  2  3  3  2  2[128X[104X
+    [4X[28X      3  1  1  .  1  1  1  .  .  1  1[128X[104X
+    [4X[28X      5  1  1  .  .  .  .  .  .  .  .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X        1a 2a 4a 3a 6a 2b 8a 8b 6b 6c[128X[104X
+    [4X[28X     2P 1a 1a 2a 3a 3a 1a 4a 4a 3a 3a[128X[104X
+    [4X[28X     3P 1a 2a 4a 1a 2a 2b 8a 8b 2b 2b[128X[104X
+    [4X[28X     5P 1a 2a 4a 3a 6a 2b 8b 8a 6c 6b[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1      1  1  1  1  1  1  1  1  1  1[128X[104X
+    [4X[28XX.2      1  1  1  1  1 -1 -1 -1 -1 -1[128X[104X
+    [4X[28XX.3      3  3 -1  .  .  1 -1 -1 -2 -2[128X[104X
+    [4X[28XX.4      3  3 -1  .  . -1  1  1  2  2[128X[104X
+    [4X[28XX.5      5  5  1 -1 -1  1 -1 -1  1  1[128X[104X
+    [4X[28XX.6      5  5  1 -1 -1 -1  1  1 -1 -1[128X[104X
+    [4X[28XX.7      2 -2  . -1  1  .  A -A  B -B[128X[104X
+    [4X[28XX.8      2 -2  . -1  1  . -A  A -B  B[128X[104X
+    [4X[28XX.9      4 -4  .  1 -1  .  .  .  B -B[128X[104X
+    [4X[28XX.10     4 -4  .  1 -1  .  .  . -B  B[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(8)+E(8)^3[128X[104X
+    [4X[28X  = Sqrt(-2) = i2[128X[104X
+    [4X[28XB = E(3)-E(3)^2[128X[104X
+    [4X[28X  = Sqrt(-3) = i3[128X[104X
+    [4X[25Xgap>[125X [27XAutomorphismsOfTable( t );[127X[104X
+    [4X[28XGroup([ (11,12), (9,10) ])[128X[104X
+    [4X[25Xgap>[125X [27XAutomorphismsOfTable( m );[127X[104X
+    [4X[28XGroup([ (7,8)(9,10) ])[128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, t );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 8, 9, 10, 11, 12 ][128X[104X
+    [4X[25Xgap>[125X [27XBrokenSymmetries( t, m );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XBrokenSymmetries( t, t mod 2 );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XBrokenSymmetries( t, t mod 3 );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XPrimesOfGeneralityProblems( t );[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSince  no  symmetry is broken in the [22X2[122X- and [22X3[122X-modular character tables of [22XG[122X,
+  there is no generality problem in this case.[133X
+  
+  [33X[0;0YFor  an example of a generality problem, we look at the smallest Janko group
+  [22XJ_1[122X.  As  is  mentioned in [JLPW95, p. x], the unique irreducible [22X11[122X-modular
+  Brauer character of degree [22X7[122X distinguishes the two (algebraically conjugate)
+  classes  of  element  order  [22X5[122X. Since also the unique irreducible [22X19[122X-modular
+  Brauer character of degree [22X22[122X distinguishes these classes, we have to choose
+  these classes consistently.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "J1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm:= t mod 11;;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( m, rec( chars:= Filtered( Irr( m ), x -> x[1] = 7 ) ) );[127X[104X
+    [4X[28XJ1mod11[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X     2  3  3  1  1  1  1  .   1   1   .   .   .   .   .[128X[104X
+    [4X[28X     3  1  1  1  1  1  1  .   .   .   1   1   .   .   .[128X[104X
+    [4X[28X     5  1  1  1  1  1  .  .   1   1   1   1   .   .   .[128X[104X
+    [4X[28X     7  1  .  .  .  .  .  1   .   .   .   .   .   .   .[128X[104X
+    [4X[28X    11  1  .  .  .  .  .  .   .   .   .   .   .   .   .[128X[104X
+    [4X[28X    19  1  .  .  .  .  .  .   .   .   .   .   1   1   1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 2a 3a 5a 5b 6a 7a 10a 10b 15a 15b 19a 19b 19c[128X[104X
+    [4X[28X    2P 1a 1a 3a 5b 5a 3a 7a  5b  5a 15b 15a 19b 19c 19a[128X[104X
+    [4X[28X    3P 1a 2a 1a 5b 5a 2a 7a 10b 10a  5b  5a 19b 19c 19a[128X[104X
+    [4X[28X    5P 1a 2a 3a 1a 1a 6a 7a  2a  2a  3a  3a 19b 19c 19a[128X[104X
+    [4X[28X    7P 1a 2a 3a 5b 5a 6a 1a 10b 10a 15b 15a 19a 19b 19c[128X[104X
+    [4X[28X   11P 1a 2a 3a 5a 5b 6a 7a 10a 10b 15a 15b 19a 19b 19c[128X[104X
+    [4X[28X   19P 1a 2a 3a 5a 5b 6a 7a 10a 10b 15a 15b  1a  1a  1a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XY.1     7 -1  1  A *A -1  .   B  *B   C  *C   D   E   F[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(5)+E(5)^4[128X[104X
+    [4X[28X  = (-1+Sqrt(5))/2 = b5[128X[104X
+    [4X[28XB = -E(5)-2*E(5)^2-2*E(5)^3-E(5)^4[128X[104X
+    [4X[28X  = (3+Sqrt(5))/2 = 2+b5[128X[104X
+    [4X[28XC = -2*E(5)-2*E(5)^4[128X[104X
+    [4X[28X  = 1-Sqrt(5) = 1-r5[128X[104X
+    [4X[28XD = -E(19)-E(19)^2-E(19)^3-E(19)^5-E(19)^7-E(19)^8-E(19)^11-E(19)^12-E\[128X[104X
+    [4X[28X(19)^14-E(19)^16-E(19)^17-E(19)^18[128X[104X
+    [4X[28XE = -E(19)^2-E(19)^3-E(19)^4-E(19)^5-E(19)^6-E(19)^9-E(19)^10-E(19)^13\[128X[104X
+    [4X[28X-E(19)^14-E(19)^15-E(19)^16-E(19)^17[128X[104X
+    [4X[28XF = -E(19)-E(19)^4-E(19)^6-E(19)^7-E(19)^8-E(19)^9-E(19)^10-E(19)^11-E\[128X[104X
+    [4X[28X(19)^12-E(19)^13-E(19)^15-E(19)^18[128X[104X
+    [4X[25Xgap>[125X [27Xm:= t mod 19;;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( m, rec( chars:= Filtered( Irr( m ), x -> x[1] = 22 ) ) );[127X[104X
+    [4X[28XJ1mod19[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X     2  3  3  1  1  1  1  .   1   1   .   .   .[128X[104X
+    [4X[28X     3  1  1  1  1  1  1  .   .   .   .   1   1[128X[104X
+    [4X[28X     5  1  1  1  1  1  .  .   1   1   .   1   1[128X[104X
+    [4X[28X     7  1  .  .  .  .  .  1   .   .   .   .   .[128X[104X
+    [4X[28X    11  1  .  .  .  .  .  .   .   .   1   .   .[128X[104X
+    [4X[28X    19  1  .  .  .  .  .  .   .   .   .   .   .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 2a 3a 5a 5b 6a 7a 10a 10b 11a 15a 15b[128X[104X
+    [4X[28X    2P 1a 1a 3a 5b 5a 3a 7a  5b  5a 11a 15b 15a[128X[104X
+    [4X[28X    3P 1a 2a 1a 5b 5a 2a 7a 10b 10a 11a  5b  5a[128X[104X
+    [4X[28X    5P 1a 2a 3a 1a 1a 6a 7a  2a  2a 11a  3a  3a[128X[104X
+    [4X[28X    7P 1a 2a 3a 5b 5a 6a 1a 10b 10a 11a 15b 15a[128X[104X
+    [4X[28X   11P 1a 2a 3a 5a 5b 6a 7a 10a 10b  1a 15a 15b[128X[104X
+    [4X[28X   19P 1a 2a 3a 5a 5b 6a 7a 10a 10b 11a 15a 15b[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XY.1    22 -2  1  A *A  1  1  -A -*A   .   B  *B[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(5)+E(5)^4[128X[104X
+    [4X[28X  = (-1+Sqrt(5))/2 = b5[128X[104X
+    [4X[28XB = -2*E(5)-2*E(5)^4[128X[104X
+    [4X[28X  = 1-Sqrt(5) = 1-r5[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that the degree [22X7[122X character above also distinguishes the three classes
+  of element order [22X19[122X, and the same holds for the unique irreducible degree [22X31[122X
+  character from characteristic [22X7[122X. Thus also the prime [22X7[122X occurs in the list of
+  candidates for generality problems.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPrimesOfGeneralityProblems( t );[127X[104X
+    [4X[28X[ 7, 11, 19 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally, we list the candidates for generality problems from [5XGAP[105X's Character
+  Table Library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xlist:= [];;[127X[104X
+    [4X[25Xgap>[125X [27XisGeneralityProblem:= function( ordtbl )[127X[104X
+    [4X[25X>[125X [27X    local res;[127X[104X
+    [4X[25X>[125X [27X    res:= PrimesOfGeneralityProblems( ordtbl );[127X[104X
+    [4X[25X>[125X [27X    if res = [] then[127X[104X
+    [4X[25X>[125X [27X      return false;[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    Add( list, [ Identifier( ordtbl ), res ] );[127X[104X
+    [4X[25X>[125X [27X    return true;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( IsDuplicateTable, false,[127X[104X
+    [4X[25X>[125X [27X       isGeneralityProblem, true );;[127X[104X
+    [4X[25Xgap>[125X [27XPrintArray( SortedList( list ) );[127X[104X
+    [4X[28X[ [           (2.A4x2.G2(4)).2,            [ 2, 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [          (2^2x3).L3(4).2_1,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [               (2x12).L3(4),                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [              (4^2x3).L3(4),                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [                 (7:3xHe):2,               [ 5, 7, 17 ] ],[128X[104X
+    [4X[28X  [                 (A5xA12):2,                   [ 2, 3 ] ],[128X[104X
+    [4X[28X  [                 (D10xHN).2,     [ 2, 3, 5, 7, 11, 19 ] ],[128X[104X
+    [4X[28X  [              (S3x2.Fi22).2,              [ 3, 11, 13 ] ],[128X[104X
+    [4X[28X  [                     12.M22,            [ 2, 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [                   12.M22.2,            [ 2, 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [             12_1.L3(4).2_1,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [                 12_2.L3(4),                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [             12_2.L3(4).2_1,                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [             12_2.L3(4).2_2,                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [             12_2.L3(4).2_3,                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [             2.(A4xG2(4)).2,            [ 2, 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [                   2.2E6(2),                 [ 13, 19 ] ],[128X[104X
+    [4X[28X  [                 2.2E6(2).2,                 [ 13, 19 ] ],[128X[104X
+    [4X[28X  [                      2.A10,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [                      2.A11,                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                    2.A11.2,               [ 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [                      2.A12,             [ 2, 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                    2.A12.2,               [ 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [                      2.A13,         [ 2, 3, 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [                    2.A13.2,               [ 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [                  2.Alt(14),             [ 2, 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2.Alt(15),                [ 2, 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2.Alt(16),             [ 2, 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2.Alt(17),             [ 2, 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2.Alt(18),             [ 2, 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                        2.B,                 [ 17, 23 ] ],[128X[104X
+    [4X[28X  [                    2.F4(2),           [ 2, 7, 13, 17 ] ],[128X[104X
+    [4X[28X  [                   2.Fi22.2,                 [ 11, 13 ] ],[128X[104X
+    [4X[28X  [                    2.G2(4),                   [ 2, 7 ] ],[128X[104X
+    [4X[28X  [                  2.G2(4).2,               [ 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [                       2.HS,            [ 3, 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [                     2.HS.2,                  [ 3, 11 ] ],[128X[104X
+    [4X[28X  [                2.L3(4).2_1,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [                       2.Ru,           [ 5, 7, 13, 29 ] ],[128X[104X
+    [4X[28X  [                      2.Suz,               [ 2, 5, 11 ] ],[128X[104X
+    [4X[28X  [                    2.Suz.2,               [ 3, 7, 13 ] ],[128X[104X
+    [4X[28X  [                  2.Sym(15),                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2.Sym(16),                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2.Sym(17),                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2.Sym(18),                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [                    2.Sz(8),               [ 2, 5, 13 ] ],[128X[104X
+    [4X[28X  [                 2^2.2E6(2),                 [ 13, 19 ] ],[128X[104X
+    [4X[28X  [               2^2.2E6(2).2,                 [ 13, 19 ] ],[128X[104X
+    [4X[28X  [                 2^2.Fi22.2,              [ 3, 11, 13 ] ],[128X[104X
+    [4X[28X  [              2^2.L3(4).2^2,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [              2^2.L3(4).2_1,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [                  2^2.Sz(8),               [ 2, 5, 13 ] ],[128X[104X
+    [4X[28X  [                  2x2.F4(2),           [ 2, 7, 13, 17 ] ],[128X[104X
+    [4X[28X  [                   2x3.Fi22,                [ 2, 3, 5 ] ],[128X[104X
+    [4X[28X  [                   2x6.Fi22,                [ 2, 3, 5 ] ],[128X[104X
+    [4X[28X  [                    2x6.M22,               [ 2, 5, 11 ] ],[128X[104X
+    [4X[28X  [                   2xFi22.2,                 [ 11, 13 ] ],[128X[104X
+    [4X[28X  [                     2xFi23,              [ 3, 17, 23 ] ],[128X[104X
+    [4X[28X  [                     3.Fi22,                [ 2, 3, 5 ] ],[128X[104X
+    [4X[28X  [                   3.Fi22.2,           [ 2, 5, 11, 13 ] ],[128X[104X
+    [4X[28X  [                       3.J3,              [ 2, 17, 19 ] ],[128X[104X
+    [4X[28X  [                     3.J3.2,           [ 2, 5, 17, 19 ] ],[128X[104X
+    [4X[28X  [                3.L3(4).2_3,                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [              3.L3(4).3.2_3,                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [                  3.L3(7).2,               [ 3, 7, 19 ] ],[128X[104X
+    [4X[28X  [                 3.L3(7).S3,               [ 3, 7, 19 ] ],[128X[104X
+    [4X[28X  [                      3.McL,               [ 2, 5, 11 ] ],[128X[104X
+    [4X[28X  [                    3.McL.2,            [ 2, 3, 5, 11 ] ],[128X[104X
+    [4X[28X  [                       3.ON,       [ 3, 7, 11, 19, 31 ] ],[128X[104X
+    [4X[28X  [                     3.ON.2,    [ 3, 5, 7, 11, 19, 31 ] ],[128X[104X
+    [4X[28X  [                    3.Suz.2,               [ 2, 3, 13 ] ],[128X[104X
+    [4X[28X  [                  3x2.F4(2),           [ 2, 7, 13, 17 ] ],[128X[104X
+    [4X[28X  [                 3x2.Fi22.2,                 [ 11, 13 ] ],[128X[104X
+    [4X[28X  [                  3x2.G2(4),                   [ 2, 7 ] ],[128X[104X
+    [4X[28X  [                     3xFi23,              [ 3, 17, 23 ] ],[128X[104X
+    [4X[28X  [                       3xJ1,              [ 7, 11, 19 ] ],[128X[104X
+    [4X[28X  [                  3xL3(7).2,               [ 3, 7, 19 ] ],[128X[104X
+    [4X[28X  [                     4.HS.2,               [ 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [                      4.M22,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [              4_1.L3(4).2_1,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [              4_2.L3(4).2_1,                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                     6.Fi22,                [ 2, 3, 5 ] ],[128X[104X
+    [4X[28X  [                   6.Fi22.2,           [ 2, 5, 11, 13 ] ],[128X[104X
+    [4X[28X  [                6.L3(4).2_1,                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [                      6.M22,               [ 2, 5, 11 ] ],[128X[104X
+    [4X[28X  [                    6.O7(3),               [ 3, 5, 13 ] ],[128X[104X
+    [4X[28X  [                  6.O7(3).2,               [ 3, 5, 13 ] ],[128X[104X
+    [4X[28X  [                      6.Suz,               [ 2, 5, 11 ] ],[128X[104X
+    [4X[28X  [                    6.Suz.2,         [ 2, 3, 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [                  6x2.F4(2),           [ 2, 7, 13, 17 ] ],[128X[104X
+    [4X[28X  [                        A12,                   [ 2, 3 ] ],[128X[104X
+    [4X[28X  [                        A14,                [ 2, 5, 7 ] ],[128X[104X
+    [4X[28X  [                        A17,                   [ 2, 7 ] ],[128X[104X
+    [4X[28X  [                        A18,             [ 2, 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [                          B,         [ 13, 17, 23, 31 ] ],[128X[104X
+    [4X[28X  [                        F3+,             [ 17, 23, 29 ] ],[128X[104X
+    [4X[28X  [                      F3+.2,             [ 17, 23, 29 ] ],[128X[104X
+    [4X[28X  [                     Fi22.2,                 [ 11, 13 ] ],[128X[104X
+    [4X[28X  [                       Fi23,              [ 3, 17, 23 ] ],[128X[104X
+    [4X[28X  [                         HN,           [ 2, 3, 11, 19 ] ],[128X[104X
+    [4X[28X  [                       HN.2,           [ 5, 7, 11, 19 ] ],[128X[104X
+    [4X[28X  [                         He,                  [ 5, 17 ] ],[128X[104X
+    [4X[28X  [                       He.2,               [ 5, 7, 17 ] ],[128X[104X
+    [4X[28X  [        Isoclinic(12.M22.2),            [ 2, 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [  Isoclinic(12_1.L3(4).2_1),                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [  Isoclinic(12_2.L3(4).2_1),                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [  Isoclinic(12_2.L3(4).2_3),                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [         Isoclinic(2.A11.2),               [ 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [         Isoclinic(2.A12.2),               [ 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [         Isoclinic(2.A13.2),               [ 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [        Isoclinic(2.Fi22.2),                 [ 11, 13 ] ],[128X[104X
+    [4X[28X  [       Isoclinic(2.G2(4).2),               [ 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [          Isoclinic(2.HS.2),                  [ 3, 11 ] ],[128X[104X
+    [4X[28X  [          Isoclinic(2.HSx2),            [ 3, 5, 7, 11 ] ],[128X[104X
+    [4X[28X  [     Isoclinic(2.L3(4).2_1),                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [         Isoclinic(2.Suz.2),               [ 3, 7, 13 ] ],[128X[104X
+    [4X[28X  [   Isoclinic(4_1.L3(4).2_1),                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [   Isoclinic(4_2.L3(4).2_1),                [ 3, 5, 7 ] ],[128X[104X
+    [4X[28X  [        Isoclinic(6.Fi22.2),           [ 2, 5, 11, 13 ] ],[128X[104X
+    [4X[28X  [     Isoclinic(6.L3(4).2_1),                   [ 5, 7 ] ],[128X[104X
+    [4X[28X  [       Isoclinic(6.O7(3).2),               [ 3, 5, 13 ] ],[128X[104X
+    [4X[28X  [         Isoclinic(6.Suz.2),         [ 2, 3, 5, 7, 13 ] ],[128X[104X
+    [4X[28X  [                         J1,              [ 7, 11, 19 ] ],[128X[104X
+    [4X[28X  [                       J1x2,              [ 7, 11, 19 ] ],[128X[104X
+    [4X[28X  [                         J3,              [ 2, 17, 19 ] ],[128X[104X
+    [4X[28X  [                       J3.2,           [ 2, 5, 17, 19 ] ],[128X[104X
+    [4X[28X  [                  L3(4).2_3,                   [ 3, 7 ] ],[128X[104X
+    [4X[28X  [                L3(4).3.2_3,                [ 2, 3, 7 ] ],[128X[104X
+    [4X[28X  [                    L3(7).2,               [ 3, 7, 19 ] ],[128X[104X
+    [4X[28X  [                   L3(7).S3,               [ 3, 7, 19 ] ],[128X[104X
+    [4X[28X  [                  L3(9).2_1,               [ 3, 7, 13 ] ],[128X[104X
+    [4X[28X  [                    L5(2).2,               [ 2, 7, 31 ] ],[128X[104X
+    [4X[28X  [                         Ly,              [ 7, 37, 67 ] ],[128X[104X
+    [4X[28X  [                        M23,               [ 2, 3, 23 ] ],[128X[104X
+    [4X[28X  [                         ON,       [ 3, 7, 11, 19, 31 ] ],[128X[104X
+    [4X[28X  [                       ON.2,    [ 3, 5, 7, 11, 19, 31 ] ],[128X[104X
+    [4X[28X  [                         Ru,           [ 5, 7, 13, 29 ] ],[128X[104X
+    [4X[28X  [                  S3xFi22.2,                 [ 11, 13 ] ],[128X[104X
+    [4X[28X  [                      Suz.2,                  [ 3, 13 ] ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote that this list may become longer as new Brauer tables become available.
+  (For  example, the prime [22X2[122X was added to the entries for extensions of [22XF_4(2)[122X
+  when the [22X2[122X-modular table of [22XF_4(2)[122X became available.)[133X
+  
+  
+  [1X1.3-2 [33X[0;0YA generality problem concerning the group [22XJ_3[122X[101X[1X (April 2015)[133X[101X
+  
+  [33X[0;0YIn  March 2015, Klaus Lux reported an inconsistency in the character data of
+  [5XGAP[105X:[133X
+  
+  [33X[0;0YThe  sporadic  simple  Janko  group  [22XJ_3[122X has a unique [22X19[122X-modular irreducible
+  Brauer  character  of  degree [22X110[122X. In the character table that is printed in
+  the  [5XAtlas[105X of Brauer characters [JLPW95, p. 219], the Brauer character value
+  on the class [10X17A[110X is [22Xb_17[122X. The [5XAtlas[105X of Group Representations [WWT+] provides
+  a  straight  line  program for computing class representatives of [22XJ_3[122X. If we
+  compute  the  Brauer character value in question, we do not get [22Xb_17[122X but its
+  algebraic conjugate, [22X-1-b_17[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "J3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm:= t mod 19;;[127X[104X
+    [4X[25Xgap>[125X [27Xcand:= Filtered( Irr( m ), x -> x[1] = 110 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( cand );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27Xslp:= AtlasProgram( "J3", "classes" );;[127X[104X
+    [4X[25Xgap>[125X [27X17a:= Position( slp.outputs, "17A" );[127X[104X
+    [4X[28X18[128X[104X
+    [4X[25Xgap>[125X [27Xinfo:= OneAtlasGeneratingSetInfo( "J3", Characteristic, 19,[127X[104X
+    [4X[25X>[125X [27X              Dimension, 110 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgens:= AtlasGenerators( info );;[127X[104X
+    [4X[25Xgap>[125X [27Xreps:= ResultOfStraightLineProgram( slp.program,[127X[104X
+    [4X[25X>[125X [27X              gens.generators );;[127X[104X
+    [4X[25Xgap>[125X [27XQuadratic( BrauerCharacterValue( reps[ 17a ] ) );[127X[104X
+    [4X[28Xrec( ATLAS := "-1-b17", a := -1, b := -1, d := 2, [128X[104X
+    [4X[28X  display := "(-1-Sqrt(17))/2", root := 17 )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHow  shall  we  resolve  this  inconsistency, by replacing the straight line
+  program  or  by  swapping  the  classes  [10X17A[110X and [10X17B[110X in the character table?
+  Before we decide this, we look at related information.[133X
+  
+  [33X[0;0YThe  following  table  lists  the  [22Xp[122X-modular  irreducible characters of [22XJ_3[122X,
+  according  to [JLPW95],  that can be used to define which of the two classes
+  of  element order [22X17[122X shall be called [10X17A[110X; a [22X+[122X sign in the last column of the
+  table  indicates  that the representation is available in the [5XAtlas[105X of Group
+  Representations.[133X
+  
+      ┌────┬──────┬─────────┬─────────┬────────┐
+      │  [22Xp[122X │ [22Xφ(1)[122X │  [22Xφ([122X[10X17A[110X[22X)[122X │  [22Xφ([122X[10X17B[110X[22X)[122X │ [5XAtlas[105X? │ 
+      ├────┼──────┼─────────┼─────────┼────────┤
+      ├────┼──────┼─────────┼─────────┼────────┤
+      │  [22X2[122X │   [22X78[122X │  [22X1-b_17[122X │  [22X2+b_17[122X │   [22X+[122X    │ 
+      │  [22X2[122X │   [22X80[122X │  [22X3-b_17[122X │  [22X4+b_17[122X │   [22X+[122X    │ 
+      │  [22X2[122X │  [22X244[122X │  [22Xb_17-2[122X │ [22X-3-b_17[122X │   [22X+[122X    │ 
+      │  [22X2[122X │  [22X966[122X │  [22Xr_17-3[122X │ [22X-3-r_17[122X │   [22X+[122X    │ 
+      │ [22X19[122X │  [22X110[122X │    [22Xb_17[122X │ [22X-1-b_17[122X │   [22X+[122X    │ 
+      │ [22X19[122X │  [22X214[122X │  [22X1-b_17[122X │  [22X2+b_17[122X │   [22X+[122X    │ 
+      │ [22X19[122X │  [22X706[122X │   [22X-b_17[122X │  [22X1+b_17[122X │   [22X+[122X    │ 
+      │ [22X19[122X │ [22X1214[122X │ [22X-1+b_17[122X │ [22X-2-b_17[122X │   [22X-[122X    │ 
+      └────┴──────┴─────────┴─────────┴────────┘
+  
+       [1XTable:[101X Representations of [22XJ_3[122X that may define [10X17A[110X
+  
+  
+  [33X[0;0YNote  that  the irreducible Brauer characters in characteristic [22X3[122X and [22X5[122X that
+  distinguish  the  two classes [10X17A[110X and [10X17B[110X occur in pairs of Galois conjugate
+  characters.[133X
+  
+  [33X[0;0YThe  following  computations  show  that  the given straight line program is
+  compatible  with  the  four  characters  in  characteristic  [22X2[122X  but  is  not
+  compatible with the three available characters in characteristic [22X19[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtable:= [];;[127X[104X
+    [4X[25Xgap>[125X [27Xfor pair in [ [  2, [ 78, 80, 244, 966 ] ],[127X[104X
+    [4X[25X>[125X [27X                 [ 19, [ 110, 214, 706 ] ] ] do[127X[104X
+    [4X[25X>[125X [27X     p:= pair[1];[127X[104X
+    [4X[25X>[125X [27X     for d in pair[2] do[127X[104X
+    [4X[25X>[125X [27X       info:= OneAtlasGeneratingSetInfo( "J3", Characteristic, p,[127X[104X
+    [4X[25X>[125X [27X                  Dimension, d );[127X[104X
+    [4X[25X>[125X [27X       gens:= AtlasGenerators( info );[127X[104X
+    [4X[25X>[125X [27X       reps:= ResultOfStraightLineProgram( slp.program,[127X[104X
+    [4X[25X>[125X [27X                  gens.generators );[127X[104X
+    [4X[25X>[125X [27X       val:= BrauerCharacterValue( reps[ 17a ] );[127X[104X
+    [4X[25X>[125X [27X       Add( table, [ p, d, Quadratic( val ).ATLAS,[127X[104X
+    [4X[25X>[125X [27X                           Quadratic( StarCyc( val ) ).ATLAS ] );[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27XPrintArray( table );[127X[104X
+    [4X[28X[ [       2,      78,   1-b17,   2+b17 ],[128X[104X
+    [4X[28X  [       2,      80,   3-b17,   4+b17 ],[128X[104X
+    [4X[28X  [       2,     244,  -2+b17,  -3-b17 ],[128X[104X
+    [4X[28X  [       2,     966,  -3+r17,  -3-r17 ],[128X[104X
+    [4X[28X  [      19,     110,  -1-b17,     b17 ],[128X[104X
+    [4X[28X  [      19,     214,   2+b17,   1-b17 ],[128X[104X
+    [4X[28X  [      19,     706,   1+b17,    -b17 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that  the problem is an inconsistency between the [22X2[122X-modular and the
+  [22X19[122X-modular  character  table of [22XJ_3[122X in [JLPW95]. In particular, changing the
+  straight line program would not help to resolve the problem.[133X
+  
+  [33X[0;0YHow  shall we proceed in order to fix the problem? We can decide to keep the
+  [22X19[122X-modular  table of [22XJ_3[122X, and to swap the two classes of element order [22X17[122X in
+  the  [22X2[122X-modular table; then also the straight line program has to be changed,
+  and the classes of element orders [22X17[122X and [22X51[122X in the [22X2[122X-modular character table
+  of  the triple cover [22X3.J_3[122X of [22XJ_3[122X have to be adjusted. Alternatively, we can
+  keep  the  [22X2[122X-modular  table of [22XJ_3[122X and the straight line program, and adjust
+  the  conjugacy  classes  of element orders divisible by [22X17[122X in the [22X19[122X-modular
+  character tables of [22XJ_3[122X, [22X3.J_3[122X, [22XJ_3.2[122X, and [22X3.J_3.2[122X.[133X
+  
+  [33X[0;0YWe  decide  to  change  the  [22X19[122X-modular  character  tables.  Note that these
+  character  tables ---or equivalently, the corresponding Brauer trees--- have
+  been  described in [HL89], where explicit choices are mentioned that lead to
+  the  shown  Brauer trees. Questions about the consistency with Brauer tables
+  in  other  characteristic  had  not  been  an  issue in this book. (Only the
+  consistency  of the Brauer trees among the [22X19[122X-blocks of [22X3.J_3[122X is mentioned.)
+  In fact, the book mentions that the [22X19[122X-modular Brauer trees for [22XJ_3[122X had been
+  computed already by W. Feit. The inconsistency of Brauer character tables in
+  different  characteristic  has  apparently  been  overlooked  when  the data
+  for [JLPW95] have been put together, and had not been detected until now.[133X
+  
+  [33X[0;0Y[13XRemarks:[113X[133X
+  
+  [30X    [33X[0;6YSuch  a  change  of  a  Brauer  table  can in general affect the class
+        fusions  from  and  to  this table. Note that Brauer tables may impose
+        conditions on the choice of the fusion among possible fusions that are
+        equivalent  w. r. t. the table automorphisms of the ordinary table. In
+        this  particular  case, in fact no class fusion had to be changed, see
+        the sections [14X9.6-1[114X and Section [14X9.6-3[114X.[133X
+  
+  [30X    [33X[0;6YThe change of the character tables affects the decomposition matrices.
+        Thus  the  PDF  files containing the [22X19[122X-modular decomposition matrices
+        had             to             be             updated,             see
+        [7Xhttp://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/dec/tex/J3/index.html[107X.[133X
+  
+  [30X    [33X[0;6YJürgen  Müller  has  checked  that the conjugacy classes of all Brauer
+        tables  of  [22XJ_3[122X,  [22X3.J_3[122X,  [22XJ_3.2[122X,  [22X3.J_3.2[122X are consistent after the fix
+        described above.[133X
+  
+  
+  [1X1.3-3 [33X[0;0YA generality problem concerning the group [22XHN[122X[101X[1X (August 2022)[133X[101X
+  
+  [33X[0;0YThe classes [10X20A[110X, [10X20B[110X of the Harada-Norton group [22XHN[122X in the [22X11[122X- and [22X19[122X-modular
+  character  tables  are  determined  by  unique  Brauer  characters that have
+  different values on these classes. Once we have [13Xdefined[113X these classes in one
+  characteristic,  the  two  Brauer  characters  tell  us  how  to [13Xchoose[113X them
+  consistently  in  the other characteristic. Thus the question is whether the
+  two Brauer tables are consistent w.r.t. this property or not.[133X
+  
+  [33X[0;0Y(Note  that  this  question  can  be  answered  independently  of  all other
+  questions  of  this  kind for [22XHN[122X, because the permutation that swaps exactly
+  the  classes  [10X20A[110X  and [10X20B[110X is a table automorphism of the ordinary character
+  table of [22XHN[122X.)[133X
+  
+  [33X[0;0YWe  start  with  the  ordinary  character table of [22XHN[122X. There are exactly two
+  ordinary  irreducible  characters  that take different values on the classes
+  [10X20A[110X, [10X20B[110X, these are [22Xχ_51[122X and [22Xχ_52[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "HN" );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos20:= Positions( OrdersClassRepresentatives( t ), 20 );[127X[104X
+    [4X[28X[ 39, 40, 41, 42, 43 ][128X[104X
+    [4X[25Xgap>[125X [27Xdiff:= Filtered( Irr( t ), x -> x[39] <> x[40] );;[127X[104X
+    [4X[25Xgap>[125X [27XList( diff, x -> Position( Irr( t ), x ) );[127X[104X
+    [4X[28X[ 51, 52 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese  values  are  irrational and lie in the field that is generated by the
+  square root of [22X5[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( diff, x -> List( x{ [ 1, 39, 40 ] },[127X[104X
+    [4X[25X>[125X [27X                          CTblLib.StringOfAtlasIrrationality ) );[127X[104X
+    [4X[28X[ [ "5103000", "2r5+1", "-2r5+1" ], [ "5103000", "-2r5+1", "2r5+1" ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  each  of the characteristics [22Xp ∈ { 11, 19 }[122X, the [22Xp[122X-modular reductions of
+  [22Xχ_51[122X  and [22Xχ_52[122X decompose differently into irreducibles. Note that the Galois
+  automorphism  of the ordinary character table that maps [22Xsqrt5[122X to [22X-sqrt5[122X does
+  not live in the [22X11[122X- and [22X19[122X-modular Brauer tables.[133X
+  
+  [33X[0;0YFor [22Xp = 11[122X, the reduction of [22Xχ_51[122X is [22Xφ_40 + φ_48[122X, with [22Xφ_40(1) = 1575176[122X and
+  [22Xφ_48(1)  = 3527824[122X, and the reduction of [22Xχ_52[122X is [22Xφ_39 + φ_49[122X, with [22Xφ_39(1) =
+  1361919[122X and [22Xφ_49(1) = 3741081[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt11:= t mod 11;;[127X[104X
+    [4X[25Xgap>[125X [27Xrest11:= RestrictedClassFunctions( diff, t11 );;[127X[104X
+    [4X[25Xgap>[125X [27Xdec11:= Decomposition( Irr( t11 ), rest11, "nonnegative" );;[127X[104X
+    [4X[25Xgap>[125X [27XList( dec11, Set );[127X[104X
+    [4X[28X[ [ 0, 1 ], [ 0, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( dec11, x -> Positions( x, 1 ) );[127X[104X
+    [4X[28X[ [ 40, 48 ], [ 39, 49 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( Irr( t11 ){ [ 40, 48 ] }, x -> x[1] );[127X[104X
+    [4X[28X[ 1575176, 3527824 ][128X[104X
+    [4X[25Xgap>[125X [27XList( Irr( t11 ){ [ 39, 49 ] }, x -> x[1] );[127X[104X
+    [4X[28X[ 1361919, 3741081 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor [22Xp = 19[122X, the reduction of [22Xχ_51[122X is [22Xφ_42 + φ_45[122X, with [22Xφ_42(1) = 2125925[122X and
+  [22Xφ_45(1)  = 2977075[122X, and the reduction of [22Xχ_52[122X is [22Xφ_33 + φ_48[122X, with [22Xφ_33(1) =
+  1197330[122X and [22Xφ_48(1) = 3905670[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt19:= t mod 19;;[127X[104X
+    [4X[25Xgap>[125X [27Xrest19:= RestrictedClassFunctions( diff, t19 );;[127X[104X
+    [4X[25Xgap>[125X [27Xdec19:= Decomposition( Irr( t19 ), rest19, "nonnegative" );;[127X[104X
+    [4X[25Xgap>[125X [27XList( dec19, Set );[127X[104X
+    [4X[28X[ [ 0, 1 ], [ 0, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( dec19, x -> Positions( x, 1 ) );[127X[104X
+    [4X[28X[ [ 42, 45 ], [ 33, 48 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( Irr( t19 ){ [ 42, 45 ] }, x -> x[1] );[127X[104X
+    [4X[28X[ 2125925, 2977075 ][128X[104X
+    [4X[25Xgap>[125X [27XList( Irr( t19 ){ [ 33, 48 ] }, x -> x[1] );[127X[104X
+    [4X[28X[ 1197330, 3905670 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe Frobenius-Schur indicators of all involved [22Xp[122X-modular constituents are [22X+[122X.
+  This  implies  that  [22Xχ_51[122X  reduces  orthogonally  stably  modulo  [22X11[122X but not
+  orthogonally  stably  modulo  [22X19[122X,  whereas  [22Xχ_52[122X reduces orthogonally stably
+  modulo [22X19[122X but not orthogonally stably modulo [22X11[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XIndicator( t11, 2 ){ [ 39, 40, 48, 49 ] };[127X[104X
+    [4X[28X[ 1, 1, 1, 1 ][128X[104X
+    [4X[25Xgap>[125X [27XIndicator( t19, 2 ){ [ 33, 42, 45, 48 ] };[127X[104X
+    [4X[28X[ 1, 1, 1, 1 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  version  up  to 1.3.4 of the character table library, this condition was
+  not  satisfied: The reduction of [22Xχ_51[122X modulo both [22X11[122X and [22X19[122X was orthogonally
+  stable, and the reduction of [22Xχ_52[122X modulo both [22X11[122X and [22X19[122X was not orthogonally
+  stable.  However,  this  cannot  happen,  due  to  theoretical results about
+  orthogonal  discriminants  of  the involved characters. Thus we have found a
+  way  to decide the consistency of the classes [10X20A[110X and [10X20B[110X in characteristics
+  [22X11[122X and [22X19[122X: Either the [22X11[122X-modular character table or the [22X19[122X-modular character
+  table of [22XHN[122X had to be changed for version 1.3.5, by swapping the classes [10X20A[110X
+  and [10X20B[110X.[133X
+  
+  [33X[0;0YWe  decided  to  change  the  [22X11[122X-modular  table,  because there are no other
+  generality  problems for [22XHN[122X involving the [22X19[122X-modular table, and hence we are
+  sure that this table will not need to be changed because of new solutions to
+  generality problems.[133X
+  
+  [33X[0;0YFor  [22XHN.2[122X,  the  situation is similar. There are additionally two classes of
+  element order [22X40[122X that have to be swapped if [10X20A[110X and [10X20B[110X get swapped. Thus we
+  have to change the [22X11[122X-modular table of [22XHN.2[122X accordingly.[133X
+  
+  [33X[0;0YChanges  of  this  kind  may  affect  also  derived  character tables in the
+  library. In this case, the [22X11[122X-modular table with identifier [10X"(D10xHN).2"[110X was
+  changed  as  well. Note that this table is not stored explicitly in the data
+  files,  it  gets  constructed  from  ordinary and modular library tables via
+  [2XConstructIndexTwoSubdirectProduct[102X                                  ([14XCTblLib:
+  ConstructIndexTwoSubdirectProduct[114X).[133X
+  
+  
+  [1X1.4 [33X[0;0YBrauer Tables that can be derived from Known Tables[133X[101X
+  
+  [33X[0;0YIn  a few situations, one can derive the [22Xp[122X-modular Brauer character table of
+  a group from known character theoretic information.[133X
+  
+  [33X[0;0YFor  quite  some time, a method is available in [5XGAP[105X that computes the Brauer
+  characters   of   [22Xp[122X-solvable   groups   (see  [14X'Reference:  BrauerTable'[114X  and
+  [14X'Reference: IsPSolubleCharacterTable'[114X).[133X
+  
+  [33X[0;0YThe  following  sections  list  other  situations where Brauer tables can be
+  computed by [5XGAP[105X.[133X
+  
+  
+  [1X1.4-1 [33X[0;0YBrauer Tables via Construction Information[133X[101X
+  
+  [33X[0;0YIf  a given ordinary character table [22Xt[122X, say, has been constructed from other
+  ordinary  character  tables  then  [5XGAP[105X  may  be able to create the [22Xp[122X-modular
+  Brauer  table of [22Xt[122X from the [22Xp[122X-modular Brauer tables of the [21Xingredients[121X. This
+  happens currently in the following cases.[133X
+  
+  [30X    [33X[0;6Y[22Xt[122X  has  been  constructed with [2XCharacterTableDirectProduct[102X ([14XReference:
+        CharacterTableDirectProduct[114X), and [5XGAP[105X can compute the [22Xp[122X-modular Brauer
+        tables of the direct factors.[133X
+  
+  [30X    [33X[0;6Y[22Xt[122X   has  been  constructed  with  [2XCharacterTableIsoclinic[102X  ([14XReference:
+        CharacterTableIsoclinic[114X),  and  [5XGAP[105X  can  compute the [22Xp[122X-modular Brauer
+        table  of  the table that is stored in [22Xt[122X as the value of the attribute
+        [2XSourceOfIsoclinicTable[102X ([14XReference: SourceOfIsoclinicTable[114X).[133X
+  
+  [30X    [33X[0;6Y[22Xt[122X   has   the   attribute   [2XConstructionInfoCharacterTable[102X   ([14XCTblLib:
+        ConstructionInfoCharacterTable[114X)  set,  the first entry of this list [22Xl[122X,
+        say,   is   one   of   the   strings   [10X"ConstructGS3"[110X   (see   [14X2.3-2[114X),
+        [10X"ConstructIndexTwoSubdirectProduct"[110X  (see  [14X2.3-6[114X), [10X"ConstructMGA"[110X (see
+        [14X2.3-1[114X),  [10X"ConstructPermuted"[110X,  [10X"ConstructV4G"[110X (see [14X2.3-4[114X), and [5XGAP[105X can
+        construct  the  [22Xp[122X-modular  Brauer  table(s)  of  the relevant ordinary
+        character table(s), which are library tables whose names occur in [22Xl[122X.[133X
+  
+  
+  [1X1.4-2 [33X[0;0YLiftable Brauer Characters (May 2017)[133X[101X
+  
+  [33X[0;0YLet  [22XB[122X  be a [22Xp[122X-block of cyclic defect for the finite group [22XG[122X. It can be read
+  off  from the set Irr[22X(B)[122X of ordinary irreducible characters of [22XB[122X whether all
+  irreducible  Brauer  characters in [22XB[122X are restrictions of ordinary characters
+  to the [22Xp[122X-regular classes of [22XG[122X, as follows.[133X
+  
+  [33X[0;0YIf  [22XB[122X has only one irreducible Brauer character then all ordinary characters
+  in  [22XB[122X restrict to this Brauer character. So let us assume that [22XB[122X contains at
+  least  two  irreducible  Brauer  characters, and consider the set [22XS[122X, say, of
+  restrictions of Irr[22X(B)[122X to the [22Xp[122X-regular classes of [22XG[122X.[133X
+  
+  [33X[0;0YThe  block [22XB[122X contains exactly [22X|S| - 1[122X irreducible Brauer characters, and the
+  decomposition  of  the  characters  in  [22XS[122X  into  these  Brauer characters is
+  described  by  an  [22X|S|[122X  by [22X|S| - 1[122X matrix [22XM[122X, say, whose entries are zero and
+  one,  such  that  exactly two nonzero entries occur in each column. (See for
+  example [HL89, Theorem 2.1.5], which refers to [Dad66].)[133X
+  
+  [33X[0;0YIf  all  irreducible  Brauer  characters  of  [22XB[122X occur in [22XS[122X then the matrix [22XM[122X
+  contains  [22X|S|  -  1[122X  rows  that contain exactly one nonzero entry, hence the
+  remaining  row  consists  only of [22X1[122Xs. This means that the element of largest
+  degree  in  [22XS[122X is equal to the sum of all other elements in [22XS[122X. Conversely, if
+  the element of largest degree in [22XS[122X is equal to the sum of all other elements
+  in  [22XS[122X  then  the  matrix  [22XM[122X  has  the  structure  as stated above, hence all
+  irreducible Brauer characters of [22XB[122X occur in [22XS[122X.[133X
+  
+  [33X[0;0YAlternatively,  one  could state that all irreducible Brauer characters of [22XB[122X
+  are  restricted ordinary characters if and only if the Brauer tree of [22XB[122X is a
+  [13Xstar[113X  (see  [HL89,  p.  2].  If  [22XB[122X  contains at least two irreducible Brauer
+  characters  then  this happens if and only if one of the types [22X×[122X or [22X∘[122X occurs
+  for exactly one node in the Brauer graph of [22XB[122X, see [HL89, Lemma 2.1.13], and
+  the distribution to types is determined by Irr[22X(B)[122X.[133X
+  
+  [33X[0;0YThe  default  method  for  [2XBrauerTableOp[102X  ([14XReference: BrauerTableOp[114X) that is
+  contained  in the [5XGAP[105X library has been extended in version 4.11 such that it
+  checks whether the Sylow [22Xp[122X-subgroups of the given group [22XG[122X are cyclic and, if
+  yes,  whether  all  [22Xp[122X-blocks  of  [22XG[122X have the property discussed above. (This
+  feature arose from a discussion with Klaus Lux.)[133X
+  
+  [33X[0;0YExamples  where  this  method is successful for all blocks are the [22Xp[122X-modular
+  character tables of the groups PSL[22X(2, q)[122X, where [22Xp[122X is odd and does not divide
+  [22Xq[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( PSL( 2, 11 ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xmodt:= t mod 5;;[127X[104X
+    [4X[25Xgap>[125X [27Xmodt <> fail;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XInfoText( modt );[127X[104X
+    [4X[28X"computed using that all Brauer characters lift to char. zero"[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAnother such example is the [22X5[122X-modular table of the Mathieu group [22XM_11[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xlib:= CharacterTable( "M11" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfromgroup:= CharacterTable( MathieuGroup( 11 ) );;[127X[104X
+    [4X[25Xgap>[125X [27XDecompositionMatrix( lib mod 5 );[127X[104X
+    [4X[28X[ [ 1, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0, 0, 0, 0, 0 ], [128X[104X
+    [4X[28X  [ 0, 0, 1, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 1, 0, 0, 0, 0, 0 ], [128X[104X
+    [4X[28X  [ 0, 0, 0, 0, 1, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 1, 0, 0, 0 ], [128X[104X
+    [4X[28X  [ 0, 0, 0, 0, 0, 0, 1, 0, 0 ], [ 1, 0, 0, 0, 1, 1, 1, 0, 0 ], [128X[104X
+    [4X[28X  [ 0, 0, 0, 0, 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xfromgroup mod 5 <> fail;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThere   are   cases   where  all  Brauer  characters  of  a  block  lift  to
+  characteristic  zero  but  the defect group of the block is not cyclic, thus
+  the  method cannot be used. An example is the [22X2[122X-modular table of the Mathieu
+  group [22XM_11[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDecompositionMatrix( lib mod 2 );[127X[104X
+    [4X[28X[ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [128X[104X
+    [4X[28X  [ 0, 1, 0, 0, 0 ], [ 1, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [128X[104X
+    [4X[28X  [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ], [ 1, 0, 0, 0, 1 ], [128X[104X
+    [4X[28X  [ 1, 1, 0, 0, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xfromgroup mod 2;[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.5 [33X[0;0YInformation about certain subgroups of the Monster group[133X[101X
+  
+  
+  [1X1.5-1  [33X[0;0YThe  Monster  group  does  not contain subgroups of the type [22X2.U_4(2)[122X[101X[1X[101X
+  [1X(August 2023)[133X[101X
+  
+  [33X[0;0YIn  the  context  of  a question about decomposition numbers of the sporadic
+  simple  Monster  group  [22XMM[122X,  Benjamin  Sambale  was  interested  in possible
+  embeddings  of certain groups [22XG[122X into [22XMM[122X such that the decomposition matrices
+  of  [22XG[122X are known. For a given [22XG[122X, the first steps were to compute the possible
+  class  fusions  of  [22XG[122X  in  [22XMM[122X  and  then  to check whether the corresponding
+  embeddings would be interesting.[133X
+  
+  [33X[0;0YApparently,  calling  [2XPossibleClassFusions[102X ([14XReference: PossibleClassFusions[114X)
+  with its default parameters often runs very long and requires a lot of space
+  when  [22XG[122X  is  a small group such as [22X2.U_4(2)[122X. We can do better by calling the
+  function  with the parameter [10Xdecompose:= false[110X. This has the effect that one
+  criterion   is   omitted  that  checks  the  decomposability  of  restricted
+  characters  of  [22XMM[122X  as  an  integral linear combination of characters of the
+  subgroup.  As  a  rule of thumb, if the number of classes of the subgroup is
+  small  compared  to  the  number  of  classes of the group and if the result
+  consists   of   many  candidates  then  it  might  be  faster  to  omit  the
+  decomposability criterion.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "2.U4(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "M" );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfusm:= PossibleClassFusions( s, m, rec( decompose:= false ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( sfusm );[127X[104X
+    [4X[28X2332[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLooking at the (many) candidates, we see that all map the central involution
+  of  [22X2.U_4(2)[122X  to  the class [10X2B[110X of [22XMM[122X, thus any subgroup of the type [22X2.U_4(2)[122X
+  lies  inside  the [10X2B[110X normalizer in [22XMM[122X. We compute the possible class fusions
+  into this subgroup.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSet( List( sfusm, x -> x[2] ) );[127X[104X
+    [4X[28X[ 3 ][128X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "MN2B" );[127X[104X
+    [4X[28XCharacterTable( "2^1+24.Co1" )[128X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t, rec( decompose:= false ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( sfust );[127X[104X
+    [4X[28X0[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus we have shown that [22XMM[122X does not contain subgroups of the type [22X2.U_4(2)[122X.[133X
+  
+  
+  [1X1.5-2 [33X[0;0YPerfect central extensions of [22XL_3(4)[122X[101X[1X (August 2023)[133X[101X
+  
+  [33X[0;0YThere         was         the         question        in        MathOverflow
+  ([7Xhttps://mathoverflow.net/questions/450255[107X) which perfect central extensions
+  of  the simple group [22XG = L_3(4)[122X are subgroups of the sporadic simple Monster
+  group [22XMM[122X.[133X
+  
+  [33X[0;0YFirst we get the list of perfect central extensions of [22XG[122X (asuming that their
+  character tables are contained in the character table library).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsimp:= CharacterTable( "L3(4)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xextnames:= AllCharacterTableNames( Identifier,[127X[104X
+    [4X[25X>[125X [27X                  x -> EndsWith(x, "L3(4)" ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xext:= List( extnames, CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xext:= Filtered( ext, x -> Length( ClassPositionsOfCentre( x ) ) =[127X[104X
+    [4X[25X>[125X [27X                             Size( x ) / Size( simp ) );;[127X[104X
+    [4X[25Xgap>[125X [27XSortBy( ext, Size );[127X[104X
+    [4X[25Xgap>[125X [27Xnames:= List( ext, Identifier );[127X[104X
+    [4X[28X[ "L3(4)", "2.L3(4)", "3.L3(4)", "2^2.L3(4)", "4_1.L3(4)", [128X[104X
+    [4X[28X  "4_2.L3(4)", "6.L3(4)", "(2x4).L3(4)", "(2^2x3).L3(4)", [128X[104X
+    [4X[28X  "12_1.L3(4)", "12_2.L3(4)", "4^2.L3(4)", "(2x12).L3(4)", [128X[104X
+    [4X[28X  "(4^2x3).L3(4)" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe fact that [22XG[122X is [13Xnot[113X isomorphic to a subgroup of [22XMM[122X is shown in [HW08] (at
+  the end of this paper).[133X
+  
+  [33X[0;0YAnd  the  following  embeddings  of  central  extensions  of  [22XG[122X in [22XMM[122X can be
+  established using known subgroups of [22XMM[122X.[133X
+  
+  [30X    [33X[0;6Y[22X2.G < 2.U_4(3) < 2^2.U_6(2) < Fi_23 < 3.Fi_24' < MM[122X.[133X
+  
+  [30X    [33X[0;6Y[22X2^2.G < He < 3.Fi_24' < MM[122X.[133X
+  
+  [30X    [33X[0;6Y[22X6.G < 2.G_2(4) < 6.Suz < 3^1+12_+.2Suz < MM[122X.[133X
+  
+  [33X[0;0YNote  that  [22XG[122X is a subgroup of [22XU_4(3)[122X but not of [22X2.U_4(3)[122X, [22X3.G[122X is a subgroup
+  of  [22XG_2(4)[122X  but  not of [22X2.G_2(4)[122X, and [22XG_2(4)[122X is a subgroup of [22XSuz[122X but not of
+  [22X2.Suz[122X. The positive statements follow from [CCN+85, pp. 52, 97, 131] and the
+  negative ones from the following computations.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLength( PossibleClassFusions( CharacterTable( "L3(4)" ),[127X[104X
+    [4X[25X>[125X [27X                                 CharacterTable( "2.U4(3)" ) ) );[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XLength( PossibleClassFusions( CharacterTable( "3.L3(4)" ),[127X[104X
+    [4X[25X>[125X [27X                                 CharacterTable( "2.G2(4)" ) ) );[127X[104X
+    [4X[28X0[128X[104X
+    [4X[25Xgap>[125X [27XLength( PossibleClassFusions( CharacterTable( "G2(4)" ),[127X[104X
+    [4X[25X>[125X [27X                                 CharacterTable( "2.Suz" ) ) );[127X[104X
+    [4X[28X0[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe group [22X3.G[122X centralizes an element of order three. If [22X3.G[122X is a subgroup of
+  [22XMM[122X  then  it is contained in a [10X3A[110X centralizer (of the structure [22X3.Fi_24'[122X), a
+  [10X3B[110X  centralizer (of the structure [22X3^1+12_+.2Suz[122X) or a [10X3C[110X centralizer (of the
+  structure  [22X3  × Th[122X). Clearly the case [22X3C[122X cannot occur, and [10X3B[110X is excluded by
+  the   fact   that  no  class  fusion  between  [22X3.G[122X  and  the  [22X3B[122X  normalizer
+  [22X3^1+12_+.2Suz.2[122X is possible.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "MN3B" );[127X[104X
+    [4X[28XCharacterTable( "3^(1+12).2.Suz.2" )[128X[104X
+    [4X[25Xgap>[125X [27XLength( PossibleClassFusions( CharacterTable( "3.L3(4)" ), t ) );[127X[104X
+    [4X[28X0[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf [22X3.G[122X is contained in the [10X3A[110X centralizer then this embedding induces one of
+  [22XG[122X  into some maximal subgroup of [22XFi_24'[122X. Using the known character tables of
+  these  maximal  subgroups  in  GAP's character table library, one shows that
+  only  [22XFi_23[122X  admits  a class fusion, but this subgroup lifts to [22X3 × Fi_23[122X in
+  [22X3.Fi_24'[122X and thus cannot lead to a subgroup of type [22X3.G[122X..[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( CharacterTable( "Fi24'" ) ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "L3(4)" );;[127X[104X
+    [4X[25Xgap>[125X [27XFiltered( mx, x -> Length( PossibleClassFusions( s, x ) ) > 0 );[127X[104X
+    [4X[28X[ CharacterTable( "Fi23" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  other candidates [22Xm.G[122X contain at least one central involution. If [22Xm.G[122X is
+  a  subgroup of [22XMM[122X then it is contained in a [10X2A[110X centralizer (of the structure
+  [22X2.B[122X)  or  a  [10X2B[110X centralizer (of the structure [10X2^{1+24}_+.Co_1[110X). Again we use
+  [2XPossibleClassFusions[102X   ([14XReference:   PossibleClassFusions[114X)   to   list   all
+  candidates  for  the  class  fusion,  but  here  we  prescribe  the  central
+  involution of the [10X2A[110X or [10X2B[110X centralizer as an image of one central involution
+  in [22Xm.G[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdone:= [ "L3(4)", "2.L3(4)", "3.L3(4)", "2^2.L3(4)", "6.L3(4)" ];;[127X[104X
+    [4X[25Xgap>[125X [27Xnames:= Filtered( names, x -> not x in done );[127X[104X
+    [4X[28X[ "4_1.L3(4)", "4_2.L3(4)", "(2x4).L3(4)", "(2^2x3).L3(4)", [128X[104X
+    [4X[28X  "12_1.L3(4)", "12_2.L3(4)", "4^2.L3(4)", "(2x12).L3(4)", [128X[104X
+    [4X[28X  "(4^2x3).L3(4)" ][128X[104X
+    [4X[25Xgap>[125X [27Xinvcent:= List( [ "MN2A", "MN2B" ], CharacterTable );[127X[104X
+    [4X[28X[ CharacterTable( "2.B" ), CharacterTable( "2^1+24.Co1" ) ][128X[104X
+    [4X[25Xgap>[125X [27XForAll( invcent, x -> ClassPositionsOfCentre( x ) = [ 1, 2 ] );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xcand:= [];;[127X[104X
+    [4X[25Xgap>[125X [27Xords:= "dummy";;   #  Avoid a message about an unbound variable ...[127X[104X
+    [4X[25Xgap>[125X [27Xfor name in names do[127X[104X
+    [4X[25X>[125X [27X     s:= CharacterTable( name );[127X[104X
+    [4X[25X>[125X [27X     ords:= OrdersClassRepresentatives( s );[127X[104X
+    [4X[25X>[125X [27X     invpos:= Filtered( ClassPositionsOfCentre( s ), i -> ords[i] = 2 );[127X[104X
+    [4X[25X>[125X [27X     for i in invpos do[127X[104X
+    [4X[25X>[125X [27X       for t in invcent do[127X[104X
+    [4X[25X>[125X [27X         init:= InitFusion( s, t );[127X[104X
+    [4X[25X>[125X [27X         if init = fail then[127X[104X
+    [4X[25X>[125X [27X           continue;[127X[104X
+    [4X[25X>[125X [27X         fi;[127X[104X
+    [4X[25X>[125X [27X         init[i]:= 2;[127X[104X
+    [4X[25X>[125X [27X         fus:= PossibleClassFusions( s, t, rec( fusionmap:= init,[127X[104X
+    [4X[25X>[125X [27X                                                decompose:= false ) );[127X[104X
+    [4X[25X>[125X [27X         if fus <> [] then[127X[104X
+    [4X[25X>[125X [27X           Add( cand, [ s, t, i, fus ] );[127X[104X
+    [4X[25X>[125X [27X         fi;[127X[104X
+    [4X[25X>[125X [27X       od;[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27XList( cand, x -> x{ [ 1 .. 3 ] } );[127X[104X
+    [4X[28X[ [ CharacterTable( "4_1.L3(4)" ), CharacterTable( "2^1+24.Co1" ), 3 ][128X[104X
+    [4X[28X    , [ CharacterTable( "(2x4).L3(4)" ), CharacterTable( "2.B" ), 2 ],[128X[104X
+    [4X[28X  [ CharacterTable( "(2x4).L3(4)" ), CharacterTable( "2.B" ), 3 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Note    that    we    have    called    [2XPossibleClassFusions[102X    ([14XReference:
+  PossibleClassFusions[114X)  with  the  option [10Xdecompose:= false[110X, in order to save
+  space and time. See Section [14X1.5-1[114X for more details.)[133X
+  
+  [33X[0;0YConcerning  the  candidate  [22X(2 × 4).G[122X, we see that only fusions are possible
+  for  which  the  central involution in question is mapped to a [10X2A[110X element of
+  [22XMM[122X.  Since  we  get  candidates  only  for  two  out  of  the  three central
+  involutions, we see that [22X(2 × 4).G[122X does not embed into [22XMM[122X.[133X
+  
+  [33X[0;0YThus  it  turns  out that exactly one group [22Xm.G[122X cannot be excluded this way.
+  Namely,  these  character-theoretical  criteria  leave  the possibility that
+  [22X4_1.G[122X may occur as a subgroup of [22X2^1+24_+.Co_1[122X.[133X
+  
+  [33X[0;0YMoreover, we see that if this happens then the centre [22XC[122X of [22X4_1.G[122X lies inside
+  the  normal subgroup [22XN = 2^1+24_+[122X. The centralizer of [22XC[122X in [22XN[122X has order [22X2^24[122X,
+  and  the  centralizer  of [22XC[122X in [22X2^1+24_+.Co_1[122X has order [22X2^24 ⋅ |Co_3|[122X. We see
+  that [22X4_1.G[122X, if it exists as a subgroup of [22X2^1+24_+.Co_1[122X, must lie inside the
+  subgroup [22X[2^24].Co_3[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= cand[1][1];[127X[104X
+    [4X[28XCharacterTable( "4_1.L3(4)" )[128X[104X
+    [4X[25Xgap>[125X [27Xt:= cand[1][2];[127X[104X
+    [4X[28XCharacterTable( "2^1+24.Co1" )[128X[104X
+    [4X[25Xgap>[125X [27Xfus:= cand[1][4];[127X[104X
+    [4X[28X[ [ 1, 5, 2, 5, 9, 8, 23, 27, 24, 27, 49, 49, 50, 50, 70, 74, 71, 74, [128X[104X
+    [4X[28X      70, 74, 71, 74, 114, 119, 115, 119, 114, 119, 115, 119 ] ][128X[104X
+    [4X[25Xgap>[125X [27XClassPositionsOfCentre( s );[127X[104X
+    [4X[28X[ 1, 2, 3, 4 ][128X[104X
+    [4X[25Xgap>[125X [27X5 in ClassPositionsOfPCore( t, 2 );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xsiz:= SizesCentralizers( t )[5] / 2^24;[127X[104X
+    [4X[28X495766656000[128X[104X
+    [4X[25Xgap>[125X [27Xmx:= Filtered( List( Maxes( CharacterTable( "Co1" ) ),[127X[104X
+    [4X[25X>[125X [27X                        CharacterTable ),[127X[104X
+    [4X[25X>[125X [27X                  x -> Size( x ) mod siz = 0 );[127X[104X
+    [4X[28X[ CharacterTable( "Co3" ) ][128X[104X
+    [4X[25Xgap>[125X [27XSize( mx[1] ) = siz;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YI  do  not  see  a  character-theoretic  argument  that  could  disprove the
+  existence of such an [22X4_1.G[122X type subgroup.[133X
+  
+  
+  [1X1.5-3 [33X[0;0YThe character table of [22X(2 × O_8^+(3)).S_4 ≤ 2.B[122X[101X[1X (October 2023)[133X[101X
+  
+  [33X[0;0YConsider a maximal subgroup [22XH[122X of type [22X(3^2:2 × O_8^+(3)).S_4[122X in the sporadic
+  simple  Monster  group. The character table of [22XH[122X has been contributed by Tim
+  Burness.  We  can  view [22XH[122X as [22XO_8^+(3).(3^2:2S_4) = O_8^+(3).F[122X. The character
+  table  of  [22XH[122X determines that of [22XF[122X, and this table determines the isomorphism
+  type of [22XF[122X as [10XSmallGroup( 432, 734 )[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XtblH:= CharacterTable( "(3^2:2xO8+(3)).S4" );[127X[104X
+    [4X[28XCharacterTable( "(3^2:2xO8+(3)).S4" )[128X[104X
+    [4X[25Xgap>[125X [27XN:= ClassPositionsOfSolvableResiduum( tblH );;[127X[104X
+    [4X[25Xgap>[125X [27XtblF:= tblH / N;;[127X[104X
+    [4X[25Xgap>[125X [27XSize( tblF );[127X[104X
+    [4X[28X432[128X[104X
+    [4X[25Xgap>[125X [27Xknown:= NamesOfEquivalentLibraryCharacterTables( tblF );[127X[104X
+    [4X[28X[ "3^2.2.S4", "M12M7" ][128X[104X
+    [4X[25Xgap>[125X [27XFiltered( GroupInfoForCharacterTable( known[1] ),[127X[104X
+    [4X[25X>[125X [27X             x -> x[1] = "SmallGroup" );[127X[104X
+    [4X[28X[ [ "SmallGroup", [ 432, 734 ] ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Note    that    the    precomputed   [2XGroupInfoForCharacterTable[102X   ([14XCTblLib:
+  GroupInfoForCharacterTable[114X)  information  about [5XGAP[105X library character tables
+  means  that  exactly  one  isomorphism  type of groups fits to the character
+  table of [22XF[122X.)[133X
+  
+  [33X[0;0YWe  compute  that [22XO_3(F) ≅ 3^2[122X has complements in [22XF[122X, thus [22XH[122X has a subgroup [22XV[122X
+  of  the  type [22XO_8^+(3).2S_4[122X, which is a complement of [22XO_3(H)[122X in [22XH[122X, thus [22XV[122X is
+  isomorphic with [22XH / O_3(H)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG:= SmallGroup( 432, 734 );;[127X[104X
+    [4X[25Xgap>[125X [27XP:= PCore( G, 3 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( ComplementClassesRepresentatives( G, P ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  can derive the character table of [22XV[122X from that of [22XH[122X, and compute that the
+  group  structure  of  [22XV[122X  is  [22X(2  ×  O_8^+(3)).S_4[122X. For that, we consider the
+  element  orders of the unique normal subgroup of order [22X2 |O_8^+(3)|[122X in [22XV[122X. If
+  this normal subgroup would not be isomorphic with [22X2 × O_8^+(3)[122X then it would
+  have  one  of the structures [22XO_8^+(3).2_1[122X or [22XO_8^+(3).2_2[122X, but then it would
+  contain elements of the orders [22X24[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XtblV:= tblH / ClassPositionsOfPCore( tblH, 3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xord:= 2 * Size( tblH ) / Size( tblF );[127X[104X
+    [4X[28X9904359628800[128X[104X
+    [4X[25Xgap>[125X [27Xclasses:= SizesConjugacyClasses( tblV );;[127X[104X
+    [4X[25Xgap>[125X [27X2N:= Filtered( ClassPositionsOfNormalSubgroups( tblV ),[127X[104X
+    [4X[25X>[125X [27X                  l -> Sum( classes{ l } ) = ord );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( 2N );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XSet( OrdersClassRepresentatives( tblV ){ 2N[1] } );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20, 26, 30 ][128X[104X
+    [4X[25Xgap>[125X [27XSet( OrdersClassRepresentatives( CharacterTable( "O8+(3)" ) ) );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20 ][128X[104X
+    [4X[25Xgap>[125X [27XSet( OrdersClassRepresentatives( CharacterTable( "O8+(3).2_1" ) ) );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20, 24, 26, 28, [128X[104X
+    [4X[28X  30, 36, 40 ][128X[104X
+    [4X[25Xgap>[125X [27XSet( OrdersClassRepresentatives( CharacterTable( "O8+(3).2_2" ) ) );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 18, 20, 24, 26, 28, [128X[104X
+    [4X[28X  30, 36 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  class  fusion of [22XV[122X into the Monster group shows that [22XV[122X centralizes a [10X2A[110X
+  element  in  the Monster, hence [22XV[122X is a subgroup of a maximal subgroup of the
+  type [22X2.B[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XtblM:= CharacterTable( "M" );;[127X[104X
+    [4X[25Xgap>[125X [27XVfusM:= PossibleClassFusions( tblV, tblM );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( VfusM );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XZV:= ClassPositionsOfCentre( tblV );[127X[104X
+    [4X[28X[ 1, 2 ][128X[104X
+    [4X[25Xgap>[125X [27XSet( List( VfusM, l -> l{ ZV } ) );[127X[104X
+    [4X[28X[ [ 1, 2 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFrom  the  list of maximal subgroups of [22XB[122X, we see that either [22XV[122X is contained
+  in  the  preimage of [22XFi_23[122X under the natural epimorphism from [22X2.B[122X to [22XB[122X, or [22XV[122X
+  is equal to the preimage of [22XO_8^+(3).S_4[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XtblB:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27XmxB:= List( Maxes( tblB ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xcand:= Filtered( mxB, s -> Size( s ) mod ( Size( tblV ) / 2 ) = 0 );[127X[104X
+    [4X[28X[ CharacterTable( "Fi23" ), CharacterTable( "O8+(3).S4" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe former possibility is excluded from the fact that the factor of [22XV[122X by its
+  center does not admit a class fusion into [22XFi_23[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLength( PossibleClassFusions( tblV / ZV, CharacterTable( "Fi23" ) ) );[127X[104X
+    [4X[28X0[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe conclude that [22XV[122X is a maximal subgroup of [22X2.B[122X.[133X
+  
+  [33X[0;0YThus  we have used the character table of [22XH[122X to construct the character table
+  of a maximal subgroup of [22X2.B[122X, with very little effort.[133X
+  
+  [33X[0;0YThis  table is meanwhile available in the table library, with the identifier
+  [10X"(2xO8+(3)).S4"[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xlib:= CharacterTable( "(2xO8+(3)).S4" );;[127X[104X
+    [4X[25Xgap>[125X [27XTransformingPermutationsCharacterTables( tblV, lib ) <> fail;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIrr( lib ) = Irr( tblV );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  order to add the table to the library, we have to provide also the class
+  fusions  from [22XV[122X to [22X2.B[122X, to the maximal subgroup [22X(2 × O_8^+(3)).S_4[122X of [22XB[122X, and
+  to  the  maximal  subgroup  [22X(3^2:2  ×  O_8^+(3)).S_4[122X  of  [22XM[122X,  such  that the
+  compositions of fusions from [22XV[122X to [22XB[122X via [22XO_8^+(3).S_4[122X and [22X2.B[122X are compatible,
+  [22X...[122X[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XtblU:= CharacterTable( "O8+(3).S4" );;[127X[104X
+    [4X[25Xgap>[125X [27Xtbl2B:= CharacterTable( "2.B" );;[127X[104X
+    [4X[25Xgap>[125X [27XCompositionMaps( GetFusionMap( tblU, tblB ),[127X[104X
+    [4X[25X>[125X [27X                    GetFusionMap( lib, tblU ) ) =[127X[104X
+    [4X[25X>[125X [27X   CompositionMaps( GetFusionMap( tbl2B, tblB ),[127X[104X
+    [4X[25X>[125X [27X                    GetFusionMap( lib, tbl2B ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[22X...[122X  and  that  the  compositions  of  fusions  from  [22XV[122X  to  [22XM[122X  via [22X(3^2:2 ×
+  O_8^+(3)).S_4[122X and [22X2.B[122X are compatible.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XtblH:= CharacterTable( "(3^2:2xO8+(3)).S4" );;[127X[104X
+    [4X[25Xgap>[125X [27XCompositionMaps( GetFusionMap( tblH, tblM ),[127X[104X
+    [4X[25X>[125X [27X                    GetFusionMap( lib, tblH ) ) =[127X[104X
+    [4X[25X>[125X [27X   CompositionMaps( GetFusionMap( tbl2B, tblM ),[127X[104X
+    [4X[25X>[125X [27X                    GetFusionMap( lib, tbl2B ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  

@@ -1,0 +1,65 @@
+  
+  [1X3 [33X[0;0YMaintaining the [5XGAP[105X[101X[1X kernel and library[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YDebugging the [5XGAP[105X[101X[1X Kernel[133X[101X
+  
+  [33X[0;0YThe [5XGAP[105X kernel supports a variety of options which can be enabled by running
+  [10Xconfigure[110X  which provide various checks which can be useful when writing and
+  debugging [5XGAP[105X kernel code.[133X
+  
+  [33X[0;0YThe first option, [10X--enable-debug[110X, is well supported and can be used whenever
+  the  [5XGAP[105X kernel, or kernel modules, are being developed (although developers
+  should still check their code works without it).[133X
+  
+  [33X[0;0Y[10X--enable-debug[110X  enables  assertions  throughout the kernel. These assertions
+  are  implemented  using  the [10XGAP_ASSERT[110X macro. These assertions are disabled
+  when [5XGAP[105X is compiled without [10X--enable-debug[110X. When [10X--enable-debug[110X is enabled,
+  [10XKernelDebug[110X  will  be  shown in the line starting [10XConfiguration:[110X when [5XGAP[105X is
+  started.[133X
+  
+  [33X[0;0YThe  next  two  options  are  more  experimental, and are not designed to be
+  constantly  enabled.  They  are  particularly  designed  to  track down bugs
+  relating  to  memory  corruption  relating to GASMAN ([5XGAP[105X's memory manager).
+  They  cannot  both be enabled at the same time. These options assume you are
+  familiar  somewhat  familiar  with the internals of GASMAN (see gasman.c for
+  more  information).  In particular, GASMAN represents memory using an object
+  of  type  Bag.  The  contents  of  these  Bags  can  be moved during garbage
+  collection.[133X
+  
+  [33X[0;0Y[10X--enable-memory-checking[110X  makes  [5XGAP[105X  check for C pointers to the content of
+  Bags being used after a new Bag has been created or a Bag is resized. GASMAN
+  moves Bags during garbage collection, which can happen whenever a new Bag is
+  created or a Bag is resized. However, as it is very unlikely that any single
+  allocation  will cause a garbage collection, these bugs trigger very rarely.
+  Also  the problems caused by these bugs are, if the C pointer is written to,
+  a random other Bag, somewhere in [5XGAP[105X, is changed.[133X
+  
+  [33X[0;0YAfter  configuring, the memory checking must still be turned on. This can be
+  done  either  by  passing [10X--enableMemCheck[110X to [5XGAP[105X's command line, or calling
+  [10XGASMAN_MEM_CHECK(1)[110X.  Note  that  enabling  these tests makes [5XGAP[105X VERY, VERY
+  slow. It can (depending on the machine and operating system) take [5XGAP[105X over a
+  day  to  start,  and load all standard packages. The recommending way to use
+  this  option  is  to  start  [5XGAP[105X,  and  then load small test files to try to
+  isolate   the   problem.  [10XMemCheck[110X  will  be  shown  in  the  line  starting
+  [10XConfiguration:[110X when [5XGAP[105X is started.[133X
+  
+  [33X[0;0YKnown  bugs:  [5XGAP[105X  will crash if [10XIO_fork[110X from the IO package is called while
+  memory checking is enabled.[133X
+  
+  [33X[0;0Y[10X--enable-valgrind[110X  makes  changes  to  GASMAN  so  it is compatible with the
+  valgrind  ([7Xhttps://valgrind.org[107X)  memory  checking  program.  Without  this,
+  Valgrind  will  report  many  incorrect  warnings  relating to GASMAN and no
+  useful warnings.[133X
+  
+  [33X[0;0YAt  present,  this  [10X--enable-valgrind[110X  only checks for invalid writes to the
+  last  bag  which  was created. Also, this option does not do anything unless
+  [5XGAP[105X is run through Valgrind (for example by running [10Xvalgrind gap[110X.[133X
+  
+  [33X[0;0YModules, PROPOSALs, ...[133X
+  
+  
+  [1X3.2 [33X[0;0Y...[133X[101X
+  
+  [33X[0;0Y...[133X
+  

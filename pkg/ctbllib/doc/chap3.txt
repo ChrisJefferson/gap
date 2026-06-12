@@ -1,0 +1,1704 @@
+  
+  [1X3 [33X[0;0YThe User Interface to the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YAccessing Data of the [5XCTblLib[105X[101X[1X Package[133X[101X
+  
+  
+  [1X3.1-1 [33X[0;0YAdmissible Names for Character Tables in [5XCTblLib[105X[101X[1X[133X[101X
+  
+  [33X[0;0YWhen you access a character table from the [5XGAP[105X Character Table Library, this
+  table is specified by an admissible name.[133X
+  
+  [33X[0;0YAdmissible names for the [13Xordinary character table[113X [22Xtbl[122X of the group [22XG[122X are[133X
+  
+  [30X    [33X[0;6Yan  [5XAtlas[105X  like  name  if [22Xtbl[122X is an [5XAtlas[105X table (see Section [14X4.3[114X), for
+        example  [10X"M22"[110X for the table of the Mathieu group [22XM_22[122X, [10X"L2(13).2"[110X for
+        [22XL_2(13):2[122X, and [10X"12_1.U4(3).2_1"[110X for [22X12_1.U_4(3).2_1[122X.[133X
+  
+        [33X[0;6Y(The  difference  to  the name printed in the [5XAtlas[105X is that subscripts
+        and  superscripts  are  omitted  except  if  they  are used to qualify
+        integer values, and double dots are replaced by a single dot.)[133X
+  
+  [30X    [33X[0;6Ythe  names  that  were admissible for tables of [22XG[122X in the [5XCAS[105X system if
+        the [5XCAS[105X table library contained a table of [22XG[122X, for example [10Xsl42[110X for the
+        table of the alternating group [22XA_8[122X.[133X
+  
+        [33X[0;6Y(But  note  that the ordering of rows and columns of the [5XGAP[105X table may
+        be different from that in [5XCAS[105X, see Section [14X4.4[114X.)[133X
+  
+  [30X    [33X[0;6Ysome [21Xrelative[121X names, as follows.[133X
+  
+        [30X    [33X[0;12YIf [22XG[122X is the [22Xn[122X-th maximal subgroup (in decreasing group order) of
+              a  group  whose  library  table  [22Xsubtbl[122X  is available in [5XGAP[105X and
+              stores  the  [2XMaxes[102X  ([14X3.7-1[114X)  value, and if [10Xname[110X is an admissible
+              name  for [22Xsubtbl[122X then [10Xname[110XM[22Xn[122X is admissible for [22Xtbl[122X. For example,
+              the  name  [10X"J3M2"[110X  can  be  used  to  access  the second maximal
+              subgroup  of  the  sporadic simple Janko group [22XJ_3[122X which has the
+              admissible name [10X"J3"[110X.[133X
+  
+        [30X    [33X[0;12YIf  [22XG[122X  is  a  nontrivial Sylow [22Xp[122X normalizer in a sporadic simple
+              group  with  admissible name [10Xname[110X –where nontrivial means that [22XG[122X
+              is  not  isomorphic  to a subgroup of [22Xp:(p-1)[122X– then [10Xname[110XN[22Xp[122X is an
+              admissible  name  of  [22Xtbl[122X.  For example, the name [10X"J4N11"[110X can be
+              used  to  access  the  table  of  the Sylow [22X11[122X normalizer in the
+              sporadic simple Janko group [22XJ_4[122X.[133X
+  
+        [30X    [33X[0;12YIn  a  few  cases,  the  table  of  the Sylow [22Xp[122X-subgroup of [22XG[122X is
+              accessible  via  the  name  [10Xname[110XSyl[22Xp[122X where [10Xname[110X is an admissible
+              name  of the table of [22XG[122X. For example, [10X"A11Syl2"[110X is an admissible
+              name  for  the  table of the Sylow [22X2[122X-subgroup of the alternating
+              group [22XA_11[122X.[133X
+  
+        [30X    [33X[0;12YIn  a  few  cases,  the  table of an element centralizer in [22XG[122X is
+              accessible via the name [10Xname[110XC[22Xcl[122X where [10Xname[110X is an admissible name
+              of  the  table  of [22XG[122X. For example, [10X"M11C2"[110X is an admissible name
+              for  the table of an involution centralizer in the Mathieu group
+              [22XM_11[122X.[133X
+  
+  [33X[0;0YThe  recommended  way  to  access  a  [13XBrauer  table[113X  is via applying the [9Xmod[109X
+  operator   to  the  ordinary  table  and  the  desired  characteristic  (see
+  [2XBrauerTable[102X  ([14XReference:  BrauerTable[114X) and Section [14X'Reference: Operators for
+  Character  Tables'[114X),  so  it  is not necessary to define admissible names of
+  Brauer tables.[133X
+  
+  [33X[0;0YA  [13Xgeneric  character table[113X (see Section [14X4.2[114X) is accessible only by the name
+  given by its [2XIdentifier[102X ([14XReference: Identifier for character tables[114X) value.[133X
+  
+  [1X3.1-2 CharacterTable[101X
+  
+  [33X[1;0Y[29X[2XCharacterTable[102X( [3Xtblname[103X[, [3Xpara1[103X[, [3Xpara2[103X]] ) [32X method[133X
+  
+  [33X[0;0YIf  the  only argument is a string [3Xtblname[103X and if this is an admissible name
+  (see  [14X3.1-1[114X)  of  a library character table then [2XCharacterTable[102X returns this
+  library table, otherwise [9Xfail[109X.[133X
+  
+  [33X[0;0YIf  [2XCharacterTable[102X is called with more than one argument then the first must
+  be a string [3Xtblname[103X specifying a series of groups which is implemented via a
+  generic  character  table, for example [10X"Symmetric"[110X for symmetric groups; the
+  remaining  arguments  specialize  the  desired  member  of  the  series (see
+  Section [14X4.2[114X  for  a  list  of available generic tables). If no generic table
+  with  name [3Xtblname[103X is available or if the parameters are not admissible then
+  [2XCharacterTable[102X returns [9Xfail[109X.[133X
+  
+  [33X[0;0YA call of [2XCharacterTable[102X may cause that some library files are read and that
+  some  table  objects are constructed from the data stored in these files, so
+  fetching a library table may take more time than one expects.[133X
+  
+  [33X[0;0YCase  is  not significant for [3Xtblname[103X. For example, both [10X"suzm3"[110X and [10X"SuzM3"[110X
+  can  be entered in order to access the character table of the third class of
+  maximal subgroups of the sporadic simple Suzuki group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs5:= CharacterTable( "A5.2" );[127X[104X
+    [4X[28XCharacterTable( "A5.2" )[128X[104X
+    [4X[25Xgap>[125X [27Xsym5:= CharacterTable( "Symmetric", 5 );[127X[104X
+    [4X[28XCharacterTable( "Sym(5)" )[128X[104X
+    [4X[25Xgap>[125X [27XTransformingPermutationsCharacterTables( s5, sym5 );[127X[104X
+    [4X[28Xrec( columns := (2,3,4,7,5), group := Group(()), [128X[104X
+    [4X[28X  rows := (1,7,3,4,6,5,2) )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  above two tables are tables of the symmetric group on five letters; the
+  first  is  in [5XAtlas[105X format (see Section [14X4.3[114X), the second is constructed from
+  the generic table for symmetric groups (see [14X4.2[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "J5" );[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "A5" ) mod 2;[127X[104X
+    [4X[28XBrauerTable( "A5", 2 )[128X[104X
+  [4X[32X[104X
+  
+  [1X3.1-3 BrauerTable[101X
+  
+  [33X[1;0Y[29X[2XBrauerTable[102X( [3Xtblname[103X, [3Xp[103X ) [32X operation[133X
+  
+  [33X[0;0YCalled  with a string [3Xtblname[103X and a prime integer [3Xp[103X, [2XBrauerTable[102X returns the
+  [3Xp[103X-modular  character  table  of the ordinary character table with admissible
+  name  [3Xtblname[103X,  if  such  an  ordinary character table exists and if [5XGAP[105X can
+  compute its [3Xp[103X-modular table. Otherwise [9Xfail[109X is returned.[133X
+  
+  [33X[0;0YThe  default  method  delegates to [2XBrauerTable[102X ([14XReference: BrauerTable for a
+  character  table,  and  a  prime  integer[114X) with arguments the [2XCharacterTable[102X
+  ([14X3.1-2[114X) value of [3Xtblname[103X and [3Xp[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XBrauerTable( "A5", 2 );[127X[104X
+    [4X[28XBrauerTable( "A5", 2 )[128X[104X
+    [4X[25Xgap>[125X [27XBrauerTable( "J5", 2 );  # no ordinary table with name J5[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XBrauerTable( "M", 2 );   # Brauer table not known[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [1X3.1-4 AllCharacterTableNames[101X
+  
+  [33X[1;0Y[29X[2XAllCharacterTableNames[102X( [[3Xfunc[103X, [3Xval[103X, [3X...[103X[, [3XOfThose[103X, [3Xfunc[103X]][3X:[103X [3XOrderedBy[103X [3X:=[103X [3Xfunc[103X ) [32X function[133X
+  
+  [33X[0;0YSimilar  to  group libraries (see Chapter [14X'Reference: Group Libraries'[114X), the
+  [5XGAP[105X  Character  Table  Library  can be used to search for ordinary character
+  tables with prescribed properties.[133X
+  
+  [33X[0;0YA specific library table can be selected by an admissible name, see [14X3.1-1[114X.[133X
+  
+  [33X[0;0YThe  [13Xselection function[113X (see [14X'Reference: Selection Functions'[114X) for character
+  tables  from  the  [5XGAP[105X  Character  Table  Library that have certain abstract
+  properties  is [2XAllCharacterTableNames[102X. Contrary to the situation in the case
+  of  group  libraries,  the  selection function returns a list not of library
+  character  tables  but  of their names; using [2XCharacterTable[102X ([14X3.1-2[114X) one can
+  then access the tables themselves.[133X
+  
+  [33X[0;0Y[2XAllCharacterTableNames[102X  takes  an  arbitrary  even  number of arguments. The
+  argument  at  each  odd position must be a function, and the argument at the
+  subsequent  even  position  must  be  either a value that this function must
+  return when called for the character table in question, in order to have the
+  name  of the table included in the selection, or a list of such values, or a
+  function  that  returns  [9Xtrue[109X  for  such  a  value, and [9Xfalse[109X otherwise. For
+  example,[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnames:= AllCharacterTableNames();;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yreturns  a  list  containing  one admissible name of each ordinary character
+  table in the [5XGAP[105X library,[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsimpnames:= AllCharacterTableNames( IsSimple, true,[127X[104X
+    [4X[25X>[125X [27X                                       IsAbelian, false );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yreturns  a  list  containing  an  admissible name of each ordinary character
+  table in the [5XGAP[105X library whose groups are nonabelian and simple, and[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( IsSimple, true, IsAbelian, false,[127X[104X
+    [4X[25X>[125X [27X                           Size, [ 1 .. 100 ] );[127X[104X
+    [4X[28X[ "A5", "A6M2", "Alt(5)" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yreturns  a  list  containing  an  admissible name of each ordinary character
+  table  in  the  [5XGAP[105X  library whose groups are nonabelian and simple and have
+  order  at  most [22X100[122X, respectively. (Note that [10X"A5"[110X, [10X"A6M2"[110X, and [10X"Alt(5)"[110X are
+  identifiers of permutation equivalent character tables. It would be possible
+  to exclude duplicates, see Section [14X3.6[114X).[133X
+  
+  [33X[0;0YSimilarly,[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( Size, IsPrimeInt );[127X[104X
+    [4X[28X[ "2.Alt(2)", "Alt(3)", "C2", "C3", "Sym(2)" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yreturns the list of all identifiers of library tables whose [2XSize[102X ([14XReference:
+  Size[114X) value is a prime integer, and[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( Identifier,[127X[104X
+    [4X[25X>[125X [27X       x -> PositionSublist( x, "L8" ) <> fail );[127X[104X
+    [4X[28X[ "L8(2)", "P1L82", "P2L82" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yreturns the identifiers that contain the string [10X"L8"[110X as a substring.[133X
+  
+  [33X[0;0YFor  the  sake  of  efficiency,  the  attributes  whose  names are listed in
+  [10XCTblLib.SupportedAttributes[110X  are handled in a special way, [5XGAP[105X need not read
+  all  files  of the table library in these cases in order to find the desired
+  names.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCTblLib.SupportedAttributes;[127X[104X
+    [4X[28X[ "AbelianInvariants", "HasFusionToTom", "Identifier", [128X[104X
+    [4X[28X  "IdentifiersOfDuplicateTables", "InfoText", "IsAbelian", [128X[104X
+    [4X[28X  "IsAlmostSimple", "IsAtlasCharacterTable", "IsDuplicateTable", [128X[104X
+    [4X[28X  "IsNontrivialDirectProduct", "IsPerfect", "IsQuasisimple", [128X[104X
+    [4X[28X  "IsSimple", "IsSporadicSimple", "KnowsDeligneLusztigNames", [128X[104X
+    [4X[28X  "KnowsSomeGroupInfo", "Maxes", "NamesOfFusionSources", [128X[104X
+    [4X[28X  "NrConjugacyClasses", "Size" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf    the    [5XBrowse[105X    package    (see [BL23])    is    not    loaded   then
+  [10XCTblLib.SupportedAttributes[110X      contains     only     [10X"Identifier"[110X,     and
+  [2XAllCharacterTableNames[102X  will  be very slow when one selects character tables
+  according to other attributes from the list shown above.[133X
+  
+  [33X[0;0YThe  global  option  [10XOrderedBy[110X  can be used to prescribe the ordering of the
+  result.  The value of this option, if given, must be a function that takes a
+  character  table  as  its  unique  argument;  the result list is then sorted
+  according  to the results of this function (w. r. t. the comparison by [5XGAP[105X's
+  [10X\<[110X operation).[133X
+  
+  [33X[0;0YFor  example,  we  may  be interested in the tables of small sporadic simple
+  groups,  ordered  alphabetically  or  by  size  ([2XSize[102X ([14XReference: Size for a
+  character  table[114X)) or by the number of conjugacy classes ([2XNrConjugacyClasses[102X
+  ([14XReference: NrConjugacyClasses for a character table[114X)).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X       Size, [ 1 .. 10^6 ],[127X[104X
+    [4X[25X>[125X [27X       IsDuplicateTable, false );[127X[104X
+    [4X[28X[ "J1", "J2", "M11", "M12", "M22" ][128X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X       Size, [ 1 .. 10^6 ],[127X[104X
+    [4X[25X>[125X [27X       IsDuplicateTable, false : OrderedBy:= Size );[127X[104X
+    [4X[28X[ "M11", "M12", "J1", "M22", "J2" ][128X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X       Size, [ 1 .. 10^6 ],[127X[104X
+    [4X[25X>[125X [27X       IsDuplicateTable, false : OrderedBy:= NrConjugacyClasses );[127X[104X
+    [4X[28X[ "M11", "M22", "J1", "M12", "J2" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Note  that  the  alphabtical  ordering  could  also be achieved by entering
+  [10XOrderedBy:= Identifier[110X.)[133X
+  
+  [33X[0;0YIf  the  dummy  function  [10XOfThose[110X is an argument at an odd position then the
+  following  argument [3Xfunc[103X must be a function that takes a character table and
+  returns  a name of a character table or a list of names; this is interpreted
+  as  replacement  of  the  names computed up to this position by the union of
+  names  returned  by  [3Xfunc[103X.  For  example,  [3Xfunc[103X  may  be  [2XMaxes[102X  ([14X3.7-1[114X)  or
+  [2XNamesOfFusionSources[102X ([14XReference: NamesOfFusionSources[114X)).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmaxesnames:= AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                                        HasMaxes, true,[127X[104X
+    [4X[25X>[125X [27X                                        OfThose, Maxes );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yreturns  the union of names of ordinary tables of those maximal subgroups of
+  sporadic  simple groups that are contained in the table library in the sense
+  that the attribute [2XMaxes[102X ([14X3.7-1[114X) is set.[133X
+  
+  [33X[0;0YFor  the  sake  of  efficiency,  [10XOfThose[110X  followed  by  one of the arguments
+  [2XAutomorphismGroup[102X  ([14XReference:  AutomorphismGroup[114X),  [2XSchurCover[102X  ([14XReference:
+  SchurCover[114X), [10XCompleteGroup[110X is handled in a special way.[133X
+  
+  [1X3.1-5 OneCharacterTableName[101X
+  
+  [33X[1;0Y[29X[2XOneCharacterTableName[102X( [[3Xfunc[103X, [3Xval[103X, [3X...[103X[, [3XOfThose[103X, [3Xfunc[103X]][3X:[103X [3XOrderedBy[103X [3X:=[103X [3Xfunc[103X ) [32X function[133X
+  
+  [33X[0;0YThe  example  function  for  character  tables  from the [5XGAP[105X Character Table
+  Library  that  have certain abstract properties is [2XOneCharacterTableName[102X. It
+  is  analogous  to the selection function [2XAllCharacterTableNames[102X ([14X3.1-4[114X), the
+  difference  is  that  it  returns  one [2XIdentifier[102X ([14XReference: Identifier for
+  character tables[114X) value of a character table with the properties in question
+  instead  of  the  list  of  all  such  values. If no table with the required
+  properties  is  contained  in  the  [5XGAP[105X Character Table Library then [9Xfail[109X is
+  returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XOneCharacterTableName( IsSimple, true, Size, 60 );[127X[104X
+    [4X[28X"A5"[128X[104X
+    [4X[25Xgap>[125X [27XOneCharacterTableName( IsSimple, true, Size, 20 );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  global  option  [10XOrderedBy[110X can be used to search for a [21Xsmallest[121X example,
+  according  to  the  value  of  the  option.  If  this function is one of the
+  attributes  whose  names  are listed in [10XCTblLib.SupportedAttributes[110X then the
+  tables are processed according to increasing values of the option, which may
+  speed up the search.[133X
+  
+  [1X3.1-6 NameOfEquivalentLibraryCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XNameOfEquivalentLibraryCharacterTable[102X( [3Xordtbl[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XNamesOfEquivalentLibraryCharacterTables[102X( [3Xordtbl[103X ) [32X function[133X
+  
+  [33X[0;0YLet       [3Xordtbl[103X       be       an       ordinary      character      table.
+  [2XNameOfEquivalentLibraryCharacterTable[102X  returns  the  [2XIdentifier[102X  ([14XReference:
+  Identifier  for  character  tables[114X)  value  of  a character table in the [5XGAP[105X
+  Character  Table  Library  that  is  permutation  equivalent  to [3Xordtbl[103X (see
+  [2XTransformingPermutationsCharacterTables[102X                          ([14XReference:
+  TransformingPermutationsCharacterTables[114X))  if such a character table exists,
+  and [9Xfail[109X otherwise. [2XNamesOfEquivalentLibraryCharacterTables[102X returns the list
+  of  all  [2XIdentifier[102X  ([14XReference:  Identifier for character tables[114X) values of
+  character  tables  in  the  [5XGAP[105X Character Table Library that are permutation
+  equivalent  to  [3Xordtbl[103X;  thus  an  empty list is returned in this case if no
+  equivalent library table exists.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "Alternating", 5 );;[127X[104X
+    [4X[25Xgap>[125X [27XNameOfEquivalentLibraryCharacterTable( tbl );[127X[104X
+    [4X[28X"A5"[128X[104X
+    [4X[25Xgap>[125X [27XNamesOfEquivalentLibraryCharacterTables( tbl );[127X[104X
+    [4X[28X[ "A5", "A6M2", "Alt(5)" ][128X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "Cyclic", 17 );;[127X[104X
+    [4X[25Xgap>[125X [27XNameOfEquivalentLibraryCharacterTable( tbl );[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XNamesOfEquivalentLibraryCharacterTables( tbl );[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.2 [33X[0;0YThe Interface to the [5XTomLib[105X[101X[1X Package[133X[101X
+  
+  [33X[0;0YThe  [5XGAP[105X  Character  Table Library contains ordinary character tables of all
+  groups  for  which  the  [5XTomLib[105X package [MNP19] contains the table of marks.
+  This  section describes the mapping between these character tables and their
+  tables of marks.[133X
+  
+  [33X[0;0YIf  the  [5XTomLib[105X  package  is not loaded then [2XFusionToTom[102X ([14X3.2-4[114X) is the only
+  available function from this section, but of course it is of little interest
+  in this situation.[133X
+  
+  [1X3.2-1 TableOfMarks[101X
+  
+  [33X[1;0Y[29X[2XTableOfMarks[102X( [3Xtbl[103X ) [32X method[133X
+  
+  [33X[0;0YLet [3Xtbl[103X be an ordinary character table from the [5XGAP[105X Character Table Library,
+  for the group [22XG[122X, say. If the [5XTomLib[105X package is loaded and contains the table
+  of  marks  of  [22XG[122X  then  there  is a method based on [2XTableOfMarks[102X ([14XReference:
+  TableOfMarks  for a string[114X) that returns this table of marks. If there is no
+  such  table  of  marks  but  [3Xtbl[103X knows its underlying group then this method
+  delegates to the group. Otherwise [9Xfail[109X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XTableOfMarks( CharacterTable( "A5" ) );[127X[104X
+    [4X[28XTableOfMarks( "A5" )[128X[104X
+    [4X[25Xgap>[125X [27XTableOfMarks( CharacterTable( "M" ) );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [1X3.2-2 CharacterTable[101X
+  
+  [33X[1;0Y[29X[2XCharacterTable[102X( [3Xtom[103X ) [32X method[133X
+  
+  [33X[0;0YFor  a  table  of  marks  [3Xtom[103X,  this  method  for [2XCharacterTable[102X ([14XReference:
+  CharacterTable  for  a  group[114X)  returns the character table corresponding to
+  [3Xtom[103X.[133X
+  
+  [33X[0;0YIf [3Xtom[103X comes from the [5XTomLib[105X package, the character table comes from the [5XGAP[105X
+  Character  Table  Library.  Otherwise,  if  [3Xtom[103X  stores  an  [2XUnderlyingGroup[102X
+  ([14XReference:  UnderlyingGroup  for  tables  of  marks[114X) value then the task is
+  delegated to a [2XCharacterTable[102X ([14XReference: CharacterTable for a group[114X) method
+  for  this  group,  and  if  no  underlying  group  is available then [9Xfail[109X is
+  returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( TableOfMarks( "A5" ) );[127X[104X
+    [4X[28XCharacterTable( "A5" )[128X[104X
+  [4X[32X[104X
+  
+  [1X3.2-3 FusionCharTableTom[101X
+  
+  [33X[1;0Y[29X[2XFusionCharTableTom[102X( [3Xtbl[103X, [3Xtom[103X ) [32X method[133X
+  
+  [33X[0;0YLet  [3Xtbl[103X be an ordinary character table from the [5XGAP[105X Character Table Library
+  with  the  attribute  [2XFusionToTom[102X ([14X3.2-4[114X), and let [3Xtom[103X be the table of marks
+  from  the [5XGAP[105X package [5XTomLib[105X that corresponds to [3Xtbl[103X. In this case, a method
+  for  [2XFusionCharTableTom[102X  ([14XReference:  FusionCharTableTom[114X)  is available that
+  returns  the fusion from [3Xtbl[103X to [3Xtom[103X that is given by the [2XFusionToTom[102X ([14X3.2-4[114X)
+  value of [3Xtbl[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "A5" );[127X[104X
+    [4X[28XCharacterTable( "A5" )[128X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( "A5" );[127X[104X
+    [4X[28XTableOfMarks( "A5" )[128X[104X
+    [4X[25Xgap>[125X [27XFusionCharTableTom( tbl, tom );[127X[104X
+    [4X[28X[ 1, 2, 3, 5, 5 ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.2-4 FusionToTom[101X
+  
+  [33X[1;0Y[29X[2XFusionToTom[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YIf  this  attribute  is set for an ordinary character table [3Xtbl[103X then the [5XGAP[105X
+  Library  of Tables of Marks contains the table of marks of the group of [3Xtbl[103X,
+  and the attribute value is a record with the following components.[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe  [2XIdentifier[102X  ([14XReference: Identifier for tables of marks[114X) component
+        of the table of marks of [3Xtbl[103X,[133X
+  
+  [8X[10Xmap[110X[8X[108X
+        [33X[0;6Ythe fusion map,[133X
+  
+  [8X[10Xtext[110X[8X (optional)[108X
+        [33X[0;6Ya string describing the status of the fusion, and[133X
+  
+  [8X[10Xperm[110X[8X (optional)[108X
+        [33X[0;6Ya  permutation  that  establishes the bijection between the classes of
+        maximal  subgroups  in  the  table  of  marks (see [2XMaximalSubgroupsTom[102X
+        ([14XReference:  MaximalSubgroupsTom[114X))  and the [2XMaxes[102X ([14X3.7-1[114X) list of [3Xtbl[103X.
+        Applying the permutation to the sublist of permutation characters (see
+        [2XPermCharsTom[102X   ([14XReference:   PermCharsTom  via  fusion  map[114X))  at  the
+        positions  of  the  maximal subgroups of the table of marks yields the
+        list  of  primitive permutation characters computed from the character
+        tables  described by the [2XMaxes[102X ([14X3.7-1[114X) list. Usually, there is no [10Xperm[110X
+        component,  which  means  that  the two lists of primitive permutation
+        characters are equal. See Section [14X2.3-5[114X for an example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFusionToTom( CharacterTable( "2.A6" ) );[127X[104X
+    [4X[28Xrec( map := [ 1, 2, 5, 4, 8, 3, 7, 11, 11, 6, 13, 6, 13 ], [128X[104X
+    [4X[28X  name := "2.A6", perm := (4,5), [128X[104X
+    [4X[28X  text := "fusion map is unique up to table autom." )[128X[104X
+  [4X[32X[104X
+  
+  [1X3.2-5 NameOfLibraryCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XNameOfLibraryCharacterTable[102X( [3Xtomname[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function  returns  the [2XIdentifier[102X ([14XReference: Identifier for character
+  tables[114X)  value  of  the  character table corresponding to the table of marks
+  with  [2XIdentifier[102X  ([14XReference: Identifier for tables of marks[114X) value [3Xtomname[103X.
+  If  no  such character table exists in the [5XGAP[105X Character Table Library or if
+  the [5XTomLib[105X package is not loaded then [9Xfail[109X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XNameOfLibraryCharacterTable( "A5" );[127X[104X
+    [4X[28X"A5"[128X[104X
+    [4X[25Xgap>[125X [27XNameOfLibraryCharacterTable( "S5" );[127X[104X
+    [4X[28X"A5.2"[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.3 [33X[0;0YThe Interface to [5XGAP[105X[101X[1X's Group Libraries[133X[101X
+  
+  [33X[0;0YSometimes  it  is  useful  to  extend a character-theoretic computation with
+  computations involving a group that has the character table in question. For
+  many  character  tables  in  the  [5XGAP[105X Character Table Library, corresponding
+  groups can be found in the various group libraries that are distributed with
+  [5XGAP[105X.  This  section  describes  how  one  can access the library groups that
+  belong to a given character table.[133X
+  
+  [1X3.3-1 GroupInfoForCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XGroupInfoForCharacterTable[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YLet [3Xtbl[103X be an ordinary character table from the [5XGAP[105X Character Table Library.
+  [2XGroupInfoForCharacterTable[102X  returns a sorted list of pairs such that calling
+  [2XGroupForGroupInfo[102X  ([14X3.3-4[114X)  with  any  of  these  pairs yields a group whose
+  ordinary character table is [3Xtbl[103X, up to permutations of rows and columns.[133X
+  
+  [33X[0;0YNote  that  this group is in general [13Xnot[113X determined up to isomorphism, since
+  nonisomorphic  groups  may  have  the  same character table (including power
+  maps).[133X
+  
+  [33X[0;0YContrary  to  the  attribute [2XUnderlyingGroup[102X ([14XReference: UnderlyingGroup for
+  tables of marks[114X), the entries of the [2XGroupInfoForCharacterTable[102X list for [3Xtbl[103X
+  are not related to the ordering of the conjugacy classes in [3Xtbl[103X.[133X
+  
+  [33X[0;0YSources  for  this  attribute  are  the [5XGAP[105X databases of groups described in
+  Chapter  [14X'Reference: Group Libraries'[114X, and the packages [5XAtlasRep[105X and [5XTomLib[105X,
+  see  also [2XGroupForTom[102X ([14X3.3-5[114X) and [2XAtlasStabilizer[102X ([14X3.3-6[114X). If these packages
+  are  not  loaded  then part of the information may be missing. If the [5XBrowse[105X
+  package  (see [BL23])  is not loaded then [2XGroupInfoForCharacterTable[102X returns
+  always an empty list.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGroupInfoForCharacterTable( CharacterTable( "A5" ) );[127X[104X
+    [4X[28X[ [ "AlternatingGroup", [ 5 ] ], [ "AtlasGroup", [ "A5" ] ], [128X[104X
+    [4X[28X  [ "AtlasStabilizer", [ "A6", "A6G1-p6aB0" ] ], [128X[104X
+    [4X[28X  [ "AtlasStabilizer", [ "A6", "A6G1-p6bB0" ] ], [128X[104X
+    [4X[28X  [ "AtlasStabilizer", [ "L2(11)", "L211G1-p11aB0" ] ], [128X[104X
+    [4X[28X  [ "AtlasStabilizer", [ "L2(11)", "L211G1-p11bB0" ] ], [128X[104X
+    [4X[28X  [ "AtlasStabilizer", [ "L2(19)", "L219G1-p57aB0" ] ], [128X[104X
+    [4X[28X  [ "AtlasStabilizer", [ "L2(19)", "L219G1-p57bB0" ] ], [128X[104X
+    [4X[28X  [ "AtlasSubgroup", [ "A5.2", 1 ] ], [ "AtlasSubgroup", [ "A6", 1 ] ][128X[104X
+    [4X[28X    , [ "AtlasSubgroup", [ "A6", 2 ] ], [128X[104X
+    [4X[28X  [ "AtlasSubgroup", [ "J2", 9 ] ], [128X[104X
+    [4X[28X  [ "AtlasSubgroup", [ "L2(109)", 4 ] ], [128X[104X
+    [4X[28X  [ "AtlasSubgroup", [ "L2(109)", 5 ] ], [128X[104X
+    [4X[28X  [ "AtlasSubgroup", [ "L2(11)", 1 ] ], [128X[104X
+    [4X[28X  [ "AtlasSubgroup", [ "L2(11)", 2 ] ], [128X[104X
+    [4X[28X  [ "AtlasSubgroup", [ "S6(3)", 11 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "2^4:A5", 68 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "2^4:A5`", 56 ] ], [ "GroupForTom", [ "A5" ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "A5xA5", 85 ] ], [ "GroupForTom", [ "A6", 21 ] ],[128X[104X
+    [4X[28X  [ "GroupForTom", [ "J2", 99 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "L2(109)", 25 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "L2(11)", 15 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "L2(125)", 18 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "L2(16)", 18 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "L2(19)", 17 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "L2(29)", 19 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "L2(31)", 25 ] ], [128X[104X
+    [4X[28X  [ "GroupForTom", [ "S5", 18 ] ], [ "PSL", [ 2, 4 ] ], [128X[104X
+    [4X[28X  [ "PSL", [ 2, 5 ] ], [ "PerfectGroup", [ 60, 1 ] ], [128X[104X
+    [4X[28X  [ "PrimitiveGroup", [ 5, 4 ] ], [ "PrimitiveGroup", [ 6, 1 ] ], [128X[104X
+    [4X[28X  [ "PrimitiveGroup", [ 10, 1 ] ], [ "SmallGroup", [ 60, 5 ] ], [128X[104X
+    [4X[28X  [ "TransitiveGroup", [ 5, 4 ] ], [ "TransitiveGroup", [ 6, 12 ] ], [128X[104X
+    [4X[28X  [ "TransitiveGroup", [ 10, 7 ] ], [ "TransitiveGroup", [ 12, 33 ] ],[128X[104X
+    [4X[28X  [ "TransitiveGroup", [ 15, 5 ] ], [ "TransitiveGroup", [ 20, 15 ] ],[128X[104X
+    [4X[28X  [ "TransitiveGroup", [ 30, 9 ] ] ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.3-2 KnowsSomeGroupInfo[101X
+  
+  [33X[1;0Y[29X[2XKnowsSomeGroupInfo[102X( [3Xtbl[103X ) [32X property[133X
+  
+  [33X[0;0YFor  an ordinary character table [3Xtbl[103X, this function returns [9Xtrue[109X if the list
+  returned  by  [2XGroupInfoForCharacterTable[102X  ([14X3.3-1[114X)  is  nonempty,  and  [9Xfalse[109X
+  otherwise.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XKnowsSomeGroupInfo( CharacterTable( "A5" ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XKnowsSomeGroupInfo( CharacterTable( "M" ) );[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  [1X3.3-3 CharacterTableForGroupInfo[101X
+  
+  [33X[1;0Y[29X[2XCharacterTableForGroupInfo[102X( [3Xinfo[103X ) [32X attribute[133X
+  
+  [33X[0;0YThis function is a partial inverse of [2XGroupInfoForCharacterTable[102X ([14X3.3-1[114X). If
+  [3Xinfo[103X  has  the  form  [10X[  [110X[22Xfuncname[122X[10X, [110X[22Xargs[122X[10X ][110X and occurs in the list returned by
+  [2XGroupInfoForCharacterTable[102X  ([14X3.3-1[114X)  when  called  with a character table [22Xt[122X,
+  say,  then [2XCharacterTableForGroupInfo[102X returns a character table from the [5XGAP[105X
+  Character Table that is equivalent to [22Xt[122X. Otherwise [9Xfail[109X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTableForGroupInfo( [ "AlternatingGroup", [ 5 ] ] );[127X[104X
+    [4X[28XCharacterTable( "A5" )[128X[104X
+  [4X[32X[104X
+  
+  [1X3.3-4 GroupForGroupInfo[101X
+  
+  [33X[1;0Y[29X[2XGroupForGroupInfo[102X( [3Xinfo[103X ) [32X attribute[133X
+  
+  [33X[0;0YIf  [3Xinfo[103X  has the form [10X[ [110X[22Xfuncname[122X[10X, [110X[22Xargs[122X[10X ][110X and occurs in the list returned by
+  [2XGroupInfoForCharacterTable[102X  ([14X3.3-1[114X)  when called with a character table [22Xtbl[122X,
+  say,  then  [2XGroupForGroupInfo[102X  returns a group that is described by [3Xinfo[103X and
+  whose  character  table  is  equal  to  [22Xtbl[122X,  up to permutations of rows and
+  columns. Otherwise [9Xfail[109X is returned.[133X
+  
+  [33X[0;0YTypically,  [22Xfuncname[122X  is  a string that is the name of a global [5XGAP[105X function
+  [22Xfun[122X,  say,  and  [22Xargs[122X  is  a  list  of arguments for this function such that
+  [10XCallFuncList( [110X[22Xfun[122X[10X, [110X[22Xargs[122X[10X )[110X yields the desired group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGroupForGroupInfo( [ "AlternatingGroup", [ 5 ] ] );[127X[104X
+    [4X[28XAlt( [ 1 .. 5 ] )[128X[104X
+    [4X[25Xgap>[125X [27XGroupForGroupInfo( [ "PrimitiveGroup", [ 5, 4 ] ] );[127X[104X
+    [4X[28XA(5)[128X[104X
+  [4X[32X[104X
+  
+  [1X3.3-5 GroupForTom[101X
+  
+  [33X[1;0Y[29X[2XGroupForTom[102X( [3Xtomidentifier[103X[, [3Xrepnr[103X] ) [32X attribute[133X
+  
+  [33X[0;0YLet  [3Xtomidentifier[103X  be  a  string  that is an admissible name for a table of
+  marks  from the [5XGAP[105X Library of Tables of Marks (the [5XTomLib[105X package [MNP19]).
+  Called   with   one   argument,   [2XGroupForTom[102X  returns  the  [2XUnderlyingGroup[102X
+  ([14XReference:  UnderlyingGroup  for  tables  of  marks[114X) value of this table of
+  marks.  If  a  positive integer [3Xrepnr[103X is given as the second argument then a
+  representative of the [3Xrepnr[103X-th class of subgroups of this group is returned,
+  see [2XRepresentativeTom[102X ([14XReference: RepresentativeTom[114X).[133X
+  
+  [33X[0;0YThe  string[10X"GroupForTom"[110X  may  occur  in the entries of the list returned by
+  [2XGroupInfoForCharacterTable[102X   ([14X3.3-1[114X),   and   therefore  may  be  called  by
+  [2XGroupForGroupInfo[102X ([14X3.3-4[114X).[133X
+  
+  [33X[0;0YIf  the  [5XTomLib[105X  package  is not loaded or if it does not contain a table of
+  marks with identifier [3Xtomidentifier[103X then [9Xfail[109X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= GroupForTom( "A5" );  u:= GroupForTom( "A5", 2 );[127X[104X
+    [4X[28XGroup([ (2,4)(3,5), (1,2,5) ])[128X[104X
+    [4X[28XGroup([ (2,3)(4,5) ])[128X[104X
+    [4X[25Xgap>[125X [27XIsSubset( g, u );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XGroupForTom( "J4" );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [1X3.3-6 AtlasStabilizer[101X
+  
+  [33X[1;0Y[29X[2XAtlasStabilizer[102X( [3Xgapname[103X, [3Xrepname[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [3Xgapname[103X  be  an  admissible name of a group [22XG[122X, say, in the sense of the
+  [5XAtlasRep[105X  package  (see  Section [14X'AtlasRep: Group Names Used in the AtlasRep
+  Package'[114X), and [3Xrepname[103X be a string that occurs as the [10Xrepname[110X component of a
+  record      returned      by      [2XAllAtlasGeneratingSetInfos[102X      ([14XAtlasRep:
+  AllAtlasGeneratingSetInfos[114X) when this function is called with first argument
+  [3Xgapname[103X  and  further  arguments  [2XIsTransitive[102X ([14XReference: IsTransitive[114X) and
+  [9Xtrue[109X.   In   this   case,   [3Xrepname[103X   describes   a  transitive  permutation
+  representation of [22XG[122X.[133X
+  
+  [33X[0;0YIf  the  [5XAtlasRep[105X  package  is  available  and  if  the permutation group in
+  question  can  be  fetched  then [2XAtlasStabilizer[102X returns a point stabilizer.
+  Otherwise [9Xfail[109X is returned.[133X
+  
+  [33X[0;0YThe string[10X"AtlasStabilizer"[110X may occur in the entries of the list returned by
+  [2XGroupInfoForCharacterTable[102X   ([14X3.3-1[114X),   and   therefore  may  be  called  by
+  [2XGroupForGroupInfo[102X ([14X3.3-4[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAtlasStabilizer( "A5","A5G1-p5B0");[127X[104X
+    [4X[28XGroup([ (1,2)(3,4), (2,3,4) ])[128X[104X
+  [4X[32X[104X
+  
+  [1X3.3-7 IsNontrivialDirectProduct[101X
+  
+  [33X[1;0Y[29X[2XIsNontrivialDirectProduct[102X( [3Xtbl[103X ) [32X property[133X
+  
+  [33X[0;0YFor  an  ordinary  character  table  [3Xtbl[103X  of the group [22XG[122X, say, this function
+  returns  [9Xtrue[109X  if  [22XG[122X  is  the  direct  product  of smaller groups, and [9Xfalse[109X
+  otherwise.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmx:= Maxes( CharacterTable( "J1" ) );[127X[104X
+    [4X[28X[ "L2(11)", "2^3.7.3", "2xA5", "19:6", "11:10", "D6xD10", "7:6" ][128X[104X
+    [4X[25Xgap>[125X [27XList( mx, name -> IsNontrivialDirectProduct([127X[104X
+    [4X[25X>[125X [27X                         CharacterTable( name ) ) );[127X[104X
+    [4X[28X[ false, false, true, false, false, true, false ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.4 [33X[0;0YUnipotent Characters of Finite Groups of Lie Type[133X[101X
+  
+  [33X[0;0YUnipotent  characters are defined for finite groups of Lie type. For most of
+  these  groups  whose  character table is in the [5XGAP[105X Character Table Library,
+  the unipotent characters are known and parametrised by labels. This labeling
+  is  due  to  the  work  of  P.  Deligne  and G. Lusztig, thus the label of a
+  unipotent character is called its Deligne-Lusztig name (see [Cla05]).[133X
+  
+  [1X3.4-1 UnipotentCharacter[101X
+  
+  [33X[1;0Y[29X[2XUnipotentCharacter[102X( [3Xtbl[103X, [3Xlabel[103X ) [32X function[133X
+  
+  [33X[0;0YLet [3Xtbl[103X be the ordinary character table of a finite group of Lie type in the
+  [5XGAP[105X  Character  Table  Library.  [2XUnipotentCharacter[102X  returns  the  unipotent
+  character with Deligne-Lusztig name [3Xlabel[103X.[133X
+  
+  [33X[0;0YThe  object  [3Xlabel[103X  must  be  either  a  list  of integers which describes a
+  partition  (if  the finite group of Lie type is of the type [22XA_l[122X or [22X^2A_l[122X), a
+  list  of  two lists of integers which describes a symbol (if the group is of
+  classical  type  other  than  [22XA_l[122X and [22X^2A_l[122X) or a string (if the group is of
+  exceptional type).[133X
+  
+  [33X[0;0YA  call of [2XUnipotentCharacter[102X sets the attribute [2XDeligneLusztigNames[102X ([14X3.4-2[114X)
+  for [3Xtbl[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "U4(2).2" );;[127X[104X
+    [4X[25Xgap>[125X [27XUnipotentCharacter( tbl, [ [ 0, 1 ], [ 2 ] ] );[127X[104X
+    [4X[28XCharacter( CharacterTable( "U4(2).2" ),[128X[104X
+    [4X[28X [ 15, 7, 3, -3, 0, 3, -1, 1, 0, 1, -2, 1, 0, 0, -1, 5, 1, 3, -1, 2, [128X[104X
+    [4X[28X  -1, 1, -1, 0, 0 ] )[128X[104X
+  [4X[32X[104X
+  
+  [1X3.4-2 DeligneLusztigNames[101X
+  
+  [33X[1;0Y[29X[2XDeligneLusztigNames[102X( [3Xobj[103X ) [32X attribute[133X
+  
+  [33X[0;0YFor   a   character   table  [3Xobj[103X,  [2XDeligneLusztigNames[102X  returns  a  list  of
+  Deligne-Lusztig  names  of  the the unipotent characters of [3Xobj[103X. If the [22Xi[122X-th
+  entry is bound then it is the name of the [22Xi[122X-th irreducible character of [3Xobj[103X,
+  and  this  character  is  irreducible.  If  an  irreducible character is not
+  unipotent the accordant position is unbound.[133X
+  
+  [33X[0;0Y[2XDeligneLusztigNames[102X called with a string [3Xobj[103X, calls itself with the argument
+  [10XCharacterTable( [3Xobj[103X[10X )[110X.[133X
+  
+  [33X[0;0YWhen  [2XDeligneLusztigNames[102X  is called with a record [3Xobj[103X then this should have
+  the  components  [10Xisoc[110X,  [10Xisot[110X,  [10Xl[110X,  and  [10Xq[110X,  where  [10Xisoc[110X and [10Xisot[110X are strings
+  defining the isogeny class and isogeny type, and [10Xl[110X and [10Xq[110X are integers. These
+  components define a finite group of Lie type uniquely. Moreover this way one
+  can  choose Deligne-Lusztig names for a prescribed type in those cases where
+  a  group has more than one interpretation as a finite group of Lie type, see
+  the example below. (The first call of [2XDeligneLusztigNames[102X sets the attribute
+  value in the character table.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDeligneLusztigNames( "L2(7)" );[127X[104X
+    [4X[28X[ [ 2 ],,,, [ 1, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "L2(7)" );[127X[104X
+    [4X[28XCharacterTable( "L3(2)" )[128X[104X
+    [4X[25Xgap>[125X [27XHasDeligneLusztigNames( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XDeligneLusztigNames( rec( isoc:= "A", isot:= "simple",[127X[104X
+    [4X[25X>[125X [27X                             l:= 2, q:= 2 ) );[127X[104X
+    [4X[28X[ [ 3 ],,, [ 2, 1 ],, [ 1, 1, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.4-3 DeligneLusztigName[101X
+  
+  [33X[1;0Y[29X[2XDeligneLusztigName[102X( [3Xchi[103X ) [32X function[133X
+  
+  [33X[0;0YFor    a   unipotent   character   [3Xchi[103X,   [2XDeligneLusztigName[102X   returns   the
+  Deligne-Lusztig name of [3Xchi[103X. For that, [2XDeligneLusztigNames[102X ([14X3.4-2[114X) is called
+  with the argument [10XUnderlyingCharacterTable( [3Xchi[103X[10X )[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "F4(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27XDeligneLusztigName( Irr( tbl )[9] );[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XHasDeligneLusztigNames( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XList( [ 1 .. 8 ], i -> DeligneLusztigName( Irr( tbl )[i] ) );[127X[104X
+    [4X[28X[ "phi{1,0}", "[ [ 2 ], [  ] ]", "phi{2,4}''", "phi{2,4}'", [128X[104X
+    [4X[28X  "F4^II[1]", "phi{4,1}", "F4^I[1]", "phi{9,2}" ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.4-4 KnowsDeligneLusztigNames[101X
+  
+  [33X[1;0Y[29X[2XKnowsDeligneLusztigNames[102X( [3Xtbl[103X ) [32X property[133X
+  
+  [33X[0;0YFor  an  ordinary  character  table  [3Xtbl[103X,  this  function  returns  [9Xtrue[109X  if
+  [2XDeligneLusztigNames[102X ([14X3.4-2[114X) returns the list of Deligne-Lusztig names of the
+  unipotent characters of [3Xtbl[103X, and [9Xfalse[109X otherwise.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XKnowsDeligneLusztigNames( CharacterTable( "A5" ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XKnowsDeligneLusztigNames( CharacterTable( "M" ) );[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.5 [33X[0;0Y[5XBrowse[105X[101X[1X Applications Provided by [5XCTblLib[105X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  following  functions  are  available  only  if  the  [5XGAP[105X package [5XBrowse[105X
+  (see [BL23])  is  loaded.  The  function  [2XDisplayCTblLibInfo[102X  ([14X3.5-1[114X)  shows
+  details  about  an ordinary or modular character table in a pager, the other
+  functions can be used to show the following information via browse tables.[133X
+  
+  [30X    [33X[0;6YAn  overview  of  the  [5XGAP[105X  Character Table Library, and details pages
+        about  ordinary  and  modular  character tables (see [2XBrowseCTblLibInfo[102X
+        ([14X3.5-2[114X)),  which  allow  one to navigate to related pages and to pages
+        showing      for      example      decomposition     matrices     (cf.
+        [2XBrowseDecompositionMatrix[102X ([14XBrowse: BrowseDecompositionMatrix[114X)),[133X
+  
+  [30X    [33X[0;6Yan  alternative  display function that shows character tables from the
+        [5XAtlas[105X  of  Finite  Groups  [CCN+85] and the [5XAtlas[105X of Brauer Characters
+        [JLPW95]  in  a  format  similar  to  the one used in these books (see
+        [2XBrowseAtlasTable[102X  ([14X3.5-9[114X),  cf. [2XBrowse (for character tables)[102X ([14XBrowse:
+        Browse  for  character  tables[114X)  for  the  default  display format for
+        character tables),[133X
+  
+  [30X    [33X[0;6Yan  overview  of  the  names  of  simple groups for which the [5XAtlas[105X of
+        Finite  Groups  [CCN+85]  and  the [5XAtlas[105X of Brauer Characters [JLPW95]
+        show    the    character    tables    and   other   information   (see
+        [2XBrowseAtlasContents[102X  ([14X3.5-5[114X), a variant that doe not rely on [5XBrowse[105X is
+        [2XDisplayAtlasContents[102X ([14X3.5-6[114X)),[133X
+  
+  [30X    [33X[0;6Ya  function  that  shows the [5XAtlas[105X map of the bicyclic extensions of a
+        simple  [5XAtlas[105X  group  (see [2XBrowseAtlasMap[102X ([14X3.5-7[114X), a variant that does
+        not rely on [5XBrowse[105X is [2XDisplayAtlasMap[102X ([14X3.5-8[114X)),[133X
+  
+  [30X    [33X[0;6Yan  overview  of  the  [21Xatomic  irrationalities[121X  that  occur  in  [5XAtlas[105X
+        character tables (see [2XBrowseCommonIrrationalities[102X ([14X3.5-3[114X)),[133X
+  
+  [30X    [33X[0;6Yan overview of the lists of improvements to the [5XAtlas[105X of Finite Groups
+        (see [2XBrowseAtlasImprovements[102X ([14X3.5-10[114X)).[133X
+  
+  [30X    [33X[0;6Yan  overview of the differences between the character table data since
+        version  1.1.3  of  the  [5XCTblLib[105X package (see [2XBrowseCTblLibDifferences[102X
+        ([14X3.5-4[114X)),[133X
+  
+  [33X[0;0YThe   functions   [2XBrowseCTblLibInfo[102X   ([14X3.5-2[114X),   [2XBrowseCommonIrrationalities[102X
+  ([14X3.5-3[114X),  [2XBrowseCTblLibDifferences[102X ([14X3.5-4[114X), [2XBrowseAtlasContents[102X ([14X3.5-5[114X), and
+  [2XBrowseAtlasImprovements[102X  ([14X3.5-10[114X) occur also in the list of choices shown by
+  [2XBrowseGapData[102X ([14XBrowse: BrowseGapData[114X).[133X
+  
+  [1X3.5-1 DisplayCTblLibInfo[101X
+  
+  [33X[1;0Y[29X[2XDisplayCTblLibInfo[102X( [3Xtbl[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XDisplayCTblLibInfo[102X( [3Xname[103X[, [3Xp[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XStringCTblLibInfo[102X( [3Xtbl[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XStringCTblLibInfo[102X( [3Xname[103X[, [3Xp[103X] ) [32X function[133X
+  
+  [33X[0;0YWhen  [2XDisplayCTblLibInfo[102X  is  called  with  an ordinary or modular character
+  table  [3Xtbl[103X  then an overview of the information available for this character
+  table  is shown via the function that is given by the user preference [14X4.5-3[114X.
+  When  [2XDisplayCTblLibInfo[102X  is called with a string [3Xname[103X that is an admissible
+  name  for  an  ordinary character table then the overview for this character
+  table  is  shown.  If  a prime integer [3Xp[103X is entered in addition to [3Xname[103X then
+  information about the [3Xp[103X-modular character table is shown instead.[133X
+  
+  [33X[0;0YAn interactive variant of [2XDisplayCTblLibInfo[102X is [2XBrowseCTblLibInfo[102X ([14X3.5-2[114X).[133X
+  
+  [33X[0;0YThe  string  that  is  shown  by  [2XDisplayCTblLibInfo[102X  can  be computed using
+  [2XStringCTblLibInfo[102X, with the same arguments.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XStringCTblLibInfo( CharacterTable( "A5" ) );;[127X[104X
+    [4X[25Xgap>[125X [27XStringCTblLibInfo( CharacterTable( "A5" ) mod 2 );;[127X[104X
+    [4X[25Xgap>[125X [27XStringCTblLibInfo( "A5" );;[127X[104X
+    [4X[25Xgap>[125X [27XStringCTblLibInfo( "A5", 2 );;[127X[104X
+  [4X[32X[104X
+  
+  [1X3.5-2 BrowseCTblLibInfo[101X
+  
+  [33X[1;0Y[29X[2XBrowseCTblLibInfo[102X( [[3Xfunc[103X, [3Xval[103X, [3X...[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XBrowseCTblLibInfo[102X( [3Xtbl[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XBrowseCTblLibInfo[102X( [3Xname[103X[, [3Xp[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing.[133X
+  
+  [33X[0;0YCalled  without  arguments,  [2XBrowseCTblLibInfo[102X shows the contents of the [5XGAP[105X
+  Character Table Library in an [13Xoverview table[113X, see below.[133X
+  
+  [33X[0;0YWhen  arguments  [3Xfunc[103X,  [3Xval[103X, [3X...[103X are given that are admissible arguments for
+  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X) –in particular, the first argument must be a
+  function–  then  the  overview  is restricted to those character tables that
+  match  the  conditions.  The  global  option  [10X"OrderedBy"[110X is supported as in
+  [2XAllCharacterTableNames[102X ([14X3.1-4[114X).[133X
+  
+  [33X[0;0YWhen  [2XBrowseCTblLibInfo[102X  is called with a character table [3Xtbl[103X then a [13Xdetails
+  table[113X is opened that gives an overview of the information available for this
+  character table. When [2XBrowseCTblLibInfo[102X is called with a string [3Xname[103X that is
+  an  admissible  name  for an ordinary character table then the details table
+  for  this  character  table  is  opened.  If a prime integer [3Xp[103X is entered in
+  addition  to  [3Xname[103X  then  information about the [3Xp[103X-modular character table is
+  shown instead.[133X
+  
+  [33X[0;0YThe overview table has the following columns.[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe  [2XIdentifier[102X  ([14XReference: Identifier for character tables[114X) value of
+        the table,[133X
+  
+  [8X[10Xsize[110X[8X[108X
+        [33X[0;6Ythe group order,[133X
+  
+  [8X[10Xnccl[110X[8X[108X
+        [33X[0;6Ythe number of conjugacy classes,[133X
+  
+  [8X[10Xfusions -> G[110X[8X[108X
+        [33X[0;6Ythe list of identifiers of tables on which a fusion to the given table
+        is stored, and[133X
+  
+  [8X[10Xfusions G ->[110X[8X[108X
+        [33X[0;6Ythe  list  of identifiers of tables to which a fusion is stored on the
+        given table.[133X
+  
+  [33X[0;0YThe  details  table for a given character table has exactly one column. Only
+  part  of  the  functionality  of the function [2XNCurses.BrowseGeneric[102X ([14XBrowse:
+  NCurses.BrowseGeneric[114X)  is available in such a table. On the other hand, the
+  details tables contain [21Xlinks[121X to other Browse applications, for example other
+  details tables.[133X
+  
+  [33X[0;0YWhen  one [21Xclicks[121X on a row or an entry in the overview table then the details
+  table  for  the character table in question is opened. One can navigate from
+  this  details  table  to  a  related  one,  by  first [13Xactivating[113X a link (via
+  repeatedly  hitting  the  [12XTab[112X  key)  and then [13Xfollowing[113X the active link (via
+  hitting the [12XReturn[112X key). If mouse actions are enabled (by hitting the [12XM[112X key,
+  see  [2XNCurses.UseMouse[102X ([14XBrowse: NCurses.UseMouse[114X)) then one can alternatively
+  activate a link and click on it via mouse actions.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtab:= [ 9 ];;         # hit the TAB key[127X[104X
+    [4X[25Xgap>[125X [27Xn:= [ 14, 14, 14 ];;  # ``do nothing'' input (means timeout)[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X        # select the first column, search for the name A5[127X[104X
+    [4X[25X>[125X [27X        "sc/A5", [ NCurses.keys.DOWN, NCurses.keys.DOWN,[127X[104X
+    [4X[25X>[125X [27X        NCurses.keys.RIGHT, NCurses.keys.ENTER ],[127X[104X
+    [4X[25X>[125X [27X        # open the details table for A5[127X[104X
+    [4X[25X>[125X [27X        [ NCurses.keys.ENTER ], n, n,[127X[104X
+    [4X[25X>[125X [27X        # activate the link to the character table of A5[127X[104X
+    [4X[25X>[125X [27X        tab, n, n,[127X[104X
+    [4X[25X>[125X [27X        # show the character table of A5[127X[104X
+    [4X[25X>[125X [27X        [ NCurses.keys.ENTER ], n, n, "seddrr", n, n,[127X[104X
+    [4X[25X>[125X [27X        # close this character table[127X[104X
+    [4X[25X>[125X [27X        "Q",[127X[104X
+    [4X[25X>[125X [27X        # activate the link to the maximal subgroup D10[127X[104X
+    [4X[25X>[125X [27X        tab, tab, n, n,[127X[104X
+    [4X[25X>[125X [27X        # jump to the details table for D10[127X[104X
+    [4X[25X>[125X [27X        [ NCurses.keys.ENTER ], n, n,[127X[104X
+    [4X[25X>[125X [27X        # close this details table[127X[104X
+    [4X[25X>[125X [27X        "Q",[127X[104X
+    [4X[25X>[125X [27X        # activate the link to a decomposition matrix[127X[104X
+    [4X[25X>[125X [27X        tab, tab, tab, tab, tab, n, n,[127X[104X
+    [4X[25X>[125X [27X        # show the decomposition matrix[127X[104X
+    [4X[25X>[125X [27X        [ NCurses.keys.ENTER ], n, n,[127X[104X
+    [4X[25X>[125X [27X        # close this table[127X[104X
+    [4X[25X>[125X [27X        "Q",[127X[104X
+    [4X[25X>[125X [27X        # activate the link to the AtlasRep overview[127X[104X
+    [4X[25X>[125X [27X        tab, tab, tab, tab, tab, tab, tab, n, n,[127X[104X
+    [4X[25X>[125X [27X        # show the overview[127X[104X
+    [4X[25X>[125X [27X        [ NCurses.keys.ENTER ], n, n,[127X[104X
+    [4X[25X>[125X [27X        # close this table[127X[104X
+    [4X[25X>[125X [27X        "Q",[127X[104X
+    [4X[25X>[125X [27X        # and quit the applications[127X[104X
+    [4X[25X>[125X [27X        "QQ" ) );[127X[104X
+    [4X[25Xgap>[125X [27XBrowseCTblLibInfo();[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( false );[127X[104X
+  [4X[32X[104X
+  
+  [1X3.5-3 BrowseCommonIrrationalities[101X
+  
+  [33X[1;0Y[29X[2XBrowseCommonIrrationalities[102X(  ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  list  of  info  records  for the irrationalities that have been
+            [21Xclicked[121X in visual mode.[133X
+  
+  [33X[0;0YThis  function  shows  the  atomic  irrationalities  that occur in character
+  tables  in  the  [5XAtlas[105X  of  Finite  Groups [CCN+85]  or  the [5XAtlas[105X of Brauer
+  Characters [JLPW95],  together  with descriptions of their reductions to the
+  relevant  finite  fields  in  a browse table with the following columns. The
+  format is the same as in [JLPW95, Appendix 1].[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe  name  of  the  irrationality,  see [2XAtlasIrrationality[102X ([14XReference:
+        AtlasIrrationality[114X),[133X
+  
+  [8X[10Xp[110X[8X[108X
+        [33X[0;6Ythe characteristic,[133X
+  
+  [8X[10Xvalue mod C_n[110X[8X[108X
+        [33X[0;6Ythe  corresponding  reduction  to  a finite field of characteristic [10Xp[110X,
+        given   by   the  residue  modulo  the  [10Xn[110X-th  Conway  polynomial  (see
+        [2XConwayPolynomial[102X ([14XReference: ConwayPolynomial[114X)),[133X
+  
+  [8X[10Xn[110X[8X[108X
+        [33X[0;6Ythe   degree   of  the  smallest  extension  of  the  prime  field  of
+        characteristic [10Xp[110X that contains the reduction.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn:= [ 14, 14, 14 ];;  # ``do nothing'' input (means timeout)[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X        # categorize the table by the characteristics[127X[104X
+    [4X[25X>[125X [27X        "scrsc", n, n,[127X[104X
+    [4X[25X>[125X [27X        # expand characteristic 2[127X[104X
+    [4X[25X>[125X [27X        "srxq", n, n,[127X[104X
+    [4X[25X>[125X [27X        # scroll down[127X[104X
+    [4X[25X>[125X [27X        "DDD", n, n,[127X[104X
+    [4X[25X>[125X [27X        # and quit the application[127X[104X
+    [4X[25X>[125X [27X        "Q" ) );[127X[104X
+    [4X[25Xgap>[125X [27XBrowseCommonIrrationalities();;[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( false );[127X[104X
+  [4X[32X[104X
+  
+  [1X3.5-4 BrowseCTblLibDifferences[101X
+  
+  [33X[1;0Y[29X[2XBrowseCTblLibDifferences[102X(  ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing.[133X
+  
+  [33X[0;0Y[2XBrowseCTblLibDifferences[102X  lists  the differences between the versions of the
+  character table data in the [5XCTblLib[105X package, since version 1.1.3.[133X
+  
+  [33X[0;0YThe  overview table contains one row for each change, where [21Xchange[121X means the
+  addition,  modification,  or  removal  of information, and has the following
+  columns.[133X
+  
+  [8X[10XIdentifier[110X[8X[108X
+        [33X[0;6Ythe  [2XIdentifier[102X  ([14XReference: Identifier for character tables[114X) value of
+        the character table,[133X
+  
+  [8X[10XType[110X[8X[108X
+        [33X[0;6Yone of [10XNEW[110X (for the addition of previously not available information),
+        [10X***[110X (for a bugfix), or [10XC[110X (for a change that does not really fix a bug,
+        typically a change motivated by a new consistency criterion),[133X
+  
+  [8X[10XWhat[110X[8X[108X
+        [33X[0;6Yone  of  [10Xclass  fusions[110X  (some  class  fusions from or to the table in
+        question  were  changed),  [10Xmaxes[110X  (the  value  of  the attribute [2XMaxes[102X
+        ([14X3.7-1[114X) was changed), [10Xnames[110X (incorrect admissible names were removed),
+        [10Xtable[110X  or  [10Xtable  mod [110X[22Xp[122X (the ordinary or [22Xp[122X-modular character table was
+        changed),  [10Xmaxes[110X  (the  value  of  the  attribute  [2XMaxes[102X  ([14X3.7-1[114X)  was
+        changed),  [10Xtom  fusion[110X (the value of the attribute [2XFusionToTom[102X ([14X3.2-4[114X)
+        was changed),[133X
+  
+  [8X[10XDescription[110X[8X[108X
+        [33X[0;6Ya description what has been changed,[133X
+  
+  [8X[10XFlag[110X[8X[108X
+        [33X[0;6Yone of [10XDup[110X (the table is a duplicate, in the sense of [2XIsDuplicateTable[102X
+        ([14X3.6-1[114X)),  [10XDer[110X  (the  row belongs to a character table that is derived
+        from  other  tables),  [10XFus[110X  (the  row belongs to the addition of class
+        fusions),  [10XMax[110X  (the  row  belongs to a character table that was added
+        because  its group is maximal in another group), or [10XNone[110X (in all other
+        cases  –these  rows  are  to  some  extent  the interesting ones). The
+        information  in  this  column  can be used to restrict the overview to
+        interesting subsets.[133X
+  
+  [8X[10XVers.[110X[8X[108X
+        [33X[0;6Ythe  package version in which the change described by the row appeared
+        first.[133X
+  
+  [33X[0;0YThe  full  functionality  of  the  function  [2XNCurses.BrowseGeneric[102X  ([14XBrowse:
+  NCurses.BrowseGeneric[114X) is available.[133X
+  
+  [33X[0;0YThe following examples show the input for[133X
+  
+  [30X    [33X[0;6Yrestricting the overview to error rows,[133X
+  
+  [30X    [33X[0;6Yrestricting the overview to [21XNone[121X rows, and[133X
+  
+  [30X    [33X[0;6Yrestricting the overview to rows about a particular table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn:= [ 14, 14, 14, 14, 14, 14 ];;  # ``do nothing''[127X[104X
+    [4X[25Xgap>[125X [27Xenter:= [ NCurses.keys.ENTER ];;[127X[104X
+    [4X[25Xgap>[125X [27Xdown:= [ NCurses.keys.DOWN ];;[127X[104X
+    [4X[25Xgap>[125X [27Xright:= [ NCurses.keys.RIGHT ];;[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X       "scr",                    # select the 'Type' column,[127X[104X
+    [4X[25X>[125X [27X       "f***", enter,            # filter rows containing '***',[127X[104X
+    [4X[25X>[125X [27X       n, "Q" ) );               # and quit[127X[104X
+    [4X[25Xgap>[125X [27XBrowseCTblLibDifferences();[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X       "scrrrr",                 # select the 'Flag' column,[127X[104X
+    [4X[25X>[125X [27X       "fNone", enter,           # filter rows containing 'None',[127X[104X
+    [4X[25X>[125X [27X       n, "Q" ) );               # and quit[127X[104X
+    [4X[25Xgap>[125X [27XBrowseCTblLibDifferences();[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X       "fM",                     # filter rows containing 'M',[127X[104X
+    [4X[25X>[125X [27X       down, down, down, right,  # but 'M' as a whole word,[127X[104X
+    [4X[25X>[125X [27X       enter,                    #[127X[104X
+    [4X[25X>[125X [27X       n, "Q" ) );               # and quit[127X[104X
+    [4X[25Xgap>[125X [27XBrowseCTblLibDifferences();[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( false );[127X[104X
+  [4X[32X[104X
+  
+  [1X3.5-5 BrowseAtlasContents[101X
+  
+  [33X[1;0Y[29X[2XBrowseAtlasContents[102X(  ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing.[133X
+  
+  [33X[0;0Y[2XBrowseAtlasContents[102X  shows  the  list  of  names  of  simple  groups and the
+  corresponding  page numbers in the [5XAtlas[105X of Finite Groups [CCN+85], as given
+  on  page  v  of  this book, plus a few groups for which [JLPW95, Appendix 2]
+  states  that  their  character tables in [5XAtlas[105X format have been obtained; if
+  applicable  then  also the corresponding page numbers in the [5XAtlas[105X of Brauer
+  Characters [JLPW95] are shown.[133X
+  
+  [33X[0;0YClicking on a page number opens the [5XAtlas[105X map for the group in question, see
+  [2XBrowseAtlasMap[102X  ([14X3.5-7[114X). (From the map, one can open the [5XAtlas[105X style display
+  using the input [10X"T"[110X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xd:= [ NCurses.keys.DOWN ];;  r:= [ NCurses.keys.RIGHT ];;[127X[104X
+    [4X[25Xgap>[125X [27Xc:= [ NCurses.keys.ENTER ];;[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X       "/J2",         # Find the string J2,[127X[104X
+    [4X[25X>[125X [27X       c,             # start the search,[127X[104X
+    [4X[25X>[125X [27X       r,             # select the page for the ordinary table,[127X[104X
+    [4X[25X>[125X [27X       c,             # click the entry,[127X[104X
+    [4X[25X>[125X [27X       "se",          # select the box of the simple group,[127X[104X
+    [4X[25X>[125X [27X       c,             # click the box,[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the info overview for J2,[127X[104X
+    [4X[25X>[125X [27X       d,             # move down to 2.J2,[127X[104X
+    [4X[25X>[125X [27X       c,             # click the box,[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the info overview for 2.J2,[127X[104X
+    [4X[25X>[125X [27X       "T",           # show the ATLAS table for (extensions of) J2[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the ATLAS table,[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the map,[127X[104X
+    [4X[25X>[125X [27X       r,             # select the page for the 2-modular table,[127X[104X
+    [4X[25X>[125X [27X       c,             # click the entry,[127X[104X
+    [4X[25X>[125X [27X       "T",           # show the 2-modular ATLAS table[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the ATLAS table,[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the map,[127X[104X
+    [4X[25X>[125X [27X       "Q" ) );       # and quit the application.[127X[104X
+    [4X[25Xgap>[125X [27XBrowseAtlasContents();[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( false );[127X[104X
+  [4X[32X[104X
+  
+  [1X3.5-6 DisplayAtlasContents[101X
+  
+  [33X[1;0Y[29X[2XDisplayAtlasContents[102X(  ) [32X function[133X
+  [33X[1;0Y[29X[2XStringAtlasContents[102X(  ) [32X function[133X
+  
+  [33X[0;0Y[2XDisplayAtlasContents[102X calls the function that is given by the user preference
+  [14X4.5-3[114X,  in  order  to  show  the  list  of  names  of  simple groups and the
+  corresponding  page numbers in the [5XAtlas[105X of Finite Groups [CCN+85], as given
+  on  page  v  of  this book, plus a few groups for which [JLPW95, Appendix 2]
+  states  that  their  character tables in [5XAtlas[105X format have been obtained; if
+  applicable  then  also the corresponding page numbers in the [5XAtlas[105X of Brauer
+  Characters [JLPW95] are shown.[133X
+  
+  [33X[0;0YAn   interactive  variant  of  [2XDisplayAtlasContents[102X  is  [2XBrowseAtlasContents[102X
+  ([14X3.5-5[114X).[133X
+  
+  [33X[0;0YThe  string  that  is  shown  by  [2XDisplayAtlasContents[102X can be computed using
+  [2XStringAtlasContents[102X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xstr:= StringAtlasContents();;[127X[104X
+    [4X[25Xgap>[125X [27Xpos:= PositionNthOccurrence( str, '\n', 10 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( str{ [ 1 .. pos ] } );[127X[104X
+    [4X[28XA5 = L2(4) = L2(5)    2       2:2, 3:2, 5:2[128X[104X
+    [4X[28XL3(2) = L2(7)         3       2:3, 3:3, 7:3[128X[104X
+    [4X[28XA6 = L2(9) = S4(2)'   4       2:4, 3:4, 5:5[128X[104X
+    [4X[28XL2(8) = R(3)'         6       2:6, 3:6, 7:6[128X[104X
+    [4X[28XL2(11)                7       2:7, 3:7, 5:8, 11:8[128X[104X
+    [4X[28XL2(13)                8       2:9, 3:9, 7:10, 13:10[128X[104X
+    [4X[28XL2(17)                9       2:11, 3:11, 17:12[128X[104X
+    [4X[28XA7                   10       2:13, 3:13, 5:14, 7:15[128X[104X
+    [4X[28XL2(19)               11       2:16, 3:16, 5:17, 19:18[128X[104X
+    [4X[28XL2(16)               12       2:19, 3:20, 5:20, 17:21[128X[104X
+  [4X[32X[104X
+  
+  [1X3.5-7 BrowseAtlasMap[101X
+  
+  [33X[1;0Y[29X[2XBrowseAtlasMap[102X( [3Xname[103X[, [3Xp[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing.[133X
+  
+  [33X[0;0YFor  a string [3Xname[103X that is the identifier of the character table of a simple
+  group from the [5XAtlas[105X of Finite Groups [CCN+85], [2XBrowseAtlasMap[102X shows the map
+  that  describes  the bicyclic extensions of this group, see [CCN+85, Chapter
+  6]. If the optional argument [3Xp[103X is not given or if [3Xp[103X is zero then the map for
+  the ordinary character tables is shown, if [3Xp[103X is a prime integer then the map
+  for the [3Xp[103X-modular Brauer character tables is shown, as in [JLPW95].[133X
+  
+  [33X[0;0YClicking  on  a  square of the map opens the character table information for
+  the extension in question, by calling [2XBrowseCTblLibInfo[102X ([14X3.5-2[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xd:= [ NCurses.keys.DOWN ];;  r:= [ NCurses.keys.RIGHT ];;[127X[104X
+    [4X[25Xgap>[125X [27Xc:= [ NCurses.keys.ENTER ];;[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X       "T",           # show the ATLAS table for (extensions of) M12[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the ATLAS table,[127X[104X
+    [4X[25X>[125X [27X       "se",          # select the box of the simple group,[127X[104X
+    [4X[25X>[125X [27X       c,             # click the box,[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the info overview for M12,[127X[104X
+    [4X[25X>[125X [27X       r, d,          # select the box for the bicyclic extension,[127X[104X
+    [4X[25X>[125X [27X       c,             # click the box,[127X[104X
+    [4X[25X>[125X [27X       "Q",           # quit the info overview,[127X[104X
+    [4X[25X>[125X [27X       "Q" ) );       # and quit the application.[127X[104X
+    [4X[25Xgap>[125X [27XBrowseAtlasMap( "M12" );[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( false );[127X[104X
+  [4X[32X[104X
+  
+  [1X3.5-8 DisplayAtlasMap[101X
+  
+  [33X[1;0Y[29X[2XDisplayAtlasMap[102X( [3Xname[103X[, [3Xp[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XDisplayAtlasMap[102X( [3Xarec[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XStringsAtlasMap[102X( [3Xname[103X[, [3Xp[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XStringsAtlasMap[102X( [3Xarec[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[2XDisplayAtlasMap[102X  returns  nothing,  [2XStringsAtlasMap[102X returns either
+            [9Xfail[109X or the list of strings that form the rows of the [5XAtlas[105X map of
+            the group in question.[133X
+  
+  [33X[0;0YLet  [3Xname[103X  be  an  admissible name for the character table of a simple [5XAtlas[105X
+  group, and [3Xp[103X be a prime integer or [22X0[122X (which is the default). [2XDisplayAtlasMap[102X
+  shows  the map for the group and its extensions, similar to the map shown in
+  the [5XAtlas[105X. [2XStringsAtlasMap[102X returns the list of strings that form the rows of
+  this map.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasMap( "M12" );[127X[104X
+    [4X[28X--------- ---------   [128X[104X
+    [4X[28X|       | |       |   [128X[104X
+    [4X[28X|   G   | |  G.2  | 15[128X[104X
+    [4X[28X|       | |       |   [128X[104X
+    [4X[28X--------- ---------   [128X[104X
+    [4X[28X--------- ---------   [128X[104X
+    [4X[28X|       | |       |   [128X[104X
+    [4X[28X|  2.G  | | 2.G.2 | 11[128X[104X
+    [4X[28X|       | |       |   [128X[104X
+    [4X[28X--------- ---------   [128X[104X
+    [4X[28X    15        9    [128X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasMap( "M12", 2 );[127X[104X
+    [4X[28X--------- ---------  [128X[104X
+    [4X[28X|       | |       |  [128X[104X
+    [4X[28X|   G   | |  G.2  | 6[128X[104X
+    [4X[28X|       | |       |  [128X[104X
+    [4X[28X--------- ---------  [128X[104X
+    [4X[28X    6         0    [128X[104X
+    [4X[25Xgap>[125X [27XStringsAtlasMap( "M11" );[127X[104X
+    [4X[28X[ "---------   ", "|       |   ", "|   G   | 10", "|       |   ", [128X[104X
+    [4X[28X  "---------   ", "    10   " ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YMore  generally,  [3Xname[103X  can be an admissible name for a character with known
+  [2XExtensionInfoCharacterTable[102X   ([14X3.7-3[114X)   value  and  such  that  the  strings
+  describing  multiplier  and  outer automorphism group in this value occur in
+  the    lists    [10XCTblLib.AtlasMapMultNames[110X    and   [10XCTblLib.AtlasMapOutNames[110X,
+  respectively.  If  not  all  character  tables of bicyclic extensions of the
+  simple  group  in  question are available then [2XStringsAtlasMap[102X returns [9Xfail[109X,
+  and [2XDisplayAtlasMap[102X shows nothing.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasMap( "S10(2)" );[127X[104X
+    [4X[28X---------    [128X[104X
+    [4X[28X|       |    [128X[104X
+    [4X[28X|   G   | 198[128X[104X
+    [4X[28X|       |    [128X[104X
+    [4X[28X---------    [128X[104X
+    [4X[28X   198   [128X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasMap( "L12(27)" );[127X[104X
+    [4X[25Xgap>[125X [27XStringsAtlasMap( "L12(27)" );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  the  abovementioned  requirements  are  not  satisfied for the character
+  tables  in  question  then  one  can provide the necessary information via a
+  record [3Xarec[103X.[133X
+  
+  [33X[0;0YThe  following example shows the [21X[5XAtlas[105X map[121X for the alternating group on four
+  points,  viewed  as  an extension of the trivial group by a Klein four group
+  and a group of order three.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasMap( rec([127X[104X
+    [4X[25X>[125X [27Xlabels:= [ [ "G", "G.3" ],[127X[104X
+    [4X[25X>[125X [27X           [ "2.G", "" ],[127X[104X
+    [4X[25X>[125X [27X           [ "2'.G", "" ],[127X[104X
+    [4X[25X>[125X [27X           [ "2''.G", "" ] ],[127X[104X
+    [4X[25X>[125X [27Xshapes:= [ [ "closed", "closed" ],[127X[104X
+    [4X[25X>[125X [27X           [ "closed", "empty" ],[127X[104X
+    [4X[25X>[125X [27X           [ "closed", "empty" ],[127X[104X
+    [4X[25X>[125X [27X           [ "closed", "empty" ] ],[127X[104X
+    [4X[25X>[125X [27Xlabelscol:= [ "1", "1" ],[127X[104X
+    [4X[25X>[125X [27Xlabelsrow:= [ "1", "1", "1", "1" ],[127X[104X
+    [4X[25X>[125X [27Xdashedhorz:= [ false, false, true, true ],[127X[104X
+    [4X[25X>[125X [27Xdashedvert:= [ false, false ],[127X[104X
+    [4X[25X>[125X [27Xshowdashedrows:= true ) );[127X[104X
+    [4X[28X      --------- ---------  [128X[104X
+    [4X[28X      |       | |       |  [128X[104X
+    [4X[28X      |   G   | |  G.3  | 1[128X[104X
+    [4X[28X      |       | |       |  [128X[104X
+    [4X[28X      --------- ---------  [128X[104X
+    [4X[28X      ---------            [128X[104X
+    [4X[28X      |       |            [128X[104X
+    [4X[28X      |  2.G  |           1[128X[104X
+    [4X[28X      |       |            [128X[104X
+    [4X[28X      ---------            [128X[104X
+    [4X[28X 2'.G ---------          [128X[104X
+    [4X[28X      ---------          [128X[104X
+    [4X[28X2''.G ---------          [128X[104X
+    [4X[28X      ---------          [128X[104X
+    [4X[28X          1         1    [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  next  example  shows  the  [21X[5XAtlas[105X  map[121X  for the symmetric group on three
+  points, viewed as a bicyclic extension of the trivial group by groups of the
+  orders three and two, respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasMap( rec([127X[104X
+    [4X[25X>[125X [27Xlabels:= [ [ "G", "G.2" ],[127X[104X
+    [4X[25X>[125X [27X           [ "3.G", "3.G.2" ] ],[127X[104X
+    [4X[25X>[125X [27Xshapes:= [ [ "closed", "closed" ],[127X[104X
+    [4X[25X>[125X [27X           [ "closed", "open" ] ],[127X[104X
+    [4X[25X>[125X [27Xlabelscol:= [ "1", "1" ],[127X[104X
+    [4X[25X>[125X [27Xlabelsrow:= [ "1", "1" ],[127X[104X
+    [4X[25X>[125X [27Xdashedhorz:= [ false, false ],[127X[104X
+    [4X[25X>[125X [27Xdashedvert:= [ false, false ],[127X[104X
+    [4X[25X>[125X [27Xshowdashedrows:= true ) );[127X[104X
+    [4X[28X--------- ---------  [128X[104X
+    [4X[28X|       | |       |  [128X[104X
+    [4X[28X|   G   | |  G.2  | 1[128X[104X
+    [4X[28X|       | |       |  [128X[104X
+    [4X[28X--------- ---------  [128X[104X
+    [4X[28X--------- --------   [128X[104X
+    [4X[28X|       | |          [128X[104X
+    [4X[28X|  3.G  | | 3.G.2   1[128X[104X
+    [4X[28X|       | |          [128X[104X
+    [4X[28X---------            [128X[104X
+    [4X[28X    1         1    [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Depending on the terminal capabilities, the results may look nicer than the
+  [21XASCII only[121X graphics shown above.)[133X
+  
+  [33X[0;0YThe following components of [3Xarec[103X are supported.[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ya string, the name of the (simple) group;[133X
+  
+  [8X[10Xchar[110X[8X[108X
+        [33X[0;6Ythe characteristic, the default is [22X0[122X;[133X
+  
+  [8X[10Xidentifiers[110X[8X[108X
+        [33X[0;6Yan  [22Xm[122X by [22Xn[122X matrix whose entries are [9Xfail[109X or the [2XIdentifier[102X ([14XReference:
+        Identifier  for tables of marks[114X) values of the character tables of the
+        extensions in question;[133X
+  
+  [8X[10Xlabels[110X[8X[108X
+        [33X[0;6Yan  [22Xm[122X  by [22Xn[122X matrix whose entries are [9Xfail[109X or the strings that shall be
+        used as the labels of the boxes;[133X
+  
+  [8X[10Xshapes[110X[8X[108X
+        [33X[0;6Yan  [22Xm[122X  by  [22Xn[122X  matrix  whose  entries are the strings [10X"closed"[110X, [10X"open"[110X,
+        [10X"broken"[110X, and [10X"empty"[110X, describing the boxes that occur;[133X
+  
+  [8X[10Xlabelscol[110X[8X[108X
+        [33X[0;6Ya list of length [22Xn[122X that contains the labels to be shown below the last
+        row  of  boxes, intended to show the numbers of classes in this column
+        of boxes;[133X
+  
+  [8X[10Xlabelsrow[110X[8X[108X
+        [33X[0;6Ya  list  of length [22Xm[122X that contains the labels to be shown on the right
+        of  the  last  column  of  boxes,  intended  to  show  the  numbers of
+        characters in this row of boxes;[133X
+  
+  [8X[10Xdashedhorz[110X[8X[108X
+        [33X[0;6Ya list of length [22Xm[122X with entries [9Xtrue[109X (the boxes in this row shall have
+        small  height)  or  [9Xfalse[109X  (the  boxes  in  this row shall have normal
+        height);[133X
+  
+  [8X[10Xdashedvert[110X[8X[108X
+        [33X[0;6Ya  list  of length [22Xn[122X with entries [9Xtrue[109X (the boxes in this column shall
+        have small width) or [9Xfalse[109X (the boxes in this column shall have normal
+        width);[133X
+  
+  [8X[10Xshowdashedrows[110X[8X[108X
+        [33X[0;6Y[9Xtrue[109X or [9Xfalse[109X, the default is to show rows of [21Xdashed[121X boxes in the case
+        of  ordinary tables, and to omit them in the case of Brauer tables, as
+        happens in the printed Atlases;[133X
+  
+  [8X[10Xonlyasciiboxes[110X[8X[108X
+        [33X[0;6Y[9Xtrue[109X (show only ASCII characters when drawing the boxes) or [9Xfalse[109X (use
+        line  drawing  characters),  the  default  is  the  value  returned by
+        [10XCTblLib.ShowOnlyASCII[110X;[133X
+  
+  [8X[10Xonlyasciilabels[110X[8X[108X
+        [33X[0;6Y[9Xtrue[109X  (show  only  ASCII characters in the labels inside the boxes) or
+        [9Xfalse[109X  (default,  use  subscripts  if  applicable); the default is the
+        value returned by [10XCTblLib.ShowOnlyASCII[110X;[133X
+  
+  [8X[10Xspecialshapes[110X[8X[108X
+        [33X[0;6Ya  list of length three that describes exceptional cases (intended for
+        the  treatment of [21Xdashed names[121X and [21Xbroken boxes[121X, look at the values in
+        [10XCTblLib.AtlasMapBoxesSpecial[110X where this component is actually used).[133X
+  
+  [1X3.5-9 BrowseAtlasTable[101X
+  
+  [33X[1;0Y[29X[2XBrowseAtlasTable[102X( [3Xname[103X[, [3Xp[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing.[133X
+  
+  [33X[0;0Y[2XBrowseAtlasTable[102X displays the character tables of bicyclic extensions of the
+  simple group with the name [3Xname[103X in a window, in the same format as the [5XAtlas[105X
+  of  Finite  Groups  [CCN+85] and the [5XAtlas[105X of Brauer Characters [JLPW95] do.
+  For  that, it is necessary that these tables are known, as well as the class
+  fusions  between  them  and perhaps additional information (e. g., about the
+  existence  of  certain  extensions). These requirements are fulfilled if the
+  tables are contained in the [5XAtlas[105X, but they may hold also in other cases.[133X
+  
+  [33X[0;0YIf  a  prime  [3Xp[103X  is  given  as the second argument then the [3Xp[103X-modular Brauer
+  tables are shown, otherwise (or if [3Xp[103X is zero) the ordinary tables are shown.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xd:= [ NCurses.keys.DOWN ];;  r:= [ NCurses.keys.RIGHT ];;[127X[104X
+    [4X[25Xgap>[125X [27Xc:= [ NCurses.keys.ENTER ];;[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X       "/y",          # Find the string y,[127X[104X
+    [4X[25X>[125X [27X       c,             # start the search,[127X[104X
+    [4X[25X>[125X [27X       "nnnn",        # Find more occurrences,[127X[104X
+    [4X[25X>[125X [27X       "Q" ) );       # and quit the application.[127X[104X
+    [4X[25Xgap>[125X [27XBrowseAtlasTable( "A6" );[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( false );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe function uses [2XNCurses.BrowseGeneric[102X ([14XBrowse: NCurses.BrowseGeneric[114X). The
+  identifier  of the table is used as the static header. The strings [10XX_1[110X, [10XX_2[110X,
+  [22X...[122X  are  used  as  row  labels  for those table rows that contain character
+  values,  and  column  labels  are  given  by  centralizer  orders, power map
+  information, and class names.[133X
+  
+  [1X3.5-10 BrowseAtlasImprovements[101X
+  
+  [33X[1;0Y[29X[2XBrowseAtlasImprovements[102X( [[3Xchoice[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing.[133X
+  
+  [33X[0;0YCalled     without    argument    or    with    the    string    [10X"ordinary"[110X,
+  [2XBrowseAtlasImprovements[102X  shows  the  lists  of  improvements to the [5XAtlas[105X of
+  Finite Groups [CCN+85] that are contained in [BN95] and [Nor].[133X
+  
+  [33X[0;0YCalled  with the string [10X"modular"[110X, [2XBrowseAtlasImprovements[102X shows the list of
+  improvements  to  the [5XAtlas[105X of Brauer Characters [JLPW95] that are contained
+  in [ABC].[133X
+  
+  [33X[0;0YCalled with [9Xtrue[109X, the concatenation of the above lists are shown.[133X
+  
+  [33X[0;0YThe  overview  table  contains  one  row  for  each improvement, and has the
+  following columns.[133X
+  
+  [8X[10XSection[110X[8X[108X
+        [33X[0;6Ythe  part  in  the [5XAtlas[105X to which the entry belongs (Introduction, The
+        Groups, Additional information, Bibliography, Appendix 1, Appendix 2),[133X
+  
+  [8X[10XSrc[110X[8X[108X
+        [33X[0;6Y[10X1[110X for entries from [BN95], [10X2[110X for entries from [Nor], and [10X3[110X for entries
+        from [ABC],[133X
+  
+  [8X[10XTyp[110X[8X[108X
+        [33X[0;6Ythe type of the improvement, one of [10X***[110X (for mathematical errors), [10XNEW[110X
+        (for  new  information),  [10XC[110X  (for  improvements  concerning grammar or
+        notational   consistency),   or   [10XM[110X   (for   misprints   or  cases  of
+        illegibility),[133X
+  
+  [8X[10XPage[110X[8X[108X
+        [33X[0;6Ythe page and perhaps the line in the (ordinary or modular) [5XAtlas[105X,[133X
+  
+  [8X[10XGroup[110X[8X[108X
+        [33X[0;6Ythe  name  of  the  simple group to which the entry belongs (empty for
+        entries not from the section [21XThe Groups[121X),[133X
+  
+  [8X[10XText[110X[8X[108X
+        [33X[0;6Ythe description of the entry,[133X
+  
+  [8X[10X**[110X[8X[108X
+        [33X[0;6Yfor each entry of the type [10X***[110X, the subtype of the error to which some
+        statements  in  [BMO17]  refer, one of [10XCH[110X (character values), [10XP[110X (power
+        maps, element orders, and class names), [10XFI[110X (fusions and indicators), [10XI[110X
+        (Introduction,   Bibliography,   the   list   showing  the  orders  of
+        multipliers  and  outer  automorphism  group,  and  the list of Conway
+        polynomials), [10XMP[110X (maps), [10XMX[110X (descriptions of maximal subgroups), and [10XG[110X
+        (other information about the group).[133X
+  
+  [33X[0;0YThe  full  functionality  of  the  function  [2XNCurses.BrowseGeneric[102X  ([14XBrowse:
+  NCurses.BrowseGeneric[114X) is available.[133X
+  
+  [33X[0;0YThe  following  example  shows  the  input for first restricting the list to
+  errors (type [10X***[110X), then categorizing the filtered list by the subtype of the
+  error, and then expanding the category for the subtype [10XCH[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn:= [ 14, 14, 14, 14, 14, 14 ];;  # ``do nothing''[127X[104X
+    [4X[25Xgap>[125X [27Xenter:= [ NCurses.keys.ENTER ];;[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( Concatenation([127X[104X
+    [4X[25X>[125X [27X       "scrr",                   # select the 'Typ' column,[127X[104X
+    [4X[25X>[125X [27X       "f***", enter,            # filter rows containing '***',[127X[104X
+    [4X[25X>[125X [27X       "scrrrrrrsc", enter,      # categorize by the error kind[127X[104X
+    [4X[25X>[125X [27X       "sr", enter,              # expand the 'CH' category[127X[104X
+    [4X[25X>[125X [27X       n, "Q" ) );               # and quit[127X[104X
+    [4X[25Xgap>[125X [27XBrowseAtlasImprovements();[127X[104X
+    [4X[25Xgap>[125X [27XBrowseData.SetReplay( false );[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.6 [33X[0;0YDuplicates of Library Character Tables[133X[101X
+  
+  [33X[0;0YIt  can  be  useful  to  deal with different instances of [21Xthe same[121X character
+  table.  An  example  is  the situation that a group [22XG[122X, say, contains several
+  classes  of  isomorphic maximal subgroups that have different class fusions;
+  the  attribute  [2XMaxes[102X  ([14X3.7-1[114X)  of  the  character  table of [22XG[122X then contains
+  several  entries  that  belong to the same group, but the identifiers of the
+  character tables are different.[133X
+  
+  [33X[0;0YOn  the  other  hand, it can be useful to consider only one of the different
+  instances  when  one  searches for character tables with certain properties,
+  for example using [2XOneCharacterTableName[102X ([14X3.1-5[114X).[133X
+  
+  [33X[0;0YFor  that, we introduce the following concept. A character table [22Xt_1[122X is said
+  to  be  a  [13Xduplicate[113X  of  another  character  table  [22Xt_2[122X  if  the  attribute
+  [2XIdentifierOfMainTable[102X  ([14X3.6-2[114X) returns the [2XIdentifier[102X ([14XReference: Identifier
+  for  character  tables[114X) value of [22Xt_2[122X when it is called with [22Xt_1[122X, and we call
+  [22Xt_2[122X  the  [13Xmain  table[113X of [22Xt_1[122X. In this case, [2XIsDuplicateTable[102X ([14X3.6-1[114X) returns
+  [9Xtrue[109X for [22Xt_1[122X.[133X
+  
+  [33X[0;0YIf  the  character  table  [22Xt_1[122X is not a duplicate of any other library table
+  then [2XIdentifierOfMainTable[102X ([14X3.6-2[114X) returns [9Xfail[109X for [22Xt_1[122X and [2XIsDuplicateTable[102X
+  ([14X3.6-1[114X) returns [9Xfalse[109X.[133X
+  
+  [33X[0;0YSee    [2XAllCharacterTableNames[102X    ([14X3.1-4[114X)   for   examples   how   to   apply
+  [2XIsDuplicateTable[102X ([14X3.6-1[114X) in practice.[133X
+  
+  [33X[0;0YWe do [13Xnot[113X promise that two library tables for which [2XIsDuplicateTable[102X ([14X3.6-1[114X)
+  returns [9Xfalse[109X are necessarily different. (And since nonisomorphic groups may
+  have  the  same  character  table,  it  would  not make sense to think about
+  restricting  a  search to a subset of library tables that belong to pairwise
+  nonisomorphic groups.)[133X
+  
+  [33X[0;0YCurrently  [2XIdentifierOfMainTable[102X  ([14X3.6-2[114X)  does  not  return [9Xfail[109X for [22Xt_1[122X if
+  [2XConstructionInfoCharacterTable[102X ([14X3.7-4[114X) is set in [22Xt_1[122X, the first entry of the
+  attribute value is [10X"ConstructPermuted"[110X, and one of the following holds.[133X
+  
+  [30X    [33X[0;6YThe  second  entry of the [2XConstructionInfoCharacterTable[102X ([14X3.7-4[114X) value
+        is  a  list  of  length  [22X1[122X  that  contains  the [2XIdentifier[102X ([14XReference:
+        Identifier for character tables[114X) value of [22Xt_2[122X.[133X
+  
+  [30X    [33X[0;6YThe  [5XSpinSym[105X  package is loaded and [22Xt_1[122X is one of the character tables
+        provided  by  this  package. These tables are not declared as permuted
+        tables of library tables, but we [13Xwant[113X to regard them as duplicates.[133X
+  
+  [1X3.6-1 IsDuplicateTable[101X
+  
+  [33X[1;0Y[29X[2XIsDuplicateTable[102X( [3Xtbl[103X ) [32X property[133X
+  
+  [33X[0;0YFor  an  ordinary  character table [3Xtbl[103X from the [5XGAP[105X Character Table Library,
+  this  function  returns  [9Xtrue[109X  if  [3Xtbl[103X  was constructed from another library
+  character   table   by   permuting  rows  and  columns,  via  the  attribute
+  [2XConstructionInfoCharacterTable[102X  ([14X3.7-4[114X).  Otherwise  [9Xfalse[109X  is  returned, in
+  particular  if  [3Xtbl[103X  is  not  a character table from the [5XGAP[105X Character Table
+  Library.[133X
+  
+  [33X[0;0YOne   application   of   this  function  is  to  restrict  the  search  with
+  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X) to only one library character table for each
+  class  of  permutation  equivalent  tables.  Note  that this property of the
+  search  result  cannot  be  guaranteed if private character tables have been
+  added to the library, see [2XNotifyCharacterTable[102X ([14X4.7-5[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxes( CharacterTable( "A6" ) );[127X[104X
+    [4X[28X[ "A5", "A6M2", "3^2:4", "s4", "A6M5" ][128X[104X
+    [4X[25Xgap>[125X [27XIsDuplicateTable( CharacterTable( "A5" ) );[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsDuplicateTable( CharacterTable( "A6M2" ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [1X3.6-2 IdentifierOfMainTable[101X
+  
+  [33X[1;0Y[29X[2XIdentifierOfMainTable[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YIf  [3Xtbl[103X  is  an ordinary character table that is a duplicate in the sense of
+  the  introduction  to  Section [14X3.6[114X then this function returns the [2XIdentifier[102X
+  ([14XReference: Identifier for character tables[114X) value of the main table of [3Xtbl[103X.
+  Otherwise [9Xfail[109X is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxes( CharacterTable( "A6" ) );[127X[104X
+    [4X[28X[ "A5", "A6M2", "3^2:4", "s4", "A6M5" ][128X[104X
+    [4X[25Xgap>[125X [27XIdentifierOfMainTable( CharacterTable( "A5" ) );[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XIdentifierOfMainTable( CharacterTable( "A6M2" ) );[127X[104X
+    [4X[28X"A5"[128X[104X
+  [4X[32X[104X
+  
+  [1X3.6-3 IdentifiersOfDuplicateTables[101X
+  
+  [33X[1;0Y[29X[2XIdentifiersOfDuplicateTables[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YFor  an  ordinary  character  table  [3Xtbl[103X,  this function returns the list of
+  [2XIdentifier[102X  ([14XReference:  Identifier  for  character  tables[114X) values of those
+  character tables from the [5XGAP[105X Character Table Library that are duplicates of
+  [3Xtbl[103X, in the sense of the introduction to Section [14X3.6[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxes( CharacterTable( "A6" ) );[127X[104X
+    [4X[28X[ "A5", "A6M2", "3^2:4", "s4", "A6M5" ][128X[104X
+    [4X[25Xgap>[125X [27XIdentifiersOfDuplicateTables( CharacterTable( "A5" ) );[127X[104X
+    [4X[28X[ "A6M2", "Alt(5)" ][128X[104X
+    [4X[25Xgap>[125X [27XIdentifiersOfDuplicateTables( CharacterTable( "A6M2" ) );[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X3.7 [33X[0;0YAttributes for Library Character Tables[133X[101X
+  
+  [33X[0;0YThis  section  describes  certain  attributes which are set only for certain
+  (not necessarily all) character tables from the [5XGAP[105X Character Table Library.
+  The  attribute  values  are  part  of the database, there are no methods for
+  [13Xcomputing[113X  them,  except  for  [2XInfoText[102X  ([14X3.7-5[114X)  and  the  related property
+  [2XIsAtlasCharacterTable[102X ([14X3.7-6[114X).[133X
+  
+  [33X[0;0YOther  such attributes and properties are described in other manual sections
+  because  the  context fits better. These attributes are [2XFusionToTom[102X ([14X3.2-4[114X),
+  [2XGroupInfoForCharacterTable[102X      ([14X3.3-1[114X),     [2XKnowsSomeGroupInfo[102X     ([14X3.3-2[114X),
+  [2XIsNontrivialDirectProduct[102X      ([14X3.3-7[114X),     [2XDeligneLusztigNames[102X     ([14X3.4-2[114X),
+  [2XDeligneLusztigName[102X      ([14X3.4-3[114X),      [2XKnowsDeligneLusztigNames[102X      ([14X3.4-4[114X),
+  [2XIsDuplicateTable[102X ([14X3.6-1[114X), and [2XCASInfo[102X ([14X4.4-1[114X).[133X
+  
+  [1X3.7-1 Maxes[101X
+  
+  [33X[1;0Y[29X[2XMaxes[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YIf  this attribute is set for an ordinary character table [3Xtbl[103X then the value
+  is  a  list  of  identifiers of the ordinary character tables of all maximal
+  subgroups of [3Xtbl[103X. There is no default method to [13Xcompute[113X this value from [3Xtbl[103X.[133X
+  
+  [33X[0;0YIf the [2XMaxes[102X value of [3Xtbl[103X is stored then it lists exactly one representative
+  for  each  conjugacy class of maximal subgroups of the group of [3Xtbl[103X, and the
+  character  tables  of  these  maximal  subgroups  are  available  in the [5XGAP[105X
+  Character  Table  Library, and compatible class fusions to [3Xtbl[103X are stored on
+  these tables (see the example in Section [14X2.3-5[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "M11" );;[127X[104X
+    [4X[25Xgap>[125X [27XHasMaxes( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xmaxes:= Maxes( tbl );[127X[104X
+    [4X[28X[ "A6.2_3", "L2(11)", "3^2:Q8.2", "A5.2", "2.S4" ][128X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( maxes[1] );[127X[104X
+    [4X[28XCharacterTable( "A6.2_3" )[128X[104X
+  [4X[32X[104X
+  
+  [1X3.7-2 ProjectivesInfo[101X
+  
+  [33X[1;0Y[29X[2XProjectivesInfo[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YIf  this attribute is set for an ordinary character table [3Xtbl[103X then the value
+  is a list of records, each with the following components.[133X
+  
+  [8X[10Xname[110X[8X[108X
+        [33X[0;6Ythe  [2XIdentifier[102X  ([14XReference: Identifier for character tables[114X) value of
+        the  character  table  of  the  covering  whose  faithful  irreducible
+        characters are described by the record,[133X
+  
+  [8X[10Xchars[110X[8X[108X
+        [33X[0;6Ya  list  of values lists of faithful projective irreducibles; only one
+        representative  of  each  family  of Galois conjugates is contained in
+        this list. and[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XProjectivesInfo( CharacterTable( "A5" ) );[127X[104X
+    [4X[28X[ rec( [128X[104X
+    [4X[28X      chars := [ [ 2, 0, -1, E(5)+E(5)^4, E(5)^2+E(5)^3 ], [128X[104X
+    [4X[28X          [ 2, 0, -1, E(5)^2+E(5)^3, E(5)+E(5)^4 ], [128X[104X
+    [4X[28X          [ 4, 0, 1, -1, -1 ], [ 6, 0, 0, 1, 1 ] ], name := "2.A5" ) ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.7-3 ExtensionInfoCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XExtensionInfoCharacterTable[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YLet [3Xtbl[103X be the ordinary character table of a group [22XG[122X, say. If this attribute
+  is set for [3Xtbl[103X then the value is a list of length two, the first entry being
+  a  string  [10XM[110X  that  describes the Schur multiplier of [22XG[122X and the second entry
+  being  a  string [10XA[110X that describes the outer automorphism group of [22XG[122X. Trivial
+  multiplier or outer automorphism group are denoted by an empty string.[133X
+  
+  [33X[0;0YIf  [3Xtbl[103X is a table from the [5XGAP[105X Character Table Library and [22XG[122X is (nonabelian
+  and)  simple then the value is set. In this case, an admissible name for the
+  character  table  of  a  universal  covering  group  of  [22XG[122X (if this table is
+  available  and  different from [3Xtbl[103X) is given by the concatenation of [10XM[110X, [10X"."[110X,
+  and  the  [2XIdentifier[102X  ([14XReference:  Identifier for character tables[114X) value of
+  [3Xtbl[103X.  Analogously,  an  admissible  name  for  the  character  table  of the
+  automorphism  group of [22XG[122X (if this table is available and different from [3Xtbl[103X)
+  is  given  by the concatenation of the [2XIdentifier[102X ([14XReference: Identifier for
+  character tables[114X) value of [3Xtbl[103X, [10X"."[110X, and [10XA[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XExtensionInfoCharacterTable( CharacterTable( "A5" ) );[127X[104X
+    [4X[28X[ "2", "2" ][128X[104X
+  [4X[32X[104X
+  
+  [1X3.7-4 ConstructionInfoCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XConstructionInfoCharacterTable[102X( [3Xtbl[103X ) [32X attribute[133X
+  
+  [33X[0;0YIf  this attribute is set for an ordinary character table [3Xtbl[103X then the value
+  is  a list that describes how this table was constructed. The first entry is
+  a  string  that  is  the  identifier of the function that was applied to the
+  pre-table record; the remaining entries are the arguments for that function,
+  except that the pre-table record must be prepended to these arguments.[133X
+  
+  [1X3.7-5 InfoText[101X
+  
+  [33X[1;0Y[29X[2XInfoText[102X( [3Xtbl[103X ) [32X method[133X
+  
+  [33X[0;0YThis  method  for  library  character  tables  returns an empty string if no
+  [2XInfoText[102X value is stored on the table [3Xtbl[103X.[133X
+  
+  [33X[0;0YWithout  this  method,  it  would  be impossible to use [2XInfoText[102X in calls to
+  [2XAllCharacterTableNames[102X ([14X3.1-4[114X), as in the following example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( InfoText,[127X[104X
+    [4X[25X>[125X [27X       s -> PositionSublist( s, "tests:" ) <> fail );;[127X[104X
+  [4X[32X[104X
+  
+  [1X3.7-6 IsAtlasCharacterTable[101X
+  
+  [33X[1;0Y[29X[2XIsAtlasCharacterTable[102X( [3Xtbl[103X ) [32X property[133X
+  
+  [33X[0;0YFor  an ordinary character table [3Xtbl[103X, this function returns [9Xtrue[109X if and only
+  if  the  [2XInfoText[102X ([14X3.7-5[114X) value of [3Xtbl[103X contains the string [10X"origin: ATLAS of
+  finite groups"[110X.[133X
+  
+  [33X[0;0YFor  a Brauer character table [3Xtbl[103X, this function returns [9Xtrue[109X if and only if
+  [2XIsAtlasCharacterTable[102X returns [9Xtrue[109X for the underlying ordinary table of [3Xtbl[103X.[133X
+  
+  [33X[0;0YOne   application   of   this  function  is  to  restrict  the  search  with
+  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X) to character tables from the [5XAtlas[105X of Finite
+  Groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxes( CharacterTable( "A6" ) );[127X[104X
+    [4X[28X[ "A5", "A6M2", "3^2:4", "s4", "A6M5" ][128X[104X
+    [4X[25Xgap>[125X [27XIsAtlasCharacterTable( CharacterTable( "A5" ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsAtlasCharacterTable( CharacterTable( "A5" ) mod 2 );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsAtlasCharacterTable( CharacterTable( "A6M2" ) );[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  

@@ -1,0 +1,31 @@
+#!/bin/sh
+set -e
+
+DEFAULT_GAPPATH=../../..
+
+if test -z "$1"; then
+  GAPPATH=${DEFAULT_GAPPATH}; echo "Using ${DEFAULT_GAPPATH} as default GAP path";
+else
+  GAPPATH=$1;
+fi
+
+
+echo "TeXing documentation"
+# TeX the manual and build its bibliography
+tex manual; bibtex manual
+# TeX the manual again to incorporate the ToC ... and build the index
+tex manual; $GAPPATH/doc/manualindex manual
+# Finally TeX the manual again to get cross-references right
+tex manual
+# Create the .pdf version
+pdftex manual; pdftex manual
+
+# The HTML version of the manual
+rm -rf ../htm
+mkdir ../htm
+echo "Creating HTML documentation"
+$GAPPATH/etc/convert.pl -i -u -c -n aclib . ../htm
+
+#############################################################################
+##
+#E

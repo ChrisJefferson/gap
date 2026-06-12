@@ -1,0 +1,253 @@
+\GAPDocLabFile{ctbllibxpls}
+\makelabel{ctbllibxpls:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{ctbllibxpls:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{ctbllibxpls:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{ctbllibxpls:Maintenance Issues for the GAP Character Table Library}{1}{X8354C98179CDB193}
+\makelabel{ctbllibxpls:Disproving Possible Character Tables (November 2006)}{1.1}{X7ECA800587320C2C}
+\makelabel{ctbllibxpls:A Perfect Pseudo Character Table (November 2006)}{1.1.1}{X795DCCEA7F4D187A}
+\makelabel{ctbllibxpls:An Error in the Character Table of E6(2) (March 2016)}{1.1.2}{X80F0B4E07B0B2277}
+\makelabel{ctbllibxpls:An Error in a Power Map of the Character Table of 2.F4(2).2 (November 2015)}{1.1.3}{X7D7982CD87413F76}
+\makelabel{ctbllibxpls:A Character Table with a Wrong Name (May 2017)}{1.1.4}{X836E4B6184F32EF5}
+\makelabel{ctbllibxpls:Some finite factor groups of perfect space groups (February 2014)}{1.2}{X8159D79C7F071B33}
+\makelabel{ctbllibxpls:Constructing the space groups in question}{1.2.1}{X8710D4947AEB366F}
+\makelabel{ctbllibxpls:Constructing the factor groups in question}{1.2.2}{X84E7FE70843422B0}
+\makelabel{ctbllibxpls:Examples with point group A5}{1.2.3}{X79109A20873E76DA}
+\makelabel{ctbllibxpls:Examples with point group L3(2)}{1.2.4}{X83523D1E792F9E01}
+\makelabel{ctbllibxpls:Example with point group SL2(7)}{1.2.5}{X7A01A9BC846BE39A}
+\makelabel{ctbllibxpls:Example with point group 23.L3(2)}{1.2.6}{X7D3100B58093F37D}
+\makelabel{ctbllibxpls:Examples with point group A6}{1.2.7}{X80800F3B7D6EF06C}
+\makelabel{ctbllibxpls:Examples with point group L2(8)}{1.2.8}{X7D43452C79B0EAE1}
+\makelabel{ctbllibxpls:Example with point group M11}{1.2.9}{X8575CE147A9819BF}
+\makelabel{ctbllibxpls:Example with point group U3(3)}{1.2.10}{X7C0201B77DA1682A}
+\makelabel{ctbllibxpls:Examples with point group U4(2)}{1.2.11}{X85D9C329792E58F3}
+\makelabel{ctbllibxpls:A remark on one of the example groups}{1.2.12}{X8635EE0B78A66120}
+\makelabel{ctbllibxpls:Listing possible generality problems}{1.3.1}{X7D1A66C3844D09B1}
+\makelabel{ctbllibxpls:A generality problem concerning the group J3 (April 2015)}{1.3.2}{X80EB5D827A78975A}
+\makelabel{ctbllibxpls:A generality problem concerning the group HN (August 2022)}{1.3.3}{X82C37532783168AA}
+\makelabel{ctbllibxpls:Brauer Tables that can be derived from Known Tables}{1.4}{X7D8C6D1883C9CECA}
+\makelabel{ctbllibxpls:Brauer Tables via Construction Information}{1.4.1}{X7DF018B77E722CA7}
+\makelabel{ctbllibxpls:Liftable Brauer Characters (May 2017)}{1.4.2}{X795419A287BD228E}
+\makelabel{ctbllibxpls:Information about certain subgroups of the Monster group}{1.5}{X864EFF897A854F89}
+\makelabel{ctbllibxpls:The Monster group does not contain subgroups of the type 2.U4(2) (August 2023)}{1.5.1}{X82C7A03684DD7C6E}
+\makelabel{ctbllibxpls:Perfect central extensions of L3(4) (August 2023)}{1.5.2}{X87EC0C48866D1BDE}
+\makelabel{ctbllibxpls:Using Table Automorphisms for Constructing Character Tables in GAP}{2}{X7B77FD307F0DE563}
+\makelabel{ctbllibxpls:Overview}{2.1}{X8389AD927B74BA4A}
+\makelabel{ctbllibxpls:Theoretical Background}{2.2}{X7B6AEBDF7B857E2E}
+\makelabel{ctbllibxpls:Character Table Automorphisms}{2.2.1}{X78EBF9BA7A34A9C2}
+\makelabel{ctbllibxpls:Permutation Equivalence of Character Tables}{2.2.2}{X832525DE7AB34F16}
+\makelabel{ctbllibxpls:Class Fusions}{2.2.3}{X7906869F7F190E76}
+\makelabel{ctbllibxpls:Constructing Character Tables of Certain Isoclinic Groups}{2.2.4}{X80C37276851D5E39}
+\makelabel{ctbllibxpls:Character Tables of Isoclinic Groups of the Structure p.G.p (October 2016)}{2.2.5}{X7AEFFEEC84511FD0}
+\makelabel{ctbllibxpls:Isoclinic Double Covers of Almost Simple Groups}{2.2.6}{X78F41D2A78E70BEE}
+\makelabel{ctbllibxpls:Characters of Normal Subgroups}{2.2.7}{X834B42A07E98FBC6}
+\makelabel{ctbllibxpls:The Constructions}{2.3}{X787F430E7FDB8765}
+\makelabel{ctbllibxpls:Character Tables of Groups of the Structure M.G.A}{2.3.1}{X82E75B6880EC9E6C}
+\makelabel{ctbllibxpls:Character Tables of Groups of the Structure G.S3}{2.3.2}{X7CCABDDE864E6300}
+\makelabel{ctbllibxpls:Character Tables of Groups of the Structure G.22}{2.3.3}{X7D3EF3BC83BE05CF}
+\makelabel{ctbllibxpls:Character Tables of Groups of the Structure 22.G (August 2005)}{2.3.4}{X81464C4B8178C85A}
+\makelabel{ctbllibxpls:p-Modular Tables of Extensions by p-singular Automorphisms}{2.3.5}{X86CF6A607B0827EE}
+\makelabel{ctbllibxpls:Character Tables of Subdirect Products of Index Two (July 2007)}{2.3.6}{X788591D78451C024}
+\makelabel{ctbllibxpls:Examples for the Type M.G.A}{2.4}{X817D2134829FA8FA}
+\makelabel{ctbllibxpls:Character Tables of Dihedral Groups}{2.4.1}{X7F2DBAB48437052C}
+\makelabel{ctbllibxpls:An M.G.A Type Example with M noncentral in M.G (May 2004)}{2.4.2}{X7925DBFA7C5986B5}
+\makelabel{ctbllibxpls:Atlas Tables of the Type M.G.A}{2.4.3}{X7ED45AB379093A70}
+\makelabel{ctbllibxpls:More Atlas Tables of the Type M.G.A}{2.4.4}{X7A236EDE7A7A28F9}
+\makelabel{ctbllibxpls:The Character Tables of 42.L3(4).23 and 122.L3(4).23}{2.4.5}{X794EC2FD7F69B4E6}
+\makelabel{ctbllibxpls:The Character Tables of 121.U4(3).22' and 122.U4(3).23' (December 2015)}{2.4.6}{X7E3E748E85AEDDB3}
+\makelabel{ctbllibxpls:Groups of the Structures 3.U3(8).31 and 3.U3(8).6 (February 2017)}{2.4.7}{X8379003582D06130}
+\makelabel{ctbllibxpls:The Character Table of (22 × F4(2)):2 < B (March 2003)}{2.4.8}{X7B46C77B850D3B4D}
+\makelabel{ctbllibxpls:The Character Table of 2.(S3 × Fi22.2) < 2.B (March 2003)}{2.4.9}{X8254AA4A843F99BE}
+\makelabel{ctbllibxpls:The Character Table of (2 × 2.Fi22):2 < Fi24 (November 2008)}{2.4.10}{X7AF125168239D208}
+\makelabel{ctbllibxpls:The Character Table of S3 × 2.U4(3).22 ≤ 2.Fi22 (September 2002)}{2.4.11}{X79C93F7D87D9CF1D}
+\makelabel{ctbllibxpls:The Character Table of 4.HS.2 ≤ HN.2 (May 2002)}{2.4.12}{X83724BCE86FCD77B}
+\makelabel{ctbllibxpls:The Character Tables of 4.A6.23, 12.A6.23, and 4.L2(25).23}{2.4.13}{X7E9A88DA7CBF6426}
+\makelabel{ctbllibxpls:The Character Table of 4.L2(49).23 (December 2020)}{2.4.14}{X7BD79BA37C3E729B}
+\makelabel{ctbllibxpls:The Character Table of 4.L2(81).23 (December 2020)}{2.4.15}{X817A961487D2DFD1}
+\makelabel{ctbllibxpls:The Character Table of 9.U3(8).33 (March 2017)}{2.4.16}{X7AF324AF7A54798F}
+\makelabel{ctbllibxpls:Pseudo Character Tables of the Type M.G.A (May 2004)}{2.4.17}{X7E0C603880157C4E}
+\makelabel{ctbllibxpls:Some Extra-ordinary p-Modular Tables of the Type M.G.A (September 2005)}{2.4.18}{X844185EF7A8F2A99}
+\makelabel{ctbllibxpls:Examples for the Type G.S3}{2.5}{X7F50C782840F06E4}
+\makelabel{ctbllibxpls:Small Examples}{2.5.1}{X7F0DC29F874AA09F}
+\makelabel{ctbllibxpls:Atlas Tables of the Type G.S3}{2.5.2}{X80F9BC057980A9E9}
+\makelabel{ctbllibxpls:Examples for the Type G.22}{2.6}{X7EA489E07D7C7D86}
+\makelabel{ctbllibxpls:The Character Table of A6.22}{2.6.1}{X8054FDE679053B1C}
+\makelabel{ctbllibxpls:Atlas Tables of the Type G.22 – Easy Cases}{2.6.2}{X7FEC3AB081487AF2}
+\makelabel{ctbllibxpls:The Character Table of S4(9).22 (September 2011)}{2.6.3}{X869B65D3863EDEC3}
+\makelabel{ctbllibxpls:The Character Tables of Groups of the Type 2.L3(4).22 (June 2010)}{2.6.4}{X7B38006380618543}
+\makelabel{ctbllibxpls:The Character Tables of Groups of the Type 6.L3(4).22 (October 2011)}{2.6.5}{X79818ABD7E972370}
+\makelabel{ctbllibxpls:The Character Tables of Groups of the Type 2.U4(3).22 (February 2012)}{2.6.6}{X878889308653435F}
+\makelabel{ctbllibxpls:The Character Tables of Groups of the Type 41.L3(4).22 (October 2011)}{2.6.7}{X7DC42AE57E9EED4D}
+\makelabel{ctbllibxpls:The Character Tables of Groups of the Type 42.L3(4).22 (October 2011)}{2.6.8}{X7E9AF180869B4786}
+\makelabel{ctbllibxpls:The Character Table of Aut(L2(81))}{2.6.9}{X7EAF9CD07E536120}
+\makelabel{ctbllibxpls:Examples for the Type 22.G}{2.7}{X845BAA2A7FD768B0}
+\makelabel{ctbllibxpls:The Character Table of 22.Sz(8)}{2.7.1}{X87EEBDB987249117}
+\makelabel{ctbllibxpls:Atlas Tables of the Type 22.G (September 2005)}{2.7.2}{X83652A0282A64D14}
+\makelabel{ctbllibxpls:The Character Table of the Schur Cover of L3(4) (September 2005)}{2.7.4}{X86A1607787DE6BB9}
+\makelabel{ctbllibxpls:Examples of Extensions by p-singular Automorphisms}{2.8}{X8711DBB083655A25}
+\makelabel{ctbllibxpls:Some p-Modular Tables of Groups of the Type M.G.A}{2.8.1}{X81C08739850E4AAE}
+\makelabel{ctbllibxpls:Some p-Modular Tables of Groups of the Type G.S3}{2.8.2}{X7FED618F83ACB7C2}
+\makelabel{ctbllibxpls:2-Modular Tables of Groups of the Type G.22}{2.8.3}{X7EEF6A7F8683177A}
+\makelabel{ctbllibxpls:The 3-Modular Table of U3(8).32}{2.8.4}{X875F8DD77C0997FA}
+\makelabel{ctbllibxpls:Examples of Subdirect Products of Index Two}{2.9}{X7A4D6044865E516B}
+\makelabel{ctbllibxpls:Certain Dihedral Groups as Subdirect Products of Index Two}{2.9.1}{X850FF694801700CF}
+\makelabel{ctbllibxpls:The Character Table of (D10 × HN).2 < M (June 2008)}{2.9.2}{X80C5D6FA83D7E2CF}
+\makelabel{ctbllibxpls:A Counterexample (August 2015)}{2.9.3}{X85EECFD47EC252A2}
+\makelabel{ctbllibxpls:Constructing Character Tables of Central Extensions in GAP}{3}{X7A80D5ED7D6E57B7}
+\makelabel{ctbllibxpls:Coprime Central Extensions}{3.1}{X87B17873861E2F64}
+\makelabel{ctbllibxpls:The Character Table Head}{3.1.1}{X85CB2671851D1206}
+\makelabel{ctbllibxpls:The Irreducible Characters}{3.1.2}{X7D8F6E5D7D632046}
+\makelabel{ctbllibxpls:Ordering of Conjugacy Classes}{3.1.3}{X867D16E07D36560F}
+\makelabel{ctbllibxpls:Compatibility with Smaller Factor Groups}{3.1.4}{X813B9F5180A45077}
+\makelabel{ctbllibxpls:Examples}{3.2}{X7A489A5D79DA9E5C}
+\makelabel{ctbllibxpls:Central Extensions of Simple Atlas Groups}{3.2.1}{X861B5C3F7B1F6AB7}
+\makelabel{ctbllibxpls:Central Extensions of Other Atlas Groups}{3.2.2}{X799ADD5487613BA2}
+\makelabel{ctbllibxpls:Compatible Central Extensions of Maximal Subgroups}{3.2.3}{X861F558380FE4812}
+\makelabel{ctbllibxpls:The 2B Centralizer in 3.Fi24' (January 2004)}{3.2.4}{X7C73944579D6EE73}
+\makelabel{ctbllibxpls:GAP Computations Concerning Hamiltonian Cycles in the Generating Graphs of Finite Groups}{4}{X7D5919C182B1A462}
+\makelabel{ctbllibxpls:Overview}{4.1}{X8389AD927B74BA4A}
+\makelabel{ctbllibxpls:Theoretical Background}{4.2}{X7B6AEBDF7B857E2E}
+\makelabel{ctbllibxpls:Character-Theoretic Lower Bounds for Vertex Degrees}{4.2.1}{X7AD3962D7AE4ADFB}
+\makelabel{ctbllibxpls:Checking the Criteria}{4.2.2}{X825776BA8687E475}
+\makelabel{ctbllibxpls:GAP Functions for the Computations}{4.3}{X7B56BE5384BAD54E}
+\makelabel{ctbllibxpls:Computing Vertex Degrees from the Group}{4.3.1}{X802B2ED2802334B0}
+\makelabel{ctbllibxpls:Computing Lower Bounds for Vertex Degrees}{4.3.2}{X87FE2DDD7F086D2F}
+\makelabel{ctbllibxpls:Evaluating the (Lower Bounds for the) Vertex Degrees}{4.3.3}{X8677A8B1788ACD2C}
+\makelabel{ctbllibxpls:Character-Theoretic Computations}{4.4}{X7A221012861440E2}
+\makelabel{ctbllibxpls:Sporadic Simple Groups}{4.4.1}{X86CE51E180A3D4ED}
+\makelabel{ctbllibxpls:The Monster}{4.4.2}{X867D338F7F453092}
+\makelabel{ctbllibxpls:Nonsimple Automorphism Groups of Sporadic Simple Groups}{4.4.3}{X7DC6DFCC83502CC3}
+\makelabel{ctbllibxpls:Alternating and Symmetric Groups An, Sn, for 5 ≤ n ≤ 13}{4.4.4}{X8130C9CB7A33140F}
+\makelabel{ctbllibxpls:Computations With Groups}{4.5}{X83DACCF07EF62FAE}
+\makelabel{ctbllibxpls:Nonabelian Simple Groups of Order up to 107}{4.5.1}{X7B9ADC91802EE09F}
+\makelabel{ctbllibxpls:Nonsimple Groups with Nonsolvable Socle of Order at most 106}{4.5.2}{X8033892B7FD6E62B}
+\makelabel{ctbllibxpls:The Groups PSL(2,q)}{4.6}{X84E62545802FAB30}
+\makelabel{ctbllibxpls:Overview}{5.1}{X8389AD927B74BA4A}
+\makelabel{ctbllibxpls:Constructing Representations of M.2 and S.2}{5.2}{X85FF559084C08F0F}
+\makelabel{ctbllibxpls:A Matrix Representation of the Weyl Group of Type E8}{5.2.1}{X7FEE53AB845B9327}
+\makelabel{ctbllibxpls:Compatible Generators of M, M.2, S, and S.2}{5.2.3}{X83E3E79F8724C365}
+\makelabel{ctbllibxpls:Constructing Representations of M.3 and S.3}{5.3}{X83F897DD7C48511C}
+\makelabel{ctbllibxpls:The Action of M.3 on M}{5.3.1}{X7B7561D0855EC4F1}
+\makelabel{ctbllibxpls:The Action of S.3 on S}{5.3.2}{X8246803779EB8FEE}
+\makelabel{ctbllibxpls:Constructing Compatible Generators of H and G}{5.4}{X816AFA187E95C018}
+\makelabel{ctbllibxpls:Appendix: The Permutation Character (1HG)H}{5.6}{X7F0C266082BE1578}
+\makelabel{ctbllibxpls:Appendix: The Data File}{5.7}{X7F3A630780F8E262}
+\makelabel{ctbllibxpls:Solvable Subgroups of Maximal Order in Sporadic Simple Groups}{6}{X7EF73AA88384B5F3}
+\makelabel{ctbllibxpls:The Result}{6.1}{X7F817DC57A69CF0D}
+\makelabel{ctbllibxpls:The Approach}{6.2}{X876F77197B2FB84A}
+\makelabel{ctbllibxpls:Use the Table of Marks}{6.2.1}{X792957AB7B24C5E0}
+\makelabel{ctbllibxpls:Use Information from the Character Table Library}{6.2.2}{X7B39A4467A1CCF8A}
+\makelabel{ctbllibxpls:Cases where the Table of Marks is available in GAP}{6.3}{X834298A87BF43AAF}
+\makelabel{ctbllibxpls:Cases where the Table of Marks is not available in GAP}{6.4}{X85559C0F7AA73E48}
+\makelabel{ctbllibxpls:Proof of the Corollary}{6.5}{X7CD8E04C7F32AD56}
+\makelabel{ctbllibxpls:Large Nilpotent Subgroups of Sporadic Simple Groups}{7}{X8102827B85FE3BCA}
+\makelabel{ctbllibxpls:The Result}{7.1}{X7F817DC57A69CF0D}
+\makelabel{ctbllibxpls:The Proof}{7.2}{X787B841383A16711}
+\makelabel{ctbllibxpls:Alternative: Use GAP's Tables of Marks}{7.3}{X798EACC07F6C36D9}
+\makelabel{ctbllibxpls:Permutation Characters in GAP}{8}{X7A7EEBE9858333E1}
+\makelabel{ctbllibxpls:Some Computations with M24}{8.1}{X86A1325B82E5AECD}
+\makelabel{ctbllibxpls:All Possible Permutation Characters of M11}{8.2}{X79C9051F805851DB}
+\makelabel{ctbllibxpls:The Action of U6(2) on the Cosets of M22}{8.3}{X81A5FC968782CFC3}
+\makelabel{ctbllibxpls:Degree 20736 Permutation Characters of U6(2)}{8.4}{X7EE1811C8496C428}
+\makelabel{ctbllibxpls:The Action of O7(3).2 on the Cosets of 27.S7}{8.6}{X792D2C2380591D8D}
+\makelabel{ctbllibxpls:The Action of S4(4).4 on the Cosets of 52.[25]}{8.8}{X7B1DFAF98182CFF4}
+\makelabel{ctbllibxpls:The Action of Co1 on the Cosets of Involution Centralizers}{8.9}{X7F04F0C684AA8B30}
+\makelabel{ctbllibxpls:The Multiplicity Free Permutation Characters of G2(3)}{8.10}{X8230719D8538384B}
+\makelabel{ctbllibxpls:A Proof of Nonexistence of a Certain Subgroup}{8.12}{X7D8572E68194CBB9}
+\makelabel{ctbllibxpls:A Permutation Character of the Lyons group}{8.13}{X8068E9DA7CD03BF2}
+\makelabel{ctbllibxpls:Identifying two subgroups of Aut(U3(5)) (October 2001)}{8.14}{X87D6C1A67CC7EE0A}
+\makelabel{ctbllibxpls:Four Primitive Permutation Characters of the Monster Group}{8.16}{X8337F3C682B6BE63}
+\makelabel{ctbllibxpls:The Subgroup 22.211.222.(S3 × M24) (June 2009)}{8.16.1}{X78A8A1248336DD26}
+\makelabel{ctbllibxpls:The Subgroup 23.26.212.218.(L3(2) × 3.S6) (September 2009)}{8.16.2}{X79E9247182B20474}
+\makelabel{ctbllibxpls:The Subgroup 25.210.220.(S3 × L5(2)) (October 2009)}{8.16.3}{X7BC36C597E542DEE}
+\makelabel{ctbllibxpls:A permutation character of the Baby Monster (June 2012)}{8.17}{X87D11B097D95D027}
+\makelabel{ctbllibxpls:A permutation character of 2.B (October 2017)}{8.18}{X86827FA97D27F3A2}
+\makelabel{ctbllibxpls:Generation of sporadic simple groups by π- and π'-subgroups (December 2021)}{8.19}{X849F0EA6807C9B19}
+\makelabel{ctbllibxpls:Special Arguments for the Monster Group that are no longer needed}{8.19.1}{X839272078243F4DB}
+\makelabel{ctbllibxpls:Ambiguous Class Fusions in the GAP Character Table Library}{9}{X7A03A83E87FB1189}
+\makelabel{ctbllibxpls:Some GAP Utilities}{9.1}{X784492877DB04FE9}
+\makelabel{ctbllibxpls:Fusions Determined by Factorization through Intermediate Subgroups}{9.2}{X7EA839057D3AD3B4}
+\makelabel{ctbllibxpls:Co3N5 → Co3 (September 2002)}{9.2.1}{X78DCEEFD85FF1EE2}
+\makelabel{ctbllibxpls:31:15 → B (March 2003)}{9.2.2}{X86BCEA907EC4C833}
+\makelabel{ctbllibxpls:SuzN3 → Suz (September 2002)}{9.2.3}{X7C719F527831F35A}
+\makelabel{ctbllibxpls:Fusions Determined Using Commutative Diagrams Involving Smaller Subgroups}{9.3}{X7981579278F81AC6}
+\makelabel{ctbllibxpls:BN7 → B (March 2002)}{9.3.1}{X7F5186E28201B027}
+\makelabel{ctbllibxpls:A6 × L2(8).3 → Fi24' (November 2002)}{9.3.3}{X85822C647B29117B}
+\makelabel{ctbllibxpls:(32:D8 × U4(3).22).2 → B (June 2007)}{9.3.4}{X81A607758682D9A9}
+\makelabel{ctbllibxpls:37.O7(3):2 → Fi24 (November 2010)}{9.3.6}{X860B6C30812DE3FC}
+\makelabel{ctbllibxpls:2E6(2)N3C → 2E6(2) (January 2019)}{9.3.7}{X7C3AC42F8342EE2E}
+\makelabel{ctbllibxpls:Fusions Determined Using Commutative Diagrams Involving Factor Groups}{9.4}{X84F966E2824F5D52}
+\makelabel{ctbllibxpls:3.A7 → 3.Suz (December 2010)}{9.4.1}{X7F2B104686509CAA}
+\makelabel{ctbllibxpls:S6 → U4(2) (September 2011)}{9.4.2}{X82FB71647D37F4FD}
+\makelabel{ctbllibxpls:Fusions Determined Using Commutative Diagrams Involving Automorphic Extensions}{9.5}{X7CFBC41B818A318C}
+\makelabel{ctbllibxpls:U3(8).31 → 2E6(2) (December 2010)}{9.5.1}{X7E91F8707BA93081}
+\makelabel{ctbllibxpls:L3(4).21 → U6(2) (December 2010)}{9.5.2}{X81B37EF378E89E00}
+\makelabel{ctbllibxpls:Conditions Imposed by Brauer Tables}{9.6}{X85E2A6F480026C95}
+\makelabel{ctbllibxpls:L2(16).4 → J3.2 (January 2004)}{9.6.1}{X7ACC7F588213D5D5}
+\makelabel{ctbllibxpls:L2(17) → S8(2) (July 2004)}{9.6.2}{X7ACB86CB82ED49D1}
+\makelabel{ctbllibxpls:L2(19) → J3 (April 2003)}{9.6.3}{X7DED4C437D479226}
+\makelabel{ctbllibxpls:Fusions Determined by Information about the Groups}{9.7}{X8225D9FA80A7D20F}
+\makelabel{ctbllibxpls:U3(3).2 → Fi24' (November 2002)}{9.7.1}{X7AE2962E82B4C814}
+\makelabel{ctbllibxpls:L2(13).2 → Fi24' (September 2002)}{9.7.2}{X83061094871EE241}
+\makelabel{ctbllibxpls:M11 → B (April 2009)}{9.7.3}{X7E9C203C7C4D709D}
+\makelabel{ctbllibxpls:L2(11):2 → B (April 2009)}{9.7.4}{X85821D748716DC7E}
+\makelabel{ctbllibxpls:L3(3) → B (April 2009)}{9.7.5}{X828D81487F57D612}
+\makelabel{ctbllibxpls:L2(17).2 → B (March 2004)}{9.7.6}{X7B4E13337D66020F}
+\makelabel{ctbllibxpls:L2(49).23 → B (June 2006)}{9.7.7}{X8528432A84851F7B}
+\makelabel{ctbllibxpls:23.L3(2) → G2(5) (January 2004)}{9.7.8}{X7EAD52AA7A28D956}
+\makelabel{ctbllibxpls:The fusion from the character table of 72:2L2(7).2 into the table of marks (January 2004)}{9.7.10}{X85C48EEB7B711C09}
+\makelabel{ctbllibxpls:3 × U4(2) → 31.U4(3) (March 2010)}{9.7.11}{X7B1C689C7EFD07CB}
+\makelabel{ctbllibxpls:2.34.23.S4 → 2.A12 (September 2011)}{9.7.12}{X7A94F78C792122D5}
+\makelabel{ctbllibxpls:127:7 → L7(2) (January 2012)}{9.7.13}{X7E2AF30C7E8F89F9}
+\makelabel{ctbllibxpls:L2(59) → M (May 2009) – Do not use this!}{9.7.14}{X80051B297DF244CF}
+\makelabel{ctbllibxpls:L2(71) → M (May 2009)}{9.7.15}{X8409DA2E83A41ABE}
+\makelabel{ctbllibxpls:L2(41) → M (April 2012)}{9.7.16}{X78B3B1BE7A2CA4D1}
+\makelabel{ctbllibxpls:GAP computations needed in the proof of [DNT13, Theorem 6.1 (ii)]}{10}{X831E9D0A7A2DBC72}
+\makelabel{ctbllibxpls:GAP Computations Concerning Probabilistic Generation of Finite Simple Groups}{11}{X7BE9906583D0FCEC}
+\makelabel{ctbllibxpls:Overview}{11.1}{X8389AD927B74BA4A}
+\makelabel{ctbllibxpls:Prerequisites}{11.2}{X7B4649CF7B7CFAA1}
+\makelabel{ctbllibxpls:Theoretical Background}{11.2.1}{X7B6AEBDF7B857E2E}
+\makelabel{ctbllibxpls:Computational Criteria}{11.2.2}{X79D7312484E78274}
+\makelabel{ctbllibxpls:GAP Functions for the Computations}{11.3}{X7B56BE5384BAD54E}
+\makelabel{ctbllibxpls:General Utilities}{11.3.1}{X806328747D1D4ECC}
+\makelabel{ctbllibxpls:Character-Theoretic Computations}{11.3.2}{X7A221012861440E2}
+\makelabel{ctbllibxpls:Computations with Groups}{11.3.3}{X83DACCF07EF62FAE}
+\makelabel{ctbllibxpls:Character-Theoretic Computations}{11.4}{X7A221012861440E2}
+\makelabel{ctbllibxpls:Sporadic Simple Groups}{11.4.1}{X86CE51E180A3D4ED}
+\makelabel{ctbllibxpls:No longer necessary computations for the Baby Monster and the Monster}{11.4.2}{X821778BC7D665AB4}
+\makelabel{ctbllibxpls:Automorphism Groups of Sporadic Simple Groups}{11.4.3}{X84E9D10F80A74A53}
+\makelabel{ctbllibxpls:Other Simple Groups – Easy Cases}{11.4.4}{X80DA58F187CDCF5F}
+\makelabel{ctbllibxpls:Automorphism Groups of other Simple Groups – Easy Cases}{11.4.5}{X7B1E26D586337487}
+\makelabel{ctbllibxpls:O8-(3)}{11.4.6}{X78B856907ED13545}
+\makelabel{ctbllibxpls:O10-(2)}{11.4.8}{X84E3E4837BB93977}
+\makelabel{ctbllibxpls:O12-(2)}{11.4.10}{X834FE1B58119A5FF}
+\makelabel{ctbllibxpls:S6(4)}{11.4.11}{X7C5980A385C088FA}
+\makelabel{ctbllibxpls:∗ S6(5)}{11.4.12}{X829EDF7F7C0BCB8E}
+\makelabel{ctbllibxpls:S8(3)}{11.4.13}{X85162B297E4B67EB}
+\makelabel{ctbllibxpls:U4(4)}{11.4.14}{X8495C2BF7B6EFFEF}
+\makelabel{ctbllibxpls:U6(2)}{11.4.15}{X7A3BB5AA83A2BDF3}
+\makelabel{ctbllibxpls:Computations using Groups}{11.5}{X8237B8617D6F6027}
+\makelabel{ctbllibxpls:A5}{11.5.2}{X7B5321337B28100B}
+\makelabel{ctbllibxpls:A6}{11.5.3}{X82C3B4287B0C7BEE}
+\makelabel{ctbllibxpls:A7}{11.5.4}{X85B3C7217B105D4D}
+\makelabel{ctbllibxpls:Ld(q)}{11.5.5}{X84EA645A82E2BAFB}
+\makelabel{ctbllibxpls:∗ Ld(q) with prime d}{11.5.6}{X855460BE787188B9}
+\makelabel{ctbllibxpls:Automorphic Extensions of Ld(q)}{11.5.7}{X7EA88CEF81962F3F}
+\makelabel{ctbllibxpls:L3(2)}{11.5.8}{X7C8806DB8588BB51}
+\makelabel{ctbllibxpls:M11}{11.5.9}{X7B7061917ED3714D}
+\makelabel{ctbllibxpls:M12}{11.5.10}{X82E0F48A7FF82BB3}
+\makelabel{ctbllibxpls:O7(3)}{11.5.11}{X7FF2E8F27FBEB65C}
+\makelabel{ctbllibxpls:∗ O9(3)}{11.5.15}{X86EC26F78609618E}
+\makelabel{ctbllibxpls:O10-(3)}{11.5.16}{X8393978A8773997E}
+\makelabel{ctbllibxpls:O14-(2)}{11.5.17}{X7BBBEEEF834F1002}
+\makelabel{ctbllibxpls:∗ S4(8)}{11.5.19}{X854D85F287767342}
+\makelabel{ctbllibxpls:S6(2)}{11.5.20}{X82CFBAF07D3487A0}
+\makelabel{ctbllibxpls:S8(2)}{11.5.21}{X826658207D9D6570}
+\makelabel{ctbllibxpls:∗ S10(2)}{11.5.22}{X82A6496887F80843}
+\makelabel{ctbllibxpls:U4(2)}{11.5.23}{X7A03F8EC839AF0B5}
+\makelabel{ctbllibxpls:U4(3)}{11.5.24}{X7D738BE5804CF22E}
+\makelabel{ctbllibxpls:U6(3)}{11.5.25}{X7D4BC6A38074BF68}
+\makelabel{ctbllibxpls:U8(2)}{11.5.26}{X7A92577A830B5F23}
+\makelabel{ctbllibxpls:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{ctbllibxpls:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{ctbllibxpls:Index}{Ind}{X83A0356F839C696F}
+\makelabel{ctbllibxpls:CTblLibXpls}{}{X7D2C85EC87DD46E5}

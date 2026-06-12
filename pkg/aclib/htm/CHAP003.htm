@@ -1,0 +1,327 @@
+<html><head><title>[aclib] 3 The catalog of almost crystallographic groups</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Previous</a>] [<a href ="CHAP004.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<h1>3 The catalog of almost crystallographic groups</h1><p>
+<P>
+<H3>Sections</H3>
+<oL>
+<li> <A HREF="CHAP003.htm#SECT001">Rational matrix groups</a>
+<li> <A HREF="CHAP003.htm#SECT002">Polycyclically presented groups</a>
+<li> <A HREF="CHAP003.htm#SECT003">More about the type and the defining parameters</a>
+<li> <A HREF="CHAP003.htm#SECT004">The electronic versus the printed library</a>
+</ol><p>
+<p>
+This chapter introduces the access functions to the catalog of
+3- and 4-dimensional crystallographic groups. This catalog is an
+electronic version of the classification obtained in <a href="biblio.htm#KD"><cite>KD</cite></a>.
+<p>
+<p>
+<h2><a name="SECT001">3.1 Rational matrix groups</a></h2>
+<p><p>
+The following three main functions are available to access the library 
+of almost crystallographic groups as rational matrix groups.
+<p>
+<a name = "SSEC001.1"></a>
+<li><code>AlmostCrystallographicGroup( </code><var>dim</var><code>, </code><var>type</var><code>, </code><var>parameters</var><code> )</code>
+<a name = "SSEC001.1"></a>
+<li><code>AlmostCrystallographicDim3( </code><var>type</var><code>, </code><var>parameters</var><code> )</code>
+<a name = "SSEC001.1"></a>
+<li><code>AlmostCrystallographicDim4( </code><var>type</var><code>, </code><var>parameters</var><code> )</code>
+<p>
+<var>dim</var> is the dimension of the required group. Thus <var>dim</var> must be 
+either 3 or 4. The inputs <var>type</var> and <var>parameters</var> are used to define
+the desired group as described in <a href="biblio.htm#KD"><cite>KD</cite></a>. We outline the possible
+choices for <var>type</var> and <var>parameters</var> here briefly. A more extended 
+description is given later in Section <a href="CHAP001.htm#SECT001">More about almost crystallographic  groups</a> or can be obtained from <a href="biblio.htm#KD"><cite>KD</cite></a>.
+<p>
+<var>type</var> specifies the type of the required group. There are 17 types
+in dimension 3 and 95 types in dimension 4. The input <var>type</var> can either
+be an integer  defining the position of the desired type among all types;
+that is, in this case <var>type</var> is a number in [1..17] in dimension 3 or a
+number in [1..95] in dimension 4. Alternatively, <var>type</var> can be a string
+defining the desired type. In dimension 3 the possible strings are 
+<code>"01"</code>, <code>"02"</code>, <var>...</var>, <code>"17"</code>. In dimension 4 the possible strings 
+are listed in the list <code>ACDim4Types</code> and thus can be accessed from <font face="Gill Sans,Helvetica,Arial">GAP</font>.
+<p>
+<var>parameters</var> is a list of integers. Its length depends on the type of 
+the chosen group. The lists <code>ACDim3Param</code> and <code>ACDim4Param</code> contain
+at position <var>i</var> the length of the parameter list for the type number <var>i</var>.
+Every list of integers of this length is a valid <var>parameter</var> input.
+Alternatively, one can input <code>false</code> instead of a parameter list. Then 
+<font face="Gill Sans,Helvetica,Arial">GAP</font> will chose a random parameter list of suitable length.
+<p>
+<pre>
+gap&gt; G := AlmostCrystallographicGroup( 4, 50, [ 1, -4, 1, 2 ] );
+&lt;matrix group of size infinity with 5 generators&gt;
+gap&gt; DimensionOfMatrixGroup( G );
+5
+gap&gt; FieldOfMatrixGroup( G );
+Rationals
+gap&gt; GeneratorsOfGroup( G );
+[ [ [ 1, 0, -1/2, 0, 0 ], [ 0, 1, 0, 0, 1 ], [ 0, 0, 1, 0, 0 ], 
+      [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ], 
+  [ [ 1, 1/2, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 1 ], 
+      [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ], 
+  [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], 
+      [ 0, 0, 0, 1, 1 ], [ 0, 0, 0, 0, 1 ] ], 
+  [ [ 1, 0, 0, 0, 1 ], [ 0, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], 
+      [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ], 
+  [ [ 1, -4, 1, 0, 1/2 ], [ 0, 0, -1, 0, 0 ], [ 0, 1, 0, 0, 0 ], 
+      [ 0, 0, 0, 1, 1/4 ], [ 0, 0, 0, 0, 1 ] ] ]
+gap&gt; G.1;
+[ [ 1, 0, -1/2, 0, 0 ], [ 0, 1, 0, 0, 1 ], [ 0, 0, 1, 0, 0 ], 
+  [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ] ]
+gap&gt; ACDim4Types[50];
+"076"
+gap&gt; ACDim4Param[50];
+4
+</pre>
+<p>
+<p>
+<h2><a name="SECT002">3.2 Polycyclically presented groups</a></h2>
+<p><p>
+All the almost crystallographic groups considered in this package are
+polycyclic. Hence they have a polycyclic presentation and this can be
+used to facilitate efficient computations with the groups. To obtain the
+polycyclic presentation of an almost crystallographic group we supply the
+following functions. Note that the share package <font face="Gill Sans,Helvetica,Arial">Polycyclic</font> must be 
+installed to use these functions.
+<p>
+<a name = "SSEC002.1"></a>
+<li><code>AlmostCrystallographicPcpGroup( </code><var>dim</var><code>, </code><var>type</var><code>, </code><var>parameters</var><code> )</code>
+<a name = "SSEC002.1"></a>
+<li><code>AlmostCrystallographicPcpDim3( </code><var>type</var><code>, </code><var>parameters</var><code> )</code>
+<a name = "SSEC002.1"></a>
+<li><code>AlmostCrystallographicPcpDim4( </code><var>type</var><code>, </code><var>parameters</var><code> )</code>
+<p>
+The input is the same as for the corresponding matrix group functions.
+The output is a pcp group isomorphic to the corresponding matrix group.
+An explicit isomorphism from an almost crystallographic matrix group
+to the corresponding pcp group can be obtained by the following function.
+<p>
+<a name = "SSEC002.2"></a>
+<li><code>IsomorphismPcpGroup( </code><var>G</var><code> )</code>
+<p>
+We can use the polycyclic presentations of almost crystallographic
+groups to exhibit structure information on these groups. For example,
+we can determine their Fitting subgroup and ask group-theoretic 
+questions about this nilpotent group. The factor <var>G / Fit(G)</var> of an
+almost crystallographic group <var>G</var> is called <strong>holonomy group</strong>. We 
+provide access to this factor of a pcp group via the following 
+functions. Let <var>G</var> be an almost crystallographic pcp group.
+<p>
+<a name = "SSEC002.3"></a>
+<li><code>HolonomyGroup( </code><var>G</var><code> )</code>
+<a name = "SSEC002.3"></a>
+<li><code>NaturalHomomorphismOnHolonomyGroup( </code><var>G</var><code> )</code>
+<p>
+The following example shows applications of these functions.
+<p>
+<pre>
+gap&gt; G := AlmostCrystallographicPcpGroup( 4, 50, [ 1, -4, 1, 2 ] );
+Pcp-group with orders [ 4, 0, 0, 0, 0 ]
+gap&gt; Cgs(G);
+[ g1, g2, g3, g4, g5 ]
+
+gap&gt; F := FittingSubgroup( G );
+Pcp-group with orders [ 0, 0, 0, 0 ]
+gap&gt; Centre(F);
+Pcp-group with orders [ 0, 0 ]
+gap&gt; LowerCentralSeries(F);
+[ Pcp-group with orders [ 0, 0, 0, 0 ], Pcp-group with orders [ 0 ], 
+  Pcp-group with orders [  ] ]
+gap&gt; UpperCentralSeries(F);
+[ Pcp-group with orders [ 0, 0, 0, 0 ], Pcp-group with orders [ 0, 0 ], 
+  Pcp-group with orders [  ] ]
+gap&gt; MinimalGeneratingSet(F);
+[ g2, g3, g4 ]
+
+gap&gt; H := HolonomyGroup( G );
+Pcp-group with orders [ 4 ]
+gap&gt; hom := NaturalHomomorphismOnHolonomyGroup( G );
+[ g1, g2, g3, g4, g5 ] -&gt; [ g1, identity, identity, identity, identity ]
+gap&gt; U := Subgroup( H, [Pcp(H)[1]^2] );
+Pcp-group with orders [ 2 ]
+gap&gt; PreImage( hom, U );
+Pcp-group with orders [ 2, 0, 0, 0, 0 ]
+</pre>
+<p>
+<p>
+<h2><a name="SECT003">3.3 More about the type and the defining parameters</a></h2>
+<p><p>
+Each group from this library knows that it is almost crystallographic and,
+additionally, it knows its type and defining parameters.
+<p>
+<a name = "SSEC003.1"></a>
+<li><code>AlmostCrystallographicInfo( </code><var>G</var><code> )</code>
+<p>
+This attribute is set for groups from the library only. It is not possible
+at current to determine the type and the defining parameters for an arbitrary 
+almost crystallographic groups which is not defined by the library access 
+functions. 
+<p>
+<pre>
+gap&gt; G := AlmostCrystallographicGroup( 4, 70, false );   
+&lt;matrix group of size infinity with 5 generators&gt;
+gap&gt; IsAlmostCrystallographic(G);
+true
+gap&gt; AlmostCrystallographicInfo(G);
+rec( dim := 4, type := 70, param := [ 1, -4, 1, 2, -3 ] )
+</pre>
+<p>
+<pre>
+gap&gt; G := AlmostCrystallographicPcpGroup( 4, 70, false );
+Pcp-group with orders [ 6, 0, 0, 0, 0 ]
+gap&gt; IsAlmostCrystallographic(G);
+true
+gap&gt; AlmostCrystallographicInfo(G);
+rec( dim := 4, type := 70, param := [ -3, 2, 5, 1, 0 ] )
+</pre>
+<p>
+We consider the types of almost crystallographic groups in more detail. The 
+almost crystallographic groups in dimensions 3 and 4 fall into three families
+<p>
+<dl compact>
+<dt>(1)<dd>3-dimensional almost crystallographic groups.
+<dt>(2)<dd>4-dimensional almost crystallographic groups with a
+           Fitting subgroup of class 2.
+<dt>(3)<dd>4-dimensional almost crystallographic groups with a
+           Fitting subgroup of class 3.
+</dl>
+<p>
+These families are split up further into subfamilies in <a href="biblio.htm#KD"><cite>KD</cite></a> and to 
+each subfamily is assigned a type; that is, a string which is used to 
+identify the subfamily. As mentioned above, for the 3-dimensional almost 
+crystallographic groups the type is a string representing the numbers from 
+1 to 17, i.e. the available types are <code>"01"</code>, <code>"02"</code>, <var>...</var>, <code>"17"</code>. 
+<p>
+For the 4-dimensional almost crystallographic groups with a Fitting subgroup 
+of class 2 the type is a string of 3 or 4 characters. In general, a string of 
+3 characters representing
+the number of the table entry in <a href="biblio.htm#KD"><cite>KD</cite></a> is used. So possible types are 
+<code>"001"</code>, <code>"002"</code>, <var>...</var>. The reader is warned however that not all 
+possible numbers are used, e.g. there are no groups of type <code>"016"</code>. Also, 
+the types do not appear in their natural order in <a href="biblio.htm#KD"><cite>KD</cite></a>. Moreover, for 
+certain numbers there is more than one family of groups listed in <a href="biblio.htm#KD"><cite>KD</cite></a>. 
+For example, the 3 families of groups corresponding to number 19 on pages 
+179-180 of <a href="biblio.htm#KD"><cite>KD</cite></a> have types <code>"019"</code>, <code>"019b"</code> and <code>"019c"</code> (the order is 
+the one given in <a href="biblio.htm#KD"><cite>KD</cite></a>).
+<p>
+For the last category of groups, the 4-dimensional almost crystallographic
+groups with a Fitting subgroup of class 3, the type is a string of 2 or 3
+characters, where the first character is always the letter <code>"B"</code>. This <code>"B"</code>
+is followed by the number of the table entry as found in <a href="biblio.htm#KD"><cite>KD</cite></a>,
+eventually followed by a <code>"b"</code> or <code>"c"</code> as in the previous case.
+<p>
+For each type of almost crystallographic group contained in the library
+there exists a function taking a parameter list as input and returning
+the desired matrix or pcp group. These functions can be accessed
+from <font face="Gill Sans,Helvetica,Arial">GAP</font> using the lists <code>ACDim3Funcs</code>, <code>ACDim4Funcs</code>, <code>ACPcpDim3Funcs</code>
+and <code>ACPcpDim4Funcs</code> which consist of the corresponding functions.
+<p>
+Although we include these direct access functions here for completeness,
+we note that the user should in general use the higher-level functions
+introduced above to obtain almost crystallographic groups from the
+library. In particular, these low-level access functions return matrix
+or pcp groups, but the almost crystallographic info flags will not be
+attached to them.
+<p>
+<pre>
+gap&gt; ACDim3Funcs[15];
+function( k1, k2, k3, k4 ) ... end
+gap&gt; ACDim3Funcs[15](1,1,1,1);
+&lt;matrix group with 5 generators&gt;
+gap&gt; ACPcpDim3Funcs[1](1);
+Pcp-group with orders [ 0, 0, 0 ]
+</pre>
+<p>
+<p>
+<h2><a name="SECT004">3.4 The electronic versus the printed library</a></h2>
+<p><p>
+The package <code>aclib</code> can be considered as the electronic version of 
+Chapter 7 of <a href="biblio.htm#KD"><cite>KD</cite></a>. In this section we outline the relationship 
+between the library presented in this manual and the printed version 
+in <a href="biblio.htm#KD"><cite>KD</cite></a>. First we consider an example. At page 175 of <a href="biblio.htm#KD"><cite>KD</cite></a>, 
+we find the following groups in the table starting with entry ``13''.
+<p>
+<p>
+13. <var>Q=P2/c</var>
+<p><var>
+matrix E:;langlea,b,c,d,alpha,beta;|;   ,[b,a]=1hskip1.61cm 
+       [d,a]=1
+  rangle<br>
+                   matrix [c,a]=d<sup>2 k_1</sup>  [d,b]=1 <br>
+                    [c,b]=1  [d,c]=1 <br>
+alphaa=a<sup>-1</sup>alphad<sup>k_2</sup>  alpha<sup>2</sup>=d<sup>k_3</sup> <br>
+alphab=balpha  alphad= d alpha <br>
+alphac=c<sup>-1</sup>alphad<sup>-2 k_6</sup>  <br>
+betaa=a<sup>-1</sup>betad<sup>k_1+k_2</sup>   beta<sup>2</sup>=d<sup>k_5</sup> <br>
+betab=b<sup>-1</sup>betad<sup>k_4</sup>  betad= d beta <br>
+betac=c<sup>-1</sup>betad<sup>-2 k_6</sup>  alphabeta=cbetaalphad<sup>k_6</sup>
+    
+<p></var>
+<p>
+<p><var>lambda(alpha)=left(matrix
+1 frack<sub>1</sub>2+k<sub>2</sub>  0  -2 k<sub>6</sub>  frack<sub>3</sub>2+frack<sub>6</sub>2 <br>
+0 -1  0  0  0 <br>
+0  0 1    0  0 <br>
+0  0  0  -1  frac12<br>
+0  0  0  0  1
+right)
+;;lambda(beta)=left(matrix
+1 k<sub>1</sub>+k<sub>2</sub>  k<sub>4</sub>  -2 k<sub>6</sub>  frack<sub>5</sub>2 <br>
+0 -1  0  0  0 <br>
+0  0 -1    0  0 <br>
+0  0  0  -1  0<br>
+0  0  0  0  1
+    right)
+<p></var>
+<p>
+<p><var>H<sup>2</sup>(Q,<font face="helvetica,arial">Z</font>)=<font face="helvetica,arial">Z</font>oplus(<font face="helvetica,arial">Z</font><sub>2</sub>)<sup>4</sup>=<font face="helvetica,arial">Z</font><sup>6</sup>/A,<p></var>
+<p><var>A={(k<sub>1</sub>,...,k<sub>6</sub>)|
+k<sub>1</sub>=0,;k<sub>2</sub>,..., k<sub>5</sub>in2<font face="helvetica,arial">Z</font>,;k<sub>6</sub>in<font face="helvetica,arial">Z</font>}<p></var>
+AB-groups:
+<p>
+<var>forallk&gt;0,;kequiv0bmod2,;<var>(k,0,1,0,1,0)</var></var>
+<p>
+<p>
+The number ``13'' at the beginning of this entry is the type of the 
+almost crystallographic group in this library. This family of groups 
+with type 13 depends on 6 parameters <var>k<sub>1</sub>, k<sub>2</sub>, ..., k<sub>6</sub></var> and these 
+are the <var>parameters</var> list in this library. The rational matrix 
+representation in <font face="Gill Sans,Helvetica,Arial">GAP</font> corresponds exactly to the printed version in 
+<a href="biblio.htm#KD"><cite>KD</cite></a> where it is named <var>lambda</var>.  In the example below, we consider 
+the group with parameters <var>(k<sub>1</sub>,k<sub>2</sub>,k<sub>3</sub>,k<sub>4</sub>,k<sub>5</sub>,k<sub>6</sub>)=(8,0,1,0,1,0)</var>.
+<p>
+<pre>
+gap&gt; G:=AlmostCrystallographicDim4("013",[8,0,1,0,1,0]);
+&lt;matrix group with 6 generators&gt;
+gap&gt; G.5;
+[ [ 1, 4, 0, 0, 1/2 ], [ 0, -1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], 
+  [ 0, 0, 0, -1, 1/2 ], [ 0, 0, 0, 0, 1 ] ]
+gap&gt; G.6;
+[ [ 1, 8, 0, 0, 1/2 ], [ 0, -1, 0, 0, 0 ], [ 0, 0, -1, 0, 0 ], 
+  [ 0, 0, 0, -1, 0 ], [ 0, 0, 0, 0, 1 ] ]
+</pre>
+<p>
+For a 4-dimensional almost crystallographic group the matrix group is 
+built up such that <var>{ a, b, c, d, alpha, beta, gamma}</var> as described 
+in <a href="biblio.htm#KD"><cite>KD</cite></a> forms the defining generating set of <var>G</var>. For certain types 
+the elements <var>alpha</var>, <var>beta</var> or <var>gamma</var> may not be present.
+Similarly, for a 3-dimensional group we have the generating set <var>{ a, b, 
+c, alpha, beta}</var> and <var>alpha</var> and <var>beta</var> may be absent.
+<p>
+<p>
+To obtain a polycyclic generating sequence from the defining generators
+of the matrix group we have to order the elements in the generating set
+suitably. For this purpose we take the subsequence of <var>(gamma, beta, 
+alpha, a, b, c, d)</var> of those generators which are present in the 
+defining generating set of the matrix group.  This new ordering of the 
+generators is then used to define a polycyclic presentation of the given 
+almost crystallographic group. 
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Previous</a>] [<a href ="CHAP004.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>aclib manual<br>August 2025
+</address></body></html>

@@ -1,0 +1,102 @@
+  
+  
+                                    [1X Sophus [101X
+  
+  
+                     [1X Computing in nilpotent Lie algebras [101X
+  
+  
+                                      1.27
+  
+  
+                                 9 August 2022
+  
+  
+                                Csaba Schneider
+  
+  
+  
+  Csaba Schneider
+      Email:    [7Xmailto:csaba@mat.ufmg.br[107X
+      Homepage: [7Xhttp://www.mat.ufmg.br/~csaba/[107X
+      Address:  [33X[0;14YDepartamento de Matemática[133X
+                [33X[0;14YInstituto de Ciências Exatas[133X
+                [33X[0;14YUniversidade Federal de Minas Gerais (UFMG)[133X
+                [33X[0;14YBelo Horizonte, Brasil[133X
+  
+  
+  
+  -------------------------------------------------------
+  [1XAbstract[101X
+  [33X[0;0Y[5XSophus[105X  is a GAP4 package to compute with nilpotent Lie algebras over finite
+  prime  fields.  In  particular,  the  package can be used to compute certain
+  central  extensions  and the automorphism group of such Lie algebras. [5XSophus[105X
+  also  enables  its  user  to  test  isomorphism  between  two  nilpotent Lie
+  algebras. The author of the package used it to construct all Lie algebras of
+  dimension at most 9 over [23X\mathbb F_2[123X.[133X
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2004, 2005 Csaba Schneider[133X
+  
+  [33X[0;0YThe  [5XSophus[105X  package is free software; you can redistribute it and/or modify
+  it    under    the    terms    of    the    GNU   General   Public   License
+  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  Foundation;  either  version 2 of the License, or (at your option) any later
+  version.[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YMost  of  the  work  on this package was carried out while I held a research
+  position at the Technische Universität Braunschweig. I would like to express
+  my gratitude to the staff and the students of the Institut für Geometrie for
+  their  interest in this work. Special thanks go to Bettina Eick for her rôle
+  in completing this project.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (Sophus)[101X
+  
+  1 [33X[0;0YThe theory[133X
+  2 [33X[0;0YA sample calculation with [5XSophus[105X[133X
+  3 [33X[0;0Y[5XSophus[105X functions[133X
+    3.1 [33X[0;0YSome general functions to compute with Lie algebras[133X
+      3.1-1 SophusTest
+      3.1-2 IsLieNilpotentOverFp
+      3.1-3 MinimalGeneratorNumber
+      3.1-4 AbelianLieAlgebra
+    3.2 [33X[0;0YFunctions to compute with nilpotent bases[133X
+      3.2-1 NilpotentBasis
+      3.2-2 LieNBWeights
+      3.2-3 LieNBDefinitions
+      3.2-4 IsNilpotentBasis
+      3.2-5 IsLieAlgebraWithNB
+    3.3 [33X[0;0YThe cover[133X
+      3.3-1 LieCover
+      3.3-2 CoverHomomorphism
+      3.3-3 CoverOf
+      3.3-4 IsLieCover
+      3.3-5 LieMultiplicator
+      3.3-6 LieNucleus
+    3.4 [33X[0;0YAutomorphisms of nilpotent Lie algebras[133X
+      3.4-1 NilpotentLieAutomorphism
+      3.4-2 IdentityNilpotentLieAutomorphism
+      3.4-3 IsNilpotentLieAutomorphism
+    3.5 [33X[0;0YAutomorphism group and isomorphism testing[133X
+      3.5-1 AutomorphismGroup
+      3.5-2 AutomorphismGroupNilpotentLieAlgebra
+      3.5-3 AreIsomorphicNilpotentLieAlgebras
+    3.6 [33X[0;0YDescendants[133X
+      3.6-1 Descendants
+      3.6-2 DescendantsOfStep1OfAbelianLieAlgebra
+    3.7 [33X[0;0YInput and output[133X
+      3.7-1 WriteLieAlgebraToString
+      3.7-2 ReadStringToNilpotentLieAlgebraOverFp
+      3.7-3 WriteLieAlgebraListToFile
+  
+  
+  [32X

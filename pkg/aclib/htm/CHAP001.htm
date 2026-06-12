@@ -1,0 +1,106 @@
+<html><head><title>[aclib] 1 The Almost Crystallographic Groups Package</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<h1>1 The Almost Crystallographic Groups Package</h1><p>
+<P>
+<H3>Sections</H3>
+<oL>
+<li> <A HREF="CHAP001.htm#SECT001">More about almost crystallographic groups</a>
+</ol><p>
+<p>
+A group is called <strong>almost crystallographic</strong> if it is a finitely generated 
+nilpotent-by-finite group without non-trivial finite normal subgroups. An 
+important special case of almost crystallographic groups are the <strong>almost 
+Bieberbach groups</strong>: these are almost crystallographic and torsion free. 
+<p>
+By its definition, an almost crystallographic group <var>G</var> has a finitely 
+generated nilpotent normal subgroup <var>N</var> of finite index. Clearly, <var>N</var> is 
+polycyclic and thus has a polycyclic series. The number of infinite cyclic 
+factors in such a series for <var>N</var> is an invariant of <var>G</var>: the <strong>Hirsch length</strong> 
+of <var>G</var>. 
+<p>
+For each almost crystallographic group of Hirsch length 3 and 4 there exists 
+a representation as a rational matrix group in dimension 4 or 5, respectively. 
+These representations can be considered as affine representations of dimension
+3 or 4. Via these representations, the almost crystallographic groups act 
+(properly discontinuously) on <var><font face="helvetica,arial">R</font><sup>3</sup></var> or <var><font face="helvetica,arial">R</font><sup>4</sup></var>. That is one reason to define
+the <strong>dimension</strong> of an almost crystallographic group as its Hirsch length.
+<p>
+The 3-dimensional and a part of the 4-dimensional almost crystallographic 
+groups have been classified by K. Dekimpe in <a href="biblio.htm#KD"><cite>KD</cite></a>. This classification 
+includes all almost Bieberbach groups in dimension 3 and 4. It is the first
+central aim of this package to give access to the resulting library of groups.
+The groups in this electronic catalog are available in two different 
+representations: as rational matrix groups and as polycyclically presented
+groups. While the first representation is the more natural one, the latter
+description facilitates effective computations with the considered groups
+using the methods of the <font face="Gill Sans,Helvetica,Arial">Polycyclic</font> package.
+<p>
+The second aim of this package is to introduce a variety of algorithms for
+computations with polycyclically presented almost crystallographic groups. 
+These algorithms supplement the methods available in the <font face="Gill Sans,Helvetica,Arial">Polycyclic</font> 
+package and give access to some methods which are interesting specifically 
+for almost crystallographic groups. In particular, we present methods to
+compute Betti numbers and to construct or check the existence of certain 
+extensions of almost crystallographic groups. We note that these methods 
+have been applied in <a href="biblio.htm#DE1"><cite>DE1</cite></a> and <a href="biblio.htm#DE2"><cite>DE2</cite></a> for computations with 
+almost crystallographic groups.
+<p>
+Finally, we remark that almost crystallographic groups can be seen as natural 
+generalizations of crystallographic groups. A library of crystallographic 
+groups and algorithms to compute with crystallographic groups are available 
+in the <font face="Gill Sans,Helvetica,Arial">GAP</font> packages <code>cryst</code>, <code>carat</code> and <code>crystcat</code>. 
+<p>
+<p>
+<h2><a name="SECT001">1.1 More about almost crystallographic groups</a></h2>
+<p><p>
+Almost crystallographic groups were first discussed in the theory of 
+actions on Lie groups.  We recall the original definition here briefly
+and we refer to <a href="biblio.htm#AUS"><cite>AUS</cite></a>, <a href="biblio.htm#KD"><cite>KD</cite></a> and <a href="biblio.htm#LEE"><cite>LEE</cite></a> for more details. 
+<p>
+Let <var>L</var> be a connected and simply connected nilpotent Lie group. For 
+example, the 3-dimensional Heisenberg group, consisting of all upper 
+unitriangular <var>3times3</var>--matrices with real entries is of this type.
+Then <var>LrtimesAut(L)</var> acts affinely (on the left) on <var>L</var> via
+<p><var> foralll,l'inL,forallalphainAut(L):; 
+   <sup>(l,alpha)</sup>l'=l , alpha(l').  <p></var>
+<p>
+Let <var>C</var> be a maximal compact subgroup of <var>Aut(L)</var>. Then a subgroup <var>G</var> 
+of <var>L rtimesC</var> is said to be an almost crystallographic group if and only 
+if the action of <var>G</var> on <var>L</var>, induced by the action of <var>LrtimesAut(L)</var>,
+is properly discontinuous and the quotient space <var>G backslashL</var> is compact. 
+One recovers the situation of the ordinary crystallographic groups by taking 
+<var>L=BbbR<sup>n</sup></var>, for some <var>n</var>, and <var>C=O(n)</var>, the orthogonal group.
+<p>
+More generally, we say that an abstract group is an almost crystallographic
+group if it can be realized as a genuine almost crystallographic subgroup 
+of some <var>L rtimesC</var>. In the following theorem we outline some algebraic 
+characterizations of almost crystallographic groups; see Theorem 3.1.3 of 
+<a href="biblio.htm#KD"><cite>KD</cite></a>. Recall that the <strong>Fitting subgroup Fitt<var>(G)</var></strong> of a 
+polycyclic-by-finite group <var>G</var> is its unique maximal normal nilpotent 
+subgroup.
+<p>
+<strong>Theorem.</strong>
+The following are equivalent for a polycyclic-by-finite group <var>G</var>:
+<dl compact>
+<dt>(1)<dd><var>G</var> is an almost crystallographic group.
+<dt>(2)<dd>Fitt<var>(G)</var> is torsion free and of finite index in <var>G</var>.
+<dt>(3)<dd><var>G</var> contains a torsion free nilpotent normal subgroup <var>N</var>
+of finite index in <var>G</var> with <var>C<sub>G</sub>(N)</var> torsion free.
+<dt>(4)<dd><var>G</var> has a nilpotent subgroup of finite index and there
+are no non-trivial finite normal subgroups in <var>G</var>.
+</dl>
+<p>
+In particular, if <var>G</var> is almost crystallographic, then <var>G / Fitt(G)</var>
+is finite. This factor is called the <strong>holonomy group</strong> of <var>G</var>. 
+<p>
+The dimension of an almost crystallographic group equals the dimension
+of the Lie group <var>L</var> above which coincides also with the Hirsch length 
+of the polycyclic-by-finite group. This library therefore contains 
+families of virtually nilpotent groups of Hirsch length 3 and 4. 
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>aclib manual<br>August 2025
+</address></body></html>

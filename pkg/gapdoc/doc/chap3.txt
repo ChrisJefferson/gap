@@ -1,0 +1,1419 @@
+  
+  [1X3 [33X[0;0YThe Document Type Definition[133X[101X
+  
+  [33X[0;0YIn this chapter we first explain what a [21Xdocument type definition[121X is and then
+  describe  [11Xgapdoc.dtd[111X  in detail. That file together with the current chapter
+  define  how  a [5XGAPDoc[105X document has to look like. It can be found in the main
+  directory of the [5XGAPDoc[105X package and it is reproduced in Appendix [14XB[114X.[133X
+  
+  [33X[0;0YWe  do  not  give  many examples in this chapter which is more intended as a
+  formal  reference  for  all  [5XGAPDoc[105X elements. Instead, we provide a separate
+  help  book,  see [14XGAPDoc  Example:  Various  types of text[114X. This uses all the
+  constructs  introduced in this chapter and you can easily compare the source
+  code  and  how  it  looks  like in the different output formats. Furthermore
+  recall  that  many  basic  things about XML markup were already explained by
+  example in the introductory chapter [14X1[114X.[133X
+  
+  
+  [1X3.1 [33X[0;0YWhat is a DTD?[133X[101X
+  
+  [33X[0;0YA  document  type  definition  (DTD)  is  a formal declaration of how an XML
+  document  has  to  be structured. It is itself structured such that programs
+  that handle documents can read it and treat the documents accordingly. There
+  are  for  example parsers and validity checkers that use the DTD to validate
+  an XML document, see [14X2.1-14[114X.[133X
+  
+  [33X[0;0YThe  main  thing  a  DTD  does  is  to  specify  which elements may occur in
+  documents  of  a  certain  document  type,  how they can be nested, and what
+  attributes they can or must have. So, for each element there is a rule.[133X
+  
+  [33X[0;0YNote  that  a  DTD  can [13Xnot[113X ensure that a document which is [21Xvalid[121X also makes
+  sense  to  the converters! It only says something about the formal structure
+  of the document.[133X
+  
+  [33X[0;0YFor  the  remaining  part  of  this  chapter we have divided the elements of
+  [5XGAPDoc[105X  documents  into  several subsets, each of which will be discussed in
+  one of the next sections.[133X
+  
+  [33X[0;0YSee the following three subsections to learn by example, how a DTD works. We
+  do  not want to be too formal here, but just enable the reader to understand
+  the  declarations  in  [11Xgapdoc.dtd[111X. For precise descriptions of the syntax of
+  DTD's see again the official standard in:[133X
+  
+  [33X[0;0Y  [7Xhttps://www.xml.com/axml/axml.html[107X[133X
+  
+  
+  [1X3.2 [33X[0;0YOverall Document Structure[133X[101X
+  
+  [33X[0;0YA  [5XGAPDoc[105X  document  contains on its top level exactly one element with name
+  [10XBook[110X. This element is declared in the DTD as follows:[133X
+  
+  
+  [1X3.2-1 [33X[0;0Y[10X<Book>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Book (TitlePage,[104X
+    [4X                TableOfContents?,[104X
+    [4X                Body,[104X
+    [4X                Appendix*,[104X
+    [4X                Bibliography?,[104X
+    [4X                TheIndex?)>[104X
+    [4X<!ATTLIST Book Name CDATA #REQUIRED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAfter  the keyword [10XELEMENT[110X and the name [10XBook[110X there is a list in parentheses.
+  This  is a comma separated list of names of elements which can occur (in the
+  given  order) in the content of a [10XBook[110X element. Each name in such a list can
+  be  followed  by  one  of  the  characters  [21X[10X?[110X[121X,  [21X[10X*[110X[121X  or  [21X[10X+[110X[121X,  meaning  that the
+  corresponding  element  can  occur  zero or one time, an arbitrary number of
+  times,  or  at least once, respectively. Without such an extra character the
+  corresponding  element  must occur exactly once. Instead of one name in this
+  list  there  can also be a list of elements names separated by [21X[10X|[110X[121X characters,
+  this denotes any element with one of the names (i.e., [21X[10X|[110X[121X means [21Xor[121X).[133X
+  
+  [33X[0;0YSo,  the  [10XBook[110X  element  must  contain  first  a  [10XTitlePage[110X element, then an
+  optional  [10XTableOfContents[110X  element,  then  a [10XBody[110X element, then zero or more
+  elements  of  type  [10XAppendix[110X,  then  an  optional  [10XBibliography[110X element, and
+  finally an optional element of type [10XTheIndex[110X.[133X
+  
+  [33X[0;0YNote  that  [13Xonly[113X  these  elements  are  allowed  in  the content of the [10XBook[110X
+  element.  No  other  elements or text is allowed in between. An exception of
+  this  is  that  there  may  be whitespace between the end tag of one and the
+  start  tag of the next element - this should be ignored when the document is
+  processed  to  some output format. An element like this is called an element
+  with [21Xelement content[121X.[133X
+  
+  [33X[0;0YThe  second declaration starts with the keyword [10XATTLIST[110X and the element name
+  [10XBook[110X.  After  that  there is a triple of whitespace separated parameters (in
+  general  an arbitrary number of such triples, one for each allowed attribute
+  name).  The first ([10XName[110X) is the name of an attribute for a [10XBook[110X element. The
+  second ([10XCDATA[110X) is always the same for all of our declarations, it means that
+  the  value  of the attribute consists of [21Xcharacter data[121X. The third parameter
+  [10X#REQUIRED[110X means that this attribute must be specified with any [10XBook[110X element.
+  Later we will also see optional attributes which are declared as [10X#IMPLIED[110X.[133X
+  
+  
+  [1X3.2-2 [33X[0;0Y[10X<TitlePage>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT TitlePage (Title, Subtitle?, Version?, TitleComment?, [104X
+    [4X                     Author+, Date?, Address?, Abstract?, Copyright?, [104X
+    [4X                     Acknowledgements? , Colophon? )>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWithin  this  element information for the title page is collected. Note that
+  more  than  one  author  can  be specified. The elements must appear in this
+  order  because  there  is no sensible way to specify in a DTD something like
+  [21Xthe following elements may occur in any order but each exactly once[121X.[133X
+  
+  [33X[0;0YBefore  going  on with the other elements inside the [10XBook[110X element we explain
+  the elements for the title page.[133X
+  
+  
+  [1X3.2-3 [33X[0;0Y[10X<Title>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Title (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  is  the  last construct you need to understand for reading [11Xgapdoc.dtd[111X.
+  The  expression [21X[10X%Text;[110X[121X is a so-called [21Xparameter entity[121X. It is something like
+  a macro within the DTD. It is defined as follows:[133X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ENTITY % Text "%InnerText; | List | Enum | Table">[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  means,  that  every occurrence of [21X[10X%Text;[110X[121X in the DTD is replaced by the
+  expression[133X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X%InnerText; | List | Enum | Table[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywhich is then expanded further because of the following definition:[133X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ENTITY % InnerText "#PCDATA |[104X
+    [4X                      Alt |[104X
+    [4X                      Emph | E |[104X
+    [4X                      Par | P | Br |[104X
+    [4X                      Keyword | K | Arg | A | Quoted | Q | Code | C | [104X
+    [4X                      File | F | Button | B | Package |[104X
+    [4X                      M | Math | Display | [104X
+    [4X                      Example | Listing | Log | Verb |[104X
+    [4X                      URL | Email | Homepage | Address | Cite | Label | [104X
+    [4X                      Ref | Index" > [104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese are the only two parameter entities we are using. They expand to lists
+  of  element  names which are explained in the sequel [13Xand[113X the keyword [10X#PCDATA[110X
+  (concatenated with the [21Xor[121X character [21X[10X|[110X[121X).[133X
+  
+  [33X[0;0YSo, the element ([10XTitle[110X) is of so-called [21Xmixed content[121X: It can contain [13Xparsed
+  character data[113X which does not contain further markup ([10X#PCDATA[110X) or any of the
+  other  above mentioned elements. Mixed content must always have the asterisk
+  qualifier  (like  in [10XTitle[110X) such that any sequence of elements (of the above
+  list) and character data can be contained in a [10XTitle[110X element.[133X
+  
+  [33X[0;0YThe  [10X%Text;[110X  parameter entity is used in all places in the DTD, where [21Xnormal
+  text[121X  should  be  allowed, including lists, enumerations, and tables, but [13Xno[113X
+  sectioning elements.[133X
+  
+  [33X[0;0YThe  [10X%InnerText;[110X  parameter  entity  is used in all places in the DTD, where
+  [21Xinner  text[121X  should  be  allowed. This means, that no structures like lists,
+  enumerations, and tables are allowed. This is used for example in headings.[133X
+  
+  
+  [1X3.2-4 [33X[0;0Y[10X<Subtitle>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Subtitle (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YContains the subtitle of the document.[133X
+  
+  
+  [1X3.2-5 [33X[0;0Y[10X<Version>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Version (#PCDATA|Alt)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that the version can only contain character data and no further markup
+  elements  (except  for  [10XAlt[110X,  which  is  necessary  to  resolve the entities
+  described  in  [14X2.2-3[114X). The converters will [13Xnot[113X put the word [21XVersion[121X in front
+  of the text in this element.[133X
+  
+  
+  [1X3.2-6 [33X[0;0Y[10X<TitleComment>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT TitleComment (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSometimes a title and subtitle are not sufficient to give a rough idea about
+  the  content of a package. In this case use this optional element to specify
+  an  additional  text  for  the  front  page of the book. This text should be
+  short, use the [10XAbstract[110X element (see [14X3.2-10[114X) for longer explanations.[133X
+  
+  
+  [1X3.2-7 [33X[0;0Y[10X<Author>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Author (%Text;)*>    <!-- There may be more than one Author! -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAs  noted  in  the  comment there may be more than one element of this type.
+  This  element  should  contain  the  name  of  an  author  and  probably  an
+  [10XEmail[110X-address   and/or  WWW-[10XHomepage[110X  element  for  this  author,  see [14X3.5-6[114X
+  and [14X3.5-7[114X.  You  can also specify an individual postal address here, instead
+  of using the [10XAddress[110X element described below, see [14X3.2-9[114X.[133X
+  
+  
+  [1X3.2-8 [33X[0;0Y[10X<Date>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Date (#PCDATA)>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YOnly  character  data  is allowed in this element which gives a date for the
+  document. No automatic formatting is done.[133X
+  
+  
+  [1X3.2-9 [33X[0;0Y[10X<Address>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Address (#PCDATA|Alt|Br)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  optional element can be used to specify a postal address of the author
+  or  the  authors. If there are several authors with different addresses then
+  put the [10XAddress[110X elements inside the [10XAuthor[110X elements.[133X
+  
+  [33X[0;0YUse  the  [10XBr[110X  element  (see [14X3.9-3[114X)  to  mark  the  line  breaks in the usual
+  formatting of the address on a letter.[133X
+  
+  [33X[0;0YNote  that  often  it  is not necessary to use this element because a postal
+  address is easy to find via a link to a personal web page.[133X
+  
+  
+  [1X3.2-10 [33X[0;0Y[10X<Abstract>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Abstract (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element contains an abstract of the whole book.[133X
+  
+  
+  [1X3.2-11 [33X[0;0Y[10X<Copyright>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Copyright (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used for the copyright notice. Note the [10X&copyright;[110X entity
+  as described in section [14X2.2-3[114X.[133X
+  
+  
+  [1X3.2-12 [33X[0;0Y[10X<Acknowledgements>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Acknowledgements (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element contains the acknowledgements.[133X
+  
+  
+  [1X3.2-13 [33X[0;0Y[10X<Colophon>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Colophon (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe [21Xcolophon[121X page is used to say something about the history of a document.[133X
+  
+  
+  [1X3.2-14 [33X[0;0Y[10X<TableOfContents>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT TableOfContents EMPTY>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  may occur in the [10XBook[110X element after the [10XTitlePage[110X element. If
+  it  is  present,  a  table  of  contents  is generated and inserted into the
+  document. Note that because this element is declared to be [10XEMPTY[110X one can use
+  the abbreviation[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X<TableOfContents/>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yto denote this empty element.[133X
+  
+  
+  [1X3.2-15 [33X[0;0Y[10X<Bibliography>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Bibliography EMPTY>[104X
+    [4X<!ATTLIST Bibliography Databases CDATA #REQUIRED[104X
+    [4X                       Style CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element may occur in the [10XBook[110X element after the last [10XAppendix[110X element.
+  If  it is present, a bibliography section is generated and inserted into the
+  document.  The  attribute  [10XDatabases[110X must be specified, the names of several
+  data files can be specified, separated by commas.[133X
+  
+  [33X[0;0YTwo kinds of files can be specified in [10XDatabases[110X: The first are BibTeX files
+  as  defined  in [Lam85,  Appendix  B].  Such  files  must  have  a name with
+  extension  [11X.bib[111X,  and  in  [10XDatabases[110X  the  name  must  be given [13Xwithout[113X this
+  extension.  Note  that  such  [11X.bib[111X-files  should  be  in latin1-encoding (or
+  ASCII-encoding).  The  second  are  files  in BibXMLext format as defined in
+  Section [14X7.2[114X.  These  files  must have an extension [11X.xml[111X and in [10XDatabases[110X the
+  [13Xfull[113X name must be specified.[133X
+  
+  [33X[0;0YWe  suggest  to  use  the  BibXMLext  format  because  it  allows to produce
+  potentially nicer bibliography entries in text and HTML documents.[133X
+  
+  [33X[0;0YA bibliography style may be specified with the [10XStyle[110X attribute. The optional
+  [10XStyle[110X  attribute  (for  LaTeX output of the document) must also be specified
+  without  the  [11X.bst[111X  extension (the default is [10Xalpha[110X). See also section [14X3.5-3[114X
+  for  a description of the [10XCite[110X element which is used to include bibliography
+  references into the text.[133X
+  
+  
+  [1X3.2-16 [33X[0;0Y[10X<TheIndex>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT TheIndex EMPTY>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  may occur in the [10XBook[110X element after the [10XBibliography[110X element.
+  If  it  is  present,  an  index is generated and inserted into the document.
+  There  are elements in [5XGAPDoc[105X which implicitly generate index entries (e.g.,
+  [10XFunc[110X  ([14X3.4-2[114X))  and  there is an element [10XIndex[110X ([14X3.5-4[114X) for explicitly adding
+  index entries.[133X
+  
+  
+  [1X3.3 [33X[0;0YSectioning Elements[133X[101X
+  
+  [33X[0;0YA  [5XGAPDoc[105X book is divided into [13Xchapters[113X, [13Xsections[113X, and [13Xsubsections[113X. The idea
+  is  of course, that a chapter consists of sections, which in turn consist of
+  subsections.  However  for  the  sake  of flexibility, the rules are not too
+  restrictive. Firstly, text is allowed everywhere in the body of the document
+  (and  not only within sections). Secondly, the chapter level may be omitted.
+  The exact rules are described below.[133X
+  
+  [33X[0;0Y[13XAppendices[113X  are  a flavor of chapters, occurring after all regular chapters.
+  There  is  a  special  type  of  subsection  called  [21X[10XManSection[110X[121X.  This  is a
+  subsection  devoted to the description of a function, operation or variable.
+  It is analogous to a manpage in the UNIX environment. Usually each function,
+  operation, method, and so on should have its own [10XManSection[110X.[133X
+  
+  [33X[0;0YCross  referencing  is  done  on  the  level  of  [10XSubsection[110Xs,  respectively
+  [10XManSection[110Xs.   The  topics  in  [5XGAP[105X's  online  help  are  also  pointing  to
+  subsections. So, they should not be too long.[133X
+  
+  [33X[0;0YWe start our description of the sectioning elements [21Xtop-down[121X:[133X
+  
+  
+  [1X3.3-1 [33X[0;0Y[10X<Body>[110X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  [10XBody[110X  element  marks the main part of the document. It must occur after
+  the  [10XTableOfContents[110X  element.  There is a big difference between [13Xinside[113X and
+  [13Xoutside[113X  of  this element: Whereas regular text is allowed nearly everywhere
+  in  the  [10XBody[110X element and its subelements, this is not true for the [13Xoutside[113X.
+  This   has   also  implications  on  the  handling  of  whitespace.  [13XOutside[113X
+  superfluous  whitespace  is usually ignored when it occurs between elements.
+  [13XInside[113X  of  the  [10XBody[110X  element  whitespace matters because character data is
+  allowed nearly everywhere. Here is the definition in the DTD:[133X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Body  ( %Text;| Chapter | Section )*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  fact  that  [10XChapter[110X  and [10XSection[110X elements are allowed here leads to the
+  possibility  to  omit  the  chapter  level  entirely  in the document. For a
+  description of [10X%Text;[110X see [14X3.2-3[114X.[133X
+  
+  [33X[0;0Y(Remark:  The  purpose  of  this element is to make sure that a [13Xvalid[113X [5XGAPDoc[105X
+  document  has  a  correct overall structure, which is only possible when the
+  top element [10XBook[110X has element content.)[133X
+  
+  
+  [1X3.3-2 [33X[0;0Y[10X<Chapter>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Chapter (%Text;| Heading | Section)*>[104X
+    [4X<!ATTLIST Chapter Label CDATA #IMPLIED>    <!-- For reference purposes -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YA  [10XChapter[110X element can have a [10XLabel[110X attribute, such that this chapter can be
+  referenced  later  on  with a [10XRef[110X element (see section [14X3.5-1[114X). Note that you
+  have  to  specify  a label to reference the chapter as there is no automatic
+  labelling![133X
+  
+  [33X[0;0Y[10XChapter[110X  elements  can contain text (for a description of [10X%Text;[110X see [14X3.2-3[114X),
+  [10XSection[110X elements, and [10XHeading[110X elements.[133X
+  
+  [33X[0;0YThe  following [13Xadditional[113X rule cannot be stated in the DTD because we want a
+  [10XChapter[110X  element  to  have  mixed content. There must be [13Xexactly one[113X [10XHeading[110X
+  element  in the [10XChapter[110X element, containing the heading of the chapter. Here
+  is its definition:[133X
+  
+  
+  [1X3.3-3 [33X[0;0Y[10X<Heading>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Heading (%InnerText;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is  used  for  headings  in [10XChapter[110X, [10XSection[110X, [10XSubsection[110X, and
+  [10XAppendix[110X  elements.  It  may only contain [10X%InnerText;[110X (for a description see
+  [14X3.2-3[114X).[133X
+  
+  [33X[0;0YEach  of  the  mentioned sectioning elements must contain exactly one direct
+  [10XHeading[110X  element  (i.e.,  one  which  is not contained in another sectioning
+  element).[133X
+  
+  
+  [1X3.3-4 [33X[0;0Y[10X<Appendix>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Appendix (%Text;| Heading | Section)*>[104X
+    [4X<!ATTLIST Appendix Label CDATA #IMPLIED>   <!-- For reference purposes -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [10XAppendix[110X  element  behaves  exactly  like a [10XChapter[110X element (see [14X3.3-2[114X)
+  except  for  the  position  within  the  document  and  the numbering. While
+  chapters  are  counted  with  numbers  (1.,  2., 3., ...) the appendices are
+  counted with capital letters (A., B., ...).[133X
+  
+  [33X[0;0YAgain there is an optional [10XLabel[110X attribute used for references.[133X
+  
+  
+  [1X3.3-5 [33X[0;0Y[10X<Section>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Section (%Text;| Heading | Subsection | ManSection)*>[104X
+    [4X<!ATTLIST Section Label CDATA #IMPLIED>    <!-- For reference purposes -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YA  [10XSection[110X element can have a [10XLabel[110X attribute, such that this section can be
+  referenced  later  on  with a [10XRef[110X element (see section [14X3.5-1[114X). Note that you
+  have  to  specify  a label to reference the section as there is no automatic
+  labelling![133X
+  
+  [33X[0;0Y[10XSection[110X  elements  can contain text (for a description of [10X%Text;[110X see [14X3.2-3[114X),
+  [10XHeading[110X elements, and subsections.[133X
+  
+  [33X[0;0YThere  must  be  exactly  one  direct  [10XHeading[110X element in a [10XSection[110X element,
+  containing the heading of the section.[133X
+  
+  [33X[0;0YNote  that  a  subsection  is  either  a  [10XSubsection[110X element or a [10XManSection[110X
+  element.[133X
+  
+  
+  [1X3.3-6 [33X[0;0Y[10X<Subsection>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Subsection (%Text;| Heading)*>[104X
+    [4X<!ATTLIST Subsection Label CDATA #IMPLIED> <!-- For reference purposes -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe [10XSubsection[110X element can have a [10XLabel[110X attribute, such that this subsection
+  can be referenced later on with a [10XRef[110X element (see section [14X3.5-1[114X). Note that
+  you  have  to  specify  a  label  to reference the subsection as there is no
+  automatic labelling![133X
+  
+  [33X[0;0Y[10XSubsection[110X  elements  can  contain  text  (for  a  description of [10X%Text;[110X see
+  [14X3.2-3[114X), and [10XHeading[110X elements.[133X
+  
+  [33X[0;0YThere  must  be  exactly  one  [10XHeading[110X  element  in  a  [10XSubsection[110X  element,
+  containing the heading of the subsection.[133X
+  
+  [33X[0;0YAnother type of subsection is a [10XManSection[110X, explained now:[133X
+  
+  
+  [1X3.4 [33X[0;0YManSection–a special kind of subsection[133X[101X
+  
+  [33X[0;0Y[10XManSection[110Xs   are  intended  to  describe  a  function,  operation,  method,
+  variable,  or some other technical instance. It is analogous to a manpage in
+  the UNIX environment.[133X
+  
+  
+  [1X3.4-1 [33X[0;0Y[10X<ManSection>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT ManSection ( Heading?, [104X
+    [4X                      ((Func, Returns?) | (Oper, Returns?) | [104X
+    [4X                       (Meth, Returns?) | (Filt, Returns?) | [104X
+    [4X                       (Prop, Returns?) | (Attr, Returns?) |[104X
+    [4X                       (Constr, Returns?) |[104X
+    [4X                       Var | Fam | InfoClass)+, Description )>[104X
+    [4X<!ATTLIST ManSection Label CDATA #IMPLIED> <!-- For reference purposes -->[104X
+    [4X[104X
+    [4X<!ELEMENT Returns (%Text;)*>[104X
+    [4X<!ELEMENT Description (%Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe [10XManSection[110X element can have a [10XLabel[110X attribute, such that this subsection
+  can  be referenced later on with a [10XRef[110X element (see section [14X3.5-1[114X). But this
+  is  probably rarely necessary because the elements [10XFunc[110X and so on (explained
+  below) generate automatically labels for cross referencing.[133X
+  
+  [33X[0;0YThe  content  of  a  [10XManSection[110X  element  is one or more elements describing
+  certain items in [5XGAP[105X, each of them optionally followed by a [10XReturns[110X element,
+  followed  by  a  [10XDescription[110X  element,  which  contains  [10X%Text;[110X  (see [14X3.2-3[114X)
+  describing  it. (Remember to include examples in the description as often as
+  possible,  see [14X3.7-10[114X).  The classes of items [5XGAPDoc[105X knows of are: functions
+  ([10XFunc[110X),  operations  ([10XOper[110X),  constructors ([10XConstr[110X), methods ([10XMeth[110X), filters
+  ([10XFilt[110X),  properties  ([10XProp[110X),  attributes  ([10XAttr[110X),  variables ([10XVar[110X), families
+  ([10XFam[110X),  and  info  classes  ([10XInfoClass[110X). One [10XManSection[110X should only describe
+  several of such items when these are very closely related.[133X
+  
+  [33X[0;0YEach  element for an item corresponding to a [5XGAP[105X function can be followed by
+  a  [10XReturns[110X  element. In output versions of the document the string [21XReturns: [121X
+  will  be  put  in front of the content text. The text in the [10XReturns[110X element
+  should  usually  be  a  short  hint about the type of object returned by the
+  function. This is intended to give a good mnemonic for the use of a function
+  (together with a good choice of names for the formal arguments).[133X
+  
+  [33X[0;0Y[10XManSection[110Xs are also sectioning elements which count as subsections. Usually
+  there  should  be no [10XHeading[110X-element in a [10XManSection[110X, in that case a heading
+  is  generated automatically from the first [10XFunc[110X-like element. Sometimes this
+  default  behaviour  does  not  look  appropriate, for example when there are
+  several [10XFunc[110X-like elements. For such cases an optional [10XHeading[110X is allowed.[133X
+  
+  
+  [1X3.4-2 [33X[0;0Y[10X<Func>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Func EMPTY>[104X
+    [4X<!ATTLIST Func Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used within a [10XManSection[110X element to specify the usage of a
+  function.  The  [10XName[110X  attribute is required and its value is the name of the
+  function.  The  value of the [10XArg[110X attribute (also required) contains the full
+  list  of  arguments  including  optional  parts, which are denoted by square
+  brackets.  The  argument names can be separated by whitespace, commas or the
+  square   brackets   for   the   optional  arguments,  like  [10X"grp[, elm]"[110X  or
+  [10X"xx[y[z] ]"[110X.  If [5XGAP[105X options are used, this can be followed by a colon [10X:[110X and
+  one or more assignments, like [10X"n[, r]: tries := 100"[110X.[133X
+  
+  [33X[0;0YThe  name  of the function is also used as label for cross referencing. When
+  the  name  of  the  function  appears  in the text of the document it should
+  [13Xalways[113X  be  written  with  the  [10XRef[110X element, see [14X3.5-1[114X. This allows to use a
+  unique typesetting style for function names and automatic cross referencing.[133X
+  
+  [33X[0;0YIf  the optional [10XLabel[110X attribute is given, it is appended (with a colon [10X:[110X in
+  between)  to  the  name  of the function for cross referencing purposes. The
+  text  of  the label can also appear in the document text. So, it should be a
+  kind of short explanation.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X<Func Arg="x[, y]" Name="LibFunc" Label="for my objects"/>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  optional  [10XComm[110X attribute should be a short description of the function,
+  usually at most one line long (this is currently nowhere used).[133X
+  
+  [33X[0;0YThis  element  automatically  produces  an  index entry with the name of the
+  function  and,  if present, the text of the [10XLabel[110X attribute as subentry (see
+  also [14X3.2-16[114X and [14X3.5-4[114X).[133X
+  
+  
+  [1X3.4-3 [33X[0;0Y[10X<Oper>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Oper EMPTY>[104X
+    [4X<!ATTLIST Oper Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element is used within a [10XManSection[110X element to specify the usage of an
+  operation.  The  attributes  are used exactly in the same way as in the [10XFunc[110X
+  element (see [14X3.4-2[114X).[133X
+  
+  [33X[0;0YNote  that  multiple  descriptions  of  the  same  operation  may occur in a
+  document because there may be several declarations in [5XGAP[105X. Furthermore there
+  may  be  several [10XManSection[110Xs for methods of this operation (see [14X3.4-5[114X) which
+  also  use  the same name. For reference purposes these must be distinguished
+  by different [10XLabel[110X attributes.[133X
+  
+  
+  [1X3.4-4 [33X[0;0Y[10X<Constr>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Constr EMPTY>[104X
+    [4X<!ATTLIST Constr Name  CDATA #REQUIRED[104X
+    [4X                 Label CDATA #IMPLIED[104X
+    [4X                 Arg   CDATA #REQUIRED[104X
+    [4X                 Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used within a [10XManSection[110X element to specify the usage of a
+  constructor.  The attributes are used exactly in the same way as in the [10XFunc[110X
+  element (see [14X3.4-2[114X).[133X
+  
+  [33X[0;0YNote  that  multiple  descriptions  of  the  same constructor may occur in a
+  document because there may be several declarations in [5XGAP[105X. Furthermore there
+  may be several [10XManSection[110Xs for methods of this constructor (see [14X3.4-5[114X) which
+  also  use  the same name. For reference purposes these must be distinguished
+  by different [10XLabel[110X attributes.[133X
+  
+  
+  [1X3.4-5 [33X[0;0Y[10X<Meth>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Meth EMPTY>[104X
+    [4X<!ATTLIST Meth Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used within a [10XManSection[110X element to specify the usage of a
+  method.  The  attributes  are  used  exactly  in the same way as in the [10XFunc[110X
+  element (see [14X3.4-2[114X).[133X
+  
+  [33X[0;0YFrequently,  an  operation  is  implemented  by  several  different methods.
+  Therefore it seems to be interesting to document them independently. This is
+  possible  by  using  the  same  method  name in different [10XManSection[110Xs. It is
+  however   required   that   these   subsections  and  those  describing  the
+  corresponding operation are distinguished by different [10XLabel[110X attributes.[133X
+  
+  
+  [1X3.4-6 [33X[0;0Y[10X<Filt>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Filt EMPTY>[104X
+    [4X<!ATTLIST Filt Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #IMPLIED[104X
+    [4X               Comm  CDATA #IMPLIED[104X
+    [4X               Type  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used within a [10XManSection[110X element to specify the usage of a
+  filter.  The  first  four attributes are used in the same way as in the [10XFunc[110X
+  element (see [14X3.4-2[114X), except that the [10XArg[110X attribute is optional.[133X
+  
+  [33X[0;0YThe [10XType[110X attribute can be any string, but it is thought to be something like
+  [21X[10XCategory[110X[121X or [21X[10XRepresentation[110X[121X.[133X
+  
+  
+  [1X3.4-7 [33X[0;0Y[10X<Prop>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Prop EMPTY>[104X
+    [4X<!ATTLIST Prop Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used within a [10XManSection[110X element to specify the usage of a
+  property.  The  attributes  are  used exactly in the same way as in the [10XFunc[110X
+  element (see [14X3.4-2[114X).[133X
+  
+  
+  [1X3.4-8 [33X[0;0Y[10X<Attr>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Attr EMPTY>[104X
+    [4X<!ATTLIST Attr Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Arg   CDATA #REQUIRED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element is used within a [10XManSection[110X element to specify the usage of an
+  attribute  (in  [5XGAP[105X).  The attributes are used exactly in the same way as in
+  the [10XFunc[110X element (see [14X3.4-2[114X).[133X
+  
+  
+  [1X3.4-9 [33X[0;0Y[10X<Var>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Var  EMPTY>[104X
+    [4X<!ATTLIST Var  Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is  used  within  a  [10XManSection[110X  element to document a global
+  variable.  The  attributes  are  used exactly in the same way as in the [10XFunc[110X
+  element (see [14X3.4-2[114X) except that there is no [10XArg[110X attribute.[133X
+  
+  
+  [1X3.4-10 [33X[0;0Y[10X<Fam>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Fam  EMPTY>[104X
+    [4X<!ATTLIST Fam  Name  CDATA #REQUIRED[104X
+    [4X               Label CDATA #IMPLIED[104X
+    [4X               Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used within a [10XManSection[110X element to document a family. The
+  attributes  are  used  exactly  in  the same way as in the [10XFunc[110X element (see
+  [14X3.4-2[114X) except that there is no [10XArg[110X attribute.[133X
+  
+  
+  [1X3.4-11 [33X[0;0Y[10X<InfoClass>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT InfoClass EMPTY>[104X
+    [4X<!ATTLIST InfoClass Name  CDATA #REQUIRED[104X
+    [4X                    Label CDATA #IMPLIED[104X
+    [4X                    Comm  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element is used within a [10XManSection[110X element to document an info class.
+  The  attributes are used exactly in the same way as in the [10XFunc[110X element (see
+  [14X3.4-2[114X) except that there is no [10XArg[110X attribute.[133X
+  
+  
+  [1X3.5 [33X[0;0YCross Referencing and Citations[133X[101X
+  
+  [33X[0;0YCross  referencing  in  the [5XGAPDoc[105X system is somewhat different to the usual
+  LaTeX  cross  referencing  in  so  far, that a reference knows [21Xwhich type of
+  object[121X  it  is  referencing.  For  example  a  [21Xreference  to  a  function[121X is
+  distinguished  from  a [21Xreference to a chapter[121X. The idea of this is, that the
+  markup  must  contain  this information such that the converters can produce
+  better  output.  The  HTML  converter  can  for  example  typeset a function
+  reference just as the name of the function with a link to the description of
+  the  function,  or  a chapter reference as a number with a link in the other
+  case.[133X
+  
+  [33X[0;0YReferencing is done with the [10XRef[110X element:[133X
+  
+  
+  [1X3.5-1 [33X[0;0Y[10X<Ref>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Ref EMPTY>[104X
+    [4X<!ATTLIST Ref Func      CDATA #IMPLIED[104X
+    [4X              Oper      CDATA #IMPLIED[104X
+    [4X              Constr    CDATA #IMPLIED[104X
+    [4X              Meth      CDATA #IMPLIED[104X
+    [4X              Filt      CDATA #IMPLIED[104X
+    [4X              Prop      CDATA #IMPLIED[104X
+    [4X              Attr      CDATA #IMPLIED[104X
+    [4X              Var       CDATA #IMPLIED[104X
+    [4X              Fam       CDATA #IMPLIED[104X
+    [4X              InfoClass CDATA #IMPLIED[104X
+    [4X              Chap      CDATA #IMPLIED[104X
+    [4X              Sect      CDATA #IMPLIED[104X
+    [4X              Subsect   CDATA #IMPLIED[104X
+    [4X              Appendix  CDATA #IMPLIED[104X
+    [4X              Text      CDATA #IMPLIED[104X
+    [4X[104X
+    [4X              Label     CDATA #IMPLIED[104X
+    [4X              BookName  CDATA #IMPLIED[104X
+    [4X              Style (Text | Number) #IMPLIED>  <!-- normally automatic -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe [10XRef[110X element is defined to be [10XEMPTY[110X. If one of the attributes [10XFunc[110X, [10XOper[110X,
+  [10XConstr[110X, [10XMeth[110X, [10XProp[110X, [10XAttr[110X, [10XVar[110X, [10XFam[110X, [10XInfoClass[110X, [10XChap[110X, [10XSect[110X, [10XSubsect[110X, [10XAppendix[110X
+  is  given  then there must be exactly one of these, making the reference one
+  to  the  corresponding  object.  The  [10XLabel[110X  attribute  can  be specified in
+  addition  to  make the reference unique, for example if more than one method
+  with  a  given name is present. (Note that there is no way to specify in the
+  DTD  that  exactly one of the first listed attributes must be given, this is
+  an additional rule.)[133X
+  
+  [33X[0;0YA  reference  to a [10XLabel[110X element defined below (see [14X3.5-2[114X) is done by giving
+  the [10XLabel[110X attribute and optionally the [10XText[110X attribute. If the [10XText[110X attribute
+  is  present  its value is typeset in place of the [10XRef[110X element, if linking is
+  possible  (for example in HTML). If this is not possible, the section number
+  is  typeset.  This  type  of reference is also used for references to tables
+  (see [14X3.6-5[114X).[133X
+  
+  [33X[0;0YAn  external  reference  into  another  book  can  be specified by using the
+  [10XBookName[110X  attribute.  In  this  case  the [10XLabel[110X attribute or, if this is not
+  given,  the  function  or  section  like  attribute,  is used to resolve the
+  reference. The generated reference points to the first hit when asking [21X?book
+  name: label[121X inside [5XGAP[105X.[133X
+  
+  [33X[0;0YThe  optional  attribute  [10XStyle[110X can take only the values [10XText[110X and [10XNumber[110X. It
+  can  be  used with references to sectioning units and it gives a hint to the
+  converter programs, whether an explicit section number is generated or text.
+  Normally all references to sections generate numbers and references to a [5XGAP[105X
+  object  generate  the  name of the corresponding object with some additional
+  link  or  sectioning  information, which is the behavior of [10XStyle="Text"[110X. In
+  case [10XStyle="Number"[110X in all cases an explicit section number is generated. So[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X<Ref Subsect="Func" Style="Text"/> described in section [128X[104X
+    [4X[28X<Ref Subsect="Func" Style="Number"/>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yproduces: [14X'[33X[0;0Y[10X<Func>[110X[133X'[114X described in section [14X3.4-2[114X.[133X
+  
+  
+  [1X3.5-2 [33X[0;0Y[10X<Label>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Label EMPTY>[104X
+    [4X<!ATTLIST Label Name CDATA #REQUIRED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element is used to define a label for referencing a certain position in
+  the  document,  if  this  is possible. If an exact reference is not possible
+  (like in a printed version of the document) a reference to the corresponding
+  subsection  is  generated.  The  value  of the [10XName[110X attribute must be unique
+  under all [10XLabel[110X elements.[133X
+  
+  
+  [1X3.5-3 [33X[0;0Y[10X<Cite>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Cite EMPTY>[104X
+    [4X<!ATTLIST Cite Key CDATA #REQUIRED[104X
+    [4X               Where CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is for bibliography citations. It is [10XEMPTY[110X by definition. The
+  attribute  [10XKey[110X  is  the key for a lookup in a BibTeX database that has to be
+  specified  in  the [10XBibliography[110X element (see [14X3.2-15[114X). The value of the [10XWhere[110X
+  attribute  specifies  the  position  in the document as in the corresponding
+  LaTeX syntax [10X\cite[Where value]{Key value}[110X.[133X
+  
+  
+  [1X3.5-4 [33X[0;0Y[10X<Index>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Index (%InnerText;|Subkey)*>[104X
+    [4X<!ATTLIST Index Key    CDATA #IMPLIED[104X
+    [4X                Subkey CDATA #IMPLIED>[104X
+    [4X<!ELEMENT Subkey (%InnerText;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element generates an index entry. The content of the element is typeset
+  in  the index. It can optionally contain a [10XSubkey[110X element. If one or both of
+  the  attributes [10XKey[110X and [10XSubkey[110X are given, then the attribute values are used
+  for  sorting  the  index  entries.  Otherwise the content itself is used for
+  sorting.  The  attributes  should  be used when the content contains markup.
+  Note  that  all  [10XFunc[110X  and  similar  elements  automatically  generate index
+  entries. If the [10XTheIndex[110X element ([14X3.2-16[114X) is not present in the document all
+  [10XIndex[110X elements are ignored.[133X
+  
+  
+  [1X3.5-5 [33X[0;0Y[10X<URL>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT URL (#PCDATA|Alt|Link|LinkText)*>  <!-- Link, LinkText[104X
+    [4X     variant for case where text needs further markup -->[104X
+    [4X<!ATTLIST URL Text CDATA #IMPLIED>   <!-- This is for output formats[104X
+    [4X                                          that have links like HTML -->[104X
+    [4X<!ELEMENT Link     (%InnerText;)*> <!-- the URL -->[104X
+    [4X<!ELEMENT LinkText (%InnerText;)*> <!-- text for links, can contain markup -->[104X
+    [4X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is  for references into the internet. It specifies an URL and
+  optionally a text which can be used for a link (like in HTML or PDF versions
+  of the document). This can be specified in two ways: Either the URL is given
+  as  element content and the text is given in the optional [10XText[110X attribute (in
+  this  case  the text cannot contain further markup), or the element contains
+  the  two  elements  [10XLink[110X  and [10XLinkText[110X which in turn contain the URL and the
+  text, respectively. The default value for the text is the URL itself.[133X
+  
+  
+  [1X3.5-6 [33X[0;0Y[10X<Email>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Email (#PCDATA|Alt|Link|LinkText)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element type is the special case of an URL specifying an email address.
+  The  content  of  the element should be the email address without any prefix
+  like  [21X[10Xmailto:[110X[121X.  This  address is typeset by all converters, also without any
+  prefix. In the case of an output document format like HTML the converter can
+  produce a link with a [21X[10Xmailto:[110X[121X prefix.[133X
+  
+  
+  [1X3.5-7 [33X[0;0Y[10X<Homepage>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Homepage (#PCDATA|Alt|Link|LinkText)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element type is the special case of an URL specifying a WWW-homepage.[133X
+  
+  
+  [1X3.6 [33X[0;0YStructural Elements like Lists[133X[101X
+  
+  [33X[0;0YThe  [5XGAPDoc[105X  system  offers  some limited access to structural elements like
+  lists,  enumerations,  and  tables. Although it is possible to use all LaTeX
+  constructs  one always has to think about other output formats. The elements
+  in this section are guaranteed to produce something reasonable in all output
+  formats.[133X
+  
+  
+  [1X3.6-1 [33X[0;0Y[10X<List>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT List ( ((Mark,Item)|Item)+ )>[104X
+    [4X<!ATTLIST List Only CDATA #IMPLIED[104X
+    [4X               Not  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  produces a list. Each item in the list corresponds to an [10XItem[110X
+  element.  Every  [10XItem[110X  element is optionally preceded by a [10XMark[110X element. The
+  content  of this is used as a marker for the item. Note that this marker can
+  be  a  whole  word or even a sentence. It will be typeset in some emphasized
+  fashion  and  most  converters will provide some indentation for the rest of
+  the item.[133X
+  
+  [33X[0;0YThe  [10XOnly[110X  and  [10XNot[110X  attributes  can  be  used  to specify, that the list is
+  included into the output by only one type of converter ([10XOnly[110X) or all but one
+  type  of  converter  ([10XNot[110X).  Of course at most one of the two attributes may
+  occur  in  one  element.  The following values are allowed as of now: [21X[10XLaTeX[110X[121X,
+  [21X[10XHTML[110X[121X,  and  [21X[10XText[110X[121X.  See  also  the  [10XAlt[110X  element in [14X3.9-1[114X for more about text
+  alternatives for certain converters.[133X
+  
+  
+  [1X3.6-2 [33X[0;0Y[10X<Mark>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Mark ( %InnerText;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is  used  in the [10XList[110X element to mark items. See [14X3.6-1[114X for an
+  explanation.[133X
+  
+  
+  [1X3.6-3 [33X[0;0Y[10X<Item>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Item ( %Text;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is  used in the [10XList[110X, [10XEnum[110X, and [10XTable[110X elements to specify the
+  items. See sections [14X3.6-1[114X, [14X3.6-4[114X, and [14X3.6-5[114X for further information.[133X
+  
+  
+  [1X3.6-4 [33X[0;0Y[10X<Enum>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Enum ( Item+ )>[104X
+    [4X<!ATTLIST Enum Only CDATA #IMPLIED[104X
+    [4X               Not  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element is used like the [10XList[110X element (see [14X3.6-1[114X) except that the items
+  must  not  have  marks  attached  to  them.  Instead, the items are numbered
+  automatically.  The same comments about the [10XOnly[110X and [10XNot[110X attributes as above
+  apply.[133X
+  
+  
+  [1X3.6-5 [33X[0;0Y[10X<Table>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Table ( Caption?, (Row | HorLine)+ )>[104X
+    [4X<!ATTLIST Table Label   CDATA #IMPLIED[104X
+    [4X                Only    CDATA #IMPLIED[104X
+    [4X                Not     CDATA #IMPLIED[104X
+    [4X                Align   CDATA #REQUIRED>[104X
+    [4X                <!-- We allow | and l,c,r, nothing else -->[104X
+    [4X<!ELEMENT Row   ( Item+ )>[104X
+    [4X<!ELEMENT HorLine EMPTY>[104X
+    [4X<!ELEMENT Caption ( %InnerText;)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YA  table  in  [5XGAPDoc[105X  consists  of an optional [10XCaption[110X element followed by a
+  sequence  of  [10XRow[110X  and  [10XHorLine[110X  elements.  A  [10XHorLine[110X  element  produces  a
+  horizontal  line  in the table. A [10XRow[110X element consists of a sequence of [10XItem[110X
+  elements  as  they  also  occur  in [10XList[110X and [10XEnum[110X elements. The [10XOnly[110X and [10XNot[110X
+  attributes  have  the same functionality as described in the [10XList[110X element in
+  [14X3.6-1[114X.[133X
+  
+  [33X[0;0YThe  [10XAlign[110X attribute is written like a LaTeX tabular alignment specifier but
+  only  the  letters  [21X[10Xl[110X[121X, [21X[10Xr[110X[121X, [21X[10Xc[110X[121X, and [21X[10X|[110X[121X are allowed meaning left alignment, right
+  alignment,  centered  alignment,  and  a  vertical line as delimiter between
+  columns respectively.[133X
+  
+  [33X[0;0YIf  the  [10XLabel[110X  attribute is there, one can reference the table with the [10XRef[110X
+  element (see [14X3.5-1[114X) using its [10XLabel[110X attribute.[133X
+  
+  [33X[0;0YUsually  only  simple tables should be used. If you want a complicated table
+  in  the  LaTeX  output  you  should  provide  alternatives for text and HTML
+  output.  Note  that  in  HTML-4.0 there is no possibility to interpret the [21X[10X|[110X[121X
+  column  separators and [10XHorLine[110X elements as intended. There are lines between
+  all columns and rows or no lines at all.[133X
+  
+  
+  [1X3.7 [33X[0;0YTypes of Text[133X[101X
+  
+  [33X[0;0YThis  section  covers  the  markup of text. Various types of [21Xtext[121X exist. The
+  following  elements  are used in the [5XGAPDoc[105X system to mark them. They mostly
+  come  in  pairs, one long name which is easier to remember and a shortcut to
+  make the markup [21Xlighter[121X.[133X
+  
+  [33X[0;0YMost  of  the  following elements are thought to contain only character data
+  and  no  further  markup  elements.  It  is  however  necessary to allow [10XAlt[110X
+  elements to resolve the entities described in section [14X2.2-3[114X.[133X
+  
+  
+  [1X3.7-1 [33X[0;0Y[10X<Emph>[110X[101X[1X and [10X<E>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Emph (%InnerText;)*>    <!-- Emphasize something -->[104X
+    [4X<!ELEMENT E    (%InnerText;)*>    <!-- the same as shortcut -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is  used  to  emphasize  some  piece  of text. It may contain
+  [10X%InnerText;[110X (see [14X3.2-3[114X).[133X
+  
+  
+  [1X3.7-2 [33X[0;0Y[10X<Quoted>[110X[101X[1X and [10X<Q>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Quoted (%InnerText;)*>   <!-- Quoted (in quotes) text -->[104X
+    [4X<!ELEMENT Q (%InnerText;)*>        <!-- Quoted text (shortcut) -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element is used to put some piece of text into [21X [121X-quotes. It may contain
+  [10X%InnerText;[110X (see [14X3.2-3[114X).[133X
+  
+  
+  [1X3.7-3 [33X[0;0Y[10X<Keyword>[110X[101X[1X and [10X<K>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Keyword (#PCDATA|Alt)*>  <!-- Keyword -->[104X
+    [4X<!ELEMENT K (#PCDATA|Alt)*>        <!-- Keyword (shortcut) -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element is used to mark something as a [13Xkeyword[113X. Usually this will be a
+  [5XGAP[105X keyword such as [21X[9Xif[109X[121X or [21X[9Xfor[109X[121X. No further markup elements are allowed within
+  this element except for the [10XAlt[110X element, which is necessary.[133X
+  
+  
+  [1X3.7-4 [33X[0;0Y[10X<Arg>[110X[101X[1X and [10X<A>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Arg (#PCDATA|Alt)*>      <!-- Argument -->[104X
+    [4X<!ELEMENT A (#PCDATA|Alt)*>        <!-- Argument (shortcut) -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element is used inside [10XDescription[110Xs in [10XManSection[110Xs to mark something as
+  an  [13Xargument[113X  (of a function, operation, or such). It is guaranteed that the
+  converters  typeset  those  exactly  as  in  the definition of functions. No
+  further markup elements are allowed within this element.[133X
+  
+  
+  [1X3.7-5 [33X[0;0Y[10X<Code>[110X[101X[1X and [10X<C>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Code (#PCDATA|Arg|Alt)*>     <!-- GAP code -->[104X
+    [4X<!ELEMENT C (#PCDATA|Arg|Alt)*>        <!-- GAP code (shortcut) -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis element is used to mark something as a piece of [13Xcode[113X like for example a
+  [5XGAP[105X expression. It is guaranteed that the converters typeset this exactly as
+  in  the  [10XListing[110X  element  (compare  section [14X3.7-9[114X). The only further markup
+  elements allowed within this element are [10X<Arg>[110X elements (see [14X3.7-4[114X).[133X
+  
+  
+  [1X3.7-6 [33X[0;0Y[10X<File>[110X[101X[1X and [10X<F>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT File (#PCDATA|Alt)*>     <!-- Filename -->[104X
+    [4X<!ELEMENT F (#PCDATA|Alt)*>        <!-- Filename (shortcut) -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is  used to mark something as a [13Xfilename[113X or a [13Xpathname[113X in the
+  file system. No further markup elements are allowed within this element.[133X
+  
+  
+  [1X3.7-7 [33X[0;0Y[10X<Button>[110X[101X[1X and [10X<B>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Button (#PCDATA|Alt)*>   <!-- "Button" (also Menu, Key, ...) -->[104X
+    [4X<!ELEMENT B (#PCDATA|Alt)*>        <!-- "Button" (shortcut) -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element is used to mark something as a [13Xbutton[113X. It can also be used for
+  other items in a graphical user interface like [13Xmenus[113X, [13Xmenu entries[113X, or [13Xkeys[113X.
+  No further markup elements are allowed within this element.[133X
+  
+  
+  [1X3.7-8 [33X[0;0Y[10X<Package>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Package (#PCDATA|Alt)*>   <!-- A package name -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used to mark something as a name of a [13Xpackage[113X. This is for
+  example used to define the entities [5XGAP[105X, [5XXGAP[105X or [5XGAPDoc[105X (see section [14X2.2-3[114X).
+  No further markup elements are allowed within this element.[133X
+  
+  
+  [1X3.7-9 [33X[0;0Y[10X<Listing>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Listing (#PCDATA)>  <!-- This is just for GAP code listings -->[104X
+    [4X<!ATTLIST Listing Type CDATA #IMPLIED> <!-- a comment about the type of[104X
+    [4X                                            listed code, may appear in[104X
+    [4X                                            output -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  is used to embed listings of programs into the document. Only
+  character  data and no other elements are allowed in the content. You should
+  [13Xnot[113X  use  the character entities described in section [14X2.2-3[114X but instead type
+  the  characters directly. Only the general XML rules from section [14X2.1[114X apply.
+  Note  especially  the  usage  of  [10X<![CDATA[[110X  sections described there. It is
+  guaranteed  that  all  converters  use  a  fixed  width font for typesetting
+  [10XListing[110X  elements.  Compare  also  the  usage  of the [10XCode[110X and [10XC[110X elements in
+  [14X3.7-5[114X.[133X
+  
+  [33X[0;0YThe  [10XType[110X attribute contains a comment about the type of listed code. It may
+  appear in the output.[133X
+  
+  
+  [1X3.7-10 [33X[0;0Y[10X<Log>[110X[101X[1X and [10X<Example>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Example (#PCDATA)>  <!-- This is subject to the automatic [104X
+    [4X                                   example checking mechanism -->[104X
+    [4X<!ELEMENT Log (#PCDATA)>      <!-- This not -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese two elements behave exactly like the [10XListing[110X element (see [14X3.7-9[114X). They
+  are  thought  for protocols of [5XGAP[105X sessions. The only difference between the
+  two  is  that  [10XExample[110X  sections  are intended to be subject to an automatic
+  manual  checking  mechanism used to ensure the correctness of the [5XGAP[105X manual
+  whereas [10XLog[110X is not touched by this (see section [14X5.4[114X for checking tools).[133X
+  
+  [33X[0;0YTo  get  a good layout of the examples for display in a standard terminal we
+  suggest to use [10XSizeScreen([72]);[110X (see [2XSizeScreen[102X ([14XReference: SizeScreen[114X)) in
+  your [5XGAP[105X session before producing the content of [10XExample[110X elements.[133X
+  
+  
+  [1X3.7-11 [33X[0;0Y[10X<Verb>[110X[101X[1X[133X[101X
+  
+  [33X[0;0YThere is one further type of verbatim-like element.[133X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Verb  (#PCDATA)> [104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  content  of  such  an  element  is  guaranteed to be put into an output
+  version  exactly  as it is using some fixed width font. Before the content a
+  new  line is started. If the line after the end of the start tag consists of
+  whitespace only then this part of the content is skipped.[133X
+  
+  [33X[0;0YThis element is intended to be used together with the [10XAlt[110X element to specify
+  pre-formatted ASCII alternatives for complicated [10XDisplay[110X formulae or [10XTable[110Xs.[133X
+  
+  
+  [1X3.8 [33X[0;0YElements for Mathematical Formulae[133X[101X
+  
+  
+  [1X3.8-1 [33X[0;0Y[10X<Math>[110X[101X[1X and [10X<Display>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!-- Normal TeX math mode formula -->[104X
+    [4X<!ELEMENT Math (#PCDATA|A|Arg|Alt)*>   [104X
+    [4X<!-- TeX displayed math mode formula -->[104X
+    [4X<!ELEMENT Display (#PCDATA|A|Arg|Alt)*>[104X
+    [4X<!-- Mode="M" causes <M>-style formatting -->[104X
+    [4X<!ATTLIST Display Mode CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese  elements  are used for mathematical formulae. As described in section
+  [14X2.2-2[114X they correspond to LaTeX's math and display math mode respectively.[133X
+  
+  [33X[0;0YThe  formulae  are  typed  in  as  in  LaTeX,  [13Xexcept[113X  that the standard XML
+  entities,  see [14X2.1-9[114X (in particular the characters [10X<[110X and [10X&[110X), must be escaped
+  -  either  by  using  the corresponding entities or by enclosing the formula
+  between [21X[10X<![CDATA[[110X[121X and [21X[10X]]>[110X[121X. (The main reference for LaTeX is [Lam85].)[133X
+  
+  [33X[0;0YIt  is also possible to use some unicode characters for mathematical symbols
+  directly,  provided that it can be translated by [2XEncode[102X ([14X6.2-2[114X) into [10X"LaTeX"[110X
+  encoding  and  that  [2XSimplifiedUnicodeString[102X ([14X6.2-2[114X) with arguments [10X"latin1"[110X
+  and  [10X"single"[110X  returns  something  sensible.  Currently, we support entities
+  [10X&CC;[110X,  [10X&ZZ;[110X,  [10X&NN;[110X, [10X&PP;[110X, [10X&QQ;[110X, [10X&HH;[110X, [10X&RR;[110X for the corresponding black board
+  bold letters ℂ, ℤ, ℕ, ℙ, ℚ, ℍ and ℝ, respectively.[133X
+  
+  [33X[0;0YThe only element type that is allowed within the formula elements is the [10XArg[110X
+  or  [10XA[110X  element  (see  [14X3.7-4[114X),  which is used to typeset identifiers that are
+  arguments to [5XGAP[105X functions or operations.[133X
+  
+  [33X[0;0YIf  a [10XDisplay[110X element has an attribute [10XMode[110X with value [10X"M"[110X, then the formula
+  is formatted as in [10XM[110X elements (see [14X3.8-2[114X). Otherwise in text and HTML output
+  the formula is shown as LaTeX source code.[133X
+  
+  [33X[0;0YFor  simple  formulae (and you should try to make all your formulae simple!)
+  attempt  to use the [10XM[110X element or the [10XMode="M"[110X attribute in [10XDisplay[110X for which
+  there  is  a  well defined translation into text, which can be used for text
+  and  HTML  output versions of the document. So, if possible try to avoid the
+  [10XMath[110X  elements and [10XDisplay[110X elements without attribute or provide useful text
+  substitutes   for   complicated   formulae   via   [10XAlt[110X  elements  (see [14X3.9-1[114X
+  and [14X3.7-11[114X).[133X
+  
+  
+  [1X3.8-2 [33X[0;0Y[10X<M>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!-- Math with well defined translation to text output -->[104X
+    [4X<!ELEMENT M (#PCDATA|A|Arg|Alt)*>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [21X[10XM[110X[121X  element  type is intended for formulae in the running text for which
+  there is a sensible text version. For the LaTeX version of a [5XGAPDoc[105X document
+  the  [10XM[110X  and [10XMath[110X elements are equivalent. The remarks in [14X3.8-1[114X about special
+  characters  and the [10XArg[110X element apply here as well. A document which has all
+  formulae enclosed in [10XM[110X elements can be well readable in text terminal output
+  and printed output versions.[133X
+  
+  [33X[0;0YCompared  to  former versions of [5XGAPDoc[105X many more formulae can be put into [10XM[110X
+  elements.  Most  modern  terminal  emulations support unicode characters and
+  many  mathematical  symbols  can  now be represented by such characters. But
+  even if a terminal can only display ASCII characters, the user will see some
+  not too bad representation of a formula.[133X
+  
+  [33X[0;0YAs  examples,  here  are  some  LaTeX  macros  which  have  a sensible ASCII
+  translation  and  are  guaranteed  to be translated accordingly by text (and
+  HTML)    converters    (for    a   full   list   of   handled   Macros   see
+  [10XRecNames(TEXTMTRANSLATIONS)[110X):[133X
+  
+      ┌──────────────────────────┬─────┐
+      │ \ast                     │ [10X*[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \bf                      │ [10X[110X    │ 
+      ├──────────────────────────┼─────┤
+      │ \bmod                    │ [10Xmod[110X │ 
+      ├──────────────────────────┼─────┤
+      │ \cdot                    │ [10X*[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \colon                   │ [10X:[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \equiv                   │ [10X=[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \geq                     │ [10X>=[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \germ                    │ [10X[110X    │ 
+      ├──────────────────────────┼─────┤
+      │ \hookrightarrow          │ [10X->[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \iff                     │ [10X<=>[110X │ 
+      ├──────────────────────────┼─────┤
+      │ \langle                  │ [10X<[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \ldots                   │ [10X...[110X │ 
+      ├──────────────────────────┼─────┤
+      │ \left                    │ [10X [110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \leq                     │ [10X<=[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \leftarrow               │ [10X<-[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \Leftarrow               │ [10X<=[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \limits                  │ [10X [110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \longrightarrow          │ [10X-->[110X │ 
+      ├──────────────────────────┼─────┤
+      │ \Longrightarrow          │ [10X==>[110X │ 
+      ├──────────────────────────┼─────┤
+      │ \mapsto                  │ [10X->[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \mathbb                  │ [10X [110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \mathop                  │ [10X [110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \mid                     │ [10X|[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \pmod                    │ [10Xmod[110X │ 
+      ├──────────────────────────┼─────┤
+      │ \prime                   │ [10X'[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \rangle                  │ [10X>[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \right                   │ [10X [110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \rightarrow              │ [10X->[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \Rightarrow              │ [10X=>[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \rm, \sf, \textrm, \text │ [10X[110X    │ 
+      ├──────────────────────────┼─────┤
+      │ \setminus                │ [10X\[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \thinspace               │ [10X [110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \times                   │ [10Xx[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \to                      │ [10X->[110X  │ 
+      ├──────────────────────────┼─────┤
+      │ \vert                    │ [10X|[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \!                       │ [10X[110X    │ 
+      ├──────────────────────────┼─────┤
+      │ \,                       │ [10X[110X    │ 
+      ├──────────────────────────┼─────┤
+      │ \;                       │ [10X [110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \{                       │ [10X{[110X   │ 
+      ├──────────────────────────┼─────┤
+      │ \}                       │ [10X}[110X   │ 
+      └──────────────────────────┴─────┘
+  
+       [1XTable:[101X LaTeX macros with special text translation
+  
+  
+  [33X[0;0YIn  all  other  macros only the backslash is removed (except for some macros
+  describing more exotic symbols). Whitespace is normalized (to one blank) but
+  not removed. Note that whitespace is not added, so you may want to add a few
+  more spaces than you usually do in your LaTeX documents.[133X
+  
+  [33X[0;0YBraces  [10X{}[110X  are  removed  in  general,  however  pairs  of double braces are
+  converted to one pair of braces. This can be used to write [10X<M>x^{12}</M>[110X for
+  [10Xx^12[110X and [10X<M>x_{{i+1}}</M>[110X for [10Xx_{i+1}[110X.[133X
+  
+  
+  [1X3.9 [33X[0;0YEverything else[133X[101X
+  
+  
+  [1X3.9-1 [33X[0;0Y[10X<Alt>[110X[101X[1X[133X[101X
+  
+  [33X[0;0YThis  element  is  used to specify alternatives for different output formats
+  within   normal  text.  See  also  sections  [14X3.6-1[114X,  [14X3.6-4[114X,  and  [14X3.6-5[114X  for
+  alternatives in lists and tables.[133X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Alt (%InnerText;)*>  <!-- This is only to allow "Only" and[104X
+    [4X                                    "Not" attributes for normal text -->[104X
+    [4X<!ATTLIST Alt Only CDATA #IMPLIED[104X
+    [4X              Not  CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YOf  course  exactly one of the two attributes must occur in one element. The
+  attribute values must be one word or a list of words, separated by spaces or
+  commas.  The  words which are currently recognized by the converter programs
+  contained  in  [5XGAPDoc[105X  are:  [21X[10XLaTeX[110X[121X, [21X[10XHTML[110X[121X, and [21X[10XText[110X[121X. If the [10XOnly[110X attribute is
+  specified  then only the corresponding converter will include the content of
+  the  element into the output document. If the [10XNot[110X attribute is specified the
+  corresponding  converter will ignore the content of the element. You can use
+  other  words  to specify special alternatives for other converters of [5XGAPDoc[105X
+  documents.[133X
+  
+  [33X[0;0YIn  the case of [21X[10XHTML[110X[121X there is a second word which is recognized and this can
+  either be [21X[10XMathJax[110X[121X or [21X[10XnoMathJax[110X[121X. For example a pair of [10XAlt[110X elements with [10X<Alt
+  Only="HTML  noMathJax">...[110X  and  [10X<Alt Not="HTML noMathJax">...[110X could provide
+  special content for the case of HTML output without use of [5XMathJax[105X and every
+  other output.[133X
+  
+  [33X[0;0YWe  fix  a  rule  for  handling  the  content  of  an  [10XAlt[110X element with [10XOnly[110X
+  attribute.  In  their  content  code  for the corresponding output format is
+  included  directly. So, in case of HTML the content is HTML code, in case of
+  LaTeX  the content is LaTeX code. The converters don't apply any handling of
+  special  characters  to this content. In the case of LaTeX the formatting of
+  the code is not changed.[133X
+  
+  [33X[0;0YWithin  the  element  only  [10X%InnerText;[110X  (see  [14X3.2-3[114X) is allowed. This is to
+  ensure  that  the same set of chapters, sections, and subsections show up in
+  all output formats.[133X
+  
+  
+  [1X3.9-2 [33X[0;0Y[10X<Par>[110X[101X[1X and [10X<P>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Par EMPTY>    <!-- this is intentionally empty! -->[104X
+    [4X<!ELEMENT P EMPTY>      <!-- the same as shortcut  -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis [10XEMPTY[110X element marks the boundary of paragraphs. Note that an empty line
+  in  the  input  does  not  mark  a  new  paragraph  as  opposed to the LaTeX
+  convention.[133X
+  
+  [33X[0;0Y(Remark:  it  would be much easier to parse a document and to understand its
+  sectioning  and  paragraph structure when there was an element whose [13Xcontent[113X
+  is  the  text  of a paragraph. But in practice many paragraph boundaries are
+  implicitly  clear  which  would  make  it  somewhat  painful to enclose each
+  paragraph  in extra tags. The introduction of the [10XP[110X or [10XPar[110X elements as above
+  delegates  this  pain  to  the  writer  of  a  conversion program for [5XGAPDoc[105X
+  documents.)[133X
+  
+  
+  [1X3.9-3 [33X[0;0Y[10X<Br>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Br EMPTY>     <!-- a forced line break  -->[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  can be used to force a line break in the output versions of a
+  [5XGAPDoc[105X  element,  it does not start a new paragraph. Please, do not use this
+  instead  of  a [10XPar[110X element, this would often lead to ugly output versions of
+  your document.[133X
+  
+  
+  [1X3.9-4 [33X[0;0Y[10X<Ignore>[110X[101X[1X[133X[101X
+  
+  [4X[32X  From gapdoc.dtd  [32X[104X
+    [4X<!ELEMENT Ignore (%Text;| Chapter | Section | Subsection | ManSection |[104X
+    [4X                  Heading)*>[104X
+    [4X<!ATTLIST Ignore Remark CDATA #IMPLIED>[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  element  can  appear  anywhere. Its content is ignored by the standard
+  converters.  It can be used, for example, to include data which are not part
+  of  the  actual  [5XGAPDoc[105X  document, like source code, or to make not finished
+  parts of the document invisible.[133X
+  
+  [33X[0;0YOf course, one can use special converter programs which extract the contents
+  of  [10XIgnore[110X elements. Information on the type of the content can be stored in
+  the optional attribute [10XRemark[110X.[133X
+  

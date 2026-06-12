@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- %W  main.xml        GAP 4 package AtlasRep             Thomas Breuer -->
+
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+   [ <!ENTITY ATLAS "<Package>ATLAS</Package>">
+     <!ENTITY AtlasRep "<Package>AtlasRep</Package>">
+     <!ENTITY Julia "<Package>Julia</Package>">
+
+     <!ENTITY ATLASSERVER "http://atlas.math.rwth-aachen.de/Atlas/v3">
+     <!ENTITY ATLASREPHOME "https://www.math.rwth-aachen.de/~Thomas.Breuer/atlasrep">
+     <!ENTITY WILSONMAIL "<Email>R.A.Wilson@qmul.ac.uk</Email>">
+
+     <!ENTITY mdash "<Alt Only='HTML'>&#8212;</Alt><Alt Not='HTML'>---</Alt>">
+
+     <!ENTITY VERSIONNUMBER "2.1.9">
+     <!ENTITY RELEASEMONTH "August">
+     <!ENTITY RELEASEYEAR "2024">
+   ]>
+
+<Book Name="AtlasRep">
+
+<TitlePage>
+  <Title>&AtlasRep; &mdash; A GAP 4 Package<Index>AtlasRep</Index></Title>
+  <Version>(Version &VERSIONNUMBER;)
+  </Version>
+  <Author>Robert A. Wilson
+    &WILSONMAIL;
+    <Homepage>http://www.maths.qmw.ac.uk/~raw</Homepage>
+  </Author>
+  <Author>Richard A. Parker
+    <Email>richpark@gmx.co.uk</Email>
+  </Author>
+  <Author>Simon Nickerson
+    <Homepage>http://nickerson.org.uk/groups</Homepage>
+  </Author>
+  <Author>John N. Bray
+    <Email>J.N.Bray@qmul.ac.uk</Email>
+    <Homepage>http://www.maths.qmw.ac.uk/~jnb</Homepage>
+  </Author>
+  <Author>Thomas Breuer
+    <Email>sam@Math.RWTH-Aachen.De</Email>
+    <Homepage>https://www.math.rwth-aachen.de/~Thomas.Breuer</Homepage>
+  </Author>
+  <Copyright>
+    &copyright; 2002&ndash;&RELEASEYEAR;
+    <P/>
+    This package may be distributed under the terms and conditions of the
+    GNU Public License Version 3 or later,
+    see <URL>http://www.gnu.org/licenses</URL>.
+  </Copyright>
+</TitlePage>
+
+<TableOfContents/>
+
+<Body>
+
+<#Include SYSTEM "introduc.xml">
+
+<#Include SYSTEM "tutorial.xml">
+
+<#Include SYSTEM "interfac.xml">
+
+<#Include SYSTEM "atlasrep.xml">
+
+<#Include SYSTEM "extend.xml">
+
+<#Include SYSTEM "utils.xml">
+
+<#Include SYSTEM "technica.xml">
+
+</Body>
+
+<Bibliography Databases="manualbib.xml,gapmanualbib.xml"/>
+<!-- gapmanualbib.xml is fetched from GAPPATH/doc/manualbib.xml by doc/makedocrel.g -->
+
+<TheIndex/>
+
+</Book>
+
+<!-- ==================================================================== -->
+

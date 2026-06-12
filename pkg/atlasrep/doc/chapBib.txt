@@ -1,0 +1,107 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XBGH+22[120X] [16XBreuer, T., Gutsche, S., Horn, M., Hulpke, A., Kohl, S., Lübeck, F.
+  and  Wensley, C.[116X, [17Xutils, Utility functions in GAP, Version 0.77[117X (2022), (GAP
+  package), https://gap-packages.github.io/utils.
+  
+  [[20XBHM09[120X]  [16XBreuer,  T.,  Höhler,  I.  and  Müller, J.[116X, [17XMFER, multiplicity-free
+  endomorphism  rings of permutation modules of the sporadic simple groups and
+  their  cyclic  and bicyclic extensions, Version 1.0.0[117X (2009), (GAP package),
+  https://www.math.rwth-aachen.de/~MFER.
+  
+  [[20XBL18[120X]  [16XBreuer,  T.  and  Lübeck, F.[116X, [17XBrowse, ncurses interface and browsing
+  applications,       Version      1.8.9[117X      (2018),      (GAP      package),
+  https://www.math.rwth-aachen.de/~Browse.
+  
+  [[20XBN95[120X]  [16XBreuer,  T.  and  Norton,  S.  P.[116X,  [17XImprovements  to  the Atlas[117X, The
+  Clarendon   Press  Oxford  University  Press,  London  Mathematical  Society
+  Monographs.  New  Series,  [19X11[119X,  New  York (1995), 297–327, (Appendix 2 by T.
+  Breuer and S. Norton, Oxford Science Publications).
+  
+  [[20XBre14[120X]  [16XBreuer,  T.[116X,  [17XCTBlocks,  Blocks  of Character Tables, Version 0.9.3[117X
+  (2014),                            (GAP                            package),
+  https://www.math.rwth-aachen.de/~Thomas.Breuer/ctblocks.
+  
+  [[20XBre22[120X]  [16XBreuer,  T.[116X, [17XThe GAP Character Table Library, Version 1.3.3[117X (2022),
+  (GAP package), https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib.
+  
+  [[20XBSWW01[120X]  [16XBray,  J.  N., Suleiman, I. A. I., Walsh, P. G. and Wilson, R. A.[116X,
+  [17XGenerating maximal subgroups of sporadic simple groups[117X, [18XComm. Algebra[118X, [19X29[119X, 3
+  (2001), 1325–1337.
+  
+  [[20XCCN+85[120X]  [16XConway,  J.  H.,  Curtis,  R. T., Norton, S. P., Parker, R. A. and
+  Wilson,  R.  A.[116X,  [17XAtlas  of  finite groups[117X, Oxford University Press, Eynsham
+  (1985),  xxxiv+252  pages,  (Maximal  subgroups  and ordinary characters for
+  simple groups, With computational assistance from J. G. Thackray).
+  
+  [[20XCP96[120X]  [16XCannon,  J.  J.  and  Playoust,  C.[116X,  [17XAn  introduction  to algebraic
+  programming  in  Magma[117X,  School of Mathematics and Statistics, University of
+  Sydney, Sydney, Australia (1996), http://www.math.usyd.edu.au:8000/u/magma.
+  
+  [[20XGAP19[120X]  [17XGAP  –  Groups,  Algorithms,  and  Programming, Version 4.10.2[117X, The
+  GAP Group (2019), http://www.gap-system.org.
+  
+  [[20XHL89[120X]  [16XHiss, G. and Lux, K.[116X, [17XBrauer trees of sporadic groups[117X, The Clarendon
+  Press,  Oxford  University  Press,  Oxford  Science  Publications,  New York
+  (1989), x+526 pages.
+  
+  [[20XHup67[120X]  [16XHuppert,  B.[116X, [17XEndliche Gruppen. I[117X, Springer-Verlag, Die Grundlehren
+  der Mathematischen Wissenschaften, Band 134, Berlin (1967), xii+793 pages.
+  
+  [[20XJan05[120X]  [16XJansen,  C.[116X, [17XThe minimal degrees of faithful representations of the
+  sporadic  simple  groups  and their covering groups[117X, [18XLMS J. Comput. Math.[118X, [19X8[119X
+  (2005), 122–144 (electronic).
+  
+  [[20XJLPW95[120X]  [16XJansen, C., Lux, K., Parker, R. and Wilson, R.[116X, [17XAn atlas of Brauer
+  characters[117X, The Clarendon Press Oxford University Press, London Mathematical
+  Society  Monographs.  New  Series,  [19X11[119X,  New  York  (1995), xviii+327 pages,
+  (Appendix 2 by T. Breuer and S. Norton, Oxford Science Publications).
+  
+  [[20XJSO14[120X]  ([1m[31mBray,  T.[15X,  Ed.),  [17XThe  JavaScript  Object  Notation  (JSON)  Data
+  Interchange Format[117X (2014), http://www.rfc-editor.org/info/rfc7159.
+  
+  [[20XLN18[120X]  [16XLübeck,  F.  and  Neunhöffer,  M.[116X,  [17XGAPDoc,  A  Meta Package for GAP
+  Documentation,      Version      1.6.2[117X      (2018),      (GAP      package),
+  https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc.
+  
+  [[20XLüb21[120X] [16XLübeck, F.[116X, [17XStandardFF, A GAP package for constructing finite fields[117X
+  (2021), (GAP package), https://github.com/frankluebeck/StandardFF/.
+  
+  [[20XNeu14[120X]  [16XNeunhöffer,  M.[116X,  [17XIO,  Bindings for low level C library IO, Version
+  4.3.1[117X                 (2014),                 (GAP                 package),
+  http://www-groups.mcs.st-and.ac.uk/~neunhoef/Computer/Software/Gap/io.html.
+  
+  [[20XNic06[120X]  [16XNickerson,  S. J.[116X, [17XAn Atlas of Characteristic Zero Representations[117X,
+  Phd thesis, School of Mathematics, University of Birmingham (2006).
+  
+  [[20XNMP18[120X] [16XNaughton, L., Merkwitz, T. and Pfeiffer, G.[116X, [17XTomLib, The GAP Library
+  of    Tables    of    Marks,    Version   1.2.7[117X   (2018),   (GAP   package),
+  http://schmidt.nuigalway.ie/tomlib.
+  
+  [[20XNSA+18[120X]  [16XNeunhöffer,  M.,  Seress,  Á.,  Ankaralioglu,  N., Brooksbank, P.,
+  Celler, F., Howe, S., Law, M., Linton, S., Malle, G., Niemeyer, A., O'Brien,
+  E.,  Roney-Dougal,  C.  M.  and  Horn,  M.[116X,  [17Xrecog,  A  collection  of group
+  recognition     methods,    Version    1.3.1[117X    (2018),    (GAP    package),
+  https://gap-packages.github.io/recog.
+  
+  [[20XNW05[120X]  [16XNickerson,  S.  J.  and  Wilson,  R.  A.[116X, [17XSemi-presentations for the
+  sporadic simple groups[117X, [18XExperiment. Math.[118X, [19X14[119X, 3 (2005), 359–371.
+  
+  [[20XRin[120X]      [16XRinge,      M.[116X,      [17XThe      C     MeatAxe,     Version     2.4[117X,
+  https://www.math.rwth-aachen.de/~MTX.
+  
+  [[20XSWW00[120X]  [16XSuleiman,  I.  A.  I.,  Walsh,  P.  G. and Wilson, R. A.[116X, [17XConjugacy
+  classes in sporadic simple groups[117X, [18XComm. Algebra[118X, [19X28[119X, 7 (2000), 3209–3222.
+  
+  [[20XWil96[120X]  [16XWilson,  R.  A.[116X, [17XStandard generators for sporadic simple groups[117X, [18XJ.
+  Algebra[118X, [19X184[119X, 2 (1996), 505–515.
+  
+  [[20XWWT+[120X]  [16XWilson,  R.  A.,  Walsh, P., Tripp, J., Suleiman, I., Parker, R. A.,
+  Norton,  S. P., Nickerson, S., Linton, S., Bray, J. and Abbott, R.[116X, [17XATLAS of
+  Finite Group Representations[117X, http://atlas.math.rwth-aachen.de/Atlas/v3.
+  
+  
+  
+  [32X

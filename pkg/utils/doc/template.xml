@@ -1,0 +1,38 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  .xml           Utils documentation                        -->
+<!--                                                                     -->
+<!--  Copyright (C) 2015-2016, The GAP Group                             --> 
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-zzzz">
+<Heading>Number-theoretic functions</Heading>
+
+
+
+<Section Label="sec-integers">
+<Heading>Functions for integers</Heading>
+
+
+<ManSection>
+   <Func Name="AllSmoothIntegers"
+         Arg="maxp maxn" />
+<Description>
+These functions are in the process of being transferred from package &Home;. 
+<P/>
+They 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+]]>
+</Example>
+
+</Section>
+
+
+</Chapter>

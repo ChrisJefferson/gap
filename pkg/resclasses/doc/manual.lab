@@ -1,0 +1,124 @@
+\GAPDocLabFile{resclasses}
+\makelabel{resclasses:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{resclasses:Abstract}{}{X7AA6C5737B711C89}
+\makelabel{resclasses:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{resclasses:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{resclasses:Set-Theoretic Unions of Residue Classes}{1}{X815A3DDE7C0BC44A}
+\makelabel{resclasses:Entering residue classes and set-theoretic unions thereof}{1.1}{X7E16A64485A7AB79}
+\makelabel{resclasses:Methods for residue class unions}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:On residue class unions of ℤ2}{1.3}{X7921D4368632E15C}
+\makelabel{resclasses:The categories and families of residue class unions}{1.4}{X7B26BB1C7C8495A5}
+\makelabel{resclasses:Unions of Residue Classes with Fixed Representatives}{2}{X87871B5A86254179}
+\makelabel{resclasses:Entering unions of residue classes with fixed representatives}{2.1}{X78BE0FA38691B1B6}
+\makelabel{resclasses:Methods for unions of residue classes with fixed representatives}{2.2}{X7C26C7E682C2FD2E}
+\makelabel{resclasses:The invariant Delta}{2.3}{X7A1CBA1B7E6B93D0}
+\makelabel{resclasses:The categories of unions of residue classes with fixed rep's}{2.4}{X7BA9DE337DF742E9}
+\makelabel{resclasses:Semilocalizations of the Integers}{3}{X80CB0518869B1818}
+\makelabel{resclasses:Entering semilocalizations of the integers}{3.1}{X7B3B22AC7E6247A4}
+\makelabel{resclasses:Methods for semilocalizations of the integers}{3.2}{X7E75C4217DCA45D0}
+\makelabel{resclasses:Installation and Auxiliary Functions}{4}{X859F6BF88754E5CC}
+\makelabel{resclasses:Requirements}{4.1}{X85A08CF187A6D986}
+\makelabel{resclasses:Installation}{4.2}{X8360C04082558A12}
+\makelabel{resclasses:The testing routines}{4.3}{X865D6A49826B92EC}
+\makelabel{resclasses:Creating timestamped logfiles}{4.4}{X7B0129E185088420}
+\makelabel{resclasses:DownloadFile, SendEmail and EmailLogFile}{4.5}{X81DD0163859E9EF5}
+\makelabel{resclasses:Creating bitmap pictures}{4.6}{X855F2CE284BFB06B}
+\makelabel{resclasses:Some general utility functions}{4.7}{X808A30E37A293D19}
+\makelabel{resclasses:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{resclasses:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{resclasses:Index}{Ind}{X83A0356F839C696F}
+\makelabel{resclasses:ResidueClass by ring, modulus and residue}{1.1.1}{X8753CC098447BE0D}
+\makelabel{resclasses:ResidueClass by modulus and residue}{1.1.1}{X8753CC098447BE0D}
+\makelabel{resclasses:ResidueClass by residue and modulus}{1.1.1}{X8753CC098447BE0D}
+\makelabel{resclasses:IsResidueClass}{1.1.1}{X8753CC098447BE0D}
+\makelabel{resclasses:Modulus of a residue class}{1.1.1}{X8753CC098447BE0D}
+\makelabel{resclasses:Residue of a residue class}{1.1.1}{X8753CC098447BE0D}
+\makelabel{resclasses:ResidueClassUnion by ring, modulus and residues}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:ResidueClassUnion by ring and list of classes}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:StandardRep for a residue class union}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:SparseRep for a residue class union}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:residue class union definition}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:Modulus of a residue class union}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:Residues of a residue class union}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:IncludedElements of a residue class union}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:ExcludedElements of a residue class union}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:ResidueClassUnionViewingFormat}{1.1.2}{X85327C777F32DA8F}
+\makelabel{resclasses:AllResidueClassesModulo of a given ring, modulo a given modulus}{1.1.3}{X8326D6F285081E0F}
+\makelabel{resclasses:AllResidueClassesModulo by modulus, of the default ring of that modulus}{1.1.3}{X8326D6F285081E0F}
+\makelabel{resclasses:AllResidues for ring and modulus}{1.1.3}{X8326D6F285081E0F}
+\makelabel{resclasses:NumberOfResidues for ring and modulus}{1.1.3}{X8326D6F285081E0F}
+\makelabel{resclasses:NrResidues for ring and modulus}{1.1.3}{X8326D6F285081E0F}
+\makelabel{resclasses:Print for a residue class union}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:String for a residue class union}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:Display for a residue class union}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:Union for residue class unions}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:Intersection for residue class unions}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:Difference for residue class unions}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:IsSubset for residue class unions}{1.2}{X7A3FA13187CEADED}
+\makelabel{resclasses:SplittedClass for a residue class and a number of parts}{1.2.1}{X854315A2877B69A7}
+\makelabel{resclasses:AsUnionOfFewClasses for a residue class union}{1.2.2}{X87C166FE7FA17325}
+\makelabel{resclasses:PartitionsIntoResidueClasses of a given ring, of given length}{1.2.3}{X8079E174813646DA}
+\makelabel{resclasses:PartitionsIntoResidueClasses of a given ring, of given length, with moduli with given factors}{1.2.3}{X8079E174813646DA}
+\makelabel{resclasses:RandomPartitionIntoResidueClasses of a given ring, of given length}{1.2.4}{X8653860F7ADA4D38}
+\makelabel{resclasses:CoverByResidueClasses of the integers, by residue classes with given moduli}{1.2.5}{X7BAF36BF7A276D46}
+\makelabel{resclasses:CoversByResidueClasses of the integers, by residue classes with given moduli}{1.2.5}{X7BAF36BF7A276D46}
+\makelabel{resclasses:Density of a residue class union}{1.2.6}{X791C16E77BE97FE3}
+\makelabel{resclasses:Iterator for a residue class union}{1.2.6}{X791C16E77BE97FE3}
+\makelabel{resclasses:NextIterator for an iterator of a residue class union}{1.2.6}{X791C16E77BE97FE3}
+\makelabel{resclasses:IsResidueClassUnion}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:IsResidueClassUnionOfZ}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:IsResidueClassUnionOfZxZ}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:IsResidueClassUnionOfZpi}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:IsResidueClassUnionOfGFqx}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:IsResidueClassUnionOfZpi}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:IsResidueClassUnionResidueListRep}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:ExtRepOfObj}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:ObjByExtRep}{1.4.1}{X7EA29BBD82552352}
+\makelabel{resclasses:ResidueClassUnionsFamily of a ring}{1.4.2}{X7F9BCB1A797F8F48}
+\makelabel{resclasses:ResidueClassUnionsFamily of a ring, with fixed representatives}{1.4.2}{X7F9BCB1A797F8F48}
+\makelabel{resclasses:residue class union coercion}{1.4.2}{X7F9BCB1A797F8F48}
+\makelabel{resclasses:ResidueClassWithFixedRepresentative by ring, modulus and residue}{2.1.1}{X831C976D876FDAD3}
+\makelabel{resclasses:ResidueClassWithFixedRepresentative of Z, by modulus and residue}{2.1.1}{X831C976D876FDAD3}
+\makelabel{resclasses:IsResidueClassWithFixedRep}{2.1.1}{X831C976D876FDAD3}
+\makelabel{resclasses:UnionOfResidueClassesWithFixedReps by ring and list of classes}{2.1.2}{X871ED1D17AE52A95}
+\makelabel{resclasses:UnionOfResidueClassesWithFixedReps of Z, by list of classes}{2.1.2}{X871ED1D17AE52A95}
+\makelabel{resclasses:Modulus of a union of residue classes with fixed rep's}{2.1.2}{X871ED1D17AE52A95}
+\makelabel{resclasses:Classes of a union of residue classes with fixed rep's}{2.1.2}{X871ED1D17AE52A95}
+\makelabel{resclasses:AsListOfClasses for a union of residue classes with fixed rep's}{2.1.2}{X871ED1D17AE52A95}
+\makelabel{resclasses:AllResidueClassesWithFixedRepsModulo by ring and modulus}{2.1.3}{X8198386A809A6B17}
+\makelabel{resclasses:AllResidueClassesWithFixedRepsModulo by modulus, of the default ring of that modulus}{2.1.3}{X8198386A809A6B17}
+\makelabel{resclasses:Multiplicity of an element in a union of residue classes with fixed rep's}{2.2.1}{X808442EC7F3F5748}
+\makelabel{resclasses:Multiplicity of a residue class in a union of residue classes with fixed rep's}{2.2.1}{X808442EC7F3F5748}
+\makelabel{resclasses:Density of a union of residue classes with fixed rep's}{2.2.1}{X808442EC7F3F5748}
+\makelabel{resclasses:IsOverlappingFree for a union of residue classes with fixed rep's}{2.2.1}{X808442EC7F3F5748}
+\makelabel{resclasses:AsOrdinaryUnionOfResidueClasses for a union of residue classes with fixed rep's}{2.2.1}{X808442EC7F3F5748}
+\makelabel{resclasses:Union for unions of residue classes with fixed representatives}{2.2.2}{X8296A97779FE8B72}
+\makelabel{resclasses:Intersection for unions of residue classes with fixed representatives}{2.2.3}{X7FC166A57F1F5601}
+\makelabel{resclasses:Difference for unions of residue classes with fixed representatives}{2.2.4}{X82A4EE727E67AB98}
+\makelabel{resclasses:Delta for a union of residue classes with fixed representatives}{2.3.1}{X78DCAB2C7C4E37E8}
+\makelabel{resclasses:Rho for a union of residue classes with fixed rep's}{2.3.1}{X78DCAB2C7C4E37E8}
+\makelabel{resclasses:RepresentativeStabilizingRefinement of a union of res.-classes with fixed rep's}{2.3.2}{X7E109A6E81A0465C}
+\makelabel{resclasses:Zpi by set of non-invertible primes}{3.1.1}{X7861432E7F221610}
+\makelabel{resclasses:Zpi by non-invertible prime}{3.1.1}{X7861432E7F221610}
+\makelabel{resclasses:IsZpi}{3.1.1}{X7861432E7F221610}
+\makelabel{resclasses:NoninvertiblePrimes of a semilocalization of Z}{3.1.1}{X7861432E7F221610}
+\makelabel{resclasses:StandardAssociate of an element of a semilocalization of Z}{3.2}{X7E75C4217DCA45D0}
+\makelabel{resclasses:Gcd of elements of a semilocalization of Z}{3.2}{X7E75C4217DCA45D0}
+\makelabel{resclasses:Lcm of elements of a semilocalization of Z}{3.2}{X7E75C4217DCA45D0}
+\makelabel{resclasses:Factors of an element of a semilocalization of Z}{3.2}{X7E75C4217DCA45D0}
+\makelabel{resclasses:IsUnit for an element of a semilocalization of Z}{3.2}{X7E75C4217DCA45D0}
+\makelabel{resclasses:ResClassesTest}{4.3.1}{X8733F00082901C2C}
+\makelabel{resclasses:ResClassesTestExamples}{4.3.2}{X802034807F5D6C47}
+\makelabel{resclasses:LogToDatedFile}{4.4.1}{X7B023FD184CC118D}
+\makelabel{resclasses:DownloadFile}{4.5.1}{X7C1543408472A82B}
+\makelabel{resclasses:SendEmail}{4.5.2}{X7F27919085001EA8}
+\makelabel{resclasses:EmailLogFile}{4.5.3}{X8000E5CF7DF4339C}
+\makelabel{resclasses:SaveAsBitmapPicture picture, filename}{4.6.1}{X81DE1E838615C214}
+\makelabel{resclasses:LoadBitmapPicture filename}{4.6.1}{X81DE1E838615C214}
+\makelabel{resclasses:DrawLineNC pic, x1, y1, x2, y2, color, width}{4.6.2}{X83D7129581B8CF21}
+\makelabel{resclasses:PositionsSublist}{4.7}{X808A30E37A293D19}
+\makelabel{resclasses:EquivalenceClasses for a list and a function computing a class invariant}{4.7}{X808A30E37A293D19}
+\makelabel{resclasses:EquivalenceClasses for a list and a function describing an equivalence relation}{4.7}{X808A30E37A293D19}
+\makelabel{resclasses:GraphClasses}{4.7}{X808A30E37A293D19}
+\makelabel{resclasses:AllGraphs}{4.7}{X808A30E37A293D19}
+\makelabel{resclasses:IdGraphNC}{4.7}{X808A30E37A293D19}

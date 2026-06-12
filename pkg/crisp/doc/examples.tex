@@ -1,0 +1,119 @@
+%!TEX root = manual.tex
+% !TeX TS-program = pdftex
+% !TEX spellcheck =en_GB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  examples.tex            CRISP documentation            Burkhard Höfling
+%%
+%%  Copyright © 2000, Burkhard Höfling
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Chapter{Examples of group classes}
+
+This chapter describes some pre-defined 
+group classes, namely the classes of all abelian, nilpotent, and supersoluble
+groups. Moreover, there are some functions constructing the classes of all
+$p$-groups, $\pi$-groups, and abelian groups whose exponent divides a given
+positive integer. 
+
+The definitions of these group classes can also serve as further examples of
+how group classes can be defined using the methods described in the preceding
+chapters.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Pre-defined group classes}\null
+
+\>`TrivialGroups'{class}!{of all trivial groups} V
+
+\indextt{TrivialGroups}\relax
+\index{trivial groups!class of}\relax
+\index{class!of all trivial groups}\relax
+The global variable `TrivialGroups' contains the class of all trivial groups. It is a
+subgroup closed saturated Fitting formation.
+
+\>`NilpotentGroups'{class}!{of all nilpotent groups} V
+
+\indextt{NilpotentGroups}\relax
+\index{nilpotent groups!class of}\relax
+\index{class!of all nilpotent groups}\relax
+This global variable contains the class of all finite nilpotent groups. It is a
+subgroup closed saturated Fitting formation.
+
+
+\>`SupersolubleGroups'{class}!{of all supersoluble groups} V
+\>`SupersolvableGroups'{class}!{of all supersoluble groups} V
+
+\indextt{SupersolubleGroups}\relax
+\indextt{SupersolvableGroups}\relax
+\index{supersoluble groups!class of}\relax
+\index{class!of all supersoluble groups}\relax
+This global variable contains the class of all finite supersoluble groups. It
+is a subgroup closed saturated formation.
+
+
+\>`AbelianGroups'{class}!{of all abelian groups} V
+
+\indextt{AbelianGroups}\relax
+\index{abelian groups!class of}\relax
+\index{class!of all abelian groups}\relax
+is the class of all abelian groups. It is a subgroup closed formation.
+
+
+\>AbelianGroupsOfExponent(<n>) F
+
+\indextt{AbelianGroupsOfExponent}\relax
+\index{class!of all abelian groups of bounded exponent}\relax
+\index{abelian groups of bounded exponent!class of}\relax
+returns the class of all abelian groups of exponent dividing <n>, 
+where <n> is
+a positive integer. It is always a subgroup-closed formation.
+
+
+\>PiGroups(<pi>) F
+
+\index{class!of all $\pi$-groups}\relax
+constructs the class of all <pi>-groups.  <pi> may be a non-empty class or a
+set of primes. The result is a subgroup-closed saturated Fitting formation.
+
+
+\>PGroups(<p>) F
+
+\index{class!of all $p$-groups}\relax
+returns the class of all <p>-groups, where <p> is a prime.  The result is a
+subgroup-closed saturated Fitting formation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Pre-defined projector functions}\null
+
+\>NilpotentProjector(<grp>) A
+
+\index{Carter subgroup}\relax
+This function returns a projector for the class of all finite nilpotent
+groups. For a definition, see "Projector". Note that the nilpotent projectors
+of a finite soluble group equal its a Carter subgroups, that is, its
+self-normalizing nilpotent subgroups. 
+
+\>SupersolubleProjector(<grp>) A
+\>SupersolvableProjector(<grp>) A
+
+These functions return a projector for the class of all finite supersoluble
+groups. For a definition, see "Projector". 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Pre-defined sets of primes}\null
+
+\>`AllPrimes'{set}!{of all primes} V
+
+\indextt{AllPrimes}\relax
+\index{primes!set of all}\relax
+\label{AllPrimes}\relax
+is the set of all (integral) primes. This should be
+installed as value for `Characteristic(<grpclass>)' if the group class
+<grpclass> contains cyclic groups of prime order~$p$ for arbitrary primes $p$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E
+%%
+

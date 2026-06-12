@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+   [ <!ENTITY CTblLib "<Package>CTblLib</Package>">
+     <!ENTITY ATLAS "<Package>Atlas</Package>">
+     <!ENTITY MOC "<Package>MOC</Package>">
+     <!ENTITY CAS "<Package>CAS</Package>">
+
+     <!ENTITY Aut "<Alt Only='LaTeX'>{{\rm Aut}}</Alt><Alt Not='LaTeX'>Aut</Alt>">
+     <!ENTITY Fix "<Alt Only='LaTeX'>{{\rm Fix}}</Alt><Alt Not='LaTeX'>Fix</Alt>">
+     <!ENTITY Irr "<Alt Only='LaTeX'>{{\rm Irr}}</Alt><Alt Not='LaTeX'>Irr</Alt>">
+     <!ENTITY GL "<Alt Only='LaTeX'>{{\rm GL}}</Alt><Alt Not='LaTeX'>GL</Alt>">
+     <!ENTITY PGL "<Alt Only='LaTeX'>{{\rm PGL}}</Alt><Alt Not='LaTeX'>PGL</Alt>">
+     <!ENTITY GammaL "<Alt Only='LaTeX'>{{\rm \hbox{$\Gamma$}L}}</Alt><Alt Only='Text'>ΓL</Alt><Alt Only='HTML'>&#x393;L</Alt>">
+     <!ENTITY PGammaL "<Alt Only='LaTeX'>{{\rm P\hbox{$\Gamma$}L}}</Alt><Alt Only='Text'>PΓL</Alt><Alt Only='HTML'>P&#x393;L</Alt>">
+     <!ENTITY SL "<Alt Only='LaTeX'>{{\rm SL}}</Alt><Alt Not='LaTeX'>SL</Alt>">
+     <!ENTITY PSL "<Alt Only='LaTeX'>{{\rm PSL}}</Alt><Alt Not='LaTeX'>PSL</Alt>">
+     <!ENTITY GO "<Alt Only='LaTeX'>{{\rm GO}}</Alt><Alt Not='LaTeX'>GO</Alt>">
+     <!ENTITY PGO "<Alt Only='LaTeX'>{{\rm PGO}}</Alt><Alt Not='LaTeX'>PGO</Alt>">
+     <!ENTITY SO "<Alt Only='LaTeX'>{{\rm SO}}</Alt><Alt Not='LaTeX'>SO</Alt>">
+     <!ENTITY PSO "<Alt Only='LaTeX'>{{\rm PSO}}</Alt><Alt Not='LaTeX'>PSO</Alt>">
+     <!ENTITY POmega "<Alt Only='LaTeX'>{{\rm P\hbox{$\Omega$}}}</Alt><Alt Only='Text'>PΩ</Alt><Alt Only='HTML'>P&#x3a9;</Alt>">
+     <!ENTITY Sp "<Alt Only='LaTeX'>{{\rm Sp}}</Alt><Alt Not='LaTeX'>Sp</Alt>">
+     <!ENTITY PSp "<Alt Only='LaTeX'>{{\rm PSp}}</Alt><Alt Not='LaTeX'>PSp</Alt>">
+     <!ENTITY GU "<Alt Only='LaTeX'>{{\rm GU}}</Alt><Alt Not='LaTeX'>GU</Alt>">
+     <!ENTITY SU "<Alt Only='LaTeX'>{{\rm SU}}</Alt><Alt Not='LaTeX'>SU</Alt>">
+     <!ENTITY PSU "<Alt Only='LaTeX'>{{\rm PSU}}</Alt><Alt Not='LaTeX'>PSU</Alt>">
+     <!ENTITY Norm "<Alt Only='LaTeX'>{{\bf N}}</Alt><Alt Not='LaTeX'>N</Alt>">
+     <!ENTITY Cent "<Alt Only='LaTeX'>{{\bf C}}</Alt><Alt Not='LaTeX'>C</Alt>">
+     <!ENTITY B "<Alt Only='LaTeX'>{{\cal B}}</Alt><Alt Not='LaTeX'>B</Alt>">
+     <!ENTITY F "<Alt Only='LaTeX'>{{\mathbb F}}</Alt><Alt Only='Text'>FF</Alt><Alt Only='HTML'>&#x1D53D;</Alt>">
+     <!ENTITY M "<Alt Only='LaTeX'>{{\mathbb M}}</Alt><Alt Only='Text'>MM</Alt><Alt Only='HTML'>&#x1D544;</Alt>">
+     <!ENTITY MM "<Alt Only='LaTeX'>{{\tilde{\mathbb M}}}</Alt><Alt Only='Text'>MM/~</Alt><Alt Only='HTML'>&#x1D544;/~</Alt>">
+     <!ENTITY sprbound "<Alt Only='LaTeX'>{{\cal P}}</Alt><Alt Not='LaTeX'>P</Alt>">
+     <!ENTITY sprtotal "<Alt Only='LaTeX'>{{\cal S}}</Alt><Alt Only='Text'>total</Alt><Alt Only='HTML'>&#x1D54A;/~</Alt>">
+     <!ENTITY cl "<Alt Only='LaTeX'>{{\rm cl}}</Alt><Alt Not='LaTeX'>cl</Alt>">
+     <!ENTITY CC "<Alt Only='LaTeX'>{{\cal C}}</Alt><Alt Not='LaTeX'>C</Alt>">
+     <!ENTITY noteq "<Alt Only='LaTeX'>{{\not=}}</Alt><Alt Only='Text'>‡</Alt><Alt Only='HTML'>&#8800;</Alt>">
+<!-- better simply use \neq -->
+     <!ENTITY prop "P">
+     <!ENTITY total "<Alt Only='LaTeX'>{{\sigma}}</Alt><Alt Only='Text'>σ</Alt><Alt Only='HTML'>&#963;</Alt>">
+     <!ENTITY fpr "<Alt Only='LaTeX'>{{\mu}}</Alt><Alt Only='Text'>μ</Alt><Alt Only='HTML'>&#x3bc;</Alt>">
+
+     <!ENTITY AUTHOREMAIL "<Email>sam@math.rwth-aachen.de</Email>">
+
+     <!ENTITY mdash "<Alt Only='HTML'>&#8212;</Alt><Alt Not='HTML'>---</Alt>">
+
+     <!ENTITY endproof "<Alt Only='LaTeX'>{{\hfill\large$\Box$}}</Alt><Alt Not='LaTeX'> ▒</Alt>">
+
+     <!ENTITY VERSIONNUMBER "1.3.11">
+     <!ENTITY RELEASEMONTH "May">
+     <!ENTITY RELEASEYEAR "2025">
+   ]>
+
+<Book Name="CTblLibXpls">
+
+<TitlePage>
+  <Title>Computations with the &GAP; Character Table Library<Index>CTblLibXpls</Index></Title>
+  <Version>(Version &VERSIONNUMBER; of CTblLib)
+  </Version>
+  <Author>Thomas Breuer
+    &AUTHOREMAIL;
+    <Homepage>https://www.math.rwth-aachen.de/~Thomas.Breuer</Homepage>
+  </Author>
+  <Copyright>
+    &copyright; 2013&ndash;&RELEASEYEAR; by Thomas Breuer
+    <P/>
+    This manuscript may be distributed under the terms and conditions of the
+    GNU Public License Version 3 or later,
+    see <URL>http://www.gnu.org/licenses</URL>.
+  </Copyright>
+</TitlePage>
+
+<TableOfContents/>
+
+<Body>
+
+<!-- The chapter of 'maintain.xml' must be the first chapter,
+     the PDF files dec/tex/J3/J3mod19.pdf and dec/tex/J3/J3.2mod19.pdf
+     point to the HTML chapter, and there may also be a link in index.html. -->
+<#Include SYSTEM "maintain.xml">
+
+<#Include SYSTEM "ctblcons.xml">
+
+<#Include SYSTEM "ctocenex.xml">
+
+<#Include SYSTEM "hamilcyc.xml">
+
+<#Include SYSTEM "o8p2s3_o8p5s3.xml">
+
+<#Include SYSTEM "sporsolv.xml">
+
+<#Include SYSTEM "spornilp.xml">
+
+<#Include SYSTEM "ctblpope.xml">
+
+<#Include SYSTEM "ambigfus.xml">
+
+<#Include SYSTEM "dntgap.xml">
+
+<#Include SYSTEM "probgen.xml">
+
+</Body>
+
+<Bibliography Databases="../doc/manualbib.xml,gapmanualbib.xml"/>
+<!-- gapmanualbib.xml is fetched from GAPPATH/doc/manualbib.xml by makedocrel.g -->
+
+<TheIndex/>
+
+</Book>
+
+<!-- ==================================================================== -->
+

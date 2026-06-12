@@ -1,0 +1,1415 @@
+  
+  [1X2 [33X[0;0YTutorial for the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThis  chapter  gives  an overview of the basic functionality provided by the
+  [5XGAP[105X  Character  Table Library. The main concepts and interface functions are
+  presented  in  the  sections [14X2.1[114X  and  [14X2.2[114X,  Section [14X2.3[114X  shows  a few small
+  examples.[133X
+  
+  [33X[0;0YIn  order  to  force  that the output of the examples consists only of ASCII
+  characters,  we  set  the user preference [10XDisplayFunction[110X of the [5XAtlasRep[105X to
+  the  value [10X"Print"[110X. This is necessary because the LaTeX and HTML versions of
+  [5XGAPDoc[105X documents support only ASCII characters.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xorigpref:= UserPreference( "AtlasRep", "DisplayFunction" );;[127X[104X
+    [4X[25Xgap>[125X [27XSetUserPreference( "AtlasRep", "DisplayFunction", "Print" );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSome  of  the  examples  need functionalities from other [5XGAP[105X packages in the
+  sense that the output looks different if these packages are not available.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "Browse", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "SpinSym", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "TomLib", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.1 [33X[0;0YConcepts used in the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThe main idea behind working with the [5XGAP[105X Character Table Library is to deal
+  with  character  tables of groups but [13Xwithout[113X having access to these groups.
+  This  situation  occurs  for  example  if  one extracts information from the
+  printed [5XAtlas[105X of Finite Groups ([CCN+85]).[133X
+  
+  [33X[0;0YThis  restriction  means  first  of  all  that  we  need a way to access the
+  character  tables,  see  Section [14X2.2[114X for that. Once we have such a character
+  table, we can compute all those data about the underlying group [22XG[122X, say, that
+  are  determined  by  the character table. Chapter [14X'Reference: Attributes and
+  Properties  for  Groups  and  Character  Tables'[114X  lists  such attributes and
+  properties.  For  example,  it can be computed from the character table of [22XG[122X
+  whether [22XG[122X is solvable or not.[133X
+  
+  [33X[0;0YQuestions  that  cannot  be answered using only the character table of [22XG[122X can
+  perhaps  be treated using additional information. For example, the structure
+  of  subgroups of [22XG[122X is in general not determined by the character table of [22XG[122X,
+  but  the  character table may yield partial information. Two examples can be
+  found in the sections [14X2.3-4[114X and [14X2.3-6[114X.[133X
+  
+  [33X[0;0YIn the character table context, the role of homomorphisms between two groups
+  is  taken  by  [13Xclass  fusions[113X. Monomorphisms correspond to subgroup fusions,
+  epimorphisms  correspond  to factor fusions. Given two character tables of a
+  group  [22XG[122X  and  a subgroup [22XH[122X of [22XG[122X, one can in general compute only [13Xcandidates[113X
+  for  the  class  fusion  of [22XH[122X into [22XG[122X, for example using [2XPossibleClassFusions[102X
+  ([14XReference:   PossibleClassFusions[114X).   Note   that  [22XG[122X  may  contain  several
+  nonconjugate  subgroups  isomorphic  with  [22XH[122X, which may have different class
+  fusions.[133X
+  
+  [33X[0;0YOne  can  often  reduce  a  question about a group [22XG[122X to a question about its
+  maximal subgroups. In the character table context, it is often sufficient to
+  know  the  character  table  of  [22XG[122X,  the  character  tables  of  its maximal
+  subgroups,  and  their class fusions into [22XG[122X. We are in this situation if the
+  attribute [2XMaxes[102X ([14X3.7-1[114X) is set in the character table of [22XG[122X.[133X
+  
+  [33X[0;0Y[13XSummary:[113X  The  character  theoretic  approach  that  is supported by the [5XGAP[105X
+  Character  Table  Library, that is, an approach without explicitly using the
+  underlying  groups,  has  the  advantages that it can be used to answer many
+  questions,  and  that  these  computations  are  usually  cheap, compared to
+  computations with groups. Disadvantages are that this approach is not always
+  successful, and that answers are often [21Xnonconstructive[121X in the sense that one
+  can show the existence of something without getting one's hands on it.[133X
+  
+  
+  [1X2.2 [33X[0;0YAccessing a Character Table from the Library[133X[101X
+  
+  [33X[0;0YAs  stated  in Section [14X2.1[114X, we must define how character tables from the [5XGAP[105X
+  Character Table Library can be accessed.[133X
+  
+  
+  [1X2.2-1 [33X[0;0YAccessing a Character Table via a name[133X[101X
+  
+  [33X[0;0YThe most common way to access a character table from the [5XGAP[105X Character Table
+  Library  is to call [2XCharacterTable[102X ([14X3.1-2[114X) with argument a string that is an
+  [13Xadmissible  name[113X  for  the  character  table.  Typical  admissible names are
+  similar  to the group names used in the [5XAtlas[105X of Finite Groups [CCN+85]. One
+  of  these  names  is  the  [2XIdentifier[102X  ([14XReference:  Identifier for character
+  tables[114X)  value  of  the  character  table,  this name is used by [5XGAP[105X when it
+  prints library character tables.[133X
+  
+  [33X[0;0YFor  example, an admissible name for the character table of an almost simple
+  group  is  the  [5XAtlas[105X name, such as [10XA5[110X, [10XM11[110X, or [10XL2(11).2[110X. Other names may be
+  admissible,  for  example  [10XS6[110X  is  admissible for the symmetric group on six
+  points, which is called [22XA_6.2_1[122X in the [5XAtlas[105X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "J1" );[127X[104X
+    [4X[28XCharacterTable( "J1" )[128X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "L2(11)" );[127X[104X
+    [4X[28XCharacterTable( "L2(11)" )[128X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "S5" );[127X[104X
+    [4X[28XCharacterTable( "A5.2" )[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2-2 [33X[0;0YAccessing a Character Table via properties[133X[101X
+  
+  [33X[0;0YIf  one  does  not know an admissible name of the character table of a group
+  one is interested in, or if one does not know whether ths character table is
+  available  at  all,  one can use [2XAllCharacterTableNames[102X ([14X3.1-4[114X) to compute a
+  list of identifiers of all available character tables with given properties.
+  Analogously,  [2XOneCharacterTableName[102X  ([14X3.1-5[114X) can be used to compute one such
+  identifier.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( Size, 168 );[127X[104X
+    [4X[28X[ "(2^2xD14):3", "2^3.7.3", "L3(2)", "L3(4)M7", "L3(4)M8" ][128X[104X
+    [4X[25Xgap>[125X [27XOneCharacterTableName( NrConjugacyClasses, n -> n <= 4 );[127X[104X
+    [4X[28X"S3"[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  certain  filters, such as [2XSize[102X ([14XReference: Size[114X) and [2XNrConjugacyClasses[102X
+  ([14XReference:  NrConjugacyClasses[114X),  the  computations  are  fast  because the
+  values  for  all  library tables are precomputed. See [2XAllCharacterTableNames[102X
+  ([14X3.1-4[114X) for an overview of these filters.[133X
+  
+  [33X[0;0YThe  function  [2XBrowseCTblLibInfo[102X ([14X3.5-2[114X) provides an interactive overview of
+  available  character tables, which allows one for example to search also for
+  substrings  in  identifiers  of character tables. This function is available
+  only if the [5XBrowse[105X package has been loaded.[133X
+  
+  
+  [1X2.2-3 [33X[0;0YAccessing a Character Table via a Table of Marks[133X[101X
+  
+  [33X[0;0YLet  [22XG[122X  be  a group whose table of marks is available via the [5XTomLib[105X package
+  (see  [MNP19]  for how to access tables of marks from this library) then the
+  [5XGAP[105X  Character  Table Library contains the character table of [22XG[122X, and one can
+  access   this  table  by  using  the  table  of  marks  as  an  argument  of
+  [2XCharacterTable[102X ([14X3.2-2[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( "M11" );[127X[104X
+    [4X[28XTableOfMarks( "M11" )[128X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( tom );[127X[104X
+    [4X[28XCharacterTable( "M11" )[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2-4 [33X[0;0YAccessing a Character Table relative to another Character Table[133X[101X
+  
+  [33X[0;0YIf  one  has  already a character table from the [5XGAP[105X Character Table Library
+  that  belongs to the group [22XG[122X, say, then names of related tables can be found
+  as follows.[133X
+  
+  [33X[0;0YThe  value  of  the  attribute  [2XMaxes[102X  ([14X3.7-1[114X),  if  known,  is  the list of
+  identifiers  of  the character tables of all classes of maximal subgroups of
+  [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "M11" );[127X[104X
+    [4X[28XCharacterTable( "M11" )[128X[104X
+    [4X[25Xgap>[125X [27XHasMaxes( t );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XMaxes( t );[127X[104X
+    [4X[28X[ "A6.2_3", "L2(11)", "3^2:Q8.2", "A5.2", "2.S4" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  the  [2XMaxes[102X ([14X3.7-1[114X) value of the character table with identifier [22Xid[122X, say,
+  is known then the character table of the groups in the [22Xi[122X-th class of maximal
+  subgroups can be accessed via the [21Xrelative name[121X [22Xid[122X[10XM[110X[22Xi[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "M11M2" );[127X[104X
+    [4X[28XCharacterTable( "L2(11)" )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe    value    of    the    attribute    [2XNamesOfFusionSources[102X   ([14XReference:
+  NamesOfFusionSources[114X)  is  the list of identifiers of those character tables
+  which  store  class  fusions  to  [22XG[122X.  So  these  character  tables belong to
+  subgroups of [22XG[122X and groups that have [22XG[122X as a factor group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XNamesOfFusionSources( t );[127X[104X
+    [4X[28X[ "A5.2", "A6.2_3", "P48/G1/L1/V1/ext2", "P48/G1/L1/V2/ext2", [128X[104X
+    [4X[28X  "L2(11)", "2.S4", "3^5:M11", "3^6.M11", "3^(2+5+10).(M11x2S4)", [128X[104X
+    [4X[28X  "s4", "3^2:Q8.2", "M11N2", "5:4", "11:5" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe    value    of    the    attribute    [2XComputedClassFusions[102X   ([14XReference:
+  ComputedClassFusions[114X)  is  the list of records whose [10Xname[110X components are the
+  identifiers  of those character tables to which class fusions are stored. So
+  these character tables belong to overgroups and factor groups of [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( ComputedClassFusions( t ), r -> r.name );[127X[104X
+    [4X[28X[ "A11", "M12", "M23", "HS", "McL", "ON", "3^5:M11", "B" ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2-5 [33X[0;0YDifferent character tables for the same group[133X[101X
+  
+  [33X[0;0YThe  [5XGAP[105X  Character  Table  Library  may contain several different character
+  tables  of  a given group, in the sense that the rows and columns are sorted
+  differently.[133X
+  
+  [33X[0;0YFor  example, the [5XAtlas[105X table of the alternating group [22XA_5[122X is available, and
+  since  [22XA_5[122X  is  isomorphic with the groups PSL[22X(2, 4)[122X and PSL[22X(2, 5)[122X, two more
+  character  tables  of  [22XA_5[122X  can  be  constructed in a natural way. The three
+  tables are of course permutation isomorphic. The first two are sorted in the
+  same way, but the rows and columns of the third one are sorted differently.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt1:= CharacterTable( "A5" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt2:= CharacterTable( "PSL", 2, 4 );;[127X[104X
+    [4X[25Xgap>[125X [27Xt3:= CharacterTable( "PSL", 2, 5 );;[127X[104X
+    [4X[25Xgap>[125X [27XTransformingPermutationsCharacterTables( t1, t2 );[127X[104X
+    [4X[28Xrec( columns := (), group := Group([ (4,5) ]), rows := () )[128X[104X
+    [4X[25Xgap>[125X [27XTransformingPermutationsCharacterTables( t1, t3 );[127X[104X
+    [4X[28Xrec( columns := (2,4)(3,5), group := Group([ (2,3) ]), [128X[104X
+    [4X[28X  rows := (2,5,3,4) )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAnother  situation  where  several  character  tables for the same group are
+  available  is  that  a  group contains several classes of isomorphic maximal
+  subgroups such that the class fusions are different.[133X
+  
+  [33X[0;0YFor  example,  the  Mathieu  group  [22XM_12[122X  contains  two  classes  of maximal
+  subgroups of index [22X12[122X, which are isomorphic with [22XM_11[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "M12" );[127X[104X
+    [4X[28XCharacterTable( "M12" )[128X[104X
+    [4X[25Xgap>[125X [27Xmx:= Maxes( t );[127X[104X
+    [4X[28X[ "M11", "M12M2", "A6.2^2", "M12M4", "L2(11)", "3^2.2.S4", "M12M7", [128X[104X
+    [4X[28X  "2xS5", "M8.S4", "4^2:D12", "A4xS3" ][128X[104X
+    [4X[25Xgap>[125X [27Xs1:= CharacterTable( mx[1] );[127X[104X
+    [4X[28XCharacterTable( "M11" )[128X[104X
+    [4X[25Xgap>[125X [27Xs2:= CharacterTable( mx[2] );[127X[104X
+    [4X[28XCharacterTable( "M12M2" )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  class fusions into [22XM_12[122X are stored on the library tables of the maximal
+  subgroups.  The  groups  in  the  first class of [22XM_11[122X type subgroups contain
+  elements in the classes [10X4B[110X, [10X6B[110X, and [10X8B[110X of [22XM_12[122X, and the groups in the second
+  class contain elements in the classes [10X4A[110X, [10X6A[110X, and [10X8A[110X. Note that according to
+  the [5XAtlas[105X (see [CCN+85, p. 33]), the permutation characters of the action of
+  [22XM_12[122X  on  the  cosets of [22XM_11[122X type subgroups from the two classes of maximal
+  subgroups are [10X1a + 11a[110X and [10X1a + 11b[110X, respectively.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s1, t );[127X[104X
+    [4X[28X[ 1, 3, 4, 7, 8, 10, 12, 12, 15, 14 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s2, t );[127X[104X
+    [4X[28X[ 1, 3, 4, 6, 8, 10, 11, 11, 14, 15 ][128X[104X
+    [4X[25Xgap>[125X [27XDisplay( t );[127X[104X
+    [4X[28XM12[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X      2   6  4  6  1  2  5  5  1  2  1  3  3   1   .   .[128X[104X
+    [4X[28X      3   3  1  1  3  2  .  .  .  1  1  .  .   .   .   .[128X[104X
+    [4X[28X      5   1  1  .  .  .  .  .  1  .  .  .  .   1   .   .[128X[104X
+    [4X[28X     11   1  .  .  .  .  .  .  .  .  .  .  .   .   1   1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X         1a 2a 2b 3a 3b 4a 4b 5a 6a 6b 8a 8b 10a 11a 11b[128X[104X
+    [4X[28X     2P  1a 1a 1a 3a 3b 2b 2b 5a 3b 3a 4a 4b  5a 11b 11a[128X[104X
+    [4X[28X     3P  1a 2a 2b 1a 1a 4a 4b 5a 2a 2b 8a 8b 10a 11a 11b[128X[104X
+    [4X[28X     5P  1a 2a 2b 3a 3b 4a 4b 1a 6a 6b 8a 8b  2a 11a 11b[128X[104X
+    [4X[28X    11P  1a 2a 2b 3a 3b 4a 4b 5a 6a 6b 8a 8b 10a  1a  1a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1       1  1  1  1  1  1  1  1  1  1  1  1   1   1   1[128X[104X
+    [4X[28XX.2      11 -1  3  2 -1 -1  3  1 -1  . -1  1  -1   .   .[128X[104X
+    [4X[28XX.3      11 -1  3  2 -1  3 -1  1 -1  .  1 -1  -1   .   .[128X[104X
+    [4X[28XX.4      16  4  . -2  1  .  .  1  1  .  .  .  -1   A  /A[128X[104X
+    [4X[28XX.5      16  4  . -2  1  .  .  1  1  .  .  .  -1  /A   A[128X[104X
+    [4X[28XX.6      45  5 -3  .  3  1  1  . -1  . -1 -1   .   1   1[128X[104X
+    [4X[28XX.7      54  6  6  .  .  2  2 -1  .  .  .  .   1  -1  -1[128X[104X
+    [4X[28XX.8      55 -5  7  1  1 -1 -1  .  1  1 -1 -1   .   .   .[128X[104X
+    [4X[28XX.9      55 -5 -1  1  1  3 -1  .  1 -1 -1  1   .   .   .[128X[104X
+    [4X[28XX.10     55 -5 -1  1  1 -1  3  .  1 -1  1 -1   .   .   .[128X[104X
+    [4X[28XX.11     66  6  2  3  . -2 -2  1  . -1  .  .   1   .   .[128X[104X
+    [4X[28XX.12     99 -1  3  .  3 -1 -1 -1 -1  .  1  1  -1   .   .[128X[104X
+    [4X[28XX.13    120  . -8  3  .  .  .  .  .  1  .  .   .  -1  -1[128X[104X
+    [4X[28XX.14    144  4  .  . -3  .  . -1  1  .  .  .  -1   1   1[128X[104X
+    [4X[28XX.15    176 -4  . -4 -1  .  .  1 -1  .  .  .   1   .   .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(11)+E(11)^3+E(11)^4+E(11)^5+E(11)^9[128X[104X
+    [4X[28X  = (-1+Sqrt(-11))/2 = b11[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YPermutation  equivalent  library  tables  are  related to each other. In the
+  above  example,  the  table [10Xs2[110X is a [13Xduplicate[113X of [10Xs1[110X, and there are functions
+  for making the relations explicit.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XIsDuplicateTable( s2 );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIdentifierOfMainTable( s2 );[127X[104X
+    [4X[28X"M11"[128X[104X
+    [4X[25Xgap>[125X [27XIdentifiersOfDuplicateTables( s1 );[127X[104X
+    [4X[28X[ "HSM9", "M12M2", "ONM11" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSee Section [14X3.6[114X for details about duplicate character tables.[133X
+  
+  
+  [1X2.3 [33X[0;0YExamples of Using the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YThe   sections   [14X2.3-1[114X,   [14X2.3-2[114X,   and   [14X2.3-3[114X   show   how   the   function
+  [2XAllCharacterTableNames[102X  ([14X3.1-4[114X)  can  be used to search for character tables
+  with  certain  properties.  The [5XGAP[105X Character Table Library serves as a tool
+  for finding and checking conjectures in these examples.[133X
+  
+  [33X[0;0YIn Section [14X2.3-6[114X, a question about a subgroup of the sporadic simple Fischer
+  group  [22XG  =  Fi_23[122X  is  answered  using  only  character tables from the [5XGAP[105X
+  Character Table Library.[133X
+  
+  [33X[0;0YMore examples can be found in [BGL+10], [Brea], [Bred], [Bree], [Bref].[133X
+  
+  
+  [1X2.3-1 [33X[0;0YExample: Ambivalent Simple Groups[133X[101X
+  
+  [33X[0;0YA  group  [22XG[122X  is called [13Xambivalent[113X if each element in [22XG[122X is [22XG[122X-conjugate to its
+  inverse.   Equivalently,   [22XG[122X   is  ambivalent  if  all  its  characters  are
+  real-valued. We are interested in nonabelian simple ambivalent groups. Since
+  ambivalence  is  of  course  invariant under permutation equivalence, we may
+  omit duplicate character tables.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xisambivalent:= tbl -> PowerMap( tbl, -1 )[127X[104X
+    [4X[25X>[125X [27X                           = [ 1 .. NrConjugacyClasses( tbl ) ];;[127X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( IsSimple, true, IsDuplicateTable, false,[127X[104X
+    [4X[25X>[125X [27X       IsAbelian, false, isambivalent, true );[127X[104X
+    [4X[28X[ "3D4(2)", "3D4(3)", "3D4(4)", "A10", "A14", "A5", "A6", "J1", "J2", [128X[104X
+    [4X[28X  "L2(101)", "L2(109)", "L2(113)", "L2(121)", "L2(125)", "L2(13)", [128X[104X
+    [4X[28X  "L2(16)", "L2(17)", "L2(25)", "L2(29)", "L2(32)", "L2(37)", [128X[104X
+    [4X[28X  "L2(41)", "L2(49)", "L2(53)", "L2(61)", "L2(64)", "L2(73)", [128X[104X
+    [4X[28X  "L2(8)", "L2(81)", "L2(89)", "L2(97)", "O12+(2)", "O12-(2)", [128X[104X
+    [4X[28X  "O12-(3)", "O7(5)", "O8+(2)", "O8+(3)", "O8+(7)", "O8-(2)", [128X[104X
+    [4X[28X  "O8-(3)", "O9(3)", "S10(2)", "S12(2)", "S4(4)", "S4(5)", "S4(8)", [128X[104X
+    [4X[28X  "S4(9)", "S6(2)", "S6(4)", "S6(5)", "S8(2)" ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3-2 [33X[0;0YExample: Simple [22Xp[122X[101X[1X-pure Groups[133X[101X
+  
+  [33X[0;0YA  group  [22XG[122X  is  called [13X[22Xp[122X-pure[113X for a prime integer [22Xp[122X that divides [22X|G|[122X if the
+  centralizer   orders   of   nonidentity   [22Xp[122X-elements   in  [22XG[122X  are  [22Xp[122X-powers.
+  Equivalently,  [22XG[122X  is  [22Xp[122X-pure if [22Xp[122X divides [22X|G|[122X and each element in [22XG[122X of order
+  divisible  by [22Xp[122X is a [22Xp[122X-element. (This property was studied by L. Héthelyi in
+  2002.)[133X
+  
+  [33X[0;0YWe are interested in small nonabelian simple [22Xp[122X-pure groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xisppure:= function( p )[127X[104X
+    [4X[25X>[125X [27X     return tbl -> Size( tbl ) mod p = 0 and[127X[104X
+    [4X[25X>[125X [27X       ForAll( OrdersClassRepresentatives( tbl ),[127X[104X
+    [4X[25X>[125X [27X               n -> n mod p <> 0 or IsPrimePowerInt( n ) );[127X[104X
+    [4X[25X>[125X [27X   end;;[127X[104X
+    [4X[25Xgap>[125X [27Xfor i in [ 2, 3, 5, 7, 11, 13 ] do[127X[104X
+    [4X[25X>[125X [27X     Print( i, "\n",[127X[104X
+    [4X[25X>[125X [27X       AllCharacterTableNames( IsSimple, true, IsAbelian, false,[127X[104X
+    [4X[25X>[125X [27X           IsDuplicateTable, false, isppure( i ), true ),[127X[104X
+    [4X[25X>[125X [27X       "\n" );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28X2[128X[104X
+    [4X[28X[ "A5", "A6", "L2(16)", "L2(17)", "L2(31)", "L2(32)", "L2(64)", [128X[104X
+    [4X[28X  "L2(8)", "L3(2)", "L3(4)", "Sz(32)", "Sz(8)" ][128X[104X
+    [4X[28X3[128X[104X
+    [4X[28X[ "A5", "A6", "L2(17)", "L2(19)", "L2(27)", "L2(53)", "L2(8)", [128X[104X
+    [4X[28X  "L2(81)", "L3(2)", "L3(4)" ][128X[104X
+    [4X[28X5[128X[104X
+    [4X[28X[ "A5", "A6", "A7", "L2(11)", "L2(125)", "L2(25)", "L2(49)", "L3(4)", [128X[104X
+    [4X[28X  "M11", "M22", "S4(7)", "Sz(32)", "Sz(8)", "U4(2)", "U4(3)" ][128X[104X
+    [4X[28X7[128X[104X
+    [4X[28X[ "A7", "A8", "A9", "G2(3)", "HS", "J1", "J2", "L2(13)", "L2(49)", [128X[104X
+    [4X[28X  "L2(8)", "L2(97)", "L3(2)", "L3(4)", "M22", "O8+(2)", "S6(2)", [128X[104X
+    [4X[28X  "Sz(8)", "U3(3)", "U3(5)", "U4(3)", "U6(2)" ][128X[104X
+    [4X[28X11[128X[104X
+    [4X[28X[ "A11", "A12", "A13", "Co2", "HS", "J1", "L2(11)", "L2(121)", [128X[104X
+    [4X[28X  "L2(23)", "L5(3)", "M11", "M12", "M22", "M23", "M24", "McL", [128X[104X
+    [4X[28X  "O10+(3)", "O12+(3)", "ON", "Suz", "U5(2)", "U6(2)" ][128X[104X
+    [4X[28X13[128X[104X
+    [4X[28X[ "2E6(2)", "2F4(2)'", "3D4(2)", "A13", "A14", "A15", "F4(2)", [128X[104X
+    [4X[28X  "Fi22", "G2(3)", "G2(4)", "L2(13)", "L2(25)", "L2(27)", "L3(3)", [128X[104X
+    [4X[28X  "L4(3)", "O7(3)", "O8+(3)", "S4(5)", "S6(3)", "Suz", "Sz(8)", [128X[104X
+    [4X[28X  "U3(4)" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLooking  at these examples, we may observe that the alternating group [22XA_n[122X of
+  degree  [22Xn[122X  is [22X2[122X-pure iff [22Xn ∈ { 4, 5, 6 }[122X, [22X3[122X-pure iff [22Xn ∈ { 3, 4, 5, 6 }[122X, and
+  [22Xp[122X-pure, for [22Xp ≥ 5[122X, iff [22Xn ∈ { p, p+1, p+2 }[122X.[133X
+  
+  [33X[0;0YAlso,  the  Suzuki  groups  [22XSz(q)[122X  are  [22X2[122X-pure  since  the  centralizers  of
+  nonidentity [22X2[122X-elements are contained in Sylow [22X2[122X-subgroups.[133X
+  
+  [33X[0;0YFrom  the  inspection of the generic character table(s) of [22XPSL(2, q)[122X, we see
+  that  [22XPSL(2,  p^d)[122X  is  [22Xp[122X-pure  Additionally, exactly the following cases of
+  [22Xl[122X-purity occur, for a prime [22Xl[122X.[133X
+  
+  [30X    [33X[0;6Y[22Xq[122X is even and [22Xq-1[122X or [22Xq+1[122X is a power of [22Xl[122X.[133X
+  
+  [30X    [33X[0;6YFor [22Xq ≡ 1 mod 4[122X, [22X(q+1)/2[122X is a power of [22Xl[122X or [22Xq-1[122X is a power of [22Xl = 2[122X.[133X
+  
+  [30X    [33X[0;6YFor [22Xq ≡ 3 mod 4[122X, [22X(q-1)/2[122X is a power of [22Xl[122X or [22Xq+1[122X is a power of [22Xl = 2[122X.[133X
+  
+  
+  [1X2.3-3 [33X[0;0YExample: Simple Groups with only one [22Xp[122X[101X[1X-Block[133X[101X
+  
+  [33X[0;0YAre there nonabelian simple groups with only one [22Xp[122X-block, for some prime [22Xp[122X?[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfun:= function( tbl )[127X[104X
+    [4X[25X>[125X [27X     local result, p, bl;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X     result:= false;[127X[104X
+    [4X[25X>[125X [27X     for p in PrimeDivisors( Size( tbl ) ) do[127X[104X
+    [4X[25X>[125X [27X       bl:= PrimeBlocks( tbl, p );[127X[104X
+    [4X[25X>[125X [27X       if Length( bl.defect ) = 1 then[127X[104X
+    [4X[25X>[125X [27X         result:= true;[127X[104X
+    [4X[25X>[125X [27X         Print( "only one block: ", Identifier( tbl ), ", p = ", p, "\n" );[127X[104X
+    [4X[25X>[125X [27X       fi;[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X     return result;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+    [4X[25Xgap>[125X [27XAllCharacterTableNames( IsSimple, true, IsAbelian, false,[127X[104X
+    [4X[25X>[125X [27X                           IsDuplicateTable, false, fun, true );[127X[104X
+    [4X[28Xonly one block: M22, p = 2[128X[104X
+    [4X[28Xonly one block: M24, p = 2[128X[104X
+    [4X[28X[ "M22", "M24" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe see that the sporadic simple groups [22XM_22[122X and [22XM_24[122X have only one [22X2[122X-block.[133X
+  
+  
+  [1X2.3-4 [33X[0;0YExample:The Sylow [22X3[122X[101X[1X subgroup of [22X3.O'N[122X[101X[1X[133X[101X
+  
+  [33X[0;0YWe  want  to  determine the structure of the Sylow [22X3[122X-subgroups of the triple
+  cover [22XG = 3.O'N[122X of the sporadic simple O'Nan group [22XO'N[122X. The Sylow [22X3[122X-subgroup
+  of  [22XO'N[122X  is  an  elementary  abelian  group  of order [22X3^4[122X, since the Sylow [22X3[122X
+  normalizer in [22XO'N[122X has the structure [22X3^4:2^1+4D_10[122X (see [CCN+85, p. 132]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterTable( "ONN3" );[127X[104X
+    [4X[28XCharacterTable( "3^4:2^(1+4)D10" )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  [22XP[122X  be  a  Sylow  [22X3[122X-subgroup  of  [22XG[122X.  Then  [22XP[122X  is not abelian, since the
+  centralizer order of any preimage of an element of order three in the simple
+  factor  group  of  [22XG[122X is not divisible by [22X3^5[122X. Moreover, the exponent of [22XP[122X is
+  three.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X3t:= CharacterTable( "3.ON" );;[127X[104X
+    [4X[25Xgap>[125X [27Xorders:= OrdersClassRepresentatives( 3t );;[127X[104X
+    [4X[25Xgap>[125X [27Xord3:= PositionsProperty( orders, x -> x = 3 );[127X[104X
+    [4X[28X[ 2, 3, 7 ][128X[104X
+    [4X[25Xgap>[125X [27Xsizes:= SizesCentralizers( 3t ){ ord3 };[127X[104X
+    [4X[28X[ 1382446517760, 1382446517760, 3240 ][128X[104X
+    [4X[25Xgap>[125X [27XSize( 3t );[127X[104X
+    [4X[28X1382446517760[128X[104X
+    [4X[25Xgap>[125X [27XCollected( Factors( sizes[3] ) );[127X[104X
+    [4X[28X[ [ 2, 3 ], [ 3, 4 ], [ 5, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27X9 in orders;[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo both the centre and the Frattini subgroup of [22XP[122X are equal to the centre of
+  [22XG[122X, hence [22XP[122X is an extraspecial group [22X3^1+4_+[122X.[133X
+  
+  
+  [1X2.3-5 [33X[0;0YExample: Primitive Permutation Characters of [22X2.A_6[122X[101X[1X[133X[101X
+  
+  [33X[0;0YIt is often interesting to compute the primitive permutation characters of a
+  group  [22XG[122X,  that  is,  the  characters of the permutation actions of [22XG[122X on the
+  cosets  of  its  maximal  subgroups.  These  characters  can be computed for
+  example  when the character tables of [22XG[122X, the character tables of its maximal
+  subgroups,  and the class fusions from these character tables into the table
+  of [22XG[122X are known.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "2.A6" );;[127X[104X
+    [4X[25Xgap>[125X [27XHasMaxes( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xmaxes:= Maxes( tbl );[127X[104X
+    [4X[28X[ "2.A5", "2.A6M2", "3^2:8", "2.Symm(4)", "2.A6M5" ][128X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( maxes, CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xprim1:= List( mx, s -> TrivialCharacter( s )^tbl );;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( tbl,[127X[104X
+    [4X[25X>[125X [27X     rec( chars:= prim1, centralizers:= false, powermap:= false ) );[127X[104X
+    [4X[28X2.A6[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 2a 4a 3a 6a 3b 6b 8a 8b 5a 10a 5b 10b[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XY.1     6  6  2  3  3  .  .  .  .  1   1  1   1[128X[104X
+    [4X[28XY.2     6  6  2  .  .  3  3  .  .  1   1  1   1[128X[104X
+    [4X[28XY.3    10 10  2  1  1  1  1  2  2  .   .  .   .[128X[104X
+    [4X[28XY.4    15 15  3  3  3  .  .  1  1  .   .  .   .[128X[104X
+    [4X[28XY.5    15 15  3  .  .  3  3  1  1  .   .  .   .[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese permutation characters are the ones listed in [CCN+85, p. 4].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPermCharInfo( tbl, prim1 ).ATLAS;[127X[104X
+    [4X[28X[ "1a+5a", "1a+5b", "1a+9a", "1a+5a+9a", "1a+5b+9a" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAlternatively, one can compute the primitive permutation characters from the
+  table of marks if this table and the fusion into it are known.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( tbl );[127X[104X
+    [4X[28XTableOfMarks( "2.A6" )[128X[104X
+    [4X[25Xgap>[125X [27Xallperm:= PermCharsTom( tbl, tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xprim2:= allperm{ MaximalSubgroupsTom( tom )[1] };;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( tbl,[127X[104X
+    [4X[25X>[125X [27X     rec( chars:= prim2, centralizers:= false, powermap:= false ) );[127X[104X
+    [4X[28X2.A6[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 2a 4a 3a 6a 3b 6b 8a 8b 5a 10a 5b 10b[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XY.1     6  6  2  3  3  .  .  .  .  1   1  1   1[128X[104X
+    [4X[28XY.2     6  6  2  .  .  3  3  .  .  1   1  1   1[128X[104X
+    [4X[28XY.3    10 10  2  1  1  1  1  2  2  .   .  .   .[128X[104X
+    [4X[28XY.4    15 15  3  .  .  3  3  1  1  .   .  .   .[128X[104X
+    [4X[28XY.5    15 15  3  3  3  .  .  1  1  .   .  .   .[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that  the two approaches yield the same permutation characters, but
+  the  two  lists are sorted in a different way. The latter is due to the fact
+  that  the  rows  of  the  table  of  marks  are ordered in a way that is not
+  compatible  with  the ordering of maximal subgroups for the character table.
+  Moreover,  there  is no way to choose the fusion from the character table to
+  the  table  of  marks  in  such  a  way  that  the  two lists of permutation
+  characters would become equal. The component [10Xperm[110X in the [2XFusionToTom[102X ([14X3.2-4[114X)
+  record of the character table describes the incompatibility.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFusionToTom( tbl );[127X[104X
+    [4X[28Xrec( map := [ 1, 2, 5, 4, 8, 3, 7, 11, 11, 6, 13, 6, 13 ], [128X[104X
+    [4X[28X  name := "2.A6", perm := (4,5), [128X[104X
+    [4X[28X  text := "fusion map is unique up to table autom." )[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3-6 [33X[0;0YExample: A Permutation Character of [22XFi_23[122X[101X[1X[133X[101X
+  
+  [33X[0;0YLet  [22Xx[122X  be  a [10X3B[110X element in the sporadic simple Fischer group [22XG = Fi_23[122X. The
+  normalizer   [22XM[122X   of   [22Xx[122X   in   [22XG[122X   is   a   maximal  subgroup  of  the  type
+  [22X3^{1+8}_+.2^{1+6}_-.3^{1+2}_+.2S_4[122X. We are interested in the distribution of
+  the  elements  of  the  normal  subgroup [22XN[122X of the type [22X3^{1+8}_+[122X in [22XM[122X to the
+  conjugacy classes of [22XG[122X.[133X
+  
+  [33X[0;0YThis  information  can be computed from the permutation character [22Xπ = 1_N^G[122X,
+  so  we try to compute this permutation character. We have [22Xπ = (1_N^M)^G[122X, and
+  [22X1_N^M[122X  can  be  computed  as  the  inflation of the regular character of the
+  factor  group  [22XM/N[122X  to  [22XM[122X.  Note  that  the  character tables of [22XG[122X and [22XM[122X are
+  available,  as well as the class fusion of [22XM[122X in [22XG[122X, and that [22XN[122X is the largest
+  normal [22X3[122X-subgroup of [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Fi23" );[127X[104X
+    [4X[28XCharacterTable( "Fi23" )[128X[104X
+    [4X[25Xgap>[125X [27Xmx:= Maxes( t );[127X[104X
+    [4X[28X[ "2.Fi22", "O8+(3).3.2", "2^2.U6(2).2", "S8(2)", "S3xO7(3)", [128X[104X
+    [4X[28X  "2..11.m23", "3^(1+8).2^(1+6).3^(1+2).2S4", "Fi23M8", "A12.2", [128X[104X
+    [4X[28X  "(2^2x2^(1+8)).(3xU4(2)).2", "2^(6+8):(A7xS3)", "S4xS6(2)", [128X[104X
+    [4X[28X  "S4(4).4", "L2(23)" ][128X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( mx[7] );[127X[104X
+    [4X[28XCharacterTable( "3^(1+8).2^(1+6).3^(1+2).2S4" )[128X[104X
+    [4X[25Xgap>[125X [27Xn:= ClassPositionsOfPCore( m, 3 );[127X[104X
+    [4X[28X[ 1 .. 6 ][128X[104X
+    [4X[25Xgap>[125X [27Xf:= m / n;[127X[104X
+    [4X[28XCharacterTable( "3^(1+8).2^(1+6).3^(1+2).2S4/[ 1, 2, 3, 4, 5, 6 ]" )[128X[104X
+    [4X[25Xgap>[125X [27Xreg:= 0 * [ 1 .. NrConjugacyClasses( f ) ];;[127X[104X
+    [4X[25Xgap>[125X [27Xreg[1]:= Size( f );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfl:= reg{ GetFusionMap( m, f ) };[127X[104X
+    [4X[28X[ 165888, 165888, 165888, 165888, 165888, 165888, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ][128X[104X
+    [4X[25Xgap>[125X [27Xind:= Induced( m, t, [ infl ] );[127X[104X
+    [4X[28X[ ClassFunction( CharacterTable( "Fi23" ),[128X[104X
+    [4X[28X  [ 207766624665600, 0, 0, 0, 603832320, 127567872, 6635520, 663552, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0 ] ) ][128X[104X
+    [4X[25Xgap>[125X [27XPermCharInfo( t, ind ).contained;[127X[104X
+    [4X[28X[ [ 1, 0, 0, 0, 864, 1538, 3456, 13824, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27XPositionsProperty( OrdersClassRepresentatives( t ), x -> x = 3 );[127X[104X
+    [4X[28X[ 5, 6, 7, 8 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus [22XN[122X contains [22X864[122X elements in the class [10X3A[110X, [22X1538[122X elements in the class [10X3B[110X,
+  and so on.[133X
+  
+  
+  [1X2.3-7 [33X[0;0YExample: Non-commutators in the commutator group[133X[101X
+  
+  [33X[0;0YIn general, not every element in the commutator group of a group is itself a
+  commutator.  Are  there examples in the Character Table Library, and if yes,
+  what is a smallest one?[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnam:= OneCharacterTableName( CommutatorLength, x -> x > 1[127X[104X
+    [4X[25X>[125X [27X                                : OrderedBy:= Size );[127X[104X
+    [4X[28X"3.(A4x3):2"[128X[104X
+    [4X[25Xgap>[125X [27XSize( CharacterTable( nam ) );[127X[104X
+    [4X[28X216[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe smallest groups with this property have order [22X96[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XOneSmallGroup( Size, [ 2 .. 100 ],[127X[104X
+    [4X[25X>[125X [27X                  G -> CommutatorLength( G ) > 1, true );[127X[104X
+    [4X[28X<pc group of size 96 with 6 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Note the different syntax: [2XOneSmallGroup[102X ([14Xsmallgrp: OneSmallGroup[114X) does not
+  admit a function such as [10Xx -> x > 1[110X for describing the admissible values.)[133X
+  
+  [33X[0;0YNonabelian  simple groups cannot be expected to have non-commutators, by the
+  main theorem in [LOST10].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XOneCharacterTableName( IsSimple, true, IsAbelian, false,[127X[104X
+    [4X[25X>[125X [27X                          IsDuplicateTable, false,[127X[104X
+    [4X[25X>[125X [27X                          CommutatorLength, x -> x > 1[127X[104X
+    [4X[25X>[125X [27X                          : OrderedBy:= Size );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YPerfect groups can contain non-commutators.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnam:= OneCharacterTableName( IsPerfect, true,[127X[104X
+    [4X[25X>[125X [27X                                IsDuplicateTable, false,[127X[104X
+    [4X[25X>[125X [27X                                CommutatorLength, x -> x > 1[127X[104X
+    [4X[25X>[125X [27X                                : OrderedBy:= Size );[127X[104X
+    [4X[28X"P1/G1/L1/V1/ext2"[128X[104X
+    [4X[25Xgap>[125X [27XSize( CharacterTable( nam ) );[127X[104X
+    [4X[28X960[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  is  in  fact  the  smallest  example  of a perfect group that contains
+  non-commutators.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfor n in [ 2 .. 960 ] do[127X[104X
+    [4X[25X>[125X [27X     for i in [ 1 .. NrPerfectGroups( n ) ] do[127X[104X
+    [4X[25X>[125X [27X       g:= PerfectGroup( n,  i);[127X[104X
+    [4X[25X>[125X [27X       if CommutatorLength( g ) <> 1 then[127X[104X
+    [4X[25X>[125X [27X         Print( [ n, i ], "\n" );[127X[104X
+    [4X[25X>[125X [27X       fi;[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28X[ 960, 2 ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3-8 [33X[0;0YExample: An irreducible [22X11[122X[101X[1X-modular character of [22XJ_4[122X[101X[1X (December 2018)[133X[101X
+  
+  [33X[0;0YLet  [22XG[122X  be the sporadic simple Janko group [22XJ_4[122X. For the ordinary irreducible
+  characters  of  degree  [22X1333[122X  of [22XG[122X, the reductions modulo [22X11[122X are known to be
+  irreducible Brauer characters.[133X
+  
+  [33X[0;0YDavid Craven asked Richard Parker how to show that the antisymmetric squares
+  of these Brauer characters are irreducible. Richard proposed the following.[133X
+  
+  [33X[0;0YRestrict  the  given ordinary character [22Xχ[122X, say, to a subgroup [22XS[122X of [22XJ_4[122X whose
+  [22X11[122X-modular  character  table  is  known,  decompose the restriction [22Xχ_S[122X into
+  irreducible  Brauer  characters,  and  compute  those  constituents that are
+  constant on all subsets of conjugacy classes that fuse in [22XJ_4[122X. If the Brauer
+  character [22Xχ_S[122X cannot be written as a sum of two such constituents then [22Xχ[122X, as
+  a Brauer character of [22XJ_4[122X, is irreducible.[133X
+  
+  [33X[0;0YHere is a [5XGAP[105X session that shows how to apply this idea.[133X
+  
+  [33X[0;0YThe  group  [22XJ_4[122X  has  exactly  two ordinary irreducible characters of degree
+  [22X1333[122X.  They  are  complex conjugate, and so are their antisymmetric squares.
+  Thus we may consider just one of the two.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "J4" );;[127X[104X
+    [4X[25Xgap>[125X [27Xdeg1333:= Filtered( Irr( t ), x -> x[1] = 1333 );;[127X[104X
+    [4X[25Xgap>[125X [27Xantisym:= AntiSymmetricParts( t, deg1333, 2 );;[127X[104X
+    [4X[25Xgap>[125X [27XList(  antisym, x -> Position( Irr( t ), x ) );[127X[104X
+    [4X[28X[ 7, 6 ][128X[104X
+    [4X[25Xgap>[125X [27XComplexConjugate( antisym[1] ) = antisym[2];[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xchi:= antisym[1];;  chi[1];[127X[104X
+    [4X[28X887778[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  [22XS[122X be a maximal subgroup of the structure [22X2^11:M_24[122X in [22XJ_4[122X. Fortunately,
+  the [22X11[122X-modular character table of [22XS[122X is available (it had been constructed by
+  Christoph  Jansen),  and  we  can restrict the interesting character to this
+  table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( Maxes( t )[1] );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( s ) = 2^11 * Size( CharacterTable( "M24" ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xrest:= RestrictedClassFunction( chi, s );;[127X[104X
+    [4X[25Xgap>[125X [27Xsmod11:= s mod 11;;[127X[104X
+    [4X[25Xgap>[125X [27Xrest:= RestrictedClassFunction( rest, smod11 );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  restriction  is  a  sum  of  nine pairwise different irreducible Brauer
+  characters of [22XS[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdec:= Decomposition( Irr( smod11 ), [ rest ], "nonnegative" )[1];;[127X[104X
+    [4X[25Xgap>[125X [27XSum( dec );[127X[104X
+    [4X[28X9[128X[104X
+    [4X[25Xgap>[125X [27Xconstpos:= PositionsProperty( dec, x -> x <> 0 );[127X[104X
+    [4X[28X[ 15, 36, 46, 53, 55, 58, 63, 67, 69 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNext we compute those sets of classes of [22XS[122X which fuse in [22XJ_4[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsmod11fuss:= GetFusionMap( smod11, s );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= GetFusionMap( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus:= CompositionMaps( sfust, smod11fuss );;[127X[104X
+    [4X[25Xgap>[125X [27Xinv:= Filtered( InverseMap( fus ), IsList );[127X[104X
+    [4X[28X[ [ 3, 4, 5 ], [ 2, 6, 7 ], [ 8, 9 ], [ 10, 11, 16 ], [128X[104X
+    [4X[28X  [ 12, 14, 15, 17, 18, 21 ], [ 13, 19, 20, 22 ], [ 26, 27, 28, 30 ], [128X[104X
+    [4X[28X  [ 25, 29, 31 ], [ 34, 39 ], [ 35, 37, 38 ], [ 40, 42 ], [ 41, 43 ], [128X[104X
+    [4X[28X  [ 44, 47, 48 ], [ 45, 49, 50 ], [ 46, 51 ], [ 56, 57 ], [ 63, 64 ], [128X[104X
+    [4X[28X  [ 69, 70 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally, we run over all [22X2^9[122X subsets of the irreducible constituents.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xconst:= Irr( smod11 ){ constpos };;[127X[104X
+    [4X[25Xgap>[125X [27Xzero:= 0 * TrivialCharacter( smod11 );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomb:= List( Combinations( const ), x -> Sum( x, zero ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xcand:= Filtered( comb,[127X[104X
+    [4X[25X>[125X [27X              x -> ForAll( inv, l -> Length( Set( x{ l } ) ) = 1 ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( cand, x -> x[1] );[127X[104X
+    [4X[28X[ 0, 887778 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that no proper subset of the constituents yields a Brauer character
+  that can be restricted from [22XJ_4[122X.[133X
+  
+  
+  [1X2.3-9  [33X[0;0YExample:  Tensor  Products  that are Generalized Projectives (October[101X
+  [1X2019)[133X[101X
+  
+  [33X[0;0YLet  [22XG[122X  be a finite group and [22Xp[122X be a prime integer. If the tensor product [22XΦ[122X,
+  say,  of two ordinary irreducible characters of [22XG[122X vanishes on all [22Xp[122X-singular
+  elements   of  [22XG[122X  then  [22XΦ[122X  is  a  [22Xℤ[122X-linear  combination  of  the  [13Xprojective
+  indecomposable  characters[113X [22XΦ_φ = ∑_{χ ∈ Irr(G)} d_{χ φ} χ[122X of [22XG[122X, where [22Xφ[122X runs
+  over  the  irreducible  [22Xp[122X-modular  Brauer characters of [22XG[122X and [22Xd_{χ φ}[122X is the
+  decomposition  number  of [22Xχ[122X and [22Xφ[122X. (See for example [Nav98, p. 25] or [LP10,
+  Def.  4.3.1].)  Such  class  functions  are  called  generalized  projective
+  characters.[133X
+  
+  [33X[0;0YIn  fact,  very often [22XΦ[122X is a projective character, that is, the coefficients
+  of   the   decomposition   into  projective  indecomposable  characters  are
+  nonnegative.[133X
+  
+  [33X[0;0YWe are interested in examples where this is [13Xnot[113X the case. For that, we write
+  a  small  [5XGAP[105X function that computes, for a given [22Xp[122X-modular character table,
+  those   tensor   products   of  ordinary  irreducible  characters  that  are
+  generalized projective characters but are not projective.[133X
+  
+  [33X[0;0YMany  years  ago, Richard Parker had been interested in the question whether
+  such  tensor  products can exist for a given group. Note that forming tensor
+  products  that  vanish  on  [22Xp[122X-singular  elements  is  a  recipe for creating
+  projective  characters,  provided  one  knows  in advance that the answer is
+  negative for the given group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGenProjNotProj:= function( modtbl )[127X[104X
+    [4X[25X>[125X [27X     local p, tbl, X, PIMs, n, psingular, list, labels, i, j, psi,[127X[104X
+    [4X[25X>[125X [27X           pos, dec, poss;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X     p:= UnderlyingCharacteristic( modtbl );[127X[104X
+    [4X[25X>[125X [27X     tbl:= OrdinaryCharacterTable( modtbl );[127X[104X
+    [4X[25X>[125X [27X     X:= Irr( tbl );[127X[104X
+    [4X[25X>[125X [27X     PIMs:= TransposedMat( DecompositionMatrix( modtbl ) ) * X;[127X[104X
+    [4X[25X>[125X [27X     n:= Length( X );[127X[104X
+    [4X[25X>[125X [27X     psingular:= Difference( [ 1 .. n ], GetFusionMap( modtbl, tbl ) );[127X[104X
+    [4X[25X>[125X [27X     list:= [];[127X[104X
+    [4X[25X>[125X [27X     labels:= [];[127X[104X
+    [4X[25X>[125X [27X     for i in [ 1 .. n ] do[127X[104X
+    [4X[25X>[125X [27X       for j in [ 1 .. i ] do[127X[104X
+    [4X[25X>[125X [27X         psi:= List( [ 1 .. n ], x -> X[i][x] * X[j][x] );[127X[104X
+    [4X[25X>[125X [27X         if IsZero( psi{ psingular } ) then[127X[104X
+    [4X[25X>[125X [27X           # This is a generalized projective character.[127X[104X
+    [4X[25X>[125X [27X           pos:= Position( list, psi );[127X[104X
+    [4X[25X>[125X [27X           if pos = fail then[127X[104X
+    [4X[25X>[125X [27X             Add( list, psi );[127X[104X
+    [4X[25X>[125X [27X             Add( labels, [ [ j, i ] ] );[127X[104X
+    [4X[25X>[125X [27X           else[127X[104X
+    [4X[25X>[125X [27X             Add( labels[ pos ], [ j, i ] );[127X[104X
+    [4X[25X>[125X [27X           fi;[127X[104X
+    [4X[25X>[125X [27X         fi;[127X[104X
+    [4X[25X>[125X [27X       od;[127X[104X
+    [4X[25X>[125X [27X     od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X     if Length( list ) > 0 then[127X[104X
+    [4X[25X>[125X [27X       # Decompose the generalized projective tensor products[127X[104X
+    [4X[25X>[125X [27X       # into the projective indecomposables.[127X[104X
+    [4X[25X>[125X [27X       dec:= Decomposition( PIMs, list, "nonnegative" );[127X[104X
+    [4X[25X>[125X [27X       poss:= Positions( dec, fail );[127X[104X
+    [4X[25X>[125X [27X       return Set( Concatenation( labels{ poss } ) );[127X[104X
+    [4X[25X>[125X [27X     else[127X[104X
+    [4X[25X>[125X [27X       return [];[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X     end;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YOne  group  for which the function returns a nonempty result is the sporadic
+  simple Janko group [22XJ_2[122X in characteristic [22X2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "J2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmodtbl:= tbl mod 2;;[127X[104X
+    [4X[25Xgap>[125X [27Xpairs:= GenProjNotProj( modtbl );[127X[104X
+    [4X[28X[ [ 6, 12 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xirr:= Irr( tbl );;[127X[104X
+    [4X[25Xgap>[125X [27XPIMs:= TransposedMat( DecompositionMatrix( modtbl ) ) * irr;;[127X[104X
+    [4X[25Xgap>[125X [27XSolutionMat( PIMs, irr[6] * irr[12] );[127X[104X
+    [4X[28X[ 0, 0, 0, 1, 1, 1, 0, 0, -2, 3 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YChecking  all  available  tables from the library takes several hours of CPU
+  time  and  also  requires  a  lot of space; finally, it yields the following
+  result.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xexamples:= [];;[127X[104X
+    [4X[25Xgap>[125X [27Xfor name in AllCharacterTableNames( IsDuplicateTable, false ) do[127X[104X
+    [4X[25X>[125X [27X     tbl:= CharacterTable( name );[127X[104X
+    [4X[25X>[125X [27X     for p in PrimeDivisors( Size( tbl ) ) do[127X[104X
+    [4X[25X>[125X [27X       modtbl:= tbl mod p;[127X[104X
+    [4X[25X>[125X [27X       if modtbl <> fail then[127X[104X
+    [4X[25X>[125X [27X         res:= GenProjNotProj( modtbl );[127X[104X
+    [4X[25X>[125X [27X         if not IsEmpty( res ) then[127X[104X
+    [4X[25X>[125X [27X           AddSet( examples, [ name, p, Length( res ) ] );[127X[104X
+    [4X[25X>[125X [27X        fi;[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X  od;[127X[104X
+    [4X[25Xgap>[125X [27Xexamples;[127X[104X
+    [4X[28X[ [ "(A5xJ2):2", 2, 4 ], [ "(D10xJ2).2", 2, 9 ], [ "2.Suz", 3, 1 ], [128X[104X
+    [4X[28X  [ "2.Suz.2", 3, 4 ], [ "2xCo2", 5, 4 ], [ "3.Suz", 2, 6 ], [128X[104X
+    [4X[28X  [ "3.Suz.2", 2, 4 ], [ "Co2", 5, 1 ], [ "Co3", 2, 4 ], [128X[104X
+    [4X[28X  [ "Isoclinic(2.Suz.2)", 3, 4 ], [ "J2", 2, 1 ], [ "Suz", 2, 2 ], [128X[104X
+    [4X[28X  [ "Suz", 3, 1 ], [ "Suz.2", 3, 4 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  list  looks  rather [21Xsporadic[121X. The number of examples is small, and all
+  groups  in question except two (the subdirect products of [22XS_5[122X and [22XJ_2.2[122X, and
+  of [22X5:4[122X and [22XJ_2.2[122X, respectively) are extensions of sporadic simple groups.[133X
+  
+  [33X[0;0YNote  that  the  following  cases could be omitted because the characters in
+  question belong to proper factor groups: [22X2.Suz[122X mod [22X3[122X, [22X2.Suz.2[122X mod [22X3[122X, and its
+  isoclinic variant.[133X
+  
+  
+  [1X2.3-10  [33X[0;0YExample:  Certain elementary abelian subgroups in quasisimple groups[101X
+  [1X(November 2020)[133X[101X
+  
+  [33X[0;0YIn  October 2020, Bob Guralnick asked: Does each quasisimple group [22XG[122X contain
+  an  elementary  abelian  subgroup  that contains elements from all conjugacy
+  classes  of involutions in [22XG[122X? (Such a subgroup is called a [13Xbroad[113X subgroup of
+  [22XG[122X. See [GR] for the paper.)[133X
+  
+  [33X[0;0YIn the case of simple groups, theoretical arguments suffice to show that the
+  answer  is  positive  for simple groups of alternating and Lie type, thus it
+  remains to inspect the sporadic simple groups.[133X
+  
+  [33X[0;0YIn  the case of nonsimple quasisimple groups, again groups having a sporadic
+  simple  factor  group have to be checked, and also the central extensions of
+  groups   of   Lie  type  by  exceptional  multipliers  have  to  be  checked
+  computationally.[133X
+  
+  [33X[0;0YIn the following situations, the answer is positive for a given group [22XG[122X.[133X
+  
+  [31X1[131X   [33X[0;6Y[22XG[122X has at most two classes of involutions. (Take an involution [22Xx[122X in the
+        centre  of a Sylow [22X2[122X-subgroup [22XP[122X of [22XG[122X; if there is a conjugacy class of
+        involutions  in [22XG[122X different from [22Xx^G[122X then [22XP[122X contains an element in the
+        other involution class.)[133X
+  
+  [31X2[131X   [33X[0;6Y[22XG[122X  has  exactly  three  classes  of  involutions  such  that there are
+        representatives  [22Xx[122X, [22Xy[122X, [22Xz[122X with the property [22Xx y = z[122X. (The subgroup [22X⟨ x,
+        y  ⟩[122X  is  a Klein four group; note that [22Xx[122X and [22Xy[122X commute because [22Xx^{-1}
+        y^{-1} x y = (x y)^2 = z^2 = 1[122X holds.)[133X
+  
+  [31X3[131X   [33X[0;6Y[22XG[122X  has  a  central  elementary  abelian  [22X2[122X-subgroup [22XN[122X, and there is an
+        elementary  abelian [22X2[122X-subgroup [22XP / N[122X in [22XG / N[122X containing elements from
+        all  those  involution classes of [22XG / N[122X that lift to involutions of [22XG[122X,
+        but no elements from other involution classes of [22XG / N[122X. (Just take the
+        preimage [22XP[122X, which is elementary abelian.)[133X
+  
+        [33X[0;6YThis  condition is satisfied for example if the answer is positive for
+        [22XG  /  N[122X  and  [13Xall[113X involutions of [22XG / N[122X lift to involutions in [22XG[122X, or if
+        exactly one class of involutions of [22XG / N[122X lifts to involutions in [22XG[122X.[133X
+  
+  [33X[0;0YThe  following  function  evaluates  the first two of the above criteria and
+  easy cases of the third one, for the given character table of the group [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XApplyCriteria:= "dummy";;  # Avoid a syntax error ...[127X[104X
+    [4X[25Xgap>[125X [27XApplyCriteria:= function( tbl )[127X[104X
+    [4X[25X>[125X [27X   local id, ord, invpos, cen, facttbl, factfus, invmap, factord,[127X[104X
+    [4X[25X>[125X [27X          factinvpos, imgs;[127X[104X
+    [4X[25X>[125X [27X   id:= ReplacedString( Identifier( tbl ), " ", "" );[127X[104X
+    [4X[25X>[125X [27X   ord:= OrdersClassRepresentatives( tbl );[127X[104X
+    [4X[25X>[125X [27X   invpos:= PositionsProperty( ord, x -> x <= 2 );[127X[104X
+    [4X[25X>[125X [27X   if Length( invpos ) <= 3 then[127X[104X
+    [4X[25X>[125X [27X     # There are at most 2 involution classes.[127X[104X
+    [4X[25X>[125X [27X     Print( "#I  ", id, ": ",[127X[104X
+    [4X[25X>[125X [27X            "done (", Length( invpos ) - 1, " inv. class(es))\n" );[127X[104X
+    [4X[25X>[125X [27X     return true;[127X[104X
+    [4X[25X>[125X [27X   elif Length( invpos ) = 4 and[127X[104X
+    [4X[25X>[125X [27X        ClassMultiplicationCoefficient( tbl, invpos[2], invpos[3],[127X[104X
+    [4X[25X>[125X [27X                                             invpos[4] ) <> 0 then[127X[104X
+    [4X[25X>[125X [27X     Print( "#I  ", id, ": ",[127X[104X
+    [4X[25X>[125X [27X            "done (3 inv. classes, nonzero str. const.)\n" );[127X[104X
+    [4X[25X>[125X [27X     return true;[127X[104X
+    [4X[25X>[125X [27X   fi;[127X[104X
+    [4X[25X>[125X [27X   cen:= Intersection( invpos, ClassPositionsOfCentre( tbl ) );[127X[104X
+    [4X[25X>[125X [27X   if Length( cen ) > 1 then[127X[104X
+    [4X[25X>[125X [27X     # Consider the factor modulo the largest central el. ab. 2-group.[127X[104X
+    [4X[25X>[125X [27X     facttbl:= tbl / cen;[127X[104X
+    [4X[25X>[125X [27X     factfus:= GetFusionMap( tbl, facttbl );[127X[104X
+    [4X[25X>[125X [27X     invmap:= InverseMap( factfus );[127X[104X
+    [4X[25X>[125X [27X     factord:= OrdersClassRepresentatives( facttbl );[127X[104X
+    [4X[25X>[125X [27X     factinvpos:= PositionsProperty( factord, x -> x <= 2 );[127X[104X
+    [4X[25X>[125X [27X     if ForAll( factinvpos,[127X[104X
+    [4X[25X>[125X [27X            i -> invmap[i] in invpos or[127X[104X
+    [4X[25X>[125X [27X                 ( IsList( invmap[i] ) and[127X[104X
+    [4X[25X>[125X [27X                   IsSubset( invpos, invmap[i] ) ) ) then[127X[104X
+    [4X[25X>[125X [27X       # All involutions of the factor group lift to involutions.[127X[104X
+    [4X[25X>[125X [27X       if ApplyCriteria( facttbl ) = true then[127X[104X
+    [4X[25X>[125X [27X         Print( "#I  ", id, ": ",[127X[104X
+    [4X[25X>[125X [27X                "done (all inv. in ",[127X[104X
+    [4X[25X>[125X [27X                ReplacedString( Identifier( facttbl ), " ", "" ),[127X[104X
+    [4X[25X>[125X [27X                " lift to inv.)\n" );[127X[104X
+    [4X[25X>[125X [27X         return true;[127X[104X
+    [4X[25X>[125X [27X       fi;[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X     imgs:= Set( factfus{ invpos } );[127X[104X
+    [4X[25X>[125X [27X     if Length( imgs ) = 2 and[127X[104X
+    [4X[25X>[125X [27X        ForAll( imgs,[127X[104X
+    [4X[25X>[125X [27X            i -> invmap[i] in invpos or[127X[104X
+    [4X[25X>[125X [27X                 ( IsList( invmap[i] ) and[127X[104X
+    [4X[25X>[125X [27X                   IsSubset( invpos, invmap[i] ) ) ) then[127X[104X
+    [4X[25X>[125X [27X       # There is a C2 subgroup of the factor[127X[104X
+    [4X[25X>[125X [27X       # such that its involution lifts to involutions,[127X[104X
+    [4X[25X>[125X [27X       # and the lifts of the C2 cover all involution classes of 'tbl'.[127X[104X
+    [4X[25X>[125X [27X       Print( "#I  ", id, ": ",[127X[104X
+    [4X[25X>[125X [27X              "done (all inv. in ", id,[127X[104X
+    [4X[25X>[125X [27X              " are lifts of a C2\n",[127X[104X
+    [4X[25X>[125X [27X              "#I  in the factor modulo ",[127X[104X
+    [4X[25X>[125X [27X              ReplacedString( String( cen ), " ", "" ), ")\n" );[127X[104X
+    [4X[25X>[125X [27X       return true;[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   fi;[127X[104X
+    [4X[25X>[125X [27X   Print( "#I  ", id, ": ",[127X[104X
+    [4X[25X>[125X [27X          "OPEN (", Length( invpos  ) - 1, " inv. class(es))\n" );[127X[104X
+    [4X[25X>[125X [27X   return false;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe start with the sporadic simple groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSizeScreen( [ 72 ] );;[127X[104X
+    [4X[25Xgap>[125X [27Xspor:= AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                                  IsDuplicateTable, false );[127X[104X
+    [4X[28X[ "B", "Co1", "Co2", "Co3", "F3+", "Fi22", "Fi23", "HN", "HS", "He", [128X[104X
+    [4X[28X  "J1", "J2", "J3", "J4", "Ly", "M", "M11", "M12", "M22", "M23", [128X[104X
+    [4X[28X  "M24", "McL", "ON", "Ru", "Suz", "Th" ][128X[104X
+    [4X[25Xgap>[125X [27XFiltered( spor,[127X[104X
+    [4X[25X>[125X [27X       x -> not ApplyCriteria( CharacterTable( x ) ) );[127X[104X
+    [4X[28X#I  B: OPEN (4 inv. class(es))[128X[104X
+    [4X[28X#I  Co1: OPEN (3 inv. class(es))[128X[104X
+    [4X[28X#I  Co2: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  Co3: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  F3+: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  Fi22: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  Fi23: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  HN: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  HS: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  He: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  J1: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  J2: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  J3: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  J4: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  Ly: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  M: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  M11: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  M12: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  M22: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  M23: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  M24: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  McL: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  ON: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  Ru: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  Suz: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  Th: done (1 inv. class(es))[128X[104X
+    [4X[28X[ "B", "Co1" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe two open cases can be handled as follows.[133X
+  
+  [33X[0;0YThe  group  [22XG  =  B[122X  contains  maximal subgroups of the type [22X5:4 × HS.2[122X (the
+  normalizers  of  [10X5A[110X  elements,  see [CCN+85, p. 217]). The direct factor [22XH =
+  HS.2[122X  of  such a subgroup has four classes of involutions, which fuse to the
+  four involution classes of [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpos:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5 ][128X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= First( mx,[127X[104X
+    [4X[25X>[125X [27X         x -> Size( x ) = 20 * Size( CharacterTable( "HS.2" ) ) );[127X[104X
+    [4X[28XCharacterTable( "5:4xHS.2" )[128X[104X
+    [4X[25Xgap>[125X [27Xfus:= GetFusionMap( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xprod:= ClassPositionsOfDirectProductDecompositions( s );[127X[104X
+    [4X[28X[ [ [ 1, 40 .. 157 ], [ 1 .. 39 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XfusinB:= List( prod[1], l -> fus{ l } );[127X[104X
+    [4X[28X[ [ 1, 18, 8, 3, 8 ], [128X[104X
+    [4X[28X  [ 1, 3, 4, 6, 8, 9, 14, 19, 18, 18, 25, 22, 31, 36, 43, 51, 50, 54, [128X[104X
+    [4X[28X      57, 81, 100, 2, 5, 8, 11, 16, 21, 20, 24, 34, 33, 48, 52, 59, [128X[104X
+    [4X[28X      76, 106, 100, 100, 137 ] ][128X[104X
+    [4X[25Xgap>[125X [27XIsSubset( fusinB[2], invpos );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xh:= CharacterTable( "HS.2" );;[127X[104X
+    [4X[25Xgap>[125X [27XfusinB[2]{ Positions( OrdersClassRepresentatives( h ), 2 ) };[127X[104X
+    [4X[28X[ 3, 4, 2, 5 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe table of marks of [22XH[122X is known. We find five classes of elementary abelian
+  subgroups of order eight in [22XH[122X that contain elements from all four involution
+  classes of [22XH[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( h );[127X[104X
+    [4X[28XTableOfMarks( "HS.2" )[128X[104X
+    [4X[25Xgap>[125X [27Xord:= OrdersTom( tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpos:= Positions( ord, 2 );[127X[104X
+    [4X[28X[ 2, 3, 534, 535 ][128X[104X
+    [4X[25Xgap>[125X [27X8pos:= Positions( ord, 8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( 8pos,[127X[104X
+    [4X[25X>[125X [27X       x -> ForAll( invpos,[127X[104X
+    [4X[25X>[125X [27X              y -> Length( IntersectionsTom( tom, x, y ) ) >= y[127X[104X
+    [4X[25X>[125X [27X                   and IntersectionsTom( tom, x, y )[y] <> 0 ) );[127X[104X
+    [4X[28X[ 587, 589, 590, 593, 595 ][128X[104X
+    [4X[25Xgap>[125X [27Xreps:= List( filt, i -> RepresentativeTom( tom, i ) );;[127X[104X
+    [4X[25Xgap>[125X [27XForAll( reps, IsElementaryAbelian );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  group [22XG = Co_1[122X has a maximal subgroup [22XH[122X of type [22XA_9 × S_3[122X (see [CCN+85,
+  p. 183])  that  contains  elements  from  all three involution classes of [22XG[122X.
+  Moreover,  the  factor [22XS_3[122X contains [10X2A[110X elements, and the factor [22XA_9[122X contains
+  [10X2B[110X  and  [10X2C[110X elements. This yields the desired elementary abelian subgroup of
+  order eight.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Co1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpos:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4 ][128X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= First( mx, x -> Size( x ) = 3 * Factorial( 9 ) );[127X[104X
+    [4X[28XCharacterTable( "A9xS3" )[128X[104X
+    [4X[25Xgap>[125X [27Xfus:= GetFusionMap( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xprod:= ClassPositionsOfDirectProductDecompositions( s );[127X[104X
+    [4X[28X[ [ [ 1 .. 3 ], [ 1, 4 .. 52 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( prod[1], l -> fus{ l } );[127X[104X
+    [4X[28X[ [ 1, 8, 2 ], [128X[104X
+    [4X[28X  [ 1, 3, 4, 5, 7, 6, 13, 14, 15, 19, 24, 28, 36, 37, 39, 50, 61, 61 [128X[104X
+    [4X[28X     ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus  we  know  that  the answer is positive for each sporadic simple group.
+  Next  we look at the relevant covering groups of sporadic simple groups. For
+  a  quasisimple group with a sporadic simple factor, the Schur multiplier has
+  at  most  the prime factors [22X2[122X and [22X3[122X; only the extension by the [22X2[122X-part of the
+  multipier must be checked.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsporcov:= AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X       IsDuplicateTable, false, OfThose, SchurCover );[127X[104X
+    [4X[28X[ "12.M22", "2.B", "2.Co1", "2.HS", "2.J2", "2.M12", "2.Ru", "3.F3+", [128X[104X
+    [4X[28X  "3.J3", "3.McL", "3.ON", "6.Fi22", "6.Suz", "Co2", "Co3", "Fi23", [128X[104X
+    [4X[28X  "HN", "He", "J1", "J4", "Ly", "M", "M11", "M23", "M24", "Th" ][128X[104X
+    [4X[25Xgap>[125X [27XFiltered( sporcov, x -> '.' in x );[127X[104X
+    [4X[28X[ "12.M22", "2.B", "2.Co1", "2.HS", "2.J2", "2.M12", "2.Ru", "3.F3+", [128X[104X
+    [4X[28X  "3.J3", "3.McL", "3.ON", "6.Fi22", "6.Suz" ][128X[104X
+    [4X[25Xgap>[125X [27Xrelevant:= [ "2.M22", "4.M22", "2.B", "2.Co1", "2.HS", "2.J2",[127X[104X
+    [4X[25X>[125X [27X                "2.M12", "2.Ru", "2.Fi22", "2.Suz" ];;[127X[104X
+    [4X[25Xgap>[125X [27XFiltered( relevant,[127X[104X
+    [4X[25X>[125X [27X       x -> not ApplyCriteria( CharacterTable( x ) ) );[127X[104X
+    [4X[28X#I  2.M22: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  4.M22: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  2.B: OPEN (5 inv. class(es))[128X[104X
+    [4X[28X#I  2.Co1: OPEN (4 inv. class(es))[128X[104X
+    [4X[28X#I  2.HS: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.J2: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.M12: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.Ru: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.Fi22/[1,2]: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.Fi22: done (all inv. in 2.Fi22/[1,2] lift to inv.)[128X[104X
+    [4X[28X#I  2.Suz: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X[ "2.B", "2.Co1" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  group  [22XB[122X  has four classes of involutions, let us call them [10X2A[110X, [10X2B[110X, [10X2C[110X,
+  and [10X2D[110X. All except [10X2C[110X lift to involutions in [22X2.B[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27X2t:= CharacterTable( "2.B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpost:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5 ][128X[104X
+    [4X[25Xgap>[125X [27Xinvpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5, 7 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( 2t, t ){ invpos2t };[127X[104X
+    [4X[28X[ 1, 2, 3, 3, 5 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus  it  suffices  to  show  that there is a subgroup of type [22X2^2[122X in [22XB[122X that
+  contains elements from [10X2A[110X, [10X2B[110X, and [10X2D[110X (but no element from [10X2C[110X). This follows
+  from the fact that the [22X([122X[10X2A[110X, [10X2B[110X, [10X2D[110X[22X)[122X structure constant of [22XB[122X is nonzero.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XClassMultiplicationCoefficient( t, 2, 3, 5 );[127X[104X
+    [4X[28X120[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  group  [22XCo_1[122X  has three classes of involutions, let us call them [10X2A[110X, [10X2B[110X,
+  and [10X2C[110X. All except [10X2B[110X lift to involutions in [22X2.Co_1[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Co1" );;[127X[104X
+    [4X[25Xgap>[125X [27X2t:= CharacterTable( "2.Co1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpost:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4 ][128X[104X
+    [4X[25Xgap>[125X [27Xinvpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 6 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( 2t, t ){ invpos2t };[127X[104X
+    [4X[28X[ 1, 2, 2, 4 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus  it  suffices to show that there is a subgroup of type [22X2^2[122X in [22XCo_1[122X that
+  contains  elements  from [10X2A[110X and [10X2C[110X but no element from [10X2B[110X. This follows from
+  the fact that the [22X([122X[10X2A[110X, [10X2A[110X, [10X2C[110X[22X)[122X structure constant of [22XCo_1[122X is nonzero.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XClassMultiplicationCoefficient( t, 2, 2, 4 );[127X[104X
+    [4X[28X264[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally,  we  deal  with  the  relevant  central extensions of finite simple
+  groups  of Lie type with exceptional multipliers. These groups are listed in
+  [CCN+85,  p. xvi,  Table  5].  The  following  cases  belong  to exceptional
+  multipliers with nontrivial [22X2[122X-part.[133X
+  
+      ┌─────────────────┬──────────┬────────────┐
+      │ Group           │ Name     │ Multiplier │ 
+      ├─────────────────┼──────────┼────────────┤
+      │ [22XA_1(4)[122X          │ [10X"A5"[110X     │          [22X2[122X │ 
+      │ [22XA_2(2)[122X          │ [10X"L3(2)"[110X  │          [22X2[122X │ 
+      │ [22XA_2(4)[122X          │ [10X"L3(4)"[110X  │        [22X4^2[122X │ 
+      │ [22XA_3(2)[122X          │ [10X"A8"[110X     │          [22X2[122X │ 
+      │ [22X^2A_3(2)[122X        │ [10X"U4(2)"[110X  │          [22X2[122X │ 
+      │ [22X^2A_5(2)[122X        │ [10X"U6(2)"[110X  │        [22X2^2[122X │ 
+      │ [22XB_2(2)[122X          │ [10X"S6"[110X     │          [22X2[122X │ 
+      │ [22X^2B_2(2)[122X        │ [10X"Sz(8)"[110X  │        [22X2^2[122X │ 
+      │ [22XB_3(2) ≅ C_3(2)[122X │ [10X"S6(2)"[110X  │          [22X2[122X │ 
+      │ [22XD_4(2)[122X          │ [10X"O8+(2)"[110X │        [22X2^2[122X │ 
+      │ [22XG_2(4)[122X          │ [10X"G2(4)"[110X  │          [22X2[122X │ 
+      │ [22XF_4(2)[122X          │ [10X"F4(2)"[110X  │          [22X2[122X │ 
+      │ [22X^2E_6(2)[122X        │ [10X"2E6(2)"[110X │        [22X2^2[122X │ 
+      └─────────────────┴──────────┴────────────┘
+  
+       [1XTable:[101X Groups with exceptional [22X2[122X-part of their multiplier
+  
+  
+  [33X[0;0YThis  leads to the following list of cases to be checked. (We would not need
+  to  deal with the groups [22XA_5[122X and [22XL_3(2)[122X, because of isomorphisms with groups
+  of  Lie  type  for  which the multiplier in question is not exceptional, but
+  here we ignore this fact.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xlist:= [[127X[104X
+    [4X[25X>[125X [27X     [ "A5", "2.A5" ],[127X[104X
+    [4X[25X>[125X [27X     [ "L3(2)", "2.L3(2)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "L3(4)", "2.L3(4)", "2^2.L3(4)", "4_1.L3(4)", "4_2.L3(4)",[127X[104X
+    [4X[25X>[125X [27X       "(2x4).L3(4)", "4^2.L3(4)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "A8", "2.A8" ],[127X[104X
+    [4X[25X>[125X [27X     [ "U4(2)", "2.U4(2)"],[127X[104X
+    [4X[25X>[125X [27X     [ "U6(2)", "2.U6(2)", "2^2.U6(2)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "A6", "2.A6" ],[127X[104X
+    [4X[25X>[125X [27X     [ "Sz(8)", "2.Sz(8)", "2^2.Sz(8)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "S6(2)", "2.S6(2)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "O8+(2)", "2.O8+(2)", "2^2.O8+(2)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "G2(4)", "2.G2(4)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "F4(2)", "2.F4(2)" ],[127X[104X
+    [4X[25X>[125X [27X     [ "2E6(2)", "2.2E6(2)", "2^2.2E6(2)" ] ];;[127X[104X
+    [4X[25Xgap>[125X [27XFiltered( Concatenation( list ),[127X[104X
+    [4X[25X>[125X [27X       x -> not ApplyCriteria( CharacterTable( x ) ) );[127X[104X
+    [4X[28X#I  A5: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  2.A5: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  L3(2): done (1 inv. class(es))[128X[104X
+    [4X[28X#I  2.L3(2): done (1 inv. class(es))[128X[104X
+    [4X[28X#I  L3(4): done (1 inv. class(es))[128X[104X
+    [4X[28X#I  2.L3(4): done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2^2.L3(4)/[1,2,3,4]: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  2^2.L3(4): done (all inv. in 2^2.L3(4)/[1,2,3,4] lift to inv.)[128X[104X
+    [4X[28X#I  4_1.L3(4): done (2 inv. class(es))[128X[104X
+    [4X[28X#I  4_2.L3(4): done (2 inv. class(es))[128X[104X
+    [4X[28X#I  (2x4).L3(4): done (all inv. in (2x4).L3(4) are lifts of a C2[128X[104X
+    [4X[28X#I  in the factor modulo [1,2,3,4])[128X[104X
+    [4X[28X#I  4^2.L3(4): done (all inv. in 4^2.L3(4) are lifts of a C2[128X[104X
+    [4X[28X#I  in the factor modulo [1,2,3,4])[128X[104X
+    [4X[28X#I  A8: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  2.A8: done (2 inv. class(es))[128X[104X
+    [4X[28X#I  U4(2): done (2 inv. class(es))[128X[104X
+    [4X[28X#I  2.U4(2): done (2 inv. class(es))[128X[104X
+    [4X[28X#I  U6(2): done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.U6(2)/[1,2]: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.U6(2): done (all inv. in 2.U6(2)/[1,2] lift to inv.)[128X[104X
+    [4X[28X#I  2^2.U6(2)/[1,2,3,4]: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2^2.U6(2): done (all inv. in 2^2.U6(2)/[1,2,3,4] lift to inv.)[128X[104X
+    [4X[28X#I  A6: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  2.A6: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  Sz(8): done (1 inv. class(es))[128X[104X
+    [4X[28X#I  2.Sz(8): done (2 inv. class(es))[128X[104X
+    [4X[28X#I  2^2.Sz(8)/[1,2,3,4]: done (1 inv. class(es))[128X[104X
+    [4X[28X#I  2^2.Sz(8): done (all inv. in 2^2.Sz(8)/[1,2,3,4] lift to inv.)[128X[104X
+    [4X[28X#I  S6(2): OPEN (4 inv. class(es))[128X[104X
+    [4X[28X#I  2.S6(2): OPEN (3 inv. class(es))[128X[104X
+    [4X[28X#I  O8+(2): OPEN (5 inv. class(es))[128X[104X
+    [4X[28X#I  2.O8+(2): OPEN (5 inv. class(es))[128X[104X
+    [4X[28X#I  2^2.O8+(2): OPEN (5 inv. class(es))[128X[104X
+    [4X[28X#I  G2(4): done (2 inv. class(es))[128X[104X
+    [4X[28X#I  2.G2(4): done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  F4(2): OPEN (4 inv. class(es))[128X[104X
+    [4X[28X#I  2.F4(2)/[1,2]: OPEN (4 inv. class(es))[128X[104X
+    [4X[28X#I  2.F4(2): OPEN (9 inv. class(es))[128X[104X
+    [4X[28X#I  2E6(2): done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.2E6(2)/[1,2]: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2.2E6(2): done (all inv. in 2.2E6(2)/[1,2] lift to inv.)[128X[104X
+    [4X[28X#I  2^2.2E6(2)/[1,2,3,4]: done (3 inv. classes, nonzero str. const.)[128X[104X
+    [4X[28X#I  2^2.2E6(2): done (all inv. in 2^2.2E6(2)/[1,2,3,4] lift to inv.)[128X[104X
+    [4X[28X[ "S6(2)", "2.S6(2)", "O8+(2)", "2.O8+(2)", "2^2.O8+(2)", "F4(2)", [128X[104X
+    [4X[28X  "2.F4(2)" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  could  assume  that  the answer is positive for the simple groups in the
+  list  of  open  cases, by theoretical arguments, but it is easy to show this
+  computationally.[133X
+  
+  [33X[0;0YFor  [22XG  =  S_6(2)[122X, consider a maximal subgroup [22X2^6.L_3(2)[122X of [22XG[122X (see [CCN+85,
+  p. 46]):  Its  [22X2[122X-core  is  elementary abelian and covers all four involution
+  classes of [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "S6(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpos:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5 ][128X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= First( mx,[127X[104X
+    [4X[25X>[125X [27X         x -> Size( x ) = 2^6 * Size( CharacterTable( "L3(2)" ) ) );[127X[104X
+    [4X[28XCharacterTable( "2^6:L3(2)" )[128X[104X
+    [4X[25Xgap>[125X [27Xcorepos:= ClassPositionsOfPCore( s, 2 );[127X[104X
+    [4X[28X[ 1 .. 5 ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( t ){ corepos };[127X[104X
+    [4X[28X[ 1, 2, 2, 2, 2 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ){ corepos };[127X[104X
+    [4X[28X[ 1, 3, 4, 2, 5 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YConcerning  [22XG  =  2.S_6(2)[122X,  note  that  from the four involution classes of
+  [22XS_6(2)[122X, exactly [10X2B[110X and [10X2D[110X lift to involutions in [22X2.S_6(2)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2t:= CharacterTable( "2.S6(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpost:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5 ][128X[104X
+    [4X[25Xgap>[125X [27Xinvpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );[127X[104X
+    [4X[28X[ 2, 4, 6 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( 2t, t ){ invpos2t };[127X[104X
+    [4X[28X[ 1, 3, 5 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus it suffices to show that there is a subgroup of type [22X2^2[122X in [22XS_6(2)[122X that
+  contains elements from [10X2B[110X and [10X2D[110X but no elements from [10X2A[110X or [10X2C[110X. This follows
+  from the fact that the [22X([122X[10X2B[110X, [10X2D[110X, [10X2D[110X[22X)[122X structure constant of [22XS_6(2)[122X is nonzero.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XClassMultiplicationCoefficient( t, 3, 5, 5 );[127X[104X
+    [4X[28X15[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor [22XG = O_8^+(2)[122X, we consider the known table of marks.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "O8+(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( t );[127X[104X
+    [4X[28XTableOfMarks( "O8+(2)" )[128X[104X
+    [4X[25Xgap>[125X [27Xord:= OrdersTom( tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpos:= Positions( ord, 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5, 6 ][128X[104X
+    [4X[25Xgap>[125X [27X8pos:= Positions( ord, 8 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( 8pos,[127X[104X
+    [4X[25X>[125X [27X            x -> ForAll( invpos,[127X[104X
+    [4X[25X>[125X [27X                   y -> Length( IntersectionsTom( tom, x, y ) ) >= y[127X[104X
+    [4X[25X>[125X [27X                        and IntersectionsTom( tom, x, y )[y] <> 0 ) );[127X[104X
+    [4X[28X[ 151, 153 ][128X[104X
+    [4X[25Xgap>[125X [27Xreps:= List( filt, i -> RepresentativeTom( tom, i ) );;[127X[104X
+    [4X[25Xgap>[125X [27XForAll( reps, IsElementaryAbelian );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YConcerning  [22XG  =  2.O_8^+(2)[122X,  note that from the five involution classes of
+  [22XO_8^+(2)[122X, exactly [10X2A[110X, [10X2B[110X, and [10X2E[110X lift to involutions in [22X2.O_8^+(2)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2t:= CharacterTable( "2.O8+(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpost:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5, 6 ][128X[104X
+    [4X[25Xgap>[125X [27Xinvpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5, 8 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( 2t, t ){ invpos2t };[127X[104X
+    [4X[28X[ 1, 2, 3, 3, 6 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus  it  suffices  to  show  that  the  [22X([122X[10X2A[110X,  [10X2B[110X, [10X2E[110X[22X)[122X structure constant of
+  [22XO_8^+(2)[122X is nonzero.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XClassMultiplicationCoefficient( t, 2, 3, 6 );[127X[104X
+    [4X[28X4[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YConcerning  [22XG  = 2^2.O_8^+(2)[122X, note that from the five involution classes of
+  [22XO_8^+(2)[122X,   exactly   the   first  and  the  last  lift  to  involutions  in
+  [22X2^2.O_8^+(2)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xv4t:= CharacterTable( "2^2.O8+(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvposv4t:= Positions( OrdersClassRepresentatives( v4t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5, 12 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( v4t, t ){ invposv4t };[127X[104X
+    [4X[28X[ 1, 1, 1, 2, 6 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThus it suffices to show that a corresponding structure constant of [22XO_8^+(2)[122X
+  is nonzero.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XClassMultiplicationCoefficient( t, 2, 6, 6 );[127X[104X
+    [4X[28X27[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  [22XG  = F_4(2)[122X, consider a maximal subgroup [22X2^10.A_8[122X of a maximal subgroup
+  [22XS_8(2)[122X of [22XG[122X (see [CCN+85, p. 123 and 170]): Its [22X2[122X-core is elementary abelian
+  and covers all four involution classes of [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "F4(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpost:= Positions( OrdersClassRepresentatives( t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5 ][128X[104X
+    [4X[25Xgap>[125X [27X"S8(2)" in Maxes( t );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "S8(2)M4" );[127X[104X
+    [4X[28XCharacterTable( "2^10.A8" )[128X[104X
+    [4X[25Xgap>[125X [27Xcorepos:= ClassPositionsOfPCore( s, 2 );[127X[104X
+    [4X[28X[ 1 .. 7 ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( s ){ corepos };[127X[104X
+    [4X[28X[ 1, 2, 2, 2, 2, 2, 2 ][128X[104X
+    [4X[25Xgap>[125X [27Xposs:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27XList( poss, map -> map{ corepos } );[127X[104X
+    [4X[28X[ [ 1, 4, 2, 3, 4, 5, 5 ], [ 1, 4, 2, 3, 4, 5, 5 ], [128X[104X
+    [4X[28X  [ 1, 4, 3, 2, 4, 5, 5 ], [ 1, 4, 3, 2, 4, 5, 5 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally, all involutions of [22XG[122X lift to involutions in [22X2.F_4(2)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2t:= CharacterTable( "2.F4(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinvpos2t:= Positions( OrdersClassRepresentatives( 2t ), 2 );[127X[104X
+    [4X[28X[ 2, 3, 4, 5, 6, 7, 8, 9, 10 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( 2t, t ){ invpos2t };[127X[104X
+    [4X[28X[ 1, 2, 2, 3, 3, 4, 4, 5, 5 ][128X[104X
+  [4X[32X[104X
+  

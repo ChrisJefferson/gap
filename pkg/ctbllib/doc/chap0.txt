@@ -1,0 +1,221 @@
+  
+  
+                        [1XThe [5XGAP[105X Character Table Library[101X
+  
+  
+                                (Version 1.3.11)
+  
+  
+                                 Thomas Breuer
+  
+  
+  
+  Thomas Breuer
+      Email:    [7Xmailto:sam@math.rwth-aachen.de[107X
+      Homepage: [7Xhttps://www.math.rwth-aachen.de/~Thomas.Breuer[107X
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2003–2025 by Thomas Breuer[133X
+  
+  [33X[0;0YThis  package  may  be distributed under the terms and conditions of the GNU
+  Public License Version 3 or later, see [7Xhttp://www.gnu.org/licenses[107X.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (CTblLib)[101X
+  
+  1 [33X[0;0YIntroduction to the [5XGAP[105X Character Table Library[133X
+    1.1 [33X[0;0YHistory of the [5XGAP[105X Character Table Library[133X
+    1.2 [33X[0;0YWhat's New in [5XCTblLib[105X, Compared to Older Versions?[133X
+      1.2-1 [33X[0;0YWhat's New in Version 1.3.11? (May 2025)[133X
+      1.2-2 [33X[0;0YWhat's New in Version 1.3.9? (March 2024)[133X
+      1.2-3 [33X[0;0YWhat's New in Version 1.3.8? (March 2024)[133X
+      1.2-4 [33X[0;0YWhat's New in Version 1.3.7? (January 2024)[133X
+      1.2-5 [33X[0;0YWhat's New in Version 1.3.6? (May 2023)[133X
+      1.2-6 [33X[0;0YWhat's New in Version 1.3.5? (March 2023)[133X
+      1.2-7 [33X[0;0YWhat's New in Version 1.3.4? (April 2022)[133X
+      1.2-8 [33X[0;0YWhat's New in Version 1.3.3? (January 2022)[133X
+      1.2-9 [33X[0;0YWhat's New in Version 1.3.2? (March 2021)[133X
+      1.2-10 [33X[0;0YWhat's New in Version 1.3.1? (April 2020)[133X
+      1.2-11 [33X[0;0YWhat's New in Version 1.3.0? (December 2019)[133X
+      1.2-12 [33X[0;0YWhat's New in Version 1.2.2? (March 2013)[133X
+      1.2-13 [33X[0;0YWhat's New in Version 1.2.0 and 1.2.1? (May 2012)[133X
+      1.2-14 [33X[0;0YWhat's New in Version 1.1? (November 2003)[133X
+    1.3 [33X[0;0YAcknowledgements[133X
+  2 [33X[0;0YTutorial for the [5XGAP[105X Character Table Library[133X
+    2.1 [33X[0;0YConcepts used in the [5XGAP[105X Character Table Library[133X
+    2.2 [33X[0;0YAccessing a Character Table from the Library[133X
+      2.2-1 [33X[0;0YAccessing a Character Table via a name[133X
+      2.2-2 [33X[0;0YAccessing a Character Table via properties[133X
+      2.2-3 [33X[0;0YAccessing a Character Table via a Table of Marks[133X
+      2.2-4 [33X[0;0YAccessing a Character Table relative to another Character Table[133X
+      2.2-5 [33X[0;0YDifferent character tables for the same group[133X
+    2.3 [33X[0;0YExamples of Using the [5XGAP[105X Character Table Library[133X
+      2.3-1 [33X[0;0YExample: Ambivalent Simple Groups[133X
+      2.3-2 [33X[0;0YExample: Simple [22Xp[122X-pure Groups[133X
+      2.3-3 [33X[0;0YExample: Simple Groups with only one [22Xp[122X-Block[133X
+      2.3-4 [33X[0;0YExample:The Sylow [22X3[122X subgroup of [22X3.O'N[122X[133X
+      2.3-5 [33X[0;0YExample: Primitive Permutation Characters of [22X2.A_6[122X[133X
+      2.3-6 [33X[0;0YExample: A Permutation Character of [22XFi_23[122X[133X
+      2.3-7 [33X[0;0YExample: Non-commutators in the commutator group[133X
+      2.3-8 [33X[0;0YExample: An irreducible [22X11[122X-modular character of [22XJ_4[122X (December
+      2018)[133X
+      2.3-9 [33X[0;0YExample: Tensor Products that are Generalized Projectives (October
+      2019)[133X
+      2.3-10 [33X[0;0YExample: Certain elementary abelian subgroups in quasisimple
+      groups (November 2020)[133X
+  3 [33X[0;0YThe User Interface to the [5XGAP[105X Character Table Library[133X
+    3.1 [33X[0;0YAccessing Data of the [5XCTblLib[105X Package[133X
+      3.1-1 [33X[0;0YAdmissible Names for Character Tables in [5XCTblLib[105X[133X
+      3.1-2 CharacterTable
+      3.1-3 BrauerTable
+      3.1-4 AllCharacterTableNames
+      3.1-5 OneCharacterTableName
+      3.1-6 NameOfEquivalentLibraryCharacterTable
+    3.2 [33X[0;0YThe Interface to the [5XTomLib[105X Package[133X
+      3.2-1 TableOfMarks
+      3.2-2 CharacterTable
+      3.2-3 FusionCharTableTom
+      3.2-4 FusionToTom
+      3.2-5 NameOfLibraryCharacterTable
+    3.3 [33X[0;0YThe Interface to [5XGAP[105X's Group Libraries[133X
+      3.3-1 GroupInfoForCharacterTable
+      3.3-2 KnowsSomeGroupInfo
+      3.3-3 CharacterTableForGroupInfo
+      3.3-4 GroupForGroupInfo
+      3.3-5 GroupForTom
+      3.3-6 AtlasStabilizer
+      3.3-7 IsNontrivialDirectProduct
+    3.4 [33X[0;0YUnipotent Characters of Finite Groups of Lie Type[133X
+      3.4-1 UnipotentCharacter
+      3.4-2 DeligneLusztigNames
+      3.4-3 DeligneLusztigName
+      3.4-4 KnowsDeligneLusztigNames
+    3.5 [33X[0;0Y[5XBrowse[105X Applications Provided by [5XCTblLib[105X[133X
+      3.5-1 DisplayCTblLibInfo
+      3.5-2 BrowseCTblLibInfo
+      3.5-3 BrowseCommonIrrationalities
+      3.5-4 BrowseCTblLibDifferences
+      3.5-5 BrowseAtlasContents
+      3.5-6 DisplayAtlasContents
+      3.5-7 BrowseAtlasMap
+      3.5-8 DisplayAtlasMap
+      3.5-9 BrowseAtlasTable
+      3.5-10 BrowseAtlasImprovements
+    3.6 [33X[0;0YDuplicates of Library Character Tables[133X
+      3.6-1 IsDuplicateTable
+      3.6-2 IdentifierOfMainTable
+      3.6-3 IdentifiersOfDuplicateTables
+    3.7 [33X[0;0YAttributes for Library Character Tables[133X
+      3.7-1 Maxes
+      3.7-2 ProjectivesInfo
+      3.7-3 ExtensionInfoCharacterTable
+      3.7-4 ConstructionInfoCharacterTable
+      3.7-5 InfoText
+      3.7-6 IsAtlasCharacterTable
+  4 [33X[0;0YContents of the [5XGAP[105X Character Table Library[133X
+    4.1 [33X[0;0YOrdinary and Brauer Tables in the [5XGAP[105X Character Table Library[133X
+      4.1-1 [33X[0;0YOrdinary Character Tables[133X
+      4.1-2 [33X[0;0YBrauer Tables[133X
+    4.2 [33X[0;0YGeneric Character Tables[133X
+      4.2-1 [33X[0;0YAvailable generic character tables[133X
+      4.2-2 CharacterTableSpecialized
+      4.2-3 [33X[0;0YComponents of generic character tables[133X
+      4.2-4 [33X[0;0YExample: The generic table of cyclic groups[133X
+      4.2-5 [33X[0;0YExample: The generic table of the general linear group GL[22X(2,q)[122X[133X
+    4.3 [33X[0;0Y[5XAtlas[105X Tables[133X
+      4.3-1 [33X[0;0YImprovements to the [5XAtlas[105X[133X
+      4.3-2 [33X[0;0YPower Maps[133X
+      4.3-3 [33X[0;0YProjective Characters and Projections[133X
+      4.3-4 [33X[0;0YTables of Isoclinic Groups[133X
+      4.3-5 [33X[0;0YOrdering of Characters and Classes[133X
+      4.3-6 AtlasLabelsOfIrreducibles
+      4.3-7 [33X[0;0YExamples of the [5XAtlas[105X Format for [5XGAP[105X Tables[133X
+    4.4 [33X[0;0Y[5XCAS[105X Tables[133X
+      4.4-1 CASInfo
+    4.5 [33X[0;0YCustomizations of the [5XGAP[105X Character Table Library[133X
+      4.5-1 [33X[0;0YInstalling the [5XGAP[105X Character Table Library[133X
+      4.5-2 [33X[0;0YUnloading Character Table Data[133X
+      4.5-3 [33X[0;0YChanging the display format of several functions[133X
+      4.5-4 [33X[0;0YUser preference [10XMagmaPath[110X[133X
+    4.6 [33X[0;0YTechnicalities of the Access to Character Tables from the Library[133X
+      4.6-1 [33X[0;0YData Files of the [5XGAP[105X Character Table Library[133X
+      4.6-2 LIBLIST
+      4.6-3 LibInfoCharacterTable
+    4.7 [33X[0;0YHow to Extend the [5XGAP[105X Character Table Library[133X
+      4.7-1 NotifyNameOfCharacterTable
+      4.7-2 LibraryFusion
+      4.7-3 LibraryFusionTblToTom
+      4.7-4 PrintToLib
+      4.7-5 NotifyCharacterTable
+      4.7-6 NotifyCharacterTables
+    4.8 [33X[0;0YSanity Checks for the [5XGAP[105X Character Table Library[133X
+    4.9 [33X[0;0YMaintenance of the [5XGAP[105X Character Table Library[133X
+  5 [33X[0;0YFunctions for Character Table Constructions[133X
+    5.1 [33X[0;0YCharacter Tables of Groups of Structure [22XM.G.A[122X[133X
+      5.1-1 PossibleCharacterTablesOfTypeMGA
+      5.1-2 BrauerTableOfTypeMGA
+      5.1-3 PossibleActionsForTypeMGA
+    5.2 [33X[0;0YCharacter Tables of Groups of Structure [22XG.S_3[122X[133X
+      5.2-1 [33X[0;0YCharacterTableOfTypeGS3[133X
+      5.2-2 PossibleActionsForTypeGS3
+    5.3 [33X[0;0YCharacter Tables of Groups of Structure [22XG.2^2[122X[133X
+      5.3-1 [33X[0;0YPossibleCharacterTablesOfTypeGV4[133X
+      5.3-2 PossibleActionsForTypeGV4
+    5.4 [33X[0;0YCharacter Tables of Groups of Structure [22X2^2.G[122X[133X
+      5.4-1 [33X[0;0YPossibleCharacterTablesOfTypeV4G[133X
+      5.4-2 [33X[0;0YBrauerTableOfTypeV4G[133X
+    5.5 [33X[0;0YCharacter Tables of Subdirect Products of Index Two[133X
+      5.5-1 CharacterTableOfIndexTwoSubdirectProduct
+      5.5-2 ConstructIndexTwoSubdirectProduct
+      5.5-3 ConstructIndexTwoSubdirectProductInfo
+    5.6 [33X[0;0YBrauer Tables of Extensions by [22Xp[122X-regular Automorphisms[133X
+      5.6-1 IBrOfExtensionBySingularAutomorphism
+    5.7 [33X[0;0YCharacter Tables of Coprime Central Extensions[133X
+      5.7-1 CharacterTableOfCommonCentralExtension
+    5.8 [33X[0;0YConstruction Functions used in the Character Table Library[133X
+      5.8-1 ConstructMGA
+      5.8-2 ConstructMGAInfo
+      5.8-3 ConstructGS3
+      5.8-4 ConstructV4G
+      5.8-5 ConstructProj
+      5.8-6 ConstructDirectProduct
+      5.8-7 ConstructCentralProduct
+      5.8-8 ConstructSubdirect
+      5.8-9 ConstructWreathSymmetric
+      5.8-10 ConstructIsoclinic
+      5.8-11 ConstructPermuted
+      5.8-12 ConstructAdjusted
+      5.8-13 ConstructFactor
+  6 [33X[0;0YInterfaces to Other Data Formats for Character Tables[133X
+    6.1 [33X[0;0YInterface to the [5XCAS[105X System[133X
+      6.1-1 CASString
+    6.2 [33X[0;0YInterface to the [5XMOC[105X System[133X
+      6.2-1 MAKElb11
+      6.2-2 MOCTable
+      6.2-3 MOCString
+      6.2-4 ScanMOC
+      6.2-5 GAPChars
+      6.2-6 MOCChars
+    6.3 [33X[0;0YInterface to [5XGAP[105X 3[133X
+      6.3-1 GAP3CharacterTableScan
+      6.3-2 GAP3CharacterTableString
+      6.3-3 GAP3CharacterTableData
+    6.4 [33X[0;0YInterface to the Cambridge Format[133X
+      6.4-1 CambridgeMaps
+      6.4-2 StringOfCambridgeFormat
+    6.5 [33X[0;0YInterface to the [5XMAGMA[105X System[133X
+      6.5-1 BosmaBase
+      6.5-2 GAPTableOfMagmaFile
+      6.5-3 CharacterTableComputedByMagma
+  7 [33X[0;0YUtility Functions Provided by the [5XCTblLib[105X Package[133X
+    7.1 [33X[0;0YWrite Character Values in Terms of Atomic [5XAtlas[105X Irrationalities[133X
+      7.1-1 CTblLib.StringOfAtlasIrrationality
+    7.2 [33X[0;0YCreate a String that Describes the Group Structure[133X
+      7.2-1 StructureDescriptionCharacterTableName
+  
+  
+  [32X

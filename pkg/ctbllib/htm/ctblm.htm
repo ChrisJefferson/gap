@@ -1,0 +1,3848 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.59">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+             <title>Some steps in the verification of the ordinary character table of the Monster group</title>
+<h1 align="center">Some steps in the verification of the ordinary character table of the Monster group</h1>
+  <body bgcolor="FFFFFF"> 
+
+<div class="p"><!----></div>
+
+<h3 align="center"> T<font size="-2">HOMAS</font> B<font size="-2">REUER</font>, K<font size="-2">AY</font> M<font size="-2">AGAARD</font>, R<font size="-2">OBERT</font> A.&nbsp;W<font size="-2">ILSON</font> </h3>
+
+<div class="p"><!----></div>
+
+<h3 align="center">December 12th, 2024 </h3>
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+We show the details of certain computations that are used in [<a href="#Mverify" name="CITEMverify">BMW24</a>].
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+
+<h1>Contents </h1><a href="#tth_sEc1"
+>1&nbsp; Overview</a><br /><a href="#tth_sEc2"
+>2&nbsp; Some restrictions of the natural character of <font size="+0">M</font></a><br /><a href="#tth_sEc3"
+>3&nbsp; The permutation character (1<sub>2.<font size="+0">B</font></sub><sup><font size="+0">M</font></sup>)<sub>2.<font size="+0">B</font></sub></a><br /><a href="#tth_sEc4"
+>4&nbsp; The conjugacy classes of <font size="+0">M</font></a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.1"
+>4.1&nbsp; Our strategy to describe the conjugacy classes of <font size="+0">M</font></a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.2"
+>4.2&nbsp; Utility functions</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.3"
+>4.3&nbsp; Classes of elements of even order</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.4"
+>4.4&nbsp; Classes of elements of order divisible by 3</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.5"
+>4.5&nbsp; Classes of elements of order divisible by 5</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.6"
+>4.6&nbsp; Classes of elements of order divisible by 11</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.7"
+>4.7&nbsp; Classes of elements of the orders 17, 19, 23, 31, 47</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.8"
+>4.8&nbsp; Classes of elements of order 13</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.9"
+>4.9&nbsp; Classes of elements of order divisible by 29</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.10"
+>4.10&nbsp; Classes of elements of order divisible by 41</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.11"
+>4.11&nbsp; Classes of elements of order divisible by 59</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.12"
+>4.12&nbsp; Classes of elements of order divisible by 71</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc4.13"
+>4.13&nbsp; Classes of elements of order divisible by 7</a><br /><a href="#tth_sEc5"
+>5&nbsp; The power maps of <font size="+0">M</font></a><br /><a href="#tth_sEc6"
+>6&nbsp; The degree 196&nbsp;883 character &#967; of <font size="+0">M</font></a><br /><a href="#tth_sEc7"
+>7&nbsp; The irreducible characters of <font size="+0">M</font></a><br /><a href="#tth_sEc8"
+>8&nbsp; Appendix: The character table of 2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub></a><br /><a href="#tth_sEc9"
+>9&nbsp; Appendix: The character table of 3<sup>1+12</sup><sub>+</sub>:6.<span class="roman">Suz</span>.2</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc9.1"
+>9.1&nbsp; Overview</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc9.2"
+>9.2&nbsp; A permutation representation of H / X</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc9.3"
+>9.3&nbsp; A permutation representation of H</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc9.4"
+>9.4&nbsp; Compute the character table of H</a><br /><a href="#tth_sEc10"
+>10&nbsp; Appendix: The character table of 5<sup>1+6</sup><sub>+</sub>.4.<span class="roman">J</span><sub>2</sub>.2</a><br />
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Overview</h2>
+
+<div class="p"><!----></div>
+The aim of&nbsp;[<a href="#Mverify" name="CITEMverify">BMW24</a>] is to verify the ordinary character table
+of the Monster group <font size="+0">M</font>.
+Here we collect,
+in the form of an explicit and reproducible
+<font face="helvetica">GAP</font>&nbsp;[<a href="#GAP" name="CITEGAP">GAP24</a>] session protocol,
+the relevant computations that are needed in that paper.
+
+<div class="p"><!----></div>
+We proceed as follows.
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#natural">2</a> verifies the decomposition of the restrictions of the
+ordinary irreducible character of degree 196&nbsp;883 of <font size="+0">M</font>
+to the subgroups 2.<font size="+0">B</font> and 3.<span class="roman">Fi</span><sub>24</sub><sup>&#8242;</sup> (and 3.<span class="roman">Fi</span><sub>24</sub>),
+as stated in&nbsp;[<a href="#Mverify" name="CITEMverify">BMW24</a>,Lemma&nbsp;1].
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#suborbits">3</a> verifies the decompositions of
+the transitive constituents of the permutation character
+of the action of C<sub><font size="+0">M</font></sub>(a)  &#8773; 2.<font size="+0">B</font> on the conjugacy class a<sup><font size="+0">M</font></sup>,
+where a is a <tt>2A</tt> involution in <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+Sections&nbsp;<a href="#Mclasses">4</a> and&nbsp;<a href="#Mpowermaps">5</a> construct the
+character table head of <font size="+0">M</font>, that is,
+the lists of conjugacy class lengths, element orders, and power maps.
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#sect:natcharM">6</a> constructs the values of the irreducible
+degree 196&nbsp;883 character of <font size="+0">M</font>
+and decides the isomorphism type of the <tt>3B</tt> normalizer in <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+With this information and with the (already verified) character tables
+of the subgroups 2.<font size="+0">B</font>, 2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub>, 3.<span class="roman">Fi</span><sub>24</sub>, and
+3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2 of <font size="+0">M</font>,
+computing the irreducible characters of <font size="+0">M</font> is then easy;
+this corresponds to&nbsp;[<a href="#Mverify" name="CITEMverify">BMW24</a>,Section&nbsp;5]
+and is done in Section&nbsp;<a href="#sect:irreduciblesM">7</a>.
+
+<div class="p"><!----></div>
+The final sections&nbsp;<a href="#sect:table_c2b">8</a>,
+<a href="#sect:norm3B">9</a>, <a href="#sect:table_N5B">10</a> document the constructions of three
+character tables of subgroups of <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+We will use the <font face="helvetica">GAP</font> Character Table Library
+and the interface to the  A<font size="-2">TLAS</font> of Group Representations&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>],
+thus we load these <font face="helvetica">GAP</font> packages.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; LoadPackage( "ctbllib", false );
+    true
+    gap&#62; LoadPackage( "atlasrep", false );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+The <font face="helvetica">MAGMA</font> system&nbsp;[<a href="#Magma" name="CITEMagma">BCP97</a>] will be needed
+for computing some character tables
+and for many conjugacy tests.
+If the following command returns <tt>false</tt>
+then these steps will not work.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; CTblLib.IsMagmaAvailable();
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+We set the line length to 72, like in other standard testfiles.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SizeScreen( [ 72 ] );;
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Some restrictions of the natural character of <font size="+0">M</font></h2><a name="natural">
+</a>
+
+<div class="p"><!----></div>
+We assume the existence of an ordinary irreducible character &#967;
+of degree 196&nbsp;883 of the Monster group <font size="+0">M</font>,
+and that <font size="+0">M</font> has only two conjugacy classes of involutions.
+
+<div class="p"><!----></div>
+First we compute the restriction of &#967; to 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+The only faithful degree 196&nbsp;883 character of 2.<font size="+0">B</font>
+that has at most two different values on involutions is
+1a + 4371a + 96255a + 96256a, as claimed in [<a href="#Mverify" name="CITEMverify">BMW24</a>,Lemma&nbsp;1].
+This follows from the following data about 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; table2B:= CharacterTable( "2.B" );;
+    gap&#62; cand:= Filtered( Irr( table2B ), x -&#62; x[1] &lt;= 196883 );;
+    gap&#62; List( cand, x -&#62; x[1] );
+    [ 1, 4371, 96255, 96256 ]
+    gap&#62; inv:= Positions( OrdersClassRepresentatives( table2B ), 2 );
+    [ 2, 3, 4, 5, 7 ]
+    gap&#62; PrintArray( List( cand, x -&#62; x{ Concatenation( [ 1 ], inv ) } ) );
+    [ [       1,       1,       1,       1,       1,       1 ],
+      [    4371,    4371,    -493,     275,     275,      19 ],
+      [   96255,   96255,    4863,    2047,    2047,     255 ],
+      [   96256,  -96256,       0,    2048,   -2048,       0 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Note that 96256a must occur as a constituent
+because it is the only faithful candidate,
+and it can occur only once because otherwise only 4371a + 2 &#183;96256a
+or 4371 &#183;1a + 2 &#183;96256a would be possible decompositions,
+which have more than two values on involution classes.
+Thus the values of &#967;<sub>2.<font size="+0">B</font></sub> on the classes 4 and 5 differ by 4096.
+
+<div class="p"><!----></div>
+If 96255a would <b>not</b> occur then the values of &#967;<sub>2.<font size="+0">B</font></sub>
+on the classes 3 and 7 would differ by 512 times the multiplicity of 4371,
+but 65659 &#183;1a + 8 &#183;4371a + 96256a is not a solution.
+Thus 96255a must occur exactly once.
+
+<div class="p"><!----></div>
+The sum of 96255a and 96256a has four different values
+on involutions, hence also 4371a must occur.
+
+<div class="p"><!----></div>
+We see that the values of &#967; on the classes of involutions are
+4371 and 275, respectively.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Sum( cand ){ inv };
+    [ 4371, 4371, 4371, 275, 275 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The restriction of &#967; to 3.<span class="roman">Fi</span><sub>24</sub><sup>&#8242;</sup> is computed similarly,
+as follows.
+
+<div class="p"><!----></div>
+Exactly seven irreducible characters of 3.<span class="roman">Fi</span><sub>24</sub><sup>&#8242;</sup> can occur as
+constituents of the restriction of &#967;.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; table3Fi24prime:= CharacterTable( "3.Fi24'" );;
+    gap&#62; cand:= Filtered( Irr( table3Fi24prime ), x -&#62; x[1] &lt;= 196883 );;
+    gap&#62; inv:= Positions( OrdersClassRepresentatives( table3Fi24prime ), 2 );
+    [ 4, 7 ]
+    gap&#62; mat:= List( cand, x -&#62; x{ Concatenation([1], inv)});;
+    gap&#62; PrintArray( mat );
+    [ [      1,      1,      1 ],
+      [   8671,    351,    -33 ],
+      [  57477,   1157,    133 ],
+      [    783,     79,     15 ],
+      [    783,     79,     15 ],
+      [  64584,   1352,     72 ],
+      [  64584,   1352,     72 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Since &#967; is rational, we need to consider only rationally irreducible
+characters, that is, the possible constituents are 1a, 8671a, 57377a,
+783ab, and 64584ab.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; List( cand, x -&#62; x[2] );
+    [ 1, 8671, 57477, 783*E(3), 783*E(3)^2, 64584*E(3), 64584*E(3)^2 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We see that the value on the first class of involutions must be 4371,
+since all values of the possible constituents are positive
+and too large for the other possible value 275.
+
+<div class="p"><!----></div>
+Since the values of all possible constituents on the second class of
+involutions are at most equal to the values on the first class,
+and equal only for 1a,
+we conclude that the value on the second class of involutions is 275.
+
+<div class="p"><!----></div>
+We see from the ratio of the value on the identity element
+and on the first class of involutions
+that constituents of degree 57477 or 2 &#183;64584 exist.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Float( 196883 / 4371 );
+    45.043
+    gap&#62; List( mat, v -&#62; Float( v[1] / v[2] ) );
+    [ 1., 24.7037, 49.6776, 9.91139, 9.91139, 47.7692, 47.7692 ]
+    gap&#62; Float( ( 196883 - 2 * 64584 ) / ( 4371 - 2 * 1352 ) );
+    40.6209
+    gap&#62; Float( ( 196883 - 57477 ) / ( 4371 - 1157 ) );
+    43.3746
+    gap&#62; Float( ( 196883 - 2*57477 ) / ( 4371 - 2*1157 ) );
+    39.8294
+    gap&#62; Float( ( 196883 - 3*57477 ) / ( 4371 - 3*1157 ) );
+    27.1689
+
+</pre>
+
+<div class="p"><!----></div>
+First suppose that 64584ab is not a constituent.
+The above ratios imply that (at least) three constituents of degree 57477
+must occur.
+
+<div class="p"><!----></div>
+However, then the degree admits at most two constituents of degree 8671,
+hence the value on the second class of involutions cannot be 275,
+a contradiction.
+
+<div class="p"><!----></div>
+This means that both 64584ab and 57477a occur with multiplicity one.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; mat[3] + mat[6] + mat[7];
+    [ 186645, 3861, 277 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The second involution class forces one constituent of degree 8671
+(which is the only candidate that can contribute a negative value),
+and then a character of degree 1567 remains to be decomposed.
+The only solution for the degrees of its constituents is 1 + 1566.
+We get the decomposition
+1a + 8671a + 57477a + 783ab + 64584ab,
+as claimed in [<a href="#Mverify" name="CITEMverify">BMW24</a>,Lemma&nbsp;2].
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Sum( mat );
+    [ 196883, 4371, 275 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The characters of the degrees 1, 8671, and 57477 extend two-fold
+from 3.<span class="roman">Fi</span><sub>24</sub><sup>&#8242;</sup> to 3.<span class="roman">Fi</span><sub>24</sub>.
+In order to decompose the restriction of &#967; to 3.<span class="roman">Fi</span><sub>24</sub>,
+we have to determine which extensions from 3.<span class="roman">Fi</span><sub>24</sub><sup>&#8242;</sup> occur.
+The following irreducible characters of 3.<span class="roman">Fi</span><sub>24</sub> can occur as
+constituents of the restriction of &#967;.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; table3Fi24:= CharacterTable( "3.Fi24" );;
+    gap&#62; cand:= Filtered( Irr( table3Fi24 ), x -&#62; x[1] &lt;= 196883 );;
+    gap&#62; inv:= Positions( OrdersClassRepresentatives( table3Fi24 ), 2 );
+    [ 3, 5, 172, 173 ]
+    gap&#62; mat:= List( cand, x -&#62; x{ Concatenation([1], inv)});;
+    gap&#62; PrintArray( mat );
+    [ [       1,       1,       1,       1,       1 ],
+      [       1,       1,       1,      -1,      -1 ],
+      [    8671,     351,     -33,    1495,     -41 ],
+      [    8671,     351,     -33,   -1495,      41 ],
+      [   57477,    1157,     133,    5865,     233 ],
+      [   57477,    1157,     133,   -5865,    -233 ],
+      [    1566,     158,      30,       0,       0 ],
+      [  129168,    2704,     144,       0,       0 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+We get the decomposition
+1a + 8671b + 57477a + 1566a + 129168a claimed in [<a href="#Mverify" name="CITEMverify">BMW24</a>,Lemma&nbsp;2].
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Sum( mat{ [ 1, 4, 5, 7, 8 ] } );
+    [ 196883, 4371, 275, 4371, 275 ]
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;The permutation character (1<sub>2.<font size="+0">B</font></sub><sup><font size="+0">M</font></sup>)<sub>2.<font size="+0">B</font></sub></h2><a name="suborbits">
+</a>
+
+<div class="p"><!----></div>
+According to [<a href="#GMS89" name="CITEGMS89">GMS89</a>,Tables VII, IX],
+the restriction of the permutation character 1<sub>2.<font size="+0">B</font></sub><sup><font size="+0">M</font></sup> to 2.<font size="+0">B</font>
+decomposes into nine transitive permutation characters 1<sub>U</sub><sup>2.<font size="+0">B</font></sup>,
+with the point stabilizers U listed in Table&nbsp;<a href="#suborbitsTable">1</a>.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+<a name="tth_tAb1">
+</a> <center>Table 1: Suborbit information</center><a name="suborbitsTable">
+</a>
+
+<center>
+
+<table>
+<tr><td>a c  &#8712;     </td><td>G<sub>a,c</sub>  </td><td align="right">&#124;c<sup>G<sub>a</sub></sup>&#124; </td></tr>
+<tr><td><tt>1A</tt> </td><td>2.<font size="+0">B</font>            </td><td align="right">1 </td></tr>
+<tr><td><tt>2A</tt> </td><td>2<sup>2</sup>.<sup>2</sup><span class="roman">E</span><sub>6</sub>(2) </td><td align="right">27143910000 </td></tr>
+<tr><td><tt>2B</tt> </td><td>2<sup>2+22</sup>.<span class="roman">Co</span><sub>2</sub>  </td><td align="right">11707448673375 </td></tr>
+<tr><td><tt>3A</tt> </td><td><span class="roman">Fi</span><sub>23</sub>        </td><td align="right">2031941058560000 </td></tr>
+<tr><td><tt>3C</tt> </td><td><span class="roman">Th</span>             </td><td align="right">91569524834304000 </td></tr>
+<tr><td><tt>4A</tt> </td><td>2<sup>1+22</sup>.<span class="roman">McL</span>   </td><td align="right">1102935324621312000 </td></tr>
+<tr><td><tt>4B</tt> </td><td>2.<span class="roman">F</span><sub>4</sub>(2)       </td><td align="right">1254793905192960000 </td></tr>
+<tr><td><tt>5A</tt> </td><td><span class="roman">HN</span>             </td><td align="right">30434513446055706624 </td></tr>
+<tr><td><tt>6A</tt> </td><td>2.<span class="roman">Fi</span><sub>22</sub>      </td><td align="right">64353605265653760000 </td></tr></table>
+
+</center>
+
+<div class="p"><!----></div>
+Here a denotes the central involution in 2.<font size="+0">B</font>,
+the action is that on the <font size="+0">M</font>-conjugacy class of a,
+and c  &#8712; a<sup><font size="+0">M</font></sup> is a representative of the orbit in question.
+
+<div class="p"><!----></div>
+In this section, we compute the nine characters 1<sub>U</sub><sup>2.<font size="+0">B</font></sup>,
+where U is one of the above point stabilizers G<sub>a,c</sub>.
+Note that a  &#8712; G<sub>a,c</sub> holds
+(and thus the character is an inflated character of <font size="+0">B</font>)
+if and only if a and c commute;
+this happens exactly for the first three orbits.
+
+<div class="p"><!----></div>
+All subgroups U except 2<sup>2+22</sup>.<span class="roman">Co</span><sub>2</sub> and 2<sup>1+22</sup>.<span class="roman">McL</span>
+are  A<font size="-2">TLAS</font> groups whose character tables have been verified.
+The subgroup 2<sup>2+22</sup>.<span class="roman">Co</span><sub>2</sub> is the preimage of a maximal subgroup
+2<sup>1+22</sup>.<span class="roman">Co</span><sub>2</sub> of <font size="+0">B</font> under the natural epimorphism from 2.<font size="+0">B</font>,
+and the computation/verification of the character table of 2<sup>1+22</sup>.<span class="roman">Co</span><sub>2</sub>
+has been described in [<a href="#BMverify" name="CITEBMverify">BMW20</a>].
+It will turn out that we do not need the character table of 2<sup>1+22</sup>.<span class="roman">McL</span>.
+
+<div class="p"><!----></div>
+The nine characters will be stored in the variables
+<tt>pi1</tt>, <tt>pi2</tt>, ..., <tt>pi9</tt>.
+
+<div class="p"><!----></div>
+For U = 2.<font size="+0">B</font>,
+we have 1<sub>U</sub><sup>2.<font size="+0">B</font></sup> = 1<sub>2.<font size="+0">B</font></sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; pi1:= TrivialCharacter( table2B );;
+
+</pre>
+
+<div class="p"><!----></div>
+For U = 2<sup>2</sup>.<sup>2</sup><span class="roman">E</span><sub>6</sub>(2),
+the character 1<sub>U</sub><sup>2.<font size="+0">B</font></sup> is the inflation of 1<sub>[&#63717;U]</sub><sup><font size="+0">B</font></sup>
+from <font size="+0">B</font> to 2.<font size="+0">B</font>,
+for [&#63717;U] = U / &#9001;a &#9002; =  2.<sup>2</sup><span class="roman">E</span><sub>6</sub>(2).
+(Note that the class fusion from [&#63717;U] to <font size="+0">B</font> is not uniquely
+determined by the character tables of the two groups,
+but the permutation character is unique.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tableB:= CharacterTable( "B" );;   
+    gap&#62; tableUbar:= CharacterTable( "2.2E6(2)" );;
+    gap&#62; fus:= PossibleClassFusions( tableUbar, tableB );;
+    gap&#62; pi:= Set( fus,
+    &#62;              map -&#62; InducedClassFunctionsByFusionMap( tableUbar, tableB,
+    &#62;                         [ TrivialCharacter( tableUbar ) ], map )[1] );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi2:= Inflated( tableB, table2B, pi )[1];;
+    gap&#62; mult:= List( Irr( table2B ),
+    &#62;                 chi -&#62; ScalarProduct( table2B, chi, pi2 ) );;
+    gap&#62; Maximum( mult );
+    1
+    gap&#62; Positions( mult, 1 );
+    [ 1, 2, 3, 5, 7, 13, 15, 17 ]
+
+</pre>
+
+<div class="p"><!----></div>
+For U = 2<sup>2+22</sup>.<span class="roman">Co</span><sub>2</sub>,
+the character 1<sub>U</sub><sup>2.<font size="+0">B</font></sup> is the inflation of 1<sub>[&#63717;U]</sub><sup><font size="+0">B</font></sup>
+from <font size="+0">B</font> to 2.<font size="+0">B</font>,
+for [&#63717;U] = U / &#9001;a &#9002; =  2<sup>1+22</sup>.<span class="roman">Co</span><sub>2</sub>,
+a maximal subgroup of <font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tableUbar:= CharacterTable( "BN2B" );
+    CharacterTable( "2^(1+22).Co2" )
+    gap&#62; fus:= PossibleClassFusions( tableUbar, tableB );;
+    gap&#62; pi:= Set( fus,
+    &#62;              map -&#62; InducedClassFunctionsByFusionMap( tableUbar, tableB,
+    &#62;                         [ TrivialCharacter( tableUbar ) ], map )[1] );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi3:= Inflated( tableB, table2B, pi )[1];;
+    gap&#62; mult:= List( Irr( table2B ),
+    &#62;                 chi -&#62; ScalarProduct( table2B, chi, pi3 ) );;
+    gap&#62; Maximum( mult );
+    1
+    gap&#62; Positions( mult, 1 );
+    [ 1, 3, 5, 8, 13, 15, 28, 30, 37, 40 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Next we consider U = <span class="roman">Fi</span><sub>23</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tableU:= CharacterTable( "Fi23" );;
+    gap&#62; fus:= PossibleClassFusions( tableU, table2B );;
+    gap&#62; pi:= Set( fus,
+    &#62;              map -&#62; InducedClassFunctionsByFusionMap( tableU, table2B,
+    &#62;                         [ TrivialCharacter( tableU ) ], map )[1] );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi4:= pi[1];;
+    gap&#62; mult:= List( Irr( table2B ),
+    &#62;                 chi -&#62; ScalarProduct( table2B, chi, pi4 ) );;
+    gap&#62; Maximum( mult );
+    1
+    gap&#62; Positions( mult, 1 );
+    [ 1, 2, 3, 5, 7, 8, 9, 12, 13, 15, 17, 23, 27, 30, 32, 40, 41, 54, 
+      63, 68, 77, 81, 83, 185, 186, 187, 188, 189, 194, 195, 196, 203, 
+      208, 220 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Next we consider U = <span class="roman">Th</span>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tableU:= CharacterTable( "Th" );;
+    gap&#62; fus:= PossibleClassFusions( tableU, table2B );;
+    gap&#62; pi:= Set( fus,
+    &#62;              map -&#62; InducedClassFunctionsByFusionMap( tableU, table2B,
+    &#62;                         [ TrivialCharacter( tableU ) ], map )[1] );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi5:= pi[1];;
+    gap&#62; mult:= List( Irr( table2B ),
+    &#62;                 chi -&#62; ScalarProduct( table2B, chi, pi5 ) );;
+    gap&#62; Maximum( mult );
+    2
+    gap&#62; Positions( mult, 1 );
+    [ 1, 3, 7, 8, 12, 13, 16, 19, 27, 28, 34, 38, 41, 57, 68, 70, 77, 78, 
+      85, 89, 113, 114, 116, 129, 133, 142, 143, 145, 155, 156, 185, 187, 
+      188, 193, 195, 196, 201, 208, 216, 219, 225, 232, 233, 235, 236, 
+      237, 242 ]
+    gap&#62; Positions( mult, 2 );
+    [ 62 ]
+
+</pre>
+
+<div class="p"><!----></div>
+For U = 2<sup>1+22</sup>.<span class="roman">McL</span>, we carry out the computations described in
+[<a href="#ctblpope" name="CITEctblpope">Breb</a>,Section "A permutation character of 2.<font size="+0">B</font>"].
+We know that U is a subgroup of 2<sup>2+22</sup>.<span class="roman">Co</span><sub>2</sub>,
+and that &#9001;U, a &#9002; has the structure 2<sup>2+22</sup>.<span class="roman">McL</span>.
+
+<div class="p"><!----></div>
+As a first step, we induce the trivial character of &#9001;U, a &#9002;
+to 2.<font size="+0">B</font>,
+which can be performed by inducing the trivial character of <span class="roman">McL</span> to <span class="roman">Co</span><sub>2</sub>,
+then to inflate this character to 2<sup>1+22</sup>.<span class="roman">Co</span><sub>2</sub>,
+then to induce this character to <font size="+0">B</font>,
+and then to inflate this character to 2.<font size="+0">B</font>,
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; mcl:= CharacterTable( "McL" );;
+    gap&#62; co2:= CharacterTable( "Co2" );;
+    gap&#62; fus:= PossibleClassFusions( mcl, co2 );;       
+    gap&#62; Length( fus );
+    4
+    gap&#62; ind:= Set( fus, map -&#62; InducedClassFunctionsByFusionMap( mcl, co2,     
+    &#62;                               [ TrivialCharacter( mcl ) ], map )[1] );;
+    gap&#62; Length( ind );
+    1
+    gap&#62; bm2:= CharacterTable( "BM2" );
+    CharacterTable( "2^(1+22).Co2" )
+    gap&#62; infl:= Inflated( co2, bm2, ind );;
+    gap&#62; ind:= Induced( bm2, tableB, infl );;
+    gap&#62; infl:= Inflated( tableB, table2B, ind )[1];;
+
+</pre>
+
+<div class="p"><!----></div>
+As a second step,
+we compute 1<sub>U</sub><sup>2.<font size="+0">B</font></sup> with the <font face="helvetica">GAP</font> function <tt>PermChars</tt>,
+using that we can speed up these computations by prescribing
+the permutation character induced from the closure of U with
+the normal subgroup &#9001;a &#9002; of 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+(We are lucky:
+There is a unique solution, and its computation is quite fast.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; centre:= ClassPositionsOfCentre( table2B );
+    [ 1, 2 ]
+    gap&#62; pi:= PermChars( table2B, rec( torso:= [ 2 * infl[1], 0 ],
+    &#62;                             normalsubgroup:= centre,
+    &#62;                             nonfaithful:= infl ) );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi6:= pi[1];;
+    gap&#62; List( Irr( table2B ), chi -&#62; ScalarProduct( table2B, chi, pi6 ) );
+    [ 1, 1, 2, 1, 2, 0, 2, 3, 2, 0, 0, 1, 4, 1, 2, 0, 3, 2, 0, 2, 0, 0, 
+      2, 2, 0, 0, 2, 3, 1, 5, 0, 4, 3, 2, 0, 0, 3, 2, 0, 6, 4, 0, 1, 1, 
+      0, 0, 0, 0, 3, 0, 1, 0, 0, 5, 0, 5, 2, 0, 0, 2, 0, 0, 4, 1, 0, 2, 
+      0, 4, 2, 4, 4, 3, 0, 2, 4, 2, 4, 0, 3, 0, 3, 2, 5, 0, 1, 0, 3, 1, 
+      0, 1, 1, 2, 5, 3, 1, 1, 4, 5, 1, 1, 0, 3, 0, 0, 3, 2, 1, 1, 2, 1, 
+      1, 4, 0, 3, 2, 3, 1, 3, 0, 1, 3, 0, 2, 2, 1, 3, 3, 0, 0, 2, 0, 0, 
+      0, 0, 3, 0, 3, 3, 3, 1, 0, 3, 0, 4, 0, 1, 0, 0, 2, 0, 0, 2, 0, 0, 
+      2, 1, 1, 0, 0, 0, 0, 1, 2, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 2, 1, 
+      1, 3, 3, 0, 0, 0, 1, 1, 1, 1, 2, 3, 2, 0, 0, 2, 2, 4, 3, 5, 2, 4, 
+      0, 0, 0, 0, 5, 2, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 7, 0, 0, 1, 7, 
+      7, 0, 0, 0, 1, 6, 4, 5, 0, 0, 3, 0, 0, 0, 0, 0, 4, 1, 1, 3, 8, 3, 
+      2, 2, 5, 0, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Next we consider U = 2.<span class="roman">F</span><sub>4</sub>(2).
+We know that U does not contain the central involution of 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tableU:= CharacterTable( "2.F4(2)" );;
+    gap&#62; fus:= PossibleClassFusions( tableU, table2B );;
+    gap&#62; pi:= Set( fus, map -&#62; InducedClassFunctionsByFusionMap( tableU, table2B,
+    &#62;             [ TrivialCharacter( tableU ) ], map )[1] );;
+    gap&#62; Length( pi );
+    2
+    gap&#62; pi:= Filtered( pi, x -&#62; ClassPositionsOfKernel( x ) = [ 1 ] );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi7:= pi[1];;
+    gap&#62; List( Irr( table2B ), chi -&#62; ScalarProduct( table2B, chi, pi7 ) );
+    [ 1, 1, 2, 0, 2, 0, 2, 2, 1, 0, 0, 2, 4, 1, 3, 0, 2, 1, 0, 0, 0, 0, 
+      2, 1, 0, 0, 2, 2, 1, 4, 0, 2, 1, 2, 0, 0, 3, 2, 0, 4, 4, 0, 0, 0, 
+      0, 0, 1, 0, 0, 0, 1, 0, 0, 2, 1, 3, 3, 0, 0, 3, 0, 1, 4, 0, 0, 3, 
+      0, 6, 0, 3, 2, 0, 0, 1, 4, 1, 4, 2, 6, 1, 4, 0, 4, 0, 1, 1, 2, 0, 
+      0, 3, 2, 1, 3, 2, 0, 0, 4, 5, 3, 1, 0, 3, 0, 0, 1, 1, 2, 0, 0, 2, 
+      0, 2, 0, 3, 3, 3, 0, 4, 1, 0, 4, 1, 1, 1, 1, 1, 2, 1, 1, 2, 3, 0, 
+      0, 2, 2, 0, 5, 5, 3, 0, 1, 5, 1, 4, 0, 1, 0, 1, 1, 0, 0, 3, 1, 0, 
+      2, 3, 1, 0, 2, 0, 0, 2, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 2, 
+      1, 4, 4, 0, 0, 0, 3, 1, 1, 1, 2, 2, 2, 0, 0, 1, 2, 3, 3, 3, 1, 2, 
+      0, 0, 1, 1, 4, 2, 0, 0, 0, 3, 2, 0, 0, 0, 0, 0, 0, 4, 0, 0, 1, 5, 
+      5, 0, 1, 1, 2, 2, 4, 4, 0, 0, 3, 1, 1, 1, 0, 0, 4, 1, 1, 5, 7, 3, 
+      2, 5, 5, 0, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Next we consider U = <span class="roman">HN</span>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tableU:= CharacterTable( "HN" );;
+    gap&#62; fus:= PossibleClassFusions( tableU, table2B );;
+    gap&#62; pi:= Set( fus, map -&#62; InducedClassFunctionsByFusionMap( tableU, table2B,
+    &#62;             [ TrivialCharacter( tableU ) ], map )[1] );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi8:= pi[1];;
+    gap&#62; List( Irr( table2B ), chi -&#62; ScalarProduct( table2B, chi, pi8 ) );
+    [ 1, 1, 2, 1, 2, 0, 3, 4, 2, 1, 1, 4, 4, 2, 1, 1, 3, 3, 1, 3, 0, 0, 
+      5, 3, 0, 0, 6, 4, 5, 6, 1, 7, 4, 7, 0, 0, 3, 8, 2, 6, 11, 2, 5, 5, 
+      0, 0, 2, 1, 3, 4, 7, 0, 0, 7, 3, 9, 5, 0, 0, 6, 4, 2, 13, 6, 0, 4, 
+      4, 12, 11, 16, 9, 7, 3, 11, 13, 12, 20, 5, 10, 6, 11, 13, 17, 4, 
+      10, 7, 19, 7, 7, 8, 10, 14, 18, 19, 5, 10, 12, 23, 7, 12, 6, 24, 6, 
+      4, 17, 16, 8, 9, 17, 11, 12, 23, 8, 24, 18, 26, 21, 29, 10, 18, 31, 
+      10, 24, 21, 17, 27, 35, 13, 14, 29, 19, 12, 7, 18, 26, 15, 34, 34, 
+      35, 20, 14, 36, 14, 39, 8, 29, 24, 15, 40, 13, 9, 38, 24, 17, 35, 
+      32, 26, 26, 24, 22, 17, 31, 39, 29, 30, 30, 19, 44, 37, 37, 28, 30, 
+      31, 29, 42, 40, 40, 56, 56, 30, 30, 42, 50, 47, 2, 2, 4, 6, 4, 0, 
+      0, 4, 6, 10, 10, 12, 8, 12, 0, 0, 2, 4, 16, 10, 0, 0, 2, 12, 10, 0, 
+      0, 0, 0, 0, 0, 28, 0, 0, 14, 34, 40, 2, 10, 10, 22, 40, 44, 44, 8, 
+      8, 36, 14, 14, 16, 8, 8, 46, 28, 28, 58, 90, 72, 70, 92, 104, 56, 
+      90 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Finally, we consider U = 2.<span class="roman">Fi</span><sub>22</sub>.
+There are two candidates for the permutation character (1<sub>U</sub>)<sup>2.<font size="+0">B</font></sup>,
+according to the possible class fusions.
+One of the two characters is zero on the class of the central involution
+of 2.<font size="+0">B</font>, the other is not.
+We know that U does not contain the central involution of 2.<font size="+0">B</font>,
+hence we can decide which character is correct.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tableU:= CharacterTable( "2.Fi22" );;
+    gap&#62; fus:= PossibleClassFusions( tableU, table2B );;
+    gap&#62; pi:= Set( fus, map -&#62; InducedClassFunctionsByFusionMap( tableU, table2B,
+    &#62;             [ TrivialCharacter( tableU ) ], map )[1] );;
+    gap&#62; Length( pi );
+    2
+    gap&#62; pi:= Filtered( pi, x -&#62; ClassPositionsOfKernel( x ) = [ 1 ] );;
+    gap&#62; Length( pi );
+    1
+    gap&#62; pi9:= pi[1];;
+    gap&#62; List( Irr( table2B ), chi -&#62; ScalarProduct( table2B, chi, pi9 ) );
+    [ 1, 2, 3, 1, 4, 1, 5, 5, 5, 1, 1, 5, 8, 4, 4, 1, 7, 6, 0, 5, 0, 0, 
+      10, 7, 0, 0, 10, 6, 6, 13, 3, 14, 10, 11, 0, 0, 5, 11, 2, 14, 19, 
+      6, 6, 5, 0, 0, 0, 3, 6, 7, 11, 0, 0, 17, 2, 20, 9, 0, 0, 12, 8, 1, 
+      23, 11, 1, 8, 7, 23, 18, 27, 18, 12, 7, 22, 29, 21, 34, 6, 22, 7, 
+      22, 18, 33, 3, 19, 10, 34, 12, 12, 15, 17, 28, 34, 34, 7, 20, 26, 
+      40, 15, 25, 3, 40, 9, 6, 34, 25, 18, 21, 30, 21, 18, 43, 12, 45, 
+      39, 49, 38, 51, 18, 32, 63, 19, 42, 41, 33, 48, 64, 27, 29, 52, 38, 
+      29, 19, 40, 47, 31, 69, 69, 65, 42, 35, 68, 27, 73, 20, 53, 46, 38, 
+      75, 29, 24, 72, 50, 41, 72, 68, 58, 52, 54, 50, 44, 64, 75, 58, 69, 
+      65, 49, 85, 75, 75, 63, 68, 65, 63, 90, 87, 83, 118, 118, 74, 71, 
+      90, 109, 109, 2, 3, 6, 9, 8, 0, 0, 7, 10, 18, 16, 22, 12, 23, 0, 0, 
+      2, 6, 28, 19, 0, 0, 5, 16, 18, 0, 0, 0, 0, 0, 0, 52, 1, 1, 26, 59, 
+      76, 11, 18, 18, 39, 77, 80, 77, 22, 22, 66, 27, 27, 33, 20, 20, 87, 
+      60, 60, 103, 175, 148, 152, 187, 215, 140, 201 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Now we can form the restriction of (1<sub>2.<font size="+0">B</font></sub>)<sup><font size="+0">M</font></sup> to 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; constit:= [ pi1, pi2, pi3, pi4, pi5, pi6, pi7, pi8, pi9 ];;
+    gap&#62; pi:= Sum( constit );;
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc4">
+4</a>&nbsp;&nbsp;The conjugacy classes of <font size="+0">M</font></h2><a name="Mclasses">
+</a>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.1">
+4.1</a>&nbsp;&nbsp;Our strategy to describe the conjugacy classes of <font size="+0">M</font></h3><a name="strategy_classes">
+</a>
+
+<div class="p"><!----></div>
+We know the order of <font size="+0">M</font> and its prime divisors.
+Let us check whether this fits to our data computed up to now.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; sizeM:= pi[1] * Size( table2B );
+    808017424794512875886459904961710757005754368000000000
+    gap&#62; StringPP( sizeM );
+    "2^46*3^20*5^9*7^6*11^2*13^3*17*19*23*29*31*41*47*59*71"
+    gap&#62; sizeM = Size( CharacterTable( "M" ) );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+For each prime p dividing &#124;<font size="+0">M</font>&#124;,
+we classify the conjugacy classes of elements of order p in <font size="+0">M</font>
+and use the facts that for each such class representative x,
+the classes of roots of x in the centralizer/normalizer of x
+are in bijection with the corresponding classes in <font size="+0">M</font>,
+and that this bijection respects centralizer orders.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+For each element x  &#8712; <font size="+0">M</font> of order p  &#8712; { 2, 3, 5 },
+we will use the character table of N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;)
+to establish <font size="+0">M</font>-conjugacy classes of roots of x.
+In order not to count the same class several times,
+we proceed by increasing p,
+and collect only those classes of roots of x for which p is the smallest
+prime divisor of the element order.
+
+<div class="p"><!----></div>
+For elements x  &#8712; <font size="+0">M</font> of prime order p  &gt;  5,
+it is not necessary to use the character table of N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;);
+we will use the permutation character values (1<sub>2.<font size="+0">B</font></sub>)<sup><font size="+0">M</font></sup>(x)
+and ad hoc arguments.
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.2">
+4.2</a>&nbsp;&nbsp;Utility functions</h3><a name="functions">
+</a>
+
+<div class="p"><!----></div>
+During the process of finding the conjugacy classes of <font size="+0">M</font>,
+we record our knowledge about the character table of <font size="+0">M</font>
+in a global <font face="helvetica">GAP</font> variable <tt>head</tt>,
+which is a record with the following components.
+
+<div class="p"><!----></div>
+
+<dl compact="compact">
+ <dt><b><tt>Size</tt></b></dt>
+	<dd>  <br />
+    the group order &#124;<font size="+0">M</font>&#124;,</dd>
+ <dt><b><tt>SizesCentralizers</tt></b></dt>
+	<dd>  <br />
+    the list of centralizer orders of the conjugacy classes
+    established up to now,</dd>
+ <dt><b><tt>OrdersClassRepresentatives</tt></b></dt>
+	<dd>  <br />
+    the list of corresponding representative orders,</dd>
+ <dt><b><tt>fusions</tt></b></dt>
+	<dd>  <br />
+    a list that collects the currently known partial class fusions into <font size="+0">M</font>;
+    each entry is a record with the components
+    <tt>subtable</tt> (the character table of the subgroup)
+    and <tt>map</tt> (the list of known images;
+    unknown positions are unbound).</dd>
+</dl>
+
+<div class="p"><!----></div>
+We initialize this variable, using the group order <font size="+0">M</font>
+and that there is an identity element.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; head:= rec( Size:= sizeM,
+    &#62;                SizesCentralizers:= [ sizeM ],
+    &#62;                OrdersClassRepresentatives:= [ 1 ],
+    &#62;                fusions:= [],
+    &#62;              );;
+
+</pre>
+
+<div class="p"><!----></div>
+The function <tt>ExtendTableHeadByRootClasses</tt> takes
+the object <tt>head</tt>,
+the character table <tt>s</tt> of a subgroup H of <font size="+0">M</font>,
+and an integer <tt>pos</tt> as its arguments,
+where it is assumed that the <tt>pos</tt>-th class of <tt>s</tt>
+contains an element x of prime order p
+such that N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;) = H holds
+and such that <tt>head</tt> contains information only about
+those classes of <font size="+0">M</font> whose elements have order divisible by a prime
+that is smaller than p.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByRootClasses:= function( head, s, pos )
+    &#62;    local fus, orders, p, cents, oldnumber, i, ord;
+    &#62; 
+    &#62;    # Initialize the fusion information.
+    &#62;    fus:= rec( subtable:= s, map:= [ 1 ] );
+    &#62;    Add( head.fusions, fus );
+    &#62; 
+    &#62;    # Compute the positions of root classes of 'pos'.
+    &#62;    orders:= OrdersClassRepresentatives( s );
+    &#62;    p:= orders[ pos ];
+    &#62;    cents:= SizesCentralizers( s );
+    &#62;    oldnumber:= Length( head.OrdersClassRepresentatives );
+    &#62; 
+    &#62;    # Run over the classes of 's'
+    &#62;    # are already contained in head
+    &#62;    for i in [ 1 .. NrConjugacyClasses( s ) ] do
+    &#62;      ord:= orders[i];
+    &#62;      if ord mod p = 0 and
+    &#62;         Minimum( PrimeDivisors( ord ) ) = p and
+    &#62;         PowerMap( s, ord / p, i ) = pos then
+    &#62;        # Class 'i' is a root class of 'pos' and is new in 'head'.
+    &#62;        Add( head.SizesCentralizers, cents[i] );
+    &#62;        Add( head.OrdersClassRepresentatives, orders[i] );
+    &#62;        fus.map[i]:= Length( head.SizesCentralizers );
+    &#62;      fi;
+    &#62;    od;
+    &#62; 
+    &#62;    Print( "#I  after ", Identifier( s ), ": found ",
+    &#62;           Length( head.OrdersClassRepresentatives ) - oldnumber,
+    &#62;           " classes, now have ",
+    &#62;           Length( head.OrdersClassRepresentatives ), "\n" );
+    &#62;    end;;
+
+</pre>
+
+<div class="p"><!----></div>
+In several cases, we will establish a conjugacy class g<sup><font size="+0">M</font></sup> without
+knowing the character table of a suitable subgroup of <font size="+0">M</font> to which
+<tt>ExtendTableHeadByRootClasses</tt> can be applied, where g is among
+the root classes.
+That is, we may know just element order <tt>s</tt>
+and centralizer order <tt>cent</tt>.
+
+<div class="p"><!----></div>
+We are a bit better off if we know the character table <tt>s</tt>
+of a subgroup of <font size="+0">M</font> and the list <tt>poss</tt> of all those classes
+in this table which fuse to the class g<sup><font size="+0">M</font></sup>, because then we can
+store this information in the partial class fusion from <tt>s</tt>
+that is stored in <tt>head</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByCentralizerOrder:= function( head, s, cent, poss )
+    &#62;    local ord, fus, i;
+    &#62; 
+    &#62;    if IsCharacterTable( s ) then
+    &#62;      ord:= Set( OrdersClassRepresentatives( s ){ poss } );
+    &#62;      if Length( ord ) &lt;&#62; 1 then
+    &#62;        Error( "classes cannot fuse" );
+    &#62;      fi;
+    &#62;      ord:= ord[1];
+    &#62;    elif IsInt( s ) then
+    &#62;      ord:= s;
+    &#62;    fi;
+    &#62;    Add( head.SizesCentralizers, cent );
+    &#62;    Add( head.OrdersClassRepresentatives, ord );
+    &#62; 
+    &#62;    Print( "#I  after order ", ord, " element" );
+    &#62;    if IsCharacterTable( s ) then
+    &#62;      # extend the stored fusion from s
+    &#62;      fus:= First( head.fusions,
+    &#62;                   r -&#62; Identifier( r.subtable ) = Identifier( s ) );
+    &#62;      for i in poss do
+    &#62;        fus.map[i]:= Length( head.SizesCentralizers );
+    &#62;      od;
+    &#62;      Print( " from ", Identifier( s ) );
+    &#62;    fi;
+    &#62;    Print( ": have ",
+    &#62;           Length( head.OrdersClassRepresentatives ), " classes\n" );
+    &#62;    end;;
+
+</pre>
+
+<div class="p"><!----></div>
+The permutation character 1<sub>H</sub><sup>G</sup>, where H  &#8804; G are two groups,
+has the property 1<sub>H</sub><sup>G</sup>(g) = &#124;C<sub>G</sub>(g)&#124; &#183;&#124;g<sup>G</sup> &#8745;H&#124; / &#124;H&#124;.
+For g  &#8712; H,
+this implies that &#124;C<sub>G</sub>(g)&#124; = 1<sub>H</sub><sup>G</sup>(g) &#183;&#124;H&#124; / &#124;g<sup>G</sup> &#8745;H&#124;
+can be computed from the character (1<sub>H</sub><sup>G</sup>)<sub>H</sub> and the class lengths in H,
+provided that we know which classes of H fuse into g<sup>G</sup>.
+The function <tt>ExtendTableHeadByPermCharValue</tt> extends the information
+in <tt>head</tt> by the data for the class g<sup><font size="+0">M</font></sup>,
+where <tt>s</tt> is the character table of H,
+<tt>pi_rest_to_s</tt> is (1<sub>H</sub><sup>G</sup>)<sub>H</sub>,
+and <tt>poss</tt> is the list of positions of those classes in <tt>s</tt>
+that fuse to g<sup><font size="+0">M</font></sup>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByPermCharValue:= function( head, s, pi_rest_to_s, poss )
+    &#62;    local pival, cent;
+    &#62; 
+    &#62;    pival:= Set( pi_rest_to_s{ poss } );
+    &#62;    if Length( pival ) &lt;&#62; 1 then
+    &#62;      Error( "classes cannot fuse" );
+    &#62;    fi;
+    &#62; 
+    &#62;    cent:= pival[1] * Size( s ) / Sum( SizesConjugacyClasses( s ){ poss } );
+    &#62;    ExtendTableHeadByCentralizerOrder( head, s, cent, poss );
+    &#62;    end;;
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.3">
+4.3</a>&nbsp;&nbsp;Classes of elements of even order</h3><a name="elements_2">
+</a>
+
+<div class="p"><!----></div>
+By&nbsp;[<a href="#Mverify" name="CITEMverify">BMW24</a>],
+we know that <font size="+0">M</font> has exactly two conjugacy classes of involutions,
+and that the involution centralizers have the structures
+2.<font size="+0">B</font> (for the class <tt>2A</tt>) and
+2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub> (for the class <tt>2B</tt>), respectively.
+
+<div class="p"><!----></div>
+Moreover, the character tables of these subgroups that are
+stored in the <font face="helvetica">GAP</font> Character Table Library are correct.
+For 2.<font size="+0">B</font>, this follows from the correctness of the character table of <font size="+0">B</font>
+as shown in [<a href="#BMverify" name="CITEBMverify">BMW20</a>] and the computations
+in [].
+For 2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub>, the recomputation of the character table is described
+in Section&nbsp;<a href="#sect:table_c2b">8</a>.
+
+<div class="p"><!----></div>
+Thus we can determine the <font size="+0">M</font>-conjugacy classes of elements of even order
+as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "2.B" );;
+    gap&#62; ClassPositionsOfCentre( s );
+    [ 1, 2 ]
+    gap&#62; ExtendTableHeadByRootClasses( head, s, 2 );
+    #I  after 2.B: found 42 classes, now have 43
+    gap&#62; s:= CharacterTable( "MN2B" );;
+    gap&#62; ClassPositionsOfCentre( s );
+    [ 1, 2 ]
+    gap&#62; ExtendTableHeadByRootClasses( head, s, 2 );
+    #I  after 2^1+24.Co1: found 91 classes, now have 134
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.4">
+4.4</a>&nbsp;&nbsp;Classes of elements of order divisible by 3</h3><a name="elements_3">
+</a>
+
+<div class="p"><!----></div>
+We know that <font size="+0">M</font> has exactly three conjugacy classes of elements
+of order 3,
+and that their normalizers have the structures
+3.<span class="roman">Fi</span><sub>24</sub> (for the class <tt>3A</tt>),
+3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2 (for the class <tt>3B</tt>),
+and S<sub>3</sub> &times;<span class="roman">Th</span> (for the class <tt>3C</tt>), respectively.
+
+<div class="p"><!----></div>
+Moreover,
+the <font face="helvetica">GAP</font> character tables of 3.<span class="roman">Fi</span><sub>24</sub> and <span class="roman">Th</span> are  A<font size="-2">TLAS</font> tables
+and have been verified, see&nbsp;[<a href="#BMO17" name="CITEBMO17">BMO17</a>].
+
+<div class="p"><!----></div>
+We determine the <font size="+0">M</font>-conjugacy classes of elements of odd order
+that are roots of <tt>3A</tt> or <tt>3C</tt> elements, as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "3.Fi24" );;
+    gap&#62; ClassPositionsOfPCore( s, 3 );
+    [ 1, 2 ]
+    gap&#62; ExtendTableHeadByRootClasses( head, s, 2 );
+    #I  after 3.F3+.2: found 12 classes, now have 146
+    gap&#62; s:= CharacterTableDirectProduct( CharacterTable( "Th" ),
+    &#62;                                     CharacterTable( "Symmetric", 3 ) );;
+    gap&#62; ClassPositionsOfPCore( s, 3 );
+    [ 1, 3 ]
+    gap&#62; ExtendTableHeadByRootClasses( head, s, 3 );
+    #I  after ThxSym(3): found 7 classes, now have 153
+
+</pre>
+
+<div class="p"><!----></div>
+The situation with the <tt>3B</tt> normalizer is more involved.
+Section&nbsp;<a href="#sect:norm3B">9</a> documents the construction of the character table
+of a downward extension of the structure 3<sup>1+12</sup><sub>+</sub>:6.<span class="roman">Suz</span>.2
+of the <tt>3B</tt> normalizer, and gives two
+candidates for the character table of the <tt>3B</tt> normalizer.
+
+<div class="p"><!----></div>
+It will turn out that each of these candidates leads to "the same"
+root classes,
+in the sense that the number of these classes, their element orders,
+and their centralizer orders are equal.
+Note that the 3-core of H = 3<sup>1+12</sup><sub>+</sub>:6.<span class="roman">Suz</span>.2 has the structure
+X &times;N,
+where X has order 3
+and N  &#8773; 3<sup>1+12</sup><sub>+</sub> such that H / N  &#8773; 6.<span class="roman">Suz</span>.2 holds.
+We are interested in the two "diagonal" factors, that is,
+the factors of H by the one of the two normal subgroups of order 3 in H
+that are not equal to X or Z(N).
+(See the picture in Section&nbsp;<a href="#sect:norm3B">9</a> for the details.)
+
+<div class="p"><!----></div>
+First we exclude the normal subgroup of order 3 that is contained in the
+unique normal subgroup N of order 3<sup>13</sup>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; exts:= CharacterTable( "3^(1+12):6.Suz.2" );;
+    gap&#62; kernels:= Positions( SizesConjugacyClasses( exts ), 2 );
+    [ 2, 18, 19, 20 ]
+    gap&#62; order3_13:= Filtered( ClassPositionsOfNormalSubgroups( exts ),
+    &#62;        l -&#62; Sum( SizesConjugacyClasses( exts ){ l } ) = 3^13 );
+    [ [ 1 .. 4 ] ]
+    gap&#62; kernels:= Difference( kernels, order3_13[1] );
+    [ 18, 19, 20 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The classes in the subgroup X can be identified by the fact that
+exactly one factor of H by a normal subgroup of order 3 admits a
+class fusion from 2.<span class="roman">Suz</span>.2, and hence this must be the split extension
+of 3<sup>1+12</sup><sub>+</sub> with 2.<span class="roman">Suz</span>.2.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; facts:= List( kernels, i -&#62; exts / [ 1, i ] );
+    [ CharacterTable( "3^(1+12):6.Suz.2/[ 1, 18 ]" ), 
+      CharacterTable( "3^(1+12):6.Suz.2/[ 1, 19 ]" ), 
+      CharacterTable( "3^(1+12):6.Suz.2/[ 1, 20 ]" ) ]
+    gap&#62; f:= CharacterTable( "2.Suz.2" );;
+    gap&#62; facts:= Filtered( facts,
+    &#62;        x -&#62; Length( PossibleClassFusions( f, x ) ) = 0 );
+    [ CharacterTable( "3^(1+12):6.Suz.2/[ 1, 19 ]" ), 
+      CharacterTable( "3^(1+12):6.Suz.2/[ 1, 20 ]" ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+We compute the root classes for both candidates.
+For that,
+we first create a copy <tt>head2</tt> of the information in <tt>head</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; kernels:= List( facts,
+    &#62;        f -&#62; Positions( SizesConjugacyClasses( f ), 2 ) );
+    [ [ 2 ], [ 2 ] ]
+    gap&#62; head2:= StructuralCopy( head );;
+    gap&#62; ExtendTableHeadByRootClasses( head, facts[1], 2 );
+    #I  after 3^(1+12):6.Suz.2/[ 1, 19 ]: found 12 classes, now have 165
+    gap&#62; ExtendTableHeadByRootClasses( head2, facts[2], 2 );
+    #I  after 3^(1+12):6.Suz.2/[ 1, 20 ]: found 12 classes, now have 165
+
+</pre>
+
+<div class="p"><!----></div>
+We observe that <tt>head</tt> and <tt>head2</tt> differ only by the
+two character tables in the last fusion record.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; nams:= RecNames( head );
+    [ "Size", "OrdersClassRepresentatives", "SizesCentralizers", 
+      "fusions" ]
+    gap&#62; ForAll( Difference( nams, [ "fusions" ] ),
+    &#62;            nam -&#62; head.( nam ) = head2.( nam ) );
+    true
+    gap&#62; Length( head.fusions );
+    5
+    gap&#62; ForAll( [ 1 .. 4 ], i -&#62; head.fusions[i] = head2.fusions[i] );
+    true
+    gap&#62; head.fusions[5].map = head2.fusions[5].map;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+We continue with establishing the conjugacy classes of <font size="+0">M</font>.
+The question which of the two above candidate tables belongs to a subgroup
+of <font size="+0">M</font> will be answered in Section&nbsp;<a href="#sect:natcharM">6</a>.
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.5">
+4.5</a>&nbsp;&nbsp;Classes of elements of order divisible by 5</h3><a name="elements_5">
+</a>
+
+<div class="p"><!----></div>
+The group 2.<font size="+0">B</font> contains two rational conjugacy classes of elements
+of order 5,
+with different values in the permutation character (1<sub>2.<font size="+0">B</font></sub>)<sup><font size="+0">M</font></sup>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "2.B" );;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), 5 );
+    [ 23, 25 ]
+    gap&#62; pi{ pos };
+    [ 1539000, 7875 ]
+
+</pre>
+
+<div class="p"><!----></div>
+This establishes two classes <tt>5A</tt>, <tt>5B</tt> of conjugacy classes
+of elements of order 5 in <font size="+0">M</font>,
+with centralizer orders 5 &#124;<span class="roman">HN</span>&#124; and 5<sup>7</sup> &#124;2.<span class="roman">J</span><sub>2</sub>&#124;, respectively.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; cents:= List( pos,
+    &#62;      i -&#62; pi[i] * Size( s ) / SizesConjugacyClasses( s )[i] );
+    [ 1365154560000000, 94500000000 ]
+    gap&#62; cents = [ 5 * Size( CharacterTable( "HN" ) ),
+    &#62;              5^7 * Size( CharacterTable( "2.J2" ) ) ];
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+By&nbsp;[<a href="#Mverify" name="CITEMverify">BMW24</a>],
+we know that <font size="+0">M</font> contains exactly two conjugacy classes of elements
+of order 5,
+<tt>5A</tt> with centralizer 5 &times;<span class="roman">HN</span> and normalizer
+(D<sub>10</sub> &times;<span class="roman">HN</span>).2,
+and <tt>5B</tt> with centralizer 5<sup>1+6</sup><sub>+</sub>.2.<span class="roman">J</span><sub>2</sub> and normalizer
+5<sup>1+6</sup><sub>+</sub>.4.<span class="roman">J</span><sub>2</sub>.2.
+
+<div class="p"><!----></div>
+The two classes are rational
+because this is the case already for their intersections with 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "MN5A" );
+    CharacterTable( "(D10xHN).2" )
+    gap&#62; ClassPositionsOfPCore( s, 5 );
+    [ 1, 45 ]
+    gap&#62; ExtendTableHeadByRootClasses( head, s, 45 );
+    #I  after (D10xHN).2: found 5 classes, now have 170
+
+</pre>
+
+<div class="p"><!----></div>
+The character table of 5<sup>1+6</sup><sub>+</sub>.4.<span class="roman">J</span><sub>2</sub>.2 has been recomputed
+with <font face="helvetica">MAGMA</font>, see Section&nbsp;<a href="#sect:table_N5B">10</a>,
+thus we are allowed to use the character table from
+the <font face="helvetica">GAP</font> character table library.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "MN5B" );
+    CharacterTable( "5^(1+6):2.J2.4" )
+    gap&#62; 5core:= ClassPositionsOfPCore( s, 5 );
+    [ 1 .. 4 ]
+    gap&#62; SizesConjugacyClasses( s ){ 5core };
+    [ 1, 4, 37800, 40320 ]
+    gap&#62; ExtendTableHeadByRootClasses( head, s, 2 );
+    #I  after 5^(1+6):2.J2.4: found 3 classes, now have 173
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.6">
+4.6</a>&nbsp;&nbsp;Classes of elements of order divisible by 11</h3><a name="elements_11">
+</a>
+
+<div class="p"><!----></div>
+The group 2.<font size="+0">B</font> contains a rational class of elements of order 11.
+The permutation character (1<sub>2.<font size="+0">B</font></sub><sup><font size="+0">M</font></sup>)<sub>2.<font size="+0">B</font></sub> yields a class of elements
+of order 11 with centralizer order 11 &#124;M<sub>12</sub>&#124; in <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "2.B" );;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), 11 );
+    [ 71 ]
+
+</pre>
+
+<div class="p"><!----></div>
+By the arguments in&nbsp;[<a href="#Mverify" name="CITEMverify">BMW24</a>],
+<font size="+0">M</font> has no other classes of element order 11.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos );
+    #I  after order 11 element from 2.B: have 174 classes
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.7">
+4.7</a>&nbsp;&nbsp;Classes of elements of the orders 17, 19, 23, 31, 47</h3><a name="elements_17">
+</a>
+
+<div class="p"><!----></div>
+The elements of the orders 17, 19, 23, 31, 47 in <font size="+0">M</font> lie in cyclic
+Sylow subgroups that appear already in 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+The elements of order 17 and 19 are rational in 2.<font size="+0">B</font>
+and hence also in <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "2.B" );;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), 17 );
+    [ 118 ]
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos );
+    #I  after order 17 element from 2.B: have 175 classes
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), 19 );
+    [ 128 ]
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos );
+    #I  after order 19 element from 2.B: have 176 classes
+
+</pre>
+
+<div class="p"><!----></div>
+For elements g of order p  &#8712; { 23, 31, 47 },
+the group 2.<font size="+0">B</font> contains exactly two Galois conjugate classes that contain
+the nonidentity powers of g,
+which means that [N<sub>2.<font size="+0">B</font></sub>(&#9001;g &#9002;):C<sub>2.<font size="+0">B</font></sub>(g)] = (p&#8722;1)/2 holds.
+The equation &#124;C<sub><font size="+0">M</font></sub>(g)&#124; = &#124;2.<font size="+0">B</font>&#124; &#183;&#960;(g) / &#124;g<sup><font size="+0">M</font></sup> &#8745;2.<font size="+0">B</font>&#124;
+implies
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+ &#124;N<sub><font size="+0">M</font></sub>(&#9001;g &#9002;)&#124; = [N<sub><font size="+0">M</font></sub>(&#9001;g &#9002;):C<sub><font size="+0">M</font></sub>(g)] &#183;&#124;2.<font size="+0">B</font>&#124; &#183;&#960;(g) / &#124;g<sup><font size="+0">M</font></sup>&#124; = (p&#8722;1)/2 &#183;&#124;2.<font size="+0">B</font>&#124; &#183;&#960;(g) / &#124;g<sup>2.<font size="+0">B</font></sup>&#124;.</td></tr></table>
+</td></tr></table>
+
+
+Note that either the two classes of elements of order p in 2.<font size="+0">B</font>
+fuse in <font size="+0">M</font> or not;
+in the former case,
+we have [N<sub><font size="+0">M</font></sub>(&#9001;g &#9002;):C<sub><font size="+0">M</font></sub>(g)] = p&#8722;1 and
+&#124;g<sup><font size="+0">M</font></sup> &#8745;2.<font size="+0">B</font>&#124; = 2 &#124;g<sup>2.<font size="+0">B</font></sup>&#124;,
+whereas we have
+[N<sub><font size="+0">M</font></sub>(&#9001;g &#9002;):C<sub><font size="+0">M</font></sub>(g)] = (p&#8722;1)/2 and
+&#124;g<sup><font size="+0">M</font></sup> &#8745;2.<font size="+0">B</font>&#124; = &#124;g<sup>2.<font size="+0">B</font></sup>&#124; in the latter case.
+Thus we can compute &#124;N<sub><font size="+0">M</font></sub>(&#9001;g &#9002;)&#124; in each case,
+and we can then find arguments why the two Galois conjugate classes
+do not fuse.
+
+<div class="p"><!----></div>
+First we deal with p = 23.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "2.B" );
+    CharacterTable( "2.B" )
+    gap&#62; ord:= OrdersClassRepresentatives( s );;
+    gap&#62; classes:= SizesConjugacyClasses( s );;
+    gap&#62; p:= 23;;
+    gap&#62; pos:= Positions( ord, p );
+    [ 147, 149 ]
+    gap&#62; n:= (p-1)/2 * Size( s ) * pi[ pos[1] ] / classes[ pos[1] ];
+    6072
+    gap&#62; Collected( Factors( n ) );
+    [ [ 2, 3 ], [ 3, 1 ], [ 11, 1 ], [ 23, 1 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+In order to prove that the two classes of elements of order 23 in 2.<font size="+0">B</font>
+do not fuse in <font size="+0">M</font>, it suffices to show that the centralizer order is
+divisible by 2<sup>3</sup>.
+We see that this is the case already in the <tt>2B</tt> centralizer in <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; u:= CharacterTable( "MN2B" );
+    CharacterTable( "2^1+24.Co1" )
+    gap&#62; upos:= Positions( OrdersClassRepresentatives( u ), p );
+    [ 289, 294 ]
+    gap&#62; SizesCentralizers( u ){ upos } / 2^3;
+    [ 23, 23 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we have established two classes of element order 23 in <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos{ [1] } );
+    #I  after order 23 element from 2.B: have 177 classes
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos{ [2] } );
+    #I  after order 23 element from 2.B: have 178 classes
+
+</pre>
+
+<div class="p"><!----></div>
+The case p = 31 is done analogously.
+Here the necessary 2-part of the centralizer occurs already in 2.<font size="+0">B</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; p:= 31;;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), p );
+    [ 190, 192 ]
+    gap&#62; n:= (p-1)/2 * Size( s ) * pi[ pos[1] ] / classes[ pos[1] ];
+    2790
+    gap&#62; Collected( Factors( n ) );
+    [ [ 2, 1 ], [ 3, 2 ], [ 5, 1 ], [ 31, 1 ] ]
+    gap&#62; SizesCentralizers( s ){ pos };
+    [ 62, 62 ]
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos{ [1] } );
+    #I  after order 31 element from 2.B: have 179 classes
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos{ [2] } );
+    #I  after order 31 element from 2.B: have 180 classes
+
+</pre>
+
+<div class="p"><!----></div>
+Finally, we deal with p = 47.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; p:= 47;;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), p );
+    [ 228, 230 ]
+    gap&#62; n:= (p-1)/2 * Size( s ) * pi[ pos[1] ] / classes[ pos[1] ];
+    2162
+    gap&#62; Collected( Factors( n ) );
+    [ [ 2, 1 ], [ 23, 1 ], [ 47, 1 ] ]
+    gap&#62; SizesCentralizers( s ){ pos };
+    [ 94, 94 ]
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos{ [1] } );
+    #I  after order 47 element from 2.B: have 181 classes
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos{ [2] } );
+    #I  after order 47 element from 2.B: have 182 classes
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.8">
+4.8</a>&nbsp;&nbsp;Classes of elements of order 13</h3><a name="elements_13">
+</a>
+
+<div class="p"><!----></div>
+The class <tt>13A</tt> of <font size="+0">M</font> arises from the rational class of elements
+of order 13 in 2.<font size="+0">B</font>.
+We use the permutation character to enter the information about
+the class <tt>13A</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; p:= 13;;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), p );
+    [ 97 ]
+    gap&#62; c:= Size( s ) * pi[ pos[1] ] / classes[ pos[1] ];
+    73008
+    gap&#62; Factors( c );
+    [ 2, 2, 2, 2, 3, 3, 3, 13, 13 ]
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos );
+    #I  after order 13 element from 2.B: have 183 classes
+
+</pre>
+
+<div class="p"><!----></div>
+The class <tt>13B</tt> intersects the <tt>2B</tt> centralizer.
+Here we just know the centralizer order 13<sup>3</sup> &#183;2<sup>3</sup> &#183;3.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; c2b:= CharacterTable( "MN2B" );;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( c2b ), 13 );
+    [ 220 ]
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, c2b, 13^3 * 24, pos );
+    #I  after order 13 element from 2^1+24.Co1: have 184 classes
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.9">
+4.9</a>&nbsp;&nbsp;Classes of elements of order divisible by 29</h3><a name="elements_29">
+</a>
+
+<div class="p"><!----></div>
+The group 3.<span class="roman">Fi</span><sub>24</sub> contains a rational class of elements of order 29,
+with centralizer order 3 &#183;29.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; u:= CharacterTable( "3.Fi24" );;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( u ), 29 );
+    [ 142 ]
+    gap&#62; SizesCentralizers( u ){ pos };
+    [ 87 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The list of classes of <font size="+0">M</font> collected up to now covers all roots of
+elements of the orders 2, 3, 5, 11, 13, 17, 19, 23, 31, 47,
+and 29 occurs as a factor of the centralizer order only for the
+classes <tt>1A</tt>, <tt>3A</tt>, <tt>87A</tt>, and <tt>87B</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; poss:= PositionsProperty( head.SizesCentralizers,
+    &#62;                              x -&#62; x mod 29 = 0 );
+    [ 1, 135, 144, 145 ]
+    gap&#62; head.OrdersClassRepresentatives{ poss };
+    [ 1, 3, 87, 87 ]
+    gap&#62; head.SizesCentralizers{ poss };
+    [ 808017424794512875886459904961710757005754368000000000, 
+      3765617127571985163878400, 87, 87 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus the only possible additional prime divisors of the centralizer order
+in <font size="+0">M</font> of an element x of order 29 are 7, 41, 59, and 71.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; candprimes:= Difference( PrimeDivisors( head.Size ),
+    &#62;                     [ 2, 3, 5, 11, 13, 17, 19, 23, 29, 31, 47 ] );
+    [ 7, 41, 59, 71 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The centralizer order of x has the form
+3 &#183;29 &#183;7<sup>i</sup> &#183;41<sup>j</sup> &#183;59<sup>k</sup> &#183;71<sup>l</sup>,
+with  0  &#8804; i  &#8804; 6 and j, k, l  &#8712; { 0, 1 }.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; parts:= Filtered( Collected( Factors( head.Size ) ),
+    &#62;                      x -&#62; x[1] in candprimes );
+    [ [ 7, 6 ], [ 41, 1 ], [ 59, 1 ], [ 71, 1 ] ]
+    gap&#62; poss:= List( parts, l -&#62; List( [ 0 .. l[2] ], i -&#62; l[1]^i ) );;
+    gap&#62; cart:= Cartesian( poss );;
+    gap&#62; possord:= 3 * 29 * List( cart, Product );;
+
+</pre>
+
+<div class="p"><!----></div>
+Only 3 &#183;29 and 3 &#183;29 &#183;59 satisfy Sylow's theorem,
+that is, &#124;<font size="+0">M</font>&#124; / &#124;N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;)&#124;  &#8801; 1  mod 29.
+Note that we have [N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;):C<sub><font size="+0">M</font></sub>(x)] = 28.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; good:= Filtered( possord,
+    &#62;                     x -&#62; ( head.Size / ( 28 * x ) ) mod 29 = 1 );
+    [ 87, 5133 ]
+    gap&#62; List( good, Factors );
+    [ [ 3, 29 ], [ 3, 29, 59 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Now we can exclude the possible centralizer order 3 &#183;29 &#183;59
+by the fact that the Sylow 59 subgroup would be normal
+and thus would be normalized and hence centralized by an element of
+order 3, a contradiction.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Filtered( DivisorsInt( 5133 ), x -&#62; x mod 59 = 1 );
+    [ 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we have established a rational class of elements of order 29,
+with centralizer of order 3 &#183;29.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, u, 3 * 29, pos );
+    #I  after order 29 element from 3.F3+.2: have 185 classes
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.10">
+4.10</a>&nbsp;&nbsp;Classes of elements of order divisible by 41</h3><a name="elements_41">
+</a>
+
+<div class="p"><!----></div>
+We assume that <font size="+0">M</font> contains a subgroup of the structure 3<sup>8</sup>.O<sub>8</sub><sup>&#8722;</sup>(3).
+The fact that an element x of order 41 in <font size="+0">M</font> is normalized
+by an element of order 4 can be read off from the factor group
+O<sub>8</sub><sup>&#8722;</sup>(3).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; t:= CharacterTable( "O8-(3)" );
+    CharacterTable( "O8-(3)" )
+    gap&#62; Length( Positions( OrdersClassRepresentatives( t ), 41 ) );
+    10
+
+</pre>
+
+<div class="p"><!----></div>
+By the above arguments, the only possible odd prime divisors of
+&#124;N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;)&#124;/41 are 5, 7, 59, 71,
+where 5 cannot divide the centralizer order.
+As in the case of p = 29, we apply Sylow's theorem,
+and get
+&#124;N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;)&#124;  &#8712; { 2<sup>3</sup> &#183;5 &#183;41, 2<sup>3</sup> &#183;7 &#183;41 &#183;71 }.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; possord:= 2^2 * 41 * DivisorsInt( 2 * 5 * 7^6 * 59 * 71 );;
+    gap&#62; good:= Filtered( possord,
+    &#62;                     x -&#62; ( head.Size / x ) mod 41 = 1 );
+    [ 1640, 163016 ]
+    gap&#62; List( good, Factors );
+    [ [ 2, 2, 2, 5, 41 ], [ 2, 2, 2, 7, 41, 71 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Suppose that 71 divides &#124;N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;)&#124;.
+Then the 71 Sylow subgroup of N<sub><font size="+0">M</font></sub>(&#9001;x &#9002;) is normal
+thus normalized by an element of order 8,
+and thus centralized by an involution, a contradiction.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Filtered( DivisorsInt( good[2] ), x -&#62; x mod 71 = 1 );
+    [ 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we have established a rational class of self-centralizing elements
+of order 41.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, 41, 41, fail );
+    #I  after order 41 element: have 186 classes
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.11">
+4.11</a>&nbsp;&nbsp;Classes of elements of order divisible by 59</h3><a name="elements_59">
+</a>
+
+<div class="p"><!----></div>
+By the above arguments,
+the normalizer order of an element of order 59 divides
+58 &#183;7<sup>6</sup> &#183;59 &#183;71.
+Sylow's theorem admits just the normalizer order 59 &#183;29.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; possord:= 59 * DivisorsInt( 58*7^6*71 );;
+    gap&#62; good:= Filtered( possord,
+    &#62;                     x -&#62; ( head.Size / x ) mod 59 = 1 );
+    [ 1711 ]
+    gap&#62; List( good, Factors );
+    [ [ 29, 59 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we have established a pair of Galois conjugate classes of
+self-centralizing elements of order 59.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, 59, 59, fail );
+    #I  after order 59 element: have 187 classes
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, 59, 59, fail );
+    #I  after order 59 element: have 188 classes
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.12">
+4.12</a>&nbsp;&nbsp;Classes of elements of order divisible by 71</h3><a name="elements_71">
+</a>
+
+<div class="p"><!----></div>
+By the above arguments, 
+the normalizer order of an element of order 71 divides
+70 &#183;7<sup>5</sup> &#183;71.
+Sylow's theorem admits just the normalizer order 71 &#183;35.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; possord:= 71 * DivisorsInt( 70*7^5 );;
+    gap&#62; good:= Filtered( possord,
+    &#62;                     x -&#62; ( head.Size / x ) mod 71 = 1 );
+    [ 2485 ]
+    gap&#62; List( good, Factors );
+    [ [ 5, 7, 71 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we have established a pair of Galois conjugate classes of
+self-centralizing elements of order 71.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, 71, 71, fail );
+    #I  after order 71 element: have 189 classes
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, 71, 71, fail );
+    #I  after order 71 element: have 190 classes
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc4.13">
+4.13</a>&nbsp;&nbsp;Classes of elements of order divisible by 7</h3><a name="elements_7">
+</a>
+
+<div class="p"><!----></div>
+The subgroup 2.<font size="+0">B</font> yields a rational class <tt>7A</tt>
+with centralizer order 7 &#183;&#124;<span class="roman">He</span>&#124;.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; s:= CharacterTable( "2.B" );;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), 7 );
+    [ 41 ]
+    gap&#62; ExtendTableHeadByPermCharValue( head, s, pi, pos );
+    #I  after order 7 element from 2.B: have 191 classes
+    gap&#62; Last( head.SizesCentralizers ) = 7 * Size( CharacterTable( "He" ) );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+By additional arguments, we find that the <tt>7A</tt> centralizer has the
+structure 7 &times;<span class="roman">He</span>,
+and the normalizer has the structure (7:3 &times;<span class="roman">He</span>).2,
+a subdirect product of 7:6 and <span class="roman">He</span>.2.
+
+<div class="p"><!----></div>
+Since <span class="roman">He</span> has a pair of Galois conjugate classes of element order 17,
+we get also a pair of Galois conjugate classes of element order
+7 &#183;17 = 119.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, 119, 119, fail );
+    #I  after order 119 element: have 192 classes
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, 119, 119, fail );
+    #I  after order 119 element: have 193 classes
+
+</pre>
+
+<div class="p"><!----></div>
+The second class of elements of order 7, <tt>7B</tt>,
+is established by the fact that the subgroup 3.<span class="roman">Fi</span><sub>24</sub> contains
+two classes of elements of order 7, with different values of the
+degreee 196&nbsp;883 character &#967; of <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; u:= CharacterTable( "3.Fi24" );;
+    gap&#62; cand:= Filtered( Irr( u ), x -&#62; x[1] &lt;= 196883 );;
+    gap&#62; rest:= Sum( cand{ [ 1, 4, 5, 7, 8 ] } );;
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( u ), 7 );
+    [ 41, 43 ]
+    gap&#62; rest{ pos };
+    [ 50, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Note that class 43 fuses to <tt>7B</tt> because the restriction of &#967;
+to 2.<font size="+0">B</font> has the value 50 on <tt>7A</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ExtendTableHeadByCentralizerOrder( head, u, 7^5 * Factorial(7), [ 43 ] );
+    #I  after order 7 element from 3.F3+.2: have 194 classes
+
+</pre>
+
+<div class="p"><!----></div>
+Now the sum of class lengths in <tt>head</tt> is equal to the order of <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Sum( head.SizesCentralizers, x -&#62; head.Size / x ) = head.Size;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+We initialize the character table head of <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; m:= ConvertToCharacterTableNC( rec(
+    &#62;      UnderlyingCharacteristic:= 0,
+    &#62;      Size:= head.Size,
+    &#62;      SizesCentralizers:= head.SizesCentralizers,
+    &#62;      OrdersClassRepresentatives:= head.OrdersClassRepresentatives,
+    &#62;    ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc5">
+5</a>&nbsp;&nbsp;The power maps of <font size="+0">M</font></h2><a name="Mpowermaps">
+</a>
+
+<div class="p"><!----></div>
+Using the element orders of the class representatives of the table head
+of <font size="+0">M</font>, and the partial class fusions from the subgroups used in the
+previous sections, we compute approximations of the p-th power maps,
+for primes p up to the maximal element order in <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+Note that we have not yet determined which of the two possible character
+tables of the <tt>3B</tt> normalizer belongs to a subgroup of <font size="+0">M</font>,
+thus we exclude the corresponding partial fusion.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; safe_fusions:= Filtered( head.fusions,
+    &#62;        r -&#62; not IsIdenticalObj( r.subtable, facts[1] ) );;
+    gap&#62; Length( safe_fusions );
+    6
+
+</pre>
+
+<div class="p"><!----></div>
+First we initialize the class fusions, compatible with the definitions of
+the classes as given by the partial fusions which we have stored.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; for r in safe_fusions do
+    &#62;      fus:= InitFusion( r.subtable, m );
+    &#62;      for i in [ 1 .. Length( r.map ) ] do
+    &#62;        if IsBound( r.map[i] ) then
+    &#62;          if IsInt( fus[i] ) then
+    &#62;            if fus[i] &lt;&#62; r.map[i] then
+    &#62;              Error( "fusion problem" );
+    &#62;            fi;
+    &#62;          elif IsInt( r.map[i] ) then
+    &#62;            if not r.map[i] in fus[i] then
+    &#62;              Error( "fusion problem" );
+    &#62;            fi;
+    &#62;          else
+    &#62;            if not IsSubset( fus[i], r.map[i] ) then
+    &#62;              Error( "fusion problem" );
+    &#62;            fi;
+    &#62;          fi;
+    &#62;          fus[i]:= r.map[i];
+    &#62;        fi;
+    &#62;      od;
+    &#62;      r.fus:= fus;
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we initialize approximations of the power maps of the table of <font size="+0">M</font>,
+and improve them using the compatibility of these maps with the power maps
+of the subgroups w.&nbsp;r.&nbsp;t.&nbsp;the current knowledge of the class fusions.
+Note that also the knowledge about the class fusions increases this way.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; maxorder:= Maximum( head.OrdersClassRepresentatives );
+    119
+    gap&#62; powermaps:= [];;
+    gap&#62; primes:= Filtered( [ 1 .. maxorder ], IsPrimeInt );;
+    gap&#62; for p in primes do
+    &#62;      powermaps[p]:= InitPowerMap( m, p );
+    &#62;      for r in safe_fusions do
+    &#62;        subpowermap:= PowerMap( r.subtable, p );
+    &#62;        if TransferDiagram( subpowermap, r.fus, powermaps[p] ) = fail then
+    &#62;          Error( "inconsistency" );
+    &#62;        fi;
+    &#62;      od;
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+We repeat applying the compatibility conditions until no further
+improvements are found.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; found:= true;;
+    gap&#62; res:= "dummy";;  # avoid a syntax warning
+    gap&#62; while found do
+    &#62;      Print( "#I  start a round\n" );
+    &#62;      found:= false;
+    &#62;      for p in primes do
+    &#62;        for r in safe_fusions do
+    &#62;          subpowermap:= PowerMap( r.subtable, p );
+    &#62;          res:= TransferDiagram( subpowermap, r.fus, powermaps[p] );
+    &#62;          if res = fail then
+    &#62;            Error( "inconsistency" );
+    &#62;          elif ForAny( RecNames( res ), nam -&#62; res.( nam ) &lt;&#62; [] ) then
+    &#62;            found:= true;
+    &#62;          fi;
+    &#62;        od;
+    &#62;      od;
+    &#62;    od;
+    #I  start a round
+    #I  start a round
+    #I  start a round
+    #I  start a round
+
+</pre>
+
+<div class="p"><!----></div>
+Let us see where the power maps are still not determined uniquely,
+starting with the 5-th power map.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; pos:= PositionsProperty( powermaps[5], IsList );
+    [ 157, 158, 163, 164, 187, 188, 189, 190, 192, 193 ]
+    gap&#62; head.OrdersClassRepresentatives{ pos };
+    [ 15, 15, 39, 39, 59, 59, 71, 71, 119, 119 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The ambiguities for the classes of the element orders 59, 71, and 119
+are understandable:
+For each of these element orders, there is a pair of Galois conjugate
+classes, and the subgroups whose class fusions we have used do not contain
+these elements.
+
+<div class="p"><!----></div>
+For each of the primes l  &#8712; { 59, 71 },
+the field of l-th roots of unity contains a unique quadratic subfield,
+which is <font size="+0">Q</font>(&#8730;{&#8722;l}),
+and the p-th power map, for p coprime to l,
+fixes a class of element order l if and only if
+the Galois automorphism that raises l-th roots of unity to the p-th power
+fixes &#8730;{&#8722;l}.
+
+<div class="p"><!----></div>
+In the case of element order l = 119 = 7 &#183;17,
+the field of l-th roots of unity contains the three quadratic subfields,
+<font size="+0">Q</font>(&#8730;{&#8722;7}), <font size="+0">Q</font>(&#8730;{17}), and <font size="+0">Q</font>(&#8730;{&#8722;119}).
+In order to decide which of them actually occurs,
+we look at a subgroup that contains elements of order 119.
+The <tt>7A</tt> centralizer in <font size="+0">M</font> has the structure 7 &times;<span class="roman">He</span>,
+and the normalizer has the structure (7:3 &times;<span class="roman">He</span>).2,
+a subdirect product of 7:6 and <span class="roman">He</span>.2,
+see Section&nbsp;<a href="#elements_7">4.13</a>.
+
+<div class="p"><!----></div>
+The classes of element order 119 in the normalizer correspond to
+the classes of this element order in <font size="+0">M</font>,
+and the character values in the subgroup lie in the field <font size="+0">Q</font>(&#8730;{&#8722;119}).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; u:= CharacterTable( "(7:3xHe):2" );;
+    gap&#62; ConstructionInfoCharacterTable( u );
+    [ "ConstructIndexTwoSubdirectProduct", "7:3", "7:6", "He", "He.2", 
+      [ 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 
+          130, 131, 132, 133, 134, 135, 207, 208, 209, 210, 211, 212, 
+          213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 
+          225, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 
+          308, 309, 310, 311, 312, 313, 314, 315 ], (), () ]
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( u ), 119 );
+    [ 52, 53 ]
+    gap&#62; f:= Field( Rationals, List( Irr( u ), x -&#62; x[pos[1]] ) );;
+    gap&#62; Sqrt(-119) in f;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+We insert the relevant power map values.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; for l in [ 59, 71, 119 ] do
+    &#62;      val:= Sqrt( -l );
+    &#62;      poss:= Positions( head.OrdersClassRepresentatives, l );
+    &#62;      for p in primes do
+    &#62;        if Gcd( l, p ) = 1 then
+    &#62;          if GaloisCyc( val, p ) = val then
+    &#62;            powermaps[p]{ poss }:= poss;
+    &#62;          else
+    &#62;            powermaps[p]{ poss }:= Reversed( poss );
+    &#62;          fi;
+    &#62;        fi;
+    &#62;      od;
+    &#62;    od;
+
+</pre>
+
+<div class="p"><!----></div>
+Now p-th power maps, for p  &#8805; 17,
+are determined uniquely except for the images of two classes
+of element order 39.
+These classes had been found as roots of <tt>3B</tt> elements.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; PositionsProperty( powermaps[17], IsList );
+    [ 163, 164 ]
+    gap&#62; head.OrdersClassRepresentatives{ [ 163, 164 ] };
+    [ 39, 39 ]
+    gap&#62; List( Filtered( head.fusions,
+    &#62;                    r -&#62; IsSubset( r.map, [ 163, 164 ] ) ),
+    &#62;          r -&#62; r.subtable );
+    [ CharacterTable( "3^(1+12):6.Suz.2/[ 1, 19 ]" ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+In order to decide whether the p-th power map fixes or swaps
+the two classes, we consider elements of order 78,
+which are the square roots of the order 39 elements.
+There are three classes of element order 78 in <font size="+0">M</font>,
+a rational class that powers to <tt>2A</tt>
+and a pair of Galois conjugate classes that power to <tt>2B</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; 78pos:= Positions( head.OrdersClassRepresentatives, 78 );
+    [ 37, 132, 133 ]
+    gap&#62; head.fusions[1].subtable;
+    CharacterTable( "2.B" )
+    gap&#62; Intersection( 78pos, head.fusions[1].map );
+    [ 37 ]
+    gap&#62; s:= head.fusions[2].subtable;
+    CharacterTable( "2^1+24.Co1" )
+    gap&#62; Intersection( 78pos, head.fusions[2].map );
+    [ 132, 133 ]
+    gap&#62; Positions( head.fusions[2].map, 132 );
+    [ 342 ]
+    gap&#62; Positions( head.fusions[2].map, 133 );
+    [ 344 ]
+    gap&#62; PowerMap( s, 7 )[342];
+    344
+
+</pre>
+
+<div class="p"><!----></div>
+Since the <tt>3B</tt> normalizer in <font size="+0">M</font> contains a pair of Galois conjugate
+classes of element order 78 which power to the generators of the normal
+subgroup of order 3,
+these two classes fuse to the non-rational <font size="+0">M</font>-classes of elements
+of order 78,
+and their squares are the classes of element order 39 we are interested in.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; poss:= Filtered( head.fusions, r -&#62; IsSubset( r.map, [ 163, 164 ] ) );;
+    gap&#62; List( poss, r -&#62; r.subtable );
+    [ CharacterTable( "3^(1+12):6.Suz.2/[ 1, 19 ]" ) ]
+    gap&#62; Position( poss[1].map, 163 );
+    173
+    gap&#62; Position( poss[1].map, 164 );
+    174
+    gap&#62; List( facts, s -&#62; Positions( OrdersClassRepresentatives( s ), 39 ) );
+    [ [ 173, 174 ], [ 173, 174 ] ]
+    gap&#62; List( facts, s -&#62; PowerMap( s, 7 )[173] );
+    [ 174, 174 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The field of character values on the two classes of <font size="+0">M</font> is equal
+to the corresponding field of character values in the <tt>3B</tt> normalizer,
+which is <font size="+0">Q</font>(&#8730;{&#8722;39}).
+(Note that we have not yet decided which of the two candidate tables belong
+to the <tt>3B</tt> normalizer,
+but we get the same result for both candidates.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fields:= List( facts,
+    &#62;                   s -&#62; Field( Rationals, List( Irr( s ),
+    &#62;                                                x -&#62; x[173] ) ) );;
+    gap&#62; Length( Set( fields ) );
+    1
+    gap&#62; Sqrt(-39) in fields[1];
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Now we can set the power map values on the two classes.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; val:= Sqrt( -39 );;
+    gap&#62; poss:= [ 163, 164 ];;
+    gap&#62; for p in primes do
+    &#62;      if Gcd( 39, p ) = 1 then
+    &#62;        if GaloisCyc( val, p ) = val then
+    &#62;          powermaps[p]{ poss }:= poss;
+    &#62;        else
+    &#62;          powermaps[p]{ poss }:= Reversed( poss );
+    &#62;        fi;
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; List( powermaps, Indeterminateness );
+    [ , 2048, 1536,, 4,, 2,,,, 2,, 9,,,, 1,, 1,,,, 1,,,,,, 1,, 1,,,,,, 1,,
+      ,, 1,, 1,,,, 1,,,,,, 1,,,,,, 1,, 1,,,,,, 1,,,, 1,, 1,,,,,, 1,,,, 1,,
+      ,,,, 1,,,,,,,, 1,,,, 1,, 1,,,, 1,, 1,,,, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+In the following,
+we use the two candidates for the <tt>3B</tt> normalizer table
+for answering most of the remaining questions about the power maps.
+Again, the answers are equal for both candidate tables.
+
+<div class="p"><!----></div>
+First we initialize the class fusion from the first candidate table ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= First( head.fusions, r -&#62; IsIdenticalObj( r.subtable, facts[1] ) );;
+    gap&#62; fus:= InitFusion( r.subtable, m );;
+    gap&#62; for i in [ 1 .. Length( r.map ) ] do
+    &#62;      if IsBound( r.map[i] ) then
+    &#62;        if IsInt( fus[i] ) then
+    &#62;          if fus[i] &lt;&#62; r.map[i] then
+    &#62;            Error( "fusion problem" );
+    &#62;          fi;
+    &#62;        elif IsInt( r.map[i] ) then
+    &#62;          if not r.map[i] in fus[i] then
+    &#62;            Error( "fusion problem" );
+    &#62;          fi;
+    &#62;        else
+    &#62;          if not IsSubset( fus[i], r.map[i] ) then
+    &#62;            Error( "fusion problem" );
+    &#62;          fi;
+    &#62;        fi;
+    &#62;        fus[i]:= r.map[i];
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; r.fus:= fus;;
+
+</pre>
+
+<div class="p"><!----></div>
+... and the class fusion from the second candidate table, ...
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r2:= First( head2.fusions, r -&#62; IsIdenticalObj( r.subtable, facts[2] ) );;
+    gap&#62; fus2:= InitFusion( r2.subtable, m );;
+    gap&#62; for i in [ 1 .. Length( r2.map ) ] do 
+    &#62;      if IsBound( r2.map[i] ) then
+    &#62;        if IsInt( fus2[i] ) then
+    &#62;          if fus2[i] &lt;&#62; r2.map[i] then
+    &#62;            Error( "fusion problem" );
+    &#62;          fi;
+    &#62;        elif IsInt( r2.map[i] ) then
+    &#62;          if not r2.map[i] in fus2[i] then
+    &#62;            Error( "fusion problem" );
+    &#62;          fi;
+    &#62;        else
+    &#62;          if not IsSubset( fus2[i], r2.map[i] ) then
+    &#62;            Error( "fusion problem" );
+    &#62;          fi;
+    &#62;        fi;
+    &#62;        fus2[i]:= r2.map[i];
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; r2.fus:= fus2;;
+
+</pre>
+
+<div class="p"><!----></div>
+... then we create an independent copy of the current approximations
+of power maps, and apply the consistency conditions for class fusion and
+power maps in the two cases.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powermaps2:= StructuralCopy( powermaps );;
+    gap&#62; s:= r.subtable;
+    CharacterTable( "3^(1+12):6.Suz.2/[ 1, 19 ]" )
+    gap&#62; for p in primes do
+    &#62;      if TransferDiagram( PowerMap( s, p ), fus, powermaps[p] ) = fail then
+    &#62;        Error( "inconsistency" );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; s2:= r2.subtable;
+    CharacterTable( "3^(1+12):6.Suz.2/[ 1, 20 ]" )
+    gap&#62; for p in primes do
+    &#62;      if TransferDiagram( PowerMap( s2, p ), fus2, powermaps2[p] ) = fail then
+    &#62;        Error( "inconsistency" );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; powermaps = powermaps2;
+    true
+    gap&#62; List( powermaps, Indeterminateness );
+    [ , 32, 64,, 1,, 1,,,, 1,, 1,,,, 1,, 1,,,, 1,,,,,, 1,, 1,,,,,, 1,,,, 
+      1,, 1,,,, 1,,,,,, 1,,,,,, 1,, 1,,,,,, 1,,,, 1,, 1,,,,,, 1,,,, 1,,,,,
+      , 1,,,,,,,, 1,,,, 1,, 1,,,, 1,, 1,,,, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+One open question is about the squares of the non-rational classes
+of element order 78.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powermaps[2]{ [ 132, 133 ] };
+    [ [ 163, 164 ], [ 163, 164 ] ]
+    gap&#62; pos78:= List( facts,
+    &#62;                  s -&#62; Positions( OrdersClassRepresentatives( s ), 78 ) );
+    [ [ 235, 236 ], [ 235, 236 ] ]
+    gap&#62; fus{ [ 235, 236 ] };
+    [ [ 132, 133 ], [ 132, 133 ] ]
+    gap&#62; fus2{ [ 235, 236 ] };
+    [ [ 132, 133 ], [ 132, 133 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+We may identify one class of element order 78 in the <tt>3B</tt> normalizer
+with the corresponding class of <font size="+0">M</font>, and then draw conclusions.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; fus[235]:= 132;;
+    gap&#62; fus2[235]:= 132;;
+    gap&#62; TransferDiagram( PowerMap( s, 2 ), fus, powermaps[2] ) &lt;&#62; fail;
+    true
+    gap&#62; TransferDiagram( PowerMap( s2, 2 ), fus2, powermaps2[2] ) &lt;&#62; fail;
+    true
+    gap&#62; powermaps = powermaps2;
+    true
+    gap&#62; List( powermaps{ [ 2, 3 ] }, Indeterminateness );
+    [ 8, 64 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Since also the cubes of the concerned classes of element order 39
+are still not determined, this question is now decided using that the
+2nd and the 3rd power map commute.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powermaps[3]{ [ 163, 164 ] };
+    [ [ 183, 184 ], [ 183, 184 ] ]
+    gap&#62; TransferDiagram( powermaps[2], powermaps[3], powermaps[2] ) &lt;&#62; fail;
+    true
+    gap&#62; List( powermaps{ [ 2, 3 ] }, Indeterminateness );
+    [ 8, 16 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The next open question is about the cubes of elements of order 93.
+The classes of element order 93 -a pair of Galois conjugate classes-
+have been found inside subgroups
+of the type S<sub>3</sub> &times;<span class="roman">Th</span>, and they do not occur in other subgroups
+we have considered.
+Thus we may choose which of them cubes to the first class of element order
+31.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; poss:= Filtered( head.fusions,
+    &#62;                     r -&#62; 93 in OrdersClassRepresentatives( r.subtable ) );;
+    gap&#62; List( poss, r -&#62; r.subtable );
+    [ CharacterTable( "ThxSym(3)" ) ]
+    gap&#62; pos93:= Positions( head.OrdersClassRepresentatives, 93 );
+    [ 152, 153 ]
+    gap&#62; powermaps[3]{ pos93 };
+    [ [ 179, 180 ], [ 179, 180 ] ]
+    gap&#62; powermaps[3][152]:= 179;;
+    gap&#62; TransferDiagram( PowerMap( poss[1].subtable, 3 ), poss[1].fus,
+    &#62;                     powermaps[3] ) &lt;&#62; fail;
+    true
+    gap&#62; List( powermaps{ [ 2, 3 ] }, Indeterminateness );
+    [ 8, 4 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The next open question is about the cubes of elements of order 69.
+The classes of element order 69 -a pair of Galois conjugate classes-
+have been found inside subgroups
+of the type 3.<span class="roman">Fi</span><sub>24</sub>, and they do not occur in other subgroups
+we have considered.
+Thus we may choose which of them cubes to the first class of element order
+23.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; poss:= Filtered( head.fusions, 
+    &#62;                     r -&#62; 69 in OrdersClassRepresentatives( r.subtable ) );;
+    gap&#62; List( poss, r -&#62; r.subtable );
+    [ CharacterTable( "3.F3+.2" ) ]
+    gap&#62; pos69:= Positions( head.OrdersClassRepresentatives, 69 );
+    [ 142, 143 ]
+    gap&#62; powermaps[3]{ pos69 };
+    [ [ 177, 178 ], [ 177, 178 ] ]
+    gap&#62; powermaps[3]{ [ 142, 143 ] }:= [ 177, 178 ];;
+    gap&#62; TransferDiagram( PowerMap( poss[1].subtable, 3 ), poss[1].fus,
+    &#62;                     powermaps[3] ) &lt;&#62; fail;
+    true
+    gap&#62; List( powermaps{ [ 2, 3 ] }, Indeterminateness );
+    [ 8, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The next open question is about the squares of certain elements of order 46.
+There are two pairs of Galois conjugate classes of element order 46,
+and the 2nd power map is not yet determined for those classes which power
+to the class <tt>2B</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; pos46:= Positions( head.OrdersClassRepresentatives, 46 );
+    [ 26, 27, 118, 120 ]
+    gap&#62; powermaps[2]{ pos46 };
+    [ 177, 178, [ 177, 178 ], [ 177, 178 ] ]
+    gap&#62; powermaps[23]{ pos46 };
+    [ 2, 2, 44, 44 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We have defined the two classes of element order 23 as squares of those
+two classes of element order 46 that power to <tt>2A</tt>,
+and we have not yet distinguished the other two classes of element order 46.
+Thus we may set the power map values.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powermaps[2]{ [ 118, 120 ] }:= [ 177, 178 ];;
+    gap&#62; Indeterminateness ( powermaps[2] );
+    2
+
+</pre>
+
+<div class="p"><!----></div>
+Now just one value is left to be determined,
+the square of a class of element order 18 and centralizer order 3888.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powermaps[2][78];
+    [ 155, 156 ]
+    gap&#62; head.OrdersClassRepresentatives[78];
+    18
+    gap&#62; head.SizesCentralizers[78];
+    3888
+
+</pre>
+
+<div class="p"><!----></div>
+There are two classes with this property in <font size="+0">M</font>,
+both are roots of the generators of the normal subgroup of order 3 in
+3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2, and the corresponding two classes in this subgroup
+have the same square.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Filtered( [ 1 .. Length( head.OrdersClassRepresentatives ) ],
+    &#62;              i -&#62; head.OrdersClassRepresentatives[i] = 18 and
+    &#62;                   head.SizesCentralizers[i] = 3888 );
+    [ 78, 79 ]
+    gap&#62; powermaps[3]{ [ 78, 79 ] };
+    [ 52, 52 ]
+    gap&#62; powermaps[2][52];
+    154
+    gap&#62; First( head.fusions, r -&#62; 154 in r.map ).subtable;
+    CharacterTable( "3^(1+12):6.Suz.2/[ 1, 19 ]" )
+    gap&#62; s:= facts[1];
+    CharacterTable( "3^(1+12):6.Suz.2/[ 1, 19 ]" )
+    gap&#62; pos18:= Filtered( [ 1 .. NrConjugacyClasses( s ) ],
+    &#62;                i -&#62; OrdersClassRepresentatives( s )[i] = 18 and
+    &#62;                     SizesCentralizers( s )[i] = 3888 );
+    [ 67, 83 ]
+    gap&#62; PowerMap( s, 2 ){ pos18 };
+    [ 24, 24 ]
+    gap&#62; s:= facts[2];
+    CharacterTable( "3^(1+12):6.Suz.2/[ 1, 20 ]" )
+    gap&#62; pos18:= Filtered( [ 1 .. NrConjugacyClasses( s ) ],
+    &#62;                i -&#62; OrdersClassRepresentatives( s )[i] = 18 and
+    &#62;                     SizesCentralizers( s )[i] = 3888 );
+    [ 67, 83 ]
+    gap&#62; PowerMap( s, 2 ){ pos18 };
+    [ 24, 24 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We set the last missing value,
+and improve the approximations of the class fusions we have used,
+by applying the consistency criteria.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; powermaps[2][78]:= powermaps[2][79];;
+    gap&#62; for r in safe_fusions do
+    &#62;      if not TestConsistencyMaps( ComputedPowerMaps( r.subtable ), r.fus,
+    &#62;                                  powermaps ) then
+    &#62;        Error( "inconsistent!" );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; r:= First( head.fusions, r -&#62; IsIdenticalObj( r.subtable, facts[1] ) );;
+    gap&#62; TestConsistencyMaps( ComputedPowerMaps( r.subtable ), r.fus,
+    &#62;                         powermaps );
+    true
+    gap&#62; r2:= First( head2.fusions, r -&#62; IsIdenticalObj( r.subtable, facts[2] ) );;
+    gap&#62; TestConsistencyMaps( ComputedPowerMaps( r2.subtable ), r2.fus,
+    &#62;                         powermaps );
+    true
+    gap&#62; SetComputedPowerMaps( m, powermaps );
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc6">
+6</a>&nbsp;&nbsp;The degree 196&nbsp;883 character &#967; of <font size="+0">M</font></h2><a name="sect:natcharM">
+</a>
+
+<div class="p"><!----></div>
+We know the values of the irreducible degree 196&nbsp;883 character &#967;
+of <font size="+0">M</font> on the classes of 2.<font size="+0">B</font>, by Section&nbsp;<a href="#natural">2</a>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= head.fusions[1];;
+    gap&#62; s:= r.subtable;
+    CharacterTable( "2.B" )
+    gap&#62; cand:= Filtered( Irr( s ), x -&#62; x[1] &lt;= 196883 );;
+    gap&#62; List( cand, x -&#62; x[1] );
+    [ 1, 4371, 96255, 96256 ]
+    gap&#62; rest:= Sum( cand );;
+    gap&#62; rest[1];
+    196883
+
+</pre>
+
+<div class="p"><!----></div>
+Thus we know the values of &#967; on those classes of <font size="+0">M</font>
+that are known as images of the class fusion from 2.<font size="+0">B</font>.
+This yields 111 out of the 194 character values.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; chi:= [];;
+    gap&#62; map:= r.fus;;
+    gap&#62; for i in [ 1 .. Length( map ) ] do
+    &#62;      if IsInt( map[i] ) then
+    &#62;        chi[ map[i] ]:= rest[i];
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; Number( chi );
+    111
+
+</pre>
+
+<div class="p"><!----></div>
+Also the restriction of &#967; to 3.<span class="roman">Fi</span><sub>24</sub> is known,
+by Section&nbsp;<a href="#natural">2</a>.
+This yields 29 more character values.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= head.fusions[3];;
+    gap&#62; s:= r.subtable;
+    CharacterTable( "3.F3+.2" )
+    gap&#62; cand:= Filtered( Irr( s ), x -&#62; x[1] &lt;= 196883 );;
+    gap&#62; rest:= Sum( cand{ [ 1, 4, 5, 7, 8 ] } );;
+    gap&#62; rest[1];
+    196883
+    gap&#62; map:= r.fus;;
+    gap&#62; for i in [ 1 .. Length( map ) ] do
+    &#62;      if IsInt( map[i] ) then
+    &#62;        if IsBound( chi[ map[i] ] ) and chi[ map[i] ] &lt;&#62; rest[i] then
+    &#62;          Error( "inconsistency!" );
+    &#62;        fi;
+    &#62;        chi[ map[i] ]:= rest[i];
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; Number( chi );
+    140
+
+</pre>
+
+<div class="p"><!----></div>
+Now we compute the restriction of &#967; to the <tt>2B</tt> normalizer.
+There are only 13 possible irreducible constituents of this restriction.
+We consider the matrix of values of these characters on those classes
+for which the class fusion to <font size="+0">M</font> is uniquely known <em>and</em>
+the value of &#967; on the image class is known.
+This matrix has full rank, thus we can directly compute the decomposition
+of the restriction into irreducibles,
+and get 41 more character values.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= head.fusions[2];;
+    gap&#62; s:= r.subtable;
+    CharacterTable( "2^1+24.Co1" )
+    gap&#62; cand:= Filtered( Irr( s ), x -&#62; x[1] &lt;= chi[1] );;
+    gap&#62; map:= r.fus;;
+    gap&#62; knownpos:= Filtered( [ 1 .. Length( map ) ],
+    &#62;                      i -&#62; IsInt( map[i] ) and IsBound( chi[ map[i] ] ) );;
+    gap&#62; rest:= List( knownpos, i -&#62; chi[ map[i] ] );;
+    gap&#62; mat:= List( cand, x -&#62; x{ knownpos } );;
+    gap&#62; Length( mat );
+    13
+    gap&#62; RankMat( mat );
+    13
+    gap&#62; sol:= SolutionMat( mat, rest );
+    [ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 ]
+    gap&#62; rest:= sol * cand;;
+    gap&#62; for i in [ 1 .. Length( map ) ] do
+    &#62;      if IsInt( map[i] ) then chi[ map[i] ]:= rest[i]; fi;
+    &#62;    od;
+    gap&#62; Number( chi );
+    181
+
+</pre>
+
+<div class="p"><!----></div>
+Which values are still missing?
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; missing:= Filtered( [ 1..194 ], i -&#62; not IsBound( chi[i] ) );
+    [ 151, 152, 153, 160, 169, 170, 186, 187, 188, 189, 190, 192, 193 ]
+    gap&#62; head.OrdersClassRepresentatives{ missing };
+    [ 57, 93, 93, 27, 95, 95, 41, 59, 59, 71, 71, 119, 119 ]
+    gap&#62; head.SizesCentralizers{ missing };
+    [ 57, 93, 93, 243, 95, 95, 41, 59, 59, 71, 71, 119, 119 ]
+
+</pre>
+
+<div class="p"><!----></div>
+For g  &#8712; <font size="+0">M</font>, we have &#967;(g)  &#8801; &#967;(g<sup>p</sup>)  mod p
+and &#124;&#967;(g)&#124;<sup>2</sup>  &lt;  &#124;C<sub><font size="+0">M</font></sub>(g)&#124;.
+We apply these conditions.
+In all cases except one, the centralizer orders are small enough
+for determining the character value uniquely.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; for i in missing do
+    &#62;      ord:= head.OrdersClassRepresentatives[i];
+    &#62;      divs:= PrimeDivisors( ord );
+    &#62;      if ForAll( divs, p -&#62; IsBound( chi[ powermaps[p][i] ] ) ) then
+    &#62;        congr:= List( divs, p -&#62; chi[ powermaps[p][i] ] mod p );
+    &#62;        res:= ChineseRem( divs, congr );
+    &#62;        modulus:= Lcm( divs );
+    &#62;        c:= head.SizesCentralizers[i];
+    &#62;        Print( "#I  |g| = ", head.OrdersClassRepresentatives[i],
+    &#62;               ", |C_M(g)| = ", c,
+    &#62;               ": value ", res, " modulo ", modulus, "\n" );
+    &#62;        if ( res + 2 * modulus )^2 &#62;= c and ( res - 2 * modulus )^2 &#62;= c then
+    &#62;          cand:= Filtered( res + [ -1 .. 1 ] * modulus, a -&#62; a^2 &lt; c );
+    &#62;          if Length( cand ) = 1 then
+    &#62;            chi[i]:= cand[1];
+    &#62;          fi;
+    &#62;        fi;
+    &#62;      fi;
+    &#62;    od;
+    #I  |g| = 57, |C_M(g)| = 57: value 56 modulo 57
+    #I  |g| = 93, |C_M(g)| = 93: value 92 modulo 93
+    #I  |g| = 93, |C_M(g)| = 93: value 92 modulo 93
+    #I  |g| = 27, |C_M(g)| = 243: value 2 modulo 3
+    #I  |g| = 95, |C_M(g)| = 95: value 0 modulo 95
+    #I  |g| = 95, |C_M(g)| = 95: value 0 modulo 95
+    #I  |g| = 41, |C_M(g)| = 41: value 1 modulo 41
+    #I  |g| = 59, |C_M(g)| = 59: value 0 modulo 59
+    #I  |g| = 59, |C_M(g)| = 59: value 0 modulo 59
+    #I  |g| = 71, |C_M(g)| = 71: value 0 modulo 71
+    #I  |g| = 71, |C_M(g)| = 71: value 0 modulo 71
+    #I  |g| = 119, |C_M(g)| = 119: value 118 modulo 119
+    #I  |g| = 119, |C_M(g)| = 119: value 118 modulo 119
+    gap&#62; missing:= Filtered( [ 1..194 ], i -&#62; not IsBound( chi[i] ) );
+    [ 160 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The one missing value can be computed from the scalar product
+with the trivial character.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; diff:= Difference( [ 1 .. NrConjugacyClasses( m ) ], missing );;
+    gap&#62; classes:= SizesConjugacyClasses( m );;
+    gap&#62; sum:= Sum( diff, i -&#62; classes[i] * chi[i] );
+    -6650349175263480459970863415322722279882752000000000
+    gap&#62; chi[ missing[1] ]:= - sum / classes[ missing[1] ];
+    2
+
+</pre>
+
+<div class="p"><!----></div>
+Now we decide which of the two candidates for the character table of
+the <tt>3B</tt> normalizer is the correct one.
+For the first candidate, the restriction of &#967;
+cannot be decomposed into irreducibles.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= First( head.fusions, r -&#62; IsIdenticalObj( r.subtable, facts[1] ) );;
+    gap&#62; map:= r.fus;;
+    gap&#62; knownpos:= Filtered( [ 1 .. Length( map ) ], i -&#62; IsInt( map[i] ) );;
+    gap&#62; rest:= List( knownpos, i -&#62; chi[ map[i] ] );;
+    gap&#62; cand:= Filtered( Irr( r.subtable ), x -&#62; x[1] &lt;= chi[1] );;
+    gap&#62; mat:= List( cand, x -&#62; x{ knownpos } );;
+    gap&#62; Length( mat );
+    95
+    gap&#62; RankMat( mat );
+    88
+    gap&#62; SolutionMat( mat, rest );
+    fail
+
+</pre>
+
+<div class="p"><!----></div>
+The second candidate admits a decomposition.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r2:= First( head2.fusions, r -&#62; IsIdenticalObj( r.subtable, facts[2] ) );;
+    gap&#62; map:= r2.fus;;
+    gap&#62; knownpos:= Filtered( [ 1 .. Length( map ) ], i -&#62; IsInt( map[i] ) );;
+    gap&#62; rest:= List( knownpos, i -&#62; chi[ map[i] ] );;
+    gap&#62; cand:= Filtered( Irr( r2.subtable ), x -&#62; x[1] &lt;= chi[1] );;
+    gap&#62; mat:= List( cand, x -&#62; x{ knownpos } );;
+    gap&#62; Length( mat );
+    95
+    gap&#62; RankMat( mat );
+    88
+    gap&#62; SolutionMat( mat, rest );
+    [ 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 1, 1, 1, 0 ]
+    gap&#62; Add( safe_fusions, r2 );
+
+</pre>
+
+<div class="p"><!----></div>
+The character table of the second candidate is equivalent to
+the character table that is stored in the <font face="helvetica">GAP</font> character table library.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; TransformingPermutationsCharacterTables( r2.subtable,
+    &#62;        CharacterTable( "MN3B" ) ) &lt;&#62; fail;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc7">
+7</a>&nbsp;&nbsp;The irreducible characters of <font size="+0">M</font></h2><a name="sect:irreduciblesM">
+</a>
+
+<div class="p"><!----></div>
+We will not compute the irreducibles of <font size="+0">M</font> from scratch but verify the
+irreducibles from the  A<font size="-2">TLAS</font> character table of <font size="+0">M</font>,
+in the sense that we use the characters printed in the  A<font size="-2">TLAS</font> as an
+"oracle".
+For that,
+we compute first a bijection between the columns of our character table head
+and those of the  A<font size="-2">TLAS</font> character table of <font size="+0">M</font>.
+This is done by using the following invariants:
+element orders, centralizer orders,
+the values of &#967;, and the indirection of &#967; by the 2nd power map.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; invs:= TransposedMat( [
+    &#62;      OrdersClassRepresentatives( m ),
+    &#62;      SizesCentralizers( m ),
+    &#62;      chi,
+    &#62;      CompositionMaps( chi, PowerMap( m, 2 ) ) ] );;
+    gap&#62; invs_set:= Set( invs );;
+    gap&#62; Length( invs_set );
+    172
+    gap&#62; atlas_m:= CharacterTable( "M" );;
+    gap&#62; invs_atlas:= TransposedMat( [
+    &#62;      OrdersClassRepresentatives( atlas_m ),
+    &#62;      SizesCentralizers( atlas_m ),
+    &#62;      Irr( atlas_m )[2],
+    &#62;      CompositionMaps( Irr( atlas_m )[2], PowerMap( atlas_m, 2 ) ) ] );;
+    gap&#62; invs_atlas_set:= Set( invs_atlas );;
+    gap&#62; invs_atlas_set = invs_set;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+In particular, we see that the sets of invariants are equal for the two
+tables.
+
+<div class="p"><!----></div>
+Note that we cannot get a better choice of invariants,
+since there are 22 pairs of Galois conjugate classes in <font size="+0">M</font>,
+and our current knowledge does not allow us to distinguish
+the classes of each pair.
+
+<div class="p"><!----></div>
+Now we compute a permutation that maps the classes of the  A<font size="-2">TLAS</font> table
+to suitable classes of our table head,
+permute the irreducibles of the  A<font size="-2">TLAS</font> table accordingly,
+and create the "oracle" list.
+
+<div class="p"><!----></div>
+(The explicit permutation (32,33)(179,180) makes sure that the power maps
+of the  A<font size="-2">TLAS</font> table and of our table are compatible.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; pi1:= SortingPerm( invs );;
+    gap&#62; pi2:= SortingPerm( invs_atlas );;
+    gap&#62; pi:= pi2 / pi1 * (32,33)(179,180);;
+    gap&#62; oracle:= List( Irr( atlas_m ), x -&#62; Permuted( x, pi ) );;
+
+</pre>
+
+<div class="p"><!----></div>
+In order to prohibit that <font face="helvetica">GAP</font> tries to compute table automorphisms
+of our table head of <font size="+0">M</font> (which is impossible without knowing the
+irreducible characters),
+we set a trivial group as value of the attribute
+<tt>AutomorphismsOfTable</tt>;
+this will be revised as soon as the irreducibles are known.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SetAutomorphismsOfTable( m, Group( () ) );
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+First we compute candidates for the class fusion from 2.<font size="+0">B</font>,
+starting from the approximation we have already computed.
+Before we apply <font face="helvetica">GAP</font>'s criteria for computing possible class fusions,
+we decide about the images of four classes of element orders 40 and 44.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= safe_fusions[1];;
+    gap&#62; s:= r.subtable;
+    CharacterTable( "2.B" )
+    gap&#62; pos:= [ 217, 218, 222, 223 ];;
+    gap&#62; r.fus{ pos };
+    [ [ 110, 111 ], [ 110, 111 ], [ 88, 89 ], [ 88, 89 ] ]
+    gap&#62; OrdersClassRepresentatives( s ){ pos };
+    [ 40, 40, 44, 44 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The two classes of element order 40 are a pair of Galois conjugates
+in both 2.<font size="+0">B</font> and <font size="+0">M</font>.
+Note that their elements are roots of <tt>2B</tt> elements in <font size="+0">M</font>,
+and the classes 110 and 111 correspond to non-rational elements
+of order 40 in the <tt>2B</tt> normalizer.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r.fus[ PowerMap( s, 20 )[217] ];
+    44
+    gap&#62; r2:= safe_fusions[2];;
+    gap&#62; s2:= r2.subtable;
+    CharacterTable( "2^1+24.Co1" )
+    gap&#62; Position( r2.map, 110 );
+    273
+    gap&#62; ForAll( Irr( s2 ), x -&#62; IsInt( x[273] ) );
+    false
+
+</pre>
+
+<div class="p"><!----></div>
+We may freely choose the fusion from the classes 217 and 218 of 2.<font size="+0">B</font>
+because there is a table automorphism of 2.<font size="+0">B</font> that swaps exactly these
+two classes.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; (217,218) in AutomorphismsOfTable( s );
+    true
+    gap&#62; r.fus{ [ 217, 218 ] }:= [ 110, 111 ];;
+
+</pre>
+
+<div class="p"><!----></div>
+With the same argument,
+also the two classes of element order 44 are a pair of Galois conjugates
+both in 2.<font size="+0">B</font> and <font size="+0">M</font>. 
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r.fus[ PowerMap( s, 22 )[ 222 ] ];
+    44
+    gap&#62; Position( r2.map, 88 );
+    178
+    gap&#62; ForAll( Irr( s2 ), x -&#62; IsInt( x[178] ) );
+    false
+
+</pre>
+
+<div class="p"><!----></div>
+There is a table automorphism of 2.<font size="+0">B</font> that swaps three pairs of classes,
+where the classes of element order 44 form one pair,
+and each of the other two pairs is fused in <font size="+0">M</font>.
+Thus we may again freely choose the fusion from 222 and 223.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; (143,144)(222,223)(244,245) in AutomorphismsOfTable( s );
+    true
+    gap&#62; r.fus{ [ 143, 144, 244, 245 ] };
+    [ 15, 15, 34, 34 ]
+    gap&#62; r.fus{ [ 222, 223 ] }:= [ 88, 89 ];;
+
+</pre>
+
+<div class="p"><!----></div>
+Now the remaining open questions about the class fusion from 2.<font size="+0">B</font>
+can be answered by <font face="helvetica">GAP</font>'s function <tt>PossibleClassFusions</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; knownirr:= [ TrivialCharacter( m ), chi ];;
+    gap&#62; poss:= PossibleClassFusions( s, m,
+    &#62;               rec( chars:= knownirr, fusionmap:= r.fus ) );;
+    gap&#62; List( poss, Indeterminateness );
+    [ 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+Now we can induce the irreducibles of 2.<font size="+0">B</font> to <font size="+0">M</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; induced:= InducedClassFunctionsByFusionMap( s, m, Irr( s ), poss[1] );;
+
+</pre>
+
+<div class="p"><!----></div>
+Next we compute candidates for the class fusions from the subgroups
+2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub>, 3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2, and 3.<span class="roman">Fi</span><sub>24</sub>.
+Here we enter also the characters of <font size="+0">M</font> obtained by induction from 2.<font size="+0">B</font>,
+because their restrictions to the subgroups provide additional conditions.
+
+<div class="p"><!----></div>
+The fusion from 2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub> is determined uniquely up to automorphisms
+of the subgroup table.
+We extend the list of known induced characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; poss:= PossibleClassFusions( s2, m,
+    &#62;               rec( chars:= Concatenation( knownirr, induced ),
+    &#62;                    fusionmap:= r2.fus ) );;
+    gap&#62; List( poss, Indeterminateness );
+    [ 1, 1, 1, 1 ]
+    gap&#62; Length( RepresentativesFusions( AutomorphismsOfTable( s2 ), poss,
+    &#62;                Group( () ) ) );
+    1
+    gap&#62; Append( induced,
+    &#62;        InducedClassFunctionsByFusionMap( s2, m, Irr( s2 ), poss[1] ) );
+
+</pre>
+
+<div class="p"><!----></div>
+In order to compute the fusion from 3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2,
+we have to consider two classes of element order 56 first.
+They are a pair of Galois conjugates both in 3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2 and <font size="+0">M</font>,
+and we may freely choose their fusion because there is a table automorphism
+of 3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2 that swaps exactly these two classes.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= safe_fusions[7];;
+    gap&#62; s:= r.subtable;
+    CharacterTable( "3^(1+12):6.Suz.2/[ 1, 20 ]" )
+    gap&#62; pos:= Positions( OrdersClassRepresentatives( s ), 56 );
+    [ 250, 251 ]
+    gap&#62; r.fus{ pos };
+    [ [ 125, 126 ], [ 125, 126 ] ]
+    gap&#62; r.fus[ PowerMap( s, 28 )[ 250 ] ];
+    44
+    gap&#62; Position( r2.map, 125 );
+    319
+    gap&#62; ForAll( Irr( s2 ), x -&#62; IsInt( x[319] ) );
+    false
+    gap&#62; (250, 251) in AutomorphismsOfTable( s );
+    true
+    gap&#62; r.fus{ [ 250, 251 ] }:= [ 125, 126 ];;
+
+</pre>
+
+<div class="p"><!----></div>
+Now the class fusion to <font size="+0">M</font> is determined uniquely up to table automorphisms
+of the subgroup,
+and we extend the list of induced characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; poss:= PossibleClassFusions( s, m,
+    &#62;               rec( chars:= Concatenation( knownirr, induced ),
+    &#62;                    fusionmap:= r.fus ) );;
+    gap&#62; List( poss, Indeterminateness );
+    [ 1, 1 ]
+    gap&#62; Length( RepresentativesFusions( AutomorphismsOfTable( s ), poss,
+    &#62;                Group( () ) ) );
+    1
+    gap&#62; Append( induced,
+    &#62;        InducedClassFunctionsByFusionMap( s, m, Irr( s ), poss[1] ) );
+
+</pre>
+
+<div class="p"><!----></div>
+The fusion from 3.<span class="roman">Fi</span><sub>24</sub> is determined uniquely up to automorphisms
+of the subgroup table.
+We extend the list of known induced characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; r:= safe_fusions[3];;
+    gap&#62; s:= r.subtable;
+    CharacterTable( "3.F3+.2" )
+    gap&#62; poss:= PossibleClassFusions( s, m,
+    &#62;               rec( chars:= Concatenation( knownirr, induced ),
+    &#62;                    fusionmap:= r.fus ) );;
+    gap&#62; List( poss, Indeterminateness );
+    [ 1 ]
+    gap&#62; Append( induced,
+    &#62;        InducedClassFunctionsByFusionMap( s, m, Irr( s ), poss[1] ) );
+
+</pre>
+
+<div class="p"><!----></div>
+Next we induce the irreducible characters of cyclic subgroups.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Append( induced,
+    &#62;      InducedCyclic( m, [ 2 .. NrConjugacyClasses( m ) ], "all" ) );
+
+</pre>
+
+<div class="p"><!----></div>
+Now we reduce the induced characters with the two known irreducibles of <font size="+0">M</font>,
+and apply the LLL algorithm to the result of the reduction;
+this yields four new irreducibles.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; red:= Reduced( m, knownirr, induced );;
+    gap&#62; Length( red.irreducibles );
+    0
+    gap&#62; lll:= LLL( m, red.remainders );;
+    gap&#62; Length( lll.irreducibles );
+    4
+
+</pre>
+
+<div class="p"><!----></div>
+We extend the list of known irreducibles,
+reduce the induced characters,
+and apply LLL again.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; knownirr:= Union( knownirr, lll.irreducibles );;
+    gap&#62; red:= Reduced( m, knownirr, induced );;
+    gap&#62; Length( red.irreducibles );
+    0
+    gap&#62; lll:= LLL( m, red.remainders );;
+    gap&#62; Length( lll.irreducibles );
+    0
+
+</pre>
+
+<div class="p"><!----></div>
+Now we use the irreducibles of the  A<font size="-2">TLAS</font> table of <font size="+0">M</font> as an oracle,
+as follows.
+Whenever a character from the oracle list belongs to the <font size="+0">Z</font>-lattice
+that is spanned by <tt>lll.remainders</tt>
+then we regard this character as verified,
+since we can compute the coefficients of the <font size="+0">Z</font>-linear combination,
+form the character, and check that it has indeed norm 1.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; mat:= MatScalarProducts( m, oracle, lll.remainders );;
+    gap&#62; norm:= NormalFormIntMat( mat, 4 );;
+    gap&#62; rowtrans:= norm.rowtrans;;
+    gap&#62; normal:= norm.normal{ [ 1 .. norm.rank ] };;
+    gap&#62; one:= IdentityMat( NrConjugacyClasses( m ) );;
+    gap&#62; for i in [ 2 .. Length( one ) ] do
+    &#62;      extmat:= Concatenation( normal, [ one[i] ] );
+    &#62;      extlen:= Length( extmat );
+    &#62;      extnorm:= NormalFormIntMat( extmat, 4 );
+    &#62;      if extnorm.rank = Length( extnorm.normal ) or
+    &#62;         extnorm.rowtrans[ extlen ][ extlen ] &lt;&#62; 1 then
+    &#62;        coeffs:= fail;
+    &#62;      else
+    &#62;        coeffs:= - extnorm.rowtrans[ extlen ]{ [ 1 .. extnorm.rank ] }
+    &#62;                   * rowtrans{ [ 1 .. extnorm.rank ] };
+    &#62;      fi;
+    &#62;      if coeffs &lt;&#62; fail and ForAll( coeffs, IsInt ) then
+    &#62;        # The vector lies in the lattice.
+    &#62;        chi:= coeffs * lll.remainders;
+    &#62;        if not chi in knownirr then
+    &#62;          Add( knownirr, chi );
+    &#62;        fi;
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; Length( knownirr );
+    66
+    gap&#62; Set( knownirr, chi -&#62; ScalarProduct( m, chi, chi ) );
+    [ 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We take the generators of the <font size="+0">Z</font>-lattice and some symmetrizations
+of the known irreducibles,
+reuce them with the known irreducibles,
+and apply LLL again.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; red:= Reduced( m, knownirr, lll.remainders );;
+    gap&#62; Length( red.irreducibles );
+    0
+    gap&#62; sym:= Symmetrizations( m, knownirr, 2 );;
+    gap&#62; sym:= Reduced( m, knownirr, sym );;
+    gap&#62; Length( sym.irreducibles );
+    0
+    gap&#62; lll:= LLL( m, Concatenation( red.remainders, sym.remainders ) );;
+    gap&#62; Length( lll.irreducibles );
+    0
+
+</pre>
+
+<div class="p"><!----></div>
+We use the above oracle again, for the new <font size="+0">Z</font>-lattice.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; mat:= MatScalarProducts( m, oracle, lll.remainders );;
+    gap&#62; norm:= NormalFormIntMat( mat, 4 );;
+    gap&#62; rowtrans:= norm.rowtrans;;
+    gap&#62; normal:= norm.normal{ [ 1 .. norm.rank ] };;
+    gap&#62; one:= IdentityMat( NrConjugacyClasses( m ) );;
+    gap&#62; for i in [ 2 .. Length( one ) ] do
+    &#62;      extmat:= Concatenation( normal, [ one[i] ] );
+    &#62;      extlen:= Length( extmat );
+    &#62;      extnorm:= NormalFormIntMat( extmat, 4 );
+    &#62;      if extnorm.rank = Length( extnorm.normal ) or
+    &#62;         extnorm.rowtrans[ extlen ][ extlen ] &lt;&#62; 1 then
+    &#62;        coeffs:= fail;
+    &#62;      else
+    &#62;        coeffs:= - extnorm.rowtrans[ extlen ]{ [ 1 .. extnorm.rank ] }
+    &#62;                   * rowtrans{ [ 1 .. extnorm.rank ] };
+    &#62;      fi;
+    &#62;      if coeffs &lt;&#62; fail and ForAll( coeffs, IsInt ) then
+    &#62;        Add( knownirr, coeffs * lll.remainders );
+    &#62;      fi;
+    &#62;    od;
+    gap&#62; Length( knownirr );
+    194
+
+</pre>
+
+<div class="p"><!----></div>
+Now we are done.
+As stated in the beginning of this section,
+we unbind the stored trivial value for <tt>AutomorphismsOfTable</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; SetIrr( m, List( knownirr, x -&#62; ClassFunction( m, x ) ) );
+    gap&#62; ResetFilterObj( m, HasAutomorphismsOfTable );
+    gap&#62; TransformingPermutationsCharacterTables( m, atlas_m ) &lt;&#62; fail;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc8">
+8</a>&nbsp;&nbsp;Appendix: The character table of 2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub></h2><a name="sect:table_c2b">
+</a>
+
+<div class="p"><!----></div>
+The centralizer C of a <tt>2B</tt> element in <font size="+0">M</font>
+has the structure 2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub>,
+which can be constructed as follows.
+
+<div class="p"><!----></div>
+Consider a subdirect product H of two groups H/X
+and H/N,
+where X is a cyclic group of order two,
+N is an extraspecial group 2<sup>1+24</sup><sub>+</sub>,
+H/N is the double cover of <span class="roman">Co</span><sub>1</sub>, and
+H/X is an extension of 2<sup>1+24</sup><sub>+</sub> by <span class="roman">Co</span><sub>1</sub>.
+
+<div class="p"><!----></div>
+The centre of H is a Klein four group E whose order two subgroups
+are X, Y = Z(N), and a third subgroup D.
+We have C  &#8773; H/D.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<center>
+ <a href="ctblm1.png">Figure</a>
+
+<br />Picture Omitted<br />
+</center>
+
+<div class="p"><!----></div>
+From the 2-local construction of a matrix representation for <font size="+0">M</font>,
+we know the following faithful representations,
+given by generators that are preimages of standard generators of <span class="roman">Co</span><sub>1</sub>.
+
+<div class="p"><!----></div>
+
+<ul>
+<li>   A monomial permutation representation of H/E  &#8773; 2<sup>24</sup>.<span class="roman">Co</span><sub>1</sub>,
+   of degree 98&nbsp;280 over the field with three elements,
+<div class="p"><!----></div>
+</li>
+
+<li>
+   a matrix representation of H/X  &#8773; 2<sup>1+24</sup><sub>+</sub>.<span class="roman">Co</span><sub>1</sub>,
+   of dimension 4&nbsp;096 over the field with three elements,
+<div class="p"><!----></div>
+</li>
+
+<li>
+   a matrix representation of H/N  &#8773; 2.<span class="roman">Co</span><sub>1</sub>,
+   of dimension 24 over the field with three elements.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+We proceed in the following steps.
+
+<div class="p"><!----></div>
+
+<ul>
+<li>   First we compute conjugacy class representatives of H/E.
+<div class="p"><!----></div>
+</li>
+
+<li>
+   A faithful permutation representation of H/Y on
+   2 &#183;196&nbsp;560 = 393&nbsp;120 points is obtained by
+   glueing the permutation generators of H/E
+   (on 2 &#183;98&nbsp;280 = 196&nbsp;560 points)
+   and H/N
+   (the smallest permutation representation of 2.<span class="roman">Co</span><sub>1</sub>,
+   on 196&nbsp;560 points) together.
+
+<div class="p"><!----></div>
+   The character table of this permutation group can be computed
+   directly with <font face="helvetica">MAGMA</font> in about 16 hours of CPU time.
+<div class="p"><!----></div>
+</li>
+
+<li>
+   Starting from the character table of the factor group H/E,
+   the 3-modular matrix representation of dimension 4&nbsp;096 of H/X is used
+   to compute necessary class splittings from H/E to H/X, as follows.
+
+<div class="p"><!----></div>
+   This representation lifts to characteristic zero because its restriction
+   to the extraspecial group M/X
+   is the unique faithful irreducible 3-modular representation of M/X,
+   and because this representation extends to the full automorphism group
+   of the extraspecial group.
+   Thus we can compute the Brauer character values of the representation
+   on the 3-regular classes of H/X,
+   and interpret the values as those of an ordinary character &#968;, say.
+   The tensor square &#968;<sup>2</sup> belongs to the group H/E,
+   and the known values of &#968; suffice to determine the decomposition
+   of &#968;<sup>2</sup> into irreducibles of H/E,
+   and thus to compute also the values of &#968;<sup>2</sup> on 3-singular classes.
+   Taking square roots, we get all values of &#968;, up to signs.
+   (We cannot distinguish which of the two values belongs to which of the two
+   preimage classes, which just means that we are defining these classes
+   by choosing the positive value for one of them, and the negative value
+   for the other one.)
+<div class="p"><!----></div>
+</li>
+
+<li>
+   From now on, we argue character-theoretically.
+
+<div class="p"><!----></div>
+   The missing irreducible characters of H/X are computed as
+   tensor products of &#968; with the irreducible characters of
+   the factor group H/M  &#8773; <span class="roman">Co</span><sub>1</sub>.
+
+<div class="p"><!----></div>
+   Note that this procedure yields enough new irreducible characters
+   such that the sum of degree squares of all known irreducibles of H/X
+   equals the order of this group.
+   This implies that there are not more class splittings w.&nbsp;r.&nbsp;t.&nbsp;the
+   fusion from H/X to H/E than the splittings forced by the values
+   of &#968;.
+<div class="p"><!----></div>
+</li>
+
+<li>
+   Using the two class splittings from H/X and H/Y to H/E,
+   we compute necessary class splittings from H to H/E.
+   That is, we create a character table head for H together with
+   class fusions to H/X and H/Y,
+   assuming that not more columns occur than is forced by H/X and H/Y:
+   For each class of H/E that splits in both H/X and H/Y,
+   we get four preimage classes in H.
+   For each class that splits in exactly one of H/X and H/Y,
+   we get two preimage classes in H.
+   For each class that splits in none of H/X and H/Y,
+   we get one preimage class in H.
+
+<div class="p"><!----></div>
+   Then we take those irreducible characters of H/X and H/Y,
+   respectively, that do not have E/X or E/Y, respectively,
+   in their kernel;
+   we form tensor products of them, which yields characters with kernel D,
+   and apply the LLL algorithm to them.
+
+<div class="p"><!----></div>
+   This yields all missing irreducibles of H:
+   The degree squares of all now known irreducibles sum up to the order
+   of H, which means that no more class splitting occurs.
+
+<div class="p"><!----></div>
+   Finally, we compute the power maps (and thus the element orders)
+   of the character table of H.
+   The result is a character table that is permutation equivalent to
+   the character table that is stored in <font face="helvetica">GAP</font>'s table library.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc9">
+9</a>&nbsp;&nbsp;Appendix: The character table of 3<sup>1+12</sup><sub>+</sub>:6.<span class="roman">Suz</span>.2</h2><a name="sect:norm3B">
+</a>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc9.1">
+9.1</a>&nbsp;&nbsp;Overview</h3>
+
+<div class="p"><!----></div>
+The <tt>3B</tt> normalizer in <font size="+0">M</font> has the structure 3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2.
+Its character table has been computed by Richard Barraclough and
+Robert A.&nbsp;Wilson, see [<a href="#BW07" name="CITEBW07">BW07</a>].
+In order to describe a reproducible construction of the character table
+that does not assume the character table of <font size="+0">M</font>,
+we recompute this table.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Our approach is similar to that in [<a href="#BW07" name="CITEBW07">BW07</a>]:
+The subgroup in question is a factor group of the split extension H of
+the extraspecial group N = 3<sup>1+12</sup><sub>+</sub> by 6.<span class="roman">Suz</span>.2,
+and we compute the character table of this bigger group H.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<center> <a href="ctblm2.png">Figure</a>
+
+<br />Picture Omitted<br />
+</center>
+
+<div class="p"><!----></div>
+We have H / N  &#8773; 6.<span class="roman">Suz</span>.2.
+Let M be the normal subgroup of H above N such that
+H / M  &#8773; 2.<span class="roman">Suz</span>.2 holds.
+Then M = X &times;N for a normal subgroup X of order 3,
+where the extension of M / X by H / M is split.
+Let N<sub>2</sub> be the normal subgroup of H above N such that
+H / N<sub>2</sub>  &#8773; 3.<span class="roman">Suz</span>.2 holds.
+Then M<sub>2</sub> = M N<sub>2</sub> has the property H / M<sub>2</sub>  &#8773; <span class="roman">Suz</span>.2.
+
+<div class="p"><!----></div>
+Let Y = Z(N), of order 3.
+Then E = X &times;Y  &#8773; 3<sup>2</sup> is elementary abelian,
+with diagonal normal subgroups D<sub>1</sub> and D<sub>2</sub>.
+It will turn out that the extensions of M / D<sub>1</sub> and M / D<sub>2</sub> by H / M
+are non-split.
+
+<div class="p"><!----></div>
+H / Y is a subdirect product of H / N and 
+H / E  &#8773; 3<sup>12</sup>.2.<span class="roman">Suz</span>.2,
+we have H / Y  &#8773; (3 &times;3<sup>12</sup>).2.<span class="roman">Suz</span>.2.
+
+<div class="p"><!----></div>
+The group H is a subdirect product of H / N and H / X.
+
+<div class="p"><!----></div>
+The <tt>3B</tt> normalizer in <font size="+0">M</font> is isomorphic to
+one of the two factor groups H / D<sub>1</sub>, H / D<sub>2</sub>.
+(The decision which of the two groups occurs as a subgroup of <font size="+0">M</font>
+appears in Section&nbsp;<a href="#sect:natcharM">6</a>.)
+
+<div class="p"><!----></div>
+We use the following approach to compute the character table of H.
+
+<div class="p"><!----></div>
+
+<ul>
+<li>    Compute permutation generators <tt>gensHmodX</tt> of H / X,
+    of degree 3<sup>13</sup>,
+    see Section&nbsp;<a href="#HmodXpermgens">9.2</a>.
+    The first two generators are standard generators of 2.<span class="roman">Suz</span>.2,
+    the third generator lies in M / X.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    Fetch permutation generators <tt>gensHmodN</tt> of H / N<sub>2</sub>,
+    of degree 5&nbsp;346,
+    and compute permutation generators <tt>gensH</tt> of H,
+    of degree 1&nbsp;599&nbsp;669 = 1&nbsp;594&nbsp;323 + 5&nbsp;346,
+    see Section&nbsp;<a href="#Hpermgens">9.3</a>.
+    The first two generators are standard generators of 6.<span class="roman">Suz</span>.2,
+    the third generator lies in N.
+<div class="p"><!----></div>
+</li>
+
+<li>
+    Let <font face="helvetica">MAGMA</font> compute the character table of H from <tt>gensH</tt>,
+    see Section&nbsp;<a href="#computeHtable">9.4</a>.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+<b>Remark:</b>
+In an earlier construction (in September 2020),
+we asked <font face="helvetica">MAGMA</font> to compute the character table of H / Y,
+and then used individual conjugacy tests for first setting up the class fusion
+from H to H / Y and then determining the full character table head of H.
+The computation of the missing irreducible characters of H was then
+not difficult, using character theoretic methods.
+However, trying the same input files in 2024 showed many cases where
+some of the required conjugacy tests did not finish in reasonable time.
+Luckily, the automatic computation described in Section&nbsp;<a href="#computeHtable">9.4</a>
+worked.
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc9.2">
+9.2</a>&nbsp;&nbsp;A permutation representation of H / X</h3><a name="HmodXpermgens">
+</a>
+
+<div class="p"><!----></div>
+The  A<font size="-2">TLAS</font> of Group Representations&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>] contains
+a faithful representation of H,
+as a group of 38 &times;38 matrices over the field with three elements.
+The generating matrices are called <tt>M3max7G0-f3r38B0.m1</tt>, ...,
+<tt>M3max7G0-f3r38B0.m4</tt>.
+These matrices are block diagonal matrices with blocks of the lengths
+24 and 14.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; info:= OneAtlasGeneratingSetInfo( "3^(1+12):6.Suz.2", Dimension, 38 );;
+    gap&#62; gens:= AtlasGenerators( info ).generators;;
+    gap&#62; Length( gens );
+    4
+    gap&#62; ForAll( gens,
+    &#62;            m -&#62; ForAll( [ 25 .. 38 ],
+    &#62;                         i -&#62; ForAll( [ 1 .. 24 ],
+    &#62;                                      j -&#62; IsZero( m[i,j] ) and
+    &#62;                                           IsZero( m[i,j] ) ) ) );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Here we will use just the lower right 14 &times;14 blocks,
+which generate the factor group H / X  &#8773; 3<sup>1+12</sup><sub>+</sub>:2.<span class="roman">Suz</span>.2.
+(Note that the 12-dimensional irreducible representation of 2.<span class="roman">Suz</span>.2
+over the field with 3 elements respects a symplectic form,
+and the embedding of 2.<span class="roman">Suz</span>.2 into <span class="roman">Sp</span>(12,3)
+-which is the automorphism group of the extraspecial group 3<sup>1+12</sup><sub>+</sub>-
+yields a construction of the semidirect product 3<sup>1+12</sup><sub>+</sub>:2.<span class="roman">Suz</span>.2
+as a group of 14 &times;14 matrices.)
+
+<div class="p"><!----></div>
+Later we will construct a faithful permutation representation of H
+as a subdirect product of H / X and H / N  &#8773; 6.<span class="roman">Suz</span>.2.
+Let <tt>G</tt> be the group generated by the 14 &times;14 matrices.
+
+<div class="p"><!----></div>
+When one deals with H / X, the fourth generator is redundant,
+we will leave it out in the following.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; mats:= List( gens, x -&#62; x{ [ 25 .. 38 ] }{ [ 25 .. 38 ] } );;
+    gap&#62; List( mats, ConvertToMatrixRep );;
+    gap&#62; Comm( mats[3], mats[3]^mats[2] ) = Inverse( mats[4] );
+    true
+    gap&#62; mats:= mats{ [ 1 .. 3 ] };;
+
+</pre>
+
+<div class="p"><!----></div>
+We use just the following facts.
+The <tt>G</tt>-action on GF(3)<sup>14</sup> has six orbits,
+from which we get a faithful permutation representation of H / E  &#8773; 3<sup>12</sup>.2.<span class="roman">Suz</span>.2 on 196&nbsp;560 points
+and a faithful representation <tt>homHtoHmodX</tt>
+of a group of the structure 3<sup>1+12</sup><sub>+</sub>.2.<span class="roman">Suz</span>.2 on 1&nbsp;594&nbsp;323 points.
+Since the image contains a subgroup 2.<span class="roman">Suz</span>.2,
+the image is the split extension H / X of 3<sup>1+12</sup><sub>+</sub> by 2.<span class="roman">Suz</span>.2.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; G:= GroupWithGenerators( mats );;
+    gap&#62; orbs:= ShallowCopy( OrbitsDomain( G, GF(3)^14 ) );;
+    gap&#62; Length( orbs );
+    6
+    gap&#62; SortBy( orbs, Length );
+    gap&#62; List( orbs, Length );
+    [ 1, 2, 196560, 1397760, 1594323, 1594323 ]
+    gap&#62; v:= [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 ] * Z(3)^0;;
+    gap&#62; orb_large:= First( orbs, x -&#62; v in x );;
+    gap&#62; Length( orb_large );
+    1594323
+    gap&#62; Length( orb_large ) = 3^13;
+    true
+    gap&#62; orb_large:= SortedList( orb_large );;
+    gap&#62; homHtoHmodX:= ActionHomomorphism( G, orb_large );;
+    gap&#62; represHmodX:= Image( homHtoHmodX );;
+    gap&#62; Size( represHmodX );
+    2859230155080499200
+    gap&#62; Size( represHmodX ) = Size( CharacterTable( "2.Suz.2" ) ) * 3^13;
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+We conclude that the action on 196&nbsp;560 points represents the group
+H / E.
+As for the action on 1&nbsp;594&nbsp;323 points,
+we show that it has a nonabelian normal subgroup of the order 3<sup>13</sup>.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; gensHmodX:= List( mats, m -&#62; m^homHtoHmodX );;
+    gap&#62; n:= NormalClosure( represHmodX,
+    &#62;                       Subgroup( represHmodX, [ gensHmodX[3] ] ) );;
+    gap&#62; Size( n ) = 3^13;
+    true
+    gap&#62; IsAbelian( n );
+    false
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Next we show that the first two elements from the generating set
+are standard generators of 2.<span class="roman">Suz</span>.2.
+For that, we first show that these elements are preimages
+of standard generators of <span class="roman">Suz</span>.2,
+by computing that the words in question lie in the centre of 2.<span class="roman">Suz</span>.2,
+and then show that the elements satisfy the conditions of
+standard generators of 2.<span class="roman">Suz</span>.2,
+that is, the second generator has order 3,
+see the page on <span class="roman">Suz</span> in the  A<font size="-2">TLAS</font> of Group Representations&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>].
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; slp:= AtlasProgram( "Suz.2", "check" );;
+    gap&#62; prog:= StraightLineProgramFromStraightLineDecision( slp.program );;
+    gap&#62; res:= ResultOfStraightLineProgram( prog, gensHmodX );;
+    gap&#62; List( res, Order );
+    [ 2, 1, 2, 1 ]
+    gap&#62; ForAll( gensHmodX{ [ 1, 2 ] }, x -&#62; ForAll( res, y -&#62; x*y = y*x ) );
+    true
+    gap&#62; Order( gensHmodX[2] );
+    3
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc9.3">
+9.3</a>&nbsp;&nbsp;A permutation representation of H</h3><a name="Hpermgens">
+</a>
+
+<div class="p"><!----></div>
+The group H is a subdirect product of H / X and H / N<sub>2</sub>  &#8773; 3.<span class="roman">Suz</span>.2,
+w.r.t. the common factor group H / M<sub>2</sub>  &#8773; <span class="roman">Suz</span>.2.
+Since we know that our generators for H / X are compatible with
+standard generators of the factor group 2.<span class="roman">Suz</span>.2,
+it is sufficient to form the diagonal product of our representation of
+H / X and a representation of 3.<span class="roman">Suz</span>.2 on standard generators.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; 3suz2:= OneAtlasGeneratingSet( "3.Suz.2", NrMovedPoints, 5346 );;
+    gap&#62; 3suz2:= 3suz2.generators;;
+    gap&#62; omega:= [ 1 .. LargestMovedPoint( 3suz2 ) ];;
+    gap&#62; shifted:= omega + LargestMovedPoint( gensHmodX );;
+    gap&#62; pi:= MappingPermListList( omega, shifted );;
+    gap&#62; shiftedgens:= List( 3suz2, x -&#62; x^pi );;
+    gap&#62; Append( shiftedgens, [ () ] );
+    gap&#62; gensH:= List( [ 1 .. 3 ], i -&#62; gensHmodX[i] * shiftedgens[i] );;
+    gap&#62; NrMovedPoints( gensH );
+    1599669
+
+</pre>
+
+<div class="p"><!----></div>
+The first two of the generators are standard generators of 6.<span class="roman">Suz</span>.2.
+Note that we know already that they are preimages of standard generators
+of <span class="roman">Suz</span>.2,
+it remains to show that they are elements C, D where D has order 3
+and CDCDD has order 7. 
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Order( gensH[2] );
+    3
+    gap&#62; Order( Product( gensH{ [ 1, 2, 1, 2, 2 ] } ) );
+    7
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc9.4">
+9.4</a>&nbsp;&nbsp;Compute the character table of H</h3><a name="computeHtable">
+</a>
+
+<div class="p"><!----></div>
+Now we let <font face="helvetica">MAGMA</font> do the work.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; H:= GroupWithGenerators( gensH );;
+    gap&#62; if CTblLib.IsMagmaAvailable() then
+    &#62;      mgmt:= CharacterTableComputedByMagma( H, "H_Magma" );
+    &#62;    else
+    &#62;      mgmt:= CharacterTable( "3^(1+12):6.Suz.2" );
+    &#62;    fi;
+
+</pre>
+
+<div class="p"><!----></div>
+This computation needed about three weeks of CPU time.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+The result verifies the character table of H
+that is available in the library.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; IsRecord( TransformingPermutationsCharacterTables( mgmt,
+    &#62;        CharacterTable( "3^(1+12):6.Suz.2" ) ) );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+This character table was used in Section&nbsp;<a href="#elements_3">4.4</a>.
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc10">
+10</a>&nbsp;&nbsp;Appendix: The character table of 5<sup>1+6</sup><sub>+</sub>.4.<span class="roman">J</span><sub>2</sub>.2</h2><a name="sect:table_N5B">
+</a>
+
+<div class="p"><!----></div>
+The normalizer of a <tt>5B</tt> element in <font size="+0">M</font> has the structure
+5<sup>1+6</sup><sub>+</sub>.4.<span class="roman">J</span><sub>2</sub>.2,
+generators for this group as a permutation group of degree 78&nbsp;125
+are available in the  A<font size="-2">TLAS</font> of Group Representations&nbsp;[<a href="#AGRv3" name="CITEAGRv3">WWT<sup>+</sup></a>].
+<font face="helvetica">MAGMA</font>&nbsp;[<a href="#Magma" name="CITEMagma">BCP97</a>] can compute the character table from the group
+within a few minutes,
+the result turns out to be equivalent to the table that is available in
+<font face="helvetica">GAP</font>'s character table library.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; g:= AtlasGroup( "5^(1+6):2.J2.4" );;
+    gap&#62; if CTblLib.IsMagmaAvailable() then
+    &#62;      mgmt:= CharacterTableComputedByMagma( g, "MN5B_Magma" );
+    &#62;    else
+    &#62;      mgmt:= CharacterTable( "5^(1+6):2.J2.4" );
+    &#62;    fi;
+    gap&#62; IsRecord( TransformingPermutationsCharacterTables( mgmt,
+    &#62;        CharacterTable( "5^(1+6):2.J2.4" ) ) );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+This character table was used in Section&nbsp;<a href="#elements_5">4.5</a>.
+
+<div class="p"><!----></div>
+
+
+<h2>References</h2>
+
+<dl compact="compact">
+ <dt><a href="#CITEMagma" name="Magma">[BCP97]</a></dt><dd>
+W.&nbsp;Bosma, J.&nbsp;Cannon, and C.&nbsp;Playoust, <em>The Magma algebra system. I.
+  The user language</em>, J. Symbolic Comput. <b>24</b> (1997),
+  no.&nbsp;3-4, 235-265. MR 1484478
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEAtlas2017" name="Atlas2017">[BGH<sup>+</sup>17]</a></dt><dd>
+M.&nbsp;Bhargava, R.&nbsp;Guralnick, G.&nbsp;Hiss, K.&nbsp;Lux, and P.&nbsp;H. Tiep (eds.), <em>Finite
+  simple groups: thirty years of the Atlas and beyond</em>, Contemporary
+  Mathematics, vol. 694, Providence, RI, American Mathematical Society, 2017.
+  MR 3682583
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEBMO17" name="BMO17">[BMO17]</a></dt><dd>
+T.&nbsp;Breuer, G.&nbsp;Malle, and E.&nbsp;A. O'Brien, <em>Reliability and reproducibility
+  of Atlas information</em>, in Bhargava et&nbsp;al. [<a href="#Atlas2017" name="CITEAtlas2017">BGH<sup>+</sup>17</a>],
+  p.&nbsp;21-31. MR 3682588
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEBMverify" name="BMverify">[BMW20]</a></dt><dd>
+T.&nbsp;Breuer, K.&nbsp;Magaard, and R.&nbsp;A. Wilson, <em>Verification of the ordinary
+  character table of the Baby Monster</em>, J. Algebra <b>561</b> (2020),
+  111-130. MR 4135540
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEMverify" name="Mverify">[BMW24]</a></dt><dd>
+<br /><table align="left" border="0"><tr><td width="50">
+<hr />
+</td></tr></table><!--hbox-->
+ , <em>Verification of the conjugacy classes and ordinary character
+  table of the Monster</em>, submitted, 2024.
+
+<div class="p"><!----></div>
+</dd>
+ <dt>[]</dt><dd>T.&nbsp;Breuer, <em>Constructing the ordinary character tables of some Atlas
+  groups using character theoretic methods.</em>, <a href="https://export.arxiv.org/abs/1604.00754">arXiv:1604.00754</a>.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEctblpope" name="ctblpope">[Breb]</a></dt><dd>
+<br /><table align="left" border="0"><tr><td width="50">
+<hr />
+</td></tr></table><!--hbox-->
+ , <em>Permutation Characters in <font face="helvetica">GAP</font></em>, <a href="https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf"><tt>https://www.math.rwth<tt>-</tt>aachen.de/</tt>
+<tt><tt>~</tt>Thomas.Breuer/</tt>
+<tt>ctbllib/</tt><tt>doc2/</tt>
+<tt>manual.pdf</tt></a>.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEBW07" name="BW07">[BW07]</a></dt><dd>
+R.&nbsp;W. Barraclough and R.&nbsp;A. Wilson, <em>The character table of a maximal
+  subgroup of the Monster</em>, LMS J. Comput. Math. <b>10</b> (2007),
+  161-175. MR 2308856
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEGAP" name="GAP">[GAP24]</a></dt><dd>
+<em><font face="helvetica">GAP</font> - Groups, Algorithms, and Programming,
+  Version 4.13.1</em>, <a href="https://www.gap-system.org"><tt>https://www.gap<tt>-</tt>system.org</tt></a>, Mar 2024.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEGMS89" name="GMS89">[GMS89]</a></dt><dd>
+R.&nbsp;L. Griess Jr., U.&nbsp;Meierfrankenfeld, and Y.&nbsp;Segev, <em>A uniqueness proof
+  for the Monster</em>, Ann. of Math. (2) <b>130</b> (1989), no.&nbsp;3,
+  567-602. MR 1025167
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEAGRv3" name="AGRv3">[WWT<sup>+</sup>]</a></dt><dd>
+R.&nbsp;A. Wilson, P.&nbsp;Walsh, J.&nbsp;Tripp, I.&nbsp;Suleiman, R.&nbsp;A. Parker, S.&nbsp;P. Norton,
+  S.&nbsp;Nickerson, S.&nbsp;Linton, J.&nbsp;Bray, and R.&nbsp;Abbott, <em>ATLAS of Finite Group
+  Representations</em>, <a href="http://brauer.maths.qmul.ac.uk/Atlas/v3"><tt>http://brauer.maths.qmul.ac.uk/</tt>
+<tt>Atlas/v3</tt></a>.</dd>
+</dl>
+
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.59.<br />On 22 May 2025, 15:04.</small>
+</html>

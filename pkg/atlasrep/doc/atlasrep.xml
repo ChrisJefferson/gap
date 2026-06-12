@@ -1,0 +1,233 @@
+
+<!-- %W  atlasrep.xml    GAP 4 package AtlasRep             Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="chap:atlasrep">
+<Heading>Customizations of the &AtlasRep; Package</Heading>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Installing the AtlasRep Package">
+<Heading>Installing the &AtlasRep; Package</Heading>
+
+To install the package, unpack the archive file in a
+directory in the <F>pkg</F> directory of your local copy of &GAP;&nbsp;4.
+This might be the <F>pkg</F> directory of the &GAP;&nbsp;4 root directory,
+see&nbsp;<Ref Sect="Installing a GAP Package" BookName="ref"/>
+for details.
+It is however also possible to keep an additional <F>pkg</F> directory
+somewhere else,
+see Section&nbsp;<Ref Sect="GAP Root Directories" BookName="ref"/>.
+The latter possibility <E>must</E> be chosen if you do not have write access
+to the &GAP; root directory.
+
+<P/>
+
+If it is likely that you will work offline, it makes sense to install the
+<Q>starter archive</Q> that can be downloaded from the package's homepage.
+
+<P/>
+
+The package consists entirely of &GAP; code,
+no external binaries need to be compiled for the package itself.
+
+<P/>
+
+After unpacking the package archive,
+the write permissions for those directories should be checked
+into which users will download files.
+Every user can customize these paths via a user preference,
+see Section <Ref Subsect="subsect:AtlasRepDataDirectory"/>,
+the defaults are the subdirectories 
+<F>data*</F> of the package directory.
+The recommended permissions under UNIX for the default directories
+are set as follows.
+
+<P/>
+
+<Log><![CDATA[
+you@unix> chmod 1777 atlasrep/data*
+you@unix> ls -ld atlasrep/data*
+drwxrwxrwt   3 you      you          1024 Apr 12 12:34 dataext
+drwxrwxrwt   3 you      you          1024 Apr 12 12:34 datagens
+drwxrwxrwt   3 you      you          1024 Apr 12 12:34 datapkg
+drwxrwxrwt   3 you      you          1024 Apr 12 12:34 dataword
+]]></Log>
+
+<P/>
+
+<#Include Label="[1]{testinst.g}">
+
+<P/>
+
+PDF, HTML, and text versions of the package manual are available
+in the <F>doc</F> directory of the package.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:atlasrep user preferences">
+<Heading>User Preferences of the &AtlasRep; Package</Heading>
+
+This section describes global parameters for which it might make sense
+to change their defaults, using &GAP;'s user preferences
+(see <Ref Subsect="Configuring User preferences" BookName="ref"/>).
+
+<P/>
+
+<List>
+<Item>
+  Is access to remote data allowed
+  (see Section <Ref Subsect="subsect:AtlasRepAccessRemoteFiles"/>)?
+  If yes then also the following parameters are of interest.
+  <P/>
+  <List>
+    <Item>
+      From where can the data be fetched
+      (see Section <Ref Subsect="subsect:AtlasRepTOCData"/>)?
+    </Item>
+    <Item>
+      Where are local copies of these data stored
+      (see Section <Ref Subsect="subsect:AtlasRepDataDirectory"/>)?
+    </Item>
+    <Item>
+      Shall files be compressed after they have been downloaded
+      (see Section <Ref Subsect="subsect:CompressDownloadedMeatAxeFiles"/>)?
+    </Item>
+  </List>
+</Item>
+<Item>
+  The following parameters influence reading and writing of local files.
+  <P/>
+  <List>
+    <Item>
+      What shall actually happen when data are requested by the interface
+      functions (see Section <Ref Subsect="subsect:FileAccessFunctions"/>)?
+    </Item>
+    <Item>
+      If the value of the user preference <C>FileAccessFunctions</C>
+      contains <C>"direct access to a local server"</C>,
+      what is its path
+      (see Section <Ref Subsect="subsect:AtlasRepLocalServerPath"/>)?
+    </Item>
+    <Item>
+      Shall <Ref Func="ScanMeatAxeFile"/> focus on small runtime or on small
+      space when reading &MeatAxe; text files
+      (see Section <Ref Subsect="subsect:HowToReadMeatAxeTextFiles"/>)?
+    </Item>
+    <Item>
+      Which kind of headers shall <Ref Func="MeatAxeString"/> create
+      (see Section <Ref Subsect="subsect:WriteHeaderFormatOfMeatAxeFiles"/>)?
+    </Item>
+    <Item>
+      Shall <Ref Func="MeatAxeString"/> interpret permutation matrices more as
+      permutations (mode 2) or as matrices (mode 1 or 6)
+      (see Section <Ref Subsect="subsect:WriteMeatAxeFilesOfMode2"/>)?
+    </Item>
+    <Item>
+      Shall the default for <Ref Func="CMtxBinaryFFMatOrPerm"/> be to write
+      binary files of zero-based or one-based permutations
+      (see Section <Ref Subsect="subsect:BaseOfMeatAxePermutation"/>)?
+    </Item>
+  </List>
+</Item>
+<Item>
+  Which function is used by <Ref Func="DisplayAtlasInfo"/> for printing to
+  the screen
+  (see Section <Ref Subsect="subsect:DisplayFunction"/>)?
+</Item>
+<Item>
+  How does <Ref Func="DisplayAtlasInfo"/> mark data that do not belong
+  to the core database
+  (see Section <Ref Subsect="subsect:AtlasRepMarkNonCoreData"/>)?
+</Item>
+<Item>
+  Shall debug messages be printed when local data files are read
+  (see Section <Ref Subsect="subsect:DebugFileLoading"/>)?
+</Item>
+</List>
+
+<#Include Label="AtlasRepAccessRemoteFiles">
+<#Include Label="AtlasRepDataDirectory">
+<#Include Label="AtlasRepTOCData">
+<#Include Label="CompressDownloadedMeatAxeFiles">
+<#Include Label="FileAccessFunctions">
+<#Include Label="AtlasRepLocalServerPath">
+<#Include Label="HowToReadMeatAxeTextFiles">
+<#Include Label="WriteHeaderFormatOfMeatAxeFiles">
+<#Include Label="WriteMeatAxeFilesOfMode2">
+<#Include Label="BaseOfMeatAxePermutation">
+<#Include Label="DisplayFunction">
+<#Include Label="AtlasRepMarkNonCoreData">
+<#Include Label="DebugFileLoading">
+<#Include Label="AtlasRepJsonFilesAddresses">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Web Contents for the AtlasRep Package">
+<Heading>Web Contents for the &AtlasRep; Package</Heading>
+
+The <URL><Link>&ATLASREPHOME;</Link><LinkText>home page of the &AtlasRep; package</LinkText></URL>
+provides
+
+<P/>
+
+<List>
+<Item>
+  package archives,
+</Item>
+<Item>
+  introductory package information,
+</Item>
+<Item>
+  the current <E>table of contents</E> of core data in the file
+  <URL><LinkText><F>atlasprm.json</F></LinkText><Link>&ATLASREPHOME;/atlasprm.json</Link></URL>
+  of the package,
+  cf.&nbsp;<Ref Func="StringOfAtlasTableOfContents"/>,
+</Item>
+<Item>
+  the <URL><LinkText>list of changes of remote core data files</LinkText><Link>&ATLASREPHOME;/htm/data/changes.htm</Link></URL>,
+</Item>
+<Item>
+  a <URL><LinkText>starter archive</LinkText><Link>&ATLASREPHOME;/atlasrepdata.tar.gz</Link></URL>
+  containing many small representations and programs,
+  and
+</Item>
+<Item>
+  an <URL><LinkText>overview of the core data</LinkText><Link>&ATLASREPHOME;/htm/data</Link></URL>
+  in a similar format as the information shown by the function
+  <Ref Func="DisplayAtlasInfo"/> of the package;
+  more details can be found on the
+  <URL><LinkText>home page of the &ATLAS; of Group Representations</LinkText><Link>&ATLASSERVER;</Link></URL>.
+</Item>
+</List>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Extending the Atlas Database">
+<Heading>Extending the &ATLAS; Database</Heading>
+
+Users who have computed new representations that might be interesting for
+inclusion into the &ATLAS; of Group representations can send the data in
+question to&nbsp;&WILSONMAIL;.
+
+<P/>
+
+It is also possible to make additional representations and programs
+accessible for the &GAP; interface,
+and to use these <Q>private</Q> data in the same way as the core data.
+See Chapter&nbsp;<Ref Chap="chap:Private Extensions"/> for details.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+</Chapter>
+

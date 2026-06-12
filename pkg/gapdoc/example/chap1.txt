@@ -1,0 +1,102 @@
+  
+  [1X1 [33X[0;0YSectioning Elements[133X[101X
+  
+  [33X[0;0YText before the section [14X1.1[114X. (→ [14XB.2[114X)[133X
+  
+  
+  [1X1.1 [33X[0;0YNormal subsections[133X[101X
+  
+  [33X[0;0Y[→ [14XB.3[114X][133X
+  
+  
+  [1X1.1-1 [33X[0;0YA subsection[133X[101X
+  
+  [33X[0;0YThis is text in the first subsection.[133X
+  
+  
+  [1X1.1-2 [33X[0;0YAnother subsection[133X[101X
+  
+  [33X[0;0YThis  is  text  in  the second subsection. This subsection has a label, such
+  that one can reference it.[133X
+  
+  
+  [1X1.2 [33X[0;0YManSections[133X[101X
+  
+  [33X[0;0Y[→ [14XB.4[114X][133X
+  
+  [1X1.2-1 f[101X
+  
+  [33X[1;0Y[29X[2Xf[102X( [3Xx[103X[, [3Xy[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan element in [2XIsBlubb[102X ([14X1.2-8[114X) or [9Xfail[109X.[133X
+  
+  [33X[0;0YThis function calculates something.[133X
+  
+  [1X1.2-2 \^\{\}\[\]\<\&[101X
+  
+  [33X[1;0Y[29X[2X\^\{\}\[\]\<\&[102X( [3Xc[103X ) [32X method[133X
+  
+  [33X[0;0YThis method is for an operation with a tricky name.[133X
+  
+  [1X1.2-3 MyOperation[101X
+  
+  [33X[1;0Y[29X[2XMyOperation[102X( [3Xx[103X ) [32X operation[133X
+  
+  [33X[0;0YThe operation [2XMyOperation[102X operates on [3Xx[103X.[133X
+  
+  [1X1.2-4 MyOperation[101X
+  
+  [33X[1;0Y[29X[2XMyOperation[102X( [3Xx[103X ) [32X method[133X
+  
+  [33X[0;0YThis method calculates something by the generic method.[133X
+  
+  [1X1.2-5 MyOperation[101X
+  
+  [33X[1;0Y[29X[2XMyOperation[102X( [3Xx[103X[, [3Xgood_hint[103X] ) [32X method[133X
+  
+  [33X[0;0YThis  is  the super-fast method for the operation [2XMyOperation[102X ([14X1.2-3[114X) if the
+  argument  [3Xx[103X  is  in  the  representation  [2XIsBla[102X ([14X1.2-7[114X). It will become even
+  faster if the optional argument [3Xgood_hint[103X is given.[133X
+  
+  [1X1.2-6 MyConstructor[101X
+  
+  [33X[1;0Y[29X[2XMyConstructor[102X( [3Xfilt[103X, [3Xx[103X ) [32X constructor[133X
+  
+  [33X[0;0YThe constructor [2XMyConstructor[102X constructs from [3Xx[103X an object in [3Xfilt[103X.[133X
+  
+  [1X1.2-7 IsBla[101X
+  
+  [33X[1;0Y[29X[2XIsBla[102X( [3Xobj[103X ) [32X representation[133X
+  
+  [33X[0;0YFor  objects  in  this  representation  there  is  a  super-fast method (see
+  [2XMyOperation[102X ([14X1.2-5[114X)) for the operation [2XMyOperation[102X ([14X1.2-3[114X).[133X
+  
+  [1X1.2-8 IsBlubb[101X
+  
+  [33X[1;0Y[29X[2XIsBlubb[102X( [3Xobj[103X ) [32X property[133X
+  
+  [33X[0;0YA property.[133X
+  
+  [1X1.2-9 NumberBlobbs[101X
+  
+  [33X[1;0Y[29X[2XNumberBlobbs[102X( [3Xobj[103X ) [32X attribute[133X
+  
+  [33X[0;0YAn attribute. Number of blobbs.[133X
+  
+  [1X1.2-10 AllBlibbs[101X
+  
+  [33X[1;0Y[29X[2XAllBlibbs[102X [32X global variable[133X
+  
+  [33X[0;0YThis global variable holds a list of all blibbs.[133X
+  
+  [1X1.2-11 BlibbsFamily[101X
+  
+  [33X[1;0Y[29X[2XBlibbsFamily[102X [32X family[133X
+  
+  [33X[0;0YFamily of all blibbs.[133X
+  
+  [1X1.2-12 InfoBlibbs[101X
+  
+  [33X[1;0Y[29X[2XInfoBlibbs[102X [32X info class[133X
+  
+  [33X[0;0YThis info class is used throughout the library of blibbs.[133X
+  

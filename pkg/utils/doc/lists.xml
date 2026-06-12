@@ -1,0 +1,243 @@
+<!-- ------------------------------------------------------------------- -->
+<!--                                                                     -->
+<!--  lists.xml           Utils documentation                            -->
+<!--                                                                     -->
+<!--  Copyright (C) 2015-2018, The GAP Group                             --> 
+<!--                                                                     -->
+<!-- ------------------------------------------------------------------- -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Chapter Label="chap-lists">
+<Heading>Lists, Sets and Strings</Heading>
+
+
+
+<Section Label="sec-lists">
+<Heading>Functions for lists</Heading>
+
+
+<ManSection>
+   <Func Name="DifferencesList"
+         Arg="L" />
+<Description>
+This function has been transferred from package &ResClasses;. 
+<P/>
+It takes a list <M>L</M> of length <M>n</M> and outputs 
+the list of length <M>n-1</M> containing all the differences 
+<M>L[i]-L[i-1]</M>. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> List( [1..12], n->n^3 );
+[ 1, 8, 27, 64, 125, 216, 343, 512, 729, 1000, 1331, 1728 ]
+gap> DifferencesList( last );
+[ 7, 19, 37, 61, 91, 127, 169, 217, 271, 331, 397 ]
+gap> DifferencesList( last );
+[ 12, 18, 24, 30, 36, 42, 48, 54, 60, 66 ]
+gap> DifferencesList( last );
+[ 6, 6, 6, 6, 6, 6, 6, 6, 6 ]
+]]>
+</Example>
+
+
+<ManSection>
+   <Func Name="QuotientsList"
+         Arg="L" />
+   <Func Name="FloatQuotientsList"
+         Arg="L" />
+<Description>
+These functions have been transferred from package &ResClasses;. 
+<P/>
+They take a list <M>L</M> of length <M>n</M> and output the quotients 
+<M>L[i]/L[i-1]</M> of consecutive entries in <M>L</M>. 
+An error is returned if an entry is zero. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> List( [0..10], n -> Factorial(n) );
+[ 1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800 ]
+gap> QuotientsList( last );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+gap> L := [ 1, 3, 5, -1, -3, -5 ];;
+gap> QuotientsList( L );
+[ 3, 5/3, -1/5, 3, 5/3 ]
+gap> FloatQuotientsList( L );
+[ 3., 1.66667, -0.2, 3., 1.66667 ]
+gap> QuotientsList( [ 2, 1, 0, -1, -2 ] );
+[ 1/2, 0, fail, 2 ]
+gap> FloatQuotientsList( [1..10] );
+[ 2., 1.5, 1.33333, 1.25, 1.2, 1.16667, 1.14286, 1.125, 1.11111 ]
+gap> Product( last );
+10. 
+]]>
+</Example>
+
+
+<ManSection>
+   <Oper Name="SearchCycle"
+         Arg="L" />
+<Description>
+This function has been transferred from package &RCWA;. 
+<P/>
+<C>SearchCycle</C> is a tool to find likely cycles in lists. 
+What, precisely, a <E>cycle</E> is, is deliberately fuzzy here, 
+and may possibly even change. 
+The idea is that the beginning of the list may be anything, 
+following that the same pattern needs to be repeated several times 
+in order to be recognized as a cycle. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> L := [1..20];;  L[1]:=13;;                                              
+gap> for i in [1..19] do                                                     
+>        if IsOddInt(L[i]) then L[i+1]:=3*L[i]+1; else L[i+1]:=L[i]/2; fi;
+>    od;                                                                  
+gap> L;                                                                      
+[ 13, 40, 20, 10, 5, 16, 8, 4, 2, 1, 4, 2, 1, 4, 2, 1, 4, 2, 1, 4 ]
+gap> SearchCycle( L );                                                       
+[ 1, 4, 2 ]
+gap> n := 1;;  L := [n];;
+gap> for i in [1..100] do  n:=(n^2+1) mod 1093;  Add(L,n);  od;
+gap> L; 
+[ 1, 2, 5, 26, 677, 363, 610, 481, 739, 715, 795, 272, 754, 157, 604, 848, 
+  1004, 271, 211, 802, 521, 378, 795, 272, 754, 157, 604, 848, 1004, 271, 
+  211, 802, 521, 378, 795, 272, 754, 157, 604, 848, 1004, 271, 211, 802, 521, 
+  378, 795, 272, 754, 157, 604, 848, 1004, 271, 211, 802, 521, 378, 795, 272, 
+  754, 157, 604, 848, 1004, 271, 211, 802, 521, 378, 795, 272, 754, 157, 604, 
+  848, 1004, 271, 211, 802, 521, 378, 795, 272, 754, 157, 604, 848, 1004, 
+  271, 211, 802, 521, 378, 795, 272, 754, 157, 604, 848, 1004 ]
+gap> C := SearchCycle( L );
+[ 157, 604, 848, 1004, 271, 211, 802, 521, 378, 795, 272, 754 ]
+gap> P := Positions( L, 157 );
+[ 14, 26, 38, 50, 62, 74, 86, 98 ]
+gap> Length( C );  DifferencesList( P );
+12
+[ 12, 12, 12, 12, 12, 12, 12 ]
+]]>
+</Example>
+
+<ManSection>
+   <Oper Name="RandomCombination"
+         Arg="S k" />
+<Description>
+This function has been transferred from package &ResClasses;. 
+<P/>
+It returns a random unordered <M>k</M>-tuple of distinct elements 
+of a set <M>S</M>. 
+<P/>
+</Description>
+</ManSection>
+<Log>
+<![CDATA[
+gap> ## "6 aus 49" is a common lottery in Germany
+gap> RandomCombination( [1..49], 6 ); 
+[ 2, 16, 24, 26, 37, 47 ]
+]]>
+</Log>
+
+</Section>
+
+
+<Section><Heading>Distinct and Common Representatives</Heading>
+<Index>distinct and common representatives</Index>
+
+<ManSection>
+   <Oper Name="DistinctRepresentatives"
+         Arg="list" />
+   <Oper Name="CommonRepresentatives"
+         Arg="list" />
+   <Oper Name="CommonTransversal"
+         Arg="grp subgrp" />
+   <Oper Name="IsCommonTransversal"
+         Arg="grp subgrp list" />
+<Description>
+These operations have been transferred from package &XMod;. 
+<P/>
+They deal with lists of subsets of <M>[1 \ldots n]</M>
+and construct systems of distinct and common representatives using
+simple, non-recursive, combinatorial algorithms.
+<P/>
+When <M>L</M> is a set of <M>n</M> subsets of <M>[1 \ldots n]</M> 
+and the Hall condition is satisfied
+(the union of any <M>k</M> subsets has at least <M>k</M> elements),
+a set of <C>DistinctRepresentatives</C> exists.
+<P/>
+When <M>J,K</M> are both lists of <M>n</M> sets, 
+the operation <C>CommonRepresentatives</C> returns two lists: 
+the set of representatives, 
+and a permutation of the subsets of the second list.
+<P/>
+The operation <C>CommonTransversal</C> may be used to provide a 
+common transversal for the sets of left and right cosets 
+of a subgroup <M>H</M> of a group <M>G</M>,
+although a greedy algorithm is usually quicker.
+</Description>
+</ManSection>
+<P/>
+<Example>
+<![CDATA[
+gap> J := [ [1,2,3], [3,4], [3,4], [1,2,4] ];;
+gap> DistinctRepresentatives( J );
+[ 1, 3, 4, 2 ]
+gap> K := [ [3,4], [1,2], [2,3], [2,3,4] ];;
+gap> CommonRepresentatives( J, K );
+[ [ 3, 3, 3, 1 ], [ 1, 3, 4, 2 ] ]
+gap> d16 := DihedralGroup( IsPermGroup, 16 ); 
+Group([ (1,2,3,4,5,6,7,8), (2,8)(3,7)(4,6) ])
+gap> SetName( d16, "d16" );
+gap> c4 := Subgroup( d16, [ d16.1^2 ] ); 
+Group([ (1,3,5,7)(2,4,6,8) ])
+gap> SetName( c4, "c4" );
+gap> RightCosets( d16, c4 );
+[ RightCoset(c4,()), RightCoset(c4,(2,8)(3,7)(4,6)), RightCoset(c4,(1,8,7,6,5,
+   4,3,2)), RightCoset(c4,(1,8)(2,7)(3,6)(4,5)) ]
+gap> trans := CommonTransversal( d16, c4 );
+[ (), (2,8)(3,7)(4,6), (1,2,3,4,5,6,7,8), (1,2)(3,8)(4,7)(5,6) ]
+gap> IsCommonTransversal( d16, c4, trans );
+true
+]]>
+</Example>
+
+</Section>
+
+
+
+<Section Label="sec-strings">
+<Heading>Functions for strings</Heading>
+
+
+<ManSection>
+   <Func Name="BlankFreeString"
+         Arg="obj" />
+<Description>
+This function has been transferred from package &ResClasses;. 
+<P/>
+The result of <C>BlankFreeString( obj );</C> 
+is a composite of the functions <C>String( obj )</C> and 
+<C>RemoveCharacters( obj, " " );</C>. 
+<P/>
+</Description>
+</ManSection>
+<Example>
+<![CDATA[
+gap> gens := GeneratorsOfGroup( DihedralGroup(12) );
+[ f1, f2, f3 ]
+gap> String( gens );                                
+"[ f1, f2, f3 ]"
+gap> BlankFreeString( gens );                       
+"[f1,f2,f3]"
+]]>
+</Example>
+
+</Section>
+
+
+</Chapter>
+

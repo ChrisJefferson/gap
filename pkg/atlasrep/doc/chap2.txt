@@ -1,0 +1,1077 @@
+  
+  [1X2 [33X[0;0YTutorial for the [5XAtlasRep[105X[101X[1X Package[133X[101X
+  
+  [33X[0;0YThis  chapter  gives  an overview of the basic functionality provided by the
+  [5XAtlasRep[105X package. The main concepts and interface functions are presented in
+  the first three sections, and Section [14X2.4[114X shows a few small examples.[133X
+  
+  [33X[0;0YLet us first fix the setup for the examples shown in the package manual.[133X
+  
+  [31X1[131X   [33X[0;6YFirst  of  all,  we  load  the  [5XAtlasRep[105X package. Some of the examples
+        require  also  the  [5XGAP[105X  packages  [5XCTblLib[105X and [5XTomLib[105X, so we load also
+        these packages.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[25Xgap>[125X [27XLoadPackage( "AtlasRep", false );[127X[104X
+          [4X[28Xtrue[128X[104X
+          [4X[25Xgap>[125X [27XLoadPackage( "CTblLib", false );[127X[104X
+          [4X[28Xtrue[128X[104X
+          [4X[25Xgap>[125X [27XLoadPackage( "TomLib", false );[127X[104X
+          [4X[28Xtrue[128X[104X
+        [4X[32X[104X
+  
+  [31X2[131X   [33X[0;6YDepending on the terminal capabilities, the output of [2XDisplayAtlasInfo[102X
+        ([14X3.5-1[114X)  may  contain non-ASCII characters, which are not supported by
+        the  LaTeX and HTML versions of [5XGAPDoc[105X documents. The examples in this
+        manual  are used for tests of the package's functionality, thus we set
+        the  user preference [10XDisplayFunction[110X (see Section [14X4.2-11[114X) to the value
+        [10X"Print"[110X   in   order  to  produce  output  consisting  only  of  ASCII
+        characters, which is assumed to work in any terminal.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[25Xgap>[125X [27Xorigpref:= UserPreference( "AtlasRep", "DisplayFunction" );;[127X[104X
+          [4X[25Xgap>[125X [27XSetUserPreference( "AtlasRep", "DisplayFunction", "Print" );[127X[104X
+        [4X[32X[104X
+  
+  [31X3[131X   [33X[0;6YThe  [5XGAP[105X  output  for  the  examples  may  look  differently  if  data
+        extensions  have  been  loaded. In order to ignore these extensions in
+        the examples, we unload them.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[25Xgap>[125X [27Xpriv:= Difference([127X[104X
+          [4X[25X>[125X [27X    List( AtlasOfGroupRepresentationsInfo.notified, x -> x.ID ),[127X[104X
+          [4X[25X>[125X [27X    [ "core", "internal" ] );;[127X[104X
+          [4X[25Xgap>[125X [27XPerform( priv, AtlasOfGroupRepresentationsForgetData );[127X[104X
+        [4X[32X[104X
+  
+  [31X4[131X   [33X[0;6YIf  the  info  level  of [2XInfoAtlasRep[102X ([14X7.1-1[114X) is larger than zero then
+        additional  output  appears  on  the  screen.  In  order to avoid this
+        output, we set the level to zero.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[25Xgap>[125X [27Xgloballevel:= InfoLevel( InfoAtlasRep );;[127X[104X
+          [4X[25Xgap>[125X [27XSetInfoLevel( InfoAtlasRep, 0 );[127X[104X
+        [4X[32X[104X
+  
+  
+  [1X2.1 [33X[0;0YAccessing a Specific Group in [5XAtlasRep[105X[101X[1X[133X[101X
+  
+  [33X[0;0YAn  important  database  to  which  the [5XAtlasRep[105X package gives access is the
+  [5XATLAS[105X  of  Group  Representations [WWT+]. It contains generators and related
+  data  for  several  groups,  mainly  for  extensions  of  simple groups (see
+  Section [14X2.1-1[114X) and for their maximal subgroups (see Section [14X2.1-2[114X).[133X
+  
+  [33X[0;0YIn  general,  these data are not part of the package. They are downloaded as
+  soon as they are needed for the first time, see Section [14X4.2-1[114X.[133X
+  
+  
+  [1X2.1-1 [33X[0;0YAccessing a Group in [5XAtlasRep[105X[101X[1X via its Name[133X[101X
+  
+  [33X[0;0YEach  group  that occurs in this database is specified by a [13Xname[113X, which is a
+  string  similar to the name used in the [5XATLAS[105X of Finite Groups [CCN+85]. For
+  those groups whose character tables are contained in the [5XGAP[105X Character Table
+  Library [Bre22],   the   names  are  equal  to  the  [2XIdentifier[102X  ([14XReference:
+  Identifier  for character tables[114X) values of these character tables. Examples
+  of  such  names  are [10X"M24"[110X for the Mathieu group [22XM_24[122X, [10X"2.A6"[110X for the double
+  cover  of  the alternating group [22XA_6[122X, and [10X"2.A6.2_1"[110X for the double cover of
+  the  symmetric  group  [22XS_6[122X.  The names that actually occur are listed in the
+  first  column  of  the  overview  table  that  is  printed  by  the function
+  [2XDisplayAtlasInfo[102X  ([14X3.5-1[114X),  called  without  arguments, see below. The other
+  columns of the table describe the data that are available in the database.[133X
+  
+  [33X[0;0YFor  example,  [2XDisplayAtlasInfo[102X  ([14X3.5-1[114X)  may  print  the  following  lines.
+  Omissions are indicated with [21X[10X...[110X[121X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasInfo();[127X[104X
+    [4X[28Xgroup                    |  # | maxes | cl | cyc | out | fnd | chk | prs[128X[104X
+    [4X[28X-------------------------+----+-------+----+-----+-----+-----+-----+----[128X[104X
+    [4X[28X...[128X[104X
+    [4X[28X2.A5                     | 26 |     3 |    |     |     |     |  +  |  + [128X[104X
+    [4X[28X2.A5.2                   | 11 |     4 |    |     |     |     |  +  |  + [128X[104X
+    [4X[28X2.A6                     | 18 |     5 |    |     |     |     |     |    [128X[104X
+    [4X[28X2.A6.2_1                 |  3 |     6 |    |     |     |     |     |    [128X[104X
+    [4X[28X2.A7                     | 24 |     2 |    |     |     |     |     |    [128X[104X
+    [4X[28X2.A7.2                   |  7 |       |    |     |     |     |     |    [128X[104X
+    [4X[28X...[128X[104X
+    [4X[28XM22                      | 58 |     8 |  + |  +  |     |  +  |  +  |  + [128X[104X
+    [4X[28XM22.2                    | 46 |     7 |  + |  +  |     |  +  |  +  |  + [128X[104X
+    [4X[28XM23                      | 66 |     7 |  + |  +  |     |  +  |  +  |  + [128X[104X
+    [4X[28XM24                      | 62 |     9 |  + |  +  |     |  +  |  +  |  + [128X[104X
+    [4X[28XMcL                      | 46 |    12 |  + |  +  |     |  +  |  +  |  + [128X[104X
+    [4X[28XMcL.2                    | 27 |    10 |    |  +  |     |  +  |  +  |  + [128X[104X
+    [4X[28XO7(3)                    | 28 |       |    |     |     |     |     |    [128X[104X
+    [4X[28XO7(3).2                  |  3 |       |    |     |     |     |     |    [128X[104X
+    [4X[28X...[128X[104X
+    [4X[28XSuz                      | 30 |    17 |    |  +  |   2 |  +  |  +  |    [128X[104X
+    [4X[28X...[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YCalled  with  a  group  name  as  the only argument, the function [2XAtlasGroup[102X
+  ([14X3.5-8[114X)  returns  a  group  isomorphic  to the group with the given name, or
+  [9Xfail[109X.  If  permutation  generators  are  available  in  the  database then a
+  permutation  group  (of  smallest available degree) is returned, otherwise a
+  matrix group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "M24" );[127X[104X
+    [4X[28XGroup([ (1,4)(2,7)(3,17)(5,13)(6,9)(8,15)(10,19)(11,18)(12,21)(14,16)[128X[104X
+    [4X[28X  (20,24)(22,23), (1,4,6)(2,21,14)(3,9,15)(5,18,10)(13,17,16)[128X[104X
+    [4X[28X  (19,24,23) ])[128X[104X
+    [4X[25Xgap>[125X [27XIsPermGroup( g );  NrMovedPoints( g );  Size( g );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28X24[128X[104X
+    [4X[28X244823040[128X[104X
+    [4X[25Xgap>[125X [27XAtlasGroup( "J5" );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.1-2 [33X[0;0YAccessing a Maximal Subgroup of a Group in [5XAtlasRep[105X[101X[1X[133X[101X
+  
+  [33X[0;0YMany  maximal  subgroups  of  extensions of simple groups can be constructed
+  using the function [2XAtlasSubgroup[102X ([14X3.5-9[114X). Given the name of the extension of
+  the simple group and the number of the conjugacy class of maximal subgroups,
+  this function returns a representative from this class.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasSubgroup( "M24", 1 );[127X[104X
+    [4X[28XGroup([ (2,10)(3,12)(4,14)(6,9)(8,16)(15,18)(20,22)(21,24), (1,7,2,9)[128X[104X
+    [4X[28X  (3,22,10,23)(4,19,8,12)(5,14)(6,18)(13,16,17,24) ])[128X[104X
+    [4X[25Xgap>[125X [27XIsPermGroup( g );  NrMovedPoints( g );  Size( g );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[28X23[128X[104X
+    [4X[28X10200960[128X[104X
+    [4X[25Xgap>[125X [27XAtlasSubgroup( "M24", 100 );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  classes  of  maximal subgroups are ordered w. r. t. decreasing subgroup
+  order. So the first class contains maximal subgroups of smallest index.[133X
+  
+  [33X[0;0YNote  that groups obtained by [2XAtlasSubgroup[102X ([14X3.5-9[114X) may be not very suitable
+  for  computations  in  the  sense that much nicer representations exist. For
+  example,  the  sporadic simple O'Nan group [22XO'N[122X contains a maximal subgroup [22XS[122X
+  isomorphic with the Janko group [22XJ_1[122X; the smallest permutation representation
+  of  [22XO'N[122X has degree [22X122760[122X, and restricting this representation to [22XS[122X yields a
+  representation   of  [22XJ_1[122X  of  that  degree.  However,  [22XJ_1[122X  has  a  faithful
+  permutation  representation  of degree [22X266[122X, which admits much more efficient
+  computations.  If  you  are  just interested in [22XJ_1[122X and not in its embedding
+  into  [22XO'N[122X  then one possibility to get a [21Xnicer[121X faithful representation is to
+  call            [2XSmallerDegreePermutationRepresentation[102X           ([14XReference:
+  SmallerDegreePermutationRepresentation[114X). In the abovementioned example, this
+  works  quite  well;  note  that  in  general, we cannot expect that we get a
+  representation of smallest degree in this way.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= AtlasSubgroup( "ON", 3 );[127X[104X
+    [4X[28X<permutation group of size 175560 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XNrMovedPoints( s );  Size( s );[127X[104X
+    [4X[28X122760[128X[104X
+    [4X[28X175560[128X[104X
+    [4X[25Xgap>[125X [27Xhom:= SmallerDegreePermutationRepresentation( s );;[127X[104X
+    [4X[25Xgap>[125X [27XNrMovedPoints( Image( hom ) ) < 2000;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Depending  on random choices in the computations, one may or my not get the
+  degree [22X266[122X representation.)[133X
+  
+  [33X[0;0YIn this particular case, one could of course also ask directly for the group
+  [22XJ_1[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xj1:= AtlasGroup( "J1" );[127X[104X
+    [4X[28X<permutation group of size 175560 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XNrMovedPoints( j1 );[127X[104X
+    [4X[28X266[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  you  have a group [22XG[122X, say, and you are really interested in the embedding
+  of  a  maximal  subgroup  of  [22XG[122X  into  [22XG[122X  then an easy way to get compatible
+  generators  is  to  create  [22XG[122X  with  [2XAtlasGroup[102X  ([14X3.5-8[114X)  and  then  to call
+  [2XAtlasSubgroup[102X ([14X3.5-9[114X) with first argument the group [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "ON" );[127X[104X
+    [4X[28X<permutation group of size 460815505920 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xs:= AtlasSubgroup( g, 3 );[127X[104X
+    [4X[28X<permutation group of size 175560 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XIsSubset( g, s );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XIsSubset( g, j1 );[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2 [33X[0;0YAccessing Specific Generators in [5XAtlasRep[105X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  function  [2XDisplayAtlasInfo[102X ([14X3.5-1[114X), called with an admissible name of a
+  group as the only argument, lists the [5XATLAS[105X data available for this group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasInfo( "A5" );[127X[104X
+    [4X[28XRepresentations for G = A5:    (all refer to std. generators 1)[128X[104X
+    [4X[28X---------------------------[128X[104X
+    [4X[28X 1: G <= Sym(5)                  3-trans., on cosets of A4 (1st max.)[128X[104X
+    [4X[28X 2: G <= Sym(6)                  2-trans., on cosets of D10 (2nd max.)[128X[104X
+    [4X[28X 3: G <= Sym(10)                 rank 3, on cosets of S3 (3rd max.)[128X[104X
+    [4X[28X 4: G <= GL(4a,2)                character 4a[128X[104X
+    [4X[28X 5: G <= GL(4b,2)                character 2ab[128X[104X
+    [4X[28X 6: G <= GL(4,3)                 character 4a[128X[104X
+    [4X[28X 7: G <= GL(6,3)                 character 3ab[128X[104X
+    [4X[28X 8: G <= GL(2a,4)                character 2a[128X[104X
+    [4X[28X 9: G <= GL(2b,4)                character 2b[128X[104X
+    [4X[28X10: G <= GL(3,5)                 character 3a[128X[104X
+    [4X[28X11: G <= GL(5,5)                 character 5a[128X[104X
+    [4X[28X12: G <= GL(3a,9)                character 3a[128X[104X
+    [4X[28X13: G <= GL(3b,9)                character 3b[128X[104X
+    [4X[28X14: G <= GL(4,Z)                 character 4a[128X[104X
+    [4X[28X15: G <= GL(5,Z)                 character 5a[128X[104X
+    [4X[28X16: G <= GL(6,Z)                 character 3ab[128X[104X
+    [4X[28X17: G <= GL(3a,Field([Sqrt(5)])) character 3a[128X[104X
+    [4X[28X18: G <= GL(3b,Field([Sqrt(5)])) character 3b[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XPrograms for G = A5:    (all refer to std. generators 1)[128X[104X
+    [4X[28X--------------------[128X[104X
+    [4X[28X- class repres.*      [128X[104X
+    [4X[28X- presentation        [128X[104X
+    [4X[28X- maxes (all 3):[128X[104X
+    [4X[28X  1:  A4              [128X[104X
+    [4X[28X  2:  D10             [128X[104X
+    [4X[28X  3:  S3              [128X[104X
+    [4X[28X- std. gen. checker:[128X[104X
+    [4X[28X  (check)             [128X[104X
+    [4X[28X  (pres)              [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn order to fetch one of the listed permutation groups or matrix groups, you
+  can  call  [2XAtlasGroup[102X  ([14X3.5-8[114X)  with  second  argument the function [2XPosition[102X
+  ([14XReference: Position[114X) and third argument the position in the list.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAtlasGroup( "A5", Position, 1 );[127X[104X
+    [4X[28XGroup([ (1,2)(3,4), (1,3,5) ])[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that  this approach may yield a different group after a data extension
+  has been loaded.[133X
+  
+  [33X[0;0YAlternatively, you can describe the desired group by conditions, such as the
+  degree  in  the  case of a permutation group, and the dimension and the base
+  ring in the case of a matrix group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAtlasGroup( "A5", NrMovedPoints, 10 );[127X[104X
+    [4X[28XGroup([ (2,4)(3,5)(6,8)(7,10), (1,2,3)(4,6,7)(5,8,9) ])[128X[104X
+    [4X[25Xgap>[125X [27XAtlasGroup( "A5", Dimension, 4, Ring, GF(2) );[127X[104X
+    [4X[28X<matrix group of size 60 with 2 generators>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  same  holds for the restriction to maximal subgroups: Use [2XAtlasSubgroup[102X
+  ([14X3.5-9[114X)   with  the  same  arguments  as  [2XAtlasGroup[102X  ([14X3.5-8[114X),  except  that
+  additionally  the number of the class of maximal subgroups is entered as the
+  last  argument.  Note  that  the  conditions  refer to the group, not to the
+  subgroup;  it  may  happen that the subgroup moves fewer points than the big
+  group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAtlasSubgroup( "A5", Dimension, 4, Ring, GF(2), 1 );[127X[104X
+    [4X[28X<matrix group of size 12 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasSubgroup( "A5", NrMovedPoints, 10, 3 );[127X[104X
+    [4X[28XGroup([ (2,4)(3,5)(6,8)(7,10), (1,4)(3,8)(5,7)(6,10) ])[128X[104X
+    [4X[25Xgap>[125X [27XSize( g );  NrMovedPoints( g );[127X[104X
+    [4X[28X6[128X[104X
+    [4X[28X9[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3 [33X[0;0YBasic Concepts used in [5XAtlasRep[105X[101X[1X[133X[101X
+  
+  
+  [1X2.3-1 [33X[0;0YGroups, Generators, and Representations[133X[101X
+  
+  [33X[0;0YUp  to  now,  we  have  talked only about groups and subgroups. The [5XAtlasRep[105X
+  package  provides  access  to [13Xgroup generators[113X, and in fact these generators
+  have  the  property  that  mapping  one  set of generators to another set of
+  generators  for  the same group defines an isomorphism. These generators are
+  called [13Xstandard generators[113X, see Section [14X3.3[114X.[133X
+  
+  [33X[0;0YSo  instead  of thinking about several generating sets of a group [22XG[122X, say, we
+  can  think about one abstract group [22XG[122X, with one fixed set of generators, and
+  mapping  these  generators  to  any  set  of generators provided by [5XAtlasRep[105X
+  defines  a  representation of [22XG[122X. This viewpoint had motivated the name [21X[5XATLAS[105X
+  of Group Representations[121X for the core part of the database.[133X
+  
+  [33X[0;0YIf you are interested in the generators provided by the database rather than
+  in    the    groups    they    generate,    you   can   use   the   function
+  [2XOneAtlasGeneratingSetInfo[102X  ([14X3.5-6[114X)  instead  of [2XAtlasGroup[102X ([14X3.5-8[114X), with the
+  same  arguments.  This will yield a record that describes the representation
+  in  question.  Calling the function [2XAtlasGenerators[102X ([14X3.5-3[114X) with this record
+  will  then  yield  a  record with the additional component [10Xgenerators[110X, which
+  holds the list of generators.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinfo:= OneAtlasGeneratingSetInfo( "A5", NrMovedPoints, 10 );[127X[104X
+    [4X[28Xrec( charactername := "1a+4a+5a", constituents := [ 1, 4, 5 ], [128X[104X
+    [4X[28X  contents := "core", groupname := "A5", id := "", [128X[104X
+    [4X[28X  identifier := [ "A5", [ "A5G1-p10B0.m1", "A5G1-p10B0.m2" ], 1, 10 ],[128X[104X
+    [4X[28X  isPrimitive := true, maxnr := 3, p := 10, rankAction := 3, [128X[104X
+    [4X[28X  repname := "A5G1-p10B0", repnr := 3, size := 60, stabilizer := "S3",[128X[104X
+    [4X[28X  standardization := 1, transitivity := 1, type := "perm" )[128X[104X
+    [4X[25Xgap>[125X [27Xinfo2:= AtlasGenerators( info );[127X[104X
+    [4X[28Xrec( charactername := "1a+4a+5a", constituents := [ 1, 4, 5 ], [128X[104X
+    [4X[28X  contents := "core", [128X[104X
+    [4X[28X  generators := [ (2,4)(3,5)(6,8)(7,10), (1,2,3)(4,6,7)(5,8,9) ], [128X[104X
+    [4X[28X  groupname := "A5", id := "", [128X[104X
+    [4X[28X  identifier := [ "A5", [ "A5G1-p10B0.m1", "A5G1-p10B0.m2" ], 1, 10 ],[128X[104X
+    [4X[28X  isPrimitive := true, maxnr := 3, p := 10, rankAction := 3, [128X[104X
+    [4X[28X  repname := "A5G1-p10B0", repnr := 3, size := 60, stabilizer := "S3",[128X[104X
+    [4X[28X  standardization := 1, transitivity := 1, type := "perm" )[128X[104X
+    [4X[25Xgap>[125X [27Xinfo2.generators;[127X[104X
+    [4X[28X[ (2,4)(3,5)(6,8)(7,10), (1,2,3)(4,6,7)(5,8,9) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  record  [10Xinfo[110X  appears  as the value of the attribute [2XAtlasRepInfoRecord[102X
+  ([14X3.5-10[114X) in groups that are returned by [2XAtlasGroup[102X ([14X3.5-8[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "A5", NrMovedPoints, 10 );;[127X[104X
+    [4X[25Xgap>[125X [27XAtlasRepInfoRecord( g );[127X[104X
+    [4X[28Xrec( charactername := "1a+4a+5a", constituents := [ 1, 4, 5 ], [128X[104X
+    [4X[28X  contents := "core", groupname := "A5", id := "", [128X[104X
+    [4X[28X  identifier := [ "A5", [ "A5G1-p10B0.m1", "A5G1-p10B0.m2" ], 1, 10 ],[128X[104X
+    [4X[28X  isPrimitive := true, maxnr := 3, p := 10, rankAction := 3, [128X[104X
+    [4X[28X  repname := "A5G1-p10B0", repnr := 3, size := 60, stabilizer := "S3",[128X[104X
+    [4X[28X  standardization := 1, transitivity := 1, type := "perm" )[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3-2 [33X[0;0YStraight Line Programs[133X[101X
+  
+  [33X[0;0YFor  computing  certain  group  elements  from  standard generators, such as
+  generators  of  a  subgroup or class representatives, [5XAtlasRep[105X uses [13Xstraight
+  line  programs[113X,  see  [14X'Reference:  Straight Line Programs'[114X. Essentially this
+  means  to  evaluate  words in the generators, which is similar to [2XMappedWord[102X
+  ([14XReference: MappedWord[114X) but can be more efficient.[133X
+  
+  [33X[0;0YIt can be useful to deal with these straight line programs, see [2XAtlasProgram[102X
+  ([14X3.5-4[114X).  For  example, an automorphism [22Xα[122X, say, of the group [22XG[122X, if available
+  in  [5XAtlasRep[105X, is given by a straight line program that defines the images of
+  standard generators of [22XG[122X. This way, one can for example compute the image of
+  a  subgroup [22XU[122X of [22XG[122X under [22Xα[122X by first applying the straight line program for [22Xα[122X
+  to standard generators of [22XG[122X, and then applying the straight line program for
+  the restriction from [22XG[122X to [22XU[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xprginfo:= AtlasProgramInfo( "A5", "maxes", 1 );[127X[104X
+    [4X[28Xrec( groupname := "A5", identifier := [ "A5", "A5G1-max1W1", 1 ], [128X[104X
+    [4X[28X  size := 12, standardization := 1, subgroupname := "A4", [128X[104X
+    [4X[28X  version := "1" )[128X[104X
+    [4X[25Xgap>[125X [27Xprg:= AtlasProgram( prginfo.identifier );[127X[104X
+    [4X[28Xrec( groupname := "A5", identifier := [ "A5", "A5G1-max1W1", 1 ], [128X[104X
+    [4X[28X  program := <straight line program>, size := 12, [128X[104X
+    [4X[28X  standardization := 1, subgroupname := "A4", version := "1" )[128X[104X
+    [4X[25Xgap>[125X [27XDisplay( prg.program );[127X[104X
+    [4X[28X# input:[128X[104X
+    [4X[28Xr:= [ g1, g2 ];[128X[104X
+    [4X[28X# program:[128X[104X
+    [4X[28Xr[3]:= r[1]*r[2];[128X[104X
+    [4X[28Xr[4]:= r[2]*r[1];[128X[104X
+    [4X[28Xr[5]:= r[3]*r[3];[128X[104X
+    [4X[28Xr[1]:= r[5]*r[4];[128X[104X
+    [4X[28X# return values:[128X[104X
+    [4X[28X[ r[1], r[2] ][128X[104X
+    [4X[25Xgap>[125X [27XResultOfStraightLineProgram( prg.program, info2.generators );[127X[104X
+    [4X[28X[ (1,10)(2,3)(4,9)(7,8), (1,2,3)(4,6,7)(5,8,9) ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.4 [33X[0;0YExamples of Using the [5XAtlasRep[105X[101X[1X Package[133X[101X
+  
+  
+  [1X2.4-1 [33X[0;0YExample: Class Representatives[133X[101X
+  
+  [33X[0;0YFirst  we show the computation of class representatives of the Mathieu group
+  [22XM_11[122X,  in  a [22X2[122X-modular matrix representation. We start with the ordinary and
+  Brauer character tables of this group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "M11" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmodtbl:= tbl mod 2;;[127X[104X
+    [4X[25Xgap>[125X [27XCharacterDegrees( modtbl );[127X[104X
+    [4X[28X[ [ 1, 1 ], [ 10, 1 ], [ 16, 2 ], [ 44, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  output of [2XCharacterDegrees[102X ([14XReference: CharacterDegrees[114X) means that the
+  [22X2[122X-modular irreducibles of [22XM_11[122X have degrees [22X1[122X, [22X10[122X, [22X16[122X, [22X16[122X, and [22X44[122X.[133X
+  
+  [33X[0;0YUsing  [2XDisplayAtlasInfo[102X  ([14X3.5-1[114X), we find out that matrix generators for the
+  irreducible [22X10[122X-dimensional representation are available in the database.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasInfo( "M11", Characteristic, 2 );[127X[104X
+    [4X[28XRepresentations for G = M11:    (all refer to std. generators 1)[128X[104X
+    [4X[28X----------------------------[128X[104X
+    [4X[28X 6: G <= GL(10,2)  character 10a[128X[104X
+    [4X[28X 7: G <= GL(32,2)  character 16ab[128X[104X
+    [4X[28X 8: G <= GL(44,2)  character 44a[128X[104X
+    [4X[28X16: G <= GL(16a,4) character 16a[128X[104X
+    [4X[28X17: G <= GL(16b,4) character 16b[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  we  decide to work with this representation. We fetch the generators and
+  compute the list of class representatives of [22XM_11[122X in the representation. The
+  ordering of class representatives is the same as that in the character table
+  of  the [5XATLAS[105X of Finite Groups ([CCN+85]), which coincides with the ordering
+  of columns in the [5XGAP[105X table we have fetched above.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinfo:= OneAtlasGeneratingSetInfo( "M11", Characteristic, 2,[127X[104X
+    [4X[25X>[125X [27X                                            Dimension, 10 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgens:= AtlasGenerators( info.identifier );;[127X[104X
+    [4X[25Xgap>[125X [27Xccls:= AtlasProgram( "M11", gens.standardization, "classes" );[127X[104X
+    [4X[28Xrec( groupname := "M11", identifier := [ "M11", "M11G1-cclsW1", 1 ], [128X[104X
+    [4X[28X  outputs := [ "1A", "2A", "3A", "4A", "5A", "6A", "8A", "8B", "11A", [128X[104X
+    [4X[28X      "11B" ], program := <straight line program>, [128X[104X
+    [4X[28X  standardization := 1, version := "1" )[128X[104X
+    [4X[25Xgap>[125X [27Xreps:= ResultOfStraightLineProgram( ccls.program, gens.generators );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  we  would  need  only  a few class representatives, we could use the [5XGAP[105X
+  library  function  [2XRestrictOutputsOfSLP[102X ([14XReference: RestrictOutputsOfSLP[114X) to
+  create a straight line program that computes only specified outputs. Here is
+  an example where only the class representatives of order eight are computed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xord8prg:= RestrictOutputsOfSLP( ccls.program,[127X[104X
+    [4X[25X>[125X [27X                  Filtered( [ 1 .. 10 ], i -> ccls.outputs[i][1] = '8' ) );[127X[104X
+    [4X[28X<straight line program>[128X[104X
+    [4X[25Xgap>[125X [27Xord8reps:= ResultOfStraightLineProgram( ord8prg, gens.generators );;[127X[104X
+    [4X[25Xgap>[125X [27XList( ord8reps, m -> Position( reps, m ) );[127X[104X
+    [4X[28X[ 7, 8 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet us check that the class representatives have the right orders.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( reps, Order ) = OrdersClassRepresentatives( tbl );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFrom  the  class representatives, we can compute the Brauer character we had
+  started  with.  This  Brauer  character  is  defined  on  all classes of the
+  [22X2[122X-modular  table. So we first pick only those representatives, using the [5XGAP[105X
+  function  [2XGetFusionMap[102X  ([14XReference:  GetFusionMap[114X);  in  this  situation, it
+  returns the class fusion from the Brauer table into the ordinary table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfus:= GetFusionMap( modtbl, tbl );[127X[104X
+    [4X[28X[ 1, 3, 5, 9, 10 ][128X[104X
+    [4X[25Xgap>[125X [27Xmodreps:= reps{ fus };;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThen   we   call   the   [5XGAP[105X   function   [2XBrauerCharacterValue[102X   ([14XReference:
+  BrauerCharacterValue[114X),  which  computes  the Brauer character value from the
+  matrix given.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xchar:= List( modreps, BrauerCharacterValue );[127X[104X
+    [4X[28X[ 10, 1, 0, -1, -1 ][128X[104X
+    [4X[25Xgap>[125X [27XPosition( Irr( modtbl ), char );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.4-2 [33X[0;0YExample: Permutation and Matrix Representations[133X[101X
+  
+  [33X[0;0YThe  second  example  shows  the computation of a permutation representation
+  from a matrix representation. We work with the [22X10[122X-dimensional representation
+  used  above,  and  consider the action on the [22X2^10[122X vectors of the underlying
+  row space.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgrp:= Group( gens.generators );;[127X[104X
+    [4X[25Xgap>[125X [27Xv:= GF(2)^10;;[127X[104X
+    [4X[25Xgap>[125X [27Xorbs:= Orbits( grp, AsList( v ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( orbs, Length );[127X[104X
+    [4X[28X[ 1, 396, 55, 330, 66, 165, 11 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that  there  are  six  nontrivial  orbits,  and  we can compute the
+  permutation actions on these orbits directly using [2XAction[102X ([14XReference: Action
+  homomorphisms[114X).  However,  for  larger  examples,  one cannot write down all
+  orbits  on  the  row  space,  so  one  has to use another strategy if one is
+  interested in a particular orbit.[133X
+  
+  [33X[0;0YLet  us  assume  that we are interested in the orbit of length [22X11[122X. The point
+  stabilizer  is  the  first maximal subgroup of [22XM_11[122X, thus the restriction of
+  the representation to this subgroup has a nontrivial fixed point space. This
+  restriction can be computed using the [5XAtlasRep[105X package.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgens:= AtlasGenerators( "M11", 6, 1 );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow computing the fixed point space is standard linear algebra.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xid:= IdentityMat( 10, GF(2) );;[127X[104X
+    [4X[25Xgap>[125X [27Xsub1:= Subspace( v, NullspaceMat( gens.generators[1] - id ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xsub2:= Subspace( v, NullspaceMat( gens.generators[2] - id ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xfix:= Intersection( sub1, sub2 );[127X[104X
+    [4X[28X<vector space of dimension 1 over GF(2)>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe final step is of course the computation of the permutation action on the
+  orbit.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( grp, Basis( fix )[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xact:= Action( grp, orb );;  Print( act, "\n" );[127X[104X
+    [4X[28XGroup( [ ( 1, 2)( 4, 6)( 5, 8)( 7,10), ( 1, 3, 5, 9)( 2, 4, 7,11) ] )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that  this  group  is  [13Xnot[113X equal to the group obtained by fetching the
+  permutation  representation  from  the  database. This is due to a different
+  numbering  of  the  points, thus the groups are permutation isomorphic, that
+  is, they are conjugate in the symmetric group on eleven points.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpermgrp:= Group( AtlasGenerators( "M11", 1 ).generators );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( permgrp, "\n" );[127X[104X
+    [4X[28XGroup( [ ( 2,10)( 4,11)( 5, 7)( 8, 9), (1,4,3,8)(2,5,6,9) ] )[128X[104X
+    [4X[25Xgap>[125X [27Xpermgrp = act;[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XIsConjugate( SymmetricGroup(11), permgrp, act );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.4-3 [33X[0;0YExample: Outer Automorphisms[133X[101X
+  
+  [33X[0;0YThe  straight  line  programs  for  applying outer automorphisms to standard
+  generators  can  of course be used to define the automorphisms themselves as
+  [5XGAP[105X mappings.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasInfo( "G2(3)", IsStraightLineProgram );[127X[104X
+    [4X[28XPrograms for G = G2(3):    (all refer to std. generators 1)[128X[104X
+    [4X[28X-----------------------[128X[104X
+    [4X[28X- class repres.            [128X[104X
+    [4X[28X- presentation             [128X[104X
+    [4X[28X- repr. cyc. subg.         [128X[104X
+    [4X[28X- std. gen. checker        [128X[104X
+    [4X[28X- automorphisms:[128X[104X
+    [4X[28X  2                        [128X[104X
+    [4X[28X- maxes (all 10):[128X[104X
+    [4X[28X   1:  U3(3).2             [128X[104X
+    [4X[28X   2:  U3(3).2             [128X[104X
+    [4X[28X   3:  (3^(1+2)+x3^2):2S4  [128X[104X
+    [4X[28X   4:  (3^(1+2)+x3^2):2S4  [128X[104X
+    [4X[28X   5:  L3(3).2             [128X[104X
+    [4X[28X   6:  L3(3).2             [128X[104X
+    [4X[28X   7:  L2(8).3             [128X[104X
+    [4X[28X   8:  2^3.L3(2)           [128X[104X
+    [4X[28X   9:  L2(13)              [128X[104X
+    [4X[28X  10:  2^(1+4)+:3^2.2      [128X[104X
+    [4X[25Xgap>[125X [27Xprog:= AtlasProgram( "G2(3)", "automorphism", "2" ).program;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= OneAtlasGeneratingSetInfo( "G2(3)", Dimension, 7 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgens:= AtlasGenerators( info ).generators;;[127X[104X
+    [4X[25Xgap>[125X [27Ximgs:= ResultOfStraightLineProgram( prog, gens );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf we are not suspicious whether the script really describes an automorphism
+  then  we  should tell this to [5XGAP[105X, in order to avoid the expensive checks of
+  the    properties    of    being   a   homomorphism   and   bijective   (see
+  Section [14X'Reference: Creating Group Homomorphisms'[114X). This looks as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( gens );;[127X[104X
+    [4X[25Xgap>[125X [27Xaut:= GroupHomomorphismByImagesNC( g, g, gens, imgs );;[127X[104X
+    [4X[25Xgap>[125X [27XSetIsBijective( aut, true );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  we  are  suspicious whether the script describes an automorphism then we
+  might have the idea to check it with [5XGAP[105X, as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xaut:= GroupHomomorphismByImages( g, g, gens, imgs );;[127X[104X
+    [4X[25Xgap>[125X [27XIsBijective( aut );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Note  that  even for a comparatively small group such as [22XG_2(3)[122X, this was a
+  difficult task for [5XGAP[105X before version 4.3.)[133X
+  
+  [33X[0;0YOften one can form images under an automorphism [22Xα[122X, say, without creating the
+  homomorphism  object.  This  is  obvious  for the standard generators of the
+  group [22XG[122X themselves, but also for generators of a maximal subgroup [22XM[122X computed
+  from  standard  generators of [22XG[122X, provided that the straight line programs in
+  question  refer to the same standard generators. Note that the generators of
+  [22XM[122X  are  given  by evaluating words in terms of standard generators of [22XG[122X, and
+  their  images  under  [22Xα[122X  can be obtained by evaluating the same words at the
+  images under [22Xα[122X of the standard generators of [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmax1:= AtlasProgram( "G2(3)", 1 ).program;;[127X[104X
+    [4X[25Xgap>[125X [27Xmgens:= ResultOfStraightLineProgram( max1, gens );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= CompositionOfStraightLinePrograms( max1, prog );;[127X[104X
+    [4X[25Xgap>[125X [27Xmimgs:= ResultOfStraightLineProgram( comp, gens );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  list  [10Xmgens[110X  is the list of generators of the first maximal subgroup of
+  [22XG_2(3)[122X,  [10Xmimgs[110X  is  the  list  of images under the automorphism given by the
+  straight  line  program  [10Xprog[110X.  Note  that  applying the program returned by
+  [2XCompositionOfStraightLinePrograms[102X                                ([14XReference:
+  CompositionOfStraightLinePrograms[114X)  means to apply first [10Xprog[110X and then [10Xmax1[110X.
+  Since   we   have  already  constructed  the  [5XGAP[105X  object  representing  the
+  automorphism, we can check whether the results are equal.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmimgs = List( mgens, x -> x^aut );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHowever, it should be emphasized that using [10Xaut[110X requires a huge machinery of
+  computations  behind the scenes, whereas applying the straight line programs
+  [10Xprog[110X  and  [10Xmax1[110X involves only elementary operations with the generators. The
+  latter  is  feasible  also for larger groups, for which constructing the [5XGAP[105X
+  automorphism might be too hard.[133X
+  
+  
+  [1X2.4-4 [33X[0;0YExample: Using Semi-presentations and Black Box Programs[133X[101X
+  
+  [33X[0;0YLet  us  suppose  that  we  want to restrict a representation of the Mathieu
+  group  [22XM_12[122X  to a non-maximal subgroup of the type [22XL_2(11)[122X. The idea is that
+  this  subgroup  can  be found as a maximal subgroup of a maximal subgroup of
+  the  type  [22XM_11[122X,  which  is  itself  maximal  in  [22XM_12[122X. For that, we fetch a
+  representation of [22XM_12[122X and use a straight line program for restricting it to
+  the first maximal subgroup, which has the type [22XM_11[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinfo:= OneAtlasGeneratingSetInfo( "M12", NrMovedPoints, 12 );[127X[104X
+    [4X[28Xrec( charactername := "1a+11a", constituents := [ 1, 2 ], [128X[104X
+    [4X[28X  contents := "core", groupname := "M12", id := "a", [128X[104X
+    [4X[28X  identifier := [ "M12", [ "M12G1-p12aB0.m1", "M12G1-p12aB0.m2" ], 1, [128X[104X
+    [4X[28X      12 ], isPrimitive := true, maxnr := 1, p := 12, rankAction := 2,[128X[104X
+    [4X[28X  repname := "M12G1-p12aB0", repnr := 1, size := 95040, [128X[104X
+    [4X[28X  stabilizer := "M11", standardization := 1, transitivity := 5, [128X[104X
+    [4X[28X  type := "perm" )[128X[104X
+    [4X[25Xgap>[125X [27XgensM12:= AtlasGenerators( info.identifier );;[127X[104X
+    [4X[25Xgap>[125X [27XrestM11:= AtlasProgram( "M12", "maxes", 1 );;[127X[104X
+    [4X[25Xgap>[125X [27XgensM11:= ResultOfStraightLineProgram( restM11.program,[127X[104X
+    [4X[25X>[125X [27X                                          gensM12.generators );[127X[104X
+    [4X[28X[ (3,9)(4,12)(5,10)(6,8), (1,4,11,5)(2,10,8,3) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  [13Xcannot[113X  simply  apply  a  straight line program for a group to some
+  generators, since they are not necessarily [13Xstandard[113X generators of the group.
+  We check this property using a semi-presentation for [22XM_11[122X, see [14X6.1-7[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XcheckM11:= AtlasProgram( "M11", "check" );[127X[104X
+    [4X[28Xrec( groupname := "M11", identifier := [ "M11", "M11G1-check1", 1, 1 ][128X[104X
+    [4X[28X    , program := <straight line decision>, standardization := 1, [128X[104X
+    [4X[28X  version := "1" )[128X[104X
+    [4X[25Xgap>[125X [27XResultOfStraightLineDecision( checkM11.program, gensM11 );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  we are lucky that applying the appropriate program for [22XM_11[122X will give us
+  the required generators for [22XL_2(11)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XrestL211:= AtlasProgram( "M11", "maxes", 2 );;[127X[104X
+    [4X[25Xgap>[125X [27XgensL211:= ResultOfStraightLineProgram( restL211.program, gensM11 );[127X[104X
+    [4X[28X[ (3,9)(4,12)(5,10)(6,8), (1,11,9)(2,12,8)(3,6,10) ][128X[104X
+    [4X[25Xgap>[125X [27XG:= Group( gensL211 );;  Size( G );  IsSimple( G );[127X[104X
+    [4X[28X660[128X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  this  case, we could also use the information that is stored about [22XM_11[122X,
+  as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasInfo( "M11", IsStraightLineProgram );[127X[104X
+    [4X[28XPrograms for G = M11:    (all refer to std. generators 1)[128X[104X
+    [4X[28X---------------------[128X[104X
+    [4X[28X- presentation                                        [128X[104X
+    [4X[28X- repr. cyc. subg.                                    [128X[104X
+    [4X[28X- std. gen. finder                                    [128X[104X
+    [4X[28X- class repres.:[128X[104X
+    [4X[28X  (direct)                                            [128X[104X
+    [4X[28X  (composed)                                          [128X[104X
+    [4X[28X- maxes (all 5):[128X[104X
+    [4X[28X  1:  A6.2_3                                          [128X[104X
+    [4X[28X  1:  A6.2_3                                  (std. 1)[128X[104X
+    [4X[28X  2:  L2(11)                                          [128X[104X
+    [4X[28X  2:  L2(11)                                  (std. 1)[128X[104X
+    [4X[28X  3:  3^2:Q8.2                                        [128X[104X
+    [4X[28X  4:  S5                                              [128X[104X
+    [4X[28X  4:  S5                                      (std. 1)[128X[104X
+    [4X[28X  5:  2.S4                                            [128X[104X
+    [4X[28X- standardizations of maxes:[128X[104X
+    [4X[28X  from 1st max., version 1 to A6.2_3, std. 1          [128X[104X
+    [4X[28X  from 2nd max., version 1 to L2(11), std. 1          [128X[104X
+    [4X[28X  from 4th max., version 1 to A5.2, std. 1            [128X[104X
+    [4X[28X- std. gen. checker:[128X[104X
+    [4X[28X  (check)                                             [128X[104X
+    [4X[28X  (pres)                                              [128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe entry [21Xstd.1[121X in the line about the maximal subgroup of type [22XL_2(11)[122X means
+  that   a  straight  line  program  for  computing  [13Xstandard[113X  generators  (in
+  standardization 1) of the subgroup. This program can be fetched as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XrestL211std:= AtlasProgram( "M11", "maxes", 2, 1 );;[127X[104X
+    [4X[25Xgap>[125X [27XResultOfStraightLineProgram( restL211std.program, gensM11 );[127X[104X
+    [4X[28X[ (3,9)(4,12)(5,10)(6,8), (1,11,9)(2,12,8)(3,6,10) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that we get the same generators for the subgroup as above. (In fact
+  the  second  approach  first  applies  the  same  program  as  is  given  by
+  [10XrestL211.program[110X,  and  then  applies  a  program  to  the results that does
+  nothing.)[133X
+  
+  [33X[0;0YUsually  representations  are not given in terms of standard generators. For
+  example,  let  us  take  the  [22XM_11[122X  type  group returned by the [5XGAP[105X function
+  [2XMathieuGroup[102X ([14XReference: MathieuGroup[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG:= MathieuGroup( 11 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgens:= GeneratorsOfGroup( G );[127X[104X
+    [4X[28X[ (1,2,3,4,5,6,7,8,9,10,11), (3,7,11,8)(4,10,5,6) ][128X[104X
+    [4X[25Xgap>[125X [27XResultOfStraightLineDecision( checkM11.program, gens );[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  we  want to compute an [22XL_2(11)[122X type subgroup of this group, we can use a
+  black  box  program  for  computing  standard generators, and then apply the
+  straight line program for computing the restriction.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfind:= AtlasProgram( "M11", "find" );[127X[104X
+    [4X[28Xrec( groupname := "M11", identifier := [ "M11", "M11G1-find1", 1, 1 ],[128X[104X
+    [4X[28X  program := <black box program>, standardization := 1, [128X[104X
+    [4X[28X  version := "1" )[128X[104X
+    [4X[25Xgap>[125X [27Xstdgens:= ResultOfBBoxProgram( find.program, Group( gens ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( stdgens, Order );[127X[104X
+    [4X[28X[ 2, 4 ][128X[104X
+    [4X[25Xgap>[125X [27XResultOfStraightLineDecision( checkM11.program, stdgens );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XgensL211:= ResultOfStraightLineProgram( restL211.program, stdgens );;[127X[104X
+    [4X[25Xgap>[125X [27XList( gensL211, Order );[127X[104X
+    [4X[28X[ 2, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XG:= Group( gensL211 );;  Size( G );  IsSimple( G );[127X[104X
+    [4X[28X660[128X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that  applying the black box program several times may yield different
+  group  elements,  because  computations of random elements are involved, see
+  [2XResultOfBBoxProgram[102X  ([14X6.2-4[114X).  All what the black box program promises is to
+  construct standard generators, and these are defined only up to conjugacy in
+  the automorphism group of the group in question.[133X
+  
+  
+  [1X2.4-5 [33X[0;0YExample: Using the [5XGAP[105X[101X[1X Library of Tables of Marks[133X[101X
+  
+  [33X[0;0YThe  [5XGAP[105X  Library  of  Tables  of  Marks  (the  [5XGAP[105X package [5XTomLib[105X, [NMP18])
+  provides,  for  many  almost  simple  groups,  information  for constructing
+  representatives  of  all conjugacy classes of subgroups. If this information
+  is   compatible   with  the  standard  generators  of  the  [5XATLAS[105X  of  Group
+  Representations  then  we can use it to restrict any representation from the
+  [5XATLAS[105X  to  prescribed  subgroups.  This  is  useful  in particular for those
+  subgroups  for  which  the  [5XATLAS[105X  of  Group Representations itself does not
+  contain a straight line program.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( "A5" );[127X[104X
+    [4X[28XTableOfMarks( "A5" )[128X[104X
+    [4X[25Xgap>[125X [27Xinfo:= StandardGeneratorsInfo( tom );[127X[104X
+    [4X[28X[ rec( ATLAS := true, description := "|a|=2, |b|=3, |ab|=5", [128X[104X
+    [4X[28X      generators := "a, b", [128X[104X
+    [4X[28X      script := [ [ 1, 2 ], [ 2, 3 ], [ 1, 1, 2, 1, 5 ] ], [128X[104X
+    [4X[28X      standardization := 1 ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [9Xtrue[109X value of the component [10XATLAS[110X indicates that the information stored
+  on  [10Xtom[110X  refers  to  the standard generators of type [22X1[122X in the [5XATLAS[105X of Group
+  Representations.[133X
+  
+  [33X[0;0YWe  want  to  restrict  a  [22X4[122X-dimensional integral representation of [22XA_5[122X to a
+  Sylow [22X2[122X subgroup of [22XA_5[122X, and use [2XRepresentativeTomByGeneratorsNC[102X ([14XReference:
+  RepresentativeTomByGeneratorsNC[114X) for that.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinfo:= OneAtlasGeneratingSetInfo( "A5", Ring, Integers, Dimension, 4 );;[127X[104X
+    [4X[25Xgap>[125X [27Xstdgens:= AtlasGenerators( info.identifier );[127X[104X
+    [4X[28Xrec( charactername := "4a", constituents := [ 4 ], contents := "core",[128X[104X
+    [4X[28X  dim := 4, [128X[104X
+    [4X[28X  generators := [128X[104X
+    [4X[28X    [ [128X[104X
+    [4X[28X      [ [ 1, 0, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 1, 0, 0 ], [128X[104X
+    [4X[28X          [ -1, -1, -1, -1 ] ], [128X[104X
+    [4X[28X      [ [ 0, 1, 0, 0 ], [ 0, 0, 0, 1 ], [ 0, 0, 1, 0 ], [128X[104X
+    [4X[28X          [ 1, 0, 0, 0 ] ] ], groupname := "A5", id := "", [128X[104X
+    [4X[28X  identifier := [ "A5", "A5G1-Zr4B0.g", 1, 4 ], [128X[104X
+    [4X[28X  repname := "A5G1-Zr4B0", repnr := 14, ring := Integers, size := 60, [128X[104X
+    [4X[28X  standardization := 1, type := "matint" )[128X[104X
+    [4X[25Xgap>[125X [27Xorders:= OrdersTom( tom );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 10, 12, 60 ][128X[104X
+    [4X[25Xgap>[125X [27Xpos:= Position( orders, 4 );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27Xsub:= RepresentativeTomByGeneratorsNC( tom, pos, stdgens.generators );[127X[104X
+    [4X[28X<matrix group of size 4 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XGeneratorsOfGroup( sub );[127X[104X
+    [4X[28X[ [ [ 1, 0, 0, 0 ], [ -1, -1, -1, -1 ], [ 0, 0, 0, 1 ], [128X[104X
+    [4X[28X      [ 0, 0, 1, 0 ] ], [128X[104X
+    [4X[28X  [ [ 1, 0, 0, 0 ], [ 0, 0, 1, 0 ], [ 0, 1, 0, 0 ], [128X[104X
+    [4X[28X      [ -1, -1, -1, -1 ] ] ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.4-6 [33X[0;0YExample: Index [22X770[122X[101X[1X Subgroups in [22XM_22[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  sporadic simple Mathieu group [22XM_22[122X contains a unique class of subgroups
+  of  index  [22X770[122X  (and  order  [22X576[122X).  This can be seen for example using [5XGAP[105X's
+  Library of Tables of Marks.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( "M22" );[127X[104X
+    [4X[28XTableOfMarks( "M22" )[128X[104X
+    [4X[25Xgap>[125X [27Xsubord:= Size( UnderlyingGroup( tom ) ) / 770;[127X[104X
+    [4X[28X576[128X[104X
+    [4X[25Xgap>[125X [27Xord:= OrdersTom( tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xtomstabs:= Filtered( [ 1 .. Length( ord ) ], i -> ord[i] = subord );[127X[104X
+    [4X[28X[ 144 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  permutation  representation  of  [22XM_22[122X  on  the  right  cosets of such a
+  subgroup [22XS[122X is contained in the [5XATLAS[105X of Group Representations.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasInfo( "M22", NrMovedPoints, 770 );[127X[104X
+    [4X[28XRepresentations for G = M22:    (all refer to std. generators 1)[128X[104X
+    [4X[28X----------------------------[128X[104X
+    [4X[28X12: G <= Sym(770) rank 9, on cosets of (A4xA4):4 < 2^4:A6[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow we verify the information shown about the point stabilizer and about the
+  maximal overgroups of [22XS[122X in [22XM_22[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmaxtom:= MaximalSubgroupsTom( tom );[127X[104X
+    [4X[28X[ [ 155, 154, 153, 152, 151, 150, 146, 145 ], [128X[104X
+    [4X[28X  [ 22, 77, 176, 176, 231, 330, 616, 672 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( tomstabs, i -> List( maxtom[1], j -> ContainedTom( tom, i, j ) ) );[127X[104X
+    [4X[28X[ [ 0, 10, 0, 0, 0, 0, 0, 0 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see that the only maximal subgroups of [22XM_22[122X that contain [22XS[122X have index [22X77[122X
+  in  [22XM_22[122X.  According  to the [5XATLAS[105X of Finite Groups, these maximal subgroups
+  have  the  structure  [22X2^4:A_6[122X.  From  that and from the structure of [22XA_6[122X, we
+  conclude that [22XS[122X has the structure [22X2^4:(3^2:4)[122X.[133X
+  
+  [33X[0;0YAlternatively,  we  look at the permutation representation of degree [22X770[122X. We
+  fetch  it  from  the  [5XATLAS[105X  of  Group Representations. There is exactly one
+  nontrivial  block  system  for this representation, with [22X77[122X blocks of length
+  [22X10[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "M22", NrMovedPoints, 770 );[127X[104X
+    [4X[28X<permutation group of size 443520 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xallbl:= AllBlocks( g );;[127X[104X
+    [4X[25Xgap>[125X [27XList( allbl, Length );[127X[104X
+    [4X[28X[ 10 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFurthermore, [5XGAP[105X computes that the point stabilizer [22XS[122X has the structure [22X(A_4
+  × A_4):4[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xstab:= Stabilizer( g, 1 );;[127X[104X
+    [4X[25Xgap>[125X [27XStructureDescription( stab : nice );[127X[104X
+    [4X[28X"(A4 x A4) : C4"[128X[104X
+    [4X[25Xgap>[125X [27Xblocks:= Orbit( g, allbl[1], OnSets );;[127X[104X
+    [4X[25Xgap>[125X [27Xact:= Action( g, blocks, OnSets );;[127X[104X
+    [4X[25Xgap>[125X [27XStructureDescription( Stabilizer( act, 1 ) );[127X[104X
+    [4X[28X"(C2 x C2 x C2 x C2) : A6"[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.4-7 [33X[0;0YExample: Index [22X462[122X[101X[1X Subgroups in [22XM_22[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  [5XATLAS[105X  of  Group  Representations contains three degree [22X462[122X permutation
+  representations of the group [22XM_22[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplayAtlasInfo( "M22", NrMovedPoints, 462 );[127X[104X
+    [4X[28XRepresentations for G = M22:    (all refer to std. generators 1)[128X[104X
+    [4X[28X----------------------------[128X[104X
+    [4X[28X7: G <= Sym(462a) rank 5, on cosets of 2^4:A5 < 2^4:A6[128X[104X
+    [4X[28X8: G <= Sym(462b) rank 8, on cosets of 2^4:A5 < L3(4), 2^4:S5[128X[104X
+    [4X[28X9: G <= Sym(462c) rank 8, on cosets of 2^4:A5 < L3(4), 2^4:A6[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  point  stabilizers  in  these  three representations have the structure
+  [22X2^4:A_5[122X.  Using  [5XGAP[105X's  Library  of  Tables of Marks, we can show that these
+  stabilizers are exactly the three classes of subgroups of order [22X960[122X in [22XM_22[122X.
+  For that, we first verify that the group generators stored in [5XGAP[105X's table of
+  marks  coincide  with  the  standard  generators  used by the [5XATLAS[105X of Group
+  Representations.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( "M22" );[127X[104X
+    [4X[28XTableOfMarks( "M22" )[128X[104X
+    [4X[25Xgap>[125X [27Xgenstom:= GeneratorsOfGroup( UnderlyingGroup( tom ) );;[127X[104X
+    [4X[25Xgap>[125X [27XcheckM22:= AtlasProgram( "M22", "check" );[127X[104X
+    [4X[28Xrec( groupname := "M22", identifier := [ "M22", "M22G1-check1", 1, 1 ][128X[104X
+    [4X[28X    , program := <straight line decision>, standardization := 1, [128X[104X
+    [4X[28X  version := "1" )[128X[104X
+    [4X[25Xgap>[125X [27XResultOfStraightLineDecision( checkM22.program, genstom );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThere are indeed three classes of subgroups of order [22X960[122X in [22XM_22[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xord:= OrdersTom( tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xtomstabs:= Filtered( [ 1 .. Length( ord ) ], i -> ord[i] = 960 );[127X[104X
+    [4X[28X[ 147, 148, 149 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  compute  representatives  of  these  three  classes  in  the  three
+  representations  [10X462a[110X, [10X462b[110X, and [10X462c[110X. We see that each of the three classes
+  occurs as a point stabilizer in exactly one of the three representations.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xatlasreps:= AllAtlasGeneratingSetInfos( "M22", NrMovedPoints, 462 );[127X[104X
+    [4X[28X[ rec( charactername := "1a+21a+55a+154a+231a", [128X[104X
+    [4X[28X      constituents := [ 1, 2, 5, 7, 9 ], contents := "core", [128X[104X
+    [4X[28X      groupname := "M22", id := "a", [128X[104X
+    [4X[28X      identifier := [128X[104X
+    [4X[28X        [ "M22", [ "M22G1-p462aB0.m1", "M22G1-p462aB0.m2" ], 1, 462 ],[128X[104X
+    [4X[28X      isPrimitive := false, p := 462, rankAction := 5, [128X[104X
+    [4X[28X      repname := "M22G1-p462aB0", repnr := 7, size := 443520, [128X[104X
+    [4X[28X      stabilizer := "2^4:A5 < 2^4:A6", standardization := 1, [128X[104X
+    [4X[28X      transitivity := 1, type := "perm" ), [128X[104X
+    [4X[28X  rec( charactername := "1a+21a^2+55a+154a+210a", [128X[104X
+    [4X[28X      constituents := [ 1, [ 2, 2 ], 5, 7, 8 ], contents := "core", [128X[104X
+    [4X[28X      groupname := "M22", id := "b", [128X[104X
+    [4X[28X      identifier := [128X[104X
+    [4X[28X        [ "M22", [ "M22G1-p462bB0.m1", "M22G1-p462bB0.m2" ], 1, 462 ],[128X[104X
+    [4X[28X      isPrimitive := false, p := 462, rankAction := 8, [128X[104X
+    [4X[28X      repname := "M22G1-p462bB0", repnr := 8, size := 443520, [128X[104X
+    [4X[28X      stabilizer := "2^4:A5 < L3(4), 2^4:S5", standardization := 1, [128X[104X
+    [4X[28X      transitivity := 1, type := "perm" ), [128X[104X
+    [4X[28X  rec( charactername := "1a+21a^2+55a+154a+210a", [128X[104X
+    [4X[28X      constituents := [ 1, [ 2, 2 ], 5, 7, 8 ], contents := "core", [128X[104X
+    [4X[28X      groupname := "M22", id := "c", [128X[104X
+    [4X[28X      identifier := [128X[104X
+    [4X[28X        [ "M22", [ "M22G1-p462cB0.m1", "M22G1-p462cB0.m2" ], 1, 462 ],[128X[104X
+    [4X[28X      isPrimitive := false, p := 462, rankAction := 8, [128X[104X
+    [4X[28X      repname := "M22G1-p462cB0", repnr := 9, size := 443520, [128X[104X
+    [4X[28X      stabilizer := "2^4:A5 < L3(4), 2^4:A6", standardization := 1, [128X[104X
+    [4X[28X      transitivity := 1, type := "perm" ) ][128X[104X
+    [4X[25Xgap>[125X [27Xatlasreps:= List( atlasreps, AtlasGroup );;[127X[104X
+    [4X[25Xgap>[125X [27Xtomstabreps:= List( atlasreps, G -> List( tomstabs,[127X[104X
+    [4X[25X>[125X [27Xi -> RepresentativeTomByGenerators( tom, i, GeneratorsOfGroup( G ) ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( tomstabreps, x -> List( x, NrMovedPoints ) );[127X[104X
+    [4X[28X[ [ 462, 462, 461 ], [ 460, 462, 462 ], [ 462, 461, 462 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YMore   precisely,   we   see   that  the  point  stabilizers  in  the  three
+  representations  [10X462a[110X, [10X462b[110X, [10X462c[110X lie in the subgroup classes [22X149[122X, [22X147[122X, [22X148[122X,
+  respectively, of the table of marks.[133X
+  
+  [33X[0;0YThe  point  stabilizers in the representations [10X462b[110X and [10X462c[110X are isomorphic,
+  but not isomorphic with the point stabilizer in [10X462a[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xstabs:= List( atlasreps, G -> Stabilizer( G, 1 ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( stabs, IdGroup );[127X[104X
+    [4X[28X[ [ 960, 11358 ], [ 960, 11357 ], [ 960, 11357 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( stabs, PerfectIdentification );[127X[104X
+    [4X[28X[ [ 960, 2 ], [ 960, 1 ], [ 960, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  three  representations  are  imprimitive.  The containment of the point
+  stabilizers  in maximal subgroups of [22XM_22[122X can be computed using the table of
+  marks of [22XM_22[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmaxtom:= MaximalSubgroupsTom( tom );[127X[104X
+    [4X[28X[ [ 155, 154, 153, 152, 151, 150, 146, 145 ], [128X[104X
+    [4X[28X  [ 22, 77, 176, 176, 231, 330, 616, 672 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( tomstabs, i -> List( maxtom[1], j -> ContainedTom( tom, i, j ) ) );[127X[104X
+    [4X[28X[ [ 21, 0, 0, 0, 1, 0, 0, 0 ], [ 21, 6, 0, 0, 0, 0, 0, 0 ], [128X[104X
+    [4X[28X  [ 0, 6, 0, 0, 0, 0, 0, 0 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe see:[133X
+  
+  [30X    [33X[0;6YThe point stabilizers in [10X462a[110X (subgroups in the class [22X149[122X of the table
+        of  marks) are contained only in maximal subgroups in class [22X154[122X; these
+        groups have the structure [22X2^4:A_6[122X.[133X
+  
+  [30X    [33X[0;6YThe  point  stabilizers  in  [10X462b[110X  (subgroups  in  the  class [22X147[122X) are
+        contained  in  maximal  subgroups  in  the  classes [22X155[122X and [22X151[122X; these
+        groups have the structures [22XL_3(4)[122X and [22X2^4:S_5[122X, respectively.[133X
+  
+  [30X    [33X[0;6YThe  point  stabilizers  in  [10X462c[110X  (subgroups  in  the  class [22X148[122X) are
+        contained in maximal subgroups in the classes [22X155[122X and [22X154[122X.[133X
+  
+  [33X[0;0YWe  identify the supergroups of the point stabilizers by computing the block
+  systems.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xbl:= List( atlasreps, AllBlocks );;[127X[104X
+    [4X[25Xgap>[125X [27XList( bl, Length );[127X[104X
+    [4X[28X[ 1, 3, 2 ][128X[104X
+    [4X[25Xgap>[125X [27XList( bl, l -> List( l, Length ) );[127X[104X
+    [4X[28X[ [ 6 ], [ 21, 21, 2 ], [ 21, 6 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that the two block systems with blocks of length [22X21[122X for [10X462b[110X belong to
+  the same supergroups (of the type [22XL_3(4)[122X); each of these subgroups fixes two
+  different subsets of [22X21[122X points.[133X
+  
+  [33X[0;0YThe  representation [10X462a[110X is [13Xmultiplicity-free[113X, that is, it splits into a sum
+  of pairwise nonisomorphic irreducible representations. This can be seen from
+  the  fact  that  the  rank  of this permutation representation (that is, the
+  number  of  orbits  of  the  point  stabilizer)  is  five;  each permutation
+  representation with this property is multiplicity-free.[133X
+  
+  [33X[0;0YThe other two representations have rank eight. We have seen the ranks in the
+  overview that was shown by [2XDisplayAtlasInfo[102X ([14X3.5-1[114X) in the beginning. Now we
+  compute the ranks from the permutation groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( atlasreps, RankAction );[127X[104X
+    [4X[28X[ 5, 8, 8 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  fact  the  two  representations  [10X462b[110X and [10X462c[110X have the same permutation
+  character. We check this by computing the possible permutation characters of
+  degree [22X462[122X for [22XM_22[122X, and decomposing them into irreducible characters, using
+  the character table from [5XGAP[105X's Character Table Library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "M22" );;[127X[104X
+    [4X[25Xgap>[125X [27Xperms:= PermChars( t, 462 );[127X[104X
+    [4X[28X[ Character( CharacterTable( "M22" ),[128X[104X
+    [4X[28X  [ 462, 30, 3, 2, 2, 2, 3, 0, 0, 0, 0, 0 ] ), [128X[104X
+    [4X[28X  Character( CharacterTable( "M22" ),[128X[104X
+    [4X[28X  [ 462, 30, 12, 2, 2, 2, 0, 0, 0, 0, 0, 0 ] ) ][128X[104X
+    [4X[25Xgap>[125X [27XMatScalarProducts( t, Irr( t ), perms );[127X[104X
+    [4X[28X[ [ 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0 ], [128X[104X
+    [4X[28X  [ 1, 2, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn   particular,   we   see   that   the   rank  eight  characters  are  not
+  multiplicity-free.[133X
+  

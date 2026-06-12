@@ -1,0 +1,40 @@
+\makelabel{aclib:The Almost Crystallographic Groups Package}{1}
+\makelabel{aclib:More about almost crystallographic groups}{1.1}
+\makelabel{aclib:Algorithms for almost crystallographic groups}{2}
+\makelabel{aclib:Properties of almost crystallographic groups}{2.1}
+\makelabel{aclib:IsAlmostCrystallographic}{2.1.1}
+\makelabel{aclib:IsAlmostBieberbachGroup}{2.1.2}
+\makelabel{aclib:Betti numbers}{2.2}
+\makelabel{aclib:OrientationModule}{2.2.1}
+\makelabel{aclib:BettiNumber}{2.2.2}
+\makelabel{aclib:BettiNumbers}{2.2.3}
+\makelabel{aclib:Determination of certain extensions}{2.3}
+\makelabel{aclib:HasExtensionOfType}{2.3.1}
+\makelabel{aclib:The catalog of almost crystallographic groups}{3}
+\makelabel{aclib:Rational matrix groups}{3.1}
+\makelabel{aclib:AlmostCrystallographicGroup}{3.1.1}
+\makelabel{aclib:AlmostCrystallographicDim3}{3.1.1}
+\makelabel{aclib:AlmostCrystallographicDim4}{3.1.1}
+\makelabel{aclib:Polycyclically presented groups}{3.2}
+\makelabel{aclib:AlmostCrystallographicPcpGroup}{3.2.1}
+\makelabel{aclib:AlmostCrystallographicPcpDim3}{3.2.1}
+\makelabel{aclib:AlmostCrystallographicPcpDim4}{3.2.1}
+\makelabel{aclib:IsomorphismPcpGroup}{3.2.2}
+\makelabel{aclib:HolonomyGroup}{3.2.3}
+\makelabel{aclib:NaturalHomomorphismOnHolonomyGroup}{3.2.3}
+\makelabel{aclib:More about the type and the defining parameters}{3.3}
+\makelabel{aclib:AlmostCrystallographicInfo}{3.3.1}
+\makelabel{aclib:The electronic versus the printed library}{3.4}
+\makelabel{aclib:Example computations with almost crystallographic groups}{4}
+\makelabel{aclib:Example computations I}{4.1}
+\makelabel{aclib:Example computations II}{4.2}
+\makelabel{aclib:Example computations III}{4.3}
+\makelabel{aclib:Bibliography}{}
+\setcitlab {AUS}{Aus60}
+\setcitlab {BRO}{Bro82}
+\setcitlab {DE2}{DE01a}
+\setcitlab {DE1}{DE01b}
+\setcitlab {KD}{Dek96}
+\setcitlab {DM}{DM01}
+\setcitlab {LEE}{Lee88}
+\makelabel{aclib:Index}{}

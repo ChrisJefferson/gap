@@ -1,0 +1,1559 @@
+  
+  [1X6 [33X[0;0YSolvable Subgroups of Maximal Order in Sporadic Simple Groups[133X[101X
+  
+  [33X[0;0YDate: May 14th, 2012[133X
+  
+  [33X[0;0YWe  determine the orders of solvable subgroups of maximal orders in sporadic
+  simple  groups  and  their automorphism groups, using the information in the
+  [5XAtlas[105X  of  Finite  Groups [CCN+85] and the [5XGAP[105X system [GAP24], in particular
+  its   Character   Table   Library [Bre25]  and  its  library  of  Tables  of
+  Marks [MNP19].[133X
+  
+  [33X[0;0YWe  also  determine the conjugacy classes of these solvable subgroups in the
+  big group, and the maximal overgroups.[133X
+  
+  [33X[0;0YA  first  version  of this document, which was based on [5XGAP[105X 4.4.10, had been
+  accessible  in  the  web  since  August 2006. The differences to the current
+  version are as follows.[133X
+  
+  [30X    [33X[0;6YThe  format of the [5XGAP[105X output was adjusted to the changed behaviour of
+        [5XGAP[105X 4.5.[133X
+  
+  [30X    [33X[0;6YThe  (too  wide) table of results was split into two tables, the first
+        one  lists  the  orders  and  indices of the subgroups, the second one
+        lists the structure of subgroups and the maximal overgroups.[133X
+  
+  [30X    [33X[0;6YThe  distribution  of  the solvable subgroups of maximal orders in the
+        Baby  Monster  group and the Monster group to conjugacy classes is now
+        proved.[133X
+  
+  [30X    [33X[0;6YThe  sporadic  simple  Monster  group has exactly one class of maximal
+        subgroups  of  the  type  PSL[22X(2,  41)[122X (see [NW13]), and has no maximal
+        subgroups which have the socle PSL[22X(2, 27)[122X (see [Wil10]). This does not
+        affect  the  arguments  in Section [14X6.4-14[114X, but some statements in this
+        section had to be corrected.[133X
+  
+  
+  [1X6.1 [33X[0;0YThe Result[133X[101X
+  
+  [33X[0;0YThe  tables I  and II  list  information about solvable subgroups of maximal
+  order  in  sporadic  simple  groups and their automorphism groups. The first
+  column  in  each  table  gives  the  names of the almost simple groups [22XG[122X, in
+  alphabetical  order.  The remaining columns of Table I contain the order and
+  the  index  of  a  solvable  subgroup  [22XS[122X  of  maximal  order in [22XG[122X, the value
+  [22Xlog_|G|(|S|)[122X,   and   the  page  number  in  the  [5XAtlas[105X [CCN+85]  where  the
+  information  about  maximal  subgroups  of [22XG[122X is listed. The second and third
+  columns  of Table II show a structure description of [22XS[122X and the structures of
+  the  maximal subgroups that contain [22XS[122X; the value [21X[22XS[122X[121X in the third column means
+  that  [22XS[122X  is itself maximal in [22XG[122X. The fourth and fifth columns list the pages
+  in  the  [5XAtlas[105X with the information about the maximal subgroups of [22XG[122X and the
+  section  in  this note with the proof of the table row, respectively. In the
+  fourth  column,  page  numbers  in  brackets  refer  to the [5XAtlas[105X pages with
+  information  about  the  maximal  subgroups  of nonsolvable quotients of the
+  maximal subgroups of [22XG[122X listed in the third column.[133X
+  
+  [33X[0;0YNote that in the case of nonmaximal subgroups [22XS[122X, we do not claim to describe
+  the [13Xmodule[113X structure of [22XS[122X in the third column of the table; we have kept the
+  [5XAtlas[105X  description  of  the normal subgroups of the maximal overgroups of [22XS[122X.
+  For  example,  the  subgroup  [22XS[122X  listed  for  [22XCo_2[122X  is  contained in maximal
+  subgroups of the types [22X2^1+8_+:S_6(2)[122X and [22X2^4+10(S_4 × S_3)[122X, so [22XS[122X has normal
+  subgroups  of  the  orders [22X2[122X, [22X2^4[122X, [22X2^9[122X, [22X2^14[122X, and [22X2^16[122X; more [5XAtlas[105X conformal
+  notations would be [22X2^[14](S_4 × S_3)[122X or [22X2^[16](S_3 × S_3)[122X.[133X
+  
+  [33X[0;0YAs a corollary (see Section [14X6.5[114X), we read off the following.[133X
+  
+  [33X[0;0YCorollary:[133X
+  
+  [33X[0;0YExactly  the  following  almost  simple  groups [22XG[122X with sporadic simple socle
+  contain a solvable subgroup [22XS[122X with the property [22X|S|^2 ≥ |G|[122X.[133X
+  
+  
+  [24X[33X[0;6YFi_23, J_2, J_2.2, M_11, M_12, M_22.2.[133X[124X
+  
+  [33X[0;0YThe  existence  of  the  subgroups  [22XS[122X  of [22XG[122X with the structure and the order
+  stated  in Table I and II follows from the [5XAtlas[105X: It is obvious in the cases
+  where [22XS[122X is maximal in [22XG[122X, and in the other cases, the [5XAtlas[105X information about
+  a nonsolvable factor group of a maximal subgroup of [22XG[122X suffices.[133X
+  
+  [33X[0;0YIn order to show that the table rows for the group [22XG[122X are correct, we have to
+  show the following.[133X
+  
+  [30X    [33X[0;6Y[22XG[122X does not contain solvable subgroups of order larger than [22X|S|[122X.[133X
+  
+  [30X    [33X[0;6Y[22XG[122X contain exactly the conjugacy classes of solvable subgroups of order
+        [22X|S|[122X that are listed in the second column of Table II.[133X
+  
+  [30X    [33X[0;6Y[22XS[122X  is  contained  exactly in the maximal subgroups listed in the third
+        column of Table II.[133X
+  
+  [33X[0;0Y[13XRemark:[113X[133X
+  
+  [30X    [33X[0;6YEach  of  the  groups  [22XM_12[122X  and [22XHe[122X contains two classes of isomorphic
+        solvable subgroups of maximal order.[133X
+  
+  [30X    [33X[0;6YEach of the groups [22XRu[122X, [22XTh[122X, and [22XM[122X contains two classes of nonisomorphic
+        solvable subgroups of maximal order.[133X
+  
+  [30X    [33X[0;6YThe  solvable  subgroups  of maximal order in [22XMcL.2[122X have the structure
+        [22X3^1+4_+:4S_4[122X,  the  subgroups  are maximal in the maximal subgroups of
+        the  structures  [22X3^1+4_+:4S_5[122X  and  [22XU_4(3).2_3[122X in [22XMcL.2[122X. Note that the
+        [5XAtlas[105X   claims  another  structure  for  these  maximal  subgroups  of
+        [22XU_4(3).2_3[122X, see [CCN+85, p. 52].[133X
+  
+  [30X    [33X[0;6YThe solvable subgroups of maximal order in [22XCo_3[122X are the normalizers of
+        Sylow [22X3[122X-subgroups of [22XCo_3[122X.[133X
+  
+      ┌──────────┬──────────────────┬───────────────────────┬──────────────┬─────┬──┐
+      │ [22XG[122X        │              [22X|S|[122X │                 [22X|G/S|[122X │ [22Xlog_|G|(|S|)[122X │  p. │  │ 
+      ├──────────┼──────────────────┼───────────────────────┼──────────────┼─────┼──┤
+      ├──────────┼──────────────────┼───────────────────────┼──────────────┼─────┼──┤
+      │ [22XM_11[122X     │              [22X144[122X │                    [22X55[122X │       [22X0.5536[122X │  [22X18[122X │  │ 
+      │ [22XM_12[122X     │              [22X432[122X │                   [22X220[122X │       [22X0.5294[122X │  [22X33[122X │  │ 
+      │ [22XM_12.2[122X   │              [22X432[122X │                   [22X440[122X │       [22X0.4992[122X │  [22X33[122X │  │ 
+      │ [22XJ_1[122X      │              [22X168[122X │                  [22X1045[122X │       [22X0.4243[122X │  [22X36[122X │  │ 
+      │ [22XM_22[122X     │              [22X576[122X │                   [22X770[122X │       [22X0.4888[122X │  [22X39[122X │  │ 
+      │ [22XM_22.2[122X   │             [22X1152[122X │                   [22X770[122X │       [22X0.5147[122X │  [22X39[122X │  │ 
+      │ [22XJ_2[122X      │             [22X1152[122X │                   [22X525[122X │       [22X0.5295[122X │  [22X42[122X │  │ 
+      │ [22XJ_2.2[122X    │             [22X2304[122X │                   [22X525[122X │       [22X0.5527[122X │  [22X42[122X │  │ 
+      │ [22XM_23[122X     │             [22X1152[122X │                  [22X8855[122X │       [22X0.4368[122X │  [22X71[122X │  │ 
+      │ [22XHS[122X       │             [22X2000[122X │                 [22X22176[122X │       [22X0.4316[122X │  [22X80[122X │  │ 
+      │ [22XHS.2[122X     │             [22X4000[122X │                 [22X22176[122X │       [22X0.4532[122X │  [22X80[122X │  │ 
+      │ [22XJ_3[122X      │             [22X1944[122X │                 [22X25840[122X │       [22X0.4270[122X │  [22X82[122X │  │ 
+      │ [22XJ_3.2[122X    │             [22X3888[122X │                 [22X25840[122X │       [22X0.4486[122X │  [22X82[122X │  │ 
+      │ [22XM_24[122X     │            [22X13824[122X │                 [22X17710[122X │       [22X0.4935[122X │  [22X96[122X │  │ 
+      │ [22XMcL[122X      │            [22X11664[122X │                 [22X77000[122X │       [22X0.4542[122X │ [22X100[122X │  │ 
+      │ [22XMcL.2[122X    │            [22X23328[122X │                 [22X77000[122X │       [22X0.4719[122X │ [22X100[122X │  │ 
+      │ [22XHe[122X       │            [22X13824[122X │                [22X291550[122X │       [22X0.4310[122X │ [22X104[122X │  │ 
+      │ [22XHe.2[122X     │            [22X18432[122X │                [22X437325[122X │       [22X0.4305[122X │ [22X104[122X │  │ 
+      │ [22XRu[122X       │            [22X49152[122X │               [22X2968875[122X │       [22X0.4202[122X │ [22X126[122X │  │ 
+      │ [22XSuz[122X      │           [22X139968[122X │               [22X3203200[122X │       [22X0.4416[122X │ [22X131[122X │  │ 
+      │ [22XSuz.2[122X    │           [22X279936[122X │               [22X3203200[122X │       [22X0.4557[122X │ [22X131[122X │  │ 
+      │ [22XO'N[122X      │            [22X25920[122X │              [22X17778376[122X │       [22X0.3784[122X │ [22X132[122X │  │ 
+      │ [22XO'N.2[122X    │            [22X51840[122X │              [22X17778376[122X │       [22X0.3940[122X │ [22X132[122X │  │ 
+      │ [22XCo_3[122X     │            [22X69984[122X │               [22X7084000[122X │       [22X0.4142[122X │ [22X134[122X │  │ 
+      │ [22XCo_2[122X     │          [22X2359296[122X │              [22X17931375[122X │       [22X0.4676[122X │ [22X154[122X │  │ 
+      │ [22XFi_22[122X    │          [22X5038848[122X │              [22X12812800[122X │       [22X0.4853[122X │ [22X163[122X │  │ 
+      │ [22XFi_22.2[122X  │         [22X10077696[122X │              [22X12812800[122X │       [22X0.4963[122X │ [22X163[122X │  │ 
+      │ [22XHN[122X       │          [22X2000000[122X │             [22X136515456[122X │       [22X0.4364[122X │ [22X166[122X │  │ 
+      │ [22XHN.2[122X     │          [22X4000000[122X │             [22X136515456[122X │       [22X0.4479[122X │ [22X166[122X │  │ 
+      │ [22XLy[122X       │           [22X900000[122X │           [22X57516865560[122X │       [22X0.3562[122X │ [22X174[122X │  │ 
+      │ [22XTh[122X       │           [22X944784[122X │           [22X96049408000[122X │       [22X0.3523[122X │ [22X177[122X │  │ 
+      │ [22XFi_23[122X    │       [22X3265173504[122X │            [22X1252451200[122X │       [22X0.5111[122X │ [22X177[122X │  │ 
+      │ [22XCo_1[122X     │         [22X84934656[122X │           [22X48952653750[122X │       [22X0.4258[122X │ [22X183[122X │  │ 
+      │ [22XJ_4[122X      │         [22X28311552[122X │         [22X3065023459190[122X │       [22X0.3737[122X │ [22X190[122X │  │ 
+      │ [22XFi_24'[122X   │      [22X29386561536[122X │        [22X42713595724800[122X │       [22X0.4343[122X │ [22X207[122X │  │ 
+      │ [22XFi_24'.2[122X │      [22X58773123072[122X │        [22X42713595724800[122X │       [22X0.4413[122X │ [22X207[122X │  │ 
+      │ [22XB[122X        │   [22X29686813949952[122X │ [22X139953768303693093750[122X │       [22X0.4007[122X │ [22X217[122X │  │ 
+      │ [22XM[122X        │ [22X2849934139195392[122X │ [22X283521437805098363752[122X │              │     │  │ 
+      │          │                  │    [22X344287234566406250[122X │       [22X0.2866[122X │ [22X234[122X │  │ 
+      └──────────┴──────────────────┴───────────────────────┴──────────────┴─────┴──┘
+  
+       [1XTable:[101X  Table  I: Solvable subgroups of maximal order – orders and
+       indices
+  
+  
+      ┌─────────┬──────────────────────────────┬─────────────────────┬─────────   ─────┬────────┐
+      │ [22XG[122X       │ [22XS[122X                            │ Max. overgroups     │ [CCN+85]        │ see    │ 
+      ├─────────┼──────────────────────────────┼─────────────────────┼─────────   ─────┼────────┤
+      ├─────────┼──────────────────────────────┼─────────────────────┼─────────   ─────┼────────┤
+      │ [22XM_11[122X    │ [22X3^2:Q_8.2[122X                    │ [22XS[122X                   │       18        │ [14X6.3[114X    │ 
+      │ [22XM_12[122X    │ [22X3^2:2S_4[122X                     │ [22XS[122X                   │       33        │ [14X6.3[114X    │ 
+      │         │ [22X3^2:2S_4[122X                     │ [22XS[122X                   │       33        │ [14X6.3[114X    │ 
+      │ [22XM_12.2[122X  │ [22X3^2:2S_4[122X                     │ [22XM_12[122X                │       33        │ [14X6.3[114X    │ 
+      │ [22XJ_1[122X     │ [22X2^3:7:3[122X                      │ [22XS[122X                   │       36        │ [14X6.3[114X    │ 
+      │ [22XM_22[122X    │ [22X2^4:3^2:4[122X                    │ [22X2^4:A_6[122X             │       39   (4)  │ [14X6.3[114X    │ 
+      │ [22XM_22.2[122X  │ [22X2^4:3^2:D_8[122X                  │ [22X2^4:S_6[122X             │       39   (4)  │ [14X6.3[114X    │ 
+      │ [22XJ_2[122X     │ [22X2^2+4:(3 × S_3)[122X              │ [22XS[122X                   │       42        │ [14X6.3[114X    │ 
+      │ [22XJ_2.2[122X   │ [22X2^2+4:(S_3 × S_3)[122X            │ [22XS[122X                   │       42        │ [14X6.3[114X    │ 
+      │ [22XM_23[122X    │ [22X2^4:(3 × A_4):2[122X              │ [22X2^4:(3 × A_5):2[122X,    │       71   (2)  │ [14X6.3[114X    │ 
+      │         │                              │ [22X2^4:A_7[122X             │            (10) │        │ 
+      │ [22XHS[122X      │ [22X5^1+2_+:8:2[122X                  │ [22XU_3(5).2[122X            │       80   (34) │ [14X6.3[114X    │ 
+      │         │                              │ [22XU_3(5).2[122X            │                 │ [14X6.3[114X    │ 
+      │ [22XHS.2[122X    │ [22X5^1+2_+:[2^5][122X                │ [22XS[122X                   │       80   (34) │ [14X6.3[114X    │ 
+      │ [22XJ_3[122X     │ [22X3^2.3^1+2_+:8[122X                │ [22XS[122X                   │       82        │ [14X6.3[114X    │ 
+      │ [22XJ_3.2[122X   │ [22X3^2.3^1+2_+:QD_16[122X            │ [22XS[122X                   │       82        │ [14X6.3[114X    │ 
+      │ [22XM_24[122X    │ [22X2^6:3^1+2_+:D_8[122X              │ [22X2^6:3.S_6[122X           │       96   (4)  │ [14X6.3[114X    │ 
+      │ [22XMcL[122X     │ [22X3^1+4_+:2S_4[122X                 │ [22X3^1+4_+:2S_5[122X,       │      100   (2)  │ [14X6.3[114X    │ 
+      │         │                              │ [22XU_4(3)[122X              │            (52) │ [14X6.3[114X    │ 
+      │ [22XMcL.2[122X   │ [22X3^1+4_+:4S_4[122X                 │ [22X3^1+4_+:4S_5[122X,       │      100   (2)  │ [14X6.3[114X    │ 
+      │         │                              │ [22XU_4(3).2_3[122X          │            (52) │ [14X6.3[114X    │ 
+      │ [22XHe[122X      │ [22X2^6:3^1+2_+:D_8[122X              │ [22X2^6:3.S_6[122X           │      104   (4)  │ [14X6.3[114X    │ 
+      │         │ [22X2^6:3^1+2_+:D_8[122X              │ [22X2^6:3.S_6[122X           │            (4)  │ [14X6.3[114X    │ 
+      │ [22XHe.2[122X    │ [22X2^4+4.(S_3 × S_3).2[122X          │ [22XS[122X                   │      104        │ [14X6.3[114X    │ 
+      │ [22XRu[122X      │ [22X2.2^4+6:S_4[122X                  │ [22X2^3+8:L_3(2)[122X,       │      126   (3)  │ [14X6.4-1[114X  │ 
+      │         │                              │ [22X2.2^4+6:S_5[122X         │            (2)  │        │ 
+      │         │ [22X2^3+8:S_4[122X                    │ [22X2^3+8:L_3(2)[122X,       │            (3)  │ [14X6.4-1[114X  │ 
+      │ [22XSuz[122X     │ [22X3^2+4:2(A_4 × 2^2).2[122X         │ [22XS[122X                   │      131        │ [14X6.4-2[114X  │ 
+      │ [22XSuz.2[122X   │ [22X3^2+4:2(S_4 × D_8)[122X           │ [22XS[122X                   │      131        │ [14X6.4-2[114X  │ 
+      │ [22XO'N[122X     │ [22X3^4:2^1+4_-D_10[122X              │ [22XS[122X                   │      132        │ [14X6.4-3[114X  │ 
+      │ [22XO'N.2[122X   │ [22X3^4:2^1+4_-.(5:4)[122X            │ [22XS[122X                   │      132        │ [14X6.4-3[114X  │ 
+      │ [22XCo_3[122X    │ [22X3^1+4_+:4.3^2:D_8[122X            │ [22X3^1+4_+:4S_6[122X        │      134   (4)  │ [14X6.3[114X    │ 
+      │         │                              │ [22X3^5:(2 × M_11)[122X      │            (18) │        │ 
+      │ [22XCo_2[122X    │ [22X2^4+10(S_4 × S_3)[122X            │ [22X2^1+8_+:S_6(2)[122X,     │      154   (46) │ [14X6.4-4[114X  │ 
+      │         │                              │ [22X2^4+10(S_5 × S_3)[122X   │            (2)  │        │ 
+      │ [22XFi_22[122X   │ [22X3^1+6_+:2^3+4:3^2:2[122X          │ [22XS[122X                   │      163        │ [14X6.4-5[114X  │ 
+      │ [22XFi_22.2[122X │ [22X3^1+6_+:2^3+4:(S_3 × S_3)[122X    │ [22XS[122X                   │      163        │ [14X6.4-5[114X  │ 
+      │ [22XHN[122X      │ [22X5^1+4_+:2^1+4_-.5.4[122X          │ [22XS[122X                   │      166        │ [14X6.4-6[114X  │ 
+      │ [22XHN.2[122X    │ [22X5^1+4_+:(4 Y 2^1+4_-.5.4)[122X    │ [22XS[122X                   │      166        │ [14X6.4-6[114X  │ 
+      │ [22XLy[122X      │ [22X5^1+4_+:4.3^2:D_8[122X            │ [22X5^1+4_+:4S_6[122X        │      174   (4)  │ [14X6.4-7[114X  │ 
+      │ [22XTh[122X      │ [22X[3^9].2S_4[122X                   │ [22XS[122X                   │      177        │ [14X6.4-8[114X  │ 
+      │         │ [22X3^2.[3^7].2S_4[122X               │ [22XS[122X                   │                 │        │ 
+      │ [22XFi_23[122X   │ [22X3^1+8_+.2^1+6_-.3^1+2_+.2S_4[122X │ [22XS[122X                   │      177        │ [14X6.4-9[114X  │ 
+      │ [22XCo_1[122X    │ [22X2^4+12.(S_3 × 3^1+2_+:D_8)[122X   │ [22X2^4+12.(S_3 × 3S_6)[122X │      183        │ [14X6.4-10[114X │ 
+      └─────────┴──────────────────────────────┴─────────────────────┴─────────   ─────┴────────┘
+  
+       [1XTable:[101X  Table II: Solvable subgroups of maximal order – structures
+       and overgroups
+  
+  
+      ┌──────────┬─────────────────────────────────────┬──────────────────────────┬─────────   ───────┬────────┐
+      │ [22XG[122X        │ [22XS[122X                                   │ Max. overgroups          │ [CCN+85]          │ see    │ 
+      ├──────────┼─────────────────────────────────────┼──────────────────────────┼─────────   ───────┼────────┤
+      ├──────────┼─────────────────────────────────────┼──────────────────────────┼─────────   ───────┼────────┤
+      │ [22XJ_4[122X      │ [22X2^11:2^6:3^1+2_+:D_8[122X                │ [22X2^11:M_24[122X,               │      190   (96)   │ [14X6.4-11[114X │ 
+      │          │                                     │ [22X2^1+12_+.3M_22:2[122X         │            (39)   │        │ 
+      │ [22XFi_24'[122X   │ [22X3^1+10_+:2^1+6_-:3^1+2_+:2S_4[122X       │ [22X3^1+10_+:U_5(2):2[122X        │      207   (73)   │ [14X6.4-12[114X │ 
+      │ [22XFi_24'.2[122X │ [22X3^1+10_+:(2 × 2^1+6_-:3^1+2_+:2S_4)[122X │ [22X3^1+10_+:(2 × U_5(2):2)[122X  │      207   (73)   │ [14X6.4-12[114X │ 
+      │ [22XB[122X        │ [22X2^2+10+20(2^4:3^2:D_8 × S_3)[122X        │ [22X2^2+10+20(M_22:2 × S_3)[122X, │      217   (39)   │ [14X6.4-13[114X │ 
+      │          │                                     │ [22X2^9+16S_8(2)[122X             │            (123)  │        │ 
+      │ [22XM[122X        │ [22X2^1+2+6+12+18.(S_4 × 3^1+2_+:D_8)[122X   │ [22X2^[39].(L_3(2) × 3S_6)[122X,  │      234   (3, 4) │ [14X6.4-14[114X │ 
+      │          │                                     │ [22X2^1+24_+.Co_1[122X            │            (183)  │        │ 
+      │          │ [22X2^2+1+6+12+18.(S_4 × 3^1+2_+:D_8)[122X   │ [22X2^[39].(L_3(2) × 3S_6)[122X,  │            (3, 4) │ [14X6.4-14[114X │ 
+      │          │                                     │ [22X2^2+11+22.(M_24 × S_3)[122X   │            (96)   │        │ 
+      └──────────┴─────────────────────────────────────┴──────────────────────────┴─────────   ───────┴────────┘
+  
+       [1XTable:[101X  Table II: Solvable subgroups of maximal order – structures
+       and overgroups (continued)
+  
+  
+  
+  [1X6.2 [33X[0;0YThe Approach[133X[101X
+  
+  [33X[0;0YWe  combine the information in the [5XAtlas[105X [CCN+85] with explicit computations
+  using   the   [5XGAP[105X   system [GAP24],   in   particular  its  Character  Table
+  Library [Bre25]  and  its  library of Tables of Marks [MNP19]. First we load
+  these two packages.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "CTblLib", "1.2", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "TomLib", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  orders  of  solvable  subgroups of maximal order will be collected in a
+  global record [10XMaxSolv[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv:= rec();;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2-1 [33X[0;0YUse the Table of Marks[133X[101X
+  
+  [33X[0;0YIf the [5XGAP[105X library of Tables of Marks [MNP19] contains the table of marks of
+  a  group  [22XG[122X then we can easily inspect all conjugacy classes of subgroups of
+  [22XG[122X.  The  following small [5XGAP[105X function can be used for that. It returns [9Xfalse[109X
+  if  the table of marks of the group with the name [10Xname[110X is not available, and
+  the  list  [10X[  name,  n,  super  ][110X otherwise, where [10Xn[110X is the maximal order of
+  solvable  subgroups  of  [22XG[122X, and [10Xsuper[110X is a list of lists; for each conjugacy
+  class  of solvable subgroups [22XS[122X of order [10Xn[110X, [10Xsuper[110X contains the list of orders
+  of  representatives  [22XM[122X  of the classes of maximal subgroups of [22XG[122X such that [22XM[122X
+  contains a conjugate of [22XS[122X.[133X
+  
+  [33X[0;0YNote  that  a  subgroup  in  the  [22Xi[122X-th  class of a table of marks contains a
+  subgroup in the [22Xj[122X-th class if and only if the entry in the position [22X(i,j)[122X of
+  the  table  of marks is nonzero. For tables of marks objects in [5XGAP[105X, this is
+  the  case  if and only if [22Xj[122X is contained in the [22Xi[122X-th row of the list that is
+  stored  as  the value of the attribute [10XSubsTom[110X of the table of marks object;
+  for this test, one need not unpack the matrix of marks.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaximalSolvableSubgroupInfoFromTom:= function( name )[127X[104X
+    [4X[25X>[125X [27X    local tom,          # table of marks for `name'[127X[104X
+    [4X[25X>[125X [27X          n,            # maximal order of a solvable subgroup[127X[104X
+    [4X[25X>[125X [27X          maxsubs,      # numbers of the classes of subgroups of order `n'[127X[104X
+    [4X[25X>[125X [27X          orders,       # list of orders of the classes of subgroups[127X[104X
+    [4X[25X>[125X [27X          i,            # loop over the classes of subgroups[127X[104X
+    [4X[25X>[125X [27X          maxes,        # list of positions of the classes of max. subgroups[127X[104X
+    [4X[25X>[125X [27X          subs,         # `SubsTom' value[127X[104X
+    [4X[25X>[125X [27X          cont;         # list of list of positions of max. subgroups[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    tom:= TableOfMarks( name );[127X[104X
+    [4X[25X>[125X [27X    if tom = fail then[127X[104X
+    [4X[25X>[125X [27X      return false;[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X    n:= 1;[127X[104X
+    [4X[25X>[125X [27X    maxsubs:= [];[127X[104X
+    [4X[25X>[125X [27X    orders:= OrdersTom( tom );[127X[104X
+    [4X[25X>[125X [27X    for i in [ 1 .. Length( orders ) ] do[127X[104X
+    [4X[25X>[125X [27X      if IsSolvableTom( tom, i ) then[127X[104X
+    [4X[25X>[125X [27X        if orders[i] = n then[127X[104X
+    [4X[25X>[125X [27X          Add( maxsubs, i );[127X[104X
+    [4X[25X>[125X [27X        elif orders[i] > n then[127X[104X
+    [4X[25X>[125X [27X          n:= orders[i];[127X[104X
+    [4X[25X>[125X [27X          maxsubs:= [ i ];[127X[104X
+    [4X[25X>[125X [27X        fi;[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X    maxes:= MaximalSubgroupsTom( tom )[1];[127X[104X
+    [4X[25X>[125X [27X    subs:= SubsTom( tom );[127X[104X
+    [4X[25X>[125X [27X    cont:= List( maxsubs, j -> Filtered( maxes, i -> j in subs[i] ) );[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    return [ name, n, List( cont, l -> orders{ l } ) ];[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2-2 [33X[0;0YUse Information from the Character Table Library[133X[101X
+  
+  [33X[0;0YThe [5XGAP[105X Character Table Library contains the character tables of all maximal
+  subgroups  of  sporadic  simple  groups,  except for the Monster group. This
+  information can be used as follows.[133X
+  
+  [33X[0;0YWe  start,  for a sporadic simple group [22XG[122X, with a known solvable subgroup of
+  order [22Xn[122X, say, in [22XG[122X. In order to show that [22XG[122X contains no solvable subgroup of
+  larger  order,  it suffices to show that no maximal subgroup of [22XG[122X contains a
+  larger solvable subgroup.[133X
+  
+  [33X[0;0YThe  point  is that usually the orders of the maximal subgroups of [22XG[122X are not
+  much  larger  than  [22Xn[122X,  and  that  a  maximal subgroup [22XM[122X contains a solvable
+  subgroup  of  order  [22Xn[122X only if the factor group of [22XM[122X by its largest solvable
+  normal  subgroup [22XN[122X contains a solvable subgroup of order [22Xn/|N|[122X. This reduces
+  the question to relatively small groups.[133X
+  
+  [33X[0;0YWhat  we  can check [13Xautomatically[113X from the character table of [22XM/N[122X is whether
+  [22XM/N[122X  can  contain  subgroups  (solvable  or not) of indices between five and
+  [22X|M|/n[122X,  by computing possible permutation characters of these degrees. (Note
+  that  a  solvable  subgroup  of a nonsolvable group has index at least five.
+  This  lower  bound could be improved for example by considering the smallest
+  degree of a nontrivial character, but this is not an issue here.)[133X
+  
+  [33X[0;0YThen  we  are  left with a –hopefully short– list of maximal subgroups of [22XG[122X,
+  together  with  upper  bounds on the indices of possible solvable subgroups;
+  excluding these possibilities then yields that the initially chosen solvable
+  subgroup of [22XG[122X is indeed the largest one.[133X
+  
+  [33X[0;0YThe  following  [5XGAP[105X function can be used to compute this information for the
+  character  table [10XtblM[110X of [22XM[122X and a given order [10Xminorder[110X. It returns [9Xfalse[109X if [22XM[122X
+  cannot  contain  a solvable subgroup of order at least [10Xminorder[110X, otherwise a
+  list  [10X[  tblM,  m,  k  ][110X where [10Xm[110X is the maximal index of a subgroup that has
+  order  at  least [10Xminorder[110X, and [10Xk[110X is the minimal index of a possible subgroup
+  of  [22XM[122X (a proper subgroup if [22XM[122X is nonsolvable), according to the [5XGAP[105X function
+  [2XPermChars[102X ([14XReference: PermChars[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSolvableSubgroupInfoFromCharacterTable:= function( tblM, minorder )[127X[104X
+    [4X[25X>[125X [27X    local maxindex,  # index of subgroups of order `minorder'[127X[104X
+    [4X[25X>[125X [27X          N,         # class positions describing a solvable normal subgroup[127X[104X
+    [4X[25X>[125X [27X          fact,      # character table of the factor by `N'[127X[104X
+    [4X[25X>[125X [27X          classes,   # class sizes in `fact'[127X[104X
+    [4X[25X>[125X [27X          nsg,       # list of class positions of normal subgroups[127X[104X
+    [4X[25X>[125X [27X          i;         # loop over the possible indices[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    maxindex:= Int( Size( tblM ) / minorder );[127X[104X
+    [4X[25X>[125X [27X    if   maxindex = 0 then[127X[104X
+    [4X[25X>[125X [27X      return false;[127X[104X
+    [4X[25X>[125X [27X    elif IsSolvableCharacterTable( tblM ) then[127X[104X
+    [4X[25X>[125X [27X      return [ tblM, maxindex, 1 ];[127X[104X
+    [4X[25X>[125X [27X    elif maxindex < 5 then[127X[104X
+    [4X[25X>[125X [27X      return false;[127X[104X
+    [4X[25X>[125X [27X    fi;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    N:= [ 1 ];[127X[104X
+    [4X[25X>[125X [27X    fact:= tblM;[127X[104X
+    [4X[25X>[125X [27X    repeat[127X[104X
+    [4X[25X>[125X [27X      fact:= fact / N;[127X[104X
+    [4X[25X>[125X [27X      classes:= SizesConjugacyClasses( fact );[127X[104X
+    [4X[25X>[125X [27X      nsg:= Difference( ClassPositionsOfNormalSubgroups( fact ), [ [ 1 ] ] );[127X[104X
+    [4X[25X>[125X [27X      N:= First( nsg, x -> IsPrimePowerInt( Sum( classes{ x } ) ) );[127X[104X
+    [4X[25X>[125X [27X    until N = fail;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    for i in Filtered( DivisorsInt( Size( fact ) ),[127X[104X
+    [4X[25X>[125X [27X                       d -> 5 <= d and d <= maxindex ) do[127X[104X
+    [4X[25X>[125X [27X      if Length( PermChars( fact, rec( torso:= [ i ] ) ) ) > 0 then[127X[104X
+    [4X[25X>[125X [27X        return [ tblM, maxindex, i ];[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X[127X[104X
+    [4X[25X>[125X [27X    return false;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.3 [33X[0;0YCases where the Table of Marks is available in [5XGAP[105X[101X[1X[133X[101X
+  
+  [33X[0;0YFor  twelve sporadic simple groups, the [5XGAP[105X library of Tables of Marks knows
+  the tables of marks, so we can use [10XMaximalSolvableSubgroupInfoFromTom[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsolvinfo:= Filtered( List([127X[104X
+    [4X[25X>[125X [27X        AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                                IsDuplicateTable, false ),[127X[104X
+    [4X[25X>[125X [27X        MaximalSolvableSubgroupInfoFromTom ), x -> x <> false );;[127X[104X
+    [4X[25Xgap>[125X [27Xfor entry in solvinfo do[127X[104X
+    [4X[25X>[125X [27X     MaxSolv.( entry[1] ):= entry[2];[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xfor entry in solvinfo do                                 [127X[104X
+    [4X[25X>[125X [27X     Print( String( entry[1], 5 ), String( entry[2], 7 ),[127X[104X
+    [4X[25X>[125X [27X            String( entry[3], 28 ), "\n" );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28X  Co3  69984     [ [ 3849120, 699840 ] ][128X[104X
+    [4X[28X   HS   2000      [ [ 252000, 252000 ] ][128X[104X
+    [4X[28X   He  13824  [ [ 138240 ], [ 138240 ] ][128X[104X
+    [4X[28X   J1    168                 [ [ 168 ] ][128X[104X
+    [4X[28X   J2   1152                [ [ 1152 ] ][128X[104X
+    [4X[28X   J3   1944                [ [ 1944 ] ][128X[104X
+    [4X[28X  M11    144                 [ [ 144 ] ][128X[104X
+    [4X[28X  M12    432        [ [ 432 ], [ 432 ] ][128X[104X
+    [4X[28X  M22    576                [ [ 5760 ] ][128X[104X
+    [4X[28X  M23   1152         [ [ 40320, 5760 ] ][128X[104X
+    [4X[28X  M24  13824              [ [ 138240 ] ][128X[104X
+    [4X[28X  McL  11664      [ [ 3265920, 58320 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that  for [22XJ_1[122X, [22XJ_2[122X, [22XJ_3[122X, [22XM_11[122X, and [22XM_12[122X, the subgroup [22XS[122X is maximal.
+  For [22XM_12[122X and [22XHe[122X, there are two classes of subgroups [22XS[122X. For the other groups,
+  the  class  of  subgroups  [22XS[122X  is unique, and there are one or two classes of
+  maximal  subgroups  of  [22XG[122X  that  contain  [22XS[122X.  From the shown orders of these
+  maximal  subgroups,  their structures can be read off from the [5XAtlas[105X, on the
+  pages listed in Table II.[133X
+  
+  [33X[0;0YSimilarly,  the  [5XAtlas[105X  tells  us about the extensions of the subgroups [22XS[122X in
+  Aut[22X(G)[122X. In particular,[133X
+  
+  [30X    [33X[0;6Ythe  order  [22X2000[122X subgroups of [22XHS[122X are contained in maximal subgroups of
+        the type [22XU_3(5).2[122X (two classes) which do not extend to [22XHS.2[122X, but there
+        are  novelties of the type [22X5^1+2_+:[2^5][122X and of the order [22X4000[122X, so the
+        solvable subgroups of maximal order in [22XHS[122X do in fact extend to [22XHS.2[122X.[133X
+  
+  [30X    [33X[0;6Ythe  order [22X13824[122X subgroups of [22XHe[122X are contained in maximal subgroups of
+        the type [22X2^6:3S_6[122X (two classes) which do not extend to [22XHe.2[122X, but there
+        are  novelties of the type [22X2^4+4.(S_3 × S_3).2[122X and of the order [22X18432[122X.
+        (So  the  solvable subgroups [22XS[122X of maximal order in [22XHe[122X do not extend to
+        [22XHe.2[122X but there are larger solvable subgroups in [22XHe.2[122X.)[133X
+  
+        [33X[0;6YWe  inspect  the maximal subgroups of [22XHe.2[122X in order to show that these
+        are  in  fact the solvable subgroups of maximal order (see [CCN+85, p.
+        104]): Any other solvable subgroup of order at least [22Xn[122X in [22XHe.2[122X must be
+        contained in a subgroup of one of the types [22XS_4(4).4[122X (of index at most
+        [22X212[122X),  [22X2^2.L_3(4).D_12[122X  (of index at most [22X52[122X), or [22X2^1+6_+.L_3(2).2[122X (of
+        index at most [22X2[122X). By [CCN+85, pp. 44, 23, 3], this is not the case.[133X
+  
+  [30X    [33X[0;6Ythe  maximal  subgroups  of  order  [22X1152[122X in [22XJ_2[122X extend to subgroups of
+        order [22X2304[122X in [22XJ_2.2[122X.[133X
+  
+  [30X    [33X[0;6Ythe  maximal subgroups of order [22X1944[122X in [22XJ_3[122X extend to subgroups of the
+        type [22X3^2.3^1+2_+:8.2[122X and of order [22X3888[122X in [22XJ_3.2[122X. (The structure stated
+        in [CCN+85, p. 82] is not correct, see [BN95].)[133X
+  
+  [30X    [33X[0;6Ythe maximal subgroups of order [22X432[122X in [22XM_12[122X (two classes) do [13Xnot[113X extend
+        in [22XM_12.2[122X, and we see from the table of marks of [22XM_12.2[122X that there are
+        no  larger  solvable  subgroups  in  this  group,  i. e., the solvable
+        subgroups of maximal order in [22XM_12.2[122X lie in [22XM_12[122X.[133X
+  
+  [30X    [33X[0;6Ythe  order [22X576[122X subgroups of [22XM_22[122X are contained in maximal subgroups of
+        the  type  [22X2^4:A_6[122X  which  extend  to subgroups of the type [22X2^4:S_6[122X in
+        [22XM_22.2[122X,  so the solvable subgroups of maximal order in [22XM_22.2[122X have the
+        type  [22X2^4:3^2:D_8[122X  and  the order [22X1152[122X. In fact the structure is [22XS_4 ≀
+        S_2[122X.[133X
+  
+  [30X    [33X[0;6Ythe order [22X11664[122X subgroups of [22XMcL[122X are contained in maximal subgroups of
+        the type [22X3^1+4_+:2S_5[122X which extend to subgroups of the type [22X3^1+4:4S_5[122X
+        in [22XMcL.2[122X, so the solvable subgroups of maximal order in [22XMcL.2[122X have the
+        type [22X3^1+4:4S_4[122X and the order [22X23328[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "HS.2" ):= 2 * MaxSolv.( "HS" );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 2^(4+4) * ( 6 * 6 ) * 2;  MaxSolv.( "He.2" ):= n;;[127X[104X
+    [4X[28X18432[128X[104X
+    [4X[25Xgap>[125X [27XList( [ Size( CharacterTable( "S4(4).4" ) ),[127X[104X
+    [4X[25X>[125X [27X           Factorial( 5 )^2 * 2,[127X[104X
+    [4X[25X>[125X [27X           Size( CharacterTable( "2^2.L3(4).D12" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^7 * Size( CharacterTable( "L3(2)" ) ) * 2,[127X[104X
+    [4X[25X>[125X [27X           7^2 * 2 * Size( CharacterTable( "L2(7)" ) ) * 2,[127X[104X
+    [4X[25X>[125X [27X           3 * Factorial( 7 ) * 2 ], i -> Int( i / n ) );[127X[104X
+    [4X[28X[ 212, 1, 52, 2, 1, 1 ][128X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "J2.2" ):= 2 * MaxSolv.( "J2" );;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "J3.2" ):= 2 * MaxSolv.( "J3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= MaximalSolvableSubgroupInfoFromTom( "M12.2" );[127X[104X
+    [4X[28X[ "M12.2", 432, [ [ 95040 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "M12.2" ):= info[2];;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "M22.2" ):= 2 * MaxSolv.( "M22" );;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "McL.2" ):= 2 * MaxSolv.( "McL" );;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4 [33X[0;0YCases where the Table of Marks is not available in [5XGAP[105X[101X[1X[133X[101X
+  
+  [33X[0;0YWe   use   the   [5XGAP[105X  function  [10XSolvableSubgroupInfoFromCharacterTable[110X,  and
+  individual  arguments.  In several cases, information about smaller sporadic
+  simple groups is needed, so we deal with the groups in increasing order.[133X
+  
+  
+  [1X6.4-1 [33X[0;0Y[22XG = Ru[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XRu[122X  contains  exactly  two  conjugacy  classes  of nonisomorphic
+  solvable subgroups of order [22Xn = 49152[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Ru" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 49152;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "2^3+8:L3(2)" ), 7, 7 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2.2^4+6:S5" ), 5, 5 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups of the structure [22X2.2^4+6:S_5[122X in [22XRu[122X contain one class
+  of  solvable  subgroups  of  order  [22Xn[122X  and  with  the structure [22X2.2^4+6:S_4[122X,
+  see [CCN+85, p. 126, p. 2].[133X
+  
+  [33X[0;0YThe  maximal  subgroups  of  the  structure  [22X2^3+8:L_3(2)[122X  in [22XRu[122X contain two
+  classes  of  solvable subgroups of order [22Xn[122X and with the structure [22X2^3+8:S_4[122X,
+  see [CCN+85,  p. 126, p. 3]. These groups are the stabilizers of vectors and
+  two-dimensional subspaces, respectively, in the three-dimensional submodule;
+  note  that  each  [22X2^3+8:L_3(2)[122X type subgroup [22XH[122X of [22XRu[122X is the normalizer of an
+  elementary  abelian group of order eight all of whose involutions are in the
+  [22XRu[122X-class  [10X2A[110X and are conjugate in [22XH[122X. Since the [22X2.2^4+6:S_5[122X type subgroups of
+  [22XRu[122X  are  the  normalizers of [10X2A[110X-elements in [22XRu[122X, the groups in one of the two
+  classes  in  question  coincide  with  the largest solvable subgroups in the
+  [22X2.2^4+6:S_5[122X  type subgroups. The groups in the other class do not centralize
+  a  [10X2A[110X-element  in  [22XRu[122X  and are therefore not isomorphic with the [22X2.2^4+6:S_4[122X
+  type groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Ru" ):= n;;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= info[1][1];;[127X[104X
+    [4X[25Xgap>[125X [27Xcls:= SizesConjugacyClasses( s );;[127X[104X
+    [4X[25Xgap>[125X [27Xnsg:= Filtered( ClassPositionsOfNormalSubgroups( s ),[127X[104X
+    [4X[25X>[125X [27X                   x -> Sum( cls{ x } ) = 2^3 );[127X[104X
+    [4X[28X[ [ 1, 2 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xcls{ nsg[1] };[127X[104X
+    [4X[28X[ 1, 7 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ){ nsg[1] };[127X[104X
+    [4X[28X[ 1, 2 ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-2 [33X[0;0Y[22XG = Suz[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XSuz[122X  contains  a unique conjugacy class of solvable subgroups of
+  order [22Xn = 139968[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Suz" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 139968;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "G2(4)" ), 1797, 416 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3_2.U4(3).2_3'" ), 140, 72 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3^5:M11" ), 13, 11 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^4+6:3a6" ), 7, 6 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3^2+4:2(2^2xa4)2" ), 1, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups  [22XS[122X  of the structure [22X3^2+4:2(A_4 × 2^2).2[122X in [22XSuz[122X are
+  solvable and have order [22Xn[122X, see [CCN+85, p. 131].[133X
+  
+  [33X[0;0YIn  order  to  show  that  [22XSuz[122X contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in  [22XG_2(4)[122X  of  index at most [22X1797[122X (see [CCN+85, p. 97]), in [22XU_4(3).2_3^'[122X of
+  index  at  most  [22X140[122X  (see [CCN+85,  p.  52]),  in  [22XM_11[122X of index at most [22X13[122X
+  (see [CCN+85, p. 18]), and in [22XA_6[122X of index at most [22X7[122X (see [CCN+85, p. 4]).[133X
+  
+  [33X[0;0YThe  group  [22XS[122X  extends to a group of the structure [22X3^2+4:2(S_4 × D_8)[122X in the
+  automorphism group [22XSuz.2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Suz" ):= n;;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Suz.2" ):= 2 * n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-3 [33X[0;0Y[22XG = ON[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XON[122X  contains  a  unique conjugacy class of solvable subgroups of
+  order [22X25920[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "ON" );;                                            [127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 25920;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "L3(7).2" ), 144, 114 ], [128X[104X
+    [4X[28X  [ CharacterTable( "ONM2" ), 144, 114 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3^4:2^(1+4)D10" ), 1, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal subgroups [22XS[122X of the structure [22X3^4:2^1+4_-D_10[122X in [22XON[122X are solvable
+  and have order [22Xn[122X, see [CCN+85, pp. 132].[133X
+  
+  [33X[0;0YIn  order  to  show  that  [22XON[122X  contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in [22XL_3(7).2[122X of index at most [22X144[122X (see [CCN+85, p. 50]); note that the groups
+  in the second class of maximal subgroups of [22XON[122X are isomorphic with [22XL_3(7).2[122X.[133X
+  
+  [33X[0;0YThe  group  [22XS[122X  extends  to  a group of order [22X|S.2|[122X in the automorphism group
+  [22XON.2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "ON" ):= n;;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "ON.2" ):= 2 * n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-4 [33X[0;0Y[22XG = Co_2[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XCo_2[122X  contains a unique conjugacy class of solvable subgroups of
+  order [22X2359296[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Co2" );;                                           [127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 2359296;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "U6(2).2" ), 7796, 672 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^10:m22:2" ), 385, 22 ], [128X[104X
+    [4X[28X  [ CharacterTable( "McL" ), 380, 275 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^1+8:s6f2" ), 315, 28 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^1+4+6.a8" ), 17, 8 ], [128X[104X
+    [4X[28X  [ CharacterTable( "U4(3).D8" ), 11, 8 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^(4+10)(S5xS3)" ), 5, 5 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups  of  the structure [22X2^4+10(S_5 × S_3)[122X in [22XCo_2[122X contain
+  solvable  subgroups  [22XS[122X  of order [22Xn[122X and with the structure [22X2^4+10(S_4 × S_3)[122X,
+  see [CCN+85, p. 154].[133X
+  
+  [33X[0;0YThe  subgroups  [22XS[122X  are  contained  also in the maximal subgroups of the type
+  [22X2^1+8_+:S_6(2)[122X; note that the [22X2^1+8_+:S_6(2)[122X type subgroups are described as
+  normalizers of elements in the [22XCo_2[122X-class [10X2A[110X, and [22XS[122X normalizes an elementary
+  abelian  group  of  order  [22X16[122X  containing  an [22XS[122X-class of length five that is
+  contained in the [22XCo_2[122X-class [10X2A[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= info[7][1];[127X[104X
+    [4X[28XCharacterTable( "2^(4+10)(S5xS3)" )[128X[104X
+    [4X[25Xgap>[125X [27Xcls:= SizesConjugacyClasses( s );;[127X[104X
+    [4X[25Xgap>[125X [27Xnsg:= Filtered( ClassPositionsOfNormalSubgroups( s ),[127X[104X
+    [4X[25X>[125X [27X                   x -> Sum( cls{ x } ) = 2^4 );[127X[104X
+    [4X[28X[ [ 1 .. 3 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xcls{ nsg[1] };[127X[104X
+    [4X[28X[ 1, 5, 10 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ){ nsg[1] };[127X[104X
+    [4X[28X[ 1, 2, 3 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  stabilizers  of these involutions in [22X2^4+10(S_5 × S_3)[122X have index five,
+  they  are solvable, and they are contained in [22X2^1+8_+:S_6(2)[122X type subgroups,
+  so they are [22XCo_2[122X-conjugates of [22XS[122X. (The corresponding subgroups of [22XS_6(2)[122X are
+  maximal and have the type [22X2.[2^6]:(S_3 × S_3)[122X.)[133X
+  
+  [33X[0;0YIn order to show that [22XG[122X contains no other solvable subgroups of order larger
+  than  or  equal  to  [22X|S|[122X,  we  check that there are no solvable subgroups in
+  [22XU_6(2)[122X  of  index at most [22X7796[122X (see [CCN+85, p. 115]), in [22XM_22.2[122X of index at
+  most  [22X385[122X  (see [CCN+85, p. 39] or Section [14X6.3[114X), in [22XMcL[122X of index at most [22X380[122X
+  (see [CCN+85,  p.  100]  or  Section [14X6.3[114X),  in  [22XA_8[122X  of  index  at  most  [22X17[122X
+  (see [CCN+85,  p.  20]), and in [22XU_4(3).D_8[122X of index at most [22X11[122X (see [CCN+85,
+  p. 52]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Co2" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-5 [33X[0;0Y[22XG = Fi_22[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XFi_22[122X contains a unique conjugacy class of solvable subgroups of
+  order [22X5038848[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Fi22" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 5038848;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "2.U6(2)" ), 3650, 672 ], [128X[104X
+    [4X[28X  [ CharacterTable( "O7(3)" ), 910, 351 ], [128X[104X
+    [4X[28X  [ CharacterTable( "Fi22M3" ), 910, 351 ], [128X[104X
+    [4X[28X  [ CharacterTable( "O8+(2).3.2" ), 207, 6 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^10:m22" ), 90, 22 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3^(1+6):2^(3+4):3^2:2" ), 1, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups  [22XS[122X  of  the structure [22X3^1+6:2^3+4:3^2:2[122X in [22XFi_22[122X are
+  solvable and have order [22Xn[122X, see [CCN+85, p. 163].[133X
+  
+  [33X[0;0YIn  order  to  show that [22XFi_22[122X contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in  [22XU_6(2)[122X  of index at most [22X3650[122X (see [CCN+85, p. 115]), in [22XO_7(3)[122X of index
+  at  most  [22X910[122X  (see [CCN+85,  p. 109]), in [22XO_8^+(2).S_3[122X of index at most [22X207[122X
+  (see [CCN+85,  p.  85]),  and in [22XM_22.2[122X of index at most [22X90[122X (see [CCN+85, p.
+  39]  or  Section [14X6.3[114X);  note  that  the groups in the third class of maximal
+  subgroups of [22XFi_22[122X are isomorphic with [22XO_7(3)[122X.[133X
+  
+  [33X[0;0YThe  group  [22XS[122X  extends  to  a group of order [22X|S.2|[122X in the automorphism group
+  [22XFi_22.2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Fi22" ):= n;;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Fi22.2" ):= 2 * n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-6 [33X[0;0Y[22XG = HN[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XHN[122X  contains  a  unique conjugacy class of solvable subgroups of
+  order [22X2000000[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "HN" );; [127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;                               [127X[104X
+    [4X[25Xgap>[125X [27Xn:= 2000000;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "A12" ), 119, 12 ], [128X[104X
+    [4X[28X  [ CharacterTable( "5^(1+4):2^(1+4).5.4" ), 1, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal subgroups [22XS[122X of the structure [22X5^1+4:2^1+4.5.4[122X in [22XHN[122X are solvable
+  and have order [22Xn[122X, see [CCN+85, p. 166].[133X
+  
+  [33X[0;0YIn  order  to  show  that  [22XHN[122X  contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in [22XA_12[122X of index at most [22X119[122X (see [CCN+85, p. 91]).[133X
+  
+  [33X[0;0YThe  group  [22XS[122X  extends  to  a group of order [22X|S.2|[122X in the automorphism group
+  [22XHN.2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "HN" ):= n;;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "HN.2" ):= 2 * n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-7 [33X[0;0Y[22XG = Ly[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XLy[122X  contains  a  unique conjugacy class of solvable subgroups of
+  order [22X900000[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Ly" );;                                            [127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 900000;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "G2(5)" ), 6510, 3906 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3.McL.2" ), 5987, 275 ], [128X[104X
+    [4X[28X  [ CharacterTable( "5^3.psl(3,5)" ), 51, 31 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2.A11" ), 44, 11 ], [128X[104X
+    [4X[28X  [ CharacterTable( "5^(1+4):4S6" ), 10, 6 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups  of the structure [22X5^(1+4):4S6[122X in [22XLy[122X contain solvable
+  subgroups  [22XS[122X of order [22Xn[122X and with the structure [22X5^1+4:4.3^2.D_8[122X, see [CCN+85,
+  p. 174].[133X
+  
+  [33X[0;0YIn  order  to  show  that  [22XLy[122X  contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in [22XG_2(5)[122X of index at most [22X6510[122X (see [CCN+85, p. 114]), in [22XMcL.2[122X of index at
+  most  [22X5987[122X (see [CCN+85, p. 100] or Section [14X6.3[114X), in [22XL_3(5)[122X of index at most
+  [22X51[122X  (see [CCN+85,  p. 38]), and in [22XA_11[122X of index at most [22X44[122X (see [CCN+85, p.
+  75]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Ly" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-8 [33X[0;0Y[22XG = Th[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XTh[122X  contains  exactly  two  conjugacy  classes  of nonisomorphic
+  solvable subgroups of order [22Xn = 944784[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Th" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 944784;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "2^5.psl(5,2)" ), 338, 31 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^1+8.a9" ), 98, 9 ], [128X[104X
+    [4X[28X  [ CharacterTable( "U3(8).6" ), 35, 6 ], [128X[104X
+    [4X[28X  [ CharacterTable( "ThN3B" ), 1, 1 ], [128X[104X
+    [4X[28X  [ CharacterTable( "ThM7" ), 1, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups [22XS[122X of the structures [22X[3^9].2S_4[122X and [22X3^2.[3^7].2S_4[122X in
+  [22XTh[122X are solvable and have order [22Xn[122X, see [CCN+85, p. 177].[133X
+  
+  [33X[0;0YIn  order  to  show  that  [22XTh[122X  contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in  [22XL_5(2)[122X  of  index  at most [22X338[122X (see [CCN+85, p. 70]), in [22XA_9[122X of index at
+  most  [22X98[122X  (see [CCN+85,  p.  37]),  and  in  [22XU_3(8).6[122X  of  index  at most [22X35[122X
+  (see [CCN+85, p. 66]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Th" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-9 [33X[0;0Y[22XG = Fi_23[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XFi_23[122X contains a unique conjugacy class of solvable subgroups of
+  order [22Xn = 3265173504[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Fi23" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 3265173504;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "2.Fi22" ), 39545, 3510 ], [128X[104X
+    [4X[28X  [ CharacterTable( "O8+(3).3.2" ), 9100, 6 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3^(1+8).2^(1+6).3^(1+2).2S4" ), 1, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups  [22XS[122X  of the structure [22X3^1+8_+.2^1+6_-.3^1+2_+.2S_4[122X in
+  [22XFi_23[122X are solvable and have order [22Xn[122X, see [CCN+85, p. 177].[133X
+  
+  [33X[0;0YIn  order  to  show that [22XFi_23[122X contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in  [22XFi_22[122X  of index at most [22X39545[122X (see Section [14X6.4-5[114X) and in [22XO_8^+(3).S_3[122X of
+  index at most [22X9100[122X (see [CCN+85, p. 140]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Fi23" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-10 [33X[0;0Y[22XG = Co_1[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XCo_1[122X  contains a unique conjugacy class of solvable subgroups of
+  order [22Xn = 84934656[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Co1" );;                                           [127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 84934656;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "Co2" ), 498093, 2300 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3.Suz.2" ), 31672, 1782 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^11:M24" ), 5903, 24 ], [128X[104X
+    [4X[28X  [ CharacterTable( "Co3" ), 5837, 276 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^(1+8)+.O8+(2)" ), 1050, 120 ], [128X[104X
+    [4X[28X  [ CharacterTable( "U6(2).3.2" ), 649, 6 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^(2+12):(A8xS3)" ), 23, 8 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^(4+12).(S3x3S6)" ), 10, 6 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups of the structure [22X2^4+12.(S_3 × 3S_6)[122X in [22XCo_1[122X contain
+  solvable  subgroups  [22XS[122X  of  order  [22Xn[122X  and  with  the structure [22X2^4+12.(S_3 ×
+  3^1+2_+:D_8)[122X, see [CCN+85, p. 183].[133X
+  
+  [33X[0;0YIn  order  to  show  that [22XCo_1[122X contains no other solvable subgroups of order
+  larger  than  or equal to [22X|S|[122X, we check that there are no solvable subgroups
+  in  [22XCo_2[122X  of  index at most [22X498093[122X (see Section [14X6.4-4[114X), in [22XSuz.2[122X of index at
+  most  [22X31672[122X  (see  Section [14X6.4-2[114X),  in  [22XM_24[122X  of  index  at  most  [22X5903[122X (see
+  Section [14X6.3[114X),  in  [22XCo_3[122X  of  index  at  most  [22X5837[122X  (see [CCN+85, p. 134] or
+  Section [14X6.3[114X),  in  [22XO_8^+(2)[122X of index at most [22X1050[122X (see [CCN+85, p. 185]), in
+  [22XU_6(2).S_3[122X  of index at most [22X649[122X (see [CCN+85, p. 115]), and in [22XA_8[122X of index
+  at most [22X23[122X (see [CCN+85, p. 22]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Co1" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-11 [33X[0;0Y[22XG = J_4[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group  [22XJ_4[122X  contains  a unique conjugacy class of solvable subgroups of
+  order [22X28311552[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "J4" );; [127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 28311552;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );[127X[104X
+    [4X[28X[ [ CharacterTable( "mx1j4" ), 17710, 24 ], [128X[104X
+    [4X[28X  [ CharacterTable( "c2aj4" ), 770, 22 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^10:L5(2)" ), 361, 31 ], [128X[104X
+    [4X[28X  [ CharacterTable( "J4M4" ), 23, 5 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups  of  the structure [22X2^11:M_24[122X in [22XJ_4[122X contain solvable
+  subgroups  [22XS[122X  of  order  [22Xn[122X  and with the structure [22X2^11:2^6:3^1+2_+:D_8[122X, see
+  Section [14X6.3[114X and [CCN+85, p. 190].[133X
+  
+  [33X[0;0Y(The  subgroups  in  the first four classes of maximal subgroups of [22XJ_4[122X have
+  the  structures  [22X2^11:M_24[122X, [22X2^1+12_+.3M_22:2[122X, [22X2^10:L_5(2)[122X, and [22X2^3+12.(S_5 ×
+  L_3(2))[122X, in this order.)[133X
+  
+  [33X[0;0YThe  subgroups  [22XS[122X  are  contained  also in the maximal subgroups of the type
+  [22X2^1+12_+.3M_22:2[122X;  note that these subgroups are described as normalizers of
+  elements  in  the [22XJ_4[122X-class [10X2A[110X, and [22XS[122X normalizes an elementary abelian group
+  of  order [22X2^11[122X containing an [22XS[122X-class of length [22X1771[122X that is contained in the
+  [22XJ_4[122X-class [10X2A[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= info[1][1];[127X[104X
+    [4X[28XCharacterTable( "mx1j4" )[128X[104X
+    [4X[25Xgap>[125X [27Xcls:= SizesConjugacyClasses( s );;[127X[104X
+    [4X[25Xgap>[125X [27Xnsg:= Filtered( ClassPositionsOfNormalSubgroups( s ),[127X[104X
+    [4X[25X>[125X [27X                   x -> Sum( cls{ x } ) = 2^11 );[127X[104X
+    [4X[28X[ [ 1 .. 3 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xcls{ nsg[1] };[127X[104X
+    [4X[28X[ 1, 276, 1771 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ){ nsg[1] };[127X[104X
+    [4X[28X[ 1, 3, 2 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe stabilizers of these involutions in [22X2^11:M_24[122X have index [22X1771[122X, they have
+  the  structure  [22X2^11:2^6:3.S_6[122X,  and  they are contained in [22X2^1+12_+.3M_22:2[122X
+  type  subgroups;  so  also  [22XS[122X,  which  has  index  [22X10[122X  in [22X2^11:2^6:3.S_6[122X, is
+  contained in [22X2^1+12_+.3M_22:2[122X. (The corresponding subgroups of [22XM_22:2[122X are of
+  course the solvable groups of maximal order described in Section [14X6.3[114X.)[133X
+  
+  [33X[0;0YIn order to show that [22XG[122X contains no other solvable subgroups of order larger
+  than  or  equal  to  [22X|S|[122X,  we  check that there are no solvable subgroups in
+  [22XL_5(2)[122X  of  index  at  most [22X361[122X (see [CCN+85, p. 70]) and in [22XS_5 × L_3(2)[122X of
+  index at most [22X23[122X (see [CCN+85, pp. 2, 3]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "J4" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-12 [33X[0;0Y[22XG = Fi_24^'[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe group [22XFi_24^'[122X contains a unique conjugacy class of solvable subgroups of
+  order [22X29386561536[122X, and no larger solvable subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Fi24'" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( t ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= 29386561536;;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= List( mx, x -> SolvableSubgroupInfoFromCharacterTable( x, n ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinfo:= Filtered( info, IsList );                                        [127X[104X
+    [4X[28X[ [ CharacterTable( "Fi23" ), 139161244, 31671 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2.Fi22.2" ), 8787, 3510 ], [128X[104X
+    [4X[28X  [ CharacterTable( "(3xO8+(3):3):2" ), 3033, 6 ], [128X[104X
+    [4X[28X  [ CharacterTable( "O10-(2)" ), 851, 495 ], [128X[104X
+    [4X[28X  [ CharacterTable( "3^(1+10):U5(2):2" ), 165, 165 ], [128X[104X
+    [4X[28X  [ CharacterTable( "2^2.U6(2).3.2" ), 7, 6 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  maximal  subgroups of the structure [22X3^1+10_+:U5(2):2[122X in [22XFi_24^'[122X contain
+  solvable    subgroups    [22XS[122X    of    order   [22Xn[122X   and   with   the   structure
+  [22X3^1+10_+:2^1+6_-:3^1+2_+:2S_4[122X, see [CCN+85, p. 73, p. 207].[133X
+  
+  [33X[0;0YIn order to show that [22XG[122X contains no other solvable subgroups of order larger
+  than or equal to [22X|S|[122X, we check that there are no solvable subgroups in [22XFi_23[122X
+  of order at least [22Xn[122X (see Section [14X6.4-9[114X), in [22XFi_22.2[122X of order at least [22Xn[122X (see
+  Section [14X6.4-5[114X),  in  [22XO_8^+(3).S_3[122X  of  index  at  most [22X3033[122X (see [CCN+85, p.
+  140]),  in  [22XO_10^-(2)[122X  of  index  at most [22X851[122X (see [CCN+85, p. 147]), and in
+  [22XU_6(2).S_3[122X of index at most [22X7[122X (see [CCN+85, p. 115]).[133X
+  
+  [33X[0;0YThe  group  [22XS[122X  extends  to  a group of order [22X|S.2|[122X in the automorphism group
+  [22XFi_24[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Fi24'" ):= n;;[127X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "Fi24'.2" ):= 2 * n;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-13 [33X[0;0Y[22XG = B[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe group [22XB[122X contains a unique conjugacy class of solvable subgroups of order
+  [22Xn = 29686813949952[122X, and no larger solvable subgroups.[133X
+  
+  [33X[0;0YThe  maximal subgroups of the structure [22X2^2+10+20(M_22:2 × S_3)[122X in [22XB[122X contain
+  solvable subgroups [22XS[122X of order [22Xn[122X and with the structure [22X2^2+10+20(2^4:3^2:D_8
+  × S_3)[122X, see [CCN+85, p. 217] and Section [14X6.3[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn:= 29686813949952;;[127X[104X
+    [4X[25Xgap>[125X [27Xn = 2^(2+10+20) * 2^4 * 3^2 * 8 * 6;[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xn = 2^(2+10+20) * MaxSolv.( "M22.2" ) * 6;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YBy [Wil99,  Table  1],  the only maximal subgroups of [22XB[122X of order bigger than
+  [22X|S|[122X have the following structures.[133X
+  
+        [22X2.^2E_6(2).2[122X    [22X2^1+22.Co_2[122X            [22XFi_23[122X                     [22X2^9+16S_8(2)[122X        
+        [22XTh[122X              [22X(2^2 × F_4(2)):2[122X       [22X2^2+10+20(M_22:2 × S_3)[122X   [22X2^5+5+10+10L_5(2)[122X   
+        [22XS_3 × Fi_22:2[122X   [22X2^[35](S_5 × L_3(2))[122X   [22XHN:2[122X                      [22XO_8^+(3):S_4[122X        
+  
+  [33X[0;0Y(The  character tables of the maximal subgroups of [22XB[122X are meanwhile available
+  in [5XGAP[105X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( b ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27XFiltered( mx, x -> Size( x ) >= n );[127X[104X
+    [4X[28X[ CharacterTable( "2.2E6(2).2" ), CharacterTable( "2^(1+22).Co2" ), [128X[104X
+    [4X[28X  CharacterTable( "Fi23" ), CharacterTable( "2^(9+16).S8(2)" ), [128X[104X
+    [4X[28X  CharacterTable( "Th" ), CharacterTable( "(2^2xF4(2)):2" ), [128X[104X
+    [4X[28X  CharacterTable( "2^(2+10+20).(M22.2xS3)" ), [128X[104X
+    [4X[28X  CharacterTable( "[2^30].L5(2)" ), CharacterTable( "S3xFi22.2" ), [128X[104X
+    [4X[28X  CharacterTable( "[2^35].(S5xL3(2))" ), CharacterTable( "HN.2" ), [128X[104X
+    [4X[28X  CharacterTable( "O8+(3).S4" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  the  subgroups  [22X2^1+22.Co_2[122X,  [22XFi_23[122X,  [22XTh[122X,  [22XS_3 × Fi_22:2[122X, and [22XHN:2[122X, the
+  solvable  subgroups of maximal order are known from the previous sections or
+  can be derived from known values, and are smaller than [22Xn[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( [ 2^(1+22) * MaxSolv.( "Co2" ),[127X[104X
+    [4X[25X>[125X [27X           MaxSolv.( "Fi23" ),[127X[104X
+    [4X[25X>[125X [27X           MaxSolv.( "Th" ),[127X[104X
+    [4X[25X>[125X [27X           6 * MaxSolv.( "Fi22.2" ),[127X[104X
+    [4X[25X>[125X [27X           MaxSolv.( "HN.2" ) ], i -> Int( i / n ) );[127X[104X
+    [4X[28X[ 0, 0, 0, 0, 0 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  one of the remaining maximal groups [22XU[122X from the above list has a solvable
+  subgroup of order at least [22Xn[122X then the index of this subgroup in [22XU[122X is bounded
+  as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( [ Size( CharacterTable( "2.2E6(2).2" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^(9+16) * Size( CharacterTable( "S8(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^3 * Size( CharacterTable( "F4(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^(2+10+20) * Size( CharacterTable( "M22.2" ) ) * 6,[127X[104X
+    [4X[25X>[125X [27X           2^30 * Size( CharacterTable( "L5(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^35 * Factorial(5) * Size( CharacterTable( "L3(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           Size( CharacterTable( "O8+(3)" ) ) * 24 ],[127X[104X
+    [4X[25X>[125X [27X         i -> Int( i / n ) );[127X[104X
+    [4X[28X[ 10311982931, 53550, 892, 770, 361, 23, 4 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  group [22XO_8^+(3):S_4[122X is nonsolvable, and its order is less than [22X5 n[122X, thus
+  its solvable subgroups have orders less than [22Xn[122X.[133X
+  
+  [33X[0;0YThe  largest  solvable  subgroup  of  [22XS_5  ×  L_3(2)[122X  has index [22X35[122X, thus the
+  solvable subgroups of [22X2^[35](S_5 × L_3(2))[122X have orders less than [22Xn[122X.[133X
+  
+  [33X[0;0YThe  groups  of  type [22X2^5+5+10+10L_5(2)[122X cannot contain solvable subgroups of
+  order  at least [22Xn[122X because [22XL_5(2)[122X has no solvable subgroup of index up to [22X361[122X
+  –such a subgroup would be contained in [22X2^4:L_4(2)[122X, of index at most [22X⌊ 361/31
+  ⌋  = 11[122X (see [CCN+85, p. 70]), and [22XL_4(2) ≅ A_8[122X does not have such subgroups
+  (see [CCN+85, p. 22]).[133X
+  
+  [33X[0;0YThe  largest  proper  subgroup  of  [22XF_4(2)[122X  has index [22X69615[122X (see [CCN+85, p.
+  170]),  which  excludes  solvable  subgroups  of  order at least [22Xn[122X in [22X(2^2 ×
+  F_4(2)):2[122X.[133X
+  
+  [33X[0;0YRuling  out the group [22X2.^2E_6(2).2[122X is more involved. We consider the list of
+  maximal  subgroups  of  [22X^2E_6(2)[122X  in [CCN+85,  p.  191]  (which is complete,
+  see [BN95]),  and  compute  the  maximal  index of a group of order [22Xn/4[122X; the
+  possible subgroups of [22X^2E_6(2)[122X to consider are the following[133X
+  
+        [22X2^1+20:U_6(2)[122X   [22X2^8+16:O_8^-(2)[122X   [22XF_4(2)[122X                         [22X2^2.2^9.2^18:(L_3(4) × S_3)[122X   
+        [22XFi_22[122X           [22XO_10^-(2)[122X         [22X2^3.2^12.2^15:(S_5 × L_3(2))[122X                                 
+  
+  [33X[0;0Y(The order of [22XS_3 × U_6(2)[122X is already smaller than [22Xn/4[122X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( [ 2^(1+20) * Size( CharacterTable( "U6(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^(8+16) * Size( CharacterTable( "O8-(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           Size( CharacterTable( "F4(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^(2+9+18) * Size( CharacterTable( "L3(4)" ) ) * 6,[127X[104X
+    [4X[25X>[125X [27X           Size( CharacterTable( "Fi22" ) ),[127X[104X
+    [4X[25X>[125X [27X           Size( CharacterTable( "O10-(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           2^(3+12+15) * 120 * Size( CharacterTable( "L3(2)" ) ),[127X[104X
+    [4X[25X>[125X [27X           6 * Size( CharacterTable( "U6(2)" ) ) ],[127X[104X
+    [4X[25X>[125X [27X         i -> Int( i / ( n / 4 ) ) );[127X[104X
+    [4X[28X[ 2598, 446, 446, 8, 8, 3, 2, 0 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  indices  of the solvable groups of maximal orders in the groups [22XU_6(2)[122X,
+  [22XO_8^-(2)[122X, [22XF_4(2)[122X, [22XL_3(4)[122X, and [22XFi_22[122X are larger than the bounds we get for [22Xn[122X,
+  see [CCN+85, pp. 115, 89, 170, 23, 163].[133X
+  
+  [33X[0;0YIt  remains  to  consider  the subgroups of the type [22X2^9+16S_8(2)[122X. The group
+  [22XS_8(2)[122X contains maximal subgroups of the type [22X2^3+8:(S_3 × S_6)[122X and of index
+  [22X5355[122X  (see [CCN+85,  p.  123]), which contain solvable subgroups [22XS'[122X of index
+  [22X10[122X. This yields solvable subgroups of order [22X2^9+16+3+8 ⋅ 6 ⋅ 72 = n[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2^(9+16+3+8) * 6 * 72 = n;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThere are no other solvable subgroups of larger or equal order in [22XS_8(2)[122X: We
+  would  need  solvable  subgroups  of index at most [22X446[122X in [22XO_8^-(2):2[122X, [22X393[122X in
+  [22XO_8^+(2):2[122X,  [22X210[122X  in [22XS_6(2)[122X, or [22X23[122X in [22XA_8[122X, which is not the case by [CCN+85,
+  pp. 89, 85, 46, 22].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xindex:= Int( 2^(9+16) * Size( CharacterTable( "S8(2)" ) ) / n );[127X[104X
+    [4X[28X53550[128X[104X
+    [4X[25Xgap>[125X [27XList( [ 120, 136, 255, 2295 ], i -> Int( index / i ) );[127X[104X
+    [4X[28X[ 446, 393, 210, 23 ][128X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "B" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  the  [22X2^9+16S_8(2)[122X type subgroups of [22XB[122X yield solvable subgroups [22XS'[122X of the
+  type [22X2^9+16.2^3+8:(S_3 × 3^2:D_8)[122X, and of order [22Xn[122X.[133X
+  
+  [33X[0;0YWe  want  to show that [22XS'[122X is a [22XB[122X-conjugate of [22XS[122X. For that, we first show the
+  following:[133X
+  
+  [33X[0;0YLemma:[133X
+  
+  [33X[0;0YThe  group  [22XB[122X  contains  exactly  two conjugacy classes of Klein four groups
+  whose involutions lie in the class [10X2B[110X. (We will call these Klein four groups
+  [10X2B[110X-pure.)  Their  normalizers  in  [22XB[122X  have  the orders [22X22858846741463040[122X and
+  [22X292229574819840[122X, respectively.[133X
+  
+  [33X[0;0Y[13XProof.[113X Let [22XV[122X be a [10X2B[110X-pure Klein four group in [22XB[122X, and set [22XN = N_B(V)[122X. Let [22Xx ∈
+  V[122X  be  an  involution and set [22XH = C_B(x)[122X, then [22XH[122X is maximal in [22XB[122X and has the
+  structure  [22X2^1+22.Co_2[122X. The index of [22XC = C_B(V) = C_H(V)[122X in [22XN[122X divides [22X6[122X, and
+  [22XC[122X  stabilizes  the  central  involution  in [22XH[122X and another [10X2B[110X involution. The
+  group [22XH[122X contains exactly four conjugacy classes of [10X2B[110X elements.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xh:= mx[2];[127X[104X
+    [4X[28XCharacterTable( "2^(1+22).Co2" )[128X[104X
+    [4X[25Xgap>[125X [27Xpos:= Positions( GetFusionMap( h, b ), 3 );[127X[104X
+    [4X[28X[ 2, 4, 11, 20 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe [22XB[122X-classes of [10X2B[110X-pure Klein four groups arise from those of these classes
+  [22Xy^H  ⊂  H[122X  such  that  [22Xx  ≠ y[122X holds and [22Xx y[122X is a [10X2B[110X element. We compute this
+  subset.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpos:= Filtered( Difference( pos, [ 2 ] ), i -> ForAny( pos,[127X[104X
+    [4X[25X>[125X [27X            j -> NrPolyhedralSubgroups( h, 2, i, j ).number <> 0 ) );[127X[104X
+    [4X[28X[ 4, 11 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  two classes have lengths [22X93150[122X and [22X7286400[122X, thus the index of [22XC[122X in [22XH[122X is
+  one of these numbers.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSizesConjugacyClasses( h ){ pos };[127X[104X
+    [4X[28X[ 93150, 7286400 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNext we compute the number [22Xn_0[122X of [10X2B[110X-pure Klein four groups in [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnr:= NrPolyhedralSubgroups( b, 3, 3, 3 );[127X[104X
+    [4X[28Xrec( number := 14399283809600746875, type := "V4" )[128X[104X
+    [4X[25Xgap>[125X [27Xn0:= nr.number;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [22XB[122X-conjugacy  class of [22XV[122X has length [22X[B:N] = [B:H] ⋅ [H:C] / [N:C][122X, where
+  [22X[N:C][122X divides [22X6[122X. We see that [22X[N:C] = 6[122X in both cases.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xcand:= List( pos, i -> Size( b ) / SizesCentralizers( h )[i] / 6 );[127X[104X
+    [4X[28X[ 181758140654146875, 14217525668946600000 ][128X[104X
+    [4X[25Xgap>[125X [27XSum( cand ) = n0;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  orders  of  the  normalizers  of  the two classes of [10X2B[110X-pure Klein four
+  groups are as claimed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( cand, x -> Size( b ) / x );[127X[104X
+    [4X[28X[ 22858846741463040, 292229574819840 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  subgroup  [22XS[122X of order [22Xn[122X is contained in a maximal subgroup [22XM[122X of the type
+  [22X2^2+10+20(M_22:2  ×  S_3)[122X  in  [22XB[122X. The group [22XM[122X is the normalizer of a [10X2B[110X-pure
+  Klein  four  group in [22XB[122X, and the other class of normalizers of [10X2B[110X-pure Klein
+  four  groups does not contain subgroups of order [22Xn[122X. Thus the conjugates of [22XS[122X
+  are  uniquely determined by [22X|S|[122X and the property that they normalize [10X2B[110X-pure
+  Klein four groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= mx[7];[127X[104X
+    [4X[28XCharacterTable( "2^(2+10+20).(M22.2xS3)" )[128X[104X
+    [4X[25Xgap>[125X [27XSize( m );[127X[104X
+    [4X[28X22858846741463040[128X[104X
+    [4X[25Xgap>[125X [27Xnsg:= ClassPositionsOfMinimalNormalSubgroups( m );[127X[104X
+    [4X[28X[ [ 1, 2 ] ][128X[104X
+    [4X[25Xgap>[125X [27XSizesConjugacyClasses( m ){ nsg[1] };[127X[104X
+    [4X[28X[ 1, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, b ){ nsg[1] };[127X[104X
+    [4X[28X[ 1, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XList( cand, x -> Size( b ) / ( n * x ) );[127X[104X
+    [4X[28X[ 770, 315/32 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  consider  the  subgroup  [22XS'[122X of order [22Xn[122X, which is contained in a maximal
+  subgroup  of  the  type  [22X2^9+16S_8(2)[122X  in  [22XB[122X.  In  order to prove that [22XS'[122X is
+  [22XB[122X-conjugate  to  [22XS[122X,  it is enough to show that [22XS'[122X normalizes a [10X2B[110X-pure Klein
+  four group.[133X
+  
+  [33X[0;0YThe  unique  minimal  normal  subgroup  [22XV[122X of [22X2^9+16S_8(2)[122X has order [22X2^8[122X. Its
+  involutions lie in the class [10X2B[110X of [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= mx[4];[127X[104X
+    [4X[28XCharacterTable( "2^(9+16).S8(2)" )[128X[104X
+    [4X[25Xgap>[125X [27Xnsg:= ClassPositionsOfMinimalNormalSubgroups( m );[127X[104X
+    [4X[28X[ [ 1, 2 ] ][128X[104X
+    [4X[25Xgap>[125X [27XSizesConjugacyClasses( m ){ nsg[1] };[127X[104X
+    [4X[28X[ 1, 255 ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, b ){ nsg[1] };[127X[104X
+    [4X[28X[ 1, 3 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  group  [22XV[122X  is  central  in  the  normal  subgroup  [22XW = 2^9+16[122X, since all
+  nonidentity  elements  of  [22XV[122X  lie in one conjugacy class of odd length. As a
+  module  for  [22XS_8(2)[122X, [22XV[122X is the unique irreducible eight-dimensional module in
+  characteristic two.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCharacterDegrees( CharacterTable( "S8(2)" ) mod 2 );[127X[104X
+    [4X[28X[ [ 1, 1 ], [ 8, 1 ], [ 16, 1 ], [ 26, 1 ], [ 48, 1 ], [ 128, 1 ], [128X[104X
+    [4X[28X  [ 160, 1 ], [ 246, 1 ], [ 416, 1 ], [ 768, 1 ], [ 784, 1 ], [128X[104X
+    [4X[28X  [ 2560, 1 ], [ 3936, 1 ], [ 4096, 1 ], [ 12544, 1 ], [ 65536, 1 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHence  we  are  done  if  the  restriction of the [22XS_8(2)[122X-action on [22XV[122X to [22XS'/W[122X
+  leaves  a  two-dimensional  subspace  of  [22XV[122X  invariant. In fact we show that
+  already  the  restriction of the [22XS_8(2)[122X-action on [22XV[122X to the maximal subgroups
+  of the structure [22X2^3+8:(S_3 × S_6)[122X has a two-dimensional submodule.[133X
+  
+  [33X[0;0YThese maximal subgroups have index [22X5355[122X in [22XS_8(2)[122X. The primitive permutation
+  representation    of   degree   [22X5355[122X   of   [22XS_8(2)[122X   and   the   irreducible
+  eight-dimensional  matrix  representation  of [22XS_8(2)[122X over the field with two
+  elements  are  available  via  the  [5XGAP[105X  package  [5XAtlasRep[105X, see [WPN+22]. We
+  compute  generators  for  an  index [22X5355[122X subgroup in the matrix group via an
+  isomorphism to the permutation group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpermg:= AtlasGroup( "S8(2)", NrMovedPoints, 5355 );[127X[104X
+    [4X[28X<permutation group of size 47377612800 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xmatg:= AtlasGroup( "S8(2)", Dimension, 8 );[127X[104X
+    [4X[28X<matrix group of size 47377612800 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xhom:= GroupHomomorphismByImagesNC( matg, permg,[127X[104X
+    [4X[25X>[125X [27X             GeneratorsOfGroup( matg ), GeneratorsOfGroup( permg ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xmax:= PreImages( hom, Stabilizer( permg, 1 ) );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese  generators  define the action of the index [22X5355[122X subgroup of [22XS_8(2)[122X on
+  the eight-dimensional module. We compute the dimensions of the factors of an
+  ascending composition series of this module.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= GModuleByMats( GeneratorsOfGroup( max ), GF(2) );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= MTX.CompositionFactors( m );;[127X[104X
+    [4X[25Xgap>[125X [27XList( comp, r -> r.dimension );[127X[104X
+    [4X[28X[ 2, 4, 2 ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.4-14 [33X[0;0Y[22XG = M[122X[101X[1X[133X[101X
+  
+  [33X[0;0YThe  group [22XM[122X contains exactly two conjugacy classes of solvable subgroups of
+  order [22Xn = 2849934139195392[122X, and no larger solvable subgroups.[133X
+  
+  [33X[0;0YThe  maximal subgroups of the structure [22X2^1+24_+.Co_1[122X in the group [22XM[122X contain
+  solvable  subgroups [22XS[122X of order [22Xn[122X and with the structure [22X2^1+24_+.2^4+12.(S_3
+  × 3^1+2_+:D_8)[122X, see [CCN+85, p. 234] and Section [14X6.4-10[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn:= 2^25 * MaxSolv.( "Co1" );[127X[104X
+    [4X[28X2849934139195392[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe   solvable   subgroups   of   maximal  order  in  groups  of  the  types
+  [22X2^2+11+22.(M_24 × S_3)[122X and [22X2^[39].(L_3(2) × 3S_6)[122X have order [22Xn[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2^(2+11+22) * MaxSolv.( "M24" ) * 6 = n;    [127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27X2^39 * 24 * 3 * 72 = n;                 [127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  inspecting  the  other  maximal  subgroups of [22XM[122X, we use the description
+  from [NW13],  which  lists  [22X44[122X classes of maximal subgroups of [22XG[122X, and states
+  that any possible other maximal subgroup of [22XG[122X has socle isomorphic to one of
+  [22XL_2(13)[122X, [22XSz(8)[122X, [22XU_3(4)[122X, [22XU_3(8)[122X; so these maximal subgroups are isomorphic to
+  subgroups  of the automorphism groups of these groups – the maximum of these
+  group  orders  is  smaller  than  [22Xn[122X,  hence  we  may  ignore  these possible
+  subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xcand:= [ "L2(13)", "Sz(8)", "U3(4)", "U3(8)" ];;[127X[104X
+    [4X[25Xgap>[125X [27XList( cand, nam -> ExtensionInfoCharacterTable( [127X[104X
+    [4X[25X>[125X [27XCharacterTable( nam ) ) );[127X[104X
+    [4X[28X[ [ "2", "2" ], [ "2^2", "3" ], [ "", "4" ], [ "3", "(S3x3)" ] ][128X[104X
+    [4X[25Xgap>[125X [27Xll:= List( cand, x -> Size( CharacterTable( x ) ) );[127X[104X
+    [4X[28X[ 1092, 29120, 62400, 5515776 ][128X[104X
+    [4X[25Xgap>[125X [27X18 * ll[4];[127X[104X
+    [4X[28X99283968[128X[104X
+    [4X[25Xgap>[125X [27X2^39 * 24 * 3 * 72;[127X[104X
+    [4X[28X2849934139195392[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XRemark[113X  added  in  December  2023: The classes of maximal subgroups of [22XG[122X are
+  classified  in  [DLP25].  As  a consequence, The result is that there are no
+  maximal  subgroups with socle [22XSz(8)[122X or [22XU_3(8)[122X, there is one class of maximal
+  subgroups of each of the isomorphism types [22XL_2(13).2[122X and [22XU_3(4).4[122X, and there
+  are  no  subgroups o the type [22XL_2(59)[122X (hence the subgroups of the type [22X59:29[122X
+  are maximal).[133X
+  
+  [33X[0;0YThus only the following maximal subgroups of [22XM[122X have order bigger than [22X|S|[122X.[133X
+  
+        [22X2.B[122X                 [22X2^1+24_+.Co_1[122X            [22X3.Fi_24[122X            [22X2^2.^2E_6(2):S_3[122X           
+        [22X2^10+16.O_10^+(2)[122X   [22X2^2+11+22.(M_24 × S_3)[122X   [22X3^1+12_+.2Suz.2[122X    [22X2^5+10+20.(S_3 × L_5(2))[122X   
+        [22XS_3 × Th[122X            [22X2^[39].(L_3(2) × 3S_6)[122X   [22X3^8.O_8^-(3).2_3[122X   [22X(D_10 × HN).2[122X              
+  
+  [33X[0;0YFor  the  subgroups  [22X2.B[122X,  [22X3.Fi_24[122X,  [22X3^1+12_+.2Suz.2[122X,  [22XS_3 × Th[122X, and [22X(D_10 ×
+  HN).2[122X, the solvable subgroups of maximal order are smaller than [22Xn[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( [ 2 * MaxSolv.( "B" ),[127X[104X
+    [4X[25X>[125X [27X           6 * MaxSolv.( "Fi24'" ),[127X[104X
+    [4X[25X>[125X [27X           3^13 * 2 * MaxSolv.( "Suz" ) * 2,[127X[104X
+    [4X[25X>[125X [27X           6 * MaxSolv.( "Th" ),[127X[104X
+    [4X[25X>[125X [27X           10 * MaxSolv.( "HN" ) * 2 ], i -> Int( i / n ) );[127X[104X
+    [4X[28X[ 0, 0, 0, 0, 0 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe subgroup [22X2^2.^2E_6(2):S_3[122X can be excluded by the fact that this group is
+  only six times larger than the subgroup [22X2.^2E_6(2):2[122X of [22XB[122X, but [22Xn[122X is [22X96[122X times
+  larger than the maximal solvable subgroup in [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn / MaxSolv.( "B" );[127X[104X
+    [4X[28X96[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  group  [22X3^8.O_8^-(3).2_3[122X  can  be  excluded  by the fact that a solvable
+  subgroup  of  order  at  least  [22Xn[122X  would  imply  the existence of a solvable
+  subgroup  of  index  at  most  [22X46[122X  in  [22XO_8^-(3).2_3[122X,  which  is not the case
+  (see [CCN+85, p. 141]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XInt( 3^8 * Size( CharacterTable( "O8-(3)" ) ) * 2 / n );[127X[104X
+    [4X[28X46[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSimilarly,  the  existence  of  a  solvable  subgroup of order at least [22Xn[122X in
+  [22X2^5+10+20.(S_3 × L_5(2))[122X would imply the existence of a solvable subgroup of
+  index  at  most [22X723[122X in [22XL_5(2)[122X and in turn of a solvable subgroup of index at
+  most [22X23[122X in [22XL_4(2)[122X, which is not the case (see [CCN+85, p. 70]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XInt( 2^(10+16) * Size( CharacterTable( "O10+(2)" ) ) / n );    [127X[104X
+    [4X[28X553350[128X[104X
+    [4X[25Xgap>[125X [27XInt( 2^(5+10+20) * 6 * Size( CharacterTable( "L5(2)" ) ) / n );  [127X[104X
+    [4X[28X723[128X[104X
+    [4X[25Xgap>[125X [27XInt( 723 / 31 );[127X[104X
+    [4X[28X23[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIt  remains  to  exclude the subgroup [22X2^10+16.O_10^+(2)[122X, which means to show
+  that [22XO_10^+(2)[122X does not contain a solvable subgroup of index at most [22X553350[122X.
+  If  such  a  subgroup  would  exist then it would be contained in one of the
+  following  maximal  subgroups of [22XO_10^+(2)[122X (see [CCN+85, p. 146]): in [22XS_8(2)[122X
+  (of  index  at  most  [22X1115[122X),  in  [22X2^8:O_8^+(2)[122X  (of  index at most [22X1050[122X), in
+  [22X2^10:L_5(2)[122X  (of  index  at most [22X241[122X), in [22X(3 × O_8^-(2)):2[122X (of index at most
+  [22X27[122X), in [22X(2^1+12_+:(S_3 × A_8)[122X (of index at most [22X23[122X), or in [22X2^3+12:(S_3 × S_3
+  ×  L_3(2))[122X  (of index at most [22X4[122X). By [CCN+85, pp. 123, 85, 70, 89, 22], this
+  is not the case.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xindex:= Int( 2^(10+16) * Size( CharacterTable( "O10+(2)" ) ) / n );    [127X[104X
+    [4X[28X553350[128X[104X
+    [4X[25Xgap>[125X [27XList( [ 496, 527, 2295, 19840, 23715, 118575 ], i -> Int( index / i ) );[127X[104X
+    [4X[28X[ 1115, 1050, 241, 27, 23, 4 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAs  a  consequence,  we  have shown that the largest solvable subgroups of [22XM[122X
+  have order [22Xn[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxSolv.( "M" ):= n;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  order to prove the statement about the conjugacy of subgroups of order [22Xn[122X
+  in [22XM[122X, we first show the following.[133X
+  
+  [33X[0;0YLemma:[133X
+  
+  [33X[0;0YThe  group  [22XM[122X contains exactly three conjugacy classes of [10X2B[110X-pure Klein four
+  groups.  Their  normalizers  in  [22XM[122X  have  the  orders  [22X50472333605150392320[122X,
+  [22X259759622062080[122X, and [22X9567039651840[122X, respectively.[133X
+  
+  [33X[0;0Y[13XProof.[113X   The   idea  is  the  same  as  for  the  Baby  Monster  group,  see
+  Section [14X6.4-13[114X.  Let  [22XV[122X  be  a  [10X2B[110X-pure  Klein  four group in [22XM[122X, and set [22XN =
+  N_M(V)[122X.  Let [22Xx ∈ V[122X be an involution and set [22XH = C_M(x)[122X, then [22XH[122X is maximal in
+  [22XM[122X and has the structure [22X2^1+24_+.Co_1[122X. The index of [22XC = C_M(V) = C_H(V)[122X in [22XN[122X
+  divides  [22X6[122X,  and  [22XC[122X  stabilizes  the  central involution in [22XH[122X and another [10X2B[110X
+  involution.[133X
+  
+  [33X[0;0YThe group [22XH[122X contains exactly five conjugacy classes of [10X2B[110X elements, three of
+  them  consist  of elements that generate a [10X2B[110X-pure Klein four group together
+  with [22Xx[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "M" );;[127X[104X
+    [4X[25Xgap>[125X [27Xh:= CharacterTable( "2^1+24.Co1" );[127X[104X
+    [4X[28XCharacterTable( "2^1+24.Co1" )[128X[104X
+    [4X[25Xgap>[125X [27Xpos:= Positions( GetFusionMap( h, m ), 3 );[127X[104X
+    [4X[28X[ 2, 4, 7, 9, 16 ][128X[104X
+    [4X[25Xgap>[125X [27Xpos:= Filtered( Difference( pos, [ 2 ] ), i -> ForAny( pos,[127X[104X
+    [4X[25X>[125X [27X            j -> NrPolyhedralSubgroups( h, 2, i, j ).number <> 0 ) );[127X[104X
+    [4X[28X[ 4, 9, 16 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  two classes have lengths [22X93150[122X and [22X7286400[122X, thus the index of [22XC[122X in [22XH[122X is
+  one of these numbers.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSizesConjugacyClasses( h ){ pos };[127X[104X
+    [4X[28X[ 16584750, 3222483264000, 87495303168000 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNext we compute the number [22Xn_0[122X of [10X2B[110X-pure Klein four groups in [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnr:= NrPolyhedralSubgroups( m, 3, 3, 3 );[127X[104X
+    [4X[28Xrec( number := 87569110066985387357550925521828244921875, [128X[104X
+    [4X[28X  type := "V4" )[128X[104X
+    [4X[25Xgap>[125X [27Xn0:= nr.number;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [22XM[122X-conjugacy  class of [22XV[122X has length [22X[M:N] = [M:H] ⋅ [H:C] / [N:C][122X, where
+  [22X[N:C][122X divides [22X6[122X. We see that [22X[N:C] = 6[122X in both cases.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xcand:= List( pos, i -> Size( m ) / SizesCentralizers( h )[i] / 6 );[127X[104X
+    [4X[28X[ 16009115629875684006343550944921875, [128X[104X
+    [4X[28X  3110635203347364905168577322802100000000, [128X[104X
+    [4X[28X  84458458854522392576698341855475200000000 ][128X[104X
+    [4X[25Xgap>[125X [27XSum( cand ) = n0;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  orders  of  the  normalizers of the three classes of [10X2B[110X-pure Klein four
+  groups are as claimed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( cand, x -> Size( m ) / x );[127X[104X
+    [4X[28X[ 50472333605150392320, 259759622062080, 9567039651840 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAs we have seen above, the group [22XM[122X contains exactly the following (solvable)
+  subgroups of order [22Xn[122X.[133X
+  
+  [31X1[131X   [33X[0;6YOne class in [22X2^1+24_+.Co_1[122X type subgroups,[133X
+  
+  [31X2[131X   [33X[0;6Yone class in [22X2^2+11+22.(M_24 × S_3)[122X type subgroups, and[133X
+  
+  [31X3[131X   [33X[0;6Ytwo classes in [22X2^[39].(L_3(2) × 3S_6)[122X type subgroups.[133X
+  
+  [33X[0;0YNote  that  [22X2^[39].(L_3(2)  ×  3S_6)[122X  contains  an elementary abelian normal
+  subgroup  of order eight whose involutions lie in the class [10X2B[110X, see [CCN+85,
+  p.  234].  As  a  module  for  the  group  [22XL_3(2)[122X,  this  normal subgroup is
+  irreducible,  and  the  restriction  of the action to the two classes of [22XS_4[122X
+  type  subgroups  fixes  a one- and a two-dimensional subspace, respectively.
+  Hence we have one class of subgroups of order [22Xn[122X that centralize a [10X2B[110X element
+  and  one  class  of subgroups of order [22Xn[122X that normalize a [10X2B[110X-pure Klein four
+  group.  Clearly the subgroups in the first class coincide with the subgroups
+  of  order  [22Xn[122X in [22X2^1+24_+.Co_1[122X type subgroups. By the above classification of
+  [10X2B[110X-pure  Klein  four groups in [22XM[122X, the subgroups in the second class coincide
+  with the subgroups of order [22Xn[122X in [22X2^2+11+22.(M_24 × S_3)[122X type subgroups.[133X
+  
+  [33X[0;0YIt  remains to show that the subgroups of order [22Xn[122X do [13Xnot[113X stabilize both a [10X2B[110X
+  element  [13Xand[113X  a  [10X2B[110X-pure Klein four group. We do this by direct computations
+  with  a  [22X2^2+11+22.(M_24  ×  S_3)[122X  type  group,  which  is available via the
+  [5XAtlasRep[105X package, see [WPN+22].[133X
+  
+  [33X[0;0YFirst  we  fetch  the  group,  and  factor  out  the largest solvable normal
+  subgroup, by suitable actions on blocks.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "2^(2+11+22).(M24xS3)" );[127X[104X
+    [4X[28X<permutation group of size 50472333605150392320 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27XNrMovedPoints( g );[127X[104X
+    [4X[28X294912[128X[104X
+    [4X[25Xgap>[125X [27Xbl:= Blocks( g, MovedPoints( g ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( bl );[127X[104X
+    [4X[28X147456[128X[104X
+    [4X[25Xgap>[125X [27Xhom1:= ActionHomomorphism( g, bl, OnSets );;[127X[104X
+    [4X[25Xgap>[125X [27Xact1:= Image( hom1 );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( g ) / Size( act1 );[127X[104X
+    [4X[28X8192[128X[104X
+    [4X[25Xgap>[125X [27Xbl2:= Blocks( act1, MovedPoints( act1 ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( bl2 );[127X[104X
+    [4X[28X72[128X[104X
+    [4X[25Xgap>[125X [27Xhom2:= ActionHomomorphism( act1, bl2, OnSets );;[127X[104X
+    [4X[25Xgap>[125X [27Xact2:= Image( hom2 );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( act2 );[127X[104X
+    [4X[28X1468938240[128X[104X
+    [4X[25Xgap>[125X [27XSize( MathieuGroup( 24 ) ) * 6;[127X[104X
+    [4X[28X1468938240[128X[104X
+    [4X[25Xgap>[125X [27Xbl3:= AllBlocks( act2 );;[127X[104X
+    [4X[25Xgap>[125X [27XList( bl3, Length );                                             [127X[104X
+    [4X[28X[ 24, 3 ][128X[104X
+    [4X[25Xgap>[125X [27Xbl3:= Orbit( act2, bl3[2], OnSets );;[127X[104X
+    [4X[25Xgap>[125X [27Xhom3:= ActionHomomorphism( act2, bl3, OnSets );;[127X[104X
+    [4X[25Xgap>[125X [27Xact3:= Image( hom3 );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  compute  an  isomorphism  from the factor group of type [22XM_24[122X to the
+  group that belongs to [5XGAP[105X's table of marks. Then we use the information from
+  the  table  of marks to compute a solvable subgroup of maximal order in [22XM_24[122X
+  (which  is  [22X13824[122X), and take the preimage under the isomorphism. Finally, we
+  take the preimage of this group in the original group.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( "M24" );;[127X[104X
+    [4X[25Xgap>[125X [27Xtomgroup:= UnderlyingGroup( tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xiso:= IsomorphismGroups( act3, tomgroup );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos:= Positions( OrdersTom( tom ), 13824 );[127X[104X
+    [4X[28X[ 1508 ][128X[104X
+    [4X[25Xgap>[125X [27Xsub:= RepresentativeTom( tom, pos[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xpre:= PreImages( iso, sub );;[127X[104X
+    [4X[25Xgap>[125X [27Xpre:= PreImages( hom3, pre );;[127X[104X
+    [4X[25Xgap>[125X [27Xpre:= PreImages( hom2, pre );;[127X[104X
+    [4X[25Xgap>[125X [27Xpre:= PreImages( hom1, pre );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( pre ) = n;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  subgroups  stabilizes  a  Klein  four group. It does not stabilize a [10X2B[110X
+  element because its centre is trivial.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpciso:= IsomorphismPcGroup( pre );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( Centre( Image( pciso ) ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.5 [33X[0;0YProof of the Corollary[133X[101X
+  
+  [33X[0;0YWith  the  computations  in  the  previous  sections,  we have collected the
+  information that is needed to show the corollary stated in Section [14X6.1[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFiltered( Set( RecNames( MaxSolv ) ), [127X[104X
+    [4X[25X>[125X [27X             x -> MaxSolv.( x )^2 >= Size( CharacterTable( x ) ) );[127X[104X
+    [4X[28X[ "Fi23", "J2", "J2.2", "M11", "M12", "M22.2" ][128X[104X
+  [4X[32X[104X
+  

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    FactInt
+  </Title>
+  <Subtitle>
+    Advanced Methods for Factoring Integers
+  </Subtitle>
+  <Version>
+    1.6.3
+  </Version>
+  <Author>
+    Stefan Kohl<Alt Only="LaTeX"><Br/></Alt>
+<Email>stefan@gap-system.org</Email>
+<Homepage>https://stefan-kohl.github.io/</Homepage>
+
+  </Author>
+  <Date>
+    15 November 2019
+  </Date>
+  <Abstract>
+    <#Include SYSTEM "abstract.xml">
+  </Abstract>
+  <Copyright>
+    
+      &copyright; 1999 - 2017 by Stefan Kohl. <P/>
+
+      &FactInt; is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 2 of the License, or
+      (at your option) any later version. <P/>
+
+      &FactInt; is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+      GNU General Public License for more details. <P/>
+
+      For a copy of the GNU General Public License, see
+      the file <F>GPL</F> in the <F>etc</F> directory of the &GAP;
+      distribution or see <URL>http://www.gnu.org/licenses/gpl.html</URL>.
+      
+  </Copyright>
+  <Acknowledgements>
+    
+      I would like to thank Bettina Eick and Steve Linton for their support
+      and many interesting discussions.
+      
+  </Acknowledgements>
+  </TitlePage>

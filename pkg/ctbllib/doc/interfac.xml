@@ -1,0 +1,314 @@
+
+<!-- %W  interfac.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="ch:interfac">
+<Heading>The User Interface to the &GAP; Character Table Library</Heading>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:accessdata">
+<Heading>Accessing Data of the <Package>CTblLib</Package> Package</Heading>
+
+<Subsection Label="subsect:admissiblenames">
+<Heading>Admissible Names for Character Tables in <Package>CTblLib</Package>
+</Heading>
+
+When you access a character table from the &GAP; Character Table Library,
+this table is specified by an admissible name.
+
+<P/>
+
+Admissible names for the <E>ordinary character table</E> <M>tbl</M> of
+the group <M>G</M> are
+<List>
+<Item>
+  an &ATLAS; like name if <M>tbl</M> is an &ATLAS; table
+  (see Section&nbsp;<Ref Sect="sec:ATLAS Tables"/>), for example
+  <C>"M22"</C> for the table of the Mathieu group <M>M_{22}</M>,
+  <C>"L2(13).2"</C> for <M>L_2(13):2</M>, and
+  <C>"12_1.U4(3).2_1"</C> for <M>12_1.U_4(3).2_1</M>.
+  <P/>
+  (The difference to the name printed in the &ATLAS; is
+  that subscripts and superscripts are omitted except if they are used to
+  qualify integer values,
+  and double dots are replaced by a single dot.)
+</Item>
+<Item>
+  the names that were admissible for tables of <M>G</M> in the
+  &CAS; system
+  if the &CAS; table library contained a table of
+  <M>G</M>, for example <C>sl42</C> for the table of the alternating
+  group <M>A_8</M>.
+  <P/>
+  (But note that the ordering of rows and columns of the &GAP; table may be
+  different from that in &CAS;,
+  see Section&nbsp;<Ref Sect="sec:CAS Tables"/>.)
+</Item>
+<Item>
+  some <Q>relative</Q> names, as follows.
+  <List>
+  <Item>
+    If <M>G</M> is the <M>n</M>-th maximal subgroup (in decreasing group
+    order) of a group whose library table <M>subtbl</M> is available in &GAP;
+    and stores the <Ref Func="Maxes"/> value,
+    and if <C>name</C> is an admissible name for <M>subtbl</M>
+    then <C>name</C>M<M>n</M> is admissible for <M>tbl</M>.
+    For example, the name <C>"J3M2"</C> can be used to access the second
+    maximal subgroup of the sporadic simple Janko group <M>J_3</M>
+    which has the admissible name <C>"J3"</C>.
+  </Item>
+  <Item>
+    If <M>G</M> is a nontrivial Sylow <M>p</M> normalizer in a sporadic
+    simple group with admissible name <C>name</C>
+    &ndash;where nontrivial means that <M>G</M> is not isomorphic to a
+    subgroup of <M>p:(p-1)</M>&ndash;
+    then <C>name</C>N<M>p</M> is an admissible name of <M>tbl</M>.
+    For example, the name <C>"J4N11"</C> can be used to access the table
+    of the Sylow <M>11</M> normalizer in the sporadic simple Janko group
+    <M>J_4</M>.
+  </Item>
+  <Item>
+    In a few cases, the table of the Sylow <M>p</M>-subgroup of <M>G</M>
+    is accessible via the name <C>name</C>Syl<M>p</M> where <C>name</C>
+    is an admissible name of the table of <M>G</M>.
+    For example, <C>"A11Syl2"</C> is an admissible name for the table of
+    the Sylow <M>2</M>-subgroup of the alternating group <M>A_{11}</M>.
+  </Item>
+  <Item>
+    In a few cases, the table of an element centralizer in <M>G</M> is
+    accessible via the name <C>name</C>C<M>cl</M>
+    where <C>name</C> is an admissible name of the table of <M>G</M>.
+    For example, <C>"M11C2"</C> is an admissible name for the table of an
+    involution centralizer in the Mathieu group <M>M_{11}</M>.
+  </Item>
+  </List>
+</Item>
+</List>
+<P/>
+The recommended way to access a <E>Brauer table</E> is via applying the
+<K>mod</K> operator to the ordinary table and the desired characteristic
+(see <Ref Func="BrauerTable" BookName="ref"/> and
+Section&nbsp;<Ref Sect="Operators for Character Tables" BookName="ref"/>),
+so it is not necessary to define admissible names of Brauer tables.
+<P/>
+A <E>generic character table</E>
+(see Section&nbsp;<Ref Sect="sec:generictables"/>) is
+accessible only by the name given by its
+<Ref Attr="Identifier" Label="for character tables" BookName="ref"/>
+value.
+
+</Subsection>
+
+<#Include Label="CharacterTable_for_a_string">
+<#Include Label="BrauerTable_for_a_string">
+<#Include Label="AllCharacterTableNames">
+<#Include Label="OneCharacterTableName">
+<#Include Label="NameOfEquivalentLibraryCharacterTable">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:tbltom">
+<Heading>The Interface to the <Package>TomLib</Package> Package</Heading>
+
+The &GAP; Character Table Library contains ordinary character tables of all
+groups for which the <Package>TomLib</Package> package <Cite Key="TomLib"/>
+contains the table of marks.
+This section describes the mapping between these character tables and their
+tables of marks.
+
+<P/>
+
+If the <Package>TomLib</Package> package is not loaded then
+<Ref Attr="FusionToTom"/> is the only available function from this section,
+but of course it is of little interest in this situation.
+
+<#Include Label="TableOfMarks">
+<#Include Label="CharacterTable_for_tom">
+<#Include Label="FusionCharTableTom">
+<#Include Label="FusionToTom">
+<#Include Label="NameOfLibraryCharacterTable">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:tblgrp">
+<Heading>The Interface to &GAP;'s Group Libraries</Heading>
+
+Sometimes it is useful to extend a character-theoretic computation
+with computations involving a group that has the character table in question.
+For many character tables in the &GAP; Character Table Library,
+corresponding groups can be found in the various group libraries that are
+distributed with &GAP;.
+This section describes how one can access the library groups that belong
+to a given character table.
+
+<#Include Label="GroupInfoForCharacterTable">
+<#Include Label="KnowsSomeGroupInfo">
+<#Include Label="CharacterTableForGroupInfo">
+<#Include Label="GroupForGroupInfo">
+<#Include Label="GroupForTom">
+<#Include Label="AtlasStabilizer">
+<#Include Label="IsNontrivialDirectProduct">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:unipotsec">
+<Heading>Unipotent Characters of Finite Groups of Lie Type</Heading>
+
+<Index Subkey="unipotent">character</Index>
+
+<#Include Label="sec:unipot">
+
+<#Include Label="UnipotentCharacter">
+<!-- crossref. from Ref. Manual, currently commented out -->
+<#Include Label="DeligneLusztigNames">
+<#Include Label="DeligneLusztigName">
+<#Include Label="KnowsDeligneLusztigNames">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:ctbllib-browse">
+<Heading><Package>Browse</Package> Applications Provided by
+<Package>CTblLib</Package></Heading>
+
+The following functions are available only if the &GAP; package
+<Package>Browse</Package> (see&nbsp;<Cite Key="Browse"/>) is loaded.
+The function <Ref Func="DisplayCTblLibInfo" Label="for a character table"/>
+shows details about an ordinary or modular character table in a pager,
+the other functions can be used to show the following information
+via browse tables.
+
+<List>
+<Item>
+    An overview of the &GAP; Character Table Library,
+    and details pages about ordinary and modular character tables
+    (see <Ref Func="BrowseCTblLibInfo"/>),
+    which allow one to navigate to related pages and to pages showing
+    for example decomposition matrices
+    (cf. <Ref Func="BrowseDecompositionMatrix" BookName="browse"/>),
+</Item>
+<Item>
+    an alternative display function that shows character tables from the
+    &ATLAS; of Finite Groups <Cite Key="CCN85"/>
+    and the &ATLAS; of Brauer Characters <Cite Key="JLPW95"/> in a format
+    similar to the one used in these books
+    (see <Ref Func="BrowseAtlasTable"/>,
+    cf. <Ref Meth="Browse (for character tables)" BookName="browse"/>
+    for the default display format for character tables),
+</Item>
+<Item>
+    an overview of the names of simple groups for which the
+    &ATLAS; of Finite Groups <Cite Key="CCN85"/>
+    and the &ATLAS; of Brauer Characters <Cite Key="JLPW95"/>
+    show the character tables and other information
+    (see <Ref Func="BrowseAtlasContents"/>,
+    a variant that doe not rely on <Package>Browse</Package> is
+    <Ref Func="DisplayAtlasContents"/>),
+</Item>
+<Item>
+    a function that shows the &ATLAS; map of the bicyclic extensions
+    of a simple &ATLAS; group
+    (see <Ref Func="BrowseAtlasMap"/>,
+    a variant that does not rely on <Package>Browse</Package> is
+    <Ref Func="DisplayAtlasMap" Label="for the name of a simple group"/>),
+</Item>
+<Item>
+    an overview of the <Q>atomic irrationalities</Q> that occur in
+    &ATLAS; character tables
+    (see <Ref Func="BrowseCommonIrrationalities"/>),
+</Item>
+<Item>
+    an overview of the lists of improvements to the
+    &ATLAS; of Finite Groups
+    (see <Ref Func="BrowseAtlasImprovements"/>).
+</Item>
+<Item>
+    an overview of the differences between the character table data since
+    version 1.1.3 of the <Package>CTblLib</Package> package
+    (see <Ref Func="BrowseCTblLibDifferences"/>),
+</Item>
+</List>
+
+The functions <Ref Func="BrowseCTblLibInfo"/>,
+<Ref Func="BrowseCommonIrrationalities"/>,
+<Ref Func="BrowseCTblLibDifferences"/>,
+<Ref Func="BrowseAtlasContents"/>,
+and <Ref Func="BrowseAtlasImprovements"/>
+occur also in the list
+of choices shown by <Ref Func="BrowseGapData" BookName="browse"/>.
+
+<#Include Label="DisplayCTblLibInfo">
+<#Include Label="BrowseCTblLibInfo">
+<#Include Label="BrowseCommonIrrationalities">
+<#Include Label="BrowseCTblLibDifferences">
+<#Include Label="BrowseAtlasContents">
+<#Include Label="DisplayAtlasContents">
+<#Include Label="BrowseAtlasMap">
+<#Include Label="DisplayAtlasMap">
+<#Include Label="BrowseAtlasTable">
+<#Include Label="BrowseAtlasImprovements">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:duplicates">
+<Heading>Duplicates of Library Character Tables</Heading>
+
+<#Include Label="intro:duplicates">
+
+<#Include Label="IsDuplicateTable">
+<#Include Label="IdentifierOfMainTable">
+<#Include Label="IdentifiersOfDuplicateTables">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sec:attributes">
+<Heading>Attributes for Library Character Tables</Heading>
+
+This section describes certain attributes which are set only for certain
+(not necessarily all)
+character tables from the &GAP; Character Table Library.
+The attribute values are part of the database,
+there are no methods for <E>computing</E> them,
+except for <Ref Meth="InfoText"/>
+and the related property <Ref Prop="IsAtlasCharacterTable"/>.
+
+<P/>
+
+Other such attributes and properties are described in other manual sections
+because the context fits better.
+These attributes are <Ref Attr="FusionToTom"/>,
+<Ref Attr="GroupInfoForCharacterTable"/>,
+<Ref Prop="KnowsSomeGroupInfo"/>,
+<Ref Prop="IsNontrivialDirectProduct"/>,
+<Ref Attr="DeligneLusztigNames"/>,
+<Ref Attr="DeligneLusztigName"/>,
+<Ref Attr="KnowsDeligneLusztigNames"/>,
+<Ref Prop="IsDuplicateTable"/>, and
+<Ref Attr="CASInfo"/>.
+
+<#Include Label="Maxes">
+<#Include Label="ProjectivesInfo">
+<#Include Label="ExtensionInfoCharacterTable">
+<#Include Label="ConstructionInfoCharacterTable">
+<#Include Label="InfoText_libtable">
+<#Include Label="IsAtlasCharacterTable">
+
+</Section>
+
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+

@@ -1,0 +1,2944 @@
+  
+  [1X9 [33X[0;0YAmbiguous Class Fusions in the [5XGAP[105X[101X[1X Character Table Library[133X[101X
+  
+  [33X[0;0YDate: January 11th, 2004[133X
+  
+  [33X[0;0YThis is a collection of examples showing how class fusions between character
+  tables  can  be  determined  using  the [5XGAP[105X system [GAP24]. In each of these
+  examples,  the fusion is [13Xambiguous[113X in the sense that the character tables do
+  not determine it up to table automorphisms. Our strategy is to compute first
+  all  possibilities  with  the  [5XGAP[105X function [2XPossibleClassFusions[102X ([14XReference:
+  PossibleClassFusions[114X),  and  then  to  use  either other character tables or
+  information  about  the  groups for excluding some of these candidates until
+  only one (orbit under table automorphisms) remains.[133X
+  
+  [33X[0;0YThe  purpose  of  this writeup is twofold. On the one hand, the computations
+  are  documented  this  way.  On  the  other hand, the [5XGAP[105X code shown for the
+  examples  can  be  used as test input for automatic checking of the data and
+  the  functions  used;  therefore, each example ends with a comparison of the
+  result  with  the  fusion that is actually stored in the [5XGAP[105X Character Table
+  Library [Bre25].[133X
+  
+  [33X[0;0YThe  examples  use  the  [5XGAP[105X  Character Table Library, so we first load this
+  package.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "ctbllib", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.1 [33X[0;0YSome [5XGAP[105X[101X[1X Utilities[133X[101X
+  
+  [33X[0;0YThe  function  [10XSetOfComposedClassFusions[110X  takes  two  list of class fusions,
+  where the first list consists of fusions between the character tables of the
+  groups  [22XH[122X  and [22XG[122X, say, and the second list consists of class fusions between
+  the character tables of the groups [22XU[122X and [22XH[122X, say; the return value is the set
+  of  compositions  of  each map in the first list with each map in the second
+  list (via [2XCompositionMaps[102X ([14XReference: CompositionMaps[114X)).[133X
+  
+  [33X[0;0YNote  that  the  returned  list  may  be  a  proper subset of the set of all
+  possible  class  fusions  between  [22XU[122X  and  [22XG[122X,  which  can  be  computed with
+  [2XPossibleClassFusions[102X ([14XReference: PossibleClassFusions[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSetOfComposedClassFusions:= function( hfusg, ufush )[127X[104X
+    [4X[25X>[125X [27X    local result, map1, map2;[127X[104X
+    [4X[25X>[125X [27X    result:= [];;[127X[104X
+    [4X[25X>[125X [27X    for map2 in hfusg do[127X[104X
+    [4X[25X>[125X [27X      for map1 in ufush do[127X[104X
+    [4X[25X>[125X [27X        AddSet( result, CompositionMaps( map2, map1 ) );[127X[104X
+    [4X[25X>[125X [27X      od;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X    return result;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.2 [33X[0;0YFusions Determined by Factorization through Intermediate Subgroups[133X[101X
+  
+  [33X[0;0YThis  situation  clearly  occurs  only for nonmaximal subgroups. Interesting
+  examples are Sylow normalizers.[133X
+  
+  
+  [1X9.2-1 [33X[0;0Y[22XCo_3N5 → Co_3[122X[101X[1X (September 2002)[133X[101X
+  
+  [33X[0;0YLet [22XH[122X be the Sylow [22X5[122X normalizer in the sporadic simple group [22XCo_3[122X. The class
+  fusion  of [22XH[122X into [22XCo_3[122X is not uniquely determined by the character tables of
+  the two groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xco3:= CharacterTable( "Co3" );[127X[104X
+    [4X[28XCharacterTable( "Co3" )[128X[104X
+    [4X[25Xgap>[125X [27Xh:= CharacterTable( "Co3N5" );[127X[104X
+    [4X[28XCharacterTable( "5^(1+2):(24:2)" )[128X[104X
+    [4X[25Xgap>[125X [27Xhfusco3:= PossibleClassFusions( h, co3 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( h, hfusco3, co3 ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAs  [22XH[122X  is  not  maximal  in [22XCo_3[122X, we look at those maximal subgroups of [22XCo_3[122X
+  whose order is divisible by that of [22XH[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmx:= Maxes( co3 );[127X[104X
+    [4X[28X[ "McL.2", "HS", "U4(3).(2^2)_{133}", "M23", "3^5:(2xm11)", [128X[104X
+    [4X[28X  "2.S6(2)", "U3(5).3.2", "3^1+4:4s6", "2^4.a8", "L3(4).D12", [128X[104X
+    [4X[28X  "2xm12", "2^2.[2^7*3^2].S3", "s3xpsl(2,8).3", "a4xs5" ][128X[104X
+    [4X[25Xgap>[125X [27Xmaxes:= List( mx, CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( maxes, x -> Size( x ) mod Size( h ) = 0 );[127X[104X
+    [4X[28X[ CharacterTable( "McL.2" ), CharacterTable( "HS" ), [128X[104X
+    [4X[28X  CharacterTable( "U3(5).3.2" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording to the [5XAtlas[105X (see [CCN+85, pp. 34 and 100]), [22XH[122X occurs as the Sylow
+  [22X5[122X normalizer in [22XU_3(5).3.2[122X and in [22XMcL.2[122X; however, [22XH[122X is not a subgroup of [22XHS[122X,
+  since  otherwise  [22XH[122X  would  be  contained  in  subgroups  of  type  [22XU_3(5).2[122X
+  (see [CCN+85,  p.  80]), but the only possible subgroups in these groups are
+  too small (see [CCN+85, p. 34]).[133X
+  
+  [33X[0;0YWe  compute  the  possible class fusions from [22XH[122X into [22XMcL.2[122X and from [22XMcL.2[122X to
+  [22XCo_3[122X, and then form the compositions of these maps.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmax:= filt[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xhfusmax:= PossibleClassFusions( h, max );;[127X[104X
+    [4X[25Xgap>[125X [27Xmaxfusco3:= PossibleClassFusions( max, co3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( maxfusco3, hfusmax );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( comp );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xreps:= RepresentativesFusions( h, comp, co3 );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 4, 8, 8, 7, 9, 10, 11, 17, 17, 19, 19, 22, 23, 27, 27, [128X[104X
+    [4X[28X      30, 33, 34, 40, 40, 40, 40, 42 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  factoring through a maximal subgroup of type [22XMcL.2[122X determines the fusion
+  from [22XH[122X to [22XCo_3[122X uniquely up to table automorphisms.[133X
+  
+  [33X[0;0YAlternatively,  we  can  use  the group [22XU_3(5).3.2[122X as intermediate subgroup,
+  which leads to the same result.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmax:= filt[3];;[127X[104X
+    [4X[25Xgap>[125X [27Xhfusmax:= PossibleClassFusions( h, max );;[127X[104X
+    [4X[25Xgap>[125X [27Xmaxfusco3:= PossibleClassFusions( max, co3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( maxfusco3, hfusmax );;[127X[104X
+    [4X[25Xgap>[125X [27Xreps2:= RepresentativesFusions( h, comp, co3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xreps2 = reps;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally,  we  compare  the result with the map that is stored on the library
+  table of [22XH[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( h, co3 ) in reps;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.2-2 [33X[0;0Y[22X31:15 → B[122X[101X[1X (March 2003)[133X[101X
+  
+  [33X[0;0YThe  Sylow  [22X31[122X normalizer [22XH[122X in the sporadic simple group [22XB[122X has the structure
+  [22X31:15[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xh:= CharacterTable( "31:15" );;[127X[104X
+    [4X[25Xgap>[125X [27Xhfusb:= PossibleClassFusions( h, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( h, hfusb, b ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  determine  the  correct  fusion  using the fact that [22XH[122X is contained in a
+  (maximal) subgroup of type [22XTh[122X in [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xth:= CharacterTable( "Th" );;[127X[104X
+    [4X[25Xgap>[125X [27Xhfusth:= PossibleClassFusions( h, th );;[127X[104X
+    [4X[25Xgap>[125X [27Xthfusb:= PossibleClassFusions( th, b );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( thfusb, hfusth );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( comp );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xreps:= RepresentativesFusions( h, comp, b );[127X[104X
+    [4X[28X[ [ 1, 145, 146, 82, 82, 19, 82, 7, 19, 82, 82, 19, 7, 82, 19, 82, 82 [128X[104X
+    [4X[28X     ] ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( h, b ) in reps;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.2-3 [33X[0;0Y[22XSuzN3 → Suz[122X[101X[1X (September 2002)[133X[101X
+  
+  [33X[0;0YThe  class fusion from the Sylow [22X3[122X normalizer into the sporadic simple group
+  [22XSuz[122X is not uniquely determined by the character tables of these groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xh:= CharacterTable( "SuzN3" );[127X[104X
+    [4X[28XCharacterTable( "3^5:(3^2:SD16)" )[128X[104X
+    [4X[25Xgap>[125X [27Xsuz:= CharacterTable( "Suz" );[127X[104X
+    [4X[28XCharacterTable( "Suz" )[128X[104X
+    [4X[25Xgap>[125X [27Xhfussuz:= PossibleClassFusions( h, suz );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( h, hfussuz, suz ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSince  [22XH[122X  is  not  maximal  in [22XSuz[122X, we try to factorize the fusion through a
+  suitable maximal subgroup.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmaxes:= List( Maxes( suz ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( maxes, x -> Size( x ) mod Size( h ) = 0 );[127X[104X
+    [4X[28X[ CharacterTable( "3_2.U4(3).2_3'" ), CharacterTable( "3^5:M11" ), [128X[104X
+    [4X[28X  CharacterTable( "3^2+4:2(2^2xa4)2" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe group [22X3_2.U_4(3).2_3^'[122X does not admit a fusion from [22XH[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPossibleClassFusions( h, filt[1] );[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YDefinitely  [22X3^5:M_11[122X contains a group isomorphic with [22XH[122X, because the Sylow [22X3[122X
+  normalizer  in  [22XM_11[122X  has the structure [22X3^2:SD_16[122X; using [22X3^2+4:2(2^2 × A_4)2[122X
+  would  lead  to the same result as we get below. We compute the compositions
+  of possible class fusions.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmax:= filt[2];;[127X[104X
+    [4X[25Xgap>[125X [27Xhfusmax:= PossibleClassFusions( h, max );;[127X[104X
+    [4X[25Xgap>[125X [27Xmaxfussuz:= PossibleClassFusions( max, suz );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( maxfussuz, hfusmax );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( h, comp, suz );[127X[104X
+    [4X[28X[ [ 1, 2, 2, 4, 5, 4, 5, 5, 5, 5, 5, 6, 9, 9, 14, 15, 13, 16, 16, 14, [128X[104X
+    [4X[28X      15, 13, 13, 13, 16, 15, 14, 16, 16, 16, 21, 21, 23, 22, 29, 29, [128X[104X
+    [4X[28X      29, 38, 39 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo the factorization determines the fusion map up to table automorphisms. We
+  check that this map is equal to the stored one.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( h, suz ) in repr;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.2-4 [33X[0;0Y[22XF_{3+}N5 → F_{3+}[122X[101X[1X (March 2002)[133X[101X
+  
+  [33X[0;0YThe  class fusion from the table of the Sylow [22X5[122X normalizer [22XH[122X in the sporadic
+  simple group [22XF_{3+}[122X into [22XF_{3+}[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf3p:= CharacterTable( "F3+" );;[127X[104X
+    [4X[25Xgap>[125X [27Xh:= CharacterTable( "F3+N5" );;[127X[104X
+    [4X[25Xgap>[125X [27Xhfusf3p:= PossibleClassFusions( h, f3p );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( h, hfusf3p, f3p ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[22XH[122X  is not maximal in [22XF_{3+}[122X, so we look for tables of maximal subgroups that
+  can contain [22XH[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmaxes:= List( Maxes( f3p ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( maxes, x -> Size( x ) mod Size( h ) = 0 );[127X[104X
+    [4X[28X[ CharacterTable( "Fi23" ), CharacterTable( "2.Fi22.2" ), [128X[104X
+    [4X[28X  CharacterTable( "(3xO8+(3):3):2" ), CharacterTable( "O10-(2)" ), [128X[104X
+    [4X[28X  CharacterTable( "(A4xO8+(2).3).2" ), CharacterTable( "He.2" ), [128X[104X
+    [4X[28X  CharacterTable( "F3+M14" ), CharacterTable( "(A5xA9):2" ) ][128X[104X
+    [4X[25Xgap>[125X [27Xpossfus:= List( filt, x -> PossibleClassFusions( h, x ) );[127X[104X
+    [4X[28X[ [  ], [  ], [  ], [  ], [128X[104X
+    [4X[28X  [ [ 1, 69, 110, 12, 80, 121, 4, 72, 113, 11, 11, 79, 79, 120, 120, [128X[104X
+    [4X[28X          3, 71, 11, 79, 23, 91, 112, 120, 132, 29, 32, 97, 100, 37, [128X[104X
+    [4X[28X          37, 105, 105, 139, 140, 145, 146, 155, 155, 156, 156, 44, [128X[104X
+    [4X[28X          44, 167, 167, 48, 48, 171, 171, 57, 57, 180, 180, 66, 66, [128X[104X
+    [4X[28X          189, 189 ], [128X[104X
+    [4X[28X      [ 1, 69, 110, 12, 80, 121, 4, 72, 113, 11, 11, 79, 79, 120, [128X[104X
+    [4X[28X          120, 3, 71, 11, 79, 23, 91, 112, 120, 132, 29, 32, 97, 100, [128X[104X
+    [4X[28X          37, 37, 105, 105, 140, 139, 146, 145, 156, 156, 155, 155, [128X[104X
+    [4X[28X          44, 44, 167, 167, 48, 48, 171, 171, 57, 57, 180, 180, 66, [128X[104X
+    [4X[28X          66, 189, 189 ] ], [  ], [  ], [  ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that from the eight possible classes of maximal subgroups in [22XF_{3+}[122X
+  that  might  contain [22XH[122X, only the group of type [22X(A_4 × O_8^+(2).3).2[122X admits a
+  class  fusion  from [22XH[122X. Hence we can compute the compositions of the possible
+  fusions  from  [22XH[122X  into  this group with the possible fusions from this group
+  into [22XF_{3+}[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmax:= filt[5];[127X[104X
+    [4X[28XCharacterTable( "(A4xO8+(2).3).2" )[128X[104X
+    [4X[25Xgap>[125X [27Xhfusmax:= possfus[5];;[127X[104X
+    [4X[25Xgap>[125X [27Xmaxfusf3p:= PossibleClassFusions( max, f3p );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( maxfusf3p, hfusmax );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( comp );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( h, comp, f3p );[127X[104X
+    [4X[28X[ [ 1, 2, 4, 12, 35, 54, 3, 3, 16, 9, 9, 11, 11, 40, 40, 2, 3, 9, 11, [128X[104X
+    [4X[28X      35, 36, 13, 40, 90, 7, 22, 19, 20, 43, 43, 50, 50, 8, 8, 23, [128X[104X
+    [4X[28X      23, 46, 46, 47, 47, 10, 10, 9, 9, 10, 10, 11, 11, 26, 26, 28, [128X[104X
+    [4X[28X      28, 67, 67, 68, 68 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally, we check whether the map stored in the table library is correct.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( h, f3p ) in repr;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNote  that  we  did [13Xnot[113X determine the class fusion from the maximal subgroup
+  [22X(A_4   ×   O_8^+(2).3).2[122X   into   [22XF_{3+}[122X  up  to  table  automorphisms  (see
+  Section [14X9.3-2[114X  for this problem), since also the ambiguous result was enough
+  for computing the fusion from [22XH[122X into [22XF_{3+}[122X.[133X
+  
+  
+  [1X9.3   [33X[0;0YFusions   Determined  Using  Commutative  Diagrams  Involving  Smaller[101X
+  [1XSubgroups[133X[101X
+  
+  [33X[0;0YIn  each  of  the following examples, the class fusion of a (not necessarily
+  maximal)  subgroup  [22XM[122X  of  a  group  [22XG[122X into [22XG[122X is determined by considering a
+  proper  subgroup  [22XU[122X  of [22XM[122X whose class fusion into [22XG[122X can be computed, perhaps
+  using another subgroup [22XS[122X of [22XG[122X that also contains [22XU[122X.[133X
+  
+                                  G
+                                 ╱ ╲
+                                ╱   ╲
+                               M     S
+                                ╲   ╱
+                                 ╲ ╱
+                                  .
+                                  │
+                                  U
+                                  │
+                                  │
+                                  1
+  
+  
+  [1X9.3-1 [33X[0;0Y[22XBN7 → B[122X[101X[1X (March 2002)[133X[101X
+  
+  [33X[0;0YLet  [22XH[122X  be  a  Sylow  [22X7[122X normalizer in the sporadic simple group [22XB[122X. The class
+  fusion of [22XH[122X into [22XB[122X is not uniquely determined by the character tables of the
+  two groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );[127X[104X
+    [4X[28XCharacterTable( "B" )[128X[104X
+    [4X[25Xgap>[125X [27Xh:= CharacterTable( "BN7" );[127X[104X
+    [4X[28XCharacterTable( "BN7" )[128X[104X
+    [4X[25Xgap>[125X [27Xhfusb:= PossibleClassFusions( h, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( h, hfusb, b ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  us  consider  a  maximal  subgroup of the type [22XTh[122X in [22XB[122X (cf. [CCN+85, p.
+  217]).  By [CCN+85,  p.  177],  the  Sylow  [22X7[122X  normalizers in [22XTh[122X are maximal
+  subgroups  of  [22XTh[122X  and  have  the  structure [22X7^2:(3 × 2S_4)[122X. Let [22XU[122X be such a
+  subgroup.[133X
+  
+  [33X[0;0YNote  that  the only maximal subgroups of [22XTh[122X whose order is divisible by the
+  order  of  a  Sylow  [22X7[122X  subgroup of [22XB[122X have the types [22X^3D_4(2).3[122X and [22X7^2:(3 ×
+  2S_4)[122X,  and  the Sylow [22X7[122X normalizers in the former groups have the structure
+  [22X7^2:(3 × 2A_4)[122X, cf. [CCN+85, p. 89].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XNumber( Factors( Size( b ) ), x -> x = 7 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xth:= CharacterTable( "Th" );[127X[104X
+    [4X[28XCharacterTable( "Th" )[128X[104X
+    [4X[25Xgap>[125X [27XFiltered( Maxes( th ), x -> Size( CharacterTable( x ) ) mod 7^2 = 0 );[127X[104X
+    [4X[28X[ "3D4(2).3", "7^2:(3x2S4)" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  class fusion of [22XU[122X into [22XB[122X via [22XTh[122X is uniquely determined by the character
+  tables of these groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xthn7:= CharacterTable( "ThN7" );[127X[104X
+    [4X[28XCharacterTable( "7^2:(3x2S4)" )[128X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( PossibleClassFusions( th, b ),[127X[104X
+    [4X[25X>[125X [27X              PossibleClassFusions( thn7, th ) );[127X[104X
+    [4X[28X[ [ 1, 31, 7, 7, 5, 28, 28, 17, 72, 72, 6, 6, 7, 28, 27, 27, 109, [128X[104X
+    [4X[28X      109, 17, 45, 45, 72, 72, 127, 127, 127, 127 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe condition that the class fusion of [22XU[122X into [22XB[122X factors through [22XH[122X determines
+  the class fusion of [22XH[122X into [22XB[122X up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xthn7fush:= PossibleClassFusions( thn7, h );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( hfusb, x ->[127X[104X
+    [4X[25X>[125X [27X              ForAny( thn7fush, y -> CompositionMaps( x, y ) in comp ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( h, filt, b ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally,  we  compare  the result with the map that is stored on the library
+  table of [22XH[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( h, b ) in filt;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.3-2 [33X[0;0Y[22X(A_4 × O_8^+(2).3).2 → Fi_24^'[122X[101X[1X (November 2002)[133X[101X
+  
+  [33X[0;0YThe  class  fusion  of  the maximal subgroup [22XM ≅ (A_4 × O_8^+(2).3).2[122X of [22XG =
+  Fi_24^'[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "(A4xO8+(2).3).2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "F3+" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmfust:= PossibleClassFusions( m, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( m, mfust, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( repr );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  first observe that the elements of order three in the normal subgroup of
+  type [22XA_4[122X in [22XM[122X lie in the class [10X3A[110X of [22XFi_24^'[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa4inm:= Filtered( ClassPositionsOfNormalSubgroups( m ),[127X[104X
+    [4X[25X>[125X [27X                     n -> Sum( SizesConjugacyClasses( m ){ n } ) = 12 );[127X[104X
+    [4X[28X[ [ 1, 69, 110 ] ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( m ){ a4inm[1] };[127X[104X
+    [4X[28X[ 1, 2, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XList( repr, map -> map[110] );[127X[104X
+    [4X[28X[ 4, 4 ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( t ){ [ 1 .. 4 ] };[127X[104X
+    [4X[28X[ 1, 2, 2, 3 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet us take one such element [22Xg[122X, say. Its normalizer [22XS[122X in [22XG[122X has the structure
+  [22X(3  ×  O_8^+(3).3).2[122X; this group is maximal in [22XG[122X, and its character table is
+  available in [5XGAP[105X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "F3+N3A" );[127X[104X
+    [4X[28XCharacterTable( "(3xO8+(3):3):2" )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  intersection  [22XN_M(g)  =  S  ∩  M[122X  contains a subgroup [22XU[122X of the type [22X3 ×
+  O_8^+(2).3[122X,  and  in  the following we compute the class fusions of [22XU[122X into [22XS[122X
+  and [22XM[122X, and then utilize the fact that only those class fusions from [22XM[122X into [22XG[122X
+  are  possible whose composition with the class fusion from [22XU[122X into [22XM[122X equals a
+  composition of class fusions from [22XU[122X into [22XS[122X and from [22XS[122X into [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "Cyclic", 3 ) * CharacterTable( "O8+(2).3" );[127X[104X
+    [4X[28XCharacterTable( "C3xO8+(2).3" )[128X[104X
+    [4X[25Xgap>[125X [27Xufuss:= PossibleClassFusions( u, s );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= PossibleClassFusions( u, m );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( sfust, ufuss );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( comp );[127X[104X
+    [4X[28X6[128X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( mfust,[127X[104X
+    [4X[25X>[125X [27X    x -> ForAny( ufusm, map -> CompositionMaps( x, map ) in comp ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( m, filt, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( repr );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, t ) in repr;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo the class fusion from [22XM[122X into [22XG[122X is determined up to table automorphisms by
+  the commutative diagram.[133X
+  
+  
+  [1X9.3-3 [33X[0;0Y[22XA_6 × L_2(8).3 → Fi_24^'[122X[101X[1X (November 2002)[133X[101X
+  
+  [33X[0;0YThe  class  fusion of the maximal subgroup [22XM ≅ A_6 × L_2(8).3[122X of [22XG = Fi_24^'[122X
+  is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "A6xL2(8):3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "F3+" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmfust:= PossibleClassFusions( m, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( m, mfust, t ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  will  use  the fact that the direct factor of the type [22XA_6[122X in [22XM[122X contains
+  elements in the class [10X3A[110X of [22XG[122X. This fact can be shown as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdppos:= ClassPositionsOfDirectProductDecompositions( m );[127X[104X
+    [4X[28X[ [ [ 1, 12 .. 67 ], [ 1 .. 11 ] ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( dppos[1], l -> Sum( SizesConjugacyClasses( t ){ l } ) );[127X[104X
+    [4X[28X[ 17733424133316996808705, 4545066196775803392 ][128X[104X
+    [4X[25Xgap>[125X [27XList( dppos[1], l -> Sum( SizesConjugacyClasses( m ){ l } ) );[127X[104X
+    [4X[28X[ 360, 1512 ][128X[104X
+    [4X[25Xgap>[125X [27X3Apos:= Position( OrdersClassRepresentatives( t ), 3 );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27X3Ainm:= List( mfust, map -> Position( map, 3Apos ) );[127X[104X
+    [4X[28X[ 23, 23, 23, 23, 34, 34, 34, 34 ][128X[104X
+    [4X[25Xgap>[125X [27XForAll( 3Ainm, x -> x in dppos[1][1] );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSince the normalizer of an element of order three in [22XA_6[122X has the form [22X3^2:2[122X,
+  such  a  [10X3A[110X  element  in  [22XM[122X  contains  a subgroup [22XU[122X of the structure [22X3^2:2 ×
+  L_2(8).3[122X  which  is  contained  in  the  [10X3A[110X normalizer [22XS[122X in [22XG[122X, which has the
+  structure [22X(3 × O_8^+(3).3).2[122X.[133X
+  
+  [33X[0;0Y(Note  that  all  classes  in  the  [22X3^2:2[122X  type  group are rational, and its
+  character  table  is  available  in the [5XGAP[105X Character Table Library with the
+  identifier [10X"3^2:2"[110X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "3^2:2" ) * CharacterTable( "L2(8).3" );[127X[104X
+    [4X[28XCharacterTable( "3^2:2xL2(8).3" )[128X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "F3+N3A" );[127X[104X
+    [4X[28XCharacterTable( "(3xO8+(3):3):2" )[128X[104X
+    [4X[25Xgap>[125X [27Xufuss:= PossibleClassFusions( u, s );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( sfust, ufuss );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= PossibleClassFusions( u, m );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( mfust,[127X[104X
+    [4X[25X>[125X [27X              map -> ForAny( ufusm,[127X[104X
+    [4X[25X>[125X [27X                         map2 -> CompositionMaps( map, map2 ) in comp ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( m, filt, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( repr );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, t ) in repr;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.3-4 [33X[0;0Y[22X(3^2:D_8 × U_4(3).2^2).2 → B[122X[101X[1X (June 2007)[133X[101X
+  
+  [33X[0;0YLet  [22XG[122X  be  a  maximal  subgroup of the type [22X(3^2:D_8 × U_4(3).2^2).2[122X in the
+  sporadic simple group [22XB[122X, cf. [CCN+85, p. 217]. Computing the class fusion of
+  [22XG[122X  into  [22XB[122X  just from the character tables of the two groups takes extremely
+  long. So we use additional information.[133X
+  
+  [33X[0;0YAccording  to [CCN+85,  p.  217],  [22XG[122X is the normalizer in [22XB[122X of an elementary
+  abelian  group  [22X⟨ x, y ⟩[122X of order [22X9[122X, with [22Xx, y[122X in the class [10X3A[110X of [22XB[122X, and [22XN =
+  N_B(⟨  x  ⟩)[122X has the structure [22XS_3 × Fi_22.2[122X. The intersection [22XG ∩ N[122X has the
+  structure [22XS_3 × S_3 × U_4(3).2^2[122X, which is the direct product of [22XS_3[122X and the
+  normalizer in [22XFi_22.2[122X of a [10X3A[110X element of [22XFi_22.2[122X, see [CCN+85, p. 163]. Thus
+  we may use that the class fusions from [22XG ∩ N[122X into [22XB[122X through [22XG[122X or [22XN[122X coincide.[133X
+  
+  [33X[0;0YThe  class  fusion  from  [22XN[122X  into  [22XB[122X is uniquely determined by the character
+  tables.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= CharacterTable( "BN3A" );[127X[104X
+    [4X[28XCharacterTable( "S3xFi22.2" )[128X[104X
+    [4X[25Xgap>[125X [27Xnfusb:= PossibleClassFusions( n, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( nfusb );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27Xnfusb:= nfusb[1];;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  computation  of  the  class  fusion  from  [22XG  ∩  N[122X into [22XN[122X is sped up by
+  computing  first  the  class  fusion  modulo the direct factor [22XS_3[122X, and then
+  lifting these fusion maps.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfi222:= CharacterTable( "Fi22.2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfi222n3a:= CharacterTable( "S3xU4(3).(2^2)_{122}" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs3:= CharacterTable( "S3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xinter:= s3 * fi222n3a;;[127X[104X
+    [4X[25Xgap>[125X [27Xintermods3fusnmods3:= PossibleClassFusions( fi222n3a, fi222 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( intermods3fusnmods3 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( fi222n3a, intermods3fusnmods3, fi222 ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  get two equivalent possibilities, and need to consider only one of them.
+  For  lifting  it  to  a  map between [22XG ∩ N[122X and [22XN[122X, the safe way is to use the
+  fusion   map  between  the  two  factors  for  computing  an  approximation.
+  (Additionally,  we  could  interpret  the  known maps as fusions between two
+  subgroups,  and  use  this for improving the approximation, but in this case
+  the speedup is not worth the effort.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinterfusn:= CompositionMaps( InverseMap( GetFusionMap( n, fi222 ) ),[127X[104X
+    [4X[25X>[125X [27X       CompositionMaps( intermods3fusnmods3[1],[127X[104X
+    [4X[25X>[125X [27X           GetFusionMap( inter, fi222n3a ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xinterfusn:= PossibleClassFusions( inter, n,[127X[104X
+    [4X[25X>[125X [27X       rec( fusionmap:= interfusn, quick:= true ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( interfusn );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  lift  is  unique.  Since  we lift a class fusion to direct products, we
+  could  also  [21Xextend[121X the fusion directly. But note that this would assume the
+  ordering of classes in character tables of direct products. This alternative
+  would work as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnccl:= NrConjugacyClasses( fi222 );;[127X[104X
+    [4X[25Xgap>[125X [27Xinterfusn[1] = Concatenation( List( [ 0 .. 2 ],[127X[104X
+    [4X[25X>[125X [27X                      i -> intermods3fusnmods3[1] + i * nccl ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNext  we  compute  the  class fusions from [22XG ∩ N[122X to [22XG[122X. We get two equivalent
+  solutions.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtblg:= CharacterTable( "BM14" );[127X[104X
+    [4X[28XCharacterTable( "(3^2:D8xU4(3).2^2).2" )[128X[104X
+    [4X[25Xgap>[125X [27Xinterfusg:= PossibleClassFusions( inter, tblg );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( interfusg );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( inter, interfusg, tblg ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  approximation  of the class fusion from [22XG[122X to [22XB[122X is computed by composing
+  the known maps. Because we have chosen one of the two possible maps from [22XG ∩
+  N[122X  to  [22XN[122X, here we consider the two possibilities. From these approximations,
+  we compute the possible class fusions.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinterfusb:= CompositionMaps( nfusb, interfusn[1] );;[127X[104X
+    [4X[25Xgap>[125X [27Xapprox:= List( interfusg,[127X[104X
+    [4X[25X>[125X [27X       map -> CompositionMaps( interfusb, InverseMap( map ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xgfusb:= Set( Concatenation( List( approx,[127X[104X
+    [4X[25X>[125X [27X                    map -> PossibleClassFusions( tblg, b,[127X[104X
+    [4X[25X>[125X [27X                               rec( fusionmap:= map ) ) ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( gfusb );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( tblg, gfusb, b ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally,  we  compare the result with the class fusion that is stored on the
+  library table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( tblg, b ) in gfusb;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.3-5 [33X[0;0Y[22X7^1+4:(3 × 2.S_7) → M[122X[101X[1X (May 2009)[133X[101X
+  
+  [33X[0;0YThe  class fusion of the maximal subgroup [22XU[122X of type [22X7^1+4:(3 × 2.S_7)[122X of the
+  Monster group [22XM[122X into [22XM[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtblu:= CharacterTable( "7^(1+4):(3x2.S7)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "M" );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= PossibleClassFusions( tblu, m );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( tblu, ufusm, m ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  subgroup  [22XU[122X  contains  a  Sylow  [22X7[122X-subgroup  of [22XM[122X, and the only maximal
+  subgroups  of  [22XM[122X  with this property are the class of [22XU[122X and another class of
+  subgroups,  of  the  type  [22X7^2+1+2:GL_2(7)[122X.  Moreover, it turns out that the
+  Sylow  [22X7[122X  normalizers  in the subgroups in both classes have the same order,
+  hence they are the Sylow [22X7[122X normalizers in [22XM[122X.[133X
+  
+  [33X[0;0YFor    that,    we   use   representations   from   the   [5XAtlas[105X   of   Group
+  Representations [WWT+], and access these representations via the [5XGAP[105X package
+  [5XAtlasRep[105X ([WPN+22]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "atlasrep", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xg1:= AtlasGroup( "7^(2+1+2):GL2(7)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs1:= SylowSubgroup( g1, 7 );;[127X[104X
+    [4X[25Xgap>[125X [27Xn1:= Normalizer( g1, s1 );;[127X[104X
+    [4X[25Xgap>[125X [27Xg2:= AtlasGroup( "7^(1+4):(3x2.S7)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs2:= SylowSubgroup( g2, 7 );;[127X[104X
+    [4X[25Xgap>[125X [27Xn2:= Normalizer( g2, s2 );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( n1 ) = Size( n2 );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27X( Size( m ) / Size( s1 ) ) mod 7 <> 0;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  let  [22XN[122X be a Sylow [22X7[122X normalizer in [22XU[122X, and choose a subgroup [22XS[122X of the type
+  [22X7^2+1+2:GL_2(7)[122X that contains [22XN[122X.[133X
+  
+  [33X[0;0YWe compute the character table of [22XN[122X. Computing the possible class fusions of
+  [22XN[122X into [22XM[122X directly yields two possibilities, but the class fusion of [22XN[122X into [22XM[122X
+  via [22XS[122X is uniquely determined by the character tables.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbln:= CharacterTable( Image( IsomorphismPcGroup( n1 ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xtbls:= CharacterTable( "7^(2+1+2):GL2(7)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xnfusm:= PossibleClassFusions( tbln, m );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( tbln, nfusm, m ) );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xnfuss:= PossibleClassFusions( tbln, tbls );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfusm:= PossibleClassFusions( tbls, m );;[127X[104X
+    [4X[25Xgap>[125X [27Xnfusm:= SetOfComposedClassFusions( sfusm, nfuss );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( nfusm );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  use  the  condition  that  the  class fusions from [22XN[122X into [22XM[122X factors
+  through  [22XU[122X.  This  determines  the  class  fusion  of  [22XU[122X  into [22XM[122X up to table
+  automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnfusu:= PossibleClassFusions( tbln, tblu );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= Filtered( ufusm, map2 -> ForAny( nfusu, [127X[104X
+    [4X[25X>[125X [27X       map1 -> CompositionMaps( map2, map1 ) in nfusm ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( tblu, ufusm, m ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet [22XC[122X be the centralizer in [22XU[122X of the normal subgroup of order [22X7[122X; note that [22XC[122X
+  is  the  [10X7B[110X  centralizer  on  [22XM[122X.  We can use the information about the class
+  fusion  of  [22XU[122X into [22XM[122X for determining the class fusion of [22XC[122X into [22XM[122X. The class
+  fusion  of [22XC[122X into [22XM[122X is not determined by the character tables, but the class
+  fusion  of  [22XC[122X  into  [22XU[122X  is determined up to table automorphisms, so the same
+  holds for the class fusion of [22XC[122X into [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtblc:= CharacterTable( "MC7B" );                             [127X[104X
+    [4X[28XCharacterTable( "7^1+4.2A7" )[128X[104X
+    [4X[25Xgap>[125X [27Xcfusm:= PossibleClassFusions( tblc, m );;             [127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( tblc, cfusm, m ) );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xcfusu:= PossibleClassFusions( tblc, tblu );;[127X[104X
+    [4X[25Xgap>[125X [27Xcfusm:= SetOfComposedClassFusions( ufusm, cfusu );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( tblc, cfusm, m ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.3-6 [33X[0;0Y[22X3^7.O_7(3):2 → Fi_24[122X[101X[1X (November 2010)[133X[101X
+  
+  [33X[0;0YThe  class  fusion  of  the maximal subgroup [22XM ≅ 3^7.O_7(3):2[122X of [22XG = Fi_24 =
+  F_{3+}.2[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "3^7.O7(3):2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "F3+.2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmfust:= PossibleClassFusions( m, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( m, mfust, t ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  will  use  the fact that the elementary abelian normal subgroup of order
+  [22X3^7[122X  in [22XM[122X contains an element [22Xx[122X, say, in the class [10X3A[110X of [22XG[122X. This fact can be
+  shown as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnsg:= ClassPositionsOfNormalSubgroups( m );[127X[104X
+    [4X[28X[ [ 1 ], [ 1 .. 4 ], [ 1 .. 158 ], [ 1 .. 291 ] ][128X[104X
+    [4X[25Xgap>[125X [27XSum( SizesConjugacyClasses( m ){ nsg[2] } );[127X[104X
+    [4X[28X2187[128X[104X
+    [4X[25Xgap>[125X [27X3^7;[127X[104X
+    [4X[28X2187[128X[104X
+    [4X[25Xgap>[125X [27Xrest:= Set( mfust, map -> map{ nsg[2] } );[127X[104X
+    [4X[28X[ [ 1, 4, 5, 6 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( rest, l -> ClassNames( t, "Atlas" ){ l } );[127X[104X
+    [4X[28X[ [ "1A", "3A", "3B", "3C" ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  normalizer  [22XS[122X  of  [22X⟨  x ⟩[122X in [22XG[122X has the form [22XS_3 × O_8^+(3):S_3[122X, and the
+  order of [22XU = S ∩ M = N_M( ⟨ x ⟩)[122X is [22X53059069440[122X, so [22XU[122X has index [22X3360[122X in [22XS[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "F3+.2N3A" );[127X[104X
+    [4X[28XCharacterTable( "S3xO8+(3):S3" )[128X[104X
+    [4X[25Xgap>[125X [27XPowerMap( m, 2 )[4];[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27Xsize_u:= 2 * SizesCentralizers( m )[ 2 ];[127X[104X
+    [4X[28X53059069440[128X[104X
+    [4X[25Xgap>[125X [27XSize( s ) / size_u;[127X[104X
+    [4X[28X3360[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YUsing  the  list  of  maximal  subgroups  of  [22XO_8^+(3)[122X, we see that only the
+  maximal  subgroups  of  the  type  [22X3^6:L_4(3)[122X  have  index  dividing [22X3360[122X in
+  [22XO_8^+(3)[122X.  (There  are three classes of such subgroups.) This implies that [22XU[122X
+  contains a subgroup of the type [22XS_3 × 3^6:L_4(3)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xo8p3:= CharacterTable( "O8+(3)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= List( Maxes( o8p3 ), CharacterTable );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( mx, x -> 3360 mod Index( o8p3, x ) = 0 );[127X[104X
+    [4X[28X[ CharacterTable( "3^6:L4(3)" ), CharacterTable( "O8+(3)M8" ), [128X[104X
+    [4X[28X  CharacterTable( "O8+(3)M9" ) ][128X[104X
+    [4X[25Xgap>[125X [27XList( filt, x -> Index( o8p3, x ) );[127X[104X
+    [4X[28X[ 1120, 1120, 1120 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  compute  the  possible  class  fusions from [22XU[122X into [22XM[122X and [22XS[122X in two steps,
+  because  this  is  faster.  First  the  possible  class  fusions from [22XU^'' ≅
+  3^6:L_4(3)[122X  into  [22XM[122X  and  [22XS[122X are computed, and then these fusions are used to
+  derive approximations for the fusions from [22XU[122X into [22XM[122X and [22XS[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xuu:= filt[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "Symmetric", 3 ) * uu;[127X[104X
+    [4X[28XCharacterTable( "Sym(3)x3^6:L4(3)" )[128X[104X
+    [4X[25Xgap>[125X [27Xuufusm:= PossibleClassFusions( uu, m );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( uufusm );[127X[104X
+    [4X[28X8[128X[104X
+    [4X[25Xgap>[125X [27Xapprox:= List( uufusm, map -> CompositionMaps( map,[127X[104X
+    [4X[25X>[125X [27X                  InverseMap( GetFusionMap( uu, u ) ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= Concatenation( List( approx, map ->[127X[104X
+    [4X[25X>[125X [27X       PossibleClassFusions( u, m, rec( fusionmap:= map ) ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( ufusm );[127X[104X
+    [4X[28X8[128X[104X
+    [4X[25Xgap>[125X [27Xuufuss:= PossibleClassFusions( uu, s );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( uufuss );[127X[104X
+    [4X[28X8[128X[104X
+    [4X[25Xgap>[125X [27Xapprox:= List( uufuss, map -> CompositionMaps( map,[127X[104X
+    [4X[25X>[125X [27X             InverseMap( GetFusionMap( uu, u ) ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xufuss:= Concatenation( List( approx, map ->[127X[104X
+    [4X[25X>[125X [27X  PossibleClassFusions( u, s, rec( fusionmap:= map ) ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( ufuss );[127X[104X
+    [4X[28X8[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  compute  the  possible  class  fusions  from  [22XS[122X  into  [22XG[122X,  and  the
+  compositions of these maps with the possible class fusions from [22XU[122X into [22XS[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( sfust, ufuss );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( comp );[127X[104X
+    [4X[28X8[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIt  turns  out that only one orbit of the possible class fusions from [22XM[122X to [22XG[122X
+  is compatible with these possible class fusions from [22XU[122X to [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( mfust, map2 -> ForAny( ufusm, map1 ->[127X[104X
+    [4X[25X>[125X [27X       CompositionMaps( map2, map1 ) in comp ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( filt );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( m, filt, t ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe class fusion stored in the [5XGAP[105X Character Table Library is one of them.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, t ) in filt;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.3-7 [33X[0;0Y[22X^2E_6(2)N3C → ^2E_6(2)[122X[101X[1X (January 2019)[133X[101X
+  
+  [33X[0;0YLet  [22XG  = ^2E_6(2)[122X, and [22Xg ∈ G[122X in the conjugacy class [10X3C[110X. Using a permutation
+  representation  of  [22XG[122X,  Frank  Lübeck  has computed a representation and the
+  character table of the maximal subgroup [22XN = N_G(⟨ g ⟩)[122X of [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "2E6(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos3CinG:= Position( ClassNames( t ), "3c" );[127X[104X
+    [4X[28X7[128X[104X
+    [4X[25Xgap>[125X [27Xn:= CharacterTable( "2E6(2)N3C" );;[127X[104X
+    [4X[25Xgap>[125X [27Xnclasses:= SizesConjugacyClasses( n );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos3CinN:= Filtered( [ 1 .. NrConjugacyClasses( n ) ],[127X[104X
+    [4X[25X>[125X [27X                        i -> nclasses[i] = 2 );[127X[104X
+    [4X[28X[ 2 ][128X[104X
+    [4X[25Xgap>[125X [27Xnfust:= PossibleClassFusions( n, t );;[127X[104X
+    [4X[25Xgap>[125X [27XForAll( nfust, x -> x[ pos3CinN[1] ] = pos3CinG );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XSize( n ) = 2 * SizesCentralizers( t )[ pos3CinG ];[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XForAll( Irr( n ), x -> IsInt( x[ pos3CinN[1] ] ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe class fusion of [22XN[122X in [22XG[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xrep:= RepresentativesFusions( n, nfust, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( rep );[127X[104X
+    [4X[28X4[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe use the fact that [22Xg[122X is contained in a subgroup [22XS ≅ Fi_22[122X of [22XG[122X, [22X...[122X[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "Fi22" );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27XForAll( sfust, x -> x[6] = pos3CinG );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xpos3CinS:= 6;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[22X...[122X  and  that [22XU = N_S(⟨ g ⟩) ≅ 3^1+6:2^3+4:3^2:2[122X is a maximal subgroup of [22XS[122X
+  whose character table is available. Thus [22XU ≤ N[122X, of index four.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( Maxes( s )[11] );[127X[104X
+    [4X[28XCharacterTable( "3^(1+6):2^(3+4):3^2:2" )[128X[104X
+    [4X[25Xgap>[125X [27Xuclasses:= SizesConjugacyClasses( u );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos3CinU:= Filtered( [ 1 .. NrConjugacyClasses( u ) ],[127X[104X
+    [4X[25X>[125X [27X                        i -> uclasses[i] = 2 );[127X[104X
+    [4X[28X[ 2 ][128X[104X
+    [4X[25Xgap>[125X [27Xufuss:= PossibleClassFusions( u, s );;[127X[104X
+    [4X[25Xgap>[125X [27XForAll( ufuss, x -> x[ pos3CinU[1] ] = pos3CinS );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XSize( n ) / Size( u );[127X[104X
+    [4X[28X4[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YComposing  the  class  fusions  of  [22XU[122X  in  [22XN[122X and [22XN[122X in [22XG[122X must be equal to the
+  composition  of  the  class  fusions  of [22XU[122X in [22XS[122X and [22XS[122X in [22XG[122X. This reduces the
+  number of candidates for the fusion of [22XN[122X in [22XG[122X from four to two.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xufusn:= PossibleClassFusions( u, n );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( sfust, ufuss );;[127X[104X
+    [4X[25Xgap>[125X [27Xgood:= Filtered( nfust, map2 -> ForAny( ufusn,[127X[104X
+    [4X[25X>[125X [27X              map1 -> CompositionMaps( map2, map1 ) in comp ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( good );[127X[104X
+    [4X[28X1728[128X[104X
+    [4X[25Xgap>[125X [27Xgoodrep:= RepresentativesFusions( n, good, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( goodrep );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNext  we  use  the  fact  that  [22Xg[122X  and  thus  [22XN[122X  is invariant under an outer
+  automorphism  [22Xα[122X,  say,  of  order three of [22XG[122X. Note that such an automorphism
+  acts  nontrivially  on  the  conjugacy classes of [22XG[122X, for example because the
+  class  fusion  of  [22XG[122X  into  [22XG.3  = ⟨ G, α ⟩[122X shows the existence of orbits of
+  length  three,  and  that the permutation action of [22Xα[122X on the classes of [22XG[122X is
+  given  by  the  unique  subgroup  of  order  three  in  the  group  of table
+  automorphisms of [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtfust3:= GetFusionMap( t, CharacterTable( "2E6(2).3" ) );;[127X[104X
+    [4X[25Xgap>[125X [27XNumber( InverseMap( tfust3 ), IsList );[127X[104X
+    [4X[28X14[128X[104X
+    [4X[25Xgap>[125X [27Xautt:= AutomorphismsOfTable( t );;[127X[104X
+    [4X[25Xgap>[125X [27Xord3:= Filtered( autt, x -> Order( x ) = 3 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( ord3 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xalpha:= ord3[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xpos3CinG ^ alpha = pos3CinG;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  character  table  of [22XN[122X has [22X26[122X table automorphisms of order three. We do
+  not  know  which of them (or perhaps the identity permutation) is induced by
+  the  restriction [22Xα_N[122X of [22Xα[122X to [22XN[122X, but the embedding [22Xι: N → G[122X satisfies [22Xα ∘ ι =
+  ι  ∘  α_N[122X,  and  we  can  check each fusion candidate for the existence of a
+  candidate for [22Xα_N[122X such that this relation holds.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xautn:= AutomorphismsOfTable( n );;[127X[104X
+    [4X[25Xgap>[125X [27Xord3:= Filtered( autn, x -> Order( x ) = 3 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( ord3 );[127X[104X
+    [4X[28X26[128X[104X
+    [4X[25Xgap>[125X [27XAdd( ord3, () );[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( rep, map -> ForAny( ord3, beta ->[127X[104X
+    [4X[25X>[125X [27XOnTuples( map, alpha ) = Permuted( map, beta ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( filt );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAgain,  the  number  of  candidates for the fusion of [22XN[122X in [22XG[122X is reduced from
+  four to two. Moreover, we are lucky because only one candidate satifies also
+  the first criterion we have checked.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinter:= Intersection( good, filt );[127X[104X
+    [4X[28X[ [ 1, 7, 5, 6, 7, 2, 3, 4, 27, 30, 24, 32, 25, 26, 9, 11, 12, 13, [128X[104X
+    [4X[28X      10, 14, 19, 19, 19, 16, 17, 18, 21, 58, 61, 62, 67, 68, 69, 57, [128X[104X
+    [4X[28X      72, 59, 75, 76, 77, 78, 79, 80, 64, 65, 66, 60, 81, 82, 5, 6, [128X[104X
+    [4X[28X      7, 6, 7, 7, 7, 7, 6, 7, 6, 7, 7, 24, 25, 27, 26, 28, 30, 29, [128X[104X
+    [4X[28X      31, 32, 31, 32, 32, 32, 32, 31, 32, 31, 32, 51, 52, 52, 52, 52, [128X[104X
+    [4X[28X      74, 76, 77, 77, 75, 74, 76, 74, 75, 99, 100, 101, 102, 4, 20, [128X[104X
+    [4X[28X      29, 31, 32, 36, 36, 42, 42, 39, 40, 41, 49, 49, 49, 49, 49, 49, [128X[104X
+    [4X[28X      71, 112, 112, 114, 115, 116 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  class  fusion  stored  in  the  [5XGAP[105X  Character  Table  Library  is this
+  candidate.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( n, t ) = inter[1];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XRemark:[113X[133X
+  
+  [33X[0;0YNote  that  the  structure of [22XN[122X is [22X3^1+6:2^3+6:3^2:2[122X, as is stated in [Nor].
+  The structure [22X3^1+6.2^3+6.(S_3 × 3)[122X claimed in the [5XAtlas[105X [CCN+85, p. 191] is
+  wrong,  as  we can read off for example from the fact that [22XN[122X has exactly two
+  linear characters.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLength( LinearCharacters( n ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.4 [33X[0;0YFusions Determined Using Commutative Diagrams Involving Factor Groups[133X[101X
+  
+  
+  [1X9.4-1 [33X[0;0Y[22X3.A_7 → 3.Suz[122X[101X[1X (December 2010)[133X[101X
+  
+  [33X[0;0YThe  maximal  subgroups  of type [22XA_7[122X in the sporadic simple Suzuki group [22XSuz[122X
+  lift  to  groups  of the type [22X3.A_7[122X in [22X3.Suz[122X. This can be seen from the fact
+  that [22X3.Suz[122X does not admit a class fusion from [22XA_7[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "Suz" );;[127X[104X
+    [4X[25Xgap>[125X [27X3t:= CharacterTable( "3.Suz" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "A7" );;[127X[104X
+    [4X[25Xgap>[125X [27X3s:= CharacterTable( "3.A7" );;[127X[104X
+    [4X[25Xgap>[125X [27XPossibleClassFusions( s, 3t );[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe class fusion of [22X3.A_7[122X into [22X3.Suz[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X3sfus3t:= PossibleClassFusions( 3s, 3t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( 3sfus3t );[127X[104X
+    [4X[28X6[128X[104X
+    [4X[25Xgap>[125X [27XRepresentativesFusions( 3s, 3sfus3t, 3t );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 7, 8, 9, 16, 16, 26, 27, 28, 32, 33, 34, 47, 47, 47, 48, [128X[104X
+    [4X[28X      49, 50, 48, 49, 50 ], [128X[104X
+    [4X[28X  [ 1, 11, 12, 4, 36, 37, 13, 16, 23, 82, 83, 32, 100, 101, 44, 38, [128X[104X
+    [4X[28X      41, 48, 112, 116, 48, 115, 113 ] ][128X[104X
+    [4X[25Xgap>[125X [27XClassPositionsOfCentre( 3t );[127X[104X
+    [4X[28X[ 1, 2, 3 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that  the  possible fusions in the second orbit avoid the centre of
+  [22X3.Suz[122X. Since the preimages in [22X3.Suz[122X of the [22XA_7[122X type subgroups of [22XSuz[122X contain
+  the centre of [22X3.Suz[122X, we know that the class fusion of these preimages belong
+  to  the first orbit. This can be formalized by checking the commutativity of
+  the diagram of fusions between [22X3.A_7[122X, [22X3.Suz[122X, and their factors [22XA_7[122X and [22XSuz[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( sfust );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( 3sfus3t, map -> CompositionMaps( GetFusionMap( 3t, t ),[127X[104X
+    [4X[25X>[125X [27X                                        map )[127X[104X
+    [4X[25X>[125X [27X              = CompositionMaps( sfust[1], GetFusionMap( 3s, s ) ) );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 7, 8, 9, 16, 16, 26, 27, 28, 32, 33, 34, 47, 47, 47, 48, [128X[104X
+    [4X[28X      49, 50, 48, 49, 50 ], [128X[104X
+    [4X[28X  [ 1, 3, 2, 7, 9, 8, 16, 16, 26, 28, 27, 32, 34, 33, 47, 47, 47, 48, [128X[104X
+    [4X[28X      50, 49, 48, 50, 49 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  the  class fusion of maximal [22X3.A_7[122X type subgroups of [22X3.Suz[122X is determined
+  up  to  table  automorphisms. One of these fusions is stored on the table of
+  [22X3.A_7[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XRepresentativesFusions( 3s, filt, 3t );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 7, 8, 9, 16, 16, 26, 27, 28, 32, 33, 34, 47, 47, 47, 48, [128X[104X
+    [4X[28X      49, 50, 48, 49, 50 ] ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( 3s, 3t ) in filt;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAlso  the class fusions in the other orbit belong to subgroups of type [22X3.A_7[122X
+  in   [22X3.Suz[122X.   Note   that   [22XSuz[122X  contains  maximal  subgroups  of  the  type
+  [22X3_2.U_4(3).2_3^'[122X  (see [CCN+85,  p.  131]),  and  the  [22XA_7[122X type subgroups of
+  [22XU_4(3)[122X  (see [CCN+85, p. 52]) lift to groups of the type [22X3.A_7[122X in [22X3_2.U_4(3)[122X
+  because  [22X3_2.U_4(3)[122X does not admit a class fusion from [22XA_7[122X. The preimages in
+  [22X3.Suz[122X of the [22X3.A_7[122X type subgroups of [22XSuz[122X have the structure [22X3 × 3.A_7[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "3_2.U4(3)" );;[127X[104X
+    [4X[25Xgap>[125X [27XPossibleClassFusions( s, u );[127X[104X
+    [4X[28X[  ][128X[104X
+    [4X[25Xgap>[125X [27XLength( PossibleClassFusions( 3s, u ) );[127X[104X
+    [4X[28X8[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.4-2 [33X[0;0Y[22XS_6 → U_4(2)[122X[101X[1X (September 2011)[133X[101X
+  
+  [33X[0;0YThe  simple  group [22XG = U_4(2)[122X contains a maximal subgroup [22XU[122X of type [22XS_6[122X. The
+  class fusion from [22XU[122X to [22XG[122X is unique up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "S6" );[127X[104X
+    [4X[28XCharacterTable( "A6.2_1" )[128X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "U4(2)" );[127X[104X
+    [4X[28XCharacterTable( "U4(2)" )[128X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );[127X[104X
+    [4X[28X[ [ 1, 3, 6, 7, 9, 10, 3, 2, 9, 16, 15 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 6, 9, 10, 2, 3, 9, 15, 16 ] ][128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( s, sfust, t ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn the double cover [22X2.G[122X of [22XG[122X, [22XU[122X lifts to the double cover [22X2.U[122X of [22XU[122X (which is
+  unique  up  to isomorphism). Also the class fusion from [22X2.U[122X to [22X2.G[122X is unique
+  up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2t:= CharacterTable( "2.U4(2)" );[127X[104X
+    [4X[28XCharacterTable( "2.U4(2)" )[128X[104X
+    [4X[25Xgap>[125X [27X2s:= CharacterTable( "2.A6.2_1" );[127X[104X
+    [4X[28XCharacterTable( "2.A6.2_1" )[128X[104X
+    [4X[25Xgap>[125X [27X2sfus2t:= PossibleClassFusions( 2s, 2t );[127X[104X
+    [4X[28X[ [ 1, 2, 4, 11, 12, 9, 10, 15, 16, 17, 3, 4, 15, 24, 25, 26, 26 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 11, 12, 9, 10, 15, 16, 17, 3, 4, 15, 25, 24, 26, 26 ] ][128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( 2s, 2sfus2t, 2t ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHowever,  the  two  possible  fusions  from [22X2.U[122X to [22X2.G[122X are lifts of the same
+  class fusion from [22XU[122X to [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2sfuss:= GetFusionMap( 2s, s );[127X[104X
+    [4X[28X[ 1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 7, 8, 9, 10, 10, 11, 11 ][128X[104X
+    [4X[25Xgap>[125X [27X2tfust:= GetFusionMap( 2t, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xinduced:= Set( 2sfus2t, x -> CompositionMaps( 2tfust,[127X[104X
+    [4X[25X>[125X [27X     CompositionMaps( x, InverseMap( 2sfuss ) ) ) );[127X[104X
+    [4X[28X[ [ 1, 3, 7, 6, 9, 10, 2, 3, 9, 15, 16 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  point  is that the outer automorphism of [22XS_6[122X that makes the two fusions
+  from  [22XU[122X  to  [22XG[122X  equivalent  does  not lift to [22X2.U[122X, and that we have silently
+  assumed a fixed factor fusion from [22X2.U[122X to [22XU[122X. Note that composing this factor
+  fusion  with  the  automorphism  of  [22XU[122X would also yield a factor fusion, and
+  w. r. t. the  commutative  diagram  involving  this factor fusion, the other
+  possible  class  fusion  from [22XU[122X to [22XG[122X is induced by the possible fusions from
+  [22X2.U[122X to [22X2.G[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xauts:= AutomorphismsOfTable( s );[127X[104X
+    [4X[28XGroup([ (3,4)(7,8)(10,11) ])[128X[104X
+    [4X[25Xgap>[125X [27Xother:= OnTuples( 2sfuss, GeneratorsOfGroup( auts )[1] );[127X[104X
+    [4X[28X[ 1, 1, 2, 4, 4, 3, 3, 5, 6, 6, 8, 7, 9, 11, 11, 10, 10 ][128X[104X
+    [4X[25Xgap>[125X [27XSet( 2sfus2t, x -> CompositionMaps( 2tfust,[127X[104X
+    [4X[25X>[125X [27X     CompositionMaps( x, InverseMap( other ) ) ) );[127X[104X
+    [4X[28X[ [ 1, 3, 6, 7, 9, 10, 3, 2, 9, 16, 15 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  library table of [22XU[122X stores the class fusion to [22XG[122X that is compatible with
+  the stored factor fusion from [22X2.U[122X to [22XU[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) in induced;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.5  [33X[0;0YFusions  Determined  Using  Commutative  Diagrams Involving Automorphic[101X
+  [1XExtensions[133X[101X
+  
+  
+  [1X9.5-1 [33X[0;0Y[22XU_3(8).3_1 → ^2E_6(2)[122X[101X[1X (December 2010)[133X[101X
+  
+  [33X[0;0YAccording  to  the  [5XAtlas[105X  (see [CCN+85,  p.  191]),  the group [22XG = ^2E_6(2)[122X
+  contains  a maximal subgroup [22XU[122X of the type [22XU_3(8).3_1[122X. The class fusion of [22XU[122X
+  into [22XG[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "U3(8).3_1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "2E6(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( sfust );[127X[104X
+    [4X[28X24[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( s, sfust, t ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  the  automorphic extension [22XG.2 = ^2E_6(2).2[122X of [22XG[122X, the subgroup [22XU[122X extends
+  to  a  group  [22XU.2[122X  of  the type [22XU_3(8).6[122X (again, see  [CCN+85, p. 191]). The
+  class fusion of [22XU.2[122X into [22XG.2[122X is unique up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs2:= CharacterTable( "U3(8).6" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt2:= CharacterTable( "2E6(2).2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs2fust2:= PossibleClassFusions( s2, t2 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( s2fust2 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( s2, s2fust2, t2 ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YOnly  half  of  the possible class fusions from [22XU[122X into [22XG[122X are compatible with
+  the embeddings of [22XU[122X into [22XG.2[122X via [22XU.2[122X and [22XG[122X, and the compatible maps form one
+  orbit under table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsfuss2:= PossibleClassFusions( s, s2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( s2fust2, sfuss2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xtfust2:= PossibleClassFusions( t, t2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( sfust, map -> ForAny( tfust2,[127X[104X
+    [4X[25X>[125X [27X              map2 -> CompositionMaps( map2, map ) in comp ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( filt );[127X[104X
+    [4X[28X12[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( s, filt, t ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  us  see  which classes of [22XU[122X and [22XG[122X are involved in the disambiguation of
+  the  class  fusion. The [21Xgood[121X fusion candidates differ from the excluded ones
+  on  the classes at the positions [22X31[122X to [22X36[122X: Under all possible class fusions,
+  two  pairs  of  classes are mapped to the classes [22X81[122X and [22X82[122X of [22XG[122X; from these
+  classes,  the  excluded  maps  fuse classes at odd positions with classes at
+  even positions, whereas the [21Xgood[121X class fusions do not have this property.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSet( filt, x -> x{ [ 31 .. 36 ] } );[127X[104X
+    [4X[28X[ [ 74, 74, 81, 82, 81, 82 ], [ 74, 74, 82, 81, 82, 81 ], [128X[104X
+    [4X[28X  [ 81, 82, 74, 74, 81, 82 ], [ 81, 82, 81, 82, 74, 74 ], [128X[104X
+    [4X[28X  [ 82, 81, 74, 74, 82, 81 ], [ 82, 81, 82, 81, 74, 74 ] ][128X[104X
+    [4X[25Xgap>[125X [27XSet( Difference( sfust, filt ), x -> x{ [ 31 .. 36 ] } );[127X[104X
+    [4X[28X[ [ 74, 74, 81, 82, 82, 81 ], [ 74, 74, 82, 81, 81, 82 ], [128X[104X
+    [4X[28X  [ 81, 82, 74, 74, 82, 81 ], [ 81, 82, 82, 81, 74, 74 ], [128X[104X
+    [4X[28X  [ 82, 81, 74, 74, 81, 82 ], [ 82, 81, 81, 82, 74, 74 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNone  of  the  possible  class  fusions  from  [22XU[122X to [22XU.2[122X fuses classes at odd
+  positions in the interval from [22X31[122X to [22X36[122X with classes at even positions.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSet( sfuss2, x -> x{ [ 31 .. 36 ] } );[127X[104X
+    [4X[28X[ [ 28, 29, 30, 31, 30, 31 ], [ 29, 28, 31, 30, 31, 30 ], [128X[104X
+    [4X[28X  [ 30, 31, 28, 29, 30, 31 ], [ 30, 31, 30, 31, 28, 29 ], [128X[104X
+    [4X[28X  [ 31, 30, 29, 28, 31, 30 ], [ 31, 30, 31, 30, 29, 28 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis suffices to exclude the [21Xbad[121X fusion candidates because no further fusion
+  of the relevant classes of [22XG[122X happens in [22XG.2[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( tfust2, x -> x{ [ 74, 81, 82 ] } );[127X[104X
+    [4X[28X[ [ 65, 70, 71 ], [ 65, 70, 71 ], [ 65, 71, 70 ], [ 65, 71, 70 ], [128X[104X
+    [4X[28X  [ 65, 70, 71 ], [ 65, 70, 71 ], [ 65, 71, 70 ], [ 65, 71, 70 ], [128X[104X
+    [4X[28X  [ 65, 70, 71 ], [ 65, 70, 71 ], [ 65, 71, 70 ], [ 65, 71, 70 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(The same holds for the fusion of the relevant classes of [22XU.2[122X in [22XG.2[122X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( s2fust2, x -> x{ [ 28 .. 31 ] } );[127X[104X
+    [4X[28X[ [ 65, 65, 70, 71 ], [ 65, 65, 71, 70 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally, we check that a correct map is stored on the library table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) in filt;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.5-2 [33X[0;0Y[22XL_3(4).2_1 → U_6(2)[122X[101X[1X (December 2010)[133X[101X
+  
+  [33X[0;0YAccording to the [5XAtlas[105X (see [CCN+85, p. 115]), the group [22XG = U_6(2)[122X contains
+  a maximal subgroup [22XU[122X of the type [22XL_3(4).2_1[122X. The class fusion of [22XU[122X into [22XG[122X is
+  ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "L3(4).2_1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "U6(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( sfust );[127X[104X
+    [4X[28X27[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( s, sfust, t ) );[127X[104X
+    [4X[28X3[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  the automorphic extension [22XG.3 = U_6(2).3[122X of [22XG[122X, the subgroup [22XU[122X extends to
+  a  group  [22XU.3[122X of the type [22XL_3(4).6[122X (again, see  [CCN+85, p. 115]). The class
+  fusion of [22XU.3[122X into [22XG.3[122X is unique up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs3:= CharacterTable( "L3(4).6" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt3:= CharacterTable( "U6(2).3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs3fust3:= PossibleClassFusions( s3, t3 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( s3fust3 );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( s3, s3fust3, t3 ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  the argument used in Section [14X9.5-1[114X does not work, because all possible
+  class fusions from [22XU[122X into [22XG[122X are compatible with the embeddings of [22XU[122X into [22XG.3[122X
+  via [22XU.3[122X and [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsfuss3:= PossibleClassFusions( s, s3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xcomp:= SetOfComposedClassFusions( s3fust3, sfuss3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xtfust3:= PossibleClassFusions( t, t3 );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust = Filtered( sfust, map -> ForAny( tfust3,[127X[104X
+    [4X[25X>[125X [27X               map2 -> CompositionMaps( map2, map ) in comp ) );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YConsider  the  elements  of  order  four  in [22XU[122X. There are three such classes
+  inside [22XU^' ≅ L_3(4)[122X, which fuse to one class of [22XU.3[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( s );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 4, 4, 5, 7, 2, 4, 6, 8, 8, 8 ][128X[104X
+    [4X[25Xgap>[125X [27Xsfuss3;[127X[104X
+    [4X[28X[ [ 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 10, 10 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThese  classes  of  [22XU[122X  fuse  into some of the classes [22X10[122X to [22X12[122X of [22XG[122X. In [22XG.3[122X,
+  these three classes fuse into one class.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XSet( sfust, map -> map{ [ 4 .. 6 ] } );[127X[104X
+    [4X[28X[ [ 10, 10, 10 ], [ 10, 10, 11 ], [ 10, 10, 12 ], [ 10, 11, 10 ], [128X[104X
+    [4X[28X  [ 10, 11, 11 ], [ 10, 11, 12 ], [ 10, 12, 10 ], [ 10, 12, 11 ], [128X[104X
+    [4X[28X  [ 10, 12, 12 ], [ 11, 10, 10 ], [ 11, 10, 11 ], [ 11, 10, 12 ], [128X[104X
+    [4X[28X  [ 11, 11, 10 ], [ 11, 11, 11 ], [ 11, 11, 12 ], [ 11, 12, 10 ], [128X[104X
+    [4X[28X  [ 11, 12, 11 ], [ 11, 12, 12 ], [ 12, 10, 10 ], [ 12, 10, 11 ], [128X[104X
+    [4X[28X  [ 12, 10, 12 ], [ 12, 11, 10 ], [ 12, 11, 11 ], [ 12, 11, 12 ], [128X[104X
+    [4X[28X  [ 12, 12, 10 ], [ 12, 12, 11 ], [ 12, 12, 12 ] ][128X[104X
+    [4X[25Xgap>[125X [27XSet( tfust3, map -> map{ [ 10 .. 12 ] } );[127X[104X
+    [4X[28X[ [ 10, 10, 10 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis means that the automorphism [22Xα[122X of [22XG[122X that is induced by the action of [22XG.3[122X
+  permutes  the classes [22X10[122X to [22X12[122X of [22XG[122X transitively. The fact that [22XU[122X extends to
+  [22XU.3[122X  in  [22XG.3[122X means that [22XU[122X is invariant under [22Xα[122X. This implies that [22XU[122X contains
+  either  no  elements from the classes [22X10[122X to [22X12[122X or elements from all of these
+  classes.  The  possible  class fusions from [22XU[122X to [22XG[122X satisfying this condition
+  form one orbit under table automprhisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFiltered( sfust, map -> Intersection( map, [ 10 .. 12 ] ) = [] );[127X[104X
+    [4X[28X[  ][128X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( sfust, map -> IsSubset( map, [ 10 .. 12 ] ) );[127X[104X
+    [4X[28X[ [ 1, 3, 7, 10, 11, 12, 15, 24, 4, 14, 23, 26, 27, 28 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 10, 12, 11, 15, 24, 4, 14, 23, 26, 28, 27 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 11, 10, 12, 15, 24, 4, 14, 23, 27, 26, 28 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 11, 12, 10, 15, 24, 4, 14, 23, 27, 28, 26 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 12, 10, 11, 15, 24, 4, 14, 23, 28, 26, 27 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 12, 11, 10, 15, 24, 4, 14, 23, 28, 27, 26 ] ][128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( s, filt, t ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally, we check that a correct map is stored on the library table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) in filt;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.6 [33X[0;0YConditions Imposed by Brauer Tables[133X[101X
+  
+  [33X[0;0YThe  examples  in this section show that symmetries can be broken as soon as
+  the  class  fusions between two ordinary tables shall be compatible with the
+  corresponding  Brauer  character  tables. More precisely, we assume that the
+  class  fusion from each Brauer table to its ordinary table is already fixed;
+  choosing  these  fusions  consistently  can  be  a  nontrivial task, solving
+  so-called  [21Xgenerality  problems[121X  may  require  the  construction  of certain
+  modules, similar to the arguments used in [14X9.6-3[114X below.[133X
+  
+  
+  [1X9.6-1 [33X[0;0Y[22XL_2(16).4 → J_3.2[122X[101X[1X (January 2004)[133X[101X
+  
+  [33X[0;0YIt can happen that Brauer tables decide ambiguities of class fusions between
+  the  corresponding  ordinary  tables. An easy example is the class fusion of
+  [22XL_2(16).4[122X into [22XJ_3.2[122X. The ordinary tables admit four possible class fusions,
+  of which two are essentially different.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "L2(16).4" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "J3.2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleClassFusions( s, t );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 6, 14, 15, 16, 2, 5, 7, 12, 5, 5, 8, 8, 13, 13 ], [128X[104X
+    [4X[28X  [ 1, 2, 3, 6, 14, 15, 16, 2, 5, 7, 12, 19, 19, 22, 22, 23, 23 ], [128X[104X
+    [4X[28X  [ 1, 2, 3, 6, 14, 16, 15, 2, 5, 7, 12, 5, 5, 8, 8, 13, 13 ], [128X[104X
+    [4X[28X  [ 1, 2, 3, 6, 14, 16, 15, 2, 5, 7, 12, 19, 19, 22, 22, 23, 23 ] ][128X[104X
+    [4X[25Xgap>[125X [27XRepresentativesFusions( s, fus, t );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 6, 14, 15, 16, 2, 5, 7, 12, 5, 5, 8, 8, 13, 13 ], [128X[104X
+    [4X[28X  [ 1, 2, 3, 6, 14, 15, 16, 2, 5, 7, 12, 19, 19, 22, 22, 23, 23 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YUsing Brauer tables, we will see that just one fusion is admissible.[133X
+  
+  [33X[0;0YWe  can  exclude  two possible fusions by the fact that their images all lie
+  inside  the normal subgroup [22XJ_3[122X, but [22XJ_3[122X does not contain a subgroup of type
+  [22XL_2(16).4[122X; so still one orbit of length two remains.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xj3:= CharacterTable( "J3" );;[127X[104X
+    [4X[25Xgap>[125X [27XPossibleClassFusions( s, j3 );[127X[104X
+    [4X[28X[  ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( j3, t );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11, 12, 12, 13, 14, 14, 15, 16, [128X[104X
+    [4X[28X  17, 17 ][128X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( fus,[127X[104X
+    [4X[25X>[125X [27X         x -> not IsSubset( ClassPositionsOfDerivedSubgroup( t ), x ) );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 6, 14, 15, 16, 2, 5, 7, 12, 19, 19, 22, 22, 23, 23 ], [128X[104X
+    [4X[28X  [ 1, 2, 3, 6, 14, 16, 15, 2, 5, 7, 12, 19, 19, 22, 22, 23, 23 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  the  remaining  wrong  fusion  is  excluded  by the fact that the table
+  automorphism  of [22XJ_3.2[122X that swaps the two classes of element order [22X17[122X –which
+  swaps  two  of  the  possible  class fusions– does not live in the [22X2[122X-modular
+  table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsmod2:= s mod 2;;[127X[104X
+    [4X[25Xgap>[125X [27Xtmod2:= t mod 2;;[127X[104X
+    [4X[25Xgap>[125X [27Xadmissible:= [];;  modmap:= "dummy";;[127X[104X
+    [4X[25Xgap>[125X [27Xfor map in filt do[127X[104X
+    [4X[25X>[125X [27X     modmap:= CompositionMaps( InverseMap( GetFusionMap( tmod2, t ) ),[127X[104X
+    [4X[25X>[125X [27X                  CompositionMaps( map, GetFusionMap( smod2, s ) ) );[127X[104X
+    [4X[25X>[125X [27X     if not fail in Decomposition( Irr( smod2 ),[127X[104X
+    [4X[25X>[125X [27X           List( Irr( tmod2 ), chi -> chi{ modmap } ), "nonnegative" ) then[127X[104X
+    [4X[25X>[125X [27X       AddSet( admissible, map );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xadmissible;[127X[104X
+    [4X[28X[ [ 1, 2, 3, 6, 14, 16, 15, 2, 5, 7, 12, 19, 19, 22, 22, 23, 23 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  test  of  all  available  Brauer  tables is implemented in the function
+  [10XCTblLib.Test.Decompositions[110X of the [5XGAP[105X Character Table Library ([Bre25]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCTblLib.Test.Decompositions( s, fus, t ) = admissible;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see  that [22Xp[122X-modular tables alone determine the class fusion uniquely; in
+  fact the primes [22X2[122X and [22X3[122X suffice for that.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) in admissible;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XRemark:[113X[133X
+  
+  [33X[0;0YIn  May 2015,  the  [22X19[122X-modular character table of [22XJ_3[122X has been corrected, by
+  swapping  the  two  classes  of  element order [22X17[122X. Since the class fusion of
+  [22XL_2(16).4[122X  into  [22XJ_3.2[122X  is  uniquely  determined  by the [22X2[122X-modular tables of
+  [22XL_2(16).4[122X and [22XJ_3.2[122X and since this class fusion has been compatible with the
+  previous  version  of  the  [22X19[122X-modular table of [22XJ_3[122X, the correction does not
+  affect the above arguments.[133X
+  
+  
+  [1X9.6-2 [33X[0;0Y[22XL_2(17) → S_8(2)[122X[101X[1X (July 2004)[133X[101X
+  
+  [33X[0;0YThe  class  fusion  of  the  maximal  subgroup  [22XM ≅ L_2(17)[122X of [22XG = S_8(2)[122X is
+  ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "L2(17)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "S8(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmfust:= PossibleClassFusions( m, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( m, mfust, t ) );[127X[104X
+    [4X[28X4[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  Brauer  tables  for  [22XM[122X  and  [22XG[122X  determine  the class fusion up to table
+  automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfilt:= CTblLib.Test.Decompositions( m, mfust, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( m, filt, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( repr );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( m, t ) in repr;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.6-3 [33X[0;0Y[22XL_2(19) → J_3[122X[101X[1X (April 2003)[133X[101X
+  
+  [33X[0;0YIt  can  happen  that  Brauer tables impose conditions such that ambiguities
+  arise which are not visible if one considers only ordinary tables.[133X
+  
+  [33X[0;0YThe class fusion between the ordinary character tables of [22XL_2(19)[122X and [22XJ_3[122X is
+  unique up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "L2(19)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "J3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );[127X[104X
+    [4X[28X[ [ 1, 2, 4, 6, 7, 10, 11, 12, 13, 14, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 10, 11, 12, 13, 14, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 11, 12, 10, 13, 14, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 11, 12, 10, 13, 14, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 12, 10, 11, 13, 14, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 12, 10, 11, 13, 14, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 10, 11, 12, 14, 13, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 10, 11, 12, 14, 13, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 11, 12, 10, 14, 13, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 11, 12, 10, 14, 13, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 12, 10, 11, 14, 13, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 12, 10, 11, 14, 13, 21, 20 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xfusreps:= RepresentativesFusions( s, sfust, t );[127X[104X
+    [4X[28X[ [ 1, 2, 4, 6, 7, 10, 11, 12, 13, 14, 20, 21 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  Galois  automorphism that permutes the three classes of element order [22X9[122X
+  in  the  tables of ([22XL_2(19)[122X and) [22XJ_3[122X does not live in characteristic [22X19[122X. For
+  example,  the  unique  irreducible  Brauer  character  of  degree [22X110[122X in the
+  [22X19[122X-modular table of [22XJ_3[122X is [22Xφ_3[122X, and the value of this character on the class
+  [10X9A[110X is [10X-1+2y9+&4[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtmod19:= t mod 19;[127X[104X
+    [4X[28XBrauerTable( "J3", 19 )[128X[104X
+    [4X[25Xgap>[125X [27Xdeg110:= Filtered( Irr( tmod19 ), phi -> phi[1] = 110 );[127X[104X
+    [4X[28X[ Character( BrauerTable( "J3", 19 ),[128X[104X
+    [4X[28X  [ 110, -2, 5, 2, 2, 0, 0, 1, 0, [128X[104X
+    [4X[28X      -2*E(9)^2+E(9)^3-E(9)^4-E(9)^5+E(9)^6-2*E(9)^7, [128X[104X
+    [4X[28X      E(9)^2+E(9)^3-E(9)^4-E(9)^5+E(9)^6+E(9)^7, [128X[104X
+    [4X[28X      E(9)^2+E(9)^3+2*E(9)^4+2*E(9)^5+E(9)^6+E(9)^7, -2, -2, -1, 0, [128X[104X
+    [4X[28X      0, E(17)^3+E(17)^5+E(17)^6+E(17)^7+E(17)^10+E(17)^11+E(17)^12[128X[104X
+    [4X[28X         +E(17)^14, [128X[104X
+    [4X[28X      E(17)+E(17)^2+E(17)^4+E(17)^8+E(17)^9+E(17)^13+E(17)^15+E(17)^16[128X[104X
+    [4X[28X     ] ) ][128X[104X
+    [4X[25Xgap>[125X [27X9A:= Position( OrdersClassRepresentatives( tmod19 ), 9 );[127X[104X
+    [4X[28X10[128X[104X
+    [4X[25Xgap>[125X [27Xdeg110[1][ 9A ];[127X[104X
+    [4X[28X-2*E(9)^2+E(9)^3-E(9)^4-E(9)^5+E(9)^6-2*E(9)^7[128X[104X
+    [4X[25Xgap>[125X [27XAtlasIrrationality( "-1+2y9+&4" ) = deg110[1][ 9A ];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIt  turns  out  that  four  of  the  twelve  possible  class fusions are not
+  compatible with the [22X19[122X-modular tables.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xsmod19:= s mod 19;[127X[104X
+    [4X[28XBrauerTable( "L2(19)", 19 )[128X[104X
+    [4X[25Xgap>[125X [27Xcompatible:= [];;[127X[104X
+    [4X[25Xgap>[125X [27Xfor map in sfust do[127X[104X
+    [4X[25X>[125X [27X     comp:= CompositionMaps( InverseMap( GetFusionMap( tmod19, t ) ),[127X[104X
+    [4X[25X>[125X [27X     CompositionMaps( map, GetFusionMap( smod19, s ) ) );[127X[104X
+    [4X[25X>[125X [27X     rest:= List( Irr( tmod19 ), phi -> phi{ comp } );[127X[104X
+    [4X[25X>[125X [27X     if not fail in Decomposition( Irr( smod19 ), rest, "nonnegative" ) then[127X[104X
+    [4X[25X>[125X [27X       Add( compatible, map );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xcompatible;[127X[104X
+    [4X[28X[ [ 1, 2, 4, 6, 7, 11, 12, 10, 13, 14, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 11, 12, 10, 13, 14, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 12, 10, 11, 13, 14, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 12, 10, 11, 13, 14, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 11, 12, 10, 14, 13, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 11, 12, 10, 14, 13, 21, 20 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 12, 10, 11, 14, 13, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 7, 6, 12, 10, 11, 14, 13, 21, 20 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YMoreover,  the subgroups of those table automorphisms of the ordinary tables
+  that  leave  the set of compatible fusions invariant make two orbits on this
+  set.  Indeed,  the two orbits belong to essentially different decompositions
+  of the restriction of [22Xφ_3[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xreps:= RepresentativesFusions( s, compatible, t );[127X[104X
+    [4X[28X[ [ 1, 2, 4, 6, 7, 11, 12, 10, 13, 14, 20, 21 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 12, 10, 11, 13, 14, 20, 21 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xcompatiblemod19:= List( reps, map -> CompositionMaps([127X[104X
+    [4X[25X>[125X [27X       InverseMap( GetFusionMap( tmod19, t ) ),[127X[104X
+    [4X[25X>[125X [27X       CompositionMaps( map, GetFusionMap( smod19, s ) ) ) );[127X[104X
+    [4X[28X[ [ 1, 2, 4, 6, 7, 11, 12, 10, 13, 14 ], [128X[104X
+    [4X[28X  [ 1, 2, 4, 6, 7, 12, 10, 11, 13, 14 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xrest:= List( compatiblemod19, map -> Irr( tmod19 )[3]{ map } );;[127X[104X
+    [4X[25Xgap>[125X [27Xdec:= Decomposition( Irr( smod19 ), rest, "nonnegative" );[127X[104X
+    [4X[28X[ [ 0, 0, 1, 2, 1, 2, 2, 1, 0, 1 ], [ 0, 2, 0, 2, 0, 1, 2, 0, 2, 1 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( Irr( smod19 ), phi -> phi[1] );[127X[104X
+    [4X[28X[ 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn  order  to  decide  which  class  fusion  is  correct, we take the matrix
+  representation of [22XJ_3[122X that affords [22Xφ_3[122X, restrict it to [22XL_2(19)[122X, which is the
+  second  maximal  subgroup  of  [22XJ_3[122X, and compute the composition factors. For
+  that,    we    use    a    representation    from   the   [5XAtlas[105X   of   Group
+  Representations [WWT+],   and   access  it  via  the  [5XGAP[105X  package  [5XAtlasRep[105X
+  ([WPN+22]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "atlasrep", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xprog:= AtlasProgram( "J3", "maxes", 2 );[127X[104X
+    [4X[28Xrec( groupname := "J3", identifier := [ "J3", "J3G1-max2W1", 1 ], [128X[104X
+    [4X[28X  program := <straight line program>, size := 3420, [128X[104X
+    [4X[28X  standardization := 1, subgroupname := "L2(19)", version := "1" )[128X[104X
+    [4X[25Xgap>[125X [27Xgens:= OneAtlasGeneratingSetInfo( "J3", Characteristic, 19,[127X[104X
+    [4X[25X>[125X [27X              Dimension, 110 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgens:= AtlasGenerators( gens );[127X[104X
+    [4X[28Xrec( charactername := "110a", constituents := [ 3 ], [128X[104X
+    [4X[28X  contents := "core", dim := 110, [128X[104X
+    [4X[28X  generators := [ < immutable compressed matrix 110x110 over GF(19) >,[128X[104X
+    [4X[28X      < immutable compressed matrix 110x110 over GF(19) > ], [128X[104X
+    [4X[28X  groupname := "J3", id := "", [128X[104X
+    [4X[28X  identifier := [ "J3", [ "J3G1-f19r110B0.m1", "J3G1-f19r110B0.m2" ], [128X[104X
+    [4X[28X      1, 19 ], repname := "J3G1-f19r110B0", repnr := 35, [128X[104X
+    [4X[28X  ring := GF(19), size := 50232960, standardization := 1, [128X[104X
+    [4X[28X  type := "matff" )[128X[104X
+    [4X[25Xgap>[125X [27Xrestgens:= ResultOfStraightLineProgram( prog.program, gens.generators );[127X[104X
+    [4X[28X[ < immutable compressed matrix 110x110 over GF(19) >, [128X[104X
+    [4X[28X  < immutable compressed matrix 110x110 over GF(19) > ][128X[104X
+    [4X[25Xgap>[125X [27Xmodule:= GModuleByMats( restgens, GF( 19 ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xfacts:= SMTX.CollectedFactors( module );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( facts );[127X[104X
+    [4X[28X7[128X[104X
+    [4X[25Xgap>[125X [27XList( facts, x -> x[1].dimension );[127X[104X
+    [4X[28X[ 5, 7, 9, 11, 13, 15, 19 ][128X[104X
+    [4X[25Xgap>[125X [27XList( facts, x -> x[2] );[127X[104X
+    [4X[28X[ 1, 2, 1, 2, 2, 1, 1 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  means that there are seven pairwise nonisomorphic composition factors,
+  the  smallest  one  of  dimension five. In other words, the first of the two
+  maps  is  the correct one. Let us check whether this map equals the one that
+  is stored on the library table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) = reps[1];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y[13XRemark:[113X[133X
+  
+  [33X[0;0YIn  May 2015,  the  [22X19[122X-modular character table of [22XJ_3[122X has been corrected, by
+  swapping  the  two  classes  of  element  order  [22X17[122X.  This affects the above
+  computations only in one place, where the values of the character [10Xdeg110[110X are
+  shown.[133X
+  
+  
+  [1X9.7 [33X[0;0YFusions Determined by Information about the Groups[133X[101X
+  
+  [33X[0;0YIn  the  examples  in  this  section,  character  theoretic arguments do not
+  suffice  for  determining the class fusions. So we use computations with the
+  groups  in  question  or information about these groups beyond the character
+  table, and perhaps additionally character theoretic arguments.[133X
+  
+  [33X[0;0YThe   group   representations   are   taken   from   the   [5XAtlas[105X   of  Group
+  Representations [WWT+]  and  are  accessed  via  the  [5XGAP[105X  package  [5XAtlasRep[105X
+  ([WPN+22]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "atlasrep", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-1 [33X[0;0Y[22XU_3(3).2 → Fi_24^'[122X[101X[1X (November 2002)[133X[101X
+  
+  [33X[0;0YThe  group  [22XG = Fi_24^'[122X contains a maximal subgroup [22XH[122X of type [22XU_3(3).2[122X. From
+  the  character  tables  of  [22XG[122X and [22XH[122X, one gets a lot of essentially different
+  possibilities  (and  additionally  this  takes  quite some time). We use the
+  description of [22XH[122X as the normalizer in [22XG[122X of a [22XU_3(3)[122X type subgroup containing
+  elements  in  the  classes  [10X2B[110X,  [10X3D[110X,  [10X3E[110X,  [10X4C[110X,  [10X4C[110X,  [10X6J[110X,  [10X7B[110X,  [10X8C[110X,  and  [10X12M[110X
+  (see [BN95]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "F3+" );[127X[104X
+    [4X[28XCharacterTable( "F3+" )[128X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "U3(3).2" );[127X[104X
+    [4X[28XCharacterTable( "U3(3).2" )[128X[104X
+    [4X[25Xgap>[125X [27Xtnames:= ClassNames( t, "ATLAS" );[127X[104X
+    [4X[28X[ "1A", "2A", "2B", "3A", "3B", "3C", "3D", "3E", "4A", "4B", "4C", [128X[104X
+    [4X[28X  "5A", "6A", "6B", "6C", "6D", "6E", "6F", "6G", "6H", "6I", "6J", [128X[104X
+    [4X[28X  "6K", "7A", "7B", "8A", "8B", "8C", "9A", "9B", "9C", "9D", "9E", [128X[104X
+    [4X[28X  "9F", "10A", "10B", "11A", "12A", "12B", "12C", "12D", "12E", [128X[104X
+    [4X[28X  "12F", "12G", "12H", "12I", "12J", "12K", "12L", "12M", "13A", [128X[104X
+    [4X[28X  "14A", "14B", "15A", "15B", "15C", "16A", "17A", "18A", "18B", [128X[104X
+    [4X[28X  "18C", "18D", "18E", "18F", "18G", "18H", "20A", "20B", "21A", [128X[104X
+    [4X[28X  "21B", "21C", "21D", "22A", "23A", "23B", "24A", "24B", "24C", [128X[104X
+    [4X[28X  "24D", "24E", "24F", "24G", "26A", "27A", "27B", "27C", "28A", [128X[104X
+    [4X[28X  "29A", "29B", "30A", "30B", "33A", "33B", "35A", "36A", "36B", [128X[104X
+    [4X[28X  "36C", "36D", "39A", "39B", "39C", "39D", "42A", "42B", "42C", [128X[104X
+    [4X[28X  "45A", "45B", "60A" ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( s );[127X[104X
+    [4X[28X[ 1, 2, 3, 3, 4, 4, 6, 7, 8, 12, 2, 4, 6, 8, 12, 12 ][128X[104X
+    [4X[25Xgap>[125X [27Xsfust:= List( [ "1A", "2B", "3D", "3E", "4C", "4C", "6J", "7B", "8C",[127X[104X
+    [4X[25X>[125X [27X                   "12M" ], x -> Position( tnames, x ) );[127X[104X
+    [4X[28X[ 1, 3, 7, 8, 11, 11, 22, 25, 28, 50 ][128X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t, rec( fusionmap:= sfust ) );[127X[104X
+    [4X[28X[ [ 1, 3, 7, 8, 11, 11, 22, 25, 28, 50, 3, 9, 23, 28, 43, 43 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 8, 11, 11, 22, 25, 28, 50, 3, 11, 23, 28, 50, 50 ] ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( s );[127X[104X
+    [4X[28X[ 1, 2, 3, 3, 4, 4, 6, 7, 8, 12, 2, 4, 6, 8, 12, 12 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  we  still  have  two possibilities, which differ on the outer classes of
+  element order [22X4[122X and [22X12[122X.[133X
+  
+  [33X[0;0YOur  idea  is  to take a subgroup [22XU[122X of [22XH[122X that contains such elements, and to
+  compute  the  possible  class  fusions  of  [22XU[122X  into [22XG[122X, via the factorization
+  through a suitable maximal subgroup [22XM[122X of [22XG[122X.[133X
+  
+  [33X[0;0YWe  take  [22XU  =  N_H(⟨ g ⟩)[122X where [22Xg[122X is an element in the first class of order
+  three elements of [22XH[122X; this is a maximal subgroup of [22XH[122X, of order [22X216[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMaxes( s );[127X[104X
+    [4X[28X[ "U3(3)", "3^(1+2):SD16", "L3(2).2", "2^(1+4).S3", "4^2:D12" ][128X[104X
+    [4X[25Xgap>[125X [27XSizesCentralizers( s );[127X[104X
+    [4X[28X[ 12096, 192, 216, 18, 96, 32, 24, 7, 8, 12, 48, 48, 6, 8, 12, 12 ][128X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( Maxes( s )[2] );;[127X[104X
+    [4X[25Xgap>[125X [27Xufuss:= GetFusionMap( u, s );[127X[104X
+    [4X[28X[ 1, 2, 11, 3, 4, 5, 12, 7, 13, 9, 9, 15, 16, 10 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YCandidates for [22XM[122X are those subgroups of [22XG[122X that contain elements in the class
+  [10X3D[110X of [22XG[122X whose centralizer is the full [10X3D[110X centralizer in [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X3Dcentralizer:= SizesCentralizers( t )[7];[127X[104X
+    [4X[28X153055008[128X[104X
+    [4X[25Xgap>[125X [27Xcand:= [];;                                                               [127X[104X
+    [4X[25Xgap>[125X [27Xfor name in Maxes( t ) do[127X[104X
+    [4X[25X>[125X [27X     m:= CharacterTable( name );[127X[104X
+    [4X[25X>[125X [27X     mfust:= GetFusionMap( m, t );        [127X[104X
+    [4X[25X>[125X [27X     if ForAny( [ 1 .. Length( mfust ) ],                    [127X[104X
+    [4X[25X>[125X [27X         i -> mfust[i] = 7 and SizesCentralizers( m )[i] = 3Dcentralizer )   [127X[104X
+    [4X[25X>[125X [27X     then[127X[104X
+    [4X[25X>[125X [27X       Add( cand, m );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xcand;[127X[104X
+    [4X[28X[ CharacterTable( "3^7.O7(3)" ), [128X[104X
+    [4X[28X  CharacterTable( "3^2.3^4.3^8.(A5x2A4).2" ) ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  these two groups [22XM[122X, we show that the possible class fusions from [22XU[122X to [22XG[122X
+  via [22XM[122X factorize through [22XH[122X only if the second possible class fusion from [22XH[122X to
+  [22XG[122X is chosen.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpossufust:= List( sfust, x -> CompositionMaps( x, ufuss ) );[127X[104X
+    [4X[28X[ [ 1, 3, 3, 7, 8, 11, 9, 22, 23, 28, 28, 43, 43, 50 ], [128X[104X
+    [4X[28X  [ 1, 3, 3, 7, 8, 11, 11, 22, 23, 28, 28, 50, 50, 50 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xm:= cand[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= PossibleClassFusions( u, m );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( ufusm );[127X[104X
+    [4X[28X242[128X[104X
+    [4X[25Xgap>[125X [27Xcomp:= List( ufusm, x -> CompositionMaps( GetFusionMap( m, t ), x ) );;[127X[104X
+    [4X[25Xgap>[125X [27XIntersection( possufust, comp );[127X[104X
+    [4X[28X[ [ 1, 3, 3, 7, 8, 11, 11, 22, 23, 28, 28, 50, 50, 50 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xm:= cand[2];;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= PossibleClassFusions( u, m );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( ufusm );                        [127X[104X
+    [4X[28X256[128X[104X
+    [4X[25Xgap>[125X [27Xcomp:= List( ufusm, x -> CompositionMaps( GetFusionMap( m, t ), x ) );;   [127X[104X
+    [4X[25Xgap>[125X [27XIntersection( possufust, comp );[127X[104X
+    [4X[28X[ [ 1, 3, 3, 7, 8, 11, 11, 22, 23, 28, 28, 50, 50, 50 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally,  we  check  that  the correct fusion is stored in the [5XGAP[105X Character
+  Table Library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) = sfust[2];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-2 [33X[0;0Y[22XL_2(13).2 → Fi_24^'[122X[101X[1X (September 2002)[133X[101X
+  
+  [33X[0;0YThe  class fusion of maximal subgroups [22XU[122X of type [22XL_2(13).2[122X in [22XG = Fi_24^'[122X is
+  ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "F3+" );;[127X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "L2(13).2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleClassFusions( u, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( u, fus, t );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( repr );[127X[104X
+    [4X[28X3[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn [LW91,  p.  155],  it is stated that [22XU^'[122X contains elements in the classes
+  [10X2B[110X,  [10X3D[110X,  and  [10X7B[110X  of  [22XG[122X.  (Note  that  the  two conjugacy classes of groups
+  isomorphic to [22XU[122X have the same class fusion because the outer automorphism of
+  [22XG[122X fixes the relevant classes.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( repr, x -> t.2b in x and t.3d in x and t.7b in x );[127X[104X
+    [4X[28X[ [ 1, 3, 7, 22, 25, 25, 25, 51, 3, 9, 43, 43, 53, 53, 53 ], [128X[104X
+    [4X[28X  [ 1, 3, 7, 22, 25, 25, 25, 51, 3, 11, 50, 50, 53, 53, 53 ] ][128X[104X
+    [4X[25Xgap>[125X [27XClassNames( t ){ [ 43, 50 ] };[127X[104X
+    [4X[28X[ "12f", "12m" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  we have to decide whether [22XU[122X contains elements in the class [10X12F[110X or in [10X12M[110X
+  of [22XG[122X.[133X
+  
+  [33X[0;0YThe order [22X12[122X elements in question lie inside subgroups of type [22X13 : 12[122X in [22XU[122X.
+  These  subgroups  are  clearly  contained  in the Sylow [22X13[122X normalizers of [22XG[122X,
+  which  are  contained  in maximal subgroups of type [22X(3^2:2 × G_2(3)).2[122X in [22XG[122X;
+  the class fusion of the latter groups is unique up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpos:= Position( OrdersClassRepresentatives( t ), 13 );[127X[104X
+    [4X[28X51[128X[104X
+    [4X[25Xgap>[125X [27XSizesCentralizers( t )[ pos ];[127X[104X
+    [4X[28X234[128X[104X
+    [4X[25Xgap>[125X [27XClassOrbit( t, pos );[127X[104X
+    [4X[28X[ 51 ][128X[104X
+    [4X[25Xgap>[125X [27Xcand:= [];;                                                         [127X[104X
+    [4X[25Xgap>[125X [27Xfor name in Maxes( t ) do[127X[104X
+    [4X[25X>[125X [27X     m:= CharacterTable( name );[127X[104X
+    [4X[25X>[125X [27X     pos:= Position( OrdersClassRepresentatives( m ), 13 );[127X[104X
+    [4X[25X>[125X [27X     if pos <> fail and                                             [127X[104X
+    [4X[25X>[125X [27X        SizesCentralizers( m )[ pos ] = 234                         [127X[104X
+    [4X[25X>[125X [27X        and ClassOrbit( m, pos ) = [ pos ] then[127X[104X
+    [4X[25X>[125X [27X       Add( cand, m );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xcand;[127X[104X
+    [4X[28X[ CharacterTable( "(3^2:2xG2(3)).2" ) ][128X[104X
+    [4X[25Xgap>[125X [27Xs:= cand[1];;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAs  no  [22X13:12[122X type subgroup is contained in the derived subgroup of [22X(3^2:2 ×
+  G_2(3)).2[122X, we look at the elements of order [22X12[122X in the outer half.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xder:= ClassPositionsOfDerivedSubgroup( s );;[127X[104X
+    [4X[25Xgap>[125X [27Xouter:= Difference( [ 1 .. NrConjugacyClasses( s ) ], der );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Ximgs:= Set( Flat( List( sfust, x -> x{ outer } ) ) );[127X[104X
+    [4X[28X[ 2, 3, 10, 11, 15, 17, 18, 19, 21, 22, 26, 44, 45, 49, 50, 52, 62, [128X[104X
+    [4X[28X  83, 87, 98 ][128X[104X
+    [4X[25Xgap>[125X [27Xt.12f in imgs;[127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27Xt.12m in imgs;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  [22XL_2(13).2  ∖  L_2(13)[122X does not contain [10X12F[110X elements of [22XG[122X, i. e., we have
+  determined the class fusion of [22XU[122X in [22XG[122X.[133X
+  
+  [33X[0;0YFinally,  we check whether the correct fusion is stored in the [5XGAP[105X Character
+  Table Library.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( u, t ) = filt[2];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-3 [33X[0;0Y[22XM_11 → B[122X[101X[1X (April 2009)[133X[101X
+  
+  [33X[0;0YThe  sporadic  simple group [22XB[122X contains a maximal subgroup [22XM[122X of the type [22XM_11[122X
+  whose class fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm11:= CharacterTable( "M11" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm11fusb:= PossibleClassFusions( m11, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( m11fusb );[127X[104X
+    [4X[28X31[128X[104X
+    [4X[25Xgap>[125X [27XCompositionMaps( ClassNames( b, "ATLAS" ), Parametrized( m11fusb ) );[127X[104X
+    [4X[28X[ "1A", [ "2B", "2D" ], [ "3A", "3B" ], [128X[104X
+    [4X[28X  [ "4B", "4E", "4G", "4H", "4J" ], [ "5A", "5B" ], [128X[104X
+    [4X[28X  [ "6C", "6E", "6H", "6I", "6J" ], [128X[104X
+    [4X[28X  [ "8B", "8E", "8G", "8J", "8K", "8L", "8M", "8N" ], [128X[104X
+    [4X[28X  [ "8B", "8E", "8G", "8J", "8K", "8L", "8M", "8N" ], "11A", "11A" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording  to [Wil93a,  Thm.  12.1],  [22XM[122X contains no [10X5A[110X elements of [22XB[122X. By the
+  proof of [Wil99, Prop. 4.1], the involutions in any [22XS_5[122X type subgroup [22XU[122X of [22XM[122X
+  lie  in  the  class [10X2C[110X or [10X2D[110X of [22XB[122X, and since the possible class fusions of [22XM[122X
+  computed above admit only involutions in the class [10X2B[110X or [10X2D[110X, all involutions
+  of  [22XU[122X  lie  in  the class [10X2D[110X. Again by the proof of [Wil99, Prop. 4.1], [22XU[122X is
+  contained in a maximal subgroup of type [22XTh[122X in [22XB[122X.[133X
+  
+  [33X[0;0YNow  we use the embedding of [22XU[122X into [22XB[122X via [22XM[122X and [22XTh[122X for determining the class
+  fusion  of  [22XM[122X  into  [22XB[122X.  The  class  fusion  of the embedding of [22XU[122X via [22XTh[122X is
+  uniquely determined.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xth:= CharacterTable( "Th" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs5:= CharacterTable( "S5" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs5fusth:= PossibleClassFusions( s5, th );[127X[104X
+    [4X[28X[ [ 1, 2, 4, 8, 2, 7, 11 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xthfusb:= PossibleClassFusions( th, b );;[127X[104X
+    [4X[25Xgap>[125X [27Xs5fusb:= Set( thfusb, x -> CompositionMaps( x, s5fusth[1] ) );[127X[104X
+    [4X[28X[ [ 1, 5, 7, 19, 5, 17, 29 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAlso  the  class fusion of [22XU[122X into [22XM[122X is unique, and this determines the class
+  fusion of [22XM[122X into [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xs5fusm11:= PossibleClassFusions( s5, m11 );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 5, 2, 4, 6 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xm11fusb:= Filtered( m11fusb,[127X[104X
+    [4X[25X>[125X [27X                 map -> CompositionMaps( map, s5fusm11[1] ) = s5fusb[1] );[127X[104X
+    [4X[28X[ [ 1, 5, 7, 17, 19, 29, 45, 45, 54, 54 ] ][128X[104X
+    [4X[25Xgap>[125X [27XCompositionMaps( ClassNames( b, "ATLAS" ), m11fusb[1] );[127X[104X
+    [4X[28X[ "1A", "2D", "3B", "4J", "5B", "6J", "8N", "8N", "11A", "11A" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Y(Using  the information that the [22XM_10[122X type subgroups of [22XM[122X are also contained
+  in  [22XTh[122X type subgroups would not have helped us, since these subgroups do not
+  contain elements of order [22X6[122X, and two possibilities would have remained.)[133X
+  
+  
+  [1X9.7-4 [33X[0;0Y[22XL_2(11):2 → B[122X[101X[1X (April 2009)[133X[101X
+  
+  [33X[0;0YThe  sporadic  simple  group  [22XB[122X  contains  a  maximal subgroup [22XL[122X of the type
+  [22XL_2(11):2[122X whose class fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xl:= CharacterTable( "L2(11).2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xlfusb:= PossibleClassFusions( l, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( lfusb );[127X[104X
+    [4X[28X16[128X[104X
+    [4X[25Xgap>[125X [27XCompositionMaps( ClassNames( b, "ATLAS" ), Parametrized( lfusb ) );[127X[104X
+    [4X[28X[ "1A", [ "2B", "2D" ], [ "3A", "3B" ], [ "5A", "5B" ], [128X[104X
+    [4X[28X  [ "5A", "5B" ], [ "6C", "6H", "6I", "6J" ], "11A", [ "2C", "2D" ], [128X[104X
+    [4X[28X  [ "4D", "4E", "4F", "4G", "4H", "4J" ], [ "10C", "10E", "10F" ], [128X[104X
+    [4X[28X  [ "10C", "10E", "10F" ], [128X[104X
+    [4X[28X  [ "12E", "12F", "12H", "12I", "12J", "12L", "12N", "12P", "12Q", [128X[104X
+    [4X[28X      "12R", "12S" ], [128X[104X
+    [4X[28X  [ "12E", "12F", "12H", "12I", "12J", "12L", "12N", "12P", "12Q", [128X[104X
+    [4X[28X      "12R", "12S" ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording  to [Wil93a,  Thm.  12.1],  [22XL[122X contains no [10X5A[110X elements of [22XB[122X. By the
+  proof  of [Wil99,  Prop.  4.1], [22XB[122X contains exactly one class of [22XL_2(11)[122X type
+  subgroups  with  this  property.  Hence  the subgroup [22XU[122X of index two in [22XL[122X is
+  contained  in a maximal subgroup [22XM[122X of type [22XM_11[122X in [22XB[122X, whose class fusion was
+  determined in Section [14X9.7-3[114X.[133X
+  
+  [33X[0;0YIn  the same way as we proceeded in Section [14X9.7-3[114X, we use the embedding of [22XU[122X
+  into [22XB[122X via [22XL[122X and [22XM[122X for determining the class fusion of [22XL[122X into [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "M11" );;[127X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "L2(11)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= PossibleClassFusions( u, m );;[127X[104X
+    [4X[25Xgap>[125X [27Xmfusb:= GetFusionMap( m, b );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusb:= Set( ufusm, x -> CompositionMaps( mfusb, x ) );[127X[104X
+    [4X[28X[ [ 1, 5, 7, 19, 19, 29, 54, 54 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xufusl:= PossibleClassFusions( u, l );[127X[104X
+    [4X[28X[ [ 1, 2, 3, 4, 5, 6, 7, 7 ], [ 1, 2, 3, 5, 4, 6, 7, 7 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xlfusb:= Filtered( lfusb, [127X[104X
+    [4X[25X>[125X [27X             map2 -> ForAny( ufusl, [127X[104X
+    [4X[25X>[125X [27X                       map1 -> CompositionMaps( map2, map1 ) in ufusb ) );[127X[104X
+    [4X[28X[ [ 1, 5, 7, 19, 19, 29, 54, 5, 15, 53, 53, 73, 73 ] ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-5 [33X[0;0Y[22XL_3(3) → B[122X[101X[1X (April 2009)[133X[101X
+  
+  [33X[0;0YThe sporadic simple group [22XB[122X contains a maximal subgroup [22XT[122X of the type [22XL_3(3)[122X
+  whose class fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "L3(3)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xtfusb:= PossibleClassFusions( t, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( tfusb );[127X[104X
+    [4X[28X36[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording  to [Wil99,  Section  9],  [22XT[122X  contains  a  subgroup  [22XU[122X of the type
+  [22X3^2:2S_4[122X  that  is  contained  also  in  a  maximal  subgroup  [22XM[122X of the type
+  [22X3^2.3^3.3^6.(S_4  × 2S_4)[122X. So we throw away the possible fusions from [22XT[122X to [22XB[122X
+  that  are not compatible with the compositions of the embeddings of [22XU[122X into [22XB[122X
+  via [22XT[122X and [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "3^2.3^3.3^6.(S4x2S4)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= PSL(3,3);;[127X[104X
+    [4X[25Xgap>[125X [27Xmx:= MaximalSubgroupClassReps( g );;[127X[104X
+    [4X[25Xgap>[125X [27Xu:= First( mx, x -> Size( x ) = 432 );;[127X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( u );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusm:= PossibleClassFusions( u, m );;[127X[104X
+    [4X[25Xgap>[125X [27Xufust:= PossibleClassFusions( u, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xmfusb:= GetFusionMap( m, b );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusb:= Set( ufusm, map -> CompositionMaps( mfusb, map ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xtfusb:= Filtered( tfusb, map -> ForAny( ufust,[127X[104X
+    [4X[25X>[125X [27X       map2 -> CompositionMaps( map, map2 ) in ufusb ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xtfusb;[127X[104X
+    [4X[28X[ [ 1, 5, 6, 7, 12, 27, 41, 41, 75, 75, 75, 75 ], [128X[104X
+    [4X[28X  [ 1, 5, 7, 6, 12, 28, 41, 41, 75, 75, 75, 75 ], [128X[104X
+    [4X[28X  [ 1, 5, 7, 7, 12, 28, 41, 41, 75, 75, 75, 75 ], [128X[104X
+    [4X[28X  [ 1, 5, 7, 7, 12, 29, 41, 41, 75, 75, 75, 75 ], [128X[104X
+    [4X[28X  [ 1, 5, 7, 7, 17, 29, 45, 45, 75, 75, 75, 75 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  use  that  [22XT[122X  does  not contain [10X4E[110X elements of [22XB[122X (again see [Wil99,
+  Section  9]).  Thus  the  last  of  the five candidates is the correct class
+  fusion.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XClassNames( b, "ATLAS" ){ [ 12, 17 ] };[127X[104X
+    [4X[28X[ "4E", "4J" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe check that this map is stored on the library table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( t, b ) = tfusb[5];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-6 [33X[0;0Y[22XL_2(17).2 → B[122X[101X[1X (March 2004)[133X[101X
+  
+  [33X[0;0YThe  sporadic  simple  group  [22XB[122X  contains  a  maximal subgroup [22XU[122X of the type
+  [22XL_2(17).2[122X whose class fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "L2(17).2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusb:= PossibleClassFusions( u, b );[127X[104X
+    [4X[28X[ [ 1, 5, 7, 15, 42, 42, 47, 47, 47, 91, 4, 30, 89, 89, 89, 89, 97, [128X[104X
+    [4X[28X      97, 97 ], [128X[104X
+    [4X[28X  [ 1, 5, 7, 15, 44, 44, 46, 46, 46, 91, 5, 29, 90, 90, 90, 90, 96, [128X[104X
+    [4X[28X      96, 96 ], [128X[104X
+    [4X[28X  [ 1, 5, 7, 15, 44, 44, 47, 47, 47, 91, 5, 29, 90, 90, 90, 90, 95, [128X[104X
+    [4X[28X      95, 95 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording  to [Wil99, Prop. 11.1], [22XU[122X contains elements in the classes [10X8M[110X and
+  [10X9A[110X of [22XB[122X. This determines the fusion map.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnames:= ClassNames( b, "ATLAS" );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos:= List( [ "8M", "9A" ], x -> Position( names, x ) );[127X[104X
+    [4X[28X[ 44, 46 ][128X[104X
+    [4X[25Xgap>[125X [27Xufusb:= Filtered( ufusb, map -> IsSubset( map, pos ) );[127X[104X
+    [4X[28X[ [ 1, 5, 7, 15, 44, 44, 46, 46, 46, 91, 5, 29, 90, 90, 90, 90, 96, [128X[104X
+    [4X[28X      96, 96 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe check that this map is stored on the library table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( u, b ) = ufusb[1];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-7 [33X[0;0Y[22XL_2(49).2_3 → B[122X[101X[1X (June 2006)[133X[101X
+  
+  [33X[0;0YThe  sporadic  simple  group  [22XB[122X contains a class of maximal subgroups of the
+  type  [22XL_2(49).2_3[122X  (a  non-split  extension of [22XL_2(49)[122X, see [Wil93b, Theorem
+  2]).  Let [22XU[122X be such a subgroup. The class fusion of [22XU[122X in [22XB[122X is not determined
+  by the character tables of [22XU[122X and [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "L2(49).2_3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xufusb:= PossibleClassFusions( u, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( u, ufusb, b ) );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27Xufusb;[127X[104X
+    [4X[28X[ [ 1, 5, 7, 15, 19, 28, 31, 42, 42, 71, 125, 125, 128, 128, 128, [128X[104X
+    [4X[28X      128, 128, 15, 71, 71, 89, 89, 89, 89 ], [128X[104X
+    [4X[28X  [ 1, 5, 7, 15, 19, 28, 31, 42, 42, 71, 125, 125, 128, 128, 128, [128X[104X
+    [4X[28X      128, 128, 17, 72, 72, 89, 89, 89, 89 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  show  that  the  fusion  is  determined by the embeddings of the Sylow [22X7[122X
+  normalizer  [22XN[122X,  say, of [22XU[122X into [22XU[122X and into the Sylow [22X7[122X normalizer of [22XB[122X. (Note
+  that  the  fusion  of  the  latter  group  into  [22XB[122X  has  been  determined in
+  Section [14X9.3-1[114X.)[133X
+  
+  [33X[0;0YFor  that,  we  compute the character table of [22XN[122X from a representation of [22XU[122X.
+  Note  that  [22XU[122X  is  a  non-split extension of the simple group [22XL_2(49)[122X by the
+  product  of  a  diagonal automorphism and a field automorphism. In [Wil93b],
+  the structure of [22XN[122X is described as [22X7^2:(3 × Q_16)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= SL( 2, 49 );;[127X[104X
+    [4X[25Xgap>[125X [27Xgens:= GeneratorsOfGroup( g );;[127X[104X
+    [4X[25Xgap>[125X [27Xf:= GF(49);;[127X[104X
+    [4X[25Xgap>[125X [27Xmats:= List( gens, x -> IdentityMat( 4, f ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xfor i in [ 1 .. Length( gens ) ] do[127X[104X
+    [4X[25X>[125X [27X     mats[i]{ [ 1, 2 ] }{ [ 1, 2 ] }:= gens[i];[127X[104X
+    [4X[25X>[125X [27X     mats[i]{ [ 3, 4 ] }{ [ 3, 4 ] }:= List( gens[i],[127X[104X
+    [4X[25X>[125X [27X                                             x -> List( x, y -> y^7 ) );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27Xfieldaut:= PermutationMat( (1,3)(2,4), 4, f );;[127X[104X
+    [4X[25Xgap>[125X [27Xdiagaut:= IdentityMat( 4, f );;[127X[104X
+    [4X[25Xgap>[125X [27Xdiagaut[1][1]:= Z(49);;[127X[104X
+    [4X[25Xgap>[125X [27Xdiagaut[3][3]:= Z(49)^7;;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( Concatenation( mats, [ fieldaut * diagaut ] ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xv:= [ 1, 0, 0, 0 ] * Z(7)^0;;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, v, OnLines );;[127X[104X
+    [4X[25Xgap>[125X [27Xact:= Action( g, orb, OnLines );;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= Normalizer( act, SylowSubgroup( act, 7 ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xntbl:= CharacterTable( n );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  compute  the  possible  class  fusions of [22XN[122X into [22XB[122X, via the Sylow [22X7[122X
+  normalizer in [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xbn7:= CharacterTable( "BN7" );;[127X[104X
+    [4X[25Xgap>[125X [27Xnfusbn7:= PossibleClassFusions( ntbl, bn7 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( ntbl, nfusbn7, bn7 ) );[127X[104X
+    [4X[28X3[128X[104X
+    [4X[25Xgap>[125X [27Xnfusb:= SetOfComposedClassFusions( PossibleClassFusions( bn7, b ),[127X[104X
+    [4X[25X>[125X [27X                                      nfusbn7 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( ntbl, nfusb, b ) );[127X[104X
+    [4X[28X5[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAlthough  there  are  several  possibilities,  this information is enough to
+  exclude one of the possible fusions of [22XU[122X into [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xnfusu:= PossibleClassFusions( ntbl, u );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( nfusu );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27Xfilt:= Filtered( ufusb,[127X[104X
+    [4X[25X>[125X [27X             x -> ForAny( nfusu, y -> CompositionMaps( x, y ) in nfusb ) );[127X[104X
+    [4X[28X[ [ 1, 5, 7, 15, 19, 28, 31, 42, 42, 71, 125, 125, 128, 128, 128, [128X[104X
+    [4X[28X      128, 128, 17, 72, 72, 89, 89, 89, 89 ] ][128X[104X
+    [4X[25Xgap>[125X [27XClassNames( b, "ATLAS" ){ filt[1] };[127X[104X
+    [4X[28X[ "1A", "2D", "3B", "4H", "5B", "6I", "7A", "8K", "8K", "12Q", "24L", [128X[104X
+    [4X[28X  "24L", "25A", "25A", "25A", "25A", "25A", "4J", "12R", "12R", [128X[104X
+    [4X[28X  "16G", "16G", "16G", "16G" ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  the  class  fusion of [22XU[122X into [22XB[122X can be described by the property that the
+  elements  of  order  four inside and outside the simple subgroup [22XL_2(49)[122X are
+  not conjugate in [22XB[122X.[133X
+  
+  [33X[0;0YWe check that the correct map is stored on the library table.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( u, b ) in filt;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  us confirm that the two groups of the types [22XL_2(49).2_1[122X and [22XL_2(49).2_2[122X
+  cannot occur as subgroups of [22XB[122X. First we show that [22XL_2(49).2_1[122X is isomorphic
+  with  PGL[22X(2,49)[122X,  an  extension  of  [22XL_2(49)[122X by a diagonal automorphism, and
+  [22XL_2(49).2_2[122X is an extension by a field automorphism.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XNrConjugacyClasses( u );  NrConjugacyClasses( act );[127X[104X
+    [4X[28X24[128X[104X
+    [4X[28X24[128X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "L2(49).2_1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( Concatenation( mats, [ diagaut ] ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, v, OnLines );;[127X[104X
+    [4X[25Xgap>[125X [27Xact:= Action( g, orb, OnLines );;[127X[104X
+    [4X[25Xgap>[125X [27XSize(act );[127X[104X
+    [4X[28X117600[128X[104X
+    [4X[25Xgap>[125X [27XNrConjugacyClasses( u );  NrConjugacyClasses( act );[127X[104X
+    [4X[28X51[128X[104X
+    [4X[28X51[128X[104X
+    [4X[25Xgap>[125X [27Xu:= CharacterTable( "L2(49).2_2" );;[127X[104X
+    [4X[25Xgap>[125X [27Xg:= Group( Concatenation( mats, [ fieldaut ] ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xorb:= Orbit( g, v, OnLines );;[127X[104X
+    [4X[25Xgap>[125X [27Xact:= Action( g, orb, OnLines );;[127X[104X
+    [4X[25Xgap>[125X [27XNrConjugacyClasses( u );  NrConjugacyClasses( act );[127X[104X
+    [4X[28X27[128X[104X
+    [4X[28X27[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  group  [22XL_2(49).2_1[122X  can  be  excluded because no class fusion into [22XB[122X is
+  possible.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPossibleClassFusions( CharacterTable( "L2(49).2_1" ), b );[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  [22XL_2(49).2_2[122X,  it  is not that easy. We would get several possible class
+  fusions  into  [22XB[122X.  However,  the  Sylow [22X7[122X normalizer of [22XL_2(49).2_2[122X does not
+  admit a class fusion into the Sylow [22X7[122X normalizer of [22XB[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xn:= Normalizer( act, SylowSubgroup( act, 7 ) );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( PossibleClassFusions( CharacterTable( n ), bn7 ) );[127X[104X
+    [4X[28X0[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-8 [33X[0;0Y[22X2^3.L_3(2) → G_2(5)[122X[101X[1X (January 2004)[133X[101X
+  
+  [33X[0;0YThe  Chevalley  group  [22XG  = G_2(5)[122X contains a maximal subgroup [22XU[122X of the type
+  [22X2^3.L_3(2)[122X whose class fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "G2(5)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "2^3.L3(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xsfust:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27XRepresentativesFusions( s, sfust, t );[127X[104X
+    [4X[28X[ [ 1, 2, 2, 5, 6, 4, 13, 16, 17, 15, 15 ], [128X[104X
+    [4X[28X  [ 1, 2, 2, 5, 6, 4, 14, 16, 17, 15, 15 ] ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( s );[127X[104X
+    [4X[28X[ 1, 2, 2, 4, 4, 3, 6, 8, 8, 7, 7 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  the  question  is whether [22XU[122X contains elements in the class [10X6B[110X or [10X6C[110X of [22XG[122X
+  (position  [22X13[122X or [22X14[122X in the [5XAtlas[105X table). We use a permutation representation
+  of  [22XG[122X,  restrict  it  to  [22XU[122X,  and compute the centralizer in [22XG[122X of a suitable
+  element of order [22X6[122X in [22XU[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "G2(5)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xu:= AtlasSubgroup( "G2(5)", 7 );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( u );[127X[104X
+    [4X[28X1344[128X[104X
+    [4X[25Xgap>[125X [27Xrepeat[127X[104X
+    [4X[25X>[125X [27X     x:= Random( u );[127X[104X
+    [4X[25X>[125X [27X   until Order( x ) = 6;[127X[104X
+    [4X[25Xgap>[125X [27Xsiz:= Size( Centralizer( g, x ) );[127X[104X
+    [4X[28X36[128X[104X
+    [4X[25Xgap>[125X [27XFiltered( [ 1 .. NrConjugacyClasses( t ) ],[127X[104X
+    [4X[25X>[125X [27X             i -> SizesCentralizers( t )[i] = siz );[127X[104X
+    [4X[28X[ 14 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo [22XU[122X contains [10X6C[110X elements in [22XG_2(5)[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) in Filtered( sfust, map -> 14 in map );  [127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-9 [33X[0;0Y[22X5^{1+4}.2^{1+4}.A_5.4 → B[122X[101X[1X (April 2009)[133X[101X
+  
+  [33X[0;0YThe  sporadic  simple  group  [22XB[122X  contains  a  maximal subgroup [22XM[122X of the type
+  [22X5^{1+4}.2^{1+4}.A_5.4[122X whose class fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= CharacterTable( "B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xm:= CharacterTable( "5^(1+4).2^(1+4).A5.4" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmfusb:= PossibleClassFusions( m, b );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( mfusb );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27Xrepres:= RepresentativesFusions( m, mfusb, b );; [127X[104X
+    [4X[25Xgap>[125X [27XLength( repres );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe   restriction  of  the  unique  irreducible  character  of  degree  [22X4371[122X
+  distinguishes the two possibilities,[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xchar:= Filtered( Irr( b ), x -> x[1] = 4371 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( char );[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27Xrest:= List( repres, map -> char[1]{ map } );;[127X[104X
+    [4X[25Xgap>[125X [27Xscprs:= MatScalarProducts( m, Irr( m ), rest );;[127X[104X
+    [4X[25Xgap>[125X [27Xconstit:= List( scprs,[127X[104X
+    [4X[25X>[125X [27X               x -> Filtered( [1 .. Length(x) ], i -> x[i] <> 0 ) );[127X[104X
+    [4X[28X[ [ 2, 27, 60, 63, 73, 74, 75, 79, 82 ], [128X[104X
+    [4X[28X  [ 2, 27, 60, 63, 70, 72, 75, 79, 84 ] ][128X[104X
+    [4X[25Xgap>[125X [27XList( constit, x -> List( Irr( m ){ x }, Degree ) );[127X[104X
+    [4X[28X[ [ 1, 6, 384, 480, 400, 400, 500, 1000, 1200 ], [128X[104X
+    [4X[28X  [ 1, 6, 384, 480, 100, 300, 500, 1000, 1600 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  database [WWT+]  contains  the  [22X3[122X-modular  reduction of the irreducible
+  representation  of  degree  [22X4371[122X  and  also  a  straight  line  program  for
+  restricting  this  representation  to  [22XM[122X.  We  access these data via the [5XGAP[105X
+  package  [5XAtlasRep[105X (see [WPN+22]), and compute the composition factors of the
+  natural module of this restriction.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasSubgroup( "B", Dimension, 4371, Ring, GF(3), 21 );;[127X[104X
+    [4X[25Xgap>[125X [27Xmodule:= GModuleByMats( GeneratorsOfGroup( g ), GF(3) );;[127X[104X
+    [4X[25Xgap>[125X [27Xdec:= MTX.CompositionFactors( module );;[127X[104X
+    [4X[25Xgap>[125X [27XSortedList( List( dec, x -> x.dimension ) );[127X[104X
+    [4X[28X[ 1, 6, 100, 384, 400, 400, 400, 480, 1000, 1200 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  see that exactly one ordinary constituent does not stay irreducible upon
+  restriction  to  characteristic  [22X3[122X. Thus the first of the two possible class
+  fusions is the correct one.[133X
+  
+  
+  [1X9.7-10  [33X[0;0YThe  fusion from the character table of [22X7^2:2L_2(7).2[122X[101X[1X into the table[101X
+  [1Xof marks (January 2004)[133X[101X
+  
+  [33X[0;0YIt  can  happen that the class fusion from the ordinary character table of a
+  group [22XG[122X into the table of marks of [22XG[122X is not unique up to table automorphisms
+  of the character table of [22XG[122X.[133X
+  
+  [33X[0;0YAs  an  example,  consider  [22XG  =  7^2:2L_2(7).2[122X,  a  maximal subgroup in the
+  sporadic simple group [22XHe[122X.[133X
+  
+  [33X[0;0Y[22XG[122X  contains  four  classes  of cyclic subgroups of order [22X7[122X. One contains the
+  elements  in  the  normal  subgroup  of  type  [22X7^2[122X,  and the other three are
+  preimages  of the order [22X7[122X elements in the factor group [22XL_2(7)[122X. The conjugacy
+  classes  of  nonidentity elements in the latter three classes split into two
+  Galois   conjugates   each,   which  are  permuted  cyclicly  by  the  table
+  automorphisms  of  the  character table of [22XG[122X, but on which the stabilizer of
+  one  class  acts  trivially.  This  means  that determining one of the three
+  classes determines also the other two.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "7^2:2psl(2,7)" );[127X[104X
+    [4X[28XCharacterTable( "7^2:2psl(2,7)" )[128X[104X
+    [4X[25Xgap>[125X [27Xtom:= TableOfMarks( tbl );[127X[104X
+    [4X[28XTableOfMarks( "7^2:2L2(7)" )[128X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleFusionsCharTableTom( tbl, tom );[127X[104X
+    [4X[28X[ [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 8, 10, 9, 16, 7, 10, 9, 8, 16 ], [128X[104X
+    [4X[28X  [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 9, 8, 10, 16, 7, 8, 10, 9, 16 ], [128X[104X
+    [4X[28X  [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 10, 9, 8, 16, 7, 9, 8, 10, 16 ], [128X[104X
+    [4X[28X  [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 8, 9, 10, 16, 7, 9, 10, 8, 16 ], [128X[104X
+    [4X[28X  [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 10, 8, 9, 16, 7, 8, 9, 10, 16 ], [128X[104X
+    [4X[28X  [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 9, 10, 8, 16, 7, 10, 8, 9, 16 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xreps:= RepresentativesFusions( tbl, fus, Group(()) );        [127X[104X
+    [4X[28X[ [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 8, 9, 10, 16, 7, 9, 10, 8, 16 ], [128X[104X
+    [4X[28X  [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 8, 10, 9, 16, 7, 10, 9, 8, 16 ] ][128X[104X
+    [4X[25Xgap>[125X [27XAutomorphismsOfTable( tbl );[127X[104X
+    [4X[28XGroup([ (9,14)(10,17)(11,15)(12,16)(13,18), (7,8), (10,11,12)[128X[104X
+    [4X[28X  (15,16,17) ])[128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( tbl );[127X[104X
+    [4X[28X[ 1, 7, 2, 4, 3, 6, 8, 8, 7, 7, 7, 7, 14, 7, 7, 7, 7, 14 ][128X[104X
+    [4X[25Xgap>[125X [27Xperms1:= PermCharsTom( reps[1], tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xperms2:= PermCharsTom( reps[2], tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xperms1 = perms2;      [127X[104X
+    [4X[28Xfalse[128X[104X
+    [4X[25Xgap>[125X [27XSet( perms1 ) = Set( perms2 );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  table  of  marks  of [22XG[122X does not distinguish the three classes of cyclic
+  subgroups,  there are permutations of rows and columns that act as an [22XS_3[122X on
+  them.[133X
+  
+  [33X[0;0YNote  that  an [22XS_3[122X acts on the classes in question in the [13Xrational[113X character
+  table.  So  it  is due to the irrationalities in the character table that it
+  contains more information.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDisplay( tbl );[127X[104X
+    [4X[28X7^2:2psl(2,7)[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X      2  4  .  4  3  1  1  3  3   1   .   .   .   1   1   .   .   .[128X[104X
+    [4X[28X      3  1  .  1  .  1  1  .  .   .   .   .   .   .   .   .   .   .[128X[104X
+    [4X[28X      7  3  3  1  .  .  .  .  .   2   2   2   2   1   2   2   2   2[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X        1a 7a 2a 4a 3a 6a 8a 8b  7b  7c  7d  7e 14a  7f  7g  7h  7i[128X[104X
+    [4X[28X     2P 1a 7a 1a 2a 3a 3a 4a 4a  7b  7c  7d  7e  7b  7f  7g  7h  7i[128X[104X
+    [4X[28X     3P 1a 7a 2a 4a 1a 2a 8b 8a  7f  7i  7g  7h 14b  7b  7d  7e  7c[128X[104X
+    [4X[28X     5P 1a 7a 2a 4a 3a 6a 8b 8a  7f  7i  7g  7h 14b  7b  7d  7e  7c[128X[104X
+    [4X[28X     7P 1a 1a 2a 4a 3a 6a 8a 8b  1a  1a  1a  1a  2a  1a  1a  1a  1a[128X[104X
+    [4X[28X    11P 1a 7a 2a 4a 3a 6a 8b 8a  7b  7c  7d  7e 14a  7f  7g  7h  7i[128X[104X
+    [4X[28X    13P 1a 7a 2a 4a 3a 6a 8b 8a  7f  7i  7g  7h 14b  7b  7d  7e  7c[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1      1  1  1  1  1  1  1  1   1   1   1   1   1   1   1   1   1[128X[104X
+    [4X[28XX.2      3  3  3 -1  .  .  1  1   B   B   B   B   B  /B  /B  /B  /B[128X[104X
+    [4X[28XX.3      3  3  3 -1  .  .  1  1  /B  /B  /B  /B  /B   B   B   B   B[128X[104X
+    [4X[28XX.4      6  6  6  2  .  .  .  .  -1  -1  -1  -1  -1  -1  -1  -1  -1[128X[104X
+    [4X[28XX.5      7  7  7 -1  1  1 -1 -1   .   .   .   .   .   .   .   .   .[128X[104X
+    [4X[28XX.6      8  8  8  . -1 -1  .  .   1   1   1   1   1   1   1   1   1[128X[104X
+    [4X[28XX.7      4  4 -4  .  1 -1  .  .  -B  -B  -B  -B   B -/B -/B -/B -/B[128X[104X
+    [4X[28XX.8      4  4 -4  .  1 -1  .  . -/B -/B -/B -/B  /B  -B  -B  -B  -B[128X[104X
+    [4X[28XX.9      6  6 -6  .  .  .  A -A  -1  -1  -1  -1   1  -1  -1  -1  -1[128X[104X
+    [4X[28XX.10     6  6 -6  .  .  . -A  A  -1  -1  -1  -1   1  -1  -1  -1  -1[128X[104X
+    [4X[28XX.11     8  8 -8  . -1  1  .  .   1   1   1   1  -1   1   1   1   1[128X[104X
+    [4X[28XX.12    48 -1  .  .  .  .  .  .   6  -1  -1  -1   .   6  -1  -1  -1[128X[104X
+    [4X[28XX.13    48 -1  .  .  .  .  .  .   C  -1  /C  /D   .  /C   C   D  -1[128X[104X
+    [4X[28XX.14    48 -1  .  .  .  .  .  .   C  /C  /D  -1   .  /C   D  -1   C[128X[104X
+    [4X[28XX.15    48 -1  .  .  .  .  .  .  /C   D  -1   C   .   C  -1  /C  /D[128X[104X
+    [4X[28XX.16    48 -1  .  .  .  .  .  .   C  /D  -1  /C   .  /C  -1   C   D[128X[104X
+    [4X[28XX.17    48 -1  .  .  .  .  .  .  /C   C   D  -1   .   C  /D  -1  /C[128X[104X
+    [4X[28XX.18    48 -1  .  .  .  .  .  .  /C  -1   C   D   .   C  /C  /D  -1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X      2   1[128X[104X
+    [4X[28X      3   .[128X[104X
+    [4X[28X      7   1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X        14b[128X[104X
+    [4X[28X     2P  7f[128X[104X
+    [4X[28X     3P 14a[128X[104X
+    [4X[28X     5P 14a[128X[104X
+    [4X[28X     7P  2a[128X[104X
+    [4X[28X    11P 14b[128X[104X
+    [4X[28X    13P 14a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1       1[128X[104X
+    [4X[28XX.2      /B[128X[104X
+    [4X[28XX.3       B[128X[104X
+    [4X[28XX.4      -1[128X[104X
+    [4X[28XX.5       .[128X[104X
+    [4X[28XX.6       1[128X[104X
+    [4X[28XX.7      /B[128X[104X
+    [4X[28XX.8       B[128X[104X
+    [4X[28XX.9       1[128X[104X
+    [4X[28XX.10      1[128X[104X
+    [4X[28XX.11     -1[128X[104X
+    [4X[28XX.12      .[128X[104X
+    [4X[28XX.13      .[128X[104X
+    [4X[28XX.14      .[128X[104X
+    [4X[28XX.15      .[128X[104X
+    [4X[28XX.16      .[128X[104X
+    [4X[28XX.17      .[128X[104X
+    [4X[28XX.18      .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(8)-E(8)^3[128X[104X
+    [4X[28X  = Sqrt(2) = r2[128X[104X
+    [4X[28XB = E(7)+E(7)^2+E(7)^4[128X[104X
+    [4X[28X  = (-1+Sqrt(-7))/2 = b7[128X[104X
+    [4X[28XC = 2*E(7)+2*E(7)^2+2*E(7)^4[128X[104X
+    [4X[28X  = -1+Sqrt(-7) = 2b7[128X[104X
+    [4X[28XD = -3*E(7)-3*E(7)^2-2*E(7)^3-3*E(7)^4-2*E(7)^5-2*E(7)^6[128X[104X
+    [4X[28X  = (5-Sqrt(-7))/2 = 2-b7[128X[104X
+    [4X[25Xgap>[125X [27Xmat:= MatTom( tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xmataut:= MatrixAutomorphisms( mat );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( mataut, "\n" );[127X[104X
+    [4X[28XGroup( [ (11,12)(23,24)(27,28)(46,47)(53,54)(56,57), [128X[104X
+    [4X[28X  ( 9,10)(20,21)(31,32)(38,39), ( 8, 9)(20,22)(31,33)(38,40) ] )[128X[104X
+    [4X[25Xgap>[125X [27XRepresentativesFusions( Group( () ), reps, mataut );[127X[104X
+    [4X[28X[ [ 1, 6, 2, 4, 3, 5, 13, 13, 7, 8, 9, 10, 16, 7, 9, 10, 8, 16 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  could  say  that thus the fusion is unique up to table automorphisms and
+  automorphisms  of  the  table of marks. But since a group is associated with
+  the  table  of  marks,  we  compute  the character table from the group, and
+  decide which class fusion is correct.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= UnderlyingGroup( tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xtg:= CharacterTable( g );;[127X[104X
+    [4X[25Xgap>[125X [27Xtgfustom:= FusionCharTableTom( tg, tom );;[127X[104X
+    [4X[25Xgap>[125X [27Xtrans:= TransformingPermutationsCharacterTables( tg, tbl );;[127X[104X
+    [4X[25Xgap>[125X [27Xtblfustom:= Permuted( tgfustom, trans.columns );;[127X[104X
+    [4X[25Xgap>[125X [27Xorbits:= List( reps, map -> OrbitFusions( AutomorphismsOfTable( tbl ),[127X[104X
+    [4X[25X>[125X [27X                                             map, Group( () ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XPositionProperty( orbits, orb -> tblfustom in orb );[127X[104X
+    [4X[28X2[128X[104X
+    [4X[25Xgap>[125X [27XPositionProperty( orbits, orb -> FusionToTom( tbl ).map in orb );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo we see that the second one of the possibilities above is the right one.[133X
+  
+  
+  [1X9.7-11 [33X[0;0Y[22X3 × U_4(2) → 3_1.U_4(3)[122X[101X[1X (March 2010)[133X[101X
+  
+  [33X[0;0YAccording  to  the  [5XAtlas[105X  (see [CCN+85,  p.  52]),  the simple group [22XU_4(3)[122X
+  contains  two  classes  of  maximal  subgroups of the type [22XU_4(2)[122X. The class
+  fusion of [22XU_4(2)[122X into [22XU_4(3)[122X is unique up to table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu42:= CharacterTable( "U4(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xu43:= CharacterTable( "U4(3)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xu42fusu43:= PossibleClassFusions( u42, u43 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( u42fusu43 );[127X[104X
+    [4X[28X4[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( u42, u42fusu43, u43 ) );[127X[104X
+    [4X[28X1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YMore  precisely,  take  the  outer  automorphism group of [22XU_4(3)[122X, which is a
+  dihedral  group  of  order eight, and consider the subgroup generated by its
+  central  involution  (this  automorphism is denoted by [22X2_1[122X in the [5XAtlas[105X) and
+  another  involution  called  [22X2_3[122X in the [5XAtlas[105X. This subgroup is a Klein four
+  group  that  induces  a  permutation group on the classes of [22XU_4(3)[122X and thus
+  acts on the four possible class fusions of [22XU_4(2)[122X into [22XU_4(3)[122X. In fact, this
+  action is transitive.[133X
+  
+  [33X[0;0YThe  automorphism  [22X2_1[122X  swaps each pair of mutually inverse classes of order
+  nine,  that  is, [10X9A[110X is swapped with [10X9B[110X and [10X9C[110X is swapped with [10X9D[110X. All [22XU_4(2)[122X
+  type  subgroups of [22XU_4(3)[122X are invariant under this automorphism, they extend
+  to subgroups of the type [22XU_4(2).2[122X in [22XU_4(3).2_1[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu43_21:= CharacterTable( "U4(3).2_1" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus1:= GetFusionMap( u43, u43_21 );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 17, 17, [128X[104X
+    [4X[28X  18 ][128X[104X
+    [4X[25Xgap>[125X [27Xact1:= Filtered( InverseMap( fus1 ), IsList );[127X[104X
+    [4X[28X[ [ 16, 17 ], [ 18, 19 ] ][128X[104X
+    [4X[25Xgap>[125X [27XCompositionMaps( ClassNames( u43, "Atlas" ), act1 );[127X[104X
+    [4X[28X[ [ "9A", "9B" ], [ "9C", "9D" ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  automorphism  [22X2_3[122X swaps [10X6B[110X with [10X6C[110X, [10X9A[110X with [10X9C[110X, and [10X9B[110X with [10X9D[110X. The two
+  classes of [22XU_4(2)[122X type subgroups of [22XU_4(3)[122X are swapped by this automorphism.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xu43_23:= CharacterTable( "U4(3).2_3" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus3:= GetFusionMap( u43, u43_23 );[127X[104X
+    [4X[28X[ 1, 2, 3, 4, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12, 13, 14, 13, 14, [128X[104X
+    [4X[28X  15 ][128X[104X
+    [4X[25Xgap>[125X [27Xact3:= Filtered( InverseMap( fus3 ), IsList );[127X[104X
+    [4X[28X[ [ 4, 5 ], [ 11, 12 ], [ 13, 14 ], [ 16, 18 ], [ 17, 19 ] ][128X[104X
+    [4X[25Xgap>[125X [27XCompositionMaps( ClassNames( u43, "Atlas" ), act3 );[127X[104X
+    [4X[28X[ [ "3B", "3C" ], [ "6B", "6C" ], [ "7A", "7B" ], [ "9A", "9C" ], [128X[104X
+    [4X[28X  [ "9B", "9D" ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [5XAtlas[105X  states that the permutation character induced by the first class
+  of  [22XU_4(2)[122X  type  subgroups is [10X1a+35a+90a[110X, which means that the subgroups in
+  this  class  contain  [10X9A[110X  and  [10X9B[110X  elements.  Then the permutation character
+  induced  by the second class of [22XU_4(2)[122X type subgroups is [10X1a+35b+90a[110X, and the
+  subgroups in this class contain [10X9C[110X and [10X9D[110X elements.[133X
+  
+  [33X[0;0YSo  we choose appropriate fusions for the two classes of maximal [22XU_4(2)[122X type
+  subgroups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfirstfus:= First( u42fusu43, x -> IsSubset( x, [ 16, 17 ] ) );[127X[104X
+    [4X[28X[ 1, 2, 2, 3, 3, 5, 4, 7, 8, 9, 10, 10, 12, 12, 11, 12, 16, 17, 20, [128X[104X
+    [4X[28X  20 ][128X[104X
+    [4X[25Xgap>[125X [27Xsecondfus:= First( u42fusu43, x -> IsSubset( x, [ 18, 19 ] ) );[127X[104X
+    [4X[28X[ 1, 2, 2, 3, 3, 4, 5, 7, 8, 9, 10, 10, 11, 11, 12, 11, 18, 19, 20, [128X[104X
+    [4X[28X  20 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YLet  us  now  consider  the  central  extension  [22X3_1.U_4(3)[122X. Since the Schur
+  multiplier of [22XU_4(2)[122X has order two, the [22XU_4(2)[122X type subgroups of [22XU_4(3)[122X lift
+  to  groups  of  the  structure  [22X3  ×  U_4(2)[122X  in [22X3_1.U_4(3)[122X. There are eight
+  possible  class  fusions  from  [22X3  ×  U_4(2)[122X to [22X3_1.U_4(3)[122X, in two orbits of
+  length four under the action of table automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X3u42:= CharacterTable( "Cyclic", 3 ) * u42;[127X[104X
+    [4X[28XCharacterTable( "C3xU4(2)" )[128X[104X
+    [4X[25Xgap>[125X [27X3u43:= CharacterTable( "3_1.U4(3)" );[127X[104X
+    [4X[28XCharacterTable( "3_1.U4(3)" )[128X[104X
+    [4X[25Xgap>[125X [27X3u42fus3u43:= PossibleClassFusions( 3u42, 3u43 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( 3u42fus3u43 );[127X[104X
+    [4X[28X8[128X[104X
+    [4X[25Xgap>[125X [27XLength( RepresentativesFusions( 3u42, 3u42fus3u43, 3u43 ) );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YMore  precisely,  each of the four fusions from [22XU_4(2)[122X to [22XU_4(3)[122X has exactly
+  two lifts. The four lifts of those fusions from [22XU_4(2)[122X to [22XU_4(3)[122X with [10X9A[110X and
+  [10X9B[110X  in  their  image form one orbit under the action of table automorphisms.
+  The  other  orbit  consists  of the lifts of those fusions with [10X9C[110X and [10X9D[110X in
+  their image.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinducedmaps:= List( 3u42fus3u43, map -> CompositionMaps([127X[104X
+    [4X[25X>[125X [27X       GetFusionMap( 3u43, u43 ), CompositionMaps( map,[127X[104X
+    [4X[25X>[125X [27X       InverseMap( GetFusionMap( 3u42, u42 ) ) ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27XList( inducedmaps, map -> Position( u42fusu43, map ) );[127X[104X
+    [4X[28X[ 1, 1, 2, 2, 4, 4, 3, 3 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis solves the ambiguity: Fusions from each of the two orbits occur, and we
+  can assign them to the two classes of subgroups by the choice of the fusions
+  from [22XU_4(2)[122X to [22XU_4(3)[122X.[133X
+  
+  [33X[0;0YThe reason for the asymmetry is that the automorphism [22X2_3[122X of [22XU_4(3)[122X does not
+  lift to [22X3_1.U_4(3)[122X. Note that each of the classes [10X9A[110X, [10X9B[110X of [22XU_4(3)[122X has three
+  preimages  in  [22X3_1.U_4(3)[122X,  whereas  each of the classes [10X9C[110X, [10X9D[110X has only one
+  preimage.[133X
+  
+  [33X[0;0YIn  fact  the  two classes of [22X3 × U_4(2)[122X type subgroups of [22X3_1.U_4(3)[122X behave
+  differently.  For  example,  inducing  the  irreducible  characters of a [22X3 ×
+  U_4(2)[122X  type  subgroup in the first class of maximal subgroups of [22X3_1.U_4(3)[122X
+  yields  no  irreducible character, whereas the two irreducible characters of
+  degree [22X630[122X are obtained by inducing the irreducible characters of a subgroup
+  in the second class.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xrep:= RepresentativesFusions( 3u42, 3u42fus3u43, 3u43 );[127X[104X
+    [4X[28X[ [ 1, 4, 4, 7, 7, 10, 13, 15, 18, 21, 24, 24, 27, 27, 30, 27, 48, [128X[104X
+    [4X[28X      49, 50, 50, 2, 5, 5, 8, 8, 11, 13, 16, 19, 22, 25, 25, 28, 28, [128X[104X
+    [4X[28X      31, 28, 48, 49, 51, 51, 3, 6, 6, 9, 9, 12, 13, 17, 20, 23, 26, [128X[104X
+    [4X[28X      26, 29, 29, 32, 29, 48, 49, 52, 52 ], [128X[104X
+    [4X[28X  [ 1, 4, 4, 8, 9, 13, 10, 15, 18, 21, 25, 26, 31, 32, 27, 30, 46, [128X[104X
+    [4X[28X      44, 51, 52, 2, 5, 5, 9, 7, 13, 11, 16, 19, 22, 26, 24, 32, 30, [128X[104X
+    [4X[28X      28, 31, 47, 42, 52, 50, 3, 6, 6, 7, 8, 13, 12, 17, 20, 23, 24, [128X[104X
+    [4X[28X      25, 30, 31, 29, 32, 45, 43, 50, 51 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xirr:= Irr( 3u42 );;[127X[104X
+    [4X[25Xgap>[125X [27Xind:= InducedClassFunctionsByFusionMap( 3u42, 3u43, irr, rep[1] );;[127X[104X
+    [4X[25Xgap>[125X [27XIntersection( ind, Irr( 3u43 ) );[127X[104X
+    [4X[28X[ Character( CharacterTable( "3_1.U4(3)" ),[128X[104X
+    [4X[28X  [ 630, 630*E(3)^2, 630*E(3), 6, 6*E(3)^2, 6*E(3), 9, 9*E(3)^2, [128X[104X
+    [4X[28X      9*E(3), -9, -9*E(3)^2, -9*E(3), 0, 0, 2, 2*E(3)^2, 2*E(3), -2, [128X[104X
+    [4X[28X      -2*E(3)^2, -2*E(3), 0, 0, 0, -3, -3*E(3)^2, -3*E(3), 3, [128X[104X
+    [4X[28X      3*E(3)^2, 3*E(3), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, -1, -E(3)^2, -E(3) ] ), [128X[104X
+    [4X[28X  Character( CharacterTable( "3_1.U4(3)" ),[128X[104X
+    [4X[28X  [ 630, 630*E(3), 630*E(3)^2, 6, 6*E(3), 6*E(3)^2, 9, 9*E(3), [128X[104X
+    [4X[28X      9*E(3)^2, -9, -9*E(3), -9*E(3)^2, 0, 0, 2, 2*E(3), 2*E(3)^2, [128X[104X
+    [4X[28X      -2, -2*E(3), -2*E(3)^2, 0, 0, 0, -3, -3*E(3), -3*E(3)^2, 3, [128X[104X
+    [4X[28X      3*E(3), 3*E(3)^2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, [128X[104X
+    [4X[28X      0, 0, 0, 0, 0, -1, -E(3), -E(3)^2 ] ) ][128X[104X
+    [4X[25Xgap>[125X [27Xind:= InducedClassFunctionsByFusionMap( 3u42, 3u43, irr, rep[2] );;[127X[104X
+    [4X[25Xgap>[125X [27XIntersection( ind, Irr( 3u43 ) );[127X[104X
+    [4X[28X[  ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  [22X6_1.U_4(3)[122X  and  [22X12_1.U_4(3)[122X, one gets the same phenomenon: We have two
+  orbits  of  class  fusions,  one corresponding to each of the two classes of
+  subgroups  of  the  type  [22X3  ×  4  Y 2.U_4(2)[122X. We get [22X10[122X irreducible induced
+  characters  from  a  subgroup  in the second class (four faithful ones, four
+  with  kernel  of order two, and the two abovementioned degree [22X630[122X characters
+  with  kernel  of order four) and no irreducible character from a subgroup in
+  the first class.[133X
+  
+  
+  [1X9.7-12 [33X[0;0Y[22X2.3^4.2^3.S_4 → 2.A12[122X[101X[1X (September 2011)[133X[101X
+  
+  [33X[0;0YThe double cover [22XG[122X of the alternating group [22XA_12[122X contains a maximal subgroup
+  [22XM[122X of the type [22X2.3^4.2^3.S_4[122X whose class fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X2a12:= CharacterTable( "2.A12" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmtbl:= CharacterTable( "2.3^4.2^3.S4" );;[127X[104X
+    [4X[25Xgap>[125X [27Xmtblfus2a12:= PossibleClassFusions( mtbl, 2a12 );;[127X[104X
+    [4X[25Xgap>[125X [27XLength( mtblfus2a12 );[127X[104X
+    [4X[28X32[128X[104X
+    [4X[25Xgap>[125X [27Xrepres:= RepresentativesFusions( mtbl, mtblfus2a12, 2a12 );; [127X[104X
+    [4X[25Xgap>[125X [27XLength( repres );[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe decide the question which of the essentially different two possible class
+  fusion is the right one, by explicitly constructing [22XM[122X as a subgroup of [22XG[122X.[133X
+  
+  [33X[0;0YFor that, let [22Xπ[122X denote the natural epimorphism from [22XG[122X to [22XA_12[122X, and note that
+  [22Xπ(M)[122X  can  be  described as the intersection of a [22XS_3 ℘ S_4[122X type subgroup of
+  [22XS_12[122X  with  [22XA_12[122X.  Further  note that the generators for [22XG[122X and [22XA_12[122X provided
+  by [WWT+]  are  compatible in the sense that [22Xπ[122X can be defined by mapping the
+  generators of [22XG[122X to those of [22XA_12[122X.[133X
+  
+  [33X[0;0YWe  need [22Xπ[122X only for computing one preimage of each given element. Therefore,
+  we  represent  [22Xπ[122X  implicitly  by two epimorphisms from a free group to [22XG[122X and
+  [22XA_12[122X,  respectively,  in  order  to  avoid  that  [5XGAP[105Xprecomputes  a  lot  of
+  unnecessary  information for [22XG[122X. This way, computing a preimage of an element
+  of  [22XA_12[122X  under [22Xπ[122X is cheap. However, computing the preimage of a subgroup of
+  [22XA_12[122X  would  be  very  expensive.  So we construct the subgroup of [22XG[122X that is
+  generated  by  preimages  of  a set of generators of [22Xπ(M)[122X; later we see that
+  this subgroup is in fact equal to [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= AtlasGroup( "A12" );[127X[104X
+    [4X[28XGroup([ (1,2,3), (2,3,4,5,6,7,8,9,10,11,12) ])[128X[104X
+    [4X[25Xgap>[125X [27X2g:= AtlasGroup( "2.A12" );[127X[104X
+    [4X[28X<matrix group of size 479001600 with 2 generators>[128X[104X
+    [4X[25Xgap>[125X [27Xf:= FreeGroup( 2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xpi1:= GroupHomomorphismByImagesNC( f, 2g, GeneratorsOfGroup( f ),[127X[104X
+    [4X[25X>[125X [27X             GeneratorsOfGroup( 2g ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xpi2:= GroupHomomorphismByImagesNC( f, g, GeneratorsOfGroup( f ),[127X[104X
+    [4X[25X>[125X [27X             GeneratorsOfGroup( g ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xw:= WreathProduct( SymmetricGroup( 3 ), SymmetricGroup(4) );[127X[104X
+    [4X[28X<permutation group of size 31104 with 10 generators>[128X[104X
+    [4X[25Xgap>[125X [27XNrMovedPoints( w );[127X[104X
+    [4X[28X12[128X[104X
+    [4X[25Xgap>[125X [27Xs:= Intersection( w, g );  Size( s );[127X[104X
+    [4X[28X<permutation group with 8 generators>[128X[104X
+    [4X[28X15552[128X[104X
+    [4X[25Xgap>[125X [27Xm:= SubgroupNC( 2g, List( SmallGeneratingSet( s ),[127X[104X
+    [4X[25X>[125X [27X           x -> ImagesRepresentative( pi1,[127X[104X
+    [4X[25X>[125X [27X                  PreImagesRepresentative( pi2, x ) ) ) );;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  we  compute  the  character  table  of  [22XM[122X, using a faithful permutation
+  representation of [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xiso:= IsomorphismPermGroup( m );;[127X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( Image( iso ) );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( t );[127X[104X
+    [4X[28X31104[128X[104X
+    [4X[25Xgap>[125X [27Xtrans:= TransformingPermutationsCharacterTables( mtbl, t );;[127X[104X
+    [4X[25Xgap>[125X [27XIsRecord( trans );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow let us see where the two fusion candidates differ.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpara:= Parametrized( repres );[127X[104X
+    [4X[28X[ 1, 2, 6, 10, 8, 12, 7, 11, 9, 13, 5, 5, 17, 17, 17, 17, 3, 4, 24, [128X[104X
+    [4X[28X  22, 27, 25, 12, 10, 13, 11, 28, 29, 35, 37, 39, 36, 38, 40, 5, 23, [128X[104X
+    [4X[28X  28, 29, 26, 14, 14, 16, 16, 33, 34, [ 33, 34 ], [ 33, 34 ], 49, 49, [128X[104X
+    [4X[28X  48, 48 ][128X[104X
+    [4X[25Xgap>[125X [27XPositionsProperty( para, IsList );[127X[104X
+    [4X[28X[ 46, 47 ][128X[104X
+    [4X[25Xgap>[125X [27XList( repres, map -> map{ [ 44 .. 47 ] } );[127X[104X
+    [4X[28X[ [ 33, 34, 33, 34 ], [ 33, 34, 34, 33 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  the  question  is whether the elements in class 44 are conjugate in [22XG[122X to
+  the  elements  in class 46 or in class 47. In order to answer this question,
+  we  compute  preimages  of  the relevant class representatives in the matrix
+  group [22XM[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpositions:= OnTuples( [ 44 .. 47 ], trans.columns );;[127X[104X
+    [4X[25Xgap>[125X [27Xclassreps:= List( ConjugacyClasses( t ){ positions },[127X[104X
+    [4X[25X>[125X [27X       c -> PreImagesRepresentative( iso, Representative( c ) ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xtraces:= List( classreps, TraceMat );;[127X[104X
+    [4X[25Xgap>[125X [27XList( traces, x -> Position( traces, x ) );[127X[104X
+    [4X[28X[ 1, 2, 2, 1 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  are  lucky,  already the traces of the elements allow us to decide which
+  pairs  of  elements  are  [22XG[122X-conjugate; there is no need for an explicit (and
+  expensive) conjugacy test in the matrix group [22XG[122X.[133X
+  
+  [33X[0;0YFinally, we check whether the stored fusion is correct.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xgood:= First( repres,[127X[104X
+    [4X[25X>[125X [27X                 map -> map{ [ 44 .. 47 ] } = [ 33, 34, 34, 33 ] );;[127X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( mtbl, 2a12 ) = good;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-13 [33X[0;0Y[22X127:7 → L_7(2)[122X[101X[1X (January 2012)[133X[101X
+  
+  [33X[0;0YThe  simple group [22XG = L_7(2)[122X contains a maximal subgroup [22XM[122X of the type [22X127:7[122X
+  (the  normalizer  of an extension field type subgroup GL[22X(1,2^7)[122X) whose class
+  fusion is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "L7(2)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "127:7" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( s, fus, t );[127X[104X
+    [4X[28X[ [ 1, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, [128X[104X
+    [4X[28X      112, 113, 114, 115, 117, 116, 76, 76, 77, 76, 77, 77 ], [128X[104X
+    [4X[28X  [ 1, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, [128X[104X
+    [4X[28X      112, 113, 114, 115, 117, 116, 83, 83, 83, 83, 83, 83 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe two fusion candidates differ only for elements of order [22X7[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdiff:= Filtered( [ 1 .. Length( repr[1] ) ],[127X[104X
+    [4X[25X>[125X [27X                    i -> repr[1][i] <> repr[2][i] );[127X[104X
+    [4X[28X[ 20, 21, 22, 23, 24, 25 ][128X[104X
+    [4X[25Xgap>[125X [27XOrdersClassRepresentatives( s ){ diff };[127X[104X
+    [4X[28X[ 7, 7, 7, 7, 7, 7 ][128X[104X
+    [4X[25Xgap>[125X [27XList( repr, l -> l{ diff } );[127X[104X
+    [4X[28X[ [ 76, 76, 77, 76, 77, 77 ], [ 83, 83, 83, 83, 83, 83 ] ][128X[104X
+    [4X[25Xgap>[125X [27XSizesCentralizers( t ){ [ 76, 77, 83 ] };[127X[104X
+    [4X[28X[ 3528, 3528, 49 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  can decide which candidate is the correct one if we know the centralizer
+  order  in  G of the elements of order [22X7[122X in [22XM[122X. So we compute this centralizer
+  order.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xg:= Image( IsomorphismPermGroup( GL(7,2) ) );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepeat x:= Random( g ); until Order(x) = 127;[127X[104X
+    [4X[25Xgap>[125X [27Xn:= Normalizer( g, SubgroupNC( g, [ x ] ) );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( n ) / 127;[127X[104X
+    [4X[28X7[128X[104X
+    [4X[25Xgap>[125X [27Xrepeat x:= Random( n ); until Order( x ) = 7;[127X[104X
+    [4X[25Xgap>[125X [27Xc:= Centralizer( g, x );;[127X[104X
+    [4X[25Xgap>[125X [27XSize( c );[127X[104X
+    [4X[28X49[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe see that the second candidate is the fusion from [22XM[122X into [22XG[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) = repr[2];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-14 [33X[0;0Y[22XL_2(59) → M[122X[101X[1X (May 2009) – Do not use this![133X[101X
+  
+  [33X[0;0YIt  had  been  claimed  that  the sporadic simple Monster group [22XM[122X contains a
+  maximal  subgroup [22XG[122X of the type [22XL_2(59)[122X, see [HW04]. Later it was shown that
+  [22XM[122X does [13Xnot[113X contain such subgroups, see [DLPP24].[133X
+  
+  [33X[0;0YHere  we  show  that  the  character tables of [22XG[122X and [22XM[122X do not provide enough
+  information  to  determine a unique class fusion. (In particular, the tables
+  do  not  help  to show that [22XG[122X is not a subgroup of [22XM[122X.) The class fusion of [22XG[122X
+  into [22XM[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "M" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "L2(59)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( s, fus, t );[127X[104X
+    [4X[28X[ [ 1, 152, 153, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 98, 52, 32, 52, 14, 12, 98, 52, 32, 5, 98, 12, 98, 52, 3 ], [128X[104X
+    [4X[28X  [ 1, 152, 153, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 100, 50, 30, 50, 15, 11, 100, 50, 30, 4, 100, 11, 100, 50, [128X[104X
+    [4X[28X      3 ], [128X[104X
+    [4X[28X  [ 1, 152, 153, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 101, 51, 30, 51, 14, 11, 101, 51, 30, 5, 101, 11, 101, 51, [128X[104X
+    [4X[28X      3 ], [128X[104X
+    [4X[28X  [ 1, 152, 153, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 102, 53, 32, 53, 18, 12, 102, 53, 32, 6, 102, 12, 102, 53, [128X[104X
+    [4X[28X      3 ], [128X[104X
+    [4X[28X  [ 1, 152, 153, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 104, 52, 33, 52, 17, 12, 104, 52, 33, 5, 104, 12, 104, 52, [128X[104X
+    [4X[28X      3 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe candidates differ on the classes of element order [22X30[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xord:= OrdersClassRepresentatives( s );;[127X[104X
+    [4X[25Xgap>[125X [27Xord30:= Filtered( [ 1 .. Length( ord ) ], i -> ord[i] = 30 );[127X[104X
+    [4X[28X[ 18, 24, 28, 30 ][128X[104X
+    [4X[25Xgap>[125X [27XList( repr, x -> x{ ord30 } );[127X[104X
+    [4X[28X[ [ 98, 98, 98, 98 ], [ 100, 100, 100, 100 ], [ 101, 101, 101, 101 ], [128X[104X
+    [4X[28X  [ 102, 102, 102, 102 ], [ 104, 104, 104, 104 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording  to [HW04], any subgroup [22XG[122X of [22XM[122X must contain elements in the class
+  [10X30G[110X  of [22XM[122X. This determines the class fusion up to Galois automorphisms. (But
+  note that we do not store the fusion, since [22XG[122X is not a subgroup of [22XM[122X.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpos:= Position( ClassNames( t, "Atlas" ), "30G" );;[127X[104X
+    [4X[25Xgap>[125X [27Xgood:= Filtered( fus, map -> pos in map );[127X[104X
+    [4X[28X[ [ 1, 152, 153, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 104, 52, 33, 52, 17, 12, 104, 52, 33, 5, 104, 12, 104, 52, [128X[104X
+    [4X[28X      3 ], [128X[104X
+    [4X[28X  [ 1, 153, 152, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 104, 52, 33, 52, 17, 12, 104, 52, 33, 5, 104, 12, 104, 52, [128X[104X
+    [4X[28X      3 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( s, good, t );[127X[104X
+    [4X[28X[ [ 1, 152, 153, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, [128X[104X
+    [4X[28X      97, 104, 52, 33, 52, 17, 12, 104, 52, 33, 5, 104, 12, 104, 52, [128X[104X
+    [4X[28X      3 ] ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) = fail;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-15 [33X[0;0Y[22XL_2(71) → M[122X[101X[1X (May 2009)[133X[101X
+  
+  [33X[0;0YThe  sporadic  simple  Monster  group [22XM[122X contains a maximal subgroup [22XG[122X of the
+  type [22XL_2(71)[122X, see [HW08]. The class fusion of [22XG[122X into [22XM[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "M" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "L2(71)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( s, fus, t );[127X[104X
+    [4X[28X[ [ 1, 169, 170, 112, 112, 112, 112, 19, 112, 11, 112, 112, 19, 112, [128X[104X
+    [4X[28X      112, 112, 11, 19, 112, 112, 114, 60, 36, 27, 114, 17, 114, 27, [128X[104X
+    [4X[28X      7, 60, 114, 5, 114, 60, 36, 27, 114, 3 ], [128X[104X
+    [4X[28X  [ 1, 169, 170, 112, 112, 112, 112, 19, 112, 11, 112, 112, 19, 112, [128X[104X
+    [4X[28X      112, 112, 11, 19, 112, 112, 115, 61, 36, 28, 115, 17, 115, 28, [128X[104X
+    [4X[28X      7, 61, 115, 5, 115, 61, 36, 28, 115, 3 ], [128X[104X
+    [4X[28X  [ 1, 169, 170, 112, 112, 112, 112, 19, 112, 11, 112, 112, 19, 112, [128X[104X
+    [4X[28X      112, 112, 11, 19, 112, 112, 117, 61, 43, 28, 117, 17, 117, 28, [128X[104X
+    [4X[28X      9, 61, 117, 5, 117, 61, 43, 28, 117, 3 ], [128X[104X
+    [4X[28X  [ 1, 169, 170, 113, 113, 113, 113, 20, 113, 12, 113, 113, 20, 113, [128X[104X
+    [4X[28X      113, 113, 12, 20, 113, 113, 114, 60, 36, 27, 114, 17, 114, 27, [128X[104X
+    [4X[28X      7, 60, 114, 5, 114, 60, 36, 27, 114, 3 ], [128X[104X
+    [4X[28X  [ 1, 169, 170, 113, 113, 113, 113, 20, 113, 12, 113, 113, 20, 113, [128X[104X
+    [4X[28X      113, 113, 12, 20, 113, 113, 115, 61, 36, 28, 115, 17, 115, 28, [128X[104X
+    [4X[28X      7, 61, 115, 5, 115, 61, 36, 28, 115, 3 ], [128X[104X
+    [4X[28X  [ 1, 169, 170, 113, 113, 113, 113, 20, 113, 12, 113, 113, 20, 113, [128X[104X
+    [4X[28X      113, 113, 12, 20, 113, 113, 117, 61, 43, 28, 117, 17, 117, 28, [128X[104X
+    [4X[28X      9, 61, 117, 5, 117, 61, 43, 28, 117, 3 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe candidates differ on the classes of the element orders [22X7[122X and [22X36[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xord:= OrdersClassRepresentatives( s );;[127X[104X
+    [4X[25Xgap>[125X [27Xord36:= Filtered( [ 1 .. Length( ord ) ], i -> ord[i] = 36 );[127X[104X
+    [4X[28X[ 21, 25, 27, 31, 33, 37 ][128X[104X
+    [4X[25Xgap>[125X [27XList( repr, x -> x{ ord36 } );[127X[104X
+    [4X[28X[ [ 114, 114, 114, 114, 114, 114 ], [ 115, 115, 115, 115, 115, 115 ], [128X[104X
+    [4X[28X  [ 117, 117, 117, 117, 117, 117 ], [ 114, 114, 114, 114, 114, 114 ], [128X[104X
+    [4X[28X  [ 115, 115, 115, 115, 115, 115 ], [ 117, 117, 117, 117, 117, 117 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording  to [NW02, Table 3], [22XG[122X contains elements in the classes [10X7B[110X and [10X36D[110X
+  of [22XM[122X. This determines the class fusion up to Galois automorphisms.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpos1:= Position( ClassNames( t, "Atlas" ), "7B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos2:= Position( ClassNames( t, "Atlas" ), "36D" );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos:= [ pos1, pos2 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xgood:= Filtered( fus, map -> IsSubset( map, pos ) );[127X[104X
+    [4X[28X[ [ 1, 169, 170, 113, 113, 113, 113, 20, 113, 12, 113, 113, 20, 113, [128X[104X
+    [4X[28X      113, 113, 12, 20, 113, 113, 117, 61, 43, 28, 117, 17, 117, 28, [128X[104X
+    [4X[28X      9, 61, 117, 5, 117, 61, 43, 28, 117, 3 ], [128X[104X
+    [4X[28X  [ 1, 170, 169, 113, 113, 113, 113, 20, 113, 12, 113, 113, 20, 113, [128X[104X
+    [4X[28X      113, 113, 12, 20, 113, 113, 117, 61, 43, 28, 117, 17, 117, 28, [128X[104X
+    [4X[28X      9, 61, 117, 5, 117, 61, 43, 28, 117, 3 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( s, good, t );[127X[104X
+    [4X[28X[ [ 1, 169, 170, 113, 113, 113, 113, 20, 113, 12, 113, 113, 20, 113, [128X[104X
+    [4X[28X      113, 113, 12, 20, 113, 113, 117, 61, 43, 28, 117, 17, 117, 28, [128X[104X
+    [4X[28X      9, 61, 117, 5, 117, 61, 43, 28, 117, 3 ] ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) = repr[1];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X9.7-16 [33X[0;0Y[22XL_2(41) → M[122X[101X[1X (April 2012)[133X[101X
+  
+  [33X[0;0YThe  sporadic  simple  Monster  group [22XM[122X contains a maximal subgroup [22XG[122X of the
+  type [22XL_2(41)[122X, see [NW13]. The class fusion of [22XG[122X into [22XM[122X is ambiguous.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt:= CharacterTable( "M" );;[127X[104X
+    [4X[25Xgap>[125X [27Xs:= CharacterTable( "L2(41)" );;[127X[104X
+    [4X[25Xgap>[125X [27Xfus:= PossibleClassFusions( s, t );;[127X[104X
+    [4X[25Xgap>[125X [27Xrepr:= RepresentativesFusions( s, fus, t );[127X[104X
+    [4X[28X[ [ 1, 127, 127, 64, 30, 64, 11, 7, 30, 64, 11, 64, 3, 70, 70, 19, [128X[104X
+    [4X[28X      70, 70, 19, 4, 70, 19, 70 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 64, 30, 64, 11, 7, 30, 64, 11, 64, 3, 72, 72, 19, [128X[104X
+    [4X[28X      72, 72, 19, 6, 72, 19, 72 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 64, 30, 64, 11, 7, 30, 64, 11, 64, 3, 73, 73, 20, [128X[104X
+    [4X[28X      73, 73, 20, 5, 73, 20, 73 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 66, 33, 66, 12, 7, 33, 66, 12, 66, 3, 72, 72, 19, [128X[104X
+    [4X[28X      72, 72, 19, 6, 72, 19, 72 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 66, 33, 66, 12, 7, 33, 66, 12, 66, 3, 73, 73, 20, [128X[104X
+    [4X[28X      73, 73, 20, 5, 73, 20, 73 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 67, 30, 67, 11, 10, 30, 67, 11, 67, 3, 72, 72, 19, [128X[104X
+    [4X[28X      72, 72, 19, 6, 72, 19, 72 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 67, 30, 67, 11, 10, 30, 67, 11, 67, 3, 73, 73, 20, [128X[104X
+    [4X[28X      73, 73, 20, 5, 73, 20, 73 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 68, 32, 68, 12, 10, 32, 68, 12, 68, 3, 72, 72, 19, [128X[104X
+    [4X[28X      72, 72, 19, 6, 72, 19, 72 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 68, 32, 68, 12, 10, 32, 68, 12, 68, 3, 73, 73, 20, [128X[104X
+    [4X[28X      73, 73, 20, 5, 73, 20, 73 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 69, 33, 69, 12, 9, 33, 69, 12, 69, 3, 72, 72, 19, [128X[104X
+    [4X[28X      72, 72, 19, 6, 72, 19, 72 ], [128X[104X
+    [4X[28X  [ 1, 127, 127, 69, 33, 69, 12, 9, 33, 69, 12, 69, 3, 73, 73, 20, [128X[104X
+    [4X[28X      73, 73, 20, 5, 73, 20, 73 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe candidates differ on the classes of the element orders [22X3[122X–[22X8[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xambig:= Parametrized( repr );;[127X[104X
+    [4X[25Xgap>[125X [27Xambigpos:= PositionsProperty( ambig, IsList );[127X[104X
+    [4X[28X[ 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, [128X[104X
+    [4X[28X  23 ][128X[104X
+    [4X[25Xgap>[125X [27XSet( OrdersClassRepresentatives( t ){ ambigpos } );[127X[104X
+    [4X[28X[ 3, 4, 5, 6, 7, 8 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAccording to [NW13, Theorem 3], [22XG[122X contains elements in the classes [10X3B[110X and [10X4C[110X
+  of [22XM[122X. This determines the class fusion uniquely.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpos1:= Position( ClassNames( t, "Atlas" ), "3B" );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos2:= Position( ClassNames( t, "Atlas" ), "4C" );;[127X[104X
+    [4X[25Xgap>[125X [27Xpos:= [ pos1, pos2 ];;[127X[104X
+    [4X[25Xgap>[125X [27Xgood:= Filtered( fus, map -> IsSubset( map, pos ) );[127X[104X
+    [4X[28X[ [ 1, 127, 127, 69, 33, 69, 12, 9, 33, 69, 12, 69, 3, 73, 73, 20, [128X[104X
+    [4X[28X      73, 73, 20, 5, 73, 20, 73 ] ][128X[104X
+    [4X[25Xgap>[125X [27XGetFusionMap( s, t ) = good[1];[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  

@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (CTblLibXpls) - Chapter 5: GAP Computations with \(O_8^+(5).S_3\) and \(O_8^+(2).S_3\)</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap5"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap5.html">[MathJax off]</a></p>
+<p><a id="X8703EFEE81DDE3DD" name="X8703EFEE81DDE3DD"></a></p>
+<div class="ChapSects"><a href="chap5_mj.html#X8703EFEE81DDE3DD">5 <span class="Heading"><strong class="pkg">GAP</strong> Computations with <span class="SimpleMath">\(O_8^+(5).S_3\)</span> and <span class="SimpleMath">\(O_8^+(2).S_3\)</span></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X8389AD927B74BA4A">5.1 <span class="Heading">Overview</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X85FF559084C08F0F">5.2 <span class="Heading">Constructing Representations of <span class="SimpleMath">\(M.2\)</span> and <span class="SimpleMath">\(S.2\)</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X7FEE53AB845B9327">5.2-1 <span class="Heading">A Matrix Representation of the Weyl Group of Type <span class="SimpleMath">\(E_8\)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X7C8AA7747F160F8A">5.2-2 <span class="Heading">Embedding the Weyl group of Type <span class="SimpleMath">\(E_8\)</span> into GO<span class="SimpleMath">\({}^+(8,5)\)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X83E3E79F8724C365">5.2-3 <span class="Heading">Compatible Generators of <span class="SimpleMath">\(M\)</span>, <span class="SimpleMath">\(M.2\)</span>, <span class="SimpleMath">\(S\)</span>, and <span class="SimpleMath">\(S.2\)</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X83F897DD7C48511C">5.3 <span class="Heading">Constructing Representations of <span class="SimpleMath">\(M.3\)</span> and <span class="SimpleMath">\(S.3\)</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X7B7561D0855EC4F1">5.3-1 <span class="Heading">The Action of <span class="SimpleMath">\(M.3\)</span> on <span class="SimpleMath">\(M\)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X8246803779EB8FEE">5.3-2 <span class="Heading">The Action of <span class="SimpleMath">\(S.3\)</span> on <span class="SimpleMath">\(S\)</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X816AFA187E95C018">5.4 <span class="Heading">Constructing Compatible Generators of <span class="SimpleMath">\(H\)</span> and <span class="SimpleMath">\(G\)</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X83F0387D789709D1">5.5 <span class="Heading">Application: Regular Orbits of <span class="SimpleMath">\(H\)</span> on <span class="SimpleMath">\(G/H\)</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7F0C266082BE1578">5.6 <span class="Heading">Appendix: The Permutation Character <span class="SimpleMath">\((1_H^G)_H\)</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7F3A630780F8E262">5.7 <span class="Heading">Appendix: The Data File</span></a>
+</span>
+</div>
+</div>
+
+<h3>5 <span class="Heading"><strong class="pkg">GAP</strong> Computations with <span class="SimpleMath">\(O_8^+(5).S_3\)</span> and <span class="SimpleMath">\(O_8^+(2).S_3\)</span></span></h3>
+
+<p>Date: October 08th, 2006</p>
+
+<p>This chapter shows how to construct a representation of the automorphic extension <span class="SimpleMath">\(G\)</span> of the simple group <span class="SimpleMath">\(S = O_8^+(5)\)</span> by a symmetric group on three points, together with an embedding of the normalizer <span class="SimpleMath">\(H\)</span> of an <span class="SimpleMath">\(O_8^+(2)\)</span> type subgroup of <span class="SimpleMath">\(O_8^+(5)\)</span>.</p>
+
+<p>As an application, it is shown that the permutation representation of <span class="SimpleMath">\(G\)</span> on the cosets of <span class="SimpleMath">\(H\)</span> has a base of length two. This question arose in <a href="chapBib_mj.html#biBBGS11">[BGS11]</a>.</p>
+
+<p><a id="X8389AD927B74BA4A" name="X8389AD927B74BA4A"></a></p>
+
+<h4>5.1 <span class="Heading">Overview</span></h4>
+
+<p>Let <span class="SimpleMath">\(S\)</span> denote the simple group <span class="SimpleMath">\(O_8^+(5) \cong \)</span> P<span class="SimpleMath">\(\Omega^+(8,5)\)</span>, that is, the nonabelian simple group that occurs as a composition factor of the general orthogonal group GO<span class="SimpleMath">\({}^+(8,5)\)</span> of <span class="SimpleMath">\(8 \times 8\)</span> matrices over the field with five elements.</p>
+
+<p>The outer automorphism group of <span class="SimpleMath">\(S\)</span> is isomorphic to the symmetric group on four points. Let <span class="SimpleMath">\(G\)</span> be an automorphic extension of <span class="SimpleMath">\(S\)</span> by the symmetric group on three points. By <a href="chapBib_mj.html#biBKle87">[Kle87]</a>, the group <span class="SimpleMath">\(S\)</span> contains a maximal subgroup <span class="SimpleMath">\(M\)</span> of the type <span class="SimpleMath">\(O_8^+(2)\)</span> such that the normalizer <span class="SimpleMath">\(H\)</span>, say, of <span class="SimpleMath">\(M\)</span> in <span class="SimpleMath">\(G\)</span> is an automorphic extension of <span class="SimpleMath">\(M\)</span> by a symmetric group on three points. (In fact, <span class="SimpleMath">\(H\)</span> is isomorphic to the full automorphism group of <span class="SimpleMath">\(O_8^+(2)\)</span>.)</p>
+
+<p>Let <span class="SimpleMath">\(S.2\)</span> and <span class="SimpleMath">\(S.3\)</span> denote intermediate subgroups between <span class="SimpleMath">\(S\)</span> and <span class="SimpleMath">\(G\)</span>, in which <span class="SimpleMath">\(S\)</span> has the indices <span class="SimpleMath">\(2\)</span> and <span class="SimpleMath">\(3\)</span>, respectively. Analogously, let <span class="SimpleMath">\(M.2 = H \cap S.2\)</span> and <span class="SimpleMath">\(M.3 = H \cap S.3\)</span>.</p>
+
+<p>In Section <a href="chap5_mj.html#X85FF559084C08F0F"><span class="RefLink">5.2</span></a>, we use the following approach to construct representations of <span class="SimpleMath">\(M.2\)</span> and <span class="SimpleMath">\(S.2\)</span>. By <a href="chapBib_mj.html#biBCCN85">[CCN+85, p. 85]</a>, the Weyl group <span class="SimpleMath">\(W\)</span> of type <span class="SimpleMath">\(E_8\)</span> is a double cover of <span class="SimpleMath">\(M.2\)</span>, and the reduction of its rational <span class="SimpleMath">\(8\)</span>-dimensional representation modulo <span class="SimpleMath">\(5\)</span> embeds into the general orthogonal group GO<span class="SimpleMath">\({}^+(8,5)\)</span>, which has the structure <span class="SimpleMath">\(2.O_8^+(5).2^2\)</span>. Then the actions of GO<span class="SimpleMath">\({}^+(8,5)\)</span> and of an isomorphic image of <span class="SimpleMath">\(W\)</span> in GO<span class="SimpleMath">\({}^+(8,5)\)</span> on <span class="SimpleMath">\(1\)</span>-spaces in the natural module of GO<span class="SimpleMath">\({}^+(8,5)\)</span> yield <span class="SimpleMath">\(M.2\)</span> as a subgroup of (a supergroup of) <span class="SimpleMath">\(S.2\)</span>, where both groups are represented as permutation groups on <span class="SimpleMath">\(N = 19\,656\)</span> points.</p>
+
+<p>In Section <a href="chap5_mj.html#X83F897DD7C48511C"><span class="RefLink">5.3</span></a>, first we use <strong class="pkg">GAP</strong> to compute the automorphism group of <span class="SimpleMath">\(M\)</span>. Then we take an outer automorphism <span class="SimpleMath">\(\alpha\)</span> of <span class="SimpleMath">\(M\)</span>, of order three, and extend <span class="SimpleMath">\(\alpha\)</span> to an automorphism of <span class="SimpleMath">\(S\)</span>. Concretely, we compute the images of generating sets of <span class="SimpleMath">\(S\)</span> and <span class="SimpleMath">\(M\)</span> under <span class="SimpleMath">\(\alpha\)</span> and <span class="SimpleMath">\(\alpha^2\)</span>. This yields permutation representations of <span class="SimpleMath">\(S.3\)</span> and its subgroup <span class="SimpleMath">\(M.3\)</span> on <span class="SimpleMath">\(3 N = 58\,968\)</span> points.</p>
+
+<p>In Section <a href="chap5_mj.html#X816AFA187E95C018"><span class="RefLink">5.4</span></a>, we put the above information together, in order to construct permutation representations of <span class="SimpleMath">\(G\)</span> and <span class="SimpleMath">\(M\)</span>, on <span class="SimpleMath">\(3 N\)</span> points.</p>
+
+<p>As an application, it is shown in Section <a href="chap5_mj.html#X83F0387D789709D1"><span class="RefLink">5.5</span></a> that the permutation representation of <span class="SimpleMath">\(G\)</span> on the cosets of <span class="SimpleMath">\(H\)</span> has a base of length two; this question arose in <a href="chapBib_mj.html#biBBGS11">[BGS11]</a>.</p>
+
+<p>In two appendices, it is discussed how to derive a part of this result from the permutation character <span class="SimpleMath">\((1_H^G)_H\)</span> (see Section <a href="chap5_mj.html#X7F0C266082BE1578"><span class="RefLink">5.6</span></a>), and a file containing the data used in the earlier sections is described (see Section <a href="chap5_mj.html#X7F3A630780F8E262"><span class="RefLink">5.7</span></a>).</p>
+
+<p><a id="X85FF559084C08F0F" name="X85FF559084C08F0F"></a></p>
+
+<h4>5.2 <span class="Heading">Constructing Representations of <span class="SimpleMath">\(M.2\)</span> and <span class="SimpleMath">\(S.2\)</span></span></h4>
+
+<p><a id="X7FEE53AB845B9327" name="X7FEE53AB845B9327"></a></p>
+
+<h5>5.2-1 <span class="Heading">A Matrix Representation of the Weyl Group of Type <span class="SimpleMath">\(E_8\)</span></span></h5>
+
+<p>Following the recipe listed in <a href="chapBib_mj.html#biBCCN85">[CCN+85, p. 85, Section Weyl]</a>, we can generate the Weyl group <span class="SimpleMath">\(W\)</span> of type <span class="SimpleMath">\(E_8\)</span> as a group of rational <span class="SimpleMath">\(8 \times 8\)</span> matrices generated by the reflections in the vectors</p>
+
+<p class="center">\[
+   \left(\pm 1/2, \pm 1/2, 0, 0, 0, 0, 0, 0\right)
+\]</p>
+
+<p>plus the vectors obtained from these by permuting the coordinates, plus those those vectors of the form</p>
+
+<p class="center">\[
+   \left( \pm 1/2, \pm 1/2, \pm 1/2, \pm 1/2,
+          \pm 1/2, \pm 1/2, \pm 1/2, \pm 1/2 \right)
+\]</p>
+
+<p>that have an even number of negative signs. (Clearly it is sufficient to consider only one vector form a pair <span class="SimpleMath">\(\pm v\)</span>.)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">rootvectors:= [];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in Combinations( [ 1 .. 8 ], 2 ) do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     v:= 0 * [ 1 .. 8 ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     v{i}:= [ 1, 1 ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     Add( rootvectors, v );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     v:= 0 * [ 1 .. 8 ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     v{i}:= [ 1, -1 ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     Add( rootvectors, v );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Append( rootvectors,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     1/2 * Filtered( Tuples( [ -1, 1 ], 8 ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             x -&gt; x[1] = 1 and Number( x, y -&gt; y = 1 ) mod 2 = 0 ) );</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">we8:= Group( List( rootvectors, ReflectionMat ) );</span>
+&lt;matrix group with 120 generators&gt;
+</pre></div>
+
+<p><a id="X7C8AA7747F160F8A" name="X7C8AA7747F160F8A"></a></p>
+
+<h5>5.2-2 <span class="Heading">Embedding the Weyl group of Type <span class="SimpleMath">\(E_8\)</span> into GO<span class="SimpleMath">\({}^+(8,5)\)</span></span></h5>
+
+<p>The elements in the group constructed above respect the symmetric bilinear form that is given by the identity matrix.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I:= IdentityMat( 8 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ForAll( GeneratorsOfGroup( we8 ), x -&gt; x * TransposedMat(x) = I );</span>
+true
+</pre></div>
+
+<p>So the reduction of the matrices modulo <span class="SimpleMath">\(5\)</span> yields a group <span class="SimpleMath">\(W^{\ast}\)</span> of orthogonal matrices w. r. t. the identity matrix. The group GO<span class="SimpleMath">\({}^+(8,5)\)</span> returned by the <strong class="pkg">GAP</strong> function <code class="func">GO</code> (<a href="../../../doc/ref/chap50_mj.html#X7C2051CB7B94CEB1"><span class="RefLink">Reference: GO</span></a>) leaves a different bilinear form invariant.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">largegroup:= GO(1,8,5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display( InvariantBilinearForm( largegroup ).matrix );</span>
+ . 1 . . . . . .
+ 1 . . . . . . .
+ . . 2 . . . . .
+ . . . 2 . . . .
+ . . . . 2 . . .
+ . . . . . 2 . .
+ . . . . . . 2 .
+ . . . . . . . 2
+</pre></div>
+
+<p>In order to conjugate <span class="SimpleMath">\(W^{\ast}\)</span> into this group, we need a <span class="SimpleMath">\(2 \times 2\)</span> matrix <span class="SimpleMath">\(T\)</span> over the field with five elements with the property that <span class="SimpleMath">\(T T^{tr}\)</span> is half of the upper left <span class="SimpleMath">\(2 \times 2\)</span> matrix in the above matrix.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T:= [ [ 1, 2 ], [ 4, 2 ] ] * One( GF(5) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display( 2 * T * TransposedMat( T ) );</span>
+ . 1
+ 1 .
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I:= IdentityMat( 8, GF(5) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">I{ [ 1, 2 ] }{ [ 1, 2 ] }:= T;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">conj:= List( GeneratorsOfGroup( we8 ), x -&gt; I * x * I^-1 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsSubset( largegroup, conj );</span>
+true
+</pre></div>
+
+<p><a id="X83E3E79F8724C365" name="X83E3E79F8724C365"></a></p>
+
+<h5>5.2-3 <span class="Heading">Compatible Generators of <span class="SimpleMath">\(M\)</span>, <span class="SimpleMath">\(M.2\)</span>, <span class="SimpleMath">\(S\)</span>, and <span class="SimpleMath">\(S.2\)</span></span></h5>
+
+<p>For the next computations, we switch from the natural matrix representation of GO<span class="SimpleMath">\({}^+(8,5)\)</span> to a permutation representation of PGO<span class="SimpleMath">\({}^+(8,5)\)</span>, of degree <span class="SimpleMath">\(N = 19\,656\)</span>, which is given by the action of GO<span class="SimpleMath">\({}^+(8,5)\)</span> on the smallest orbit of <span class="SimpleMath">\(1\)</span>-spaces in its natural module.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">orbs:= OrbitsDomain( largegroup, NormedRowVectors( GF(5)^8 ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                        OnLines );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( orbs, Length );</span>
+[ 39000, 39000, 19656 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N:= Length( orbs[3] );</span>
+19656
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">orbN:= SortedList( orbs[3] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">largepermgroup:= Action( largegroup, orbN, OnLines );;</span>
+</pre></div>
+
+<p>In the same way, permutation representations of the subgroup <span class="SimpleMath">\(M.2 \cong \)</span>SO<span class="SimpleMath">\({}^+(8,2)\)</span> and of its derived subgroup <span class="SimpleMath">\(M\)</span> are obtained. But first we compute a smaller generating set of the simple group <span class="SimpleMath">\(M\)</span>, using a permutation representation on <span class="SimpleMath">\(120\)</span> points.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">orbwe8:= SortedList( Orbit( we8, rootvectors[1], OnLines ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( orbwe8 );</span>
+120
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">we8_to_m2:= ActionHomomorphism( we8, orbwe8, OnLines );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m2_120:= Image( we8_to_m2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m_120:= DerivedSubgroup( m2_120 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sml:= SmallGeneratingSet( m_120 );;  Length( sml );</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens_m:= List( sml, x -&gt; PreImagesRepresentative( we8_to_m2, x ) );;</span>
+</pre></div>
+
+<p>Now we compute the actions of <span class="SimpleMath">\(M\)</span> and <span class="SimpleMath">\(M.2\)</span> on the above orbit of length <span class="SimpleMath">\(N\)</span>. For generating <span class="SimpleMath">\(M.2\)</span>, we choose an element <span class="SimpleMath">\(b_N \in M.2 \setminus M\)</span>, which is obtained from the action of a matrix <span class="SimpleMath">\(b \in 2.M.2 \setminus 2.M\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens_m_N:= List( gens_m,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     x -&gt; Permutation( I * x * I^-1, orbN, OnLines ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m_N:= Group( gens_m_N );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b:= I * we8.1 * I^-1;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DeterminantMat( b );</span>
+Z(5)^2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b_N:= Permutation( b, orbN, OnLines );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m2_N:= ClosureGroup( m_N, b_N );;</span>
+</pre></div>
+
+<p>(Note that <span class="SimpleMath">\(M.2\)</span> is not contained in PSO<span class="SimpleMath">\({}^+(8,5)\)</span>, since the determinant of <span class="SimpleMath">\(b\)</span> is <span class="SimpleMath">\(-1\)</span> in the field with five elements.)</p>
+
+<p>The group <span class="SimpleMath">\(S\)</span> is the derived subgroup of PSO<span class="SimpleMath">\({}^+(8,5)\)</span>, and <span class="SimpleMath">\(S.2\)</span> is generated by <span class="SimpleMath">\(S\)</span> together with <span class="SimpleMath">\(b_N\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s_N:= DerivedSubgroup( largepermgroup );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s2_N:= ClosureGroup( s_N, b_N );;</span>
+</pre></div>
+
+<p><a id="X83F897DD7C48511C" name="X83F897DD7C48511C"></a></p>
+
+<h4>5.3 <span class="Heading">Constructing Representations of <span class="SimpleMath">\(M.3\)</span> and <span class="SimpleMath">\(S.3\)</span></span></h4>
+
+<p><a id="X7B7561D0855EC4F1" name="X7B7561D0855EC4F1"></a></p>
+
+<h5>5.3-1 <span class="Heading">The Action of <span class="SimpleMath">\(M.3\)</span> on <span class="SimpleMath">\(M\)</span></span></h5>
+
+<p>Let <span class="SimpleMath">\(\alpha\)</span> be an automorphism of <span class="SimpleMath">\(M\)</span>, of order three. Then a representation of the semidirect product <span class="SimpleMath">\(M.3\)</span> of <span class="SimpleMath">\(M\)</span> by <span class="SimpleMath">\(\langle \alpha \rangle\)</span> can be constructed as follows.</p>
+
+<p>If <span class="SimpleMath">\(M\)</span> is given by a matrix representation then we map <span class="SimpleMath">\(g \in M\)</span> to the block diagonal matrix</p>
+
+<p><div class="pcenter"> <table class="GAPDocTable"> <tr> <td class="tdright"><span class="SimpleMath">g</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">g^α</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">g^(α^2)</span></td> </tr> </table> </div> and we represent <span class="SimpleMath">\(\alpha\)</span> by the block permutation matrix</p>
+
+<p><div class="pcenter"> <table class="GAPDocTable"> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">I</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">I</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">I</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> </table> </div> where <span class="SimpleMath">\(I\)</span> is the identity element in <span class="SimpleMath">\(M\)</span>.</p>
+
+<p>We need the action of <span class="SimpleMath">\(\alpha\)</span> on <span class="SimpleMath">\(M\)</span>. More precisely, we need images of the chosen generators of <span class="SimpleMath">\(M\)</span> under <span class="SimpleMath">\(\alpha\)</span> and <span class="SimpleMath">\(\alpha^2\)</span>.</p>
+
+<p>The group <span class="SimpleMath">\(M\)</span> is small enough for asking <strong class="pkg">GAP</strong> to compute its automorphism group, which is isomorphic with <span class="SimpleMath">\(O^+_8(2).S_3\)</span>; for that, we use the degree <span class="SimpleMath">\(120\)</span> permutation representation constructed in Section <a href="chap5_mj.html#X83E3E79F8724C365"><span class="RefLink">5.2-3</span></a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">aut_m:= AutomorphismGroup( m_120 );;</span>
+</pre></div>
+
+<p>We pick an outer automorphism <span class="SimpleMath">\(\alpha\)</span> of order three.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nice_aut_m:= NiceMonomorphism( aut_m );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">der:= DerivedSubgroup( Image( nice_aut_m ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">der2:= DerivedSubgroup( der );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">repeat x:= Random( der );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     ord:= Order( x );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   until ord mod 3 = 0 and ord mod 9 &lt;&gt; 0 and not x in der2;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">x:= x^( ord / 3 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alpha_120:= PreImagesRepresentative( nice_aut_m, x );;</span>
+</pre></div>
+
+<p>Next we compute the images of the generators <code class="code">sml</code> under <span class="SimpleMath">\(\alpha\)</span> and <span class="SimpleMath">\(\alpha^2\)</span>, and the corresponding elements in the action of <span class="SimpleMath">\(M\)</span> on <span class="SimpleMath">\(N\)</span> points.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sml_alpha:= List( sml, x -&gt; Image( alpha_120, x ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sml_alpha_2:= List( sml_alpha, x -&gt; Image( alpha_120, x ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens_m_alpha:= List( sml_alpha,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                    x -&gt; PreImagesRepresentative( we8_to_m2, x ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens_m_alpha_2:= List( sml_alpha_2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                      x -&gt; PreImagesRepresentative( we8_to_m2, x ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens_m_N_alpha:= List( gens_m_alpha,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     x -&gt; Permutation( I * x * I^-1, orbN, OnLines ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens_m_N_alpha_2:= List( gens_m_alpha_2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     x -&gt; Permutation( I * x * I^-1, orbN, OnLines ) );;</span>
+</pre></div>
+
+<p>Finally, we use the construction descibed in the beginning of this section, and obtain a permutation representation of <span class="SimpleMath">\(M.3\)</span> on <span class="SimpleMath">\(3 N = 58\,968\)</span> points.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alpha_3N:= PermList( Concatenation( [ [ 1 .. N ] + 2*N,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                         [ 1 .. N ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                         [ 1 .. N ] + N ] ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gens_m_3N:= List( [ 1 .. Length( gens_m_N ) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     i -&gt; gens_m_N[i] *</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          ( gens_m_N_alpha[i]^alpha_3N ) *</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          ( gens_m_N_alpha_2[i]^(alpha_3N^2) ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m_3N:= Group( gens_m_3N );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m3_3N:= ClosureGroup( m_3N, alpha_3N );;</span>
+</pre></div>
+
+<p><a id="X8246803779EB8FEE" name="X8246803779EB8FEE"></a></p>
+
+<h5>5.3-2 <span class="Heading">The Action of <span class="SimpleMath">\(S.3\)</span> on <span class="SimpleMath">\(S\)</span></span></h5>
+
+<p>Our approach is to extend the automorphism <span class="SimpleMath">\(\alpha\)</span> of <span class="SimpleMath">\(M\)</span> to <span class="SimpleMath">\(S\)</span>; we can do this because in the full automorphism group of <span class="SimpleMath">\(S\)</span>, <em>any</em> <span class="SimpleMath">\(O^+_8(2)\)</span> type subgroup extends to a group of the type <span class="SimpleMath">\(O^+_8(2).3\)</span>, and this extension lies in a subgroup of the type <span class="SimpleMath">\(O^+_8(5).3\)</span> (see <a href="chapBib_mj.html#biBKle87">[Kle87]</a>).</p>
+
+<p>The group <span class="SimpleMath">\(M\)</span> is maximal in <span class="SimpleMath">\(S\)</span>, so <span class="SimpleMath">\(S\)</span> is generated by <span class="SimpleMath">\(M\)</span> together with any element <span class="SimpleMath">\(s \in S \setminus M\)</span>. Having fixed such an element <span class="SimpleMath">\(s\)</span>, what we have to is to find the images of <span class="SimpleMath">\(s\)</span> under the automorphisms that extend <span class="SimpleMath">\(\alpha\)</span> and <span class="SimpleMath">\(\alpha^2\)</span>.</p>
+
+<p>For that, we first choose <span class="SimpleMath">\(x \in M\)</span> such that <span class="SimpleMath">\(C_S(x)\)</span> is a small group that is not contained in <span class="SimpleMath">\(M\)</span>. Then we choose <span class="SimpleMath">\(s \in C_S(x) \setminus M\)</span>, and using that <span class="SimpleMath">\(s^\alpha\)</span> must lie in <span class="SimpleMath">\(C_S(C_M(s)^\alpha)\)</span>, we then check which elements of this small subgroup can be the desired image.</p>
+
+<p>Each element <span class="SimpleMath">\(x\)</span> of order nine in <span class="SimpleMath">\(M\)</span> has a root <span class="SimpleMath">\(s\)</span> of order <span class="SimpleMath">\(63\)</span> in <span class="SimpleMath">\(S\)</span>, and <span class="SimpleMath">\(C_S(x)\)</span> has order <span class="SimpleMath">\(189\)</span>. For suitable such <span class="SimpleMath">\(x\)</span>, exactly one element <span class="SimpleMath">\(y \in C_S(C_M(s)^\alpha)\)</span> has order <span class="SimpleMath">\(63\)</span> and satisfies the necessary conditions that the orders of the products of <span class="SimpleMath">\(s\)</span> and the generators of <span class="SimpleMath">\(M\)</span> are equal to the orders of the product of <span class="SimpleMath">\(y\)</span> and the images of these generators under <span class="SimpleMath">\(\alpha\)</span>. In other words, we have <span class="SimpleMath">\(s^\alpha = y\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">alpha:= GroupHomomorphismByImagesNC( m_N, m_N,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">               gens_m_N, gens_m_N_alpha );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CheapTestForHomomorphism:= function( gens, genimages, x, cand )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       return Order( x ) = Order( cand ) and</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              ForAll( [ 1 .. Length( gens ) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           i -&gt; Order( gens[i] * x ) = Order( genimages[i] * cand ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">end;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">repeat</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     repeat</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       x:= Random( m_N );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     until Order( x ) = 9;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     c_s:= Centralizer( s_N, x );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     repeat</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       s:= Random( c_s );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     until Order( s ) = 63;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     c_m_alpha:= Images( alpha, Centralizer( m_N, s ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     good:= Filtered( Elements( Centralizer( s_N, c_m_alpha ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">              x -&gt; CheapTestForHomomorphism( gens_m_N,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                     gens_m_N_alpha, s, x ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   until Length( good ) = 1;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s_alpha:= good[1];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">c_m_alpha_2:= Images( alpha, c_m_alpha );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">good:= Filtered( Elements( Centralizer( s_N, c_m_alpha_2 ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     x -&gt; CheapTestForHomomorphism( gens_m_N_alpha, gens_m_N_alpha_2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                    s_alpha, x ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s_alpha_2:= good[1];;</span>
+</pre></div>
+
+<p>Using the notation of the previous section, this means that the permutation representation of <span class="SimpleMath">\(M.3\)</span> on <span class="SimpleMath">\(3 N\)</span> points can be extended to <span class="SimpleMath">\(S.3\)</span> by choosing the permutation corresponding to the block diagonal matrix</p>
+
+<p><div class="pcenter"> <table class="GAPDocTable"> <tr> <td class="tdright"><span class="SimpleMath">s</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">s^α</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">s^(α^2)</span></td> </tr> </table> </div> as an additional generator.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">outer:= s * ( s_alpha^alpha_3N ) * ( s_alpha_2^(alpha_3N^2) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s3_3N:= ClosureGroup( m3_3N, outer );;</span>
+</pre></div>
+
+<p>(And of course we have <span class="SimpleMath">\(S = \langle M, s \rangle\)</span>, which yields generators for <span class="SimpleMath">\(S\)</span> that are compatible with those of <span class="SimpleMath">\(M\)</span>.)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s_3N:= ClosureGroup( m_3N, outer );;</span>
+</pre></div>
+
+<p><a id="X816AFA187E95C018" name="X816AFA187E95C018"></a></p>
+
+<h4>5.4 <span class="Heading">Constructing Compatible Generators of <span class="SimpleMath">\(H\)</span> and <span class="SimpleMath">\(G\)</span></span></h4>
+
+<p>After having constructed compatible representations of <span class="SimpleMath">\(M.2\)</span> and <span class="SimpleMath">\(G.2\)</span> on <span class="SimpleMath">\(N\)</span> points (see Section <a href="chap5_mj.html#X83E3E79F8724C365"><span class="RefLink">5.2-3</span></a>) and of <span class="SimpleMath">\(M.3\)</span> and <span class="SimpleMath">\(S.3\)</span> on <span class="SimpleMath">\(3 N\)</span> points (see Section <a href="chap5_mj.html#X8246803779EB8FEE"><span class="RefLink">5.3-2</span></a>), the last construction step is to find a permutation on <span class="SimpleMath">\(3 N\)</span> points with the following properties:</p>
+
+
+<ul>
+<li><p>The induced automorphism <span class="SimpleMath">\(\beta\)</span> of <span class="SimpleMath">\(M\)</span> extends to <span class="SimpleMath">\(M.3\)</span> such that the automorphism <span class="SimpleMath">\(\alpha\)</span> of <span class="SimpleMath">\(M\)</span> is inverted, modulo inner automorphisms of <span class="SimpleMath">\(M\)</span>.</p>
+
+</li>
+<li><p>The action on the first <span class="SimpleMath">\(N\)</span> points coincides with that of the element <span class="SimpleMath">\(b_N \in M.2 \setminus M\)</span> that was constructed in Section <a href="chap5_mj.html#X83E3E79F8724C365"><span class="RefLink">5.2-3</span></a>.</p>
+
+</li>
+</ul>
+<p>Using the notation of the previous sections, we represent <span class="SimpleMath">\(\beta\)</span> by a block matrix</p>
+
+<p><div class="pcenter"> <table class="GAPDocTable"> <tr> <td class="tdright"><span class="SimpleMath">b</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">b d</span></td> </tr> <tr> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> <td class="tdright"><span class="SimpleMath">b g</span></td> <td class="tdright"><span class="SimpleMath">&nbsp;</span></td> </tr> </table> </div> where <span class="SimpleMath">\(b\)</span> describes the action of <span class="SimpleMath">\(\beta\)</span> on <span class="SimpleMath">\(M\)</span> (on <span class="SimpleMath">\(N\)</span> points), <span class="SimpleMath">\(g\)</span> describes the inner automorphism <span class="SimpleMath">\(\gamma\)</span> of <span class="SimpleMath">\(M\)</span> that is defined by the condition <span class="SimpleMath">\(\beta \alpha = \alpha^2 \beta \gamma\)</span>, and <span class="SimpleMath">\(d\)</span> describes <span class="SimpleMath">\(\gamma \gamma^\alpha\)</span>.</p>
+
+<p>So we compute an element in <span class="SimpleMath">\(M\)</span> that induces the conjugation automorphism <span class="SimpleMath">\(\gamma\)</span>, and its image under <span class="SimpleMath">\(\alpha\)</span>. We do this in the representation of <span class="SimpleMath">\(M\)</span> on <span class="SimpleMath">\(120\)</span> points, and carry over the result to the representation on <span class="SimpleMath">\(N\)</span> points, via the rational matrix representation; this approach had been used already in Section <a href="chap5_mj.html#X83E3E79F8724C365"><span class="RefLink">5.2-3</span></a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b_120:= Permutation( we8.1, orbwe8, OnLines );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g_120:= RepresentativeAction( m_120,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">               List( sml_alpha_2, x -&gt; x^b_120 ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">               List( sml, x -&gt; (x^b_120)^alpha_120 ), OnTuples );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g_120_alpha:= g_120^alpha_120;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g_N:= Permutation( I * PreImagesRepresentative( we8_to_m2, g_120 )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                        * I^-1, orbN, OnLines );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g_N_alpha:= Permutation( I * PreImagesRepresentative( we8_to_m2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                 g_120_alpha ) * I^-1, orbN, OnLines );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inv:= PermList( Concatenation(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                     ListPerm( b_N ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                     ListPerm( b_N * g_N ) + 2*N,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                     ListPerm( b_N * g_N * g_N_alpha ) + N ) );;</span>
+</pre></div>
+
+<p>So we have constructed compatible generators for <span class="SimpleMath">\(H\)</span> and <span class="SimpleMath">\(G\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h:= ClosureGroup( m3_3N, inv );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g:= ClosureGroup( s3_3N, inv );;</span>
+</pre></div>
+
+<p><a id="X83F0387D789709D1" name="X83F0387D789709D1"></a></p>
+
+<h4>5.5 <span class="Heading">Application: Regular Orbits of <span class="SimpleMath">\(H\)</span> on <span class="SimpleMath">\(G/H\)</span></span></h4>
+
+<p>We want to show that <span class="SimpleMath">\(H\)</span> has regular orbits on the right cosets <span class="SimpleMath">\(G/H\)</span>. The stabilizer in <span class="SimpleMath">\(H\)</span> of the coset <span class="SimpleMath">\(H g\)</span> is <span class="SimpleMath">\(H \cap H^g\)</span>, so we compute that there are elements <span class="SimpleMath">\(s \in S\)</span> with the property <span class="SimpleMath">\(|H \cap H^s| = 1\)</span>.</p>
+
+<p>(Of course this implies that also in the permutation representations of the subgroups <span class="SimpleMath">\(S\)</span>, <span class="SimpleMath">\(S.2\)</span>, and <span class="SimpleMath">\(S.3\)</span> of <span class="SimpleMath">\(G\)</span> on the cosets of the intersection with <span class="SimpleMath">\(H\)</span>, the point stabilizers have regular orbits.)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">repeat</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     conj:= Random( s_3N );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     inter:= Intersection( h, h^conj );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   until Size( inter ) = 1;</span>
+</pre></div>
+
+<p>Eventually <strong class="pkg">GAP</strong> will return from this loop, so there are elements <span class="SimpleMath">\(s\)</span> with the required property.</p>
+
+<p>(Computing one such intersection takes about six minutes on a 2.5 GHz Pentium 4, so one may have to be a bit patient.)</p>
+
+<p><a id="X7F0C266082BE1578" name="X7F0C266082BE1578"></a></p>
+
+<h4>5.6 <span class="Heading">Appendix: The Permutation Character <span class="SimpleMath">\((1_H^G)_H\)</span></span></h4>
+
+<p>As an alternative to the computation of <span class="SimpleMath">\(|H \cap H^s|\)</span> for suitable <span class="SimpleMath">\(s \in S\)</span>, we can try to derive information from the permutation character <span class="SimpleMath">\((1_H^G)_H\)</span>. Unfortunately, there seems to be no easy way to prove the existence of regular <span class="SimpleMath">\(H\)</span>-orbits on <span class="SimpleMath">\(G/H\)</span> (cf. Section <a href="chap5_mj.html#X83F0387D789709D1"><span class="RefLink">5.5</span></a>) only by means of this character.</p>
+
+<p>However, it is not difficult to show that regular orbits of <span class="SimpleMath">\(M\)</span>, <span class="SimpleMath">\(M.2\)</span>, and <span class="SimpleMath">\(M.3\)</span> exist. For that, we compute <span class="SimpleMath">\((1_H^G)_H\)</span>, by computing class representatives of <span class="SimpleMath">\(H\)</span>, their centralizer orders in <span class="SimpleMath">\(G\)</span>, and the class fusion of <span class="SimpleMath">\(H\)</span>-classes in <span class="SimpleMath">\(G\)</span>.</p>
+
+<p>We want to compute the class representatives in a small permutation representation of <span class="SimpleMath">\(H\)</span>; this could be done using the degree <span class="SimpleMath">\(360\)</span> representation that was implicitly constructed above, but it is technically easier to use a degree <span class="SimpleMath">\(405\)</span> representation that is obtained from the degree <span class="SimpleMath">\(58\,968\)</span> representation by the action of <span class="SimpleMath">\(H\)</span> on blocks in an orbit of length <span class="SimpleMath">\(22\,680\)</span>. (One could get this also using the <strong class="pkg">GAP</strong> function <code class="func">SmallerDegreePermutationRepresentation</code> (<a href="../../../doc/ref/chap43_mj.html#X8086628878AFD3EA"><span class="RefLink">Reference: SmallerDegreePermutationRepresentation</span></a>).)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">orbs:= Orbits( h, MovedPoints( h ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( orbs, Length );</span>
+[ 22680, 36288 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">orb:= orbs[1];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bl:= Blocks( h, orb );;  Length( bl[1] );</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">actbl:= Action( h, bl, OnSets );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bll:= Blocks( actbl, MovedPoints( actbl ) );;  Length( bll );  </span>
+405
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">oneblock:= Union( bl{ bll[1] } );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">orb:= SortedList( Orbit( h, oneblock, OnSets ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">acthom:= ActionHomomorphism( h, orb, OnSets );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ccl:= ConjugacyClasses( Image( acthom ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">reps:= List( ccl, x -&gt; PreImagesRepresentative( acthom,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                              Representative( x ) ) );;</span>
+</pre></div>
+
+<p>Then we carry back class representatives to the degree <span class="SimpleMath">\(58\,968\)</span> representation, and compute the class fusion and the centralizer orders in <span class="SimpleMath">\(G\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">reps:= List( ccl, x -&gt; PreImagesRepresentative( acthom,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                              Representative( x ) ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fusion:= [];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">centralizers:= [];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fusreps:= [];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [ 1 .. Length( reps ) ] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     found:= false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     cen:= Size( Centralizer( g, reps[i] ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     for j in [ 1 .. Length( fusreps ) ] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       if cen = centralizers[j] and</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          IsConjugate( g, fusreps[j], reps[i] ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         fusion[i]:= j;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         found:= true;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         break;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     if not found then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       Add( fusreps, reps[i] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       Add( fusion, Length( fusreps ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       Add( centralizers, cen );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+</pre></div>
+
+<p>Next we compute the permutation character values, using the formula</p>
+
+<p class="center">\[
+   (1_H)^G(g) = (|C_G(g)| \sum_{h} |h^H|) /|H| ,
+\]</p>
+
+<p>where the summation runs over class representatives <span class="SimpleMath">\(h \in H\)</span> that are <span class="SimpleMath">\(G\)</span>-conjugate to <span class="SimpleMath">\(g\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi:= 0 * [ 1 .. Length( fusreps ) ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [ 1 .. Length( ccl ) ] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     pi[ fusion[i] ]:= pi[ fusion[i] ] + centralizers[ fusion[i] ] *</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                             Size( ccl[i] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi:= pi{ fusion } / Size( h );;</span>
+</pre></div>
+
+<p>In order to write the permutation character w.r.t. the ordering of classes in the <strong class="pkg">GAP</strong> character table, we use the <strong class="pkg">GAP</strong> function <code class="func">CompatibleConjugacyClasses</code> (<a href="../../../doc/ref/chap71_mj.html#X790019E87CFDDB98"><span class="RefLink">Reference: CompatibleConjugacyClasses</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblh:= CharacterTable( "O8+(2).S3" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">map:= CompatibleConjugacyClasses( Image( acthom ), ccl, tblh );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi:= pi{ map }; </span>
+[ 51162109375, 69375, 1259375, 69375, 568750, 1750, 4000, 375, 135, 
+  975, 135, 625, 150, 650, 30, 72, 80, 72, 27, 27, 3, 7, 25, 30, 6, 
+  12, 25, 484375, 1750, 375, 375, 30, 40, 15, 15, 15, 6, 6, 3, 3, 3, 
+  157421875, 121875, 4875, 475, 75, 3875, 475, 13000, 1750, 300, 400, 
+  30, 60, 15, 15, 15, 125, 10, 30, 4, 8, 6, 9, 7, 5, 6, 5 ]
+</pre></div>
+
+<p>Now we consider the restrictions of this permutation character to <span class="SimpleMath">\(M\)</span>, <span class="SimpleMath">\(M.2\)</span>, and <span class="SimpleMath">\(M.3\)</span>. Note that <span class="SimpleMath">\((1_H^G)_M = (1_M^S)_M\)</span>, <span class="SimpleMath">\((1_H^G)_{M.2} = (1_{M.2}^{S.2})_{M.2}\)</span>, and <span class="SimpleMath">\((1_H^G)_{M.3} = (1_{M.3}^{S.3})_{M.3}\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblm2:= CharacterTable( "O8+(2).2" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblm3:= CharacterTable( "O8+(2).3" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tblm:= CharacterTable( "O8+(2)" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi_m2:= pi{ GetFusionMap( tblm2, tblh ) };;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi_m3:= pi{ GetFusionMap( tblm3, tblh ) };;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi_m:= pi_m3{ GetFusionMap( tblm, tblm3 ) };;</span>
+</pre></div>
+
+<p>The permutation character <span class="SimpleMath">\((1_M^S)_M\)</span> decomposes into <span class="SimpleMath">\(483\)</span> transitive permutation characters, and regular <span class="SimpleMath">\(M\)</span>-orbits on <span class="SimpleMath">\(S/M\)</span> correspond to regular constituents in this decomposition. If there is no regular transitive constituent in <span class="SimpleMath">\((1_M^S)_M\)</span> then the largest degree of a transitive constituent is <span class="SimpleMath">\(|M|/2\)</span>; but then the degree of <span class="SimpleMath">\(1_M^S\)</span> is less than <span class="SimpleMath">\(483 |M|/2\)</span>, which is smaller than <span class="SimpleMath">\([S:M]\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= ScalarProduct( tblm, pi_m, TrivialCharacter( tblm ) );</span>
+483
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n * Size( tblm ) / 2;</span>
+42065049600
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi[1];</span>
+51162109375
+</pre></div>
+
+<p>For the case of <span class="SimpleMath">\(M.2 &lt; S.2\)</span>, this argument turns out to be not sufficient. So we first compute a lower bound on the number of regular <span class="SimpleMath">\(M\)</span>-orbits on <span class="SimpleMath">\(S/M\)</span>. For involutions <span class="SimpleMath">\(g \in M\)</span>, the number of transitive constituents <span class="SimpleMath">\(1_{\langle g \rangle}^M\)</span> in <span class="SimpleMath">\((1_M^S)_M\)</span> is at most the integral part of <span class="SimpleMath">\(1_M^S(g) / 1_{\langle g \rangle}^M(g) = 2 \cdot 1_M^S(g) / |C_M(g)|\)</span>; from this we compute that there are at most <span class="SimpleMath">\(208\)</span> such constituents.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inv:= Filtered( [ 1 .. NrConjugacyClasses( tblm ) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             i -&gt; OrdersClassRepresentatives( tblm )[i] = 2 );</span>
+[ 2, 3, 4, 5, 6 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n2:= List( inv,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          i -&gt; Int( 2 * pi_m[i] / SizesCentralizers( tblm )[i] ) );</span>
+[ 1, 54, 54, 54, 45 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Sum( n2 );</span>
+208
+</pre></div>
+
+<p>As a consequence, <span class="SimpleMath">\(M\)</span> has at least <span class="SimpleMath">\(148\)</span> regular orbits on <span class="SimpleMath">\(S/M\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">First( [ 1 .. 483 ],                                           </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     i -&gt; i * Size( tblm ) + 208 * Size( tblm ) / 2</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          + ( 483 - i - 208 - 1 ) * Size( tblm ) / 3 + 1 &gt;= pi[1] );</span>
+148
+</pre></div>
+
+<p>Now we consider the action of <span class="SimpleMath">\(M.2\)</span> on <span class="SimpleMath">\(S.2/M.2\)</span>. If <span class="SimpleMath">\(M.2\)</span> has no regular orbit then the <span class="SimpleMath">\(148\)</span> regular orbits of <span class="SimpleMath">\(M\)</span> must arise from the restriction of transitive constituents <span class="SimpleMath">\(1_U^{M.2}\)</span> to <span class="SimpleMath">\(M\)</span> with <span class="SimpleMath">\(|U| = 2\)</span> and such that <span class="SimpleMath">\(U\)</span> is not contained in <span class="SimpleMath">\(M\)</span>. (This follows from the fact that the restriction of a transitive constituent of <span class="SimpleMath">\((1_{M.2}^{S.2})_{M.2}\)</span> to <span class="SimpleMath">\(M\)</span> is either itself a transitive constituent of <span class="SimpleMath">\((1_M^S)_M\)</span> or the sum of two such constituents; the latter case occurs if and only if the point stabilizer is contained in <span class="SimpleMath">\(M\)</span>.) However, the number of these constituents is at most <span class="SimpleMath">\(134\)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inv:= Filtered( [ 1 .. NrConjugacyClasses( tblm2 ) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             i -&gt; OrdersClassRepresentatives( tblm2 )[i] = 2 and</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                  not i in ClassPositionsOfDerivedSubgroup( tblm2 ) );</span>
+[ 41, 42 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n2:= List( inv,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          i -&gt; Int( 2 * pi_m2[i] / SizesCentralizers( tblm2 )[i] ) );</span>
+[ 108, 26 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Sum( n2 );</span>
+134
+</pre></div>
+
+<p>Finally, we consider the action of <span class="SimpleMath">\(M.3\)</span> on <span class="SimpleMath">\(S.3/M.3\)</span>. We compute that <span class="SimpleMath">\((1_{M.3}^{S.3})_{M.3}\)</span> has <span class="SimpleMath">\(205\)</span> transitive constituents, and at most <span class="SimpleMath">\(69\)</span> of them can be induced from subgroups of order two. This is already sufficient to show that there must be regular constituents.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= ScalarProduct( tblm3, pi_m3, TrivialCharacter( tblm3 ) );</span>
+205
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">inv:= Filtered( [ 1 .. NrConjugacyClasses( tblm3 ) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             i -&gt; OrdersClassRepresentatives( tblm3 )[i] = 2 );</span>
+[ 2, 3, 4 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n2:= List( inv,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          i -&gt; Int( 2 * pi_m3[i] / SizesCentralizers( tblm3 )[i] ) );</span>
+[ 0, 54, 15 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Sum( n2 );</span>
+69
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">69 * Size( tblm3 ) / 2 + ( n - 69 - 1 ) * Size( tblm3 ) / 3 + 1;</span>
+41542502401
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pi[1];</span>
+51162109375
+</pre></div>
+
+<p><a id="X7F3A630780F8E262" name="X7F3A630780F8E262"></a></p>
+
+<h4>5.7 <span class="Heading">Appendix: The Data File</span></h4>
+
+<p>The file <code class="file">o8p2s3_o8p5s3.g</code> that can be found at</p>
+
+<p><span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/data/o8p2s3_o8p5s3.g">http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/data/o8p2s3_o8p5s3.g</a></span></p>
+
+<p>contains the relevant data used in the above computations. This covers the representations for the groups and the permutation character of <span class="SimpleMath">\(O^+_8(2).S_3\)</span> computed in Section <a href="chap5_mj.html#X7F0C266082BE1578"><span class="RefLink">5.6</span></a>.</p>
+
+<p>Reading the file into <strong class="pkg">GAP</strong> will define a global variable <code class="code">o8p2s3_o8p5s3_data</code>, a record with the following components.</p>
+
+
+<dl>
+<dt><strong class="Mark"><code class="code">pi</code></strong></dt>
+<dd><p>the list of values of the permutation character of <span class="SimpleMath">\(G = O^+_8(5).S_3\)</span> on the cosets of its subgroup <span class="SimpleMath">\(H = O^+_8(2).S_3\)</span>, restricted to <span class="SimpleMath">\(H\)</span>, corresponding to the ordering of classes in the character table of <span class="SimpleMath">\(H\)</span> in the <strong class="pkg">GAP</strong> Character Table Library (this table has the <code class="func">Identifier</code> (<a href="../../../doc/ref/chap70_mj.html#X810E53597B5BB4F8"><span class="RefLink">Reference: Identifier for tables of marks</span></a>) value <code class="code">"O8+(2).3.2"</code>),</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">dim8Q</code></strong></dt>
+<dd><p>a record with generators for <span class="SimpleMath">\(2.M\)</span> and <span class="SimpleMath">\(2.M.2\)</span>, matrices of dimension eight over the Rationals,</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">deg120</code></strong></dt>
+<dd><p>a record with generators for <span class="SimpleMath">\(M\)</span> and <span class="SimpleMath">\(M.2\)</span>, permutations of degree <span class="SimpleMath">\(120\)</span>,</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">deg360</code></strong></dt>
+<dd><p>a record with generators for <span class="SimpleMath">\(M\)</span>, <span class="SimpleMath">\(M.2\)</span>, <span class="SimpleMath">\(M.3\)</span>, and <span class="SimpleMath">\(H\)</span>, permutations of degree <span class="SimpleMath">\(360\)</span>,</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">dim8f5</code></strong></dt>
+<dd><p>a record with generators for <span class="SimpleMath">\(2.M\)</span>, <span class="SimpleMath">\(2.M.2\)</span>, <span class="SimpleMath">\(2.S\)</span>, and <span class="SimpleMath">\(2.S.2\)</span>, matrices of dimension eight over the field with five elements,</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">deg19656</code></strong></dt>
+<dd><p>a record with generators for <span class="SimpleMath">\(M\)</span>, <span class="SimpleMath">\(M.2\)</span>, <span class="SimpleMath">\(S\)</span>, and <span class="SimpleMath">\(S.2\)</span>, permutations of degree <span class="SimpleMath">\(19\,656\)</span>,</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">deg58968</code></strong></dt>
+<dd><p>a record with generators for <span class="SimpleMath">\(M\)</span>, <span class="SimpleMath">\(M.2\)</span>, <span class="SimpleMath">\(M.3\)</span>, <span class="SimpleMath">\(H\)</span>, <span class="SimpleMath">\(S\)</span>, <span class="SimpleMath">\(S.2\)</span>, <span class="SimpleMath">\(S.3\)</span>, and <span class="SimpleMath">\(G\)</span>, permutations of degree <span class="SimpleMath">\(58\,968\)</span>,</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">seed405</code></strong></dt>
+<dd><p>a block whose <span class="SimpleMath">\(H\)</span>-orbit in the representation on <span class="SimpleMath">\(58\,968\)</span> points, w.r.t. the action <code class="func">OnSets</code> (<a href="../../../doc/ref/chap41_mj.html#X85AA04347CD117F9"><span class="RefLink">Reference: OnSets</span></a>), yields a representation of <span class="SimpleMath">\(H\)</span> on <span class="SimpleMath">\(405\)</span> points.</p>
+
+</dd>
+</dl>
+<p>For each of the permutation representations, we have (where applicable)</p>
+
+<div class="pcenter"><table class="GAPDocTablenoborder">
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(M\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2 \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(M.2\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, b \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(M.3\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, t \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(H\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, t, b \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(S\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, c \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(S.2\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, c, b \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(S.3\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, c, t \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(G\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, c, t, b \rangle\)</span>,</td>
+</tr>
+</table><br />
+</div>
+
+<p>where <span class="SimpleMath">\(a_1, a_2, b, t, c\)</span> are the values of the record components <code class="code">a1</code>, <code class="code">a2</code>, <code class="code">b</code>, <code class="code">t</code>, and <code class="code">c</code>.</p>
+
+<p>Analogously, for the matrix representations, we have (where applicable)</p>
+
+<div class="pcenter"><table class="GAPDocTablenoborder">
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(2.M\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2 \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(2.M.2\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, b \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(2.S\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, c \rangle\)</span>,</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">\(2.S.2\)</span></td>
+<td class="tdcenter"><span class="SimpleMath">\(\cong\)</span></td>
+<td class="tdleft"><span class="SimpleMath">\(\langle a_1, a_2, c, b \rangle\)</span>,</td>
+</tr>
+</table><br />
+</div>
+
+<p>Additional components are used for deriving the representations from initial data, as in the constructions in the previous sections.</p>
+
+<p>For example, most of the permutations needed arise as the induced actions of matrices on orbits of vectors; these orbits are computed when the file is read, and are then stored in the components <code class="code">orb120</code> and <code class="code">orb19656</code>.</p>
+
+<p>The file <code class="file">o8p2s3_o8p5s3.g</code> does not contain the generators explicitly, but it is self-contained in the sense that only a few <strong class="pkg">GAP</strong> functions are actually needed to produce the data; for example, it should not be difficult to translate the contents of the file into the language of other computer algebra systems.</p>
+
+<p>Advantages of this way to store the data are that the relations between the representations become explicit, and also that only very little space is needed to describe the representations –the size of the file is less than <span class="SimpleMath">\(10\)</span> kB, whereas storing (explicitly) one of the permutations on <span class="SimpleMath">\(58\,968\)</span> points requires already about <span class="SimpleMath">\(350\)</span> kB.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chap10_mj.html">10</a>  <a href="chap11_mj.html">11</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

@@ -1,0 +1,795 @@
+  
+  [1X6 [33X[0;0YInterfaces to Other Data Formats for Character Tables[133X[101X
+  
+  [33X[0;0YThis chapter describes data formats for character tables that can be read or
+  created by [5XGAP[105X. Currently these are the formats used by[133X
+  
+  [30X    [33X[0;6Ythe [5XCAS[105X system (see [14X6.1[114X),[133X
+  
+  [30X    [33X[0;6Ythe [5XMOC[105X system (see [14X6.2[114X),[133X
+  
+  [30X    [33X[0;6Y[5XGAP[105X 3 (see [14X6.3[114X),[133X
+  
+  [30X    [33X[0;6Ythe so-called [13XCambridge format[113X (see [14X6.4[114X), and[133X
+  
+  [30X    [33X[0;6Ythe [5XMAGMA[105X system (see [14X6.5[114X).[133X
+  
+  
+  [1X6.1 [33X[0;0YInterface to the [5XCAS[105X[101X[1X System[133X[101X
+  
+  [33X[0;0YThe interface to [5XCAS[105X (see [NPP84]) is thought just for printing the [5XCAS[105X data
+  to  a  file.  The function [2XCASString[102X ([14X6.1-1[114X) is available mainly in order to
+  document the data format. [13XReading[113X [5XCAS[105X tables is not supported; note that the
+  tables  contained  in  the [5XCAS[105X Character Table Library have been migrated to
+  [5XGAP[105X using a few [10Xsed[110X scripts and [10XC[110X programs.[133X
+  
+  [1X6.1-1 CASString[101X
+  
+  [33X[1;0Y[29X[2XCASString[102X( [3Xtbl[103X ) [32X function[133X
+  
+  [33X[0;0Yis  a string that encodes the [5XCAS[105X library format of the character table [3Xtbl[103X.
+  This  string  can  be  printed to a file which then can be read into the [5XCAS[105X
+  system using its [10Xget[110X command (see [NPP84]).[133X
+  
+  [33X[0;0YThe  used  line length is the first entry in the list returned by [2XSizeScreen[102X
+  ([14XReference: SizeScreen[114X).[133X
+  
+  [33X[0;0YOnly  the known values of the following attributes are used. [2XClassParameters[102X
+  ([14XReference:  ClassParameters[114X)  (for  partitions  only), [2XComputedClassFusions[102X
+  ([14XReference:     ComputedClassFusions[114X),     [2XComputedIndicators[102X    ([14XReference:
+  ComputedIndicators[114X),   [2XComputedPowerMaps[102X   ([14XReference:   ComputedPowerMaps[114X),
+  [2XComputedPrimeBlocks[102X     ([14XReference:     ComputedPrimeBlockss[114X),    [2XIdentifier[102X
+  ([14XReference:   Identifier   for   character   tables[114X),  [2XInfoText[102X  ([14XReference:
+  InfoText[114X),  [2XIrr[102X  ([14XReference:  Irr[114X),  [2XOrdersClassRepresentatives[102X  ([14XReference:
+  OrdersClassRepresentatives[114X),   [2XSize[102X   ([14XReference:  Size[114X),  [2XSizesCentralizers[102X
+  ([14XReference: SizesCentralisers[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XPrint( CASString( CharacterTable( "Cyclic", 2 ) ), "\n" );[127X[104X
+    [4X[28X'C2'[128X[104X
+    [4X[28X00/00/00. 00.00.00.[128X[104X
+    [4X[28X(2,2,0,2,-1,0)[128X[104X
+    [4X[28Xtext:[128X[104X
+    [4X[28X(#computed using generic character table for cyclic groups#),[128X[104X
+    [4X[28Xorder=2,[128X[104X
+    [4X[28Xcentralizers:([128X[104X
+    [4X[28X2,2[128X[104X
+    [4X[28X),[128X[104X
+    [4X[28Xreps:([128X[104X
+    [4X[28X1,2[128X[104X
+    [4X[28X),[128X[104X
+    [4X[28Xpowermap:2([128X[104X
+    [4X[28X1,1[128X[104X
+    [4X[28X),[128X[104X
+    [4X[28Xcharacters:[128X[104X
+    [4X[28X(1,1[128X[104X
+    [4X[28X,0:0)[128X[104X
+    [4X[28X(1,-1[128X[104X
+    [4X[28X,0:0);[128X[104X
+    [4X[28X/// converted from GAP[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.2 [33X[0;0YInterface to the [5XMOC[105X[101X[1X System[133X[101X
+  
+  [33X[0;0YThe  interface  to  [5XMOC[105X  (see [HJLP])  can  be  used  to  print  [5XMOC[105X  input.
+  Additionally   it   provides  an  alternative  representation  of  (virtual)
+  characters.[133X
+  
+  [33X[0;0YThe  [5XMOC[105X 3  code of a [22X5[122X digit number in [5XMOC[105X 2 code is given by the following
+  list. (Note that the code must contain only lower case letters.)[133X
+  
+  ABCD    for  0ABCD
+  a       for  10000
+  b       for  10001          k       for  20001
+  c       for  10002          l       for  20002
+  d       for  10003          m       for  20003
+  e       for  10004          n       for  20004
+  f       for  10005          o       for  20005
+  g       for  10006          p       for  20006
+  h       for  10007          q       for  20007
+  i       for  10008          r       for  20008
+  j       for  10009          s       for  20009
+  tAB     for  100AB
+  uAB     for  200AB
+  vABCD   for  1ABCD
+  wABCD   for  2ABCD
+  yABC    for  30ABC
+  z       for  31000
+  
+  [33X[0;0Y[13XNote[113X that any long number in [5XMOC[105X 2 format is divided into packages of length
+  [22X4[122X,  the  first (!) one filled with leading zeros if necessary. Such a number
+  with  decimals [22Xd_1, d_2, ..., d_{4n+k}[122X is the sequence [22X0 d_1 d_2 d_3 d_4 ...
+  0 d_{4n-3} d_{4n-2} d_{4n-1} d_4n d_{4n+1} ... d_{4n+k}[122X where [22X0 ≤ k ≤ 3[122X, the
+  first  digit  of  [22Xx[122X  is  [22X1[122X  if the number is positive and [22X2[122X if the number is
+  negative, and then follow [22X(4-k)[122X zeros.[133X
+  
+  [33X[0;0YDetails  about  the  [5XMOC[105X system are explained in [HJLP], a brief description
+  can be found in [LP91].[133X
+  
+  [1X6.2-1 MAKElb11[101X
+  
+  [33X[1;0Y[29X[2XMAKElb11[102X( [3Xlistofns[103X ) [32X function[133X
+  
+  [33X[0;0YFor  a list [3Xlistofns[103X of positive integers, [2XMAKElb11[102X prints field information
+  for all number fields with conductor in this list.[133X
+  
+  [33X[0;0YThe  output  of [2XMAKElb11[102X is used by the [5XMOC[105X system; Calling [10XMAKElb11( [ 3 ..
+  189 ] )[110X will print something very similar to Richard Parker's file [11Xlb11[111X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XMAKElb11( [ 3, 4 ] );[127X[104X
+    [4X[28X   3   2   0   1   0[128X[104X
+    [4X[28X   4   2   0   1   0[128X[104X
+  [4X[32X[104X
+  
+  [1X6.2-2 MOCTable[101X
+  
+  [33X[1;0Y[29X[2XMOCTable[102X( [3Xgaptbl[103X[, [3Xbasicset[103X] ) [32X function[133X
+  
+  [33X[0;0Y[2XMOCTable[102X returns the [5XMOC[105X table record of the [5XGAP[105X character table [3Xgaptbl[103X.[133X
+  
+  [33X[0;0YThe  one  argument  version  can be used only if [3Xgaptbl[103X is an ordinary ([22XG.0[122X)
+  table.  For  Brauer ([22XG.p[122X) tables, one has to specify a basic set [3Xbasicset[103X of
+  ordinary  irreducibles.  [3Xbasicset[103X  must  then  be a list of positions of the
+  basic  set characters in the [2XIrr[102X ([14XReference: Irr[114X) list of the ordinary table
+  of [3Xgaptbl[103X.[133X
+  
+  [33X[0;0YThe  result  is a record that contains the information of [3Xgaptbl[103X in a format
+  similar  to  the [5XMOC[105X 3 format. This record can, e. g., easily be printed out
+  or be used to print out characters using [2XMOCString[102X ([14X6.2-3[114X).[133X
+  
+  [33X[0;0YThe components of the result are[133X
+  
+  [8X[10Xidentifier[110X[8X[108X
+        [33X[0;6Ythe  string  [10XMOCTable( [110X[22Xname[122X[10X )[110X where [22Xname[122X is the [2XIdentifier[102X ([14XReference:
+        Identifier for character tables[114X) value of [3Xgaptbl[103X,[133X
+  
+  [8X[10XGAPtbl[110X[8X[108X
+        [33X[0;6Y[3Xgaptbl[103X,[133X
+  
+  [8X[10Xprime[110X[8X[108X
+        [33X[0;6Ythe characteristic of the field (label [10X30105[110X in [5XMOC[105X),[133X
+  
+  [8X[10Xcentralizers[110X[8X[108X
+        [33X[0;6Ycentralizer orders for cyclic subgroups (label [10X30130[110X)[133X
+  
+  [8X[10Xorders[110X[8X[108X
+        [33X[0;6Yelement orders for cyclic subgroups (label [10X30140[110X)[133X
+  
+  [8X[10Xfieldbases[110X[8X[108X
+        [33X[0;6Yat  position  [22Xi[122X  the Parker basis of the number field generated by the
+        character values of the [22Xi[122X-th cyclic subgroup. The length of [10Xfieldbases[110X
+        is equal to the value of label [10X30110[110X in [5XMOC[105X.[133X
+  
+  [8X[10Xcycsubgps[110X[8X[108X
+        [33X[0;6Y[10Xcycsubgps[i]  =  j[110X  means that class [10Xi[110X of the [5XGAP[105X table belongs to the
+        [10Xj[110X-th cyclic subgroup of the [5XGAP[105X table,[133X
+  
+  [8X[10Xrepcycsub[110X[8X[108X
+        [33X[0;6Y[10Xrepcycsub[j]  =  i[110X  means  that  class  [10Xi[110X  of  the  [5XGAP[105X  table  is the
+        representative of the [10Xj[110X-th cyclic subgroup of the [5XGAP[105X table. [13XNote[113X that
+        the representatives of [5XGAP[105X table and [5XMOC[105X table need not agree![133X
+  
+  [8X[10Xgalconjinfo[110X[8X[108X
+        [33X[0;6Ya list [22X[ r_1, c_1, r_2, c_2, ..., r_n, c_n ][122X which means that the [22Xi[122X-th
+        class  of  the [5XGAP[105X table is the [22Xc_i[122X-th conjugate of the representative
+        of  the  [22Xr_i[122X-th  cyclic  subgroup  on  the [5XMOC[105X table. (This is used to
+        translate back to [5XGAP[105X format, stored under label [10X30160[110X)[133X
+  
+  [8X[10X30170[110X[8X[108X
+        [33X[0;6Y(power  maps)  for  each  cyclic subgroup (except the trivial one) and
+        each  prime  divisor  of  the  representative order store four values,
+        namely the number of the subgroup, the power, the number of the cyclic
+        subgroup   containing   the   image,   and  the  power  to  which  the
+        representative  must be raised to yield the image class. (This is used
+        only to construct the [10X30230[110X power map/embedding information.) In [10X30170[110X
+        only  a  list  of  lists  (one  for each cyclic subgroup) of all these
+        values is stored, it will not be used by [5XGAP[105X.[133X
+  
+  [8X[10Xtensinfo[110X[8X[108X
+        [33X[0;6Ytensor  product  information,  used to compute the coefficients of the
+        Parker  base  for  tensor products of characters (label [10X30210[110X in [5XMOC[105X).
+        For  a  field with vector space basis [22X(v_1, v_2, ..., v_n)[122X, the tensor
+        product  information  of a cyclic subgroup in [5XMOC[105X (as computed by [10Xfct[110X)
+        is either [22X1[122X (for rational classes) or a sequence[133X
+  
+  
+  [24X[33X[0;6Yn x_1,1 y_1,1 z_1,1 x_1,2 y_1,2 z_1,2 ... x_1,m_1 y_1,m_1 z_1,m_1 0 x_2,1 y_2,1 z_2,1 x_2,2 y_2,2 z_2,2 ... x_2,m_2 y_2,m_2 z_2,m_2 0 ... z_n,m_n 0[133X[124X
+  
+        [33X[0;6Ywhich means that the coefficient of [22Xv_k[122X in the product[133X
+  
+  
+  [24X[33X[0;6Y( ∑_i=1^n a_i v_i ) ( ∑_j=1^n b_j v_j )[133X[124X
+  
+        [33X[0;6Yis equal to[133X
+  
+  
+  [24X[33X[0;6Y∑_i=1^m_k x_k,i a_y_k,i} b_z_k,i} .[133X[124X
+  
+        [33X[0;6YOn a [5XMOC[105X table in [5XGAP[105X, the [10Xtensinfo[110X component is a list of lists, each
+        containing exactly the sequence mentioned above.[133X
+  
+  [8X[10Xinvmap[110X[8X[108X
+        [33X[0;6Yinverse  map  to  compute complex conjugate characters, label [10X30220[110X in
+        [5XMOC[105X.[133X
+  
+  [8X[10Xpowerinfo[110X[8X[108X
+        [33X[0;6Yfield  embeddings  for  [22Xp[122X-th  symmetrizations,  [22Xp[122X  a prime integer not
+        larger than the largest element order, label [10X30230[110X in [5XMOC[105X.[133X
+  
+  [8X[10X30900[110X[8X[108X
+        [33X[0;6Ybasic  set  of restricted ordinary irreducibles in the case of nonzero
+        characteristic, all ordinary irreducibles otherwise.[133X
+  
+  [1X6.2-3 MOCString[101X
+  
+  [33X[1;0Y[29X[2XMOCString[102X( [3Xmoctbl[103X[, [3Xchars[103X] ) [32X function[133X
+  
+  [33X[0;0YLet [3Xmoctbl[103X be a [5XMOC[105X table record, as returned by [2XMOCTable[102X ([14X6.2-2[114X). [2XMOCString[102X
+  returns a string describing the [5XMOC[105X 3 format of [3Xmoctbl[103X.[133X
+  
+  [33X[0;0YIf  a  second  argument  [3Xchars[103X is specified, it must be a list of [5XMOC[105X format
+  characters  as  returned by [2XMOCChars[102X ([14X6.2-6[114X). In this case, these characters
+  are  stored  under  label  [10X30900[110X. If the second argument is missing then the
+  basic set of ordinary irreducibles is stored under this label.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmoca5:= MOCTable( CharacterTable( "A5" ) );[127X[104X
+    [4X[28Xrec( 30170 := [ [  ], [ 2, 2, 1, 1 ], [ 3, 3, 1, 1 ], [ 4, 5, 1, 1 ] ][128X[104X
+    [4X[28X    , [128X[104X
+    [4X[28X  30900 := [ [ 1, 1, 1, 1, 0 ], [ 3, -1, 0, 0, -1 ], [128X[104X
+    [4X[28X      [ 3, -1, 0, 1, 1 ], [ 4, 0, 1, -1, 0 ], [ 5, 1, -1, 0, 0 ] ], [128X[104X
+    [4X[28X  GAPtbl := CharacterTable( "A5" ), centralizers := [ 60, 4, 3, 5 ], [128X[104X
+    [4X[28X  cycsubgps := [ 1, 2, 3, 4, 4 ], [128X[104X
+    [4X[28X  fieldbases := [128X[104X
+    [4X[28X    [ CanonicalBasis( Rationals ), CanonicalBasis( Rationals ), [128X[104X
+    [4X[28X      CanonicalBasis( Rationals ), [128X[104X
+    [4X[28X      Basis( NF(5,[ 1, 4 ]), [ 1, E(5)+E(5)^4 ] ) ], fields := [  ], [128X[104X
+    [4X[28X  galconjinfo := [ 1, 1, 2, 1, 3, 1, 4, 1, 4, 2 ], [128X[104X
+    [4X[28X  identifier := "MOCTable(A5)", [128X[104X
+    [4X[28X  invmap := [ [ 1, 1, 0 ], [ 1, 2, 0 ], [ 1, 3, 0 ], [128X[104X
+    [4X[28X      [ 1, 4, 0, 1, 5, 0 ] ], orders := [ 1, 2, 3, 5 ], [128X[104X
+    [4X[28X  powerinfo := [128X[104X
+    [4X[28X    [ , [128X[104X
+    [4X[28X      [ [ 1, 1, 0 ], [ 1, 1, 0 ], [ 1, 3, 0 ], [128X[104X
+    [4X[28X          [ 1, 4, -1, 5, 0, -1, 5, 0 ] ], [128X[104X
+    [4X[28X      [ [ 1, 1, 0 ], [ 1, 2, 0 ], [ 1, 1, 0 ], [128X[104X
+    [4X[28X          [ 1, 4, -1, 5, 0, -1, 5, 0 ] ],, [128X[104X
+    [4X[28X      [ [ 1, 1, 0 ], [ 1, 2, 0 ], [ 1, 3, 0 ], [ 1, 1, 0, 0 ] ] ], [128X[104X
+    [4X[28X  prime := 0, repcycsub := [ 1, 2, 3, 4 ], [128X[104X
+    [4X[28X  tensinfo := [128X[104X
+    [4X[28X    [ [ 1 ], [ 1 ], [ 1 ], [128X[104X
+    [4X[28X      [ 2, 1, 1, 1, 1, 2, 2, 0, 1, 1, 2, 1, 2, 1, -1, 2, 2, 0 ] ] )[128X[104X
+    [4X[25Xgap>[125X [27Xstr:= MOCString( moca5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xstr{[1..68]};[127X[104X
+    [4X[28X"y100y105ay110fey130t60edfy140bcdfy150bbbfcabbey160bbcbdbebecy170ccbb"[128X[104X
+    [4X[25Xgap>[125X [27Xmoca5mod3:= MOCTable( CharacterTable( "A5" ) mod 3, [ 1 .. 4 ] );;[127X[104X
+    [4X[25Xgap>[125X [27XMOCString( moca5mod3 ){ [ 1 .. 68 ] };[127X[104X
+    [4X[28X"y100y105dy110edy130t60efy140bcfy150bbfcabbey160bbcbdbdcy170ccbbdfbby"[128X[104X
+  [4X[32X[104X
+  
+  [1X6.2-4 ScanMOC[101X
+  
+  [33X[1;0Y[29X[2XScanMOC[102X( [3Xlist[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  a  record  containing the information encoded in the list [3Xlist[103X. The
+  components  of  the  result are the labels that occur in [3Xlist[103X. If [3Xlist[103X is in
+  [5XMOC[105X 2  format  (10000-format), the names of components are 30000-numbers; if
+  it is in [5XMOC[105X 3 format the names of components have [10XyABC[110X-format.[133X
+  
+  [1X6.2-5 GAPChars[101X
+  
+  [33X[1;0Y[29X[2XGAPChars[102X( [3Xtbl[103X, [3Xmocchars[103X ) [32X function[133X
+  
+  [33X[0;0YLet [3Xtbl[103X be a character table or a [5XMOC[105X table record, and [3Xmocchars[103X be either a
+  list of [5XMOC[105X format characters (as returned by [2XMOCChars[102X ([14X6.2-6[114X)) or a list of
+  positive  integers  such  as  a  record  component encoding characters, in a
+  record produced by [2XScanMOC[102X ([14X6.2-4[114X).[133X
+  
+  [33X[0;0Y[2XGAPChars[102X returns translations of [3Xmocchars[103X to [5XGAP[105X character values lists.[133X
+  
+  [1X6.2-6 MOCChars[101X
+  
+  [33X[1;0Y[29X[2XMOCChars[102X( [3Xtbl[103X, [3Xgapchars[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [3Xtbl[103X  be a character table or a [5XMOC[105X table record, and [3Xgapchars[103X be a list
+  of ([5XGAP[105X format) characters. [2XMOCChars[102X returns translations of [3Xgapchars[103X to [5XMOC[105X
+  format.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xscan:= ScanMOC( str );[127X[104X
+    [4X[28Xrec( y050 := [ 5, 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 1, 0, 0 ], [128X[104X
+    [4X[28X  y105 := [ 0 ], y110 := [ 5, 4 ], y130 := [ 60, 4, 3, 5 ], [128X[104X
+    [4X[28X  y140 := [ 1, 2, 3, 5 ], y150 := [ 1, 1, 1, 5, 2, 0, 1, 1, 4 ], [128X[104X
+    [4X[28X  y160 := [ 1, 1, 2, 1, 3, 1, 4, 1, 4, 2 ], [128X[104X
+    [4X[28X  y170 := [ 2, 2, 1, 1, 3, 3, 1, 1, 4, 5, 1, 1 ], [128X[104X
+    [4X[28X  y210 := [ 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 0, 1, 1, 2, 1, 2, 1, -1, 2, [128X[104X
+    [4X[28X      2, 0 ], y220 := [ 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 4, 0, 1, 5, 0 ],[128X[104X
+    [4X[28X  y230 := [ 2, 1, 1, 0, 1, 1, 0, 1, 3, 0, 1, 4, -1, 5, 0, -1, 5, 0 ], [128X[104X
+    [4X[28X  y900 := [ 1, 1, 1, 1, 0, 3, -1, 0, 0, -1, 3, -1, 0, 1, 1, 4, 0, 1, [128X[104X
+    [4X[28X      -1, 0, 5, 1, -1, 0, 0 ] )[128X[104X
+    [4X[25Xgap>[125X [27Xgapchars:= GAPChars( moca5, scan.y900 );[127X[104X
+    [4X[28X[ [ 1, 1, 1, 1, 1 ], [ 3, -1, 0, -E(5)-E(5)^4, -E(5)^2-E(5)^3 ], [128X[104X
+    [4X[28X  [ 3, -1, 0, -E(5)^2-E(5)^3, -E(5)-E(5)^4 ], [ 4, 0, 1, -1, -1 ], [128X[104X
+    [4X[28X  [ 5, 1, -1, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xmocchars:= MOCChars( moca5, gapchars );[127X[104X
+    [4X[28X[ [ 1, 1, 1, 1, 0 ], [ 3, -1, 0, 0, -1 ], [ 3, -1, 0, 1, 1 ], [128X[104X
+    [4X[28X  [ 4, 0, 1, -1, 0 ], [ 5, 1, -1, 0, 0 ] ][128X[104X
+    [4X[25Xgap>[125X [27XConcatenation( mocchars ) = scan.y900;[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X6.3 [33X[0;0YInterface to [5XGAP[105X[101X[1X 3[133X[101X
+  
+  [33X[0;0YThe following functions are used to read and write character tables in [5XGAP[105X 3
+  format.[133X
+  
+  [1X6.3-1 GAP3CharacterTableScan[101X
+  
+  [33X[1;0Y[29X[2XGAP3CharacterTableScan[102X( [3Xstring[103X ) [32X function[133X
+  
+  [33X[0;0YLet  [3Xstring[103X  be  a  string  that  contains  the output of the [5XGAP[105X 3 function
+  [10XPrintCharTable[110X.  In  other  words,  [3Xstring[103X  describes  a  [5XGAP[105X  record  whose
+  components   define   an   ordinary   character   table   object  in  [5XGAP[105X 3.
+  [2XGAP3CharacterTableScan[102X  returns  the  corresponding  [5XGAP[105X 4  character  table
+  object.[133X
+  
+  [33X[0;0YThe supported record components are given by the list [2XGAP3CharacterTableData[102X
+  ([14X6.3-3[114X).[133X
+  
+  [1X6.3-2 GAP3CharacterTableString[101X
+  
+  [33X[1;0Y[29X[2XGAP3CharacterTableString[102X( [3Xtbl[103X ) [32X function[133X
+  
+  [33X[0;0YFor  an  ordinary  character  table  [3Xtbl[103X, [2XGAP3CharacterTableString[102X returns a
+  string   that   when   read  into  [5XGAP[105X 3  evaluates  to  a  character  table
+  corresponding  to  [3Xtbl[103X.  A  similar  format is printed by the [5XGAP[105X 3 function
+  [10XPrintCharTable[110X.[133X
+  
+  [33X[0;0YThe supported record components are given by the list [2XGAP3CharacterTableData[102X
+  ([14X6.3-3[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtbl:= CharacterTable( "Alternating", 5 );;[127X[104X
+    [4X[25Xgap>[125X [27Xstr:= GAP3CharacterTableString( tbl );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( str );[127X[104X
+    [4X[28Xrec([128X[104X
+    [4X[28Xcentralizers := [ 60, 4, 3, 5, 5 ],[128X[104X
+    [4X[28Xfusions := [ rec( map := [ 1, 3, 4, 7, 7 ], name := "Sym(5)" ) ],[128X[104X
+    [4X[28Xidentifier := "Alt(5)",[128X[104X
+    [4X[28Xirreducibles := [[128X[104X
+    [4X[28X[ 1, 1, 1, 1, 1 ],[128X[104X
+    [4X[28X[ 4, 0, 1, -1, -1 ],[128X[104X
+    [4X[28X[ 5, 1, -1, 0, 0 ],[128X[104X
+    [4X[28X[ 3, -1, 0, -E(5)-E(5)^4, -E(5)^2-E(5)^3 ],[128X[104X
+    [4X[28X[ 3, -1, 0, -E(5)^2-E(5)^3, -E(5)-E(5)^4 ][128X[104X
+    [4X[28X],[128X[104X
+    [4X[28Xorders := [ 1, 2, 3, 5, 5 ],[128X[104X
+    [4X[28Xpowermap := [ , [ 1, 1, 3, 5, 4 ], [ 1, 2, 1, 5, 4 ], , [ 1, 2, 3, 1, \[128X[104X
+    [4X[28X1 ] ],[128X[104X
+    [4X[28Xsize := 60,[128X[104X
+    [4X[28Xtext := "computed using generic character table for alternating groups\[128X[104X
+    [4X[28X",[128X[104X
+    [4X[28Xoperations := CharTableOps )[128X[104X
+    [4X[25Xgap>[125X [27Xscan:= GAP3CharacterTableScan( str );[127X[104X
+    [4X[28XCharacterTable( "Alt(5)" )[128X[104X
+    [4X[25Xgap>[125X [27XTransformingPermutationsCharacterTables( tbl, scan );[127X[104X
+    [4X[28Xrec( columns := (), group := Group([ (4,5) ]), rows := () )[128X[104X
+  [4X[32X[104X
+  
+  [1X6.3-3 GAP3CharacterTableData[101X
+  
+  [33X[1;0Y[29X[2XGAP3CharacterTableData[102X [32X global variable[133X
+  
+  [33X[0;0YThis  is a list of pairs, the first entry being the name of a component in a
+  [5XGAP[105X 3 character table and the second entry being the corresponding attribute
+  name  in  [5XGAP[105X 4.  The variable is used by [2XGAP3CharacterTableScan[102X ([14X6.3-1[114X) and
+  [2XGAP3CharacterTableString[102X ([14X6.3-2[114X).[133X
+  
+  
+  [1X6.4 [33X[0;0YInterface to the Cambridge Format[133X[101X
+  
+  [33X[0;0YThe  following  functions deal with the so-called Cambridge format, in which
+  the   source   data   of  the  character  tables  in  the  [5XAtlas[105X  of  Finite
+  Groups [CCN+85]  and  in the [5XAtlas[105X of Brauer Characters [JLPW95] are stored.
+  Each  such  table is stored on a file of its own. The line length is at most
+  [22X78[122X,  and  each  item  of  the  table starts in a new line, behind one of the
+  following prefixes.[133X
+  
+  [8X[10X#23[110X[8X[108X
+        [33X[0;6Ya description and the name(s) of the simple group[133X
+  
+  [8X[10X#7[110X[8X[108X
+        [33X[0;6Yintegers describing the column widths[133X
+  
+  [8X[10X#9[110X[8X[108X
+        [33X[0;6Ythe  symbols [10X;[110X and [10X@[110X, denoting columns between tables and columns that
+        belong to conjugacy classes, respectively[133X
+  
+  [8X[10X#1[110X[8X[108X
+        [33X[0;6Ythe  symbol  [10X|[110X  in  columns  between  tables,  and  centralizer orders
+        otherwise[133X
+  
+  [8X[10X#2[110X[8X[108X
+        [33X[0;6Ythe  symbols [10Xp[110X (in the first column only), [10Xpower[110X (in the second column
+        only,  which belongs to the class of the identity element), [10X|[110X in other
+        columns  between  tables,  and  descriptions  of the powers of classes
+        otherwise[133X
+  
+  [8X[10X#3[110X[8X[108X
+        [33X[0;6Ythe  symbols [10Xp'[110X (in the first column only), [10Xpart[110X (in the second column
+        only,  which belongs to the class of the identity element), [10X|[110X in other
+        columns  between  tables,  and  descriptions  of  the [22Xp[122X-prime parts of
+        classes otherwise[133X
+  
+  [8X[10X#4[110X[8X[108X
+        [33X[0;6Ythe  symbols  [10Xind[110X  and  [10Xfus[110X in columns between tables, and class names
+        otherwise[133X
+  
+  [8X[10X#5[110X[8X[108X
+        [33X[0;6Yeither [10X|[110X or strings composed from the symbols [10X+[110X, [10X-[110X, [10Xo[110X, and integers in
+        columns  where  the lines starting with [10X#4[110X contain [10Xind[110X; the symbols [10X:[110X,
+        [10X.[110X,  [10X?[110X  in columns where these lines contain [10Xfus[110X; character values or [10X|[110X
+        otherwise[133X
+  
+  [8X[10X#6[110X[8X[108X
+        [33X[0;6Ythe symbols [10X|[110X, [10Xind[110X, [10Xand[110X, and [10Xfus[110X in columns between tables; the symbol
+        [10X|[110X  and  element  orders  of  preimage  classes  in downward extensions
+        otherwise[133X
+  
+  [8X[10X#8[110X[8X[108X
+        [33X[0;6Ythe last line of the data, may contain the date of the last change[133X
+  
+  [8X[10X#C[110X[8X[108X
+        [33X[0;6Ycomments.[133X
+  
+  [1X6.4-1 CambridgeMaps[101X
+  
+  [33X[1;0Y[29X[2XCambridgeMaps[102X( [3Xtbl[103X ) [32X function[133X
+  
+  [33X[0;0YFor a character table [3Xtbl[103X, [2XCambridgeMaps[102X returns a record with the following
+  components.[133X
+  
+  [8X[10Xnames[110X[8X[108X
+        [33X[0;6Ya list of strings denoting class names,[133X
+  
+  [8X[10Xpower[110X[8X[108X
+        [33X[0;6Ya  list of strings, the [22Xi[122X-th entry encodes the [22Xp[122X-th powers of the [22Xi[122X-th
+        class, for all prime divisors [22Xp[122X of the group order,[133X
+  
+  [8X[10Xprime[110X[8X[108X
+        [33X[0;6Ya  list  of  strings,  the [22Xi[122X-th entry encodes the [22Xp[122X-prime parts of the
+        [22Xi[122X-th class, for all prime divisors [22Xp[122X of the group order.[133X
+  
+  [33X[0;0YThe  meaning  of  the entries of the lists is defined in [CCN+85, Chapter 7,
+  Sections 3–5]).[133X
+  
+  [33X[0;0Y[2XCambridgeMaps[102X  is  used  for  example  by  [2XDisplay[102X ([14XReference: Display for a
+  character table[114X) in the case that the [10Xpowermap[110X option has the value [10X"ATLAS"[110X.[133X
+  
+  [33X[0;0YNote  that  the value of the [10Xnames[110X component may differ from the class names
+  of  the  character  table shown in the [5XAtlas[105X of Finite Groups; an example is
+  the character table of the group [22XJ_1[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCambridgeMaps( CharacterTable( "A5" ) );[127X[104X
+    [4X[28Xrec( names := [ "1A", "2A", "3A", "5A", "B*" ], [128X[104X
+    [4X[28X  power := [ "", "A", "A", "A", "A" ], [128X[104X
+    [4X[28X  prime := [ "", "A", "A", "A", "A" ] )[128X[104X
+    [4X[25Xgap>[125X [27XCambridgeMaps( CharacterTable( "A5" ) mod 2 );[127X[104X
+    [4X[28Xrec( names := [ "1A", "3A", "5A", "B*" ], [128X[104X
+    [4X[28X  power := [ "", "A", "A", "A" ], prime := [ "", "A", "A", "A" ] )[128X[104X
+  [4X[32X[104X
+  
+  [1X6.4-2 StringOfCambridgeFormat[101X
+  
+  [33X[1;0Y[29X[2XStringOfCambridgeFormat[102X( [3Xtblnames[103X[, [3Xp[103X] ) [32X function[133X
+  
+  [33X[0;0YLet  [3Xtblnames[103X be a matrix of identifiers of ordinary character tables, which
+  describe  the bicyclic extensions of a simple group from the [5XAtlas[105X of Finite
+  Groups. The class fusions between the character tables must be stored on the
+  tables.[133X
+  
+  [33X[0;0YIf  the  required  information  is  available  then  [2XStringOfCambridgeFormat[102X
+  returns  a string that encodes an approximation of the Cambridge format file
+  for  the simple group in question (whose identifier occurs in the upper left
+  corner  of  [3Xtblnames[103X).  Otherwise, that is, if some character table or class
+  fusion is missing, [9Xfail[109X is returned.[133X
+  
+  [33X[0;0YIf a prime integer [3Xp[103X is given as a second argument then the result describes
+  [3Xp[103X-modular  character  tables,  otherwise  the  ordinary character tables are
+  described by the result.[133X
+  
+  [33X[0;0YDifferences  to  the  original  format  may  occur  for irrational character
+  values;  the  descriptions of these values have been chosen deliberately for
+  the original files, it is not obvious how to compute these descriptions from
+  the character tables in question.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xstr:= StringOfCambridgeFormat( [ [   "A5",   "A5.2" ],[127X[104X
+    [4X[25X>[125X [27X                                    [ "2.A5", "2.A5.2" ] ] );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( str );[127X[104X
+    [4X[28X#23 ? A5[128X[104X
+    [4X[28X#7 4 4 4 4 4 4 4 4 4 4 4 [128X[104X
+    [4X[28X#9 ; @ @ @ @ @ ; ; @ @ @ [128X[104X
+    [4X[28X#1 | 60 4 3 5 5 | | 6 2 3 [128X[104X
+    [4X[28X#2 p power A A A A | | A A AB [128X[104X
+    [4X[28X#3 p' part A A A A | | A A AB [128X[104X
+    [4X[28X#4 ind 1A 2A 3A 5A B* fus ind 2B 4A 6A [128X[104X
+    [4X[28X#5 + 1 1 1 1 1 : ++ 1 1 1 [128X[104X
+    [4X[28X#5 + 3 -1 0 -b5 * . + 0 0 0 [128X[104X
+    [4X[28X#5 + 3 -1 0 * -b5 . | | | | [128X[104X
+    [4X[28X#5 + 4 0 1 -1 -1 : ++ 2 0 -1 [128X[104X
+    [4X[28X#5 + 5 1 -1 0 0 : ++ 1 -1 1 [128X[104X
+    [4X[28X#6 ind 1 4 3 5 5 fus ind 2 8 6 [128X[104X
+    [4X[28X#6 | 2 | 6 10 10 | | | 8 6 [128X[104X
+    [4X[28X#5 - 2 0 -1 b5 * . - 0 0 0 [128X[104X
+    [4X[28X#5 - 2 0 -1 * b5 . | | | | [128X[104X
+    [4X[28X#5 - 4 0 1 -1 -1 : oo 0 0 i3 [128X[104X
+    [4X[28X#5 - 6 0 0 1 1 : oo 0 i2 0 [128X[104X
+    [4X[28X#8[128X[104X
+    [4X[25Xgap>[125X [27Xstr:= StringOfCambridgeFormat( [ [   "A5",   "A5.2" ],[127X[104X
+    [4X[25X>[125X [27X                                    [ "2.A5", "2.A5.2" ] ], 3 );;[127X[104X
+    [4X[25Xgap>[125X [27XPrint( str );[127X[104X
+    [4X[28X#23 A5 (Mod 3)[128X[104X
+    [4X[28X#7 4 4 4 4 4 4 4 4 4 [128X[104X
+    [4X[28X#9 ; @ @ @ @ ; ; @ @ [128X[104X
+    [4X[28X#1 | 60 4 5 5 | | 6 2 [128X[104X
+    [4X[28X#2 p power A A A | | A A [128X[104X
+    [4X[28X#3 p' part A A A | | A A [128X[104X
+    [4X[28X#4 ind 1A 2A 5A B* fus ind 2B 4A [128X[104X
+    [4X[28X#5 + 1 1 1 1 : ++ 1 1 [128X[104X
+    [4X[28X#5 + 3 -1 -b5 * . + 0 0 [128X[104X
+    [4X[28X#5 + 3 -1 * -b5 . | | | [128X[104X
+    [4X[28X#5 + 4 0 -1 -1 : ++ 2 0 [128X[104X
+    [4X[28X#6 ind 1 4 5 5 fus ind 2 8 [128X[104X
+    [4X[28X#6 | 2 | 10 10 | | | 8 [128X[104X
+    [4X[28X#5 - 2 0 b5 * . - 0 0 [128X[104X
+    [4X[28X#5 - 2 0 * b5 . | | | [128X[104X
+    [4X[28X#5 - 6 0 1 1 : oo 0 i2 [128X[104X
+    [4X[28X#8[128X[104X
+    [4X[25Xgap>[125X [27XStringOfCambridgeFormat( [ [ "L10(11)" ] ], 0 );[127X[104X
+    [4X[28Xfail[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe global option [10XOmitDashedRows[110X can be used to control whether the two-line
+  description  of  [21Xdashed[121X row portions (concerning tables of, e. g., [22X2'.Sz(8)[122X)
+  are  omitted  (value  [9Xtrue[109X)  or  shown (value [9Xfalse[109X). The default is to show
+  information about dashed row portions in the case of ordinary tables, and to
+  omit this information for Brauer tables.[133X
+  
+  
+  [1X6.5 [33X[0;0YInterface to the [5XMAGMA[105X[101X[1X System[133X[101X
+  
+  [33X[0;0YThis  interface  is  intended  to  convert character tables given in [5XMAGMA[105X's
+  (see [CP96]) display format into [5XGAP[105X character tables.[133X
+  
+  [33X[0;0YThe  function  [2XBosmaBase[102X  ([14X6.5-1[114X)  is used for the translation of irrational
+  values;  this  function  may be of interest independent of the conversion of
+  character tables.[133X
+  
+  [1X6.5-1 BosmaBase[101X
+  
+  [33X[1;0Y[29X[2XBosmaBase[102X( [3Xn[103X ) [32X function[133X
+  
+  [33X[0;0YFor  a  positive  integer  [3Xn[103X  that is not congruent to [22X2[122X modulo [22X4[122X, [2XBosmaBase[102X
+  returns  the  list  of exponents [22Xi[122X for which [10XE([3Xn[103X[10X)^[110X[22Xi[122X belongs to the canonical
+  basis of the [3Xn[103X-th cyclotomic field that is defined in [Bos90, Section 5].[133X
+  
+  [33X[0;0YAs  a  set,  this basis is defined as follows. Let [22XP[122X denote the set of prime
+  divisors of [3Xn[103X and [3Xn[103X [22X= ∏_{p ∈ P} n_p[122X. Let [22Xe_l =[122X [10XE[110X[22X(l)[122X for any positive integer
+  [22Xl[122X,  and  [22X{  e_{m_1}^j  }_{j  ∈  J}  ⊗  { e_{m_2}^k }_{k ∈ K} = { e_{m_1}^j ⋅
+  e_{m_2}^k  }_{j  ∈  J,  k  ∈  K}[122X  for  any positive integers [22Xm_1[122X, [22Xm_2[122X. (This
+  notation  is  the  same  as the one used in the description of [2XZumbroichBase[102X
+  ([14XReference: ZumbroichBase[114X).)[133X
+  
+  [33X[0;0YThen the basis is[133X
+  
+  
+  [24X[33X[0;6YB_n = ⨂_{p ∈ P} B_{n_p}[133X[124X
+  
+  [33X[0;0Ywhere[133X
+  
+  
+  [24X[33X[0;6YB_{n_p} = { e_{n_p}^k; 0 ≤ k ≤ φ(n_p)-1 };[133X[124X
+  
+  [33X[0;0Yhere [22Xφ[122X denotes Euler's function, see [2XPhi[102X ([14XReference: Phi[114X).[133X
+  
+  [33X[0;0Y[22XB_n[122X  consists  of  roots of unity, it is an integral basis (that is, exactly
+  the   integral  elements  in  [22Xℚ_n[122X  have  integral  coefficients  w.r.t. [22XB_n[122X,
+  cf. [2XIsIntegralCyclotomic[102X  ([14XReference:  IsIntegralCyclotomic[114X)),  and  for any
+  divisor [22Xm[122X of [3Xn[103X that is not congruent to [22X2[122X modulo [22X4[122X, [22XB_m[122X is a subset of [22XB_n[122X.[133X
+  
+  [33X[0;0YNote that the list [22Xl[122X, say, that is returned by [2XBosmaBase[102X is in general not a
+  set.  The  ordering  of  the elements in [22Xl[122X fits to the coefficient lists for
+  irrational values used by [5XMAGMA[105X's display format.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xb:= BosmaBase( 8 );[127X[104X
+    [4X[28X[ 0, 1, 2, 3 ][128X[104X
+    [4X[25Xgap>[125X [27Xb:= Basis( CF(8), List( b, i -> E(8)^i ) );[127X[104X
+    [4X[28XBasis( CF(8), [ 1, E(8), E(4), E(8)^3 ] )[128X[104X
+    [4X[25Xgap>[125X [27XCoefficients( b, Sqrt(2) );[127X[104X
+    [4X[28X[ 0, 1, 0, -1 ][128X[104X
+    [4X[25Xgap>[125X [27XCoefficients( b, Sqrt(-2) );[127X[104X
+    [4X[28X[ 0, 1, 0, 1 ][128X[104X
+    [4X[25Xgap>[125X [27Xb:= BosmaBase( 15 );[127X[104X
+    [4X[28X[ 0, 5, 3, 8, 6, 11, 9, 14 ][128X[104X
+    [4X[25Xgap>[125X [27Xb:= List( b, i -> E(15)^i );[127X[104X
+    [4X[28X[ 1, E(3), E(5), E(15)^8, E(5)^2, E(15)^11, E(5)^3, E(15)^14 ][128X[104X
+    [4X[25Xgap>[125X [27XCoefficients( Basis( CF(15), b ), EB(15) );[127X[104X
+    [4X[28X[ -1, -1, 0, 0, -1, -2, -1, -2 ][128X[104X
+    [4X[25Xgap>[125X [27XBosmaBase( 48 );[127X[104X
+    [4X[28X[ 0, 3, 6, 9, 12, 15, 18, 21, 16, 19, 22, 25, 28, 31, 34, 37 ][128X[104X
+  [4X[32X[104X
+  
+  [1X6.5-2 GAPTableOfMagmaFile[101X
+  
+  [33X[1;0Y[29X[2XGAPTableOfMagmaFile[102X( [3Xfile[103X, [3Xidentifier[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XGAPTableOfMagmaFile[102X( [3Xstr[103X, [3Xidentifier[103X[, [3X"string"[103X] ) [32X function[133X
+  
+  [33X[0;0YIn  the first form, let [3Xfile[103X be the name of a file that contains a character
+  table   in   [5XMAGMA[105X's   display   format,   and   [3Xidentifier[103X   be  a  string.
+  [2XGAPTableOfMagmaFile[102X  returns  the  corresponding  [5XGAP[105X  character table, with
+  [2XIdentifier[102X ([14XReference: Identifier for tables of marks[114X) value [3Xidentifier[103X.[133X
+  
+  [33X[0;0YIn  the  second  form, [3Xstr[103X must be a string that describes the contents of a
+  file  as  described  for  the first form, and the third argument must be the
+  string [10X"string"[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xtmpdir:= DirectoryTemporary();;[127X[104X
+    [4X[25Xgap>[125X [27Xfile:= Filename( tmpdir, "magmatable" );;[127X[104X
+    [4X[25Xgap>[125X [27Xstr:= "\[127X[104X
+    [4X[25X>[125X [27XCharacter Table of Group G\n\[127X[104X
+    [4X[25X>[125X [27X--------------------------\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27X---------------------------\n\[127X[104X
+    [4X[25X>[125X [27XClass |   1  2  3    4    5\n\[127X[104X
+    [4X[25X>[125X [27XSize  |   1 15 20   12   12\n\[127X[104X
+    [4X[25X>[125X [27XOrder |   1  2  3    5    5\n\[127X[104X
+    [4X[25X>[125X [27X---------------------------\n\[127X[104X
+    [4X[25X>[125X [27Xp  =  2   1  1  3    5    4\n\[127X[104X
+    [4X[25X>[125X [27Xp  =  3   1  2  1    5    4\n\[127X[104X
+    [4X[25X>[125X [27Xp  =  5   1  2  3    1    1\n\[127X[104X
+    [4X[25X>[125X [27X---------------------------\n\[127X[104X
+    [4X[25X>[125X [27XX.1   +   1  1  1    1    1\n\[127X[104X
+    [4X[25X>[125X [27XX.2   +   3 -1  0   Z1 Z1#2\n\[127X[104X
+    [4X[25X>[125X [27XX.3   +   3 -1  0 Z1#2   Z1\n\[127X[104X
+    [4X[25X>[125X [27XX.4   +   4  0  1   -1   -1\n\[127X[104X
+    [4X[25X>[125X [27XX.5   +   5  1 -1    0    0\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27XExplanation of Character Value Symbols\n\[127X[104X
+    [4X[25X>[125X [27X--------------------------------------\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27X# denotes algebraic conjugation, that is,\n\[127X[104X
+    [4X[25X>[125X [27X#k indicates replacing the root of unity w by w^k\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27XZ1     = (CyclotomicField(5: Sparse := true)) ! [\n\[127X[104X
+    [4X[25X>[125X [27XRationalField() | 1, 0, 1, 1 ]\n\[127X[104X
+    [4X[25X>[125X [27X";;[127X[104X
+    [4X[25Xgap>[125X [27XFileString( file, str );;[127X[104X
+    [4X[25Xgap>[125X [27Xtbl:= GAPTableOfMagmaFile( file, "MagmaA5" );;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( tbl );[127X[104X
+    [4X[28XMagmaA5[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X     2  2  2  .  .  .[128X[104X
+    [4X[28X     3  1  .  1  .  .[128X[104X
+    [4X[28X     5  1  .  .  1  1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 2a 3a 5a 5b[128X[104X
+    [4X[28X    2P 1a 1a 3a 5b 5a[128X[104X
+    [4X[28X    3P 1a 2a 1a 5b 5a[128X[104X
+    [4X[28X    5P 1a 2a 3a 1a 1a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1     1  1  1  1  1[128X[104X
+    [4X[28XX.2     3 -1  .  A *A[128X[104X
+    [4X[28XX.3     3 -1  . *A  A[128X[104X
+    [4X[28XX.4     4  .  1 -1 -1[128X[104X
+    [4X[28XX.5     5  1 -1  .  .[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = -E(5)-E(5)^4[128X[104X
+    [4X[28X  = (1-Sqrt(5))/2 = -b5[128X[104X
+    [4X[25Xgap>[125X [27Xtbl2:= GAPTableOfMagmaFile( str, "MagmaA5", "string" );;[127X[104X
+    [4X[25Xgap>[125X [27XIrr( tbl ) = Irr( tbl2 );[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xstr:= "\[127X[104X
+    [4X[25X>[125X [27XCharacter Table of Group G\n\[127X[104X
+    [4X[25X>[125X [27X--------------------------\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27X------------------------------\n\[127X[104X
+    [4X[25X>[125X [27XClass |   1  2   3   4   5   6\n\[127X[104X
+    [4X[25X>[125X [27XSize  |   1  1   1   1   1   1\n\[127X[104X
+    [4X[25X>[125X [27XOrder |   1  2   3   3   6   6\n\[127X[104X
+    [4X[25X>[125X [27X------------------------------\n\[127X[104X
+    [4X[25X>[125X [27Xp  =  2   1  1   4   3   3   4\n\[127X[104X
+    [4X[25X>[125X [27Xp  =  3   1  2   1   1   2   2\n\[127X[104X
+    [4X[25X>[125X [27X------------------------------\n\[127X[104X
+    [4X[25X>[125X [27XX.1   +   1  1   1   1   1   1\n\[127X[104X
+    [4X[25X>[125X [27XX.2   +   1 -1   1   1  -1  -1\n\[127X[104X
+    [4X[25X>[125X [27XX.3   0   1  1   J-1-J-1-J   J\n\[127X[104X
+    [4X[25X>[125X [27XX.4   0   1 -1   J-1-J 1+J  -J\n\[127X[104X
+    [4X[25X>[125X [27XX.5   0   1  1-1-J   J   J-1-J\n\[127X[104X
+    [4X[25X>[125X [27XX.6   0   1 -1-1-J   J  -J 1+J\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27XExplanation of Character Value Symbols\n\[127X[104X
+    [4X[25X>[125X [27X--------------------------------------\n\[127X[104X
+    [4X[25X>[125X [27X\n\[127X[104X
+    [4X[25X>[125X [27XJ = RootOfUnity(3)\n\[127X[104X
+    [4X[25X>[125X [27X";;[127X[104X
+    [4X[25Xgap>[125X [27XFileString( file, str );;[127X[104X
+    [4X[25Xgap>[125X [27Xtbl:= GAPTableOfMagmaFile( file, "MagmaC6" );;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay( tbl );[127X[104X
+    [4X[28XMagmaC6[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X     2  1  1  1  1   1   1[128X[104X
+    [4X[28X     3  1  1  1  1   1   1[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X       1a 2a 3a 3b  6a  6b[128X[104X
+    [4X[28X    2P 1a 1a 3b 3a  3a  3b[128X[104X
+    [4X[28X    3P 1a 2a 1a 1a  2a  2a[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XX.1     1  1  1  1   1   1[128X[104X
+    [4X[28XX.2     1 -1  1  1  -1  -1[128X[104X
+    [4X[28XX.3     1  1  A /A  /A   A[128X[104X
+    [4X[28XX.4     1 -1  A /A -/A  -A[128X[104X
+    [4X[28XX.5     1  1 /A  A   A  /A[128X[104X
+    [4X[28XX.6     1 -1 /A  A  -A -/A[128X[104X
+    [4X[28X[128X[104X
+    [4X[28XA = E(3)[128X[104X
+    [4X[28X  = (-1+Sqrt(-3))/2 = b3[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  [5XMAGMA[105X  output  for  the above two examples is obtained by the following
+  commands.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25X>[125X [27XG1 := Alt(5);[127X[104X
+    [4X[25X>[125X [27XCT1 := CharacterTable(G1);[127X[104X
+    [4X[25X>[125X [27XCT1;[127X[104X
+    [4X[25X>[125X [27XG2:= CyclicGroup(6);[127X[104X
+    [4X[25X>[125X [27XCT2:= CharacterTable(G2);[127X[104X
+    [4X[25X>[125X [27XCT2;[127X[104X
+  [4X[32X[104X
+  
+  [1X6.5-3 CharacterTableComputedByMagma[101X
+  
+  [33X[1;0Y[29X[2XCharacterTableComputedByMagma[102X( [3XG[103X, [3Xidentifier[103X ) [32X function[133X
+  
+  [33X[0;0YFor     a     permutation    group    [3XG[103X    and    a    string    [3Xidentifier[103X,
+  [2XCharacterTableComputedByMagma[102X  calls  the  [5XMAGMA[105X  system  for  computing the
+  character  table  of  [3XG[103X,  and  converts  the  output  into  [5XGAP[105X  format (see
+  [2XGAPTableOfMagmaFile[102X   ([14X6.5-2[114X)).   The   returned  character  table  has  the
+  [2XIdentifier[102X ([14XReference: Identifier for tables of marks[114X) value [3Xidentifier[103X.[133X
+  
+  [33X[0;0YIf the [5XMAGMA[105X system is not available then [9Xfail[109X is returned. The availability
+  of  [5XMAGMA[105X  is  determined  by  calling [5XMAGMA[105X where the path for this call is
+  given  by the user preference [10XMagmaPath[110X of the package [5XCTblLib[105X; if the value
+  of  this preference is empty or if [5XMAGMA[105X cannot be called via this path then
+  [5XMAGMA[105X is regarded as not available.[133X
+  
+  [33X[0;0YIf the attribute [2XConjugacyClasses[102X ([14XReference: ConjugacyClasses attribute[114X) of
+  [3XG[103X  is  set before the call of [2XCharacterTableComputedByMagma[102X then the columns
+  of the returned character table fit to the conjugacy classes that are stored
+  in [3XG[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xif CTblLib.IsMagmaAvailable() then[127X[104X
+    [4X[25X>[125X [27X     g:= MathieuGroup( 24 );[127X[104X
+    [4X[25X>[125X [27X     ccl:= ConjugacyClasses( g );[127X[104X
+    [4X[25X>[125X [27X     t:= CharacterTableComputedByMagma( g, "testM24" );[127X[104X
+    [4X[25X>[125X [27X     if t = fail then[127X[104X
+    [4X[25X>[125X [27X       Print( "#E  Magma did not compute a character table.\n" );[127X[104X
+    [4X[25X>[125X [27X     elif ( not HasConjugacyClasses( t ) ) or[127X[104X
+    [4X[25X>[125X [27X          ( ConjugacyClasses( t ) <> ccl ) then[127X[104X
+    [4X[25X>[125X [27X       Print( "#E  The conjugacy classes do not fit.\n" );[127X[104X
+    [4X[25X>[125X [27X     elif TransformingPermutationsCharacterTables( t,[127X[104X
+    [4X[25X>[125X [27X              CharacterTable( "M24" ) ) = fail then[127X[104X
+    [4X[25X>[125X [27X       Print( "#E  Inconsistency of character tables?\n" );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   fi;[127X[104X
+  [4X[32X[104X
+  

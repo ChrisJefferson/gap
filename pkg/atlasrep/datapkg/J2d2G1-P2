@@ -1,0 +1,24 @@
+chor 1 2
+chor 2 5
+mu 1 2 3
+chor 3 14
+com 1 2 4
+chor 4 7
+mu 3 2 5 # cd^2
+iv 2 6
+mu 1 6 7 # cd^-1
+mu 7 6 8 # cd^-2
+mu 3 3 9
+mu 8 8 10
+mu 9 10 11
+chor 11 3
+mu 2 3 12
+com 1 12 13
+chor 13 3
+mu 9 5 14
+pwr 3 14 15
+mu 15 7 18
+mu 18 9 19
+mu 19 7 20
+mu 20 5 21
+chor 21 1

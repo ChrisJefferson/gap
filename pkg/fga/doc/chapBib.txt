@@ -1,0 +1,27 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XBMMW00[120X]   [16XBirget,   J.  -.C.,  Margolis,  S.,  Meakin,  J.  and  Weil,  P.[116X,
+  [17XPSPACE-complete  problems  for  subgroups  of free groups and inverse finite
+  automata[117X, [18XTheoretical Computer Science[118X, [19X242[119X (2000), 247--281.
+  
+  [[20XLS77[120X] [16XLyndon, R. C. and Schupp, P. E.[116X, [17XCombinatorial Group Theory[117X, Springer
+  (1977).
+  
+  [[20XNeu33[120X]  [16XNeumann,  B.[116X,  [17XDie  Automorphismengruppe  der freien Gruppen[117X, [18XMath.
+  Annalen[118X, [19X107[119X (1933), 367--386.
+  
+  [[20XNie24[120X]  [16XNielsen,  J.[116X,  [17XDie  Isomorphismengruppe  der  freien Gruppen[117X, [18XMath.
+  Annalen[118X, [19X91[119X (1924), 169--209.
+  
+  [[20XSie03[120X]  [16XSievers, C.[116X, [17XAlgorithmen f\accent127ur freie Gruppen[117X, Diplomarbeit,
+  TU Braunschweig (2003).
+  
+  [[20XSim94[120X]  [16XSims,  C. C.[116X, [17XComputation with Finitely Presented Groups[117X, Cambridge
+  University  Press,  Encyclopedia  of  Mathematics  and its Applications, [19X48[119X,
+  Cambridge (1994), xiii+604 pages.
+  
+  
+  
+  [32X

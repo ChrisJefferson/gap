@@ -1,0 +1,48 @@
+\GAPDocLabFile{polenta}
+\makelabel{polenta:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{polenta:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{polenta:Acknowledgements}{}{X82A988D47DFAFCFA}
+\makelabel{polenta:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{polenta:Introduction}{1}{X7DFB63A97E67C0A1}
+\makelabel{polenta:The package}{1.1}{X79DE59997FDCF767}
+\makelabel{polenta:Polycyclic groups}{1.2}{X86007B0083F60470}
+\makelabel{polenta:Methods for matrix groups}{2}{X829BA50B82FEC109}
+\makelabel{polenta:Polycyclic presentations of matrix groups}{2.1}{X826C51B3825A2789}
+\makelabel{polenta:Module series}{2.2}{X80D1E9E07DB87F97}
+\makelabel{polenta:Subgroups}{2.3}{X7BA181CA81D785BB}
+\makelabel{polenta:Examples}{2.4}{X7A489A5D79DA9E5C}
+\makelabel{polenta:An example application}{3}{X81CAD2F27B2066C4}
+\makelabel{polenta:Presentation for rational matrix groups}{3.1}{X7DAC33E37B977087}
+\makelabel{polenta:Modules series}{3.2}{X79CF643081B3FB26}
+\makelabel{polenta:Triangularizable subgroups}{3.3}{X7BA34CD28059D6CD}
+\makelabel{polenta:Installation}{4}{X8360C04082558A12}
+\makelabel{polenta:Installing this package}{4.1}{X81746D7285808409}
+\makelabel{polenta:Loading the Polenta package}{4.2}{X802ED64A87AA11DC}
+\makelabel{polenta:Running the test suite}{4.3}{X796DF52483B61C74}
+\makelabel{polenta:Information Messages}{5}{X85677704855596EB}
+\makelabel{polenta:Info Class}{5.1}{X7EBFC26F83EB9F72}
+\makelabel{polenta:Example}{5.2}{X85861B017AEEC50B}
+\makelabel{polenta:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{polenta:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{polenta:Index}{Ind}{X83A0356F839C696F}
+\makelabel{polenta:License}{}{X81488B807F2A1CF1}
+\makelabel{polenta:Polenta}{1}{X7DFB63A97E67C0A1}
+\makelabel{polenta:Polycyclic}{1}{X7DFB63A97E67C0A1}
+\makelabel{polenta:PcpGroupByMatGroup}{2.1.1}{X7A1BC4437FD92201}
+\makelabel{polenta:IsomorphismPcpGroup}{2.1.2}{X8771540F7A235763}
+\makelabel{polenta:ImagesRepresentative}{2.1.3}{X85ADB89B7C8DD7D0}
+\makelabel{polenta:ImageElm}{2.1.3}{X85ADB89B7C8DD7D0}
+\makelabel{polenta:ImagesSet}{2.1.3}{X85ADB89B7C8DD7D0}
+\makelabel{polenta:IsSolvableGroup}{2.1.4}{X809C78D5877D31DF}
+\makelabel{polenta:IsTriangularizableMatGroup}{2.1.5}{X7EE01C207C214C1F}
+\makelabel{polenta:IsPolycyclicGroup}{2.1.6}{X7D7456077D3D1B86}
+\makelabel{polenta:RadicalSeriesSolvableMatGroup}{2.2.1}{X84472FDC863322BD}
+\makelabel{polenta:HomogeneousSeriesAbelianMatGroup}{2.2.2}{X8524F992828B6A71}
+\makelabel{polenta:HomogeneousSeriesTriangularizableMatGroup}{2.2.3}{X87D9F67C7CBB1499}
+\makelabel{polenta:CompositionSeriesAbelianMatGroup}{2.2.4}{X86FB6E9B801A37D4}
+\makelabel{polenta:CompositionSeriesTriangularizableMatGroup}{2.2.5}{X78DE110C7E2A493C}
+\makelabel{polenta:SubgroupsUnipotentByAbelianByFinite}{2.3.1}{X79273B8581D15356}
+\makelabel{polenta:PolExamples}{2.4.1}{X7C7C3EFA7E49F932}
+\makelabel{polenta:Installation}{4}{X8360C04082558A12}
+\makelabel{polenta:Loading the Polenta package}{4.2}{X802ED64A87AA11DC}
+\makelabel{polenta:InfoPolenta}{5.1.1}{X809F2CFB87393CE0}

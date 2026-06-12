@@ -1,0 +1,53 @@
+\GAPDocLabFile{fga}
+\makelabel{fga:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{fga:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{fga:Introduction}{1}{X7DFB63A97E67C0A1}
+\makelabel{fga:Overview}{1.1}{X8389AD927B74BA4A}
+\makelabel{fga:Implementation and background}{1.2}{X7E0D17E880A6A0AB}
+\makelabel{fga:Integration of the package}{1.3}{X7980B0AB8471913D}
+\makelabel{fga:License}{1.4}{X861E5DF986F89AE2}
+\makelabel{fga:Functionality of the FGA package}{2}{X7B92AEAE7ACBE77D}
+\makelabel{fga:New operations for free groups}{2.1}{X86E0C3F57990A253}
+\makelabel{fga:Method installations}{2.2}{X7AB44D3D80E0F85A}
+\makelabel{fga:Constructive membership test}{2.3}{X82B7B32E783A39B0}
+\makelabel{fga:Automorphism groups of free groups}{2.4}{X7AEFC7BA80FA4CFC}
+\makelabel{fga:Installing and loading the FGA package}{3}{X7FB71438871FB3B7}
+\makelabel{fga:Installing the FGA package}{3.1}{X7C4ADCD67FB4C44D}
+\makelabel{fga:Loading the FGA package}{3.2}{X7BAF2BE07BAB1F27}
+\makelabel{fga:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{fga:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{fga:Index}{Ind}{X83A0356F839C696F}
+\makelabel{fga:FGA}{1}{X7DFB63A97E67C0A1}
+\makelabel{fga:Functionality of the FGA package}{2}{X7B92AEAE7ACBE77D}
+\makelabel{fga:FreeGeneratorsOfGroup}{2.1.1}{X829FB22C7DFBEADC}
+\makelabel{fga:RankOfFreeGroup}{2.1.2}{X7D7AE4F284F17C20}
+\makelabel{fga:Rank}{2.1.2}{X7D7AE4F284F17C20}
+\makelabel{fga:CyclicallyReducedWord}{2.1.3}{X7DD1809D868165AD}
+\makelabel{fga:Normalizer}{2.2.1}{X87B5370C7DFD401D}
+\makelabel{fga:Normalizer}{2.2.1}{X87B5370C7DFD401D}
+\makelabel{fga:RepresentativeAction}{2.2.2}{X857DC7B085EB0539}
+\makelabel{fga:IsConjugate}{2.2.2}{X857DC7B085EB0539}
+\makelabel{fga:Centralizer}{2.2.3}{X7A2BF4527E08803C}
+\makelabel{fga:Centralizer}{2.2.3}{X7A2BF4527E08803C}
+\makelabel{fga:Index}{2.2.4}{X83A0356F839C696F}
+\makelabel{fga:IndexNC}{2.2.4}{X83A0356F839C696F}
+\makelabel{fga:Intersection}{2.2.5}{X851069107CACF98E}
+\makelabel{fga:IsSubgroup}{2.2.7}{X7839D8927E778334}
+\makelabel{fga:MinimalGeneratingSet}{2.2.9}{X81D15723804771E2}
+\makelabel{fga:SmallGeneratingSet}{2.2.9}{X81D15723804771E2}
+\makelabel{fga:GeneratorsOfGroup}{2.2.9}{X81D15723804771E2}
+\makelabel{fga:AsWordLetterRepInGenerators}{2.3.1}{X78917F717E5DB86A}
+\makelabel{fga:AsWordLetterRepInFreeGenerators}{2.3.1}{X78917F717E5DB86A}
+\makelabel{fga:AutomorphismGroup}{2.4.1}{X87677B0787B4461A}
+\makelabel{fga:IsomorphismFpGroup}{2.4.2}{X7F28268F850F454E}
+\makelabel{fga:FreeGroupEndomorphismByImages}{2.4.3}{X85AD957084C1E38D}
+\makelabel{fga:FreeGroupAutomorphismsGeneratorO}{2.4.4}{X8173ECA579D6172B}
+\makelabel{fga:FreeGroupAutomorphismsGeneratorP}{2.4.4}{X8173ECA579D6172B}
+\makelabel{fga:FreeGroupAutomorphismsGeneratorU}{2.4.4}{X8173ECA579D6172B}
+\makelabel{fga:FreeGroupAutomorphismsGeneratorS}{2.4.4}{X8173ECA579D6172B}
+\makelabel{fga:FreeGroupAutomorphismsGeneratorT}{2.4.4}{X8173ECA579D6172B}
+\makelabel{fga:FreeGroupAutomorphismsGeneratorQ}{2.4.4}{X8173ECA579D6172B}
+\makelabel{fga:FreeGroupAutomorphismsGeneratorR}{2.4.4}{X8173ECA579D6172B}
+\makelabel{fga:Installing and loading the FGA package}{3}{X7FB71438871FB3B7}
+\makelabel{fga:Installing the FGA package}{3.1}{X7C4ADCD67FB4C44D}
+\makelabel{fga:Loading the FGA package}{3.2}{X7BAF2BE07BAB1F27}

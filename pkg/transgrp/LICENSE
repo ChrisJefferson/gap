@@ -1,0 +1,21 @@
+This library containing data and access functions, its parts are licensed in
+different ways.
+
+- In the belief that mathematical truth is universal and not owned or
+  licenseable, the mathematical content can only be acknowledged: Groups of
+  degree up to 15 are as described in Conway/Hulpke/McKay (LMS. Journal
+  Comp. Math, Vol 1.) and the sources quoted therein.
+  Groups of degree up to 30 were determined by Hulpke (J.Symb.Comp). Groups of
+  degree 32 were determined by Cannon and Holt (Exp.Math.). Groups of degree
+  33-47 were determined by Holt. 
+
+- The actual way of storing the groups and associated data, and the
+  arrangement of the groups, is licensed under the artistic license 2.0:
+
+  https://opensource.org/licenses/Artistic-2.0
+
+  If you distribute software that claims to use or include the GAP transitive
+  groups library it must include the actual data lists verbatim.
+
+- The functions accessing the data files are licensed under GPL2 and under
+  GPL3.

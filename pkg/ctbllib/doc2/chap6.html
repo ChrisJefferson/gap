@@ -1,0 +1,2109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (CTblLibXpls) - Chapter 6: Solvable Subgroups of Maximal Order in Sporadic Simple Groups</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap6"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap6_mj.html">[MathJax on]</a></p>
+<p><a id="X7EF73AA88384B5F3" name="X7EF73AA88384B5F3"></a></p>
+<div class="ChapSects"><a href="chap6.html#X7EF73AA88384B5F3">6 <span class="Heading">Solvable Subgroups of Maximal Order in Sporadic Simple Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7F817DC57A69CF0D">6.1 <span class="Heading">The Result</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X876F77197B2FB84A">6.2 <span class="Heading">The Approach</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X792957AB7B24C5E0">6.2-1 <span class="Heading">Use the Table of Marks</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B39A4467A1CCF8A">6.2-2 <span class="Heading">Use Information from the Character Table Library</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X834298A87BF43AAF">6.3 <span class="Heading">Cases where the Table of Marks is available in <strong class="pkg">GAP</strong></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X85559C0F7AA73E48">6.4 <span class="Heading">Cases where the Table of Marks is not available in <strong class="pkg">GAP</strong></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E393459822E78B5">6.4-1 <span class="Heading"><span class="SimpleMath">G = Ru</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7AFF09337CCB7745">6.4-2 <span class="Heading"><span class="SimpleMath">G = Suz</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7969AE067D3862A3">6.4-3 <span class="Heading"><span class="SimpleMath">G = ON</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84921B85845EDA31">6.4-4 <span class="Heading"><span class="SimpleMath">G = Co_2</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D777A0D82BE8498">6.4-5 <span class="Heading"><span class="SimpleMath">G = Fi_22</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D9DB76A861A6F62">6.4-6 <span class="Heading"><span class="SimpleMath">G = HN</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X83E6436678AF562C">6.4-7 <span class="Heading"><span class="SimpleMath">G = Ly</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D6CF8EC812EF6FB">6.4-8 <span class="Heading"><span class="SimpleMath">G = Th</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7A07090483C935DC">6.4-9 <span class="Heading"><span class="SimpleMath">G = Fi_23</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D028E9E7CB62A4F">6.4-10 <span class="Heading"><span class="SimpleMath">G = Co_1</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84208AB781344A9D">6.4-11 <span class="Heading"><span class="SimpleMath">G = J_4</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BC589718203F125">6.4-12 <span class="Heading"><span class="SimpleMath">G = Fi_24^'</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7EDF990985573EB6">6.4-13 <span class="Heading"><span class="SimpleMath">G = B</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X87D468D07D7237CB">6.4-14 <span class="Heading"><span class="SimpleMath">G = M</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7CD8E04C7F32AD56">6.5 <span class="Heading">Proof of the Corollary</span></a>
+</span>
+</div>
+</div>
+
+<h3>6 <span class="Heading">Solvable Subgroups of Maximal Order in Sporadic Simple Groups</span></h3>
+
+<p>Date: May 14th, 2012</p>
+
+<p>We determine the orders of solvable subgroups of maximal orders in sporadic simple groups and their automorphism groups, using the information in the <strong class="pkg">Atlas</strong> of Finite Groups <a href="chapBib.html#biBCCN85">[CCN+85]</a> and the <strong class="pkg">GAP</strong> system <a href="chapBib.html#biBGAP">[GAP24]</a>, in particular its Character Table Library <a href="chapBib.html#biBCTblLib">[Bre25]</a> and its library of Tables of Marks <a href="chapBib.html#biBTomLib">[MNP19]</a>.</p>
+
+<p>We also determine the conjugacy classes of these solvable subgroups in the big group, and the maximal overgroups.</p>
+
+<p>A first version of this document, which was based on <strong class="pkg">GAP</strong> 4.4.10, had been accessible in the web since August 2006. The differences to the current version are as follows.</p>
+
+
+<ul>
+<li><p>The format of the <strong class="pkg">GAP</strong> output was adjusted to the changed behaviour of <strong class="pkg">GAP</strong> 4.5.</p>
+
+</li>
+<li><p>The (too wide) table of results was split into two tables, the first one lists the orders and indices of the subgroups, the second one lists the structure of subgroups and the maximal overgroups.</p>
+
+</li>
+<li><p>The distribution of the solvable subgroups of maximal orders in the Baby Monster group and the Monster group to conjugacy classes is now proved.</p>
+
+</li>
+<li><p>The sporadic simple Monster group has exactly one class of maximal subgroups of the type PSL<span class="SimpleMath">(2, 41)</span> (see <a href="chapBib.html#biBNW12">[NW13]</a>), and has no maximal subgroups which have the socle PSL<span class="SimpleMath">(2, 27)</span> (see <a href="chapBib.html#biBWil10">[Wil10]</a>). This does not affect the arguments in Section <a href="chap6.html#X87D468D07D7237CB"><span class="RefLink">6.4-14</span></a>, but some statements in this section had to be corrected.</p>
+
+</li>
+</ul>
+<p><a id="X7F817DC57A69CF0D" name="X7F817DC57A69CF0D"></a></p>
+
+<h4>6.1 <span class="Heading">The Result</span></h4>
+
+<p>The tables I and II list information about solvable subgroups of maximal order in sporadic simple groups and their automorphism groups. The first column in each table gives the names of the almost simple groups <span class="SimpleMath">G</span>, in alphabetical order. The remaining columns of Table I contain the order and the index of a solvable subgroup <span class="SimpleMath">S</span> of maximal order in <span class="SimpleMath">G</span>, the value <span class="SimpleMath">log_|G|(|S|)</span>, and the page number in the <strong class="pkg">Atlas</strong> <a href="chapBib.html#biBCCN85">[CCN+85]</a> where the information about maximal subgroups of <span class="SimpleMath">G</span> is listed. The second and third columns of Table II show a structure description of <span class="SimpleMath">S</span> and the structures of the maximal subgroups that contain <span class="SimpleMath">S</span>; the value <q><span class="SimpleMath">S</span></q> in the third column means that <span class="SimpleMath">S</span> is itself maximal in <span class="SimpleMath">G</span>. The fourth and fifth columns list the pages in the <strong class="pkg">Atlas</strong> with the information about the maximal subgroups of <span class="SimpleMath">G</span> and the section in this note with the proof of the table row, respectively. In the fourth column, page numbers in brackets refer to the <strong class="pkg">Atlas</strong> pages with information about the maximal subgroups of nonsolvable quotients of the maximal subgroups of <span class="SimpleMath">G</span> listed in the third column.</p>
+
+<p>Note that in the case of nonmaximal subgroups <span class="SimpleMath">S</span>, we do not claim to describe the <em>module</em> structure of <span class="SimpleMath">S</span> in the third column of the table; we have kept the <strong class="pkg">Atlas</strong> description of the normal subgroups of the maximal overgroups of <span class="SimpleMath">S</span>. For example, the subgroup <span class="SimpleMath">S</span> listed for <span class="SimpleMath">Co_2</span> is contained in maximal subgroups of the types <span class="SimpleMath">2^1+8_+:S_6(2)</span> and <span class="SimpleMath">2^4+10(S_4 × S_3)</span>, so <span class="SimpleMath">S</span> has normal subgroups of the orders <span class="SimpleMath">2</span>, <span class="SimpleMath">2^4</span>, <span class="SimpleMath">2^9</span>, <span class="SimpleMath">2^14</span>, and <span class="SimpleMath">2^16</span>; more <strong class="pkg">Atlas</strong> conformal notations would be <span class="SimpleMath">2^[14](S_4 × S_3)</span> or <span class="SimpleMath">2^[16](S_3 × S_3)</span>.</p>
+
+<p>As a corollary (see Section <a href="chap6.html#X7CD8E04C7F32AD56"><span class="RefLink">6.5</span></a>), we read off the following.</p>
+
+<p>Corollary:</p>
+
+<p>Exactly the following almost simple groups <span class="SimpleMath">G</span> with sporadic simple socle contain a solvable subgroup <span class="SimpleMath">S</span> with the property <span class="SimpleMath">|S|^2 ≥ |G|</span>.</p>
+
+<p class="pcenter">Fi_23, J_2, J_2.2, M_11, M_12, M_22.2.</p>
+
+<p>The existence of the subgroups <span class="SimpleMath">S</span> of <span class="SimpleMath">G</span> with the structure and the order stated in Table I and II follows from the <strong class="pkg">Atlas</strong>: It is obvious in the cases where <span class="SimpleMath">S</span> is maximal in <span class="SimpleMath">G</span>, and in the other cases, the <strong class="pkg">Atlas</strong> information about a nonsolvable factor group of a maximal subgroup of <span class="SimpleMath">G</span> suffices.</p>
+
+<p>In order to show that the table rows for the group <span class="SimpleMath">G</span> are correct, we have to show the following.</p>
+
+
+<ul>
+<li><p><span class="SimpleMath">G</span> does not contain solvable subgroups of order larger than <span class="SimpleMath">|S|</span>.</p>
+
+</li>
+<li><p><span class="SimpleMath">G</span> contain exactly the conjugacy classes of solvable subgroups of order <span class="SimpleMath">|S|</span> that are listed in the second column of Table II.</p>
+
+</li>
+<li><p><span class="SimpleMath">S</span> is contained exactly in the maximal subgroups listed in the third column of Table II.</p>
+
+</li>
+</ul>
+<p><em>Remark:</em></p>
+
+
+<ul>
+<li><p>Each of the groups <span class="SimpleMath">M_12</span> and <span class="SimpleMath">He</span> contains two classes of isomorphic solvable subgroups of maximal order.</p>
+
+</li>
+<li><p>Each of the groups <span class="SimpleMath">Ru</span>, <span class="SimpleMath">Th</span>, and <span class="SimpleMath">M</span> contains two classes of nonisomorphic solvable subgroups of maximal order.</p>
+
+</li>
+<li><p>The solvable subgroups of maximal order in <span class="SimpleMath">McL.2</span> have the structure <span class="SimpleMath">3^1+4_+:4S_4</span>, the subgroups are maximal in the maximal subgroups of the structures <span class="SimpleMath">3^1+4_+:4S_5</span> and <span class="SimpleMath">U_4(3).2_3</span> in <span class="SimpleMath">McL.2</span>. Note that the <strong class="pkg">Atlas</strong> claims another structure for these maximal subgroups of <span class="SimpleMath">U_4(3).2_3</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 52]</a>.</p>
+
+</li>
+<li><p>The solvable subgroups of maximal order in <span class="SimpleMath">Co_3</span> are the normalizers of Sylow <span class="SimpleMath">3</span>-subgroups of <span class="SimpleMath">Co_3</span>.</p>
+
+</li>
+</ul>
+<div class="pcenter"><table class="GAPDocTable">
+<caption class="GAPDocTable"><b>Table: </b>Table I: Solvable subgroups of maximal order – orders and indices</caption>
+<tr>
+<td class="tdleft"><span class="SimpleMath">G</span></td>
+<td class="tdright"><span class="SimpleMath">|S|</span></td>
+<td class="tdright"><span class="SimpleMath">|G/S|</span></td>
+<td class="tdright"><span class="SimpleMath">log_|G|(|S|)</span></td>
+<td class="tdright">p.</td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_11</span></td>
+<td class="tdright"><span class="SimpleMath">144</span></td>
+<td class="tdright"><span class="SimpleMath">55</span></td>
+<td class="tdright"><span class="SimpleMath">0.5536</span></td>
+<td class="tdright"><span class="SimpleMath">18</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_12</span></td>
+<td class="tdright"><span class="SimpleMath">432</span></td>
+<td class="tdright"><span class="SimpleMath">220</span></td>
+<td class="tdright"><span class="SimpleMath">0.5294</span></td>
+<td class="tdright"><span class="SimpleMath">33</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_12.2</span></td>
+<td class="tdright"><span class="SimpleMath">432</span></td>
+<td class="tdright"><span class="SimpleMath">440</span></td>
+<td class="tdright"><span class="SimpleMath">0.4992</span></td>
+<td class="tdright"><span class="SimpleMath">33</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_1</span></td>
+<td class="tdright"><span class="SimpleMath">168</span></td>
+<td class="tdright"><span class="SimpleMath">1045</span></td>
+<td class="tdright"><span class="SimpleMath">0.4243</span></td>
+<td class="tdright"><span class="SimpleMath">36</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_22</span></td>
+<td class="tdright"><span class="SimpleMath">576</span></td>
+<td class="tdright"><span class="SimpleMath">770</span></td>
+<td class="tdright"><span class="SimpleMath">0.4888</span></td>
+<td class="tdright"><span class="SimpleMath">39</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_22.2</span></td>
+<td class="tdright"><span class="SimpleMath">1152</span></td>
+<td class="tdright"><span class="SimpleMath">770</span></td>
+<td class="tdright"><span class="SimpleMath">0.5147</span></td>
+<td class="tdright"><span class="SimpleMath">39</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_2</span></td>
+<td class="tdright"><span class="SimpleMath">1152</span></td>
+<td class="tdright"><span class="SimpleMath">525</span></td>
+<td class="tdright"><span class="SimpleMath">0.5295</span></td>
+<td class="tdright"><span class="SimpleMath">42</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_2.2</span></td>
+<td class="tdright"><span class="SimpleMath">2304</span></td>
+<td class="tdright"><span class="SimpleMath">525</span></td>
+<td class="tdright"><span class="SimpleMath">0.5527</span></td>
+<td class="tdright"><span class="SimpleMath">42</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_23</span></td>
+<td class="tdright"><span class="SimpleMath">1152</span></td>
+<td class="tdright"><span class="SimpleMath">8855</span></td>
+<td class="tdright"><span class="SimpleMath">0.4368</span></td>
+<td class="tdright"><span class="SimpleMath">71</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HS</span></td>
+<td class="tdright"><span class="SimpleMath">2000</span></td>
+<td class="tdright"><span class="SimpleMath">22176</span></td>
+<td class="tdright"><span class="SimpleMath">0.4316</span></td>
+<td class="tdright"><span class="SimpleMath">80</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HS.2</span></td>
+<td class="tdright"><span class="SimpleMath">4000</span></td>
+<td class="tdright"><span class="SimpleMath">22176</span></td>
+<td class="tdright"><span class="SimpleMath">0.4532</span></td>
+<td class="tdright"><span class="SimpleMath">80</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_3</span></td>
+<td class="tdright"><span class="SimpleMath">1944</span></td>
+<td class="tdright"><span class="SimpleMath">25840</span></td>
+<td class="tdright"><span class="SimpleMath">0.4270</span></td>
+<td class="tdright"><span class="SimpleMath">82</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_3.2</span></td>
+<td class="tdright"><span class="SimpleMath">3888</span></td>
+<td class="tdright"><span class="SimpleMath">25840</span></td>
+<td class="tdright"><span class="SimpleMath">0.4486</span></td>
+<td class="tdright"><span class="SimpleMath">82</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_24</span></td>
+<td class="tdright"><span class="SimpleMath">13824</span></td>
+<td class="tdright"><span class="SimpleMath">17710</span></td>
+<td class="tdright"><span class="SimpleMath">0.4935</span></td>
+<td class="tdright"><span class="SimpleMath">96</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">McL</span></td>
+<td class="tdright"><span class="SimpleMath">11664</span></td>
+<td class="tdright"><span class="SimpleMath">77000</span></td>
+<td class="tdright"><span class="SimpleMath">0.4542</span></td>
+<td class="tdright"><span class="SimpleMath">100</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">McL.2</span></td>
+<td class="tdright"><span class="SimpleMath">23328</span></td>
+<td class="tdright"><span class="SimpleMath">77000</span></td>
+<td class="tdright"><span class="SimpleMath">0.4719</span></td>
+<td class="tdright"><span class="SimpleMath">100</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">He</span></td>
+<td class="tdright"><span class="SimpleMath">13824</span></td>
+<td class="tdright"><span class="SimpleMath">291550</span></td>
+<td class="tdright"><span class="SimpleMath">0.4310</span></td>
+<td class="tdright"><span class="SimpleMath">104</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">He.2</span></td>
+<td class="tdright"><span class="SimpleMath">18432</span></td>
+<td class="tdright"><span class="SimpleMath">437325</span></td>
+<td class="tdright"><span class="SimpleMath">0.4305</span></td>
+<td class="tdright"><span class="SimpleMath">104</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Ru</span></td>
+<td class="tdright"><span class="SimpleMath">49152</span></td>
+<td class="tdright"><span class="SimpleMath">2968875</span></td>
+<td class="tdright"><span class="SimpleMath">0.4202</span></td>
+<td class="tdright"><span class="SimpleMath">126</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Suz</span></td>
+<td class="tdright"><span class="SimpleMath">139968</span></td>
+<td class="tdright"><span class="SimpleMath">3203200</span></td>
+<td class="tdright"><span class="SimpleMath">0.4416</span></td>
+<td class="tdright"><span class="SimpleMath">131</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Suz.2</span></td>
+<td class="tdright"><span class="SimpleMath">279936</span></td>
+<td class="tdright"><span class="SimpleMath">3203200</span></td>
+<td class="tdright"><span class="SimpleMath">0.4557</span></td>
+<td class="tdright"><span class="SimpleMath">131</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">O'N</span></td>
+<td class="tdright"><span class="SimpleMath">25920</span></td>
+<td class="tdright"><span class="SimpleMath">17778376</span></td>
+<td class="tdright"><span class="SimpleMath">0.3784</span></td>
+<td class="tdright"><span class="SimpleMath">132</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">O'N.2</span></td>
+<td class="tdright"><span class="SimpleMath">51840</span></td>
+<td class="tdright"><span class="SimpleMath">17778376</span></td>
+<td class="tdright"><span class="SimpleMath">0.3940</span></td>
+<td class="tdright"><span class="SimpleMath">132</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Co_3</span></td>
+<td class="tdright"><span class="SimpleMath">69984</span></td>
+<td class="tdright"><span class="SimpleMath">7084000</span></td>
+<td class="tdright"><span class="SimpleMath">0.4142</span></td>
+<td class="tdright"><span class="SimpleMath">134</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Co_2</span></td>
+<td class="tdright"><span class="SimpleMath">2359296</span></td>
+<td class="tdright"><span class="SimpleMath">17931375</span></td>
+<td class="tdright"><span class="SimpleMath">0.4676</span></td>
+<td class="tdright"><span class="SimpleMath">154</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_22</span></td>
+<td class="tdright"><span class="SimpleMath">5038848</span></td>
+<td class="tdright"><span class="SimpleMath">12812800</span></td>
+<td class="tdright"><span class="SimpleMath">0.4853</span></td>
+<td class="tdright"><span class="SimpleMath">163</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_22.2</span></td>
+<td class="tdright"><span class="SimpleMath">10077696</span></td>
+<td class="tdright"><span class="SimpleMath">12812800</span></td>
+<td class="tdright"><span class="SimpleMath">0.4963</span></td>
+<td class="tdright"><span class="SimpleMath">163</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HN</span></td>
+<td class="tdright"><span class="SimpleMath">2000000</span></td>
+<td class="tdright"><span class="SimpleMath">136515456</span></td>
+<td class="tdright"><span class="SimpleMath">0.4364</span></td>
+<td class="tdright"><span class="SimpleMath">166</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HN.2</span></td>
+<td class="tdright"><span class="SimpleMath">4000000</span></td>
+<td class="tdright"><span class="SimpleMath">136515456</span></td>
+<td class="tdright"><span class="SimpleMath">0.4479</span></td>
+<td class="tdright"><span class="SimpleMath">166</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Ly</span></td>
+<td class="tdright"><span class="SimpleMath">900000</span></td>
+<td class="tdright"><span class="SimpleMath">57516865560</span></td>
+<td class="tdright"><span class="SimpleMath">0.3562</span></td>
+<td class="tdright"><span class="SimpleMath">174</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Th</span></td>
+<td class="tdright"><span class="SimpleMath">944784</span></td>
+<td class="tdright"><span class="SimpleMath">96049408000</span></td>
+<td class="tdright"><span class="SimpleMath">0.3523</span></td>
+<td class="tdright"><span class="SimpleMath">177</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_23</span></td>
+<td class="tdright"><span class="SimpleMath">3265173504</span></td>
+<td class="tdright"><span class="SimpleMath">1252451200</span></td>
+<td class="tdright"><span class="SimpleMath">0.5111</span></td>
+<td class="tdright"><span class="SimpleMath">177</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Co_1</span></td>
+<td class="tdright"><span class="SimpleMath">84934656</span></td>
+<td class="tdright"><span class="SimpleMath">48952653750</span></td>
+<td class="tdright"><span class="SimpleMath">0.4258</span></td>
+<td class="tdright"><span class="SimpleMath">183</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_4</span></td>
+<td class="tdright"><span class="SimpleMath">28311552</span></td>
+<td class="tdright"><span class="SimpleMath">3065023459190</span></td>
+<td class="tdright"><span class="SimpleMath">0.3737</span></td>
+<td class="tdright"><span class="SimpleMath">190</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_24'</span></td>
+<td class="tdright"><span class="SimpleMath">29386561536</span></td>
+<td class="tdright"><span class="SimpleMath">42713595724800</span></td>
+<td class="tdright"><span class="SimpleMath">0.4343</span></td>
+<td class="tdright"><span class="SimpleMath">207</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_24'.2</span></td>
+<td class="tdright"><span class="SimpleMath">58773123072</span></td>
+<td class="tdright"><span class="SimpleMath">42713595724800</span></td>
+<td class="tdright"><span class="SimpleMath">0.4413</span></td>
+<td class="tdright"><span class="SimpleMath">207</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">B</span></td>
+<td class="tdright"><span class="SimpleMath">29686813949952</span></td>
+<td class="tdright"><span class="SimpleMath">139953768303693093750</span></td>
+<td class="tdright"><span class="SimpleMath">0.4007</span></td>
+<td class="tdright"><span class="SimpleMath">217</span></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M</span></td>
+<td class="tdright"><span class="SimpleMath">2849934139195392</span></td>
+<td class="tdright"><span class="SimpleMath">283521437805098363752</span></td>
+<td class="tdright"></td>
+<td class="tdright"></td>
+<td>&#160;</td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdright"></td>
+<td class="tdright"><span class="SimpleMath">344287234566406250</span></td>
+<td class="tdright"><span class="SimpleMath">0.2866</span></td>
+<td class="tdright"><span class="SimpleMath">234</span></td>
+<td>&#160;</td>
+</tr>
+</table><br />
+</div>
+
+<div class="pcenter"><table class="GAPDocTable">
+<caption class="GAPDocTable"><b>Table: </b>Table II: Solvable subgroups of maximal order – structures and overgroups</caption>
+<tr>
+<td class="tdleft"><span class="SimpleMath">G</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdleft">Max. overgroups</td>
+<td class="tdright"><a href="chapBib.html#biBCCN85">[CCN+85]</a></td>
+<td class="tdleft"></td>
+<td class="tdleft">see</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_11</span></td>
+<td class="tdleft"><span class="SimpleMath">3^2:Q_8.2</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">18</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_12</span></td>
+<td class="tdleft"><span class="SimpleMath">3^2:2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">33</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">3^2:2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">33</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_12.2</span></td>
+<td class="tdleft"><span class="SimpleMath">3^2:2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">M_12</span></td>
+<td class="tdright">33</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_1</span></td>
+<td class="tdleft"><span class="SimpleMath">2^3:7:3</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">36</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_22</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4:3^2:4</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4:A_6</span></td>
+<td class="tdright">39</td>
+<td class="tdleft">(4)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_22.2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4:3^2:D_8</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4:S_6</span></td>
+<td class="tdright">39</td>
+<td class="tdleft">(4)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2+4:(3 × S_3)</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">42</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_2.2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2+4:(S_3 × S_3)</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">42</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_23</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4:(3 × A_4):2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4:(3 × A_5):2</span>,</td>
+<td class="tdright">71</td>
+<td class="tdleft">(2)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^4:A_7</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(10)</td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HS</span></td>
+<td class="tdleft"><span class="SimpleMath">5^1+2_+:8:2</span></td>
+<td class="tdleft"><span class="SimpleMath">U_3(5).2</span></td>
+<td class="tdright">80</td>
+<td class="tdleft">(34)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">U_3(5).2</span></td>
+<td class="tdright"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HS.2</span></td>
+<td class="tdleft"><span class="SimpleMath">5^1+2_+:[2^5]</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">80</td>
+<td class="tdleft">(34)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_3</span></td>
+<td class="tdleft"><span class="SimpleMath">3^2.3^1+2_+:8</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">82</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_3.2</span></td>
+<td class="tdleft"><span class="SimpleMath">3^2.3^1+2_+:QD_16</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">82</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M_24</span></td>
+<td class="tdleft"><span class="SimpleMath">2^6:3^1+2_+:D_8</span></td>
+<td class="tdleft"><span class="SimpleMath">2^6:3.S_6</span></td>
+<td class="tdright">96</td>
+<td class="tdleft">(4)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">McL</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+4_+:2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+4_+:2S_5</span>,</td>
+<td class="tdright">100</td>
+<td class="tdleft">(2)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">U_4(3)</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(52)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">McL.2</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+4_+:4S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+4_+:4S_5</span>,</td>
+<td class="tdright">100</td>
+<td class="tdleft">(2)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">U_4(3).2_3</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(52)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">He</span></td>
+<td class="tdleft"><span class="SimpleMath">2^6:3^1+2_+:D_8</span></td>
+<td class="tdleft"><span class="SimpleMath">2^6:3.S_6</span></td>
+<td class="tdright">104</td>
+<td class="tdleft">(4)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^6:3^1+2_+:D_8</span></td>
+<td class="tdleft"><span class="SimpleMath">2^6:3.S_6</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(4)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">He.2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4+4.(S_3 × S_3).2</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">104</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Ru</span></td>
+<td class="tdleft"><span class="SimpleMath">2.2^4+6:S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">2^3+8:L_3(2)</span>,</td>
+<td class="tdright">126</td>
+<td class="tdleft">(3)</td>
+<td class="tdleft"><a href="chap6.html#X7E393459822E78B5"><span class="RefLink">6.4-1</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2.2^4+6:S_5</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(2)</td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^3+8:S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">2^3+8:L_3(2)</span>,</td>
+<td class="tdright"></td>
+<td class="tdleft">(3)</td>
+<td class="tdleft"><a href="chap6.html#X7E393459822E78B5"><span class="RefLink">6.4-1</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Suz</span></td>
+<td class="tdleft"><span class="SimpleMath">3^2+4:2(A_4 × 2^2).2</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">131</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7AFF09337CCB7745"><span class="RefLink">6.4-2</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Suz.2</span></td>
+<td class="tdleft"><span class="SimpleMath">3^2+4:2(S_4 × D_8)</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">131</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7AFF09337CCB7745"><span class="RefLink">6.4-2</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">O'N</span></td>
+<td class="tdleft"><span class="SimpleMath">3^4:2^1+4_-D_10</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">132</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7969AE067D3862A3"><span class="RefLink">6.4-3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">O'N.2</span></td>
+<td class="tdleft"><span class="SimpleMath">3^4:2^1+4_-.(5:4)</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">132</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7969AE067D3862A3"><span class="RefLink">6.4-3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Co_3</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+4_+:4.3^2:D_8</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+4_+:4S_6</span></td>
+<td class="tdright">134</td>
+<td class="tdleft">(4)</td>
+<td class="tdleft"><a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">3^5:(2 × M_11)</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(18)</td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Co_2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4+10(S_4 × S_3)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^1+8_+:S_6(2)</span>,</td>
+<td class="tdright">154</td>
+<td class="tdleft">(46)</td>
+<td class="tdleft"><a href="chap6.html#X84921B85845EDA31"><span class="RefLink">6.4-4</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^4+10(S_5 × S_3)</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(2)</td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_22</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+6_+:2^3+4:3^2:2</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">163</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7D777A0D82BE8498"><span class="RefLink">6.4-5</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_22.2</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+6_+:2^3+4:(S_3 × S_3)</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">163</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7D777A0D82BE8498"><span class="RefLink">6.4-5</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HN</span></td>
+<td class="tdleft"><span class="SimpleMath">5^1+4_+:2^1+4_-.5.4</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">166</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7D9DB76A861A6F62"><span class="RefLink">6.4-6</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">HN.2</span></td>
+<td class="tdleft"><span class="SimpleMath">5^1+4_+:(4 Y 2^1+4_-.5.4)</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">166</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7D9DB76A861A6F62"><span class="RefLink">6.4-6</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Ly</span></td>
+<td class="tdleft"><span class="SimpleMath">5^1+4_+:4.3^2:D_8</span></td>
+<td class="tdleft"><span class="SimpleMath">5^1+4_+:4S_6</span></td>
+<td class="tdright">174</td>
+<td class="tdleft">(4)</td>
+<td class="tdleft"><a href="chap6.html#X83E6436678AF562C"><span class="RefLink">6.4-7</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Th</span></td>
+<td class="tdleft"><span class="SimpleMath">[3^9].2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">177</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7D6CF8EC812EF6FB"><span class="RefLink">6.4-8</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">3^2.[3^7].2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright"></td>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_23</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+8_+.2^1+6_-.3^1+2_+.2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdright">177</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7A07090483C935DC"><span class="RefLink">6.4-9</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Co_1</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4+12.(S_3 × 3^1+2_+:D_8)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^4+12.(S_3 × 3S_6)</span></td>
+<td class="tdright">183</td>
+<td class="tdleft"></td>
+<td class="tdleft"><a href="chap6.html#X7D028E9E7CB62A4F"><span class="RefLink">6.4-10</span></a></td>
+</tr>
+</table><br />
+</div>
+
+<div class="pcenter"><table class="GAPDocTable">
+<caption class="GAPDocTable"><b>Table: </b>Table II: Solvable subgroups of maximal order – structures and overgroups (continued)</caption>
+<tr>
+<td class="tdleft"><span class="SimpleMath">G</span></td>
+<td class="tdleft"><span class="SimpleMath">S</span></td>
+<td class="tdleft">Max. overgroups</td>
+<td class="tdright"><a href="chapBib.html#biBCCN85">[CCN+85]</a></td>
+<td class="tdleft"></td>
+<td class="tdleft">see</td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">J_4</span></td>
+<td class="tdleft"><span class="SimpleMath">2^11:2^6:3^1+2_+:D_8</span></td>
+<td class="tdleft"><span class="SimpleMath">2^11:M_24</span>,</td>
+<td class="tdright">190</td>
+<td class="tdleft">(96)</td>
+<td class="tdleft"><a href="chap6.html#X84208AB781344A9D"><span class="RefLink">6.4-11</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^1+12_+.3M_22:2</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(39)</td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_24'</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+10_+:2^1+6_-:3^1+2_+:2S_4</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+10_+:U_5(2):2</span></td>
+<td class="tdright">207</td>
+<td class="tdleft">(73)</td>
+<td class="tdleft"><a href="chap6.html#X7BC589718203F125"><span class="RefLink">6.4-12</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_24'.2</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+10_+:(2 × 2^1+6_-:3^1+2_+:2S_4)</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+10_+:(2 × U_5(2):2)</span></td>
+<td class="tdright">207</td>
+<td class="tdleft">(73)</td>
+<td class="tdleft"><a href="chap6.html#X7BC589718203F125"><span class="RefLink">6.4-12</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">B</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2+10+20(2^4:3^2:D_8 × S_3)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2+10+20(M_22:2 × S_3)</span>,</td>
+<td class="tdright">217</td>
+<td class="tdleft">(39)</td>
+<td class="tdleft"><a href="chap6.html#X7EDF990985573EB6"><span class="RefLink">6.4-13</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^9+16S_8(2)</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(123)</td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">M</span></td>
+<td class="tdleft"><span class="SimpleMath">2^1+2+6+12+18.(S_4 × 3^1+2_+:D_8)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^[39].(L_3(2) × 3S_6)</span>,</td>
+<td class="tdright">234</td>
+<td class="tdleft">(3, 4)</td>
+<td class="tdleft"><a href="chap6.html#X87D468D07D7237CB"><span class="RefLink">6.4-14</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^1+24_+.Co_1</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(183)</td>
+<td class="tdleft"></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^2+1+6+12+18.(S_4 × 3^1+2_+:D_8)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^[39].(L_3(2) × 3S_6)</span>,</td>
+<td class="tdright"></td>
+<td class="tdleft">(3, 4)</td>
+<td class="tdleft"><a href="chap6.html#X87D468D07D7237CB"><span class="RefLink">6.4-14</span></a></td>
+</tr>
+<tr>
+<td class="tdleft"></td>
+<td class="tdleft"></td>
+<td class="tdleft"><span class="SimpleMath">2^2+11+22.(M_24 × S_3)</span></td>
+<td class="tdright"></td>
+<td class="tdleft">(96)</td>
+<td class="tdleft"></td>
+</tr>
+</table><br />
+</div>
+
+<p><a id="X876F77197B2FB84A" name="X876F77197B2FB84A"></a></p>
+
+<h4>6.2 <span class="Heading">The Approach</span></h4>
+
+<p>We combine the information in the <strong class="pkg">Atlas</strong> <a href="chapBib.html#biBCCN85">[CCN+85]</a> with explicit computations using the <strong class="pkg">GAP</strong> system <a href="chapBib.html#biBGAP">[GAP24]</a>, in particular its Character Table Library <a href="chapBib.html#biBCTblLib">[Bre25]</a> and its library of Tables of Marks <a href="chapBib.html#biBTomLib">[MNP19]</a>. First we load these two packages.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "CTblLib", "1.2", false );</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "TomLib", false );</span>
+true
+</pre></div>
+
+<p>The orders of solvable subgroups of maximal order will be collected in a global record <code class="code">MaxSolv</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv:= rec();;</span>
+</pre></div>
+
+<p><a id="X792957AB7B24C5E0" name="X792957AB7B24C5E0"></a></p>
+
+<h5>6.2-1 <span class="Heading">Use the Table of Marks</span></h5>
+
+<p>If the <strong class="pkg">GAP</strong> library of Tables of Marks <a href="chapBib.html#biBTomLib">[MNP19]</a> contains the table of marks of a group <span class="SimpleMath">G</span> then we can easily inspect all conjugacy classes of subgroups of <span class="SimpleMath">G</span>. The following small <strong class="pkg">GAP</strong> function can be used for that. It returns <code class="keyw">false</code> if the table of marks of the group with the name <code class="code">name</code> is not available, and the list <code class="code">[ name, n, super ]</code> otherwise, where <code class="code">n</code> is the maximal order of solvable subgroups of <span class="SimpleMath">G</span>, and <code class="code">super</code> is a list of lists; for each conjugacy class of solvable subgroups <span class="SimpleMath">S</span> of order <code class="code">n</code>, <code class="code">super</code> contains the list of orders of representatives <span class="SimpleMath">M</span> of the classes of maximal subgroups of <span class="SimpleMath">G</span> such that <span class="SimpleMath">M</span> contains a conjugate of <span class="SimpleMath">S</span>.</p>
+
+<p>Note that a subgroup in the <span class="SimpleMath">i</span>-th class of a table of marks contains a subgroup in the <span class="SimpleMath">j</span>-th class if and only if the entry in the position <span class="SimpleMath">(i,j)</span> of the table of marks is nonzero. For tables of marks objects in <strong class="pkg">GAP</strong>, this is the case if and only if <span class="SimpleMath">j</span> is contained in the <span class="SimpleMath">i</span>-th row of the list that is stored as the value of the attribute <code class="code">SubsTom</code> of the table of marks object; for this test, one need not unpack the matrix of marks.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaximalSolvableSubgroupInfoFromTom:= function( name )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    local tom,          # table of marks for `name'</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          n,            # maximal order of a solvable subgroup</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          maxsubs,      # numbers of the classes of subgroups of order `n'</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          orders,       # list of orders of the classes of subgroups</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          i,            # loop over the classes of subgroups</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          maxes,        # list of positions of the classes of max. subgroups</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          subs,         # `SubsTom' value</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          cont;         # list of list of positions of max. subgroups</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    tom:= TableOfMarks( name );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    if tom = fail then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      return false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    n:= 1;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    maxsubs:= [];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    orders:= OrdersTom( tom );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    for i in [ 1 .. Length( orders ) ] do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      if IsSolvableTom( tom, i ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        if orders[i] = n then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          Add( maxsubs, i );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        elif orders[i] &gt; n then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          n:= orders[i];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          maxsubs:= [ i ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    maxes:= MaximalSubgroupsTom( tom )[1];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    subs:= SubsTom( tom );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    cont:= List( maxsubs, j -&gt; Filtered( maxes, i -&gt; j in subs[i] ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    return [ name, n, List( cont, l -&gt; orders{ l } ) ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">end;;</span>
+</pre></div>
+
+<p><a id="X7B39A4467A1CCF8A" name="X7B39A4467A1CCF8A"></a></p>
+
+<h5>6.2-2 <span class="Heading">Use Information from the Character Table Library</span></h5>
+
+<p>The <strong class="pkg">GAP</strong> Character Table Library contains the character tables of all maximal subgroups of sporadic simple groups, except for the Monster group. This information can be used as follows.</p>
+
+<p>We start, for a sporadic simple group <span class="SimpleMath">G</span>, with a known solvable subgroup of order <span class="SimpleMath">n</span>, say, in <span class="SimpleMath">G</span>. In order to show that <span class="SimpleMath">G</span> contains no solvable subgroup of larger order, it suffices to show that no maximal subgroup of <span class="SimpleMath">G</span> contains a larger solvable subgroup.</p>
+
+<p>The point is that usually the orders of the maximal subgroups of <span class="SimpleMath">G</span> are not much larger than <span class="SimpleMath">n</span>, and that a maximal subgroup <span class="SimpleMath">M</span> contains a solvable subgroup of order <span class="SimpleMath">n</span> only if the factor group of <span class="SimpleMath">M</span> by its largest solvable normal subgroup <span class="SimpleMath">N</span> contains a solvable subgroup of order <span class="SimpleMath">n/|N|</span>. This reduces the question to relatively small groups.</p>
+
+<p>What we can check <em>automatically</em> from the character table of <span class="SimpleMath">M/N</span> is whether <span class="SimpleMath">M/N</span> can contain subgroups (solvable or not) of indices between five and <span class="SimpleMath">|M|/n</span>, by computing possible permutation characters of these degrees. (Note that a solvable subgroup of a nonsolvable group has index at least five. This lower bound could be improved for example by considering the smallest degree of a nontrivial character, but this is not an issue here.)</p>
+
+<p>Then we are left with a –hopefully short– list of maximal subgroups of <span class="SimpleMath">G</span>, together with upper bounds on the indices of possible solvable subgroups; excluding these possibilities then yields that the initially chosen solvable subgroup of <span class="SimpleMath">G</span> is indeed the largest one.</p>
+
+<p>The following <strong class="pkg">GAP</strong> function can be used to compute this information for the character table <code class="code">tblM</code> of <span class="SimpleMath">M</span> and a given order <code class="code">minorder</code>. It returns <code class="keyw">false</code> if <span class="SimpleMath">M</span> cannot contain a solvable subgroup of order at least <code class="code">minorder</code>, otherwise a list <code class="code">[ tblM, m, k ]</code> where <code class="code">m</code> is the maximal index of a subgroup that has order at least <code class="code">minorder</code>, and <code class="code">k</code> is the minimal index of a possible subgroup of <span class="SimpleMath">M</span> (a proper subgroup if <span class="SimpleMath">M</span> is nonsolvable), according to the <strong class="pkg">GAP</strong> function <code class="func">PermChars</code> (<a href="../../../doc/ref/chap72.html#X7D02541482C196A6"><span class="RefLink">Reference: PermChars</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SolvableSubgroupInfoFromCharacterTable:= function( tblM, minorder )</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    local maxindex,  # index of subgroups of order `minorder'</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          N,         # class positions describing a solvable normal subgroup</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          fact,      # character table of the factor by `N'</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          classes,   # class sizes in `fact'</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          nsg,       # list of class positions of normal subgroups</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">          i;         # loop over the possible indices</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    maxindex:= Int( Size( tblM ) / minorder );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    if   maxindex = 0 then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      return false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    elif IsSolvableCharacterTable( tblM ) then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      return [ tblM, maxindex, 1 ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    elif maxindex &lt; 5 then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      return false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    N:= [ 1 ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    fact:= tblM;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    repeat</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      fact:= fact / N;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      classes:= SizesConjugacyClasses( fact );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      nsg:= Difference( ClassPositionsOfNormalSubgroups( fact ), [ [ 1 ] ] );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      N:= First( nsg, x -&gt; IsPrimePowerInt( Sum( classes{ x } ) ) );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    until N = fail;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    for i in Filtered( DivisorsInt( Size( fact ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                       d -&gt; 5 &lt;= d and d &lt;= maxindex ) do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      if Length( PermChars( fact, rec( torso:= [ i ] ) ) ) &gt; 0 then</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        return [ tblM, maxindex, i ];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">      fi;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    od;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput"></span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">    return false;</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">end;;</span>
+</pre></div>
+
+<p><a id="X834298A87BF43AAF" name="X834298A87BF43AAF"></a></p>
+
+<h4>6.3 <span class="Heading">Cases where the Table of Marks is available in <strong class="pkg">GAP</strong></span></h4>
+
+<p>For twelve sporadic simple groups, the <strong class="pkg">GAP</strong> library of Tables of Marks knows the tables of marks, so we can use <code class="code">MaximalSolvableSubgroupInfoFromTom</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">solvinfo:= Filtered( List(</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        AllCharacterTableNames( IsSporadicSimple, true,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                                IsDuplicateTable, false ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">        MaximalSolvableSubgroupInfoFromTom ), x -&gt; x &lt;&gt; false );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for entry in solvinfo do</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     MaxSolv.( entry[1] ):= entry[2];</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for entry in solvinfo do                                 </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">     Print( String( entry[1], 5 ), String( entry[2], 7 ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            String( entry[3], 28 ), "\n" );</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">   od;</span>
+  Co3  69984     [ [ 3849120, 699840 ] ]
+   HS   2000      [ [ 252000, 252000 ] ]
+   He  13824  [ [ 138240 ], [ 138240 ] ]
+   J1    168                 [ [ 168 ] ]
+   J2   1152                [ [ 1152 ] ]
+   J3   1944                [ [ 1944 ] ]
+  M11    144                 [ [ 144 ] ]
+  M12    432        [ [ 432 ], [ 432 ] ]
+  M22    576                [ [ 5760 ] ]
+  M23   1152         [ [ 40320, 5760 ] ]
+  M24  13824              [ [ 138240 ] ]
+  McL  11664      [ [ 3265920, 58320 ] ]
+</pre></div>
+
+<p>We see that for <span class="SimpleMath">J_1</span>, <span class="SimpleMath">J_2</span>, <span class="SimpleMath">J_3</span>, <span class="SimpleMath">M_11</span>, and <span class="SimpleMath">M_12</span>, the subgroup <span class="SimpleMath">S</span> is maximal. For <span class="SimpleMath">M_12</span> and <span class="SimpleMath">He</span>, there are two classes of subgroups <span class="SimpleMath">S</span>. For the other groups, the class of subgroups <span class="SimpleMath">S</span> is unique, and there are one or two classes of maximal subgroups of <span class="SimpleMath">G</span> that contain <span class="SimpleMath">S</span>. From the shown orders of these maximal subgroups, their structures can be read off from the <strong class="pkg">Atlas</strong>, on the pages listed in Table II.</p>
+
+<p>Similarly, the <strong class="pkg">Atlas</strong> tells us about the extensions of the subgroups <span class="SimpleMath">S</span> in Aut<span class="SimpleMath">(G)</span>. In particular,</p>
+
+
+<ul>
+<li><p>the order <span class="SimpleMath">2000</span> subgroups of <span class="SimpleMath">HS</span> are contained in maximal subgroups of the type <span class="SimpleMath">U_3(5).2</span> (two classes) which do not extend to <span class="SimpleMath">HS.2</span>, but there are novelties of the type <span class="SimpleMath">5^1+2_+:[2^5]</span> and of the order <span class="SimpleMath">4000</span>, so the solvable subgroups of maximal order in <span class="SimpleMath">HS</span> do in fact extend to <span class="SimpleMath">HS.2</span>.</p>
+
+</li>
+<li><p>the order <span class="SimpleMath">13824</span> subgroups of <span class="SimpleMath">He</span> are contained in maximal subgroups of the type <span class="SimpleMath">2^6:3S_6</span> (two classes) which do not extend to <span class="SimpleMath">He.2</span>, but there are novelties of the type <span class="SimpleMath">2^4+4.(S_3 × S_3).2</span> and of the order <span class="SimpleMath">18432</span>. (So the solvable subgroups <span class="SimpleMath">S</span> of maximal order in <span class="SimpleMath">He</span> do not extend to <span class="SimpleMath">He.2</span> but there are larger solvable subgroups in <span class="SimpleMath">He.2</span>.)</p>
+
+<p>We inspect the maximal subgroups of <span class="SimpleMath">He.2</span> in order to show that these are in fact the solvable subgroups of maximal order (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 104]</a>): Any other solvable subgroup of order at least <span class="SimpleMath">n</span> in <span class="SimpleMath">He.2</span> must be contained in a subgroup of one of the types <span class="SimpleMath">S_4(4).4</span> (of index at most <span class="SimpleMath">212</span>), <span class="SimpleMath">2^2.L_3(4).D_12</span> (of index at most <span class="SimpleMath">52</span>), or <span class="SimpleMath">2^1+6_+.L_3(2).2</span> (of index at most <span class="SimpleMath">2</span>). By <a href="chapBib.html#biBCCN85">[CCN+85, pp. 44, 23, 3]</a>, this is not the case.</p>
+
+</li>
+<li><p>the maximal subgroups of order <span class="SimpleMath">1152</span> in <span class="SimpleMath">J_2</span> extend to subgroups of order <span class="SimpleMath">2304</span> in <span class="SimpleMath">J_2.2</span>.</p>
+
+</li>
+<li><p>the maximal subgroups of order <span class="SimpleMath">1944</span> in <span class="SimpleMath">J_3</span> extend to subgroups of the type <span class="SimpleMath">3^2.3^1+2_+:8.2</span> and of order <span class="SimpleMath">3888</span> in <span class="SimpleMath">J_3.2</span>. (The structure stated in <a href="chapBib.html#biBCCN85">[CCN+85, p. 82]</a> is not correct, see <a href="chapBib.html#biBBN95">[BN95]</a>.)</p>
+
+</li>
+<li><p>the maximal subgroups of order <span class="SimpleMath">432</span> in <span class="SimpleMath">M_12</span> (two classes) do <em>not</em> extend in <span class="SimpleMath">M_12.2</span>, and we see from the table of marks of <span class="SimpleMath">M_12.2</span> that there are no larger solvable subgroups in this group, i. e., the solvable subgroups of maximal order in <span class="SimpleMath">M_12.2</span> lie in <span class="SimpleMath">M_12</span>.</p>
+
+</li>
+<li><p>the order <span class="SimpleMath">576</span> subgroups of <span class="SimpleMath">M_22</span> are contained in maximal subgroups of the type <span class="SimpleMath">2^4:A_6</span> which extend to subgroups of the type <span class="SimpleMath">2^4:S_6</span> in <span class="SimpleMath">M_22.2</span>, so the solvable subgroups of maximal order in <span class="SimpleMath">M_22.2</span> have the type <span class="SimpleMath">2^4:3^2:D_8</span> and the order <span class="SimpleMath">1152</span>. In fact the structure is <span class="SimpleMath">S_4 ≀ S_2</span>.</p>
+
+</li>
+<li><p>the order <span class="SimpleMath">11664</span> subgroups of <span class="SimpleMath">McL</span> are contained in maximal subgroups of the type <span class="SimpleMath">3^1+4_+:2S_5</span> which extend to subgroups of the type <span class="SimpleMath">3^1+4:4S_5</span> in <span class="SimpleMath">McL.2</span>, so the solvable subgroups of maximal order in <span class="SimpleMath">McL.2</span> have the type <span class="SimpleMath">3^1+4:4S_4</span> and the order <span class="SimpleMath">23328</span>.</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "HS.2" ):= 2 * MaxSolv.( "HS" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 2^(4+4) * ( 6 * 6 ) * 2;  MaxSolv.( "He.2" ):= n;;</span>
+18432
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( [ Size( CharacterTable( "S4(4).4" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Factorial( 5 )^2 * 2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Size( CharacterTable( "2^2.L3(4).D12" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^7 * Size( CharacterTable( "L3(2)" ) ) * 2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           7^2 * 2 * Size( CharacterTable( "L2(7)" ) ) * 2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           3 * Factorial( 7 ) * 2 ], i -&gt; Int( i / n ) );</span>
+[ 212, 1, 52, 2, 1, 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "J2.2" ):= 2 * MaxSolv.( "J2" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "J3.2" ):= 2 * MaxSolv.( "J3" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= MaximalSolvableSubgroupInfoFromTom( "M12.2" );</span>
+[ "M12.2", 432, [ [ 95040 ] ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "M12.2" ):= info[2];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "M22.2" ):= 2 * MaxSolv.( "M22" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "McL.2" ):= 2 * MaxSolv.( "McL" );;</span>
+</pre></div>
+
+<p><a id="X85559C0F7AA73E48" name="X85559C0F7AA73E48"></a></p>
+
+<h4>6.4 <span class="Heading">Cases where the Table of Marks is not available in <strong class="pkg">GAP</strong></span></h4>
+
+<p>We use the <strong class="pkg">GAP</strong> function <code class="code">SolvableSubgroupInfoFromCharacterTable</code>, and individual arguments. In several cases, information about smaller sporadic simple groups is needed, so we deal with the groups in increasing order.</p>
+
+<p><a id="X7E393459822E78B5" name="X7E393459822E78B5"></a></p>
+
+<h5>6.4-1 <span class="Heading"><span class="SimpleMath">G = Ru</span></span></h5>
+
+<p>The group <span class="SimpleMath">Ru</span> contains exactly two conjugacy classes of nonisomorphic solvable subgroups of order <span class="SimpleMath">n = 49152</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Ru" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 49152;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "2^3+8:L3(2)" ), 7, 7 ], 
+  [ CharacterTable( "2.2^4+6:S5" ), 5, 5 ] ]
+</pre></div>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">2.2^4+6:S_5</span> in <span class="SimpleMath">Ru</span> contain one class of solvable subgroups of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">2.2^4+6:S_4</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 126, p. 2]</a>.</p>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">2^3+8:L_3(2)</span> in <span class="SimpleMath">Ru</span> contain two classes of solvable subgroups of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">2^3+8:S_4</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 126, p. 3]</a>. These groups are the stabilizers of vectors and two-dimensional subspaces, respectively, in the three-dimensional submodule; note that each <span class="SimpleMath">2^3+8:L_3(2)</span> type subgroup <span class="SimpleMath">H</span> of <span class="SimpleMath">Ru</span> is the normalizer of an elementary abelian group of order eight all of whose involutions are in the <span class="SimpleMath">Ru</span>-class <code class="code">2A</code> and are conjugate in <span class="SimpleMath">H</span>. Since the <span class="SimpleMath">2.2^4+6:S_5</span> type subgroups of <span class="SimpleMath">Ru</span> are the normalizers of <code class="code">2A</code>-elements in <span class="SimpleMath">Ru</span>, the groups in one of the two classes in question coincide with the largest solvable subgroups in the <span class="SimpleMath">2.2^4+6:S_5</span> type subgroups. The groups in the other class do not centralize a <code class="code">2A</code>-element in <span class="SimpleMath">Ru</span> and are therefore not isomorphic with the <span class="SimpleMath">2.2^4+6:S_4</span> type groups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Ru" ):= n;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s:= info[1][1];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cls:= SizesConjugacyClasses( s );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nsg:= Filtered( ClassPositionsOfNormalSubgroups( s ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                   x -&gt; Sum( cls{ x } ) = 2^3 );</span>
+[ [ 1, 2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cls{ nsg[1] };</span>
+[ 1, 7 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GetFusionMap( s, t ){ nsg[1] };</span>
+[ 1, 2 ]
+</pre></div>
+
+<p><a id="X7AFF09337CCB7745" name="X7AFF09337CCB7745"></a></p>
+
+<h5>6.4-2 <span class="Heading"><span class="SimpleMath">G = Suz</span></span></h5>
+
+<p>The group <span class="SimpleMath">Suz</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">n = 139968</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Suz" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 139968;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "G2(4)" ), 1797, 416 ], 
+  [ CharacterTable( "3_2.U4(3).2_3'" ), 140, 72 ], 
+  [ CharacterTable( "3^5:M11" ), 13, 11 ], 
+  [ CharacterTable( "2^4+6:3a6" ), 7, 6 ], 
+  [ CharacterTable( "3^2+4:2(2^2xa4)2" ), 1, 1 ] ]
+</pre></div>
+
+<p>The maximal subgroups <span class="SimpleMath">S</span> of the structure <span class="SimpleMath">3^2+4:2(A_4 × 2^2).2</span> in <span class="SimpleMath">Suz</span> are solvable and have order <span class="SimpleMath">n</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 131]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">Suz</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">G_2(4)</span> of index at most <span class="SimpleMath">1797</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 97]</a>), in <span class="SimpleMath">U_4(3).2_3^'</span> of index at most <span class="SimpleMath">140</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 52]</a>), in <span class="SimpleMath">M_11</span> of index at most <span class="SimpleMath">13</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 18]</a>), and in <span class="SimpleMath">A_6</span> of index at most <span class="SimpleMath">7</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 4]</a>).</p>
+
+<p>The group <span class="SimpleMath">S</span> extends to a group of the structure <span class="SimpleMath">3^2+4:2(S_4 × D_8)</span> in the automorphism group <span class="SimpleMath">Suz.2</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Suz" ):= n;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Suz.2" ):= 2 * n;;</span>
+</pre></div>
+
+<p><a id="X7969AE067D3862A3" name="X7969AE067D3862A3"></a></p>
+
+<h5>6.4-3 <span class="Heading"><span class="SimpleMath">G = ON</span></span></h5>
+
+<p>The group <span class="SimpleMath">ON</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">25920</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "ON" );;                                            </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 25920;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "L3(7).2" ), 144, 114 ], 
+  [ CharacterTable( "ONM2" ), 144, 114 ], 
+  [ CharacterTable( "3^4:2^(1+4)D10" ), 1, 1 ] ]
+</pre></div>
+
+<p>The maximal subgroups <span class="SimpleMath">S</span> of the structure <span class="SimpleMath">3^4:2^1+4_-D_10</span> in <span class="SimpleMath">ON</span> are solvable and have order <span class="SimpleMath">n</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, pp. 132]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">ON</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">L_3(7).2</span> of index at most <span class="SimpleMath">144</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 50]</a>); note that the groups in the second class of maximal subgroups of <span class="SimpleMath">ON</span> are isomorphic with <span class="SimpleMath">L_3(7).2</span>.</p>
+
+<p>The group <span class="SimpleMath">S</span> extends to a group of order <span class="SimpleMath">|S.2|</span> in the automorphism group <span class="SimpleMath">ON.2</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "ON" ):= n;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "ON.2" ):= 2 * n;;</span>
+</pre></div>
+
+<p><a id="X84921B85845EDA31" name="X84921B85845EDA31"></a></p>
+
+<h5>6.4-4 <span class="Heading"><span class="SimpleMath">G = Co_2</span></span></h5>
+
+<p>The group <span class="SimpleMath">Co_2</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">2359296</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Co2" );;                                           </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 2359296;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "U6(2).2" ), 7796, 672 ], 
+  [ CharacterTable( "2^10:m22:2" ), 385, 22 ], 
+  [ CharacterTable( "McL" ), 380, 275 ], 
+  [ CharacterTable( "2^1+8:s6f2" ), 315, 28 ], 
+  [ CharacterTable( "2^1+4+6.a8" ), 17, 8 ], 
+  [ CharacterTable( "U4(3).D8" ), 11, 8 ], 
+  [ CharacterTable( "2^(4+10)(S5xS3)" ), 5, 5 ] ]
+</pre></div>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">2^4+10(S_5 × S_3)</span> in <span class="SimpleMath">Co_2</span> contain solvable subgroups <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">2^4+10(S_4 × S_3)</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 154]</a>.</p>
+
+<p>The subgroups <span class="SimpleMath">S</span> are contained also in the maximal subgroups of the type <span class="SimpleMath">2^1+8_+:S_6(2)</span>; note that the <span class="SimpleMath">2^1+8_+:S_6(2)</span> type subgroups are described as normalizers of elements in the <span class="SimpleMath">Co_2</span>-class <code class="code">2A</code>, and <span class="SimpleMath">S</span> normalizes an elementary abelian group of order <span class="SimpleMath">16</span> containing an <span class="SimpleMath">S</span>-class of length five that is contained in the <span class="SimpleMath">Co_2</span>-class <code class="code">2A</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s:= info[7][1];</span>
+CharacterTable( "2^(4+10)(S5xS3)" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cls:= SizesConjugacyClasses( s );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nsg:= Filtered( ClassPositionsOfNormalSubgroups( s ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                   x -&gt; Sum( cls{ x } ) = 2^4 );</span>
+[ [ 1 .. 3 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cls{ nsg[1] };</span>
+[ 1, 5, 10 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GetFusionMap( s, t ){ nsg[1] };</span>
+[ 1, 2, 3 ]
+</pre></div>
+
+<p>The stabilizers of these involutions in <span class="SimpleMath">2^4+10(S_5 × S_3)</span> have index five, they are solvable, and they are contained in <span class="SimpleMath">2^1+8_+:S_6(2)</span> type subgroups, so they are <span class="SimpleMath">Co_2</span>-conjugates of <span class="SimpleMath">S</span>. (The corresponding subgroups of <span class="SimpleMath">S_6(2)</span> are maximal and have the type <span class="SimpleMath">2.[2^6]:(S_3 × S_3)</span>.)</p>
+
+<p>In order to show that <span class="SimpleMath">G</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">U_6(2)</span> of index at most <span class="SimpleMath">7796</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 115]</a>), in <span class="SimpleMath">M_22.2</span> of index at most <span class="SimpleMath">385</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 39]</a> or Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>), in <span class="SimpleMath">McL</span> of index at most <span class="SimpleMath">380</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 100]</a> or Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>), in <span class="SimpleMath">A_8</span> of index at most <span class="SimpleMath">17</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 20]</a>), and in <span class="SimpleMath">U_4(3).D_8</span> of index at most <span class="SimpleMath">11</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 52]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Co2" ):= n;;</span>
+</pre></div>
+
+<p><a id="X7D777A0D82BE8498" name="X7D777A0D82BE8498"></a></p>
+
+<h5>6.4-5 <span class="Heading"><span class="SimpleMath">G = Fi_22</span></span></h5>
+
+<p>The group <span class="SimpleMath">Fi_22</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">5038848</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Fi22" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 5038848;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "2.U6(2)" ), 3650, 672 ], 
+  [ CharacterTable( "O7(3)" ), 910, 351 ], 
+  [ CharacterTable( "Fi22M3" ), 910, 351 ], 
+  [ CharacterTable( "O8+(2).3.2" ), 207, 6 ], 
+  [ CharacterTable( "2^10:m22" ), 90, 22 ], 
+  [ CharacterTable( "3^(1+6):2^(3+4):3^2:2" ), 1, 1 ] ]
+</pre></div>
+
+<p>The maximal subgroups <span class="SimpleMath">S</span> of the structure <span class="SimpleMath">3^1+6:2^3+4:3^2:2</span> in <span class="SimpleMath">Fi_22</span> are solvable and have order <span class="SimpleMath">n</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 163]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">Fi_22</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">U_6(2)</span> of index at most <span class="SimpleMath">3650</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 115]</a>), in <span class="SimpleMath">O_7(3)</span> of index at most <span class="SimpleMath">910</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 109]</a>), in <span class="SimpleMath">O_8^+(2).S_3</span> of index at most <span class="SimpleMath">207</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 85]</a>), and in <span class="SimpleMath">M_22.2</span> of index at most <span class="SimpleMath">90</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 39]</a> or Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>); note that the groups in the third class of maximal subgroups of <span class="SimpleMath">Fi_22</span> are isomorphic with <span class="SimpleMath">O_7(3)</span>.</p>
+
+<p>The group <span class="SimpleMath">S</span> extends to a group of order <span class="SimpleMath">|S.2|</span> in the automorphism group <span class="SimpleMath">Fi_22.2</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Fi22" ):= n;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Fi22.2" ):= 2 * n;;</span>
+</pre></div>
+
+<p><a id="X7D9DB76A861A6F62" name="X7D9DB76A861A6F62"></a></p>
+
+<h5>6.4-6 <span class="Heading"><span class="SimpleMath">G = HN</span></span></h5>
+
+<p>The group <span class="SimpleMath">HN</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">2000000</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "HN" );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;                               </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 2000000;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "A12" ), 119, 12 ], 
+  [ CharacterTable( "5^(1+4):2^(1+4).5.4" ), 1, 1 ] ]
+</pre></div>
+
+<p>The maximal subgroups <span class="SimpleMath">S</span> of the structure <span class="SimpleMath">5^1+4:2^1+4.5.4</span> in <span class="SimpleMath">HN</span> are solvable and have order <span class="SimpleMath">n</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 166]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">HN</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">A_12</span> of index at most <span class="SimpleMath">119</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 91]</a>).</p>
+
+<p>The group <span class="SimpleMath">S</span> extends to a group of order <span class="SimpleMath">|S.2|</span> in the automorphism group <span class="SimpleMath">HN.2</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "HN" ):= n;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "HN.2" ):= 2 * n;;</span>
+</pre></div>
+
+<p><a id="X83E6436678AF562C" name="X83E6436678AF562C"></a></p>
+
+<h5>6.4-7 <span class="Heading"><span class="SimpleMath">G = Ly</span></span></h5>
+
+<p>The group <span class="SimpleMath">Ly</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">900000</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Ly" );;                                            </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 900000;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "G2(5)" ), 6510, 3906 ], 
+  [ CharacterTable( "3.McL.2" ), 5987, 275 ], 
+  [ CharacterTable( "5^3.psl(3,5)" ), 51, 31 ], 
+  [ CharacterTable( "2.A11" ), 44, 11 ], 
+  [ CharacterTable( "5^(1+4):4S6" ), 10, 6 ] ]
+</pre></div>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">5^(1+4):4S6</span> in <span class="SimpleMath">Ly</span> contain solvable subgroups <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">5^1+4:4.3^2.D_8</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 174]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">Ly</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">G_2(5)</span> of index at most <span class="SimpleMath">6510</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 114]</a>), in <span class="SimpleMath">McL.2</span> of index at most <span class="SimpleMath">5987</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 100]</a> or Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>), in <span class="SimpleMath">L_3(5)</span> of index at most <span class="SimpleMath">51</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 38]</a>), and in <span class="SimpleMath">A_11</span> of index at most <span class="SimpleMath">44</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 75]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Ly" ):= n;;</span>
+</pre></div>
+
+<p><a id="X7D6CF8EC812EF6FB" name="X7D6CF8EC812EF6FB"></a></p>
+
+<h5>6.4-8 <span class="Heading"><span class="SimpleMath">G = Th</span></span></h5>
+
+<p>The group <span class="SimpleMath">Th</span> contains exactly two conjugacy classes of nonisomorphic solvable subgroups of order <span class="SimpleMath">n = 944784</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Th" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 944784;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "2^5.psl(5,2)" ), 338, 31 ], 
+  [ CharacterTable( "2^1+8.a9" ), 98, 9 ], 
+  [ CharacterTable( "U3(8).6" ), 35, 6 ], 
+  [ CharacterTable( "ThN3B" ), 1, 1 ], 
+  [ CharacterTable( "ThM7" ), 1, 1 ] ]
+</pre></div>
+
+<p>The maximal subgroups <span class="SimpleMath">S</span> of the structures <span class="SimpleMath">[3^9].2S_4</span> and <span class="SimpleMath">3^2.[3^7].2S_4</span> in <span class="SimpleMath">Th</span> are solvable and have order <span class="SimpleMath">n</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 177]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">Th</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">L_5(2)</span> of index at most <span class="SimpleMath">338</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 70]</a>), in <span class="SimpleMath">A_9</span> of index at most <span class="SimpleMath">98</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 37]</a>), and in <span class="SimpleMath">U_3(8).6</span> of index at most <span class="SimpleMath">35</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 66]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Th" ):= n;;</span>
+</pre></div>
+
+<p><a id="X7A07090483C935DC" name="X7A07090483C935DC"></a></p>
+
+<h5>6.4-9 <span class="Heading"><span class="SimpleMath">G = Fi_23</span></span></h5>
+
+<p>The group <span class="SimpleMath">Fi_23</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">n = 3265173504</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Fi23" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 3265173504;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "2.Fi22" ), 39545, 3510 ], 
+  [ CharacterTable( "O8+(3).3.2" ), 9100, 6 ], 
+  [ CharacterTable( "3^(1+8).2^(1+6).3^(1+2).2S4" ), 1, 1 ] ]
+</pre></div>
+
+<p>The maximal subgroups <span class="SimpleMath">S</span> of the structure <span class="SimpleMath">3^1+8_+.2^1+6_-.3^1+2_+.2S_4</span> in <span class="SimpleMath">Fi_23</span> are solvable and have order <span class="SimpleMath">n</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 177]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">Fi_23</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">Fi_22</span> of index at most <span class="SimpleMath">39545</span> (see Section <a href="chap6.html#X7D777A0D82BE8498"><span class="RefLink">6.4-5</span></a>) and in <span class="SimpleMath">O_8^+(3).S_3</span> of index at most <span class="SimpleMath">9100</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 140]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Fi23" ):= n;;</span>
+</pre></div>
+
+<p><a id="X7D028E9E7CB62A4F" name="X7D028E9E7CB62A4F"></a></p>
+
+<h5>6.4-10 <span class="Heading"><span class="SimpleMath">G = Co_1</span></span></h5>
+
+<p>The group <span class="SimpleMath">Co_1</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">n = 84934656</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Co1" );;                                           </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 84934656;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "Co2" ), 498093, 2300 ], 
+  [ CharacterTable( "3.Suz.2" ), 31672, 1782 ], 
+  [ CharacterTable( "2^11:M24" ), 5903, 24 ], 
+  [ CharacterTable( "Co3" ), 5837, 276 ], 
+  [ CharacterTable( "2^(1+8)+.O8+(2)" ), 1050, 120 ], 
+  [ CharacterTable( "U6(2).3.2" ), 649, 6 ], 
+  [ CharacterTable( "2^(2+12):(A8xS3)" ), 23, 8 ], 
+  [ CharacterTable( "2^(4+12).(S3x3S6)" ), 10, 6 ] ]
+</pre></div>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">2^4+12.(S_3 × 3S_6)</span> in <span class="SimpleMath">Co_1</span> contain solvable subgroups <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">2^4+12.(S_3 × 3^1+2_+:D_8)</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 183]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">Co_1</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">Co_2</span> of index at most <span class="SimpleMath">498093</span> (see Section <a href="chap6.html#X84921B85845EDA31"><span class="RefLink">6.4-4</span></a>), in <span class="SimpleMath">Suz.2</span> of index at most <span class="SimpleMath">31672</span> (see Section <a href="chap6.html#X7AFF09337CCB7745"><span class="RefLink">6.4-2</span></a>), in <span class="SimpleMath">M_24</span> of index at most <span class="SimpleMath">5903</span> (see Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>), in <span class="SimpleMath">Co_3</span> of index at most <span class="SimpleMath">5837</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 134]</a> or Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>), in <span class="SimpleMath">O_8^+(2)</span> of index at most <span class="SimpleMath">1050</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 185]</a>), in <span class="SimpleMath">U_6(2).S_3</span> of index at most <span class="SimpleMath">649</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 115]</a>), and in <span class="SimpleMath">A_8</span> of index at most <span class="SimpleMath">23</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 22]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Co1" ):= n;;</span>
+</pre></div>
+
+<p><a id="X84208AB781344A9D" name="X84208AB781344A9D"></a></p>
+
+<h5>6.4-11 <span class="Heading"><span class="SimpleMath">G = J_4</span></span></h5>
+
+<p>The group <span class="SimpleMath">J_4</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">28311552</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "J4" );; </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 28311552;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );</span>
+[ [ CharacterTable( "mx1j4" ), 17710, 24 ], 
+  [ CharacterTable( "c2aj4" ), 770, 22 ], 
+  [ CharacterTable( "2^10:L5(2)" ), 361, 31 ], 
+  [ CharacterTable( "J4M4" ), 23, 5 ] ]
+</pre></div>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">2^11:M_24</span> in <span class="SimpleMath">J_4</span> contain solvable subgroups <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">2^11:2^6:3^1+2_+:D_8</span>, see Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a> and <a href="chapBib.html#biBCCN85">[CCN+85, p. 190]</a>.</p>
+
+<p>(The subgroups in the first four classes of maximal subgroups of <span class="SimpleMath">J_4</span> have the structures <span class="SimpleMath">2^11:M_24</span>, <span class="SimpleMath">2^1+12_+.3M_22:2</span>, <span class="SimpleMath">2^10:L_5(2)</span>, and <span class="SimpleMath">2^3+12.(S_5 × L_3(2))</span>, in this order.)</p>
+
+<p>The subgroups <span class="SimpleMath">S</span> are contained also in the maximal subgroups of the type <span class="SimpleMath">2^1+12_+.3M_22:2</span>; note that these subgroups are described as normalizers of elements in the <span class="SimpleMath">J_4</span>-class <code class="code">2A</code>, and <span class="SimpleMath">S</span> normalizes an elementary abelian group of order <span class="SimpleMath">2^11</span> containing an <span class="SimpleMath">S</span>-class of length <span class="SimpleMath">1771</span> that is contained in the <span class="SimpleMath">J_4</span>-class <code class="code">2A</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s:= info[1][1];</span>
+CharacterTable( "mx1j4" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cls:= SizesConjugacyClasses( s );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nsg:= Filtered( ClassPositionsOfNormalSubgroups( s ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                   x -&gt; Sum( cls{ x } ) = 2^11 );</span>
+[ [ 1 .. 3 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cls{ nsg[1] };</span>
+[ 1, 276, 1771 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GetFusionMap( s, t ){ nsg[1] };</span>
+[ 1, 3, 2 ]
+</pre></div>
+
+<p>The stabilizers of these involutions in <span class="SimpleMath">2^11:M_24</span> have index <span class="SimpleMath">1771</span>, they have the structure <span class="SimpleMath">2^11:2^6:3.S_6</span>, and they are contained in <span class="SimpleMath">2^1+12_+.3M_22:2</span> type subgroups; so also <span class="SimpleMath">S</span>, which has index <span class="SimpleMath">10</span> in <span class="SimpleMath">2^11:2^6:3.S_6</span>, is contained in <span class="SimpleMath">2^1+12_+.3M_22:2</span>. (The corresponding subgroups of <span class="SimpleMath">M_22:2</span> are of course the solvable groups of maximal order described in Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>.)</p>
+
+<p>In order to show that <span class="SimpleMath">G</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">L_5(2)</span> of index at most <span class="SimpleMath">361</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 70]</a>) and in <span class="SimpleMath">S_5 × L_3(2)</span> of index at most <span class="SimpleMath">23</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, pp. 2, 3]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "J4" ):= n;;</span>
+</pre></div>
+
+<p><a id="X7BC589718203F125" name="X7BC589718203F125"></a></p>
+
+<h5>6.4-12 <span class="Heading"><span class="SimpleMath">G = Fi_24^'</span></span></h5>
+
+<p>The group <span class="SimpleMath">Fi_24^'</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">29386561536</span>, and no larger solvable subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">t:= CharacterTable( "Fi24'" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( t ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 29386561536;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= List( mx, x -&gt; SolvableSubgroupInfoFromCharacterTable( x, n ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">info:= Filtered( info, IsList );                                        </span>
+[ [ CharacterTable( "Fi23" ), 139161244, 31671 ], 
+  [ CharacterTable( "2.Fi22.2" ), 8787, 3510 ], 
+  [ CharacterTable( "(3xO8+(3):3):2" ), 3033, 6 ], 
+  [ CharacterTable( "O10-(2)" ), 851, 495 ], 
+  [ CharacterTable( "3^(1+10):U5(2):2" ), 165, 165 ], 
+  [ CharacterTable( "2^2.U6(2).3.2" ), 7, 6 ] ]
+</pre></div>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">3^1+10_+:U5(2):2</span> in <span class="SimpleMath">Fi_24^'</span> contain solvable subgroups <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">3^1+10_+:2^1+6_-:3^1+2_+:2S_4</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 73, p. 207]</a>.</p>
+
+<p>In order to show that <span class="SimpleMath">G</span> contains no other solvable subgroups of order larger than or equal to <span class="SimpleMath">|S|</span>, we check that there are no solvable subgroups in <span class="SimpleMath">Fi_23</span> of order at least <span class="SimpleMath">n</span> (see Section <a href="chap6.html#X7A07090483C935DC"><span class="RefLink">6.4-9</span></a>), in <span class="SimpleMath">Fi_22.2</span> of order at least <span class="SimpleMath">n</span> (see Section <a href="chap6.html#X7D777A0D82BE8498"><span class="RefLink">6.4-5</span></a>), in <span class="SimpleMath">O_8^+(3).S_3</span> of index at most <span class="SimpleMath">3033</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 140]</a>), in <span class="SimpleMath">O_10^-(2)</span> of index at most <span class="SimpleMath">851</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 147]</a>), and in <span class="SimpleMath">U_6(2).S_3</span> of index at most <span class="SimpleMath">7</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 115]</a>).</p>
+
+<p>The group <span class="SimpleMath">S</span> extends to a group of order <span class="SimpleMath">|S.2|</span> in the automorphism group <span class="SimpleMath">Fi_24</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Fi24'" ):= n;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "Fi24'.2" ):= 2 * n;;</span>
+</pre></div>
+
+<p><a id="X7EDF990985573EB6" name="X7EDF990985573EB6"></a></p>
+
+<h5>6.4-13 <span class="Heading"><span class="SimpleMath">G = B</span></span></h5>
+
+<p>The group <span class="SimpleMath">B</span> contains a unique conjugacy class of solvable subgroups of order <span class="SimpleMath">n = 29686813949952</span>, and no larger solvable subgroups.</p>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">2^2+10+20(M_22:2 × S_3)</span> in <span class="SimpleMath">B</span> contain solvable subgroups <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">2^2+10+20(2^4:3^2:D_8 × S_3)</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 217]</a> and Section <a href="chap6.html#X834298A87BF43AAF"><span class="RefLink">6.3</span></a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 29686813949952;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n = 2^(2+10+20) * 2^4 * 3^2 * 8 * 6;</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n = 2^(2+10+20) * MaxSolv.( "M22.2" ) * 6;</span>
+true
+</pre></div>
+
+<p>By <a href="chapBib.html#biBWil99">[Wil99, Table 1]</a>, the only maximal subgroups of <span class="SimpleMath">B</span> of order bigger than <span class="SimpleMath">|S|</span> have the following structures.</p>
+
+<div class="pcenter"><table class="GAPDocTablenoborder">
+<tr>
+<td class="tdleft"><span class="SimpleMath">2.^2E_6(2).2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^1+22.Co_2</span></td>
+<td class="tdleft"><span class="SimpleMath">Fi_23</span></td>
+<td class="tdleft"><span class="SimpleMath">2^9+16S_8(2)</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Th</span></td>
+<td class="tdleft"><span class="SimpleMath">(2^2 × F_4(2)):2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2+10+20(M_22:2 × S_3)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^5+5+10+10L_5(2)</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">S_3 × Fi_22:2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^[35](S_5 × L_3(2))</span></td>
+<td class="tdleft"><span class="SimpleMath">HN:2</span></td>
+<td class="tdleft"><span class="SimpleMath">O_8^+(3):S_4</span></td>
+</tr>
+</table><br />
+</div>
+
+<p>(The character tables of the maximal subgroups of <span class="SimpleMath">B</span> are meanwhile available in <strong class="pkg">GAP</strong>.)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b:= CharacterTable( "B" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">mx:= List( Maxes( b ), CharacterTable );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Filtered( mx, x -&gt; Size( x ) &gt;= n );</span>
+[ CharacterTable( "2.2E6(2).2" ), CharacterTable( "2^(1+22).Co2" ), 
+  CharacterTable( "Fi23" ), CharacterTable( "2^(9+16).S8(2)" ), 
+  CharacterTable( "Th" ), CharacterTable( "(2^2xF4(2)):2" ), 
+  CharacterTable( "2^(2+10+20).(M22.2xS3)" ), 
+  CharacterTable( "[2^30].L5(2)" ), CharacterTable( "S3xFi22.2" ), 
+  CharacterTable( "[2^35].(S5xL3(2))" ), CharacterTable( "HN.2" ), 
+  CharacterTable( "O8+(3).S4" ) ]
+</pre></div>
+
+<p>For the subgroups <span class="SimpleMath">2^1+22.Co_2</span>, <span class="SimpleMath">Fi_23</span>, <span class="SimpleMath">Th</span>, <span class="SimpleMath">S_3 × Fi_22:2</span>, and <span class="SimpleMath">HN:2</span>, the solvable subgroups of maximal order are known from the previous sections or can be derived from known values, and are smaller than <span class="SimpleMath">n</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( [ 2^(1+22) * MaxSolv.( "Co2" ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           MaxSolv.( "Fi23" ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           MaxSolv.( "Th" ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           6 * MaxSolv.( "Fi22.2" ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           MaxSolv.( "HN.2" ) ], i -&gt; Int( i / n ) );</span>
+[ 0, 0, 0, 0, 0 ]
+</pre></div>
+
+<p>If one of the remaining maximal groups <span class="SimpleMath">U</span> from the above list has a solvable subgroup of order at least <span class="SimpleMath">n</span> then the index of this subgroup in <span class="SimpleMath">U</span> is bounded as follows.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( [ Size( CharacterTable( "2.2E6(2).2" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^(9+16) * Size( CharacterTable( "S8(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^3 * Size( CharacterTable( "F4(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^(2+10+20) * Size( CharacterTable( "M22.2" ) ) * 6,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^30 * Size( CharacterTable( "L5(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^35 * Factorial(5) * Size( CharacterTable( "L3(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Size( CharacterTable( "O8+(3)" ) ) * 24 ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         i -&gt; Int( i / n ) );</span>
+[ 10311982931, 53550, 892, 770, 361, 23, 4 ]
+</pre></div>
+
+<p>The group <span class="SimpleMath">O_8^+(3):S_4</span> is nonsolvable, and its order is less than <span class="SimpleMath">5 n</span>, thus its solvable subgroups have orders less than <span class="SimpleMath">n</span>.</p>
+
+<p>The largest solvable subgroup of <span class="SimpleMath">S_5 × L_3(2)</span> has index <span class="SimpleMath">35</span>, thus the solvable subgroups of <span class="SimpleMath">2^[35](S_5 × L_3(2))</span> have orders less than <span class="SimpleMath">n</span>.</p>
+
+<p>The groups of type <span class="SimpleMath">2^5+5+10+10L_5(2)</span> cannot contain solvable subgroups of order at least <span class="SimpleMath">n</span> because <span class="SimpleMath">L_5(2)</span> has no solvable subgroup of index up to <span class="SimpleMath">361</span> –such a subgroup would be contained in <span class="SimpleMath">2^4:L_4(2)</span>, of index at most <span class="SimpleMath">⌊ 361/31 ⌋ = 11</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 70]</a>), and <span class="SimpleMath">L_4(2) ≅ A_8</span> does not have such subgroups (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 22]</a>).</p>
+
+<p>The largest proper subgroup of <span class="SimpleMath">F_4(2)</span> has index <span class="SimpleMath">69615</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 170]</a>), which excludes solvable subgroups of order at least <span class="SimpleMath">n</span> in <span class="SimpleMath">(2^2 × F_4(2)):2</span>.</p>
+
+<p>Ruling out the group <span class="SimpleMath">2.^2E_6(2).2</span> is more involved. We consider the list of maximal subgroups of <span class="SimpleMath">^2E_6(2)</span> in <a href="chapBib.html#biBCCN85">[CCN+85, p. 191]</a> (which is complete, see <a href="chapBib.html#biBBN95">[BN95]</a>), and compute the maximal index of a group of order <span class="SimpleMath">n/4</span>; the possible subgroups of <span class="SimpleMath">^2E_6(2)</span> to consider are the following</p>
+
+<div class="pcenter"><table class="GAPDocTablenoborder">
+<tr>
+<td class="tdleft"><span class="SimpleMath">2^1+20:U_6(2)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^8+16:O_8^-(2)</span></td>
+<td class="tdleft"><span class="SimpleMath">F_4(2)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2.2^9.2^18:(L_3(4) × S_3)</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">Fi_22</span></td>
+<td class="tdleft"><span class="SimpleMath">O_10^-(2)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^3.2^12.2^15:(S_5 × L_3(2))</span></td>
+<td class="tdleft"></td>
+</tr>
+</table><br />
+</div>
+
+<p>(The order of <span class="SimpleMath">S_3 × U_6(2)</span> is already smaller than <span class="SimpleMath">n/4</span>.)</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( [ 2^(1+20) * Size( CharacterTable( "U6(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^(8+16) * Size( CharacterTable( "O8-(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Size( CharacterTable( "F4(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^(2+9+18) * Size( CharacterTable( "L3(4)" ) ) * 6,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Size( CharacterTable( "Fi22" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           Size( CharacterTable( "O10-(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           2^(3+12+15) * 120 * Size( CharacterTable( "L3(2)" ) ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           6 * Size( CharacterTable( "U6(2)" ) ) ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">         i -&gt; Int( i / ( n / 4 ) ) );</span>
+[ 2598, 446, 446, 8, 8, 3, 2, 0 ]
+</pre></div>
+
+<p>The indices of the solvable groups of maximal orders in the groups <span class="SimpleMath">U_6(2)</span>, <span class="SimpleMath">O_8^-(2)</span>, <span class="SimpleMath">F_4(2)</span>, <span class="SimpleMath">L_3(4)</span>, and <span class="SimpleMath">Fi_22</span> are larger than the bounds we get for <span class="SimpleMath">n</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, pp. 115, 89, 170, 23, 163]</a>.</p>
+
+<p>It remains to consider the subgroups of the type <span class="SimpleMath">2^9+16S_8(2)</span>. The group <span class="SimpleMath">S_8(2)</span> contains maximal subgroups of the type <span class="SimpleMath">2^3+8:(S_3 × S_6)</span> and of index <span class="SimpleMath">5355</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 123]</a>), which contain solvable subgroups <span class="SimpleMath">S'</span> of index <span class="SimpleMath">10</span>. This yields solvable subgroups of order <span class="SimpleMath">2^9+16+3+8 ⋅ 6 ⋅ 72 = n</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">2^(9+16+3+8) * 6 * 72 = n;</span>
+true
+</pre></div>
+
+<p>There are no other solvable subgroups of larger or equal order in <span class="SimpleMath">S_8(2)</span>: We would need solvable subgroups of index at most <span class="SimpleMath">446</span> in <span class="SimpleMath">O_8^-(2):2</span>, <span class="SimpleMath">393</span> in <span class="SimpleMath">O_8^+(2):2</span>, <span class="SimpleMath">210</span> in <span class="SimpleMath">S_6(2)</span>, or <span class="SimpleMath">23</span> in <span class="SimpleMath">A_8</span>, which is not the case by <a href="chapBib.html#biBCCN85">[CCN+85, pp. 89, 85, 46, 22]</a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">index:= Int( 2^(9+16) * Size( CharacterTable( "S8(2)" ) ) / n );</span>
+53550
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( [ 120, 136, 255, 2295 ], i -&gt; Int( index / i ) );</span>
+[ 446, 393, 210, 23 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "B" ):= n;;</span>
+</pre></div>
+
+<p>So the <span class="SimpleMath">2^9+16S_8(2)</span> type subgroups of <span class="SimpleMath">B</span> yield solvable subgroups <span class="SimpleMath">S'</span> of the type <span class="SimpleMath">2^9+16.2^3+8:(S_3 × 3^2:D_8)</span>, and of order <span class="SimpleMath">n</span>.</p>
+
+<p>We want to show that <span class="SimpleMath">S'</span> is a <span class="SimpleMath">B</span>-conjugate of <span class="SimpleMath">S</span>. For that, we first show the following:</p>
+
+<p>Lemma:</p>
+
+<p>The group <span class="SimpleMath">B</span> contains exactly two conjugacy classes of Klein four groups whose involutions lie in the class <code class="code">2B</code>. (We will call these Klein four groups <code class="code">2B</code>-pure.) Their normalizers in <span class="SimpleMath">B</span> have the orders <span class="SimpleMath">22858846741463040</span> and <span class="SimpleMath">292229574819840</span>, respectively.</p>
+
+<p><em>Proof.</em> Let <span class="SimpleMath">V</span> be a <code class="code">2B</code>-pure Klein four group in <span class="SimpleMath">B</span>, and set <span class="SimpleMath">N = N_B(V)</span>. Let <span class="SimpleMath">x ∈ V</span> be an involution and set <span class="SimpleMath">H = C_B(x)</span>, then <span class="SimpleMath">H</span> is maximal in <span class="SimpleMath">B</span> and has the structure <span class="SimpleMath">2^1+22.Co_2</span>. The index of <span class="SimpleMath">C = C_B(V) = C_H(V)</span> in <span class="SimpleMath">N</span> divides <span class="SimpleMath">6</span>, and <span class="SimpleMath">C</span> stabilizes the central involution in <span class="SimpleMath">H</span> and another <code class="code">2B</code> involution. The group <span class="SimpleMath">H</span> contains exactly four conjugacy classes of <code class="code">2B</code> elements.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h:= mx[2];</span>
+CharacterTable( "2^(1+22).Co2" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pos:= Positions( GetFusionMap( h, b ), 3 );</span>
+[ 2, 4, 11, 20 ]
+</pre></div>
+
+<p>The <span class="SimpleMath">B</span>-classes of <code class="code">2B</code>-pure Klein four groups arise from those of these classes <span class="SimpleMath">y^H ⊂ H</span> such that <span class="SimpleMath">x ≠ y</span> holds and <span class="SimpleMath">x y</span> is a <code class="code">2B</code> element. We compute this subset.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pos:= Filtered( Difference( pos, [ 2 ] ), i -&gt; ForAny( pos,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            j -&gt; NrPolyhedralSubgroups( h, 2, i, j ).number &lt;&gt; 0 ) );</span>
+[ 4, 11 ]
+</pre></div>
+
+<p>The two classes have lengths <span class="SimpleMath">93150</span> and <span class="SimpleMath">7286400</span>, thus the index of <span class="SimpleMath">C</span> in <span class="SimpleMath">H</span> is one of these numbers.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SizesConjugacyClasses( h ){ pos };</span>
+[ 93150, 7286400 ]
+</pre></div>
+
+<p>Next we compute the number <span class="SimpleMath">n_0</span> of <code class="code">2B</code>-pure Klein four groups in <span class="SimpleMath">B</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nr:= NrPolyhedralSubgroups( b, 3, 3, 3 );</span>
+rec( number := 14399283809600746875, type := "V4" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n0:= nr.number;;</span>
+</pre></div>
+
+<p>The <span class="SimpleMath">B</span>-conjugacy class of <span class="SimpleMath">V</span> has length <span class="SimpleMath">[B:N] = [B:H] ⋅ [H:C] / [N:C]</span>, where <span class="SimpleMath">[N:C]</span> divides <span class="SimpleMath">6</span>. We see that <span class="SimpleMath">[N:C] = 6</span> in both cases.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cand:= List( pos, i -&gt; Size( b ) / SizesCentralizers( h )[i] / 6 );</span>
+[ 181758140654146875, 14217525668946600000 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Sum( cand ) = n0;</span>
+true
+</pre></div>
+
+<p>The orders of the normalizers of the two classes of <code class="code">2B</code>-pure Klein four groups are as claimed.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( cand, x -&gt; Size( b ) / x );</span>
+[ 22858846741463040, 292229574819840 ]
+</pre></div>
+
+<p>The subgroup <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> is contained in a maximal subgroup <span class="SimpleMath">M</span> of the type <span class="SimpleMath">2^2+10+20(M_22:2 × S_3)</span> in <span class="SimpleMath">B</span>. The group <span class="SimpleMath">M</span> is the normalizer of a <code class="code">2B</code>-pure Klein four group in <span class="SimpleMath">B</span>, and the other class of normalizers of <code class="code">2B</code>-pure Klein four groups does not contain subgroups of order <span class="SimpleMath">n</span>. Thus the conjugates of <span class="SimpleMath">S</span> are uniquely determined by <span class="SimpleMath">|S|</span> and the property that they normalize <code class="code">2B</code>-pure Klein four groups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m:= mx[7];</span>
+CharacterTable( "2^(2+10+20).(M22.2xS3)" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( m );</span>
+22858846741463040
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nsg:= ClassPositionsOfMinimalNormalSubgroups( m );</span>
+[ [ 1, 2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SizesConjugacyClasses( m ){ nsg[1] };</span>
+[ 1, 3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GetFusionMap( m, b ){ nsg[1] };</span>
+[ 1, 3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( cand, x -&gt; Size( b ) / ( n * x ) );</span>
+[ 770, 315/32 ]
+</pre></div>
+
+<p>Now consider the subgroup <span class="SimpleMath">S'</span> of order <span class="SimpleMath">n</span>, which is contained in a maximal subgroup of the type <span class="SimpleMath">2^9+16S_8(2)</span> in <span class="SimpleMath">B</span>. In order to prove that <span class="SimpleMath">S'</span> is <span class="SimpleMath">B</span>-conjugate to <span class="SimpleMath">S</span>, it is enough to show that <span class="SimpleMath">S'</span> normalizes a <code class="code">2B</code>-pure Klein four group.</p>
+
+<p>The unique minimal normal subgroup <span class="SimpleMath">V</span> of <span class="SimpleMath">2^9+16S_8(2)</span> has order <span class="SimpleMath">2^8</span>. Its involutions lie in the class <code class="code">2B</code> of <span class="SimpleMath">B</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m:= mx[4];</span>
+CharacterTable( "2^(9+16).S8(2)" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nsg:= ClassPositionsOfMinimalNormalSubgroups( m );</span>
+[ [ 1, 2 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SizesConjugacyClasses( m ){ nsg[1] };</span>
+[ 1, 255 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GetFusionMap( m, b ){ nsg[1] };</span>
+[ 1, 3 ]
+</pre></div>
+
+<p>The group <span class="SimpleMath">V</span> is central in the normal subgroup <span class="SimpleMath">W = 2^9+16</span>, since all nonidentity elements of <span class="SimpleMath">V</span> lie in one conjugacy class of odd length. As a module for <span class="SimpleMath">S_8(2)</span>, <span class="SimpleMath">V</span> is the unique irreducible eight-dimensional module in characteristic two.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CharacterDegrees( CharacterTable( "S8(2)" ) mod 2 );</span>
+[ [ 1, 1 ], [ 8, 1 ], [ 16, 1 ], [ 26, 1 ], [ 48, 1 ], [ 128, 1 ], 
+  [ 160, 1 ], [ 246, 1 ], [ 416, 1 ], [ 768, 1 ], [ 784, 1 ], 
+  [ 2560, 1 ], [ 3936, 1 ], [ 4096, 1 ], [ 12544, 1 ], [ 65536, 1 ] ]
+</pre></div>
+
+<p>Hence we are done if the restriction of the <span class="SimpleMath">S_8(2)</span>-action on <span class="SimpleMath">V</span> to <span class="SimpleMath">S'/W</span> leaves a two-dimensional subspace of <span class="SimpleMath">V</span> invariant. In fact we show that already the restriction of the <span class="SimpleMath">S_8(2)</span>-action on <span class="SimpleMath">V</span> to the maximal subgroups of the structure <span class="SimpleMath">2^3+8:(S_3 × S_6)</span> has a two-dimensional submodule.</p>
+
+<p>These maximal subgroups have index <span class="SimpleMath">5355</span> in <span class="SimpleMath">S_8(2)</span>. The primitive permutation representation of degree <span class="SimpleMath">5355</span> of <span class="SimpleMath">S_8(2)</span> and the irreducible eight-dimensional matrix representation of <span class="SimpleMath">S_8(2)</span> over the field with two elements are available via the <strong class="pkg">GAP</strong> package <strong class="pkg">AtlasRep</strong>, see <a href="chapBib.html#biBAtlasRep">[WPN+22]</a>. We compute generators for an index <span class="SimpleMath">5355</span> subgroup in the matrix group via an isomorphism to the permutation group.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">permg:= AtlasGroup( "S8(2)", NrMovedPoints, 5355 );</span>
+&lt;permutation group of size 47377612800 with 2 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">matg:= AtlasGroup( "S8(2)", Dimension, 8 );</span>
+&lt;matrix group of size 47377612800 with 2 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom:= GroupHomomorphismByImagesNC( matg, permg,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             GeneratorsOfGroup( matg ), GeneratorsOfGroup( permg ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">max:= PreImages( hom, Stabilizer( permg, 1 ) );;</span>
+</pre></div>
+
+<p>These generators define the action of the index <span class="SimpleMath">5355</span> subgroup of <span class="SimpleMath">S_8(2)</span> on the eight-dimensional module. We compute the dimensions of the factors of an ascending composition series of this module.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m:= GModuleByMats( GeneratorsOfGroup( max ), GF(2) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">comp:= MTX.CompositionFactors( m );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( comp, r -&gt; r.dimension );</span>
+[ 2, 4, 2 ]
+</pre></div>
+
+<p><a id="X87D468D07D7237CB" name="X87D468D07D7237CB"></a></p>
+
+<h5>6.4-14 <span class="Heading"><span class="SimpleMath">G = M</span></span></h5>
+
+<p>The group <span class="SimpleMath">M</span> contains exactly two conjugacy classes of solvable subgroups of order <span class="SimpleMath">n = 2849934139195392</span>, and no larger solvable subgroups.</p>
+
+<p>The maximal subgroups of the structure <span class="SimpleMath">2^1+24_+.Co_1</span> in the group <span class="SimpleMath">M</span> contain solvable subgroups <span class="SimpleMath">S</span> of order <span class="SimpleMath">n</span> and with the structure <span class="SimpleMath">2^1+24_+.2^4+12.(S_3 × 3^1+2_+:D_8)</span>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 234]</a> and Section <a href="chap6.html#X7D028E9E7CB62A4F"><span class="RefLink">6.4-10</span></a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n:= 2^25 * MaxSolv.( "Co1" );</span>
+2849934139195392
+</pre></div>
+
+<p>The solvable subgroups of maximal order in groups of the types <span class="SimpleMath">2^2+11+22.(M_24 × S_3)</span> and <span class="SimpleMath">2^[39].(L_3(2) × 3S_6)</span> have order <span class="SimpleMath">n</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">2^(2+11+22) * MaxSolv.( "M24" ) * 6 = n;    </span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">2^39 * 24 * 3 * 72 = n;                 </span>
+true
+</pre></div>
+
+<p>For inspecting the other maximal subgroups of <span class="SimpleMath">M</span>, we use the description from <a href="chapBib.html#biBNW12">[NW13]</a>, which lists <span class="SimpleMath">44</span> classes of maximal subgroups of <span class="SimpleMath">G</span>, and states that any possible other maximal subgroup of <span class="SimpleMath">G</span> has socle isomorphic to one of <span class="SimpleMath">L_2(13)</span>, <span class="SimpleMath">Sz(8)</span>, <span class="SimpleMath">U_3(4)</span>, <span class="SimpleMath">U_3(8)</span>; so these maximal subgroups are isomorphic to subgroups of the automorphism groups of these groups – the maximum of these group orders is smaller than <span class="SimpleMath">n</span>, hence we may ignore these possible subgroups.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cand:= [ "L2(13)", "Sz(8)", "U3(4)", "U3(8)" ];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( cand, nam -&gt; ExtensionInfoCharacterTable( </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">CharacterTable( nam ) ) );</span>
+[ [ "2", "2" ], [ "2^2", "3" ], [ "", "4" ], [ "3", "(S3x3)" ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ll:= List( cand, x -&gt; Size( CharacterTable( x ) ) );</span>
+[ 1092, 29120, 62400, 5515776 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">18 * ll[4];</span>
+99283968
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">2^39 * 24 * 3 * 72;</span>
+2849934139195392
+</pre></div>
+
+<p><em>Remark</em> added in December 2023: The classes of maximal subgroups of <span class="SimpleMath">G</span> are classified in <a href="chapBib.html#biBDLP25">[DLP25]</a>. As a consequence, The result is that there are no maximal subgroups with socle <span class="SimpleMath">Sz(8)</span> or <span class="SimpleMath">U_3(8)</span>, there is one class of maximal subgroups of each of the isomorphism types <span class="SimpleMath">L_2(13).2</span> and <span class="SimpleMath">U_3(4).4</span>, and there are no subgroups o the type <span class="SimpleMath">L_2(59)</span> (hence the subgroups of the type <span class="SimpleMath">59:29</span> are maximal).</p>
+
+<p>Thus only the following maximal subgroups of <span class="SimpleMath">M</span> have order bigger than <span class="SimpleMath">|S|</span>.</p>
+
+<div class="pcenter"><table class="GAPDocTablenoborder">
+<tr>
+<td class="tdleft"><span class="SimpleMath">2.B</span></td>
+<td class="tdleft"><span class="SimpleMath">2^1+24_+.Co_1</span></td>
+<td class="tdleft"><span class="SimpleMath">3.Fi_24</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2.^2E_6(2):S_3</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">2^10+16.O_10^+(2)</span></td>
+<td class="tdleft"><span class="SimpleMath">2^2+11+22.(M_24 × S_3)</span></td>
+<td class="tdleft"><span class="SimpleMath">3^1+12_+.2Suz.2</span></td>
+<td class="tdleft"><span class="SimpleMath">2^5+10+20.(S_3 × L_5(2))</span></td>
+</tr>
+<tr>
+<td class="tdleft"><span class="SimpleMath">S_3 × Th</span></td>
+<td class="tdleft"><span class="SimpleMath">2^[39].(L_3(2) × 3S_6)</span></td>
+<td class="tdleft"><span class="SimpleMath">3^8.O_8^-(3).2_3</span></td>
+<td class="tdleft"><span class="SimpleMath">(D_10 × HN).2</span></td>
+</tr>
+</table><br />
+</div>
+
+<p>For the subgroups <span class="SimpleMath">2.B</span>, <span class="SimpleMath">3.Fi_24</span>, <span class="SimpleMath">3^1+12_+.2Suz.2</span>, <span class="SimpleMath">S_3 × Th</span>, and <span class="SimpleMath">(D_10 × HN).2</span>, the solvable subgroups of maximal order are smaller than <span class="SimpleMath">n</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( [ 2 * MaxSolv.( "B" ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           6 * MaxSolv.( "Fi24'" ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           3^13 * 2 * MaxSolv.( "Suz" ) * 2,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           6 * MaxSolv.( "Th" ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           10 * MaxSolv.( "HN" ) * 2 ], i -&gt; Int( i / n ) );</span>
+[ 0, 0, 0, 0, 0 ]
+</pre></div>
+
+<p>The subgroup <span class="SimpleMath">2^2.^2E_6(2):S_3</span> can be excluded by the fact that this group is only six times larger than the subgroup <span class="SimpleMath">2.^2E_6(2):2</span> of <span class="SimpleMath">B</span>, but <span class="SimpleMath">n</span> is <span class="SimpleMath">96</span> times larger than the maximal solvable subgroup in <span class="SimpleMath">B</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n / MaxSolv.( "B" );</span>
+96
+</pre></div>
+
+<p>The group <span class="SimpleMath">3^8.O_8^-(3).2_3</span> can be excluded by the fact that a solvable subgroup of order at least <span class="SimpleMath">n</span> would imply the existence of a solvable subgroup of index at most <span class="SimpleMath">46</span> in <span class="SimpleMath">O_8^-(3).2_3</span>, which is not the case (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 141]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Int( 3^8 * Size( CharacterTable( "O8-(3)" ) ) * 2 / n );</span>
+46
+</pre></div>
+
+<p>Similarly, the existence of a solvable subgroup of order at least <span class="SimpleMath">n</span> in <span class="SimpleMath">2^5+10+20.(S_3 × L_5(2))</span> would imply the existence of a solvable subgroup of index at most <span class="SimpleMath">723</span> in <span class="SimpleMath">L_5(2)</span> and in turn of a solvable subgroup of index at most <span class="SimpleMath">23</span> in <span class="SimpleMath">L_4(2)</span>, which is not the case (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 70]</a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Int( 2^(10+16) * Size( CharacterTable( "O10+(2)" ) ) / n );    </span>
+553350
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Int( 2^(5+10+20) * 6 * Size( CharacterTable( "L5(2)" ) ) / n );  </span>
+723
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Int( 723 / 31 );</span>
+23
+</pre></div>
+
+<p>It remains to exclude the subgroup <span class="SimpleMath">2^10+16.O_10^+(2)</span>, which means to show that <span class="SimpleMath">O_10^+(2)</span> does not contain a solvable subgroup of index at most <span class="SimpleMath">553350</span>. If such a subgroup would exist then it would be contained in one of the following maximal subgroups of <span class="SimpleMath">O_10^+(2)</span> (see <a href="chapBib.html#biBCCN85">[CCN+85, p. 146]</a>): in <span class="SimpleMath">S_8(2)</span> (of index at most <span class="SimpleMath">1115</span>), in <span class="SimpleMath">2^8:O_8^+(2)</span> (of index at most <span class="SimpleMath">1050</span>), in <span class="SimpleMath">2^10:L_5(2)</span> (of index at most <span class="SimpleMath">241</span>), in <span class="SimpleMath">(3 × O_8^-(2)):2</span> (of index at most <span class="SimpleMath">27</span>), in <span class="SimpleMath">(2^1+12_+:(S_3 × A_8)</span> (of index at most <span class="SimpleMath">23</span>), or in <span class="SimpleMath">2^3+12:(S_3 × S_3 × L_3(2))</span> (of index at most <span class="SimpleMath">4</span>). By <a href="chapBib.html#biBCCN85">[CCN+85, pp. 123, 85, 70, 89, 22]</a>, this is not the case.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">index:= Int( 2^(10+16) * Size( CharacterTable( "O10+(2)" ) ) / n );    </span>
+553350
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( [ 496, 527, 2295, 19840, 23715, 118575 ], i -&gt; Int( index / i ) );</span>
+[ 1115, 1050, 241, 27, 23, 4 ]
+</pre></div>
+
+<p>As a consequence, we have shown that the largest solvable subgroups of <span class="SimpleMath">M</span> have order <span class="SimpleMath">n</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MaxSolv.( "M" ):= n;;</span>
+</pre></div>
+
+<p>In order to prove the statement about the conjugacy of subgroups of order <span class="SimpleMath">n</span> in <span class="SimpleMath">M</span>, we first show the following.</p>
+
+<p>Lemma:</p>
+
+<p>The group <span class="SimpleMath">M</span> contains exactly three conjugacy classes of <code class="code">2B</code>-pure Klein four groups. Their normalizers in <span class="SimpleMath">M</span> have the orders <span class="SimpleMath">50472333605150392320</span>, <span class="SimpleMath">259759622062080</span>, and <span class="SimpleMath">9567039651840</span>, respectively.</p>
+
+<p><em>Proof.</em> The idea is the same as for the Baby Monster group, see Section <a href="chap6.html#X7EDF990985573EB6"><span class="RefLink">6.4-13</span></a>. Let <span class="SimpleMath">V</span> be a <code class="code">2B</code>-pure Klein four group in <span class="SimpleMath">M</span>, and set <span class="SimpleMath">N = N_M(V)</span>. Let <span class="SimpleMath">x ∈ V</span> be an involution and set <span class="SimpleMath">H = C_M(x)</span>, then <span class="SimpleMath">H</span> is maximal in <span class="SimpleMath">M</span> and has the structure <span class="SimpleMath">2^1+24_+.Co_1</span>. The index of <span class="SimpleMath">C = C_M(V) = C_H(V)</span> in <span class="SimpleMath">N</span> divides <span class="SimpleMath">6</span>, and <span class="SimpleMath">C</span> stabilizes the central involution in <span class="SimpleMath">H</span> and another <code class="code">2B</code> involution.</p>
+
+<p>The group <span class="SimpleMath">H</span> contains exactly five conjugacy classes of <code class="code">2B</code> elements, three of them consist of elements that generate a <code class="code">2B</code>-pure Klein four group together with <span class="SimpleMath">x</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m:= CharacterTable( "M" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">h:= CharacterTable( "2^1+24.Co1" );</span>
+CharacterTable( "2^1+24.Co1" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pos:= Positions( GetFusionMap( h, m ), 3 );</span>
+[ 2, 4, 7, 9, 16 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pos:= Filtered( Difference( pos, [ 2 ] ), i -&gt; ForAny( pos,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            j -&gt; NrPolyhedralSubgroups( h, 2, i, j ).number &lt;&gt; 0 ) );</span>
+[ 4, 9, 16 ]
+</pre></div>
+
+<p>The two classes have lengths <span class="SimpleMath">93150</span> and <span class="SimpleMath">7286400</span>, thus the index of <span class="SimpleMath">C</span> in <span class="SimpleMath">H</span> is one of these numbers.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SizesConjugacyClasses( h ){ pos };</span>
+[ 16584750, 3222483264000, 87495303168000 ]
+</pre></div>
+
+<p>Next we compute the number <span class="SimpleMath">n_0</span> of <code class="code">2B</code>-pure Klein four groups in <span class="SimpleMath">M</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">nr:= NrPolyhedralSubgroups( m, 3, 3, 3 );</span>
+rec( number := 87569110066985387357550925521828244921875, 
+  type := "V4" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">n0:= nr.number;;</span>
+</pre></div>
+
+<p>The <span class="SimpleMath">M</span>-conjugacy class of <span class="SimpleMath">V</span> has length <span class="SimpleMath">[M:N] = [M:H] ⋅ [H:C] / [N:C]</span>, where <span class="SimpleMath">[N:C]</span> divides <span class="SimpleMath">6</span>. We see that <span class="SimpleMath">[N:C] = 6</span> in both cases.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cand:= List( pos, i -&gt; Size( m ) / SizesCentralizers( h )[i] / 6 );</span>
+[ 16009115629875684006343550944921875, 
+  3110635203347364905168577322802100000000, 
+  84458458854522392576698341855475200000000 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Sum( cand ) = n0;</span>
+true
+</pre></div>
+
+<p>The orders of the normalizers of the three classes of <code class="code">2B</code>-pure Klein four groups are as claimed.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( cand, x -&gt; Size( m ) / x );</span>
+[ 50472333605150392320, 259759622062080, 9567039651840 ]
+</pre></div>
+
+<p>As we have seen above, the group <span class="SimpleMath">M</span> contains exactly the following (solvable) subgroups of order <span class="SimpleMath">n</span>.</p>
+
+<ol>
+<li><p>One class in <span class="SimpleMath">2^1+24_+.Co_1</span> type subgroups,</p>
+
+</li>
+<li><p>one class in <span class="SimpleMath">2^2+11+22.(M_24 × S_3)</span> type subgroups, and</p>
+
+</li>
+<li><p>two classes in <span class="SimpleMath">2^[39].(L_3(2) × 3S_6)</span> type subgroups.</p>
+
+</li>
+</ol>
+<p>Note that <span class="SimpleMath">2^[39].(L_3(2) × 3S_6)</span> contains an elementary abelian normal subgroup of order eight whose involutions lie in the class <code class="code">2B</code>, see <a href="chapBib.html#biBCCN85">[CCN+85, p. 234]</a>. As a module for the group <span class="SimpleMath">L_3(2)</span>, this normal subgroup is irreducible, and the restriction of the action to the two classes of <span class="SimpleMath">S_4</span> type subgroups fixes a one- and a two-dimensional subspace, respectively. Hence we have one class of subgroups of order <span class="SimpleMath">n</span> that centralize a <code class="code">2B</code> element and one class of subgroups of order <span class="SimpleMath">n</span> that normalize a <code class="code">2B</code>-pure Klein four group. Clearly the subgroups in the first class coincide with the subgroups of order <span class="SimpleMath">n</span> in <span class="SimpleMath">2^1+24_+.Co_1</span> type subgroups. By the above classification of <code class="code">2B</code>-pure Klein four groups in <span class="SimpleMath">M</span>, the subgroups in the second class coincide with the subgroups of order <span class="SimpleMath">n</span> in <span class="SimpleMath">2^2+11+22.(M_24 × S_3)</span> type subgroups.</p>
+
+<p>It remains to show that the subgroups of order <span class="SimpleMath">n</span> do <em>not</em> stabilize both a <code class="code">2B</code> element <em>and</em> a <code class="code">2B</code>-pure Klein four group. We do this by direct computations with a <span class="SimpleMath">2^2+11+22.(M_24 × S_3)</span> type group, which is available via the <strong class="pkg">AtlasRep</strong> package, see <a href="chapBib.html#biBAtlasRep">[WPN+22]</a>.</p>
+
+<p>First we fetch the group, and factor out the largest solvable normal subgroup, by suitable actions on blocks.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g:= AtlasGroup( "2^(2+11+22).(M24xS3)" );</span>
+&lt;permutation group of size 50472333605150392320 with 2 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NrMovedPoints( g );</span>
+294912
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bl:= Blocks( g, MovedPoints( g ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( bl );</span>
+147456
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom1:= ActionHomomorphism( g, bl, OnSets );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act1:= Image( hom1 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( g ) / Size( act1 );</span>
+8192
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bl2:= Blocks( act1, MovedPoints( act1 ) );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( bl2 );</span>
+72
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom2:= ActionHomomorphism( act1, bl2, OnSets );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act2:= Image( hom2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( act2 );</span>
+1468938240
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( MathieuGroup( 24 ) ) * 6;</span>
+1468938240
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bl3:= AllBlocks( act2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( bl3, Length );                                             </span>
+[ 24, 3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bl3:= Orbit( act2, bl3[2], OnSets );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom3:= ActionHomomorphism( act2, bl3, OnSets );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">act3:= Image( hom3 );;</span>
+</pre></div>
+
+<p>Now we compute an isomorphism from the factor group of type <span class="SimpleMath">M_24</span> to the group that belongs to <strong class="pkg">GAP</strong>'s table of marks. Then we use the information from the table of marks to compute a solvable subgroup of maximal order in <span class="SimpleMath">M_24</span> (which is <span class="SimpleMath">13824</span>), and take the preimage under the isomorphism. Finally, we take the preimage of this group in the original group.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tom:= TableOfMarks( "M24" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tomgroup:= UnderlyingGroup( tom );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">iso:= IsomorphismGroups( act3, tomgroup );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pos:= Positions( OrdersTom( tom ), 13824 );</span>
+[ 1508 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">sub:= RepresentativeTom( tom, pos[1] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pre:= PreImages( iso, sub );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pre:= PreImages( hom3, pre );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pre:= PreImages( hom2, pre );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pre:= PreImages( hom1, pre );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( pre ) = n;</span>
+true
+</pre></div>
+
+<p>The subgroups stabilizes a Klein four group. It does not stabilize a <code class="code">2B</code> element because its centre is trivial.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pciso:= IsomorphismPcGroup( pre );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size( Centre( Image( pciso ) ) );</span>
+1
+</pre></div>
+
+<p><a id="X7CD8E04C7F32AD56" name="X7CD8E04C7F32AD56"></a></p>
+
+<h4>6.5 <span class="Heading">Proof of the Corollary</span></h4>
+
+<p>With the computations in the previous sections, we have collected the information that is needed to show the corollary stated in Section <a href="chap6.html#X7F817DC57A69CF0D"><span class="RefLink">6.1</span></a>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Filtered( Set( RecNames( MaxSolv ) ), </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             x -&gt; MaxSolv.( x )^2 &gt;= Size( CharacterTable( x ) ) );</span>
+[ "Fi23", "J2", "J2.2", "M11", "M12", "M22.2" ]
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap5.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap7.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

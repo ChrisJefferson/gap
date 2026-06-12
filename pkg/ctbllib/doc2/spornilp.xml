@@ -1,0 +1,606 @@
+
+<!-- %W  spornilp.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+<Chapter Label="chap:spornilp">
+
+<Heading>Large Nilpotent Subgroups of Sporadic Simple Groups</Heading>
+
+<P/>
+
+Date: June 6th, 2009
+
+<P/>
+
+We show that any nontrivial nilpotent subgroup <M>U</M>
+in a sporadic simple group <M>G</M> satisfies
+<M>|U| \cdot |&Norm;_G(U)| &lt; |G|</M>.
+The proof uses the information in the
+&ATLAS; of Finite Groups&nbsp;<Cite Key="CCN85"/>
+and the &GAP; system&nbsp;<Cite Key="GAP"/>,
+in particular its Character Table Library&nbsp;<Cite Key="CTblLib"/>
+and its library of Tables of Marks&nbsp;<Cite Key="TomLib"/>.
+
+(In <Cite Key="Vdo00"/>,
+it is shown that in any finite nonabelian simple group <M>G</M>,
+any nilpotent subgroup <M>U</M> satisfies <M>|U|^2 &lt; |G|</M>.)
+
+<!-- argument:
+     look at centralizers of elements of order p_1 p_2 ... p_k;
+     the largest values occur for k = 1 -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:spornilp_result">
+<Heading>The Result</Heading>
+
+The aim of this writeup is to show the following statement.
+
+<P/>
+
+<E>Proposition</E>:
+Let <M>G</M> be a sporadic simple group,
+let <M>U</M> be a nontrivial nilpotent subgroup in <M>G</M>,
+and let <M>&Norm;_G(U)</M> denote the normalizer of <M>U</M> in <M>G</M>.
+Then <M>|U| \cdot |&Norm;_G(U)| &lt; |G|</M> holds.
+
+<P/>
+
+The following criteria are sufficient to prove this proposition.
+Note that we are interested in an argument that uses only information about
+the character tables of the sporadic simple groups and of their maximal
+subgroups.
+
+<P/>
+
+<E>Lemma 1</E>:
+Let <M>G</M> be a nonabelian finite simple group,
+and suppose that <M>U</M> is a nontrivial nilpotent subgroup of <M>G</M>
+such that <M>|U| \cdot |&Norm;_G(U)| \geq |G|</M> holds.
+Let <M>\Pi = \{ p_1, p_2, \ldots, p_n \}</M> be the set of prime divisors
+of <M>|U|</M>, and set <M>n = \prod_{{p \in \Pi}} p</M>.
+
+<List>
+<Mark>(a)</Mark>
+<Item>
+    <M>G</M> contains an element <M>g</M> of order <M>n</M> and
+    a maximal subgroup <M>M</M> with the properties <M>g \in Z(U)</M> and
+    <M>&Norm;_G(U) \leq M</M>.
+    Set <M>c:= \gcd(|&Cent;_G(g)|_{\Pi}, |M|)</M>,
+    where <M>|&Cent;_G(g)|_{\Pi}</M> denotes the largest divisor of the
+    order of the centralizer of <M>g</M> in <M>G</M>
+    whose prime divisors are elements of the set <M>\Pi</M>.
+    Then we have <M>|U| \leq c</M> and hence <M>c \cdot |M| \geq |G|</M>,
+    in particular <M>|M|^2 \geq |G|</M>.
+</Item>
+<Mark>(b)</Mark>
+<Item>
+    If <M>(g, M)</M> is as in part&nbsp;(a) then one of the following holds.
+    <List>
+    <Mark>(b1)</Mark>
+    <Item>
+        <M>U</M> is normal in <M>M</M>,
+        and the Fitting subgroup <M>Fit(M)</M> of <M>M</M>
+        satisfies <M>|Fit(M)| \cdot |M| \geq |G|</M>.
+    </Item>
+    <Mark>(b2)</Mark>
+    <Item>
+        <M>U</M> is not normal in <M>M</M>,
+        so <M>&Norm;_G(U)</M> is a proper subgroup of <M>M</M>,
+        in particular
+        <M>|G| \leq |U| \cdot |M|/2 \leq c \cdot |M| / 2</M> holds.
+    </Item>
+    </List>
+</Item>
+<Mark>(c)</Mark>
+<Item>
+    Let <M>(g, M)</M> be as in part&nbsp;(b2) and assume that <M>M</M>
+    contains a normal subgroup <M>K</M> such that
+    <M>\pi(M):= M/K</M> is an almost simple group with socle <M>S</M>,
+    i.&nbsp;e.,
+    <M>\pi(M)</M> has a nonabelian simple normal subgroup <M>S</M>
+    such that <M>&Cent;_{{\pi(M)}}(S)</M> is trivial.
+    Then either <M>U \leq K</M> holds,
+    and hence <M>|K| \cdot |M| \geq |G|</M>,
+    or we are in the following situation.
+
+    <P/>
+
+    The group <M>\pi(U):= U K / K</M> is a nontrivial nilpotent normal
+    subgroup of <M>\pi(N):= &Norm;_G(U) K / K</M>,
+    and <M>H:= S \cap \pi(N)</M> is a proper subgroup of <M>S</M>.
+    The latter statement holds because otherwise <M>S \cap \pi(U)</M>
+    would be normal in <M>S</M> and thus would be trivial,
+    which would imply that <M>S</M> would centralize <M>\pi(U)</M>.
+
+    <P/>
+
+    As a consequence, <M>|\pi(N)|</M> divides
+    <M>|\pi(M)/S| \cdot |H| = |\pi(M)| / [S:H]</M>,
+    in particular,
+    <M>[S:H] \leq |\pi(M)| / |\pi(N)| = |M| / |&Norm;_G(U) K|
+    \leq |M| / |&Norm;_G(U)| \leq |M| \cdot |U| / |G| \leq c / [G:M]</M>
+    holds.
+</Item>
+</List>
+
+<P/>
+
+We will apply Lemma&nbsp;1 as follows.
+
+<P/>
+
+From the character tables of <M>G</M> and <M>M</M>,
+the value <M>|Fit(M)|</M> and the maximal possible <M>c</M> can be computed.
+If part&nbsp;(a) of the lemma applies then we verify that part&nbsp;(b1)
+does <E>not</E> apply, and that either (b2) or (c) yields a contradiction.
+Note that we can determine from the character table of <M>M</M>
+whether <M>M</M> has a normal subgroup <M>K</M>
+such that <M>M/K</M> is almost simple,
+and in this case we can compute the order of the socle <M>S</M> of <M>M/K</M>.
+
+<P/>
+
+For proving the nonexistence of the subgroup <M>H</M> in the situation of
+part&nbsp;(c), we will show that all subgroups of <M>\pi(M)</M>
+of index up to
+<M>d:= c \cdot [\pi(M):S] / [G:M]</M> contain <M>S</M>.
+For that, we will compute the complete list of those possible permutation
+characters of <M>\pi(M)</M> whose degree is at most <M>d</M>,
+and then check that the kernels of these characters contain <M>S</M>.
+
+<P/>
+
+(Note that these computations are cheap because
+the bound <M>d</M> is small in the cases that occur.
+There are easier criteria for proving the nonexistence of a subgroup
+of index at most <M>d</M> in a simple group <M>S</M>,
+for example in the case <M>|S| &gt; d! / 2</M> or if
+the smallest nontrivial irreducible degree of <M>S</M> is at least <M>d</M>;
+but these criteria do not suffice in our situation.)
+
+<!-- We do not test whether <M>M</M> contains elements in the class of
+     <M>g</M>, since this would require fusion information. -->
+
+<P/>
+
+We illustrate the application of Lemma&nbsp;1 with some examples.
+
+<P/>
+
+<List>
+<Mark><M>J_1</M>:</Mark>
+<Item>
+    The first Janko group <M>J_1</M>
+    (see&nbsp;<Cite Key="CCN85" Where="p. 36"/>)
+    has order <M>175\,560</M>,
+    and the largest maximal subgroup has order <M>660</M>.
+    The largest centralizer of a nonidentity element in <M>J_1</M> has order
+    <M>120</M>, and <M>660 \cdot 120 = 79\,200 &lt; |J_1|</M>.
+    Thus <M>J_1</M> satisfies the proposition.
+</Item>
+<Mark><M>&M;</M>:</Mark>
+<Item>
+    For the Monster group <M>&M;</M>
+    (see&nbsp;<Cite Key="CCN85" Where="p. 234"/>),
+    we read off from the list&nbsp;<Cite Key="Mmaxes"/>
+    of maximal subgroups that the only maximal subgroups <M>M</M> of
+    <M>&M;</M> with the property <M>|M|^2 \geq &M;</M>
+    have the structure <M>2.B</M>.
+    Already for the second largest maximal subgroups,
+    with the structure <M>2^{{1+24}}.Co_1</M>,
+    the order is smaller than the index in the Monster.
+
+    <P/>
+
+    Only elements <M>g</M> from the classes <C>2A</C>, <C>2B</C>,
+    and <C>3A</C> have the property
+    that the product of <M>|2.B|</M> and the order of the centralizer
+    of <M>g</M> in <M>M</M> is not smaller than <M>|M|</M>.
+    So <M>U</M> can be only a <M>2</M>- or a <M>3</M>-subgroup of <M>2.B</M>.
+    However, the <M>2</M>-part and the <M>3</M>-part of <M>|2.B|</M> are
+    <M>2^{42}</M> and <M>3^{13}</M>, respectively,
+    which are smaller than the index of <M>2.B</M> in <M>M</M>.
+    Thus <M>M</M> satisfies the proposition.
+</Item>
+<Mark><M>Fi_{23}</M>:</Mark>
+<Item>
+    We show that no counterexample to the proposition can arise
+    from maximal subgroups <M>M</M> of the type <M>O_8^+(3):S_3</M>
+    in the Fischer group <M>Fi_{23}</M>
+    (see&nbsp;<Cite Key="CCN85" Where="p. 177"/>).
+    Several element centralizers in <M>G</M> satisfy Lemma&nbsp;1&nbsp;(a),
+    the largest value <M>c</M> arises from elements in the class <C>6B</C>,
+    whose centralizers have order <M>2^8 \cdot 3^9</M>,
+    which divides <M>|M|</M>.
+    So <M>|U| \leq 2^8 \cdot 3^9</M>, and a possible counterexample to
+    the proposition must satisfy
+    <M>|&Norm;_G(U)| \geq |G| / (2^8 \cdot 3^9) = 811\,588\,377\,600</M>.
+    We have <M>|M| = 29\,713\,078\,886\,400</M>,
+    which is less than <M>37</M> times
+    this minimal order required for <M>&Norm;_G(U)</M>.
+    However, the intersection <M>H</M> of this group with the simple subgroup
+    <M>S \cong O_8^+(3)</M> in <M>M</M> cannot be at most <M>36</M>,
+    because the largest maximal subgroups in <M>S</M> have index <M>1\,080</M>
+    (see&nbsp;<Cite Key="CCN85" Where="p. 140"/>).
+    Arguing not with <M>S</M> but with <M>M</M>, we can show
+    &ndash;using only the character table of <M>M</M>&ndash;
+    that all proper subgroups of index less than <M>37 \cdot 6</M>
+    in <M>M</M> contain <M>S</M>.
+</Item>
+</List>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:The Proof">
+<Heading>The Proof</Heading>
+
+The following &GAP; function utilizes Lemma&nbsp;1.
+Its input are the &GAP; character table <C>tbl</C> of a group <M>G</M>, say,
+and a list <C>maxesinfo</C> of character tables of maximal subgroups of
+<M>G</M>,
+covering at least all those maximal subgroups <M>M</M>
+for which <M>|M|^2 \geq |G|</M> holds.
+
+<P/>
+
+The idea is to collect pairs <M>(M, g)</M> that satisfy part&nbsp;(a) of
+Lemma&nbsp;1,
+and then to show that they do not satisfy part&nbsp;(b) or part&nbsp;(c).
+For each maximal subgroup <M>M</M> that admits elements <M>g</M> as in
+Lemma&nbsp;1,
+information is printed how this candidate is excluded.
+
+<P/>
+
+The function returns a list of length three.
+The first entry is <K>true</K> if the criteria of Lemma&nbsp;1
+are sufficient to prove that the proposition is true for <M>G</M>,
+and <K>false</K> otherwise.
+The second entry is the name of <M>G</M>,
+and the third entry in the number of maximal subgroups <M>M</M>
+for which an element <M>g</M> as in Lemma&nbsp;1&nbsp;(a) exists.
+
+<P/>
+
+<Example><![CDATA[
+gap> ApplyTheLemma:= function( tbl, maxesinfo )
+>     local Gname, Gsize, cents, orders, result, Mtbl, Msize, maxc, i,
+>           pi, pipart, c, Mclasslengths, Fit, excluded, Kclasses, Mbar,
+>           Ksize, Sclasses, Ssize, d;
+>     Gname:= Identifier( tbl );
+>     Gsize:= Size( tbl );
+>     cents:= SizesCentralizers( tbl );
+>     orders:= OrdersClassRepresentatives( tbl );
+>     result:= [ true, Gname, 0 ];
+>     # Run over the relevant maximal subgroups.
+>     for Mtbl in maxesinfo do
+>       Msize:= Size( Mtbl );
+>       # Run over nonidentity class representatives g of squarefree
+>       # order, compute the largest c that occurs.
+>       maxc:= 1;
+>       for i in [ 2 .. NrConjugacyClasses( tbl ) ] do
+>         pi:= Factors( orders[i] );
+>         if IsSet( pi ) then
+>           # The elements in class `i' have squarefree order.
+>           pipart:= Product( Filtered( Factors( cents[i] ),
+>                                       x -> x in pi ) );
+>           c:= Gcd( pipart, Msize );
+>           if maxc < c then
+>             maxc:= c;
+>           fi;
+>         fi;
+>       od;
+>       if maxc * Msize >= Gsize then
+>         # Criterion (a) is satisfied, try to exclude (b) and (c).
+>         result[3]:= result[3] + 1;
+>         Print( Gname, ": consider M = ", Identifier( Mtbl ),
+>                ", c = ", StringPP( maxc ),
+>                ", c * |M| / |G| >= ", Int( maxc * Msize / Gsize ),
+>                "\n" );
+>         Mclasslengths:= SizesConjugacyClasses( Mtbl );
+>         Fit:= Mclasslengths{ ClassPositionsOfFittingSubgroup( Mtbl ) };
+>         if Sum( Fit ) * Msize >= Gsize then
+>           # Criterion (b1) is satisfied.
+>           Print( Gname, ": not excludable by (b1)\n" );
+>           result[1]:= false;
+>         elif maxc * Msize < 2 * Gsize then
+>           # Criterion (b2) is not satisfied.
+>           Print( Gname, ":     excluded by (b2)\n" );
+>         else
+>           # Run over the normal subgroups of M.
+>           excluded:= false;
+>           for Kclasses in ClassPositionsOfNormalSubgroups( Mtbl ) do
+>             Mbar:= Mtbl / Kclasses;
+>             Ksize:= Sum( Mclasslengths{ Kclasses } );
+>             if IsAlmostSimpleCharacterTable( Mbar ) and
+>                Ksize * Msize < Gsize then
+>               # We are in the situation of criterion (c).
+>               # The socle is the unique minimal normal subgroup.
+>               Sclasses:= ClassPositionsOfMinimalNormalSubgroups(
+>                              Mbar )[1];
+>               Ssize:= Sum( SizesConjugacyClasses( Mbar ){ Sclasses } );
+>               d:= Int( maxc * Msize * Size( Mbar )
+>                   / ( Gsize * Ssize ) );
+>               # Try to show that all subgroups of index up to d
+>               # in Mbar contain the socle.
+>               if ForAll( [ 2 .. d ],
+>                    n -> ForAll( PermChars( Mbar, rec( torso:= [ n ] ) ),
+>                           chi -> IsSubset(
+>                                      ClassPositionsOfKernel( chi ),
+>                                      Sclasses ) ) ) then
+>                 Print( Gname, ":     excluded by (c), |K| = ",
+>                        StringPP( Ksize ), ", degree bound ", d, "\n" );
+>                 excluded:= true;
+>                 break;
+>               fi;
+>             fi;
+>           od;
+>           if not excluded then
+>             Print( Gname, ": not excludable by (c)\n" );
+>             result[1]:= false;
+>           fi;
+>         fi;
+>       fi;
+>     od;
+>     return result;
+> end;;
+]]></Example>
+
+<P/>
+
+So our proof relies on the classifications of maximal subgroups of
+sporadic simple groups,
+see&nbsp;<Cite Key="CCN85"/> and&nbsp;<Cite Key="BN95"/>.
+
+<P/>
+
+The &GAP; Character Table Library&nbsp;<Cite Key="CTblLib"/> contains
+the character tables of the sporadic simple groups
+and of their maximal subgroups,
+except that not all character tables of maximal subgroups of
+the Monster group are available yet.
+(See Section&nbsp;<Ref Sect="sect:spornilp_result"/>
+for the treatment of the Monster group.)
+
+<P/>
+
+Since the &GAP; Character Table Library is used for the computations
+in this section, we first load this package.
+
+<P/>
+
+<Example><![CDATA[
+gap> LoadPackage( "ctbllib", false );
+true
+]]></Example>
+
+<P/>
+
+Now we apply the function to the sporadic simple groups.
+
+<P/>
+
+<Example><![CDATA[
+gap> info:= [];;                                       
+gap> for name in AllCharacterTableNames( IsSporadicSimple, true,
+>                                        IsDuplicateTable, false ) do
+>      tbl:= CharacterTable( name );
+>      if HasMaxes( tbl ) then
+>        mx:= List( Maxes( tbl ), CharacterTable );  
+>      elif name = "M" then
+>        mx:= [ CharacterTable( "2.B" ) ];
+>      else
+>        Error( "this should not happen ...");
+>      fi;
+>      Add( info, ApplyTheLemma( tbl, mx ) );
+>    od;
+B: consider M = 2.2E6(2).2, c = 2^38, c * |M| / |G| >= 20
+B:     excluded by (c), |K| = 2, degree bound 40
+Co1: consider M = Co2, c = 2^13*3^5, c * |M| / |G| >= 20
+Co1:     excluded by (c), |K| = 1, degree bound 20
+Co1: consider M = 3.Suz.2, c = 2^13*3^5, c * |M| / |G| >= 1
+Co1:     excluded by (b2)
+Co2: consider M = U6(2).2, c = 2^16, c * |M| / |G| >= 28
+Co2:     excluded by (c), |K| = 1, degree bound 56
+Co2: consider M = 2^10:m22:2, c = 2^18, c * |M| / |G| >= 5
+Co2:     excluded by (c), |K| = 2^10, degree bound 11
+Co2: consider M = 2^1+8:s6f2, c = 2^18, c * |M| / |G| >= 4
+Co2:     excluded by (c), |K| = 2^9, degree bound 4
+Co3: consider M = McL.2, c = 2^4*3^4, c * |M| / |G| >= 4
+Co3:     excluded by (c), |K| = 1, degree bound 9
+F3+: consider M = Fi23, c = 2^9*3^9, c * |M| / |G| >= 32
+F3+:     excluded by (c), |K| = 1, degree bound 32
+Fi22: consider M = 2.U6(2), c = 2^7*3^6, c * |M| / |G| >= 26
+Fi22:     excluded by (c), |K| = 2, degree bound 26
+Fi22: consider M = O7(3), c = 2^7*3^6, c * |M| / |G| >= 6
+Fi22:     excluded by (c), |K| = 1, degree bound 6
+Fi22: consider M = Fi22M3, c = 2^7*3^6, c * |M| / |G| >= 6
+Fi22:     excluded by (c), |K| = 1, degree bound 6
+Fi22: consider M = O8+(2).3.2, c = 2^7*3^6, c * |M| / |G| >= 1
+Fi22:     excluded by (b2)
+Fi23: consider M = 2.Fi22, c = 2^8*3^9, c * |M| / |G| >= 159
+Fi23:     excluded by (c), |K| = 2, degree bound 159
+Fi23: consider M = O8+(3).3.2, c = 2^8*3^9, c * |M| / |G| >= 36
+Fi23:     excluded by (c), |K| = 1, degree bound 219
+HS: consider M = M22, c = 2^7, c * |M| / |G| >= 1
+HS:     excluded by (b2)
+M11: consider M = A6.2_3, c = 2^4, c * |M| / |G| >= 1
+M11:     excluded by (b2)
+M12: consider M = M11, c = 2^4, c * |M| / |G| >= 1
+M12:     excluded by (b2)
+M12: consider M = M12M2, c = 2^4, c * |M| / |G| >= 1
+M12:     excluded by (b2)
+M22: consider M = L3(4), c = 2^6, c * |M| / |G| >= 2
+M22:     excluded by (c), |K| = 1, degree bound 2
+M22: consider M = 2^4:a6, c = 2^7, c * |M| / |G| >= 1
+M22:     excluded by (b2)
+M23: consider M = M22, c = 2^7, c * |M| / |G| >= 5
+M23:     excluded by (c), |K| = 1, degree bound 5
+M24: consider M = M23, c = 2^7, c * |M| / |G| >= 5
+M24:     excluded by (c), |K| = 1, degree bound 5
+M24: consider M = 2^4:a8, c = 2^10, c * |M| / |G| >= 1
+M24:     excluded by (b2)
+McL: consider M = U4(3), c = 3^6, c * |M| / |G| >= 2
+McL:     excluded by (c), |K| = 1, degree bound 2
+Ru: consider M = 2F4(2)'.2, c = 2^12, c * |M| / |G| >= 1
+Ru:     excluded by (b2)
+Suz: consider M = G2(4), c = 2^12, c * |M| / |G| >= 2
+Suz:     excluded by (c), |K| = 1, degree bound 2
+]]></Example>
+
+<P/>
+
+First of all,
+we see that Lemma&nbsp;1 is sufficient to prove the proposition,
+since all candidates were excluded.
+
+<P/>
+
+Moreover, we see that for the following ten sporadic simple groups,
+no candidates had to be considered.
+(No information was printed about these groups.)
+
+<P/>
+
+<Example><![CDATA[
+gap> Filtered( info, x -> x[3] = 0 );
+[ [ true, "HN", 0 ], [ true, "He", 0 ], [ true, "J1", 0 ], 
+  [ true, "J2", 0 ], [ true, "J3", 0 ], [ true, "J4", 0 ], 
+  [ true, "Ly", 0 ], [ true, "M", 0 ], [ true, "ON", 0 ], 
+  [ true, "Th", 0 ] ]
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Alternative_Use_TOM">
+<Heading>Alternative: Use &GAP;'s Tables of Marks</Heading>
+
+We can easily inspect all conjugacy classes of subgroups of a group <M>G</M>
+whose table of marks is contained in
+&GAP;'s Library of Tables of Marks&nbsp;<Cite Key="TomLib"/>.
+First we load this &GAP; package.
+
+<P/>
+
+<Example><![CDATA[
+gap> LoadPackage( "tomlib", false );
+true
+]]></Example>
+
+<P/>
+
+The following &GAP; function takes the table of marks of a group <M>G</M>
+and returns the list of pairs <M>[ U, &Norm;_G(U) ]</M>
+where <M>U</M> ranges over representatives of conjugacy classes
+of those nilpotent subgroups of <M>G</M> for which
+<M>|U| \cdot |&Norm;_G(U)|</M> is maximal.
+
+<P/>
+
+<Example><![CDATA[
+gap> maximalpairs:= function( tom )
+>    local g, max, result, i, u, n, prod;
+>    g:= UnderlyingGroup( tom );
+>    max:= 1;
+>    result:= [];
+>    for i in [ 1 .. Length( OrdersTom( tom ) ) ] do
+>      u:= RepresentativeTom( tom, i );
+>      if not IsTrivial( u ) and IsNilpotent( u ) then
+>        n:= Normalizer( g, u );
+>        prod:= Size( u ) * Size( n );
+>        if max < prod then
+>          max:= prod;
+>          result:= [ [ u, n ] ];
+>        elif max = prod then
+>          Add( result, [ u, n ] );
+>        fi;
+>      fi;
+>    od;
+>    return result;
+> end;;
+]]></Example>
+
+<P/>
+
+So let us collect the data for those sporadic simple groups
+for which the table of marks is known.
+
+<P/>
+
+<Example><![CDATA[
+gap> info:= [];;
+gap> for name in AllCharacterTableNames( IsSporadicSimple, true,
+>                                        IsDuplicateTable, false ) do
+>      tom:= TableOfMarks( name );
+>      if tom <> fail then
+>        Add( info, [ name, tom, maximalpairs( tom ) ] );
+>      fi;
+>    od;
+gap> Length( info );
+12
+]]></Example>
+
+<!-- gap> time;
+     863154 -->
+
+<P/>
+
+We got results for twelve sporadic simple groups.
+The following computations show that in ten cases,
+the simple group <M>G</M> contains a unique class of nontrivial nilpotent
+subgroups <M>U</M>
+for which the maximal value of <M>|U| \cdot |&Norm;_G(U)|</M> is attained.
+The ratio of this value and <M>|G|</M> is less than <M>21</M> per cent.
+The following table shows the name of the group <M>G</M>,
+the orders of <M>U</M> and <M>&Norm;_G(U)</M>,
+and the integral part of <M>10^6</M> times the ratio.
+
+<P/>
+
+<Example><![CDATA[
+gap> List( info, x -> Length( x[3] ) );
+[ 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1 ]
+gap> mat:= [];;
+gap> for entry in info do
+>      pair:= entry[3][1];                          # [ U, N_G(U) ]
+>      bound:= Size( pair[1] ) * Size( pair[2] );   # |U|*|N_G(U)|
+>      size:= Size( UnderlyingGroup( entry[2] ) );  # |G|
+>      Add( mat, [ entry[1],
+>                  StringPP( Size( pair[1] ) ),
+>                  StringPP( Size( pair[2] ) ),
+>                  Int( 10^6 * bound / size ) ] );
+>      if Size( pair[1] ) * Size( pair[2] ) >= 21/100 * size then
+>        Error("!");
+>      fi;
+>    od;
+gap> PrintArray( mat );
+[ [           Co3,           3^5,  2^5*3^7*5*11,          1886 ],
+  [            HS,           2^6,       2^9*3*7,         15515 ],
+  [            He,           2^6,    2^10*3^3*5,          2195 ],
+  [            J1,            19,        2*3*19,         12337 ],
+  [            J2,           2^6,       2^7*3^2,        121904 ],
+  [            J3,           3^5,       2^3*3^5,          9404 ],
+  [           M11,           3^2,       2^4*3^2,        163636 ],
+  [           M12,           2^5,         2^6*3,         64646 ],
+  [           M22,           2^4,     2^7*3^2*5,        207792 ],
+  [           M23,           2^4,   2^7*3^2*5*7,         63241 ],
+  [           M24,           2^6,    2^10*3^3*5,         36137 ],
+  [           McL,           3^5,     2^4*3^6*5,         15779 ] ]
+]]></Example>
+
+<P/>
+
+Moreover, we see that in most cases, the group <M>U</M> for which the
+maximum is attained is not the largest <M>p</M>-subgroup in the
+simple group in question.
+
+
+</Section>
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+

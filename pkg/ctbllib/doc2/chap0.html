@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (CTblLibXpls) - Contents</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap0"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap0_mj.html">[MathJax on]</a></p>
+<p><a id="X7D2C85EC87DD46E5" name="X7D2C85EC87DD46E5"></a></p>
+<div class="pcenter">
+
+<h1>Computations with the <strong class="pkg">GAP</strong> Character Table Library</h1>
+
+<p>(Version 1.3.11 of CTblLib)</p>
+
+</div>
+<p><b>Thomas Breuer
+    
+    
+  </b>
+<br />Email: <span class="URL"><a href="mailto:sam@math.rwth-aachen.de">sam@math.rwth-aachen.de</a></span>
+<br />Homepage: <span class="URL"><a href="https://www.math.rwth-aachen.de/~Thomas.Breuer">https://www.math.rwth-aachen.de/~Thomas.Breuer</a></span>
+</p>
+
+<p><a id="X81488B807F2A1CF1" name="X81488B807F2A1CF1"></a></p>
+<h3>Copyright</h3>
+<p>© 2013–2025 by Thomas Breuer</p>
+
+<p>This manuscript may be distributed under the terms and conditions of the GNU Public License Version 3 or later, see <span class="URL"><a href="http://www.gnu.org/licenses">http://www.gnu.org/licenses</a></span>.</p>
+
+<p><a id="X8537FEB07AF2BEC8" name="X8537FEB07AF2BEC8"></a></p>
+
+<div class="contents">
+<h3>Contents<a id="contents" name="contents"></a></h3>
+
+<div class="ContChap"><a href="chap1.html#X8354C98179CDB193">1 <span class="Heading">Maintenance Issues for the <strong class="pkg">GAP</strong> Character Table Library</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7ECA800587320C2C">1.1 <span class="Heading">Disproving Possible Character Tables (November 2006)</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X795DCCEA7F4D187A">1.1-1 <span class="Heading">A Perfect Pseudo Character Table (November 2006)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X80F0B4E07B0B2277">1.1-2 <span class="Heading">An Error in the Character Table of <span class="SimpleMath">E_6(2)</span> (March 2016)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D7982CD87413F76">1.1-3 <span class="Heading">An Error in a Power Map of the Character Table of <span class="SimpleMath">2.F_4(2).2</span> (November 2015)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X836E4B6184F32EF5">1.1-4 <span class="Heading">A Character Table with a Wrong Name (May 2017)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8159D79C7F071B33">1.2 <span class="Heading">Some finite factor groups of perfect space groups (February 2014)</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8710D4947AEB366F">1.2-1 <span class="Heading">Constructing the space groups in question</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X84E7FE70843422B0">1.2-2 <span class="Heading">Constructing the factor groups in question</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X79109A20873E76DA">1.2-3 <span class="Heading">Examples with point group <span class="SimpleMath">A_5</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X83523D1E792F9E01">1.2-4 <span class="Heading">Examples with point group <span class="SimpleMath">L_3(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7A01A9BC846BE39A">1.2-5 <span class="Heading">Example with point group SL<span class="SimpleMath">_2(7)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D3100B58093F37D">1.2-6 <span class="Heading">Example with point group <span class="SimpleMath">2^3.L_3(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X80800F3B7D6EF06C">1.2-7 <span class="Heading">Examples with point group <span class="SimpleMath">A_6</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D43452C79B0EAE1">1.2-8 <span class="Heading">Examples with point group <span class="SimpleMath">L_2(8)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8575CE147A9819BF">1.2-9 <span class="Heading">Example with point group <span class="SimpleMath">M_11</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7C0201B77DA1682A">1.2-10 <span class="Heading">Example with point group <span class="SimpleMath">U_3(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X85D9C329792E58F3">1.2-11 <span class="Heading">Examples with point group <span class="SimpleMath">U_4(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8635EE0B78A66120">1.2-12 <span class="Heading">A remark on one of the example groups</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8448022280E82C52">1.3 <span class="Heading">Generality problems (December 2004/October 2015)</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D1A66C3844D09B1">1.3-1 <span class="Heading">Listing possible generality problems</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X80EB5D827A78975A">1.3-2 <span class="Heading">A generality problem concerning the group <span class="SimpleMath">J_3</span> (April 2015)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82C37532783168AA">1.3-3 <span class="Heading">A generality problem concerning the group <span class="SimpleMath">HN</span> (August 2022)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7D8C6D1883C9CECA">1.4 <span class="Heading">Brauer Tables that can be derived from Known Tables</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DF018B77E722CA7">1.4-1 <span class="Heading">Brauer Tables via Construction Information</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X795419A287BD228E">1.4-2 <span class="Heading">Liftable Brauer Characters (May 2017)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X864EFF897A854F89">1.5 <span class="Heading">Information about certain subgroups of the Monster group</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82C7A03684DD7C6E">1.5-1 <span class="Heading">The Monster group does not contain subgroups of the type <span class="SimpleMath">2.U_4(2)</span> (August 2023)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X87EC0C48866D1BDE">1.5-2 <span class="Heading">Perfect central extensions of <span class="SimpleMath">L_3(4)</span> (August 2023)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7F605CA28441687F">1.5-3 <span class="Heading">The character table of <span class="SimpleMath">(2 × O_8^+(3)).S_4 ≤ 2.B</span> (October 2023)</span></a>
+</span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap2.html#X7B77FD307F0DE563">2 <span class="Heading">Using Table Automorphisms for Constructing Character Tables in <strong class="pkg">GAP</strong></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X8389AD927B74BA4A">2.1 <span class="Heading">Overview</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7B6AEBDF7B857E2E">2.2 <span class="Heading">Theoretical Background</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X78EBF9BA7A34A9C2">2.2-1 <span class="Heading">Character Table Automorphisms</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X832525DE7AB34F16">2.2-2 <span class="Heading">Permutation Equivalence of Character Tables</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7906869F7F190E76">2.2-3 <span class="Heading">Class Fusions</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X80C37276851D5E39">2.2-4 <span class="Heading">Constructing Character Tables of Certain Isoclinic Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7AEFFEEC84511FD0">2.2-5 <span class="Heading">Character Tables of Isoclinic Groups of the Structure <span class="SimpleMath">p.G.p</span>
+(October 2016)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X78F41D2A78E70BEE">2.2-6 <span class="Heading">Isoclinic Double Covers of Almost Simple Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X834B42A07E98FBC6">2.2-7 <span class="Heading">Characters of Normal Subgroups</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X787F430E7FDB8765">2.3 <span class="Heading">The Constructions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X82E75B6880EC9E6C">2.3-1 <span class="Heading">Character Tables of Groups of the Structure <span class="SimpleMath">M.G.A</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7CCABDDE864E6300">2.3-2 <span class="Heading">Character Tables of Groups of the Structure <span class="SimpleMath">G.S_3</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7D3EF3BC83BE05CF">2.3-3 <span class="Heading">Character Tables of Groups of the Structure <span class="SimpleMath">G.2^2</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X81464C4B8178C85A">2.3-4 <span class="Heading">Character Tables of Groups of the Structure <span class="SimpleMath">2^2.G</span>
+(August 2005)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X86CF6A607B0827EE">2.3-5 <span class="Heading"><span class="SimpleMath">p</span>-Modular Tables of Extensions by <span class="SimpleMath">p</span>-singular Automorphisms</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X788591D78451C024">2.3-6 <span class="Heading">Character Tables of Subdirect Products of Index Two (July 2007)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X817D2134829FA8FA">2.4 <span class="Heading">Examples for the Type <span class="SimpleMath">M.G.A</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7F2DBAB48437052C">2.4-1 <span class="Heading">Character Tables of Dihedral Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7925DBFA7C5986B5">2.4-2 <span class="Heading">An <span class="SimpleMath">M.G.A</span> Type Example with <span class="SimpleMath">M</span> noncentral in <span class="SimpleMath">M.G</span> (May 2004)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7ED45AB379093A70">2.4-3 <span class="Heading"><strong class="pkg">Atlas</strong> Tables of the Type <span class="SimpleMath">M.G.A</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7A236EDE7A7A28F9">2.4-4 <span class="Heading">More <strong class="pkg">Atlas</strong> Tables of the Type <span class="SimpleMath">M.G.A</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X794EC2FD7F69B4E6">2.4-5 <span class="Heading">The Character Tables of <span class="SimpleMath">4_2.L_3(4).2_3</span> and <span class="SimpleMath">12_2.L_3(4).2_3</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E3E748E85AEDDB3">2.4-6 <span class="Heading">The Character Tables of <span class="SimpleMath">12_1.U_4(3).2_2'</span> and
+<span class="SimpleMath">12_2.U_4(3).2_3'</span> (December 2015)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X8379003582D06130">2.4-7 <span class="Heading">Groups of the Structures <span class="SimpleMath">3.U_3(8).3_1</span> and <span class="SimpleMath">3.U_3(8).6</span>
+(February 2017)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7B46C77B850D3B4D">2.4-8 <span class="Heading">The Character Table of <span class="SimpleMath">(2^2 × F_4(2)):2 &lt; B</span>
+(March 2003)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X8254AA4A843F99BE">2.4-9 <span class="Heading">The Character Table of <span class="SimpleMath">2.(S_3 × Fi_22.2) &lt; 2.B</span> (March 2003)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7AF125168239D208">2.4-10 <span class="Heading">The Character Table of <span class="SimpleMath">(2 × 2.Fi_22):2 &lt; Fi_24</span> (November 2008)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X79C93F7D87D9CF1D">2.4-11 <span class="Heading">The Character Table of <span class="SimpleMath">S_3 × 2.U_4(3).2_2 ≤ 2.Fi_22</span> (September 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X83724BCE86FCD77B">2.4-12 <span class="Heading">The Character Table of <span class="SimpleMath">4.HS.2 ≤ HN.2</span> (May 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E9A88DA7CBF6426">2.4-13 <span class="Heading">The Character Tables of <span class="SimpleMath">4.A_6.2_3</span>, <span class="SimpleMath">12.A_6.2_3</span>,
+and <span class="SimpleMath">4.L_2(25).2_3</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7BD79BA37C3E729B">2.4-14 <span class="Heading">The Character Table of <span class="SimpleMath">4.L_2(49).2_3</span> (December 2020)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X817A961487D2DFD1">2.4-15 <span class="Heading">The Character Table of <span class="SimpleMath">4.L_2(81).2_3</span> (December 2020)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7AF324AF7A54798F">2.4-16 <span class="Heading">The Character Table of <span class="SimpleMath">9.U_3(8).3_3</span> (March 2017)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E0C603880157C4E">2.4-17 <span class="Heading">Pseudo Character Tables of the Type <span class="SimpleMath">M.G.A</span> (May 2004)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X844185EF7A8F2A99">2.4-18 <span class="Heading">Some Extra-ordinary <span class="SimpleMath">p</span>-Modular Tables of the Type <span class="SimpleMath">M.G.A</span>
+(September 2005)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7F50C782840F06E4">2.5 <span class="Heading">Examples for the Type <span class="SimpleMath">G.S_3</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7F0DC29F874AA09F">2.5-1 <span class="Heading">Small Examples</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X80F9BC057980A9E9">2.5-2 <span class="Heading"><strong class="pkg">Atlas</strong> Tables of the Type <span class="SimpleMath">G.S_3</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7EA489E07D7C7D86">2.6 <span class="Heading">Examples for the Type <span class="SimpleMath">G.2^2</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X8054FDE679053B1C">2.6-1 <span class="Heading">The Character Table of <span class="SimpleMath">A_6.2^2</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7FEC3AB081487AF2">2.6-2 <span class="Heading"><strong class="pkg">Atlas</strong> Tables of the Type <span class="SimpleMath">G.2^2</span> – Easy Cases</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X869B65D3863EDEC3">2.6-3 <span class="Heading">The Character Table of <span class="SimpleMath">S_4(9).2^2</span> (September 2011)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7B38006380618543">2.6-4 <span class="Heading">The Character Tables of Groups of the Type <span class="SimpleMath">2.L_3(4).2^2</span>
+(June 2010)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X79818ABD7E972370">2.6-5 <span class="Heading">The Character Tables of Groups of the Type <span class="SimpleMath">6.L_3(4).2^2</span>
+(October 2011)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X878889308653435F">2.6-6 <span class="Heading">The Character Tables of Groups of the Type <span class="SimpleMath">2.U_4(3).2^2</span>
+(February 2012)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7DC42AE57E9EED4D">2.6-7 <span class="Heading">The Character Tables of Groups of the Type <span class="SimpleMath">4_1.L_3(4).2^2</span>
+(October 2011)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E9AF180869B4786">2.6-8 <span class="Heading">The Character Tables of Groups of the Type <span class="SimpleMath">4_2.L_3(4).2^2</span>
+(October 2011)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7EAF9CD07E536120">2.6-9 <span class="Heading">The Character Table of Aut<span class="SimpleMath">(L_2(81))</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X78AED04685EDCC19">2.6-10 <span class="Heading">The Character Table of <span class="SimpleMath">O_8^+(3).2^2_111</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X845BAA2A7FD768B0">2.7 <span class="Heading">Examples for the Type <span class="SimpleMath">2^2.G</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X87EEBDB987249117">2.7-1 <span class="Heading">The Character Table of <span class="SimpleMath">2^2.Sz(8)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X83652A0282A64D14">2.7-2 <span class="Heading"><strong class="pkg">Atlas</strong> Tables of the Type <span class="SimpleMath">2^2.G</span> (September 2005)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7F63DDF77870F967">2.7-3 <span class="Heading">The Character Table of <span class="SimpleMath">2^2.O_8^+(3)</span> (March 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X86A1607787DE6BB9">2.7-4 <span class="Heading">The Character Table of the Schur Cover of <span class="SimpleMath">L_3(4)</span>
+(September 2005)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X8711DBB083655A25">2.8 <span class="Heading">Examples of Extensions by <span class="SimpleMath">p</span>-singular Automorphisms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X81C08739850E4AAE">2.8-1 <span class="Heading">Some <span class="SimpleMath">p</span>-Modular Tables of Groups of the Type <span class="SimpleMath">M.G.A</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7FED618F83ACB7C2">2.8-2 <span class="Heading">Some <span class="SimpleMath">p</span>-Modular Tables of Groups of the Type <span class="SimpleMath">G.S_3</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7EEF6A7F8683177A">2.8-3 <span class="Heading"><span class="SimpleMath">2</span>-Modular Tables of Groups of the Type <span class="SimpleMath">G.2^2</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X875F8DD77C0997FA">2.8-4 <span class="Heading">The <span class="SimpleMath">3</span>-Modular Table of <span class="SimpleMath">U_3(8).3^2</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7A4D6044865E516B">2.9 <span class="Heading">Examples of Subdirect Products of Index Two</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X850FF694801700CF">2.9-1 <span class="Heading">Certain Dihedral Groups as Subdirect Products of Index Two</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X80C5D6FA83D7E2CF">2.9-2 <span class="Heading">The Character Table of <span class="SimpleMath">(D_10 × HN).2 &lt; M</span> (June 2008)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X85EECFD47EC252A2">2.9-3 <span class="Heading">A Counterexample (August 2015)</span></a>
+</span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap3.html#X7A80D5ED7D6E57B7">3 <span class="Heading">Constructing Character Tables of Central Extensions in <strong class="pkg">GAP</strong></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X87B17873861E2F64">3.1 <span class="Heading">Coprime Central Extensions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X85CB2671851D1206">3.1-1 <span class="Heading">The Character Table Head</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7D8F6E5D7D632046">3.1-2 <span class="Heading">The Irreducible Characters</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X867D16E07D36560F">3.1-3 <span class="Heading">Ordering of Conjugacy Classes</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X813B9F5180A45077">3.1-4 <span class="Heading">Compatibility with Smaller Factor Groups</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7A489A5D79DA9E5C">3.2 <span class="Heading">Examples</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X861B5C3F7B1F6AB7">3.2-1 <span class="Heading">Central Extensions of Simple <strong class="pkg">Atlas</strong> Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X799ADD5487613BA2">3.2-2 <span class="Heading">Central Extensions of Other <strong class="pkg">Atlas</strong> Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X861F558380FE4812">3.2-3 <span class="Heading">Compatible Central Extensions of Maximal Subgroups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7C73944579D6EE73">3.2-4 <span class="Heading">The <code class="code">2B</code> Centralizer in <span class="SimpleMath">3.Fi_24'</span> (January 2004)</span></a>
+</span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap4.html#X7D5919C182B1A462">4 <span class="Heading"><strong class="pkg">GAP</strong> Computations Concerning Hamiltonian Cycles in the Generating Graphs of Finite Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X8389AD927B74BA4A">4.1 <span class="Heading">Overview</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7B6AEBDF7B857E2E">4.2 <span class="Heading">Theoretical Background</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7AD3962D7AE4ADFB">4.2-1 <span class="Heading">Character-Theoretic Lower Bounds for Vertex Degrees</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X825776BA8687E475">4.2-2 <span class="Heading">Checking the Criteria</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7B56BE5384BAD54E">4.3 <span class="Heading"><strong class="pkg">GAP</strong> Functions for the Computations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X802B2ED2802334B0">4.3-1 <span class="Heading">Computing Vertex Degrees from the Group</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X87FE2DDD7F086D2F">4.3-2 <span class="Heading">Computing Lower Bounds for Vertex Degrees</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8677A8B1788ACD2C">4.3-3 <span class="Heading">Evaluating the (Lower Bounds for the) Vertex Degrees</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7A221012861440E2">4.4 <span class="Heading">Character-Theoretic Computations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X86CE51E180A3D4ED">4.4-1 <span class="Heading">Sporadic Simple Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X867D338F7F453092">4.4-2 <span class="Heading">The Monster</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7DC6DFCC83502CC3">4.4-3 <span class="Heading">Nonsimple Automorphism Groups of Sporadic Simple Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8130C9CB7A33140F">4.4-4 <span class="Heading">Alternating and Symmetric Groups <span class="SimpleMath">A_n</span>, <span class="SimpleMath">S_n</span>,
+for <span class="SimpleMath">5 ≤ n ≤ 13</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X83DACCF07EF62FAE">4.5 <span class="Heading">Computations With Groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B9ADC91802EE09F">4.5-1 <span class="Heading">Nonabelian Simple Groups of Order up to <span class="SimpleMath">10^7</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8033892B7FD6E62B">4.5-2 <span class="Heading">Nonsimple Groups with Nonsolvable Socle of Order at most <span class="SimpleMath">10^6</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X84E62545802FAB30">4.6 <span class="Heading">The Groups <span class="SimpleMath">PSL(2,q)</span></span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap5.html#X8703EFEE81DDE3DD">5 <span class="Heading"><strong class="pkg">GAP</strong> Computations with <span class="SimpleMath">O_8^+(5).S_3</span> and <span class="SimpleMath">O_8^+(2).S_3</span></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X8389AD927B74BA4A">5.1 <span class="Heading">Overview</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X85FF559084C08F0F">5.2 <span class="Heading">Constructing Representations of <span class="SimpleMath">M.2</span> and <span class="SimpleMath">S.2</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7FEE53AB845B9327">5.2-1 <span class="Heading">A Matrix Representation of the Weyl Group of Type <span class="SimpleMath">E_8</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7C8AA7747F160F8A">5.2-2 <span class="Heading">Embedding the Weyl group of Type <span class="SimpleMath">E_8</span> into GO<span class="SimpleMath">^+(8,5)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X83E3E79F8724C365">5.2-3 <span class="Heading">Compatible Generators of <span class="SimpleMath">M</span>, <span class="SimpleMath">M.2</span>, <span class="SimpleMath">S</span>, and <span class="SimpleMath">S.2</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X83F897DD7C48511C">5.3 <span class="Heading">Constructing Representations of <span class="SimpleMath">M.3</span> and <span class="SimpleMath">S.3</span></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X7B7561D0855EC4F1">5.3-1 <span class="Heading">The Action of <span class="SimpleMath">M.3</span> on <span class="SimpleMath">M</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X8246803779EB8FEE">5.3-2 <span class="Heading">The Action of <span class="SimpleMath">S.3</span> on <span class="SimpleMath">S</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X816AFA187E95C018">5.4 <span class="Heading">Constructing Compatible Generators of <span class="SimpleMath">H</span> and <span class="SimpleMath">G</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X83F0387D789709D1">5.5 <span class="Heading">Application: Regular Orbits of <span class="SimpleMath">H</span> on <span class="SimpleMath">G/H</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X7F0C266082BE1578">5.6 <span class="Heading">Appendix: The Permutation Character <span class="SimpleMath">(1_H^G)_H</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X7F3A630780F8E262">5.7 <span class="Heading">Appendix: The Data File</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap6.html#X7EF73AA88384B5F3">6 <span class="Heading">Solvable Subgroups of Maximal Order in Sporadic Simple Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7F817DC57A69CF0D">6.1 <span class="Heading">The Result</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X876F77197B2FB84A">6.2 <span class="Heading">The Approach</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X792957AB7B24C5E0">6.2-1 <span class="Heading">Use the Table of Marks</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7B39A4467A1CCF8A">6.2-2 <span class="Heading">Use Information from the Character Table Library</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X834298A87BF43AAF">6.3 <span class="Heading">Cases where the Table of Marks is available in <strong class="pkg">GAP</strong></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X85559C0F7AA73E48">6.4 <span class="Heading">Cases where the Table of Marks is not available in <strong class="pkg">GAP</strong></span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7E393459822E78B5">6.4-1 <span class="Heading"><span class="SimpleMath">G = Ru</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7AFF09337CCB7745">6.4-2 <span class="Heading"><span class="SimpleMath">G = Suz</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7969AE067D3862A3">6.4-3 <span class="Heading"><span class="SimpleMath">G = ON</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84921B85845EDA31">6.4-4 <span class="Heading"><span class="SimpleMath">G = Co_2</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D777A0D82BE8498">6.4-5 <span class="Heading"><span class="SimpleMath">G = Fi_22</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D9DB76A861A6F62">6.4-6 <span class="Heading"><span class="SimpleMath">G = HN</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X83E6436678AF562C">6.4-7 <span class="Heading"><span class="SimpleMath">G = Ly</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D6CF8EC812EF6FB">6.4-8 <span class="Heading"><span class="SimpleMath">G = Th</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7A07090483C935DC">6.4-9 <span class="Heading"><span class="SimpleMath">G = Fi_23</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7D028E9E7CB62A4F">6.4-10 <span class="Heading"><span class="SimpleMath">G = Co_1</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X84208AB781344A9D">6.4-11 <span class="Heading"><span class="SimpleMath">G = J_4</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7BC589718203F125">6.4-12 <span class="Heading"><span class="SimpleMath">G = Fi_24^'</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X7EDF990985573EB6">6.4-13 <span class="Heading"><span class="SimpleMath">G = B</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6.html#X87D468D07D7237CB">6.4-14 <span class="Heading"><span class="SimpleMath">G = M</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6.html#X7CD8E04C7F32AD56">6.5 <span class="Heading">Proof of the Corollary</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap7.html#X8102827B85FE3BCA">7 <span class="Heading">Large Nilpotent Subgroups of Sporadic Simple Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X7F817DC57A69CF0D">7.1 <span class="Heading">The Result</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X787B841383A16711">7.2 <span class="Heading">The Proof</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7.html#X798EACC07F6C36D9">7.3 <span class="Heading">Alternative: Use <strong class="pkg">GAP</strong>'s Tables of Marks</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap8.html#X7A7EEBE9858333E1">8 <span class="Heading">Permutation Characters in <strong class="pkg">GAP</strong></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X86A1325B82E5AECD">8.1 <span class="Heading">Some Computations with <span class="SimpleMath">M_24</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X79C9051F805851DB">8.2 <span class="Heading">All Possible Permutation Characters of <span class="SimpleMath">M_11</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X81A5FC968782CFC3">8.3 <span class="Heading">The Action of <span class="SimpleMath">U_6(2)</span> on the Cosets of <span class="SimpleMath">M_22</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X7EE1811C8496C428">8.4 <span class="Heading">Degree <span class="SimpleMath">20736</span> Permutation Characters of <span class="SimpleMath">U_6(2)</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X7DC6A6E785A347C8">8.5 <span class="Heading">Degree <span class="SimpleMath">57572775</span> Permutation Characters of <span class="SimpleMath">O_8^+(3)</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X792D2C2380591D8D">8.6 <span class="Heading">The Action of <span class="SimpleMath">O_7(3).2</span> on the Cosets of <span class="SimpleMath">2^7.S_7</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X875B361C8512939F">8.7 <span class="Heading">The Action of <span class="SimpleMath">O_8^+(3).2_1</span> on the Cosets of <span class="SimpleMath">2^7.A_8</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X7B1DFAF98182CFF4">8.8 <span class="Heading">The Action of <span class="SimpleMath">S_4(4).4</span> on the Cosets of <span class="SimpleMath">5^2.[2^5]</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X7F04F0C684AA8B30">8.9 <span class="Heading">The Action of <span class="SimpleMath">Co_1</span> on the Cosets of Involution Centralizers</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X8230719D8538384B">8.10 <span class="Heading">The Multiplicity Free Permutation Characters of <span class="SimpleMath">G_2(3)</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X7E3E326C7CB0E2CD">8.11 <span class="Heading">Degree <span class="SimpleMath">11200</span> Permutation Characters of <span class="SimpleMath">O_8^+(2)</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X7D8572E68194CBB9">8.12 <span class="Heading">A Proof of Nonexistence of a Certain Subgroup</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X8068E9DA7CD03BF2">8.13 <span class="Heading">A Permutation Character of the Lyons group</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X87D6C1A67CC7EE0A">8.14 <span class="Heading">Identifying two subgroups of Aut<span class="SimpleMath">(U_3(5))</span> (October 2001)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X793669787CF73A55">8.15 <span class="Heading">A Permutation Character of Aut<span class="SimpleMath">(O_8^+(2))</span> (October 2001)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X8337F3C682B6BE63">8.16 <span class="Heading">Four Primitive Permutation Characters of the Monster Group</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X78A8A1248336DD26">8.16-1 <span class="Heading">The Subgroup <span class="SimpleMath">2^2.2^11.2^22.(S_3 × M_24)</span>
+(June 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X79E9247182B20474">8.16-2 <span class="Heading">The Subgroup <span class="SimpleMath">2^3.2^6.2^12.2^18.(L_3(2) × 3.S_6)</span>
+(September 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7BC36C597E542DEE">8.16-3 <span class="Heading">The Subgroup <span class="SimpleMath">2^5.2^10.2^20.(S_3 × L_5(2))</span>
+(October 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X7F2ABD3E7AFF5F6E">8.16-4 <span class="Heading">The Subgroup <span class="SimpleMath">2^{10+16}.O_10^+(2)</span> (November 2009)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X87D11B097D95D027">8.17 <span class="Heading">A permutation character of the Baby Monster (June 2012)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X86827FA97D27F3A2">8.18 <span class="Heading">A permutation character of <span class="SimpleMath">2.B</span> (October 2017)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap8.html#X849F0EA6807C9B19">8.19 <span class="Heading">Generation of sporadic simple groups by <span class="SimpleMath">π</span>- and <span class="SimpleMath">π'</span>-subgroups (December 2021)</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap8.html#X839272078243F4DB">8.19-1 <span class="Heading">Special Arguments for the Monster Group that are no longer needed</span></a>
+</span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap9.html#X7A03A83E87FB1189">9 <span class="Heading">Ambiguous Class Fusions in the <strong class="pkg">GAP</strong> Character Table Library</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X784492877DB04FE9">9.1 <span class="Heading">Some <strong class="pkg">GAP</strong> Utilities</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X7EA839057D3AD3B4">9.2 <span class="Heading">Fusions Determined by Factorization through Intermediate Subgroups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X78DCEEFD85FF1EE2">9.2-1 <span class="Heading"><span class="SimpleMath">Co_3N5 → Co_3</span> (September 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X86BCEA907EC4C833">9.2-2 <span class="Heading"><span class="SimpleMath">31:15 → B</span> (March 2003)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7C719F527831F35A">9.2-3 <span class="Heading"><span class="SimpleMath">SuzN3 → Suz</span> (September 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X828879F481EF30DD">9.2-4 <span class="Heading"><span class="SimpleMath">F_{3+}N5 → F_{3+}</span> (March 2002)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X7981579278F81AC6">9.3 <span class="Heading">Fusions Determined Using Commutative Diagrams Involving Smaller
+Subgroups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7F5186E28201B027">9.3-1 <span class="Heading"><span class="SimpleMath">BN7 → B</span> (March 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X79710B137B5BB1B8">9.3-2 <span class="Heading"><span class="SimpleMath">(A_4 × O_8^+(2).3).2 → Fi_24^'</span> (November 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X85822C647B29117B">9.3-3 <span class="Heading"><span class="SimpleMath">A_6 × L_2(8).3 → Fi_24^'</span> (November 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X81A607758682D9A9">9.3-4 <span class="Heading"><span class="SimpleMath">(3^2:D_8 × U_4(3).2^2).2 → B</span> (June 2007)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7962DD4387D63675">9.3-5 <span class="Heading"><span class="SimpleMath">7^1+4:(3 × 2.S_7) → M</span> (May 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X860B6C30812DE3FC">9.3-6 <span class="Heading"><span class="SimpleMath">3^7.O_7(3):2 → Fi_24</span> (November 2010)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7C3AC42F8342EE2E">9.3-7 <span class="Heading"><span class="SimpleMath">^2E_6(2)N3C → ^2E_6(2)</span> (January 2019)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X84F966E2824F5D52">9.4 <span class="Heading">Fusions Determined Using Commutative Diagrams Involving Factor
+Groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7F2B104686509CAA">9.4-1 <span class="Heading"><span class="SimpleMath">3.A_7 → 3.Suz</span> (December 2010)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X82FB71647D37F4FD">9.4-2 <span class="Heading"><span class="SimpleMath">S_6 → U_4(2)</span> (September 2011)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X7CFBC41B818A318C">9.5 <span class="Heading">Fusions Determined Using Commutative Diagrams Involving
+Automorphic Extensions</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7E91F8707BA93081">9.5-1 <span class="Heading"><span class="SimpleMath">U_3(8).3_1 → ^2E_6(2)</span> (December 2010)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X81B37EF378E89E00">9.5-2 <span class="Heading"><span class="SimpleMath">L_3(4).2_1 → U_6(2)</span> (December 2010)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X85E2A6F480026C95">9.6 <span class="Heading">Conditions Imposed by Brauer Tables</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7ACC7F588213D5D5">9.6-1 <span class="Heading"><span class="SimpleMath">L_2(16).4 → J_3.2</span> (January 2004)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7ACB86CB82ED49D1">9.6-2 <span class="Heading"><span class="SimpleMath">L_2(17) → S_8(2)</span> (July 2004)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7DED4C437D479226">9.6-3 <span class="Heading"><span class="SimpleMath">L_2(19) → J_3</span> (April 2003)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap9.html#X8225D9FA80A7D20F">9.7 <span class="Heading">Fusions Determined by Information about the Groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7AE2962E82B4C814">9.7-1 <span class="Heading"><span class="SimpleMath">U_3(3).2 → Fi_24^'</span> (November 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X83061094871EE241">9.7-2 <span class="Heading"><span class="SimpleMath">L_2(13).2 → Fi_24^'</span> (September 2002)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7E9C203C7C4D709D">9.7-3 <span class="Heading"><span class="SimpleMath">M_11 → B</span> (April 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X85821D748716DC7E">9.7-4 <span class="Heading"><span class="SimpleMath">L_2(11):2 → B</span> (April 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X828D81487F57D612">9.7-5 <span class="Heading"><span class="SimpleMath">L_3(3) → B</span> (April 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7B4E13337D66020F">9.7-6 <span class="Heading"><span class="SimpleMath">L_2(17).2 → B</span> (March 2004)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X8528432A84851F7B">9.7-7 <span class="Heading"><span class="SimpleMath">L_2(49).2_3 → B</span> (June 2006)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7EAD52AA7A28D956">9.7-8 <span class="Heading"><span class="SimpleMath">2^3.L_3(2) → G_2(5)</span> (January 2004)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X79617107849A6CEA">9.7-9 <span class="Heading"><span class="SimpleMath">5^{1+4}.2^{1+4}.A_5.4 → B</span> (April 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X85C48EEB7B711C09">9.7-10 <span class="Heading">The fusion from the character table of <span class="SimpleMath">7^2:2L_2(7).2</span>
+into the table of marks (January 2004)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7B1C689C7EFD07CB">9.7-11 <span class="Heading"><span class="SimpleMath">3 × U_4(2) → 3_1.U_4(3)</span> (March 2010)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7A94F78C792122D5">9.7-12 <span class="Heading"><span class="SimpleMath">2.3^4.2^3.S_4 → 2.A12</span> (September 2011)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X7E2AF30C7E8F89F9">9.7-13 <span class="Heading"><span class="SimpleMath">127:7 → L_7(2)</span> (January 2012)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X80051B297DF244CF">9.7-14 <span class="Heading"><span class="SimpleMath">L_2(59) → M</span> (May 2009) – Do not use this!</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X8409DA2E83A41ABE">9.7-15 <span class="Heading"><span class="SimpleMath">L_2(71) → M</span> (May 2009)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap9.html#X78B3B1BE7A2CA4D1">9.7-16 <span class="Heading"><span class="SimpleMath">L_2(41) → M</span> (April 2012)</span></a>
+</span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap10.html#X831E9D0A7A2DBC72">10 <span class="Heading"><strong class="pkg">GAP</strong> computations needed in the proof of
+<a href="chapBib.html#biBDNT">[DNT13, Theorem 6.1 (ii)]</a></span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X82BDD020860C6E95">10.1 <span class="Heading"><span class="SimpleMath">G/N ≅ Sz(8)</span> and <span class="SimpleMath">|N| = 2^12</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7C01350E8217B0B1">10.2 <span class="Heading"><span class="SimpleMath">G/N ≅ M_22</span> and <span class="SimpleMath">|N| = 2^10</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X7E356703856DF22E">10.3 <span class="Heading"><span class="SimpleMath">G/N ≅ J_2</span> and <span class="SimpleMath">|N| = 2^12</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X797E2EDB78F05F6E">10.4 <span class="Heading"><span class="SimpleMath">G/N ≅ J_2</span> and <span class="SimpleMath">|N| = 5^14</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X828AECAE82B0CEB6">10.5 <span class="Heading"><span class="SimpleMath">G/N ≅ J_2</span> and <span class="SimpleMath">|N| = 2^28</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X81AB173981E3EED7">10.6 <span class="Heading"><span class="SimpleMath">G/N ≅ ^3D_4(2)</span> and <span class="SimpleMath">|N| = 2^26</span></span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap10.html#X83B044547B96B7A5">10.7 <span class="Heading"><span class="SimpleMath">G/N ≅ ^3D_4(2)</span> and <span class="SimpleMath">|N| = 3^25</span></span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap11.html#X7BE9906583D0FCEC">11 <span class="Heading"><strong class="pkg">GAP</strong> Computations Concerning Probabilistic Generation of Finite
+Simple Groups</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X8389AD927B74BA4A">11.1 <span class="Heading">Overview</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X7B4649CF7B7CFAA1">11.2 <span class="Heading">Prerequisites</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7B6AEBDF7B857E2E">11.2-1 <span class="Heading">Theoretical Background</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X79D7312484E78274">11.2-2 <span class="Heading">Computational Criteria</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X7B56BE5384BAD54E">11.3 <span class="Heading"><strong class="pkg">GAP</strong> Functions for the Computations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X806328747D1D4ECC">11.3-1 <span class="Heading">General Utilities</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7A221012861440E2">11.3-2 <span class="Heading">Character-Theoretic Computations</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X83DACCF07EF62FAE">11.3-3 <span class="Heading">Computations with Groups</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X7A221012861440E2">11.4 <span class="Heading">Character-Theoretic Computations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X86CE51E180A3D4ED">11.4-1 <span class="Heading">Sporadic Simple Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X821778BC7D665AB4">11.4-2 <span class="Heading">No longer necessary computations for the Baby Monster and the Monster</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84E9D10F80A74A53">11.4-3 <span class="Heading">Automorphism Groups of Sporadic Simple Groups</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X80DA58F187CDCF5F">11.4-4 <span class="Heading">Other Simple Groups – Easy Cases</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7B1E26D586337487">11.4-5 <span class="Heading">Automorphism Groups of other Simple Groups – Easy Cases</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X78B856907ED13545">11.4-6 <span class="Heading"><span class="SimpleMath">O_8^-(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84AB334886DCA746">11.4-7 <span class="Heading"><span class="SimpleMath">O_10^+(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84E3E4837BB93977">11.4-8 <span class="Heading"><span class="SimpleMath">O_10^-(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8307367E7C7C3BCE">11.4-9 <span class="Heading"><span class="SimpleMath">O_12^+(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X834FE1B58119A5FF">11.4-10 <span class="Heading"><span class="SimpleMath">O_12^-(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7C5980A385C088FA">11.4-11 <span class="Heading"><span class="SimpleMath">S_6(4)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X829EDF7F7C0BCB8E">11.4-12 <span class="Heading"><span class="SimpleMath">∗</span> <span class="SimpleMath">S_6(5)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X85162B297E4B67EB">11.4-13 <span class="Heading"><span class="SimpleMath">S_8(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8495C2BF7B6EFFEF">11.4-14 <span class="Heading"><span class="SimpleMath">U_4(4)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7A3BB5AA83A2BDF3">11.4-15 <span class="Heading"><span class="SimpleMath">U_6(2)</span></span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap11.html#X8237B8617D6F6027">11.5 <span class="Heading">Computations using Groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X815320787B601000">11.5-1 <span class="Heading"><span class="SimpleMath">A_2m+1</span>, <span class="SimpleMath">2 ≤ m ≤ 11</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7B5321337B28100B">11.5-2 <span class="Heading"><span class="SimpleMath">A_5</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X82C3B4287B0C7BEE">11.5-3 <span class="Heading"><span class="SimpleMath">A_6</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X85B3C7217B105D4D">11.5-4 <span class="Heading"><span class="SimpleMath">A_7</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X84EA645A82E2BAFB">11.5-5 <span class="Heading"><span class="SimpleMath">L_d(q)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X855460BE787188B9">11.5-6 <span class="Heading"><span class="SimpleMath">∗</span> <span class="SimpleMath">L_d(q)</span> with prime <span class="SimpleMath">d</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7EA88CEF81962F3F">11.5-7 <span class="Heading">Automorphic Extensions of <span class="SimpleMath">L_d(q)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7C8806DB8588BB51">11.5-8 <span class="Heading"><span class="SimpleMath">L_3(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7B7061917ED3714D">11.5-9 <span class="Heading"><span class="SimpleMath">M_11</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X82E0F48A7FF82BB3">11.5-10 <span class="Heading"><span class="SimpleMath">M_12</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7FF2E8F27FBEB65C">11.5-11 <span class="Heading"><span class="SimpleMath">O_7(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7F80F2527C424AA4">11.5-12 <span class="Heading"><span class="SimpleMath">O_8^+(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X78F0815B86253A1F">11.5-13 <span class="Heading"><span class="SimpleMath">O_8^+(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X85BACC4A83F73392">11.5-14 <span class="Heading"><span class="SimpleMath">O^+_8(4)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X86EC26F78609618E">11.5-15 <span class="Heading"><span class="SimpleMath">∗</span> <span class="SimpleMath">O_9(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8393978A8773997E">11.5-16 <span class="Heading"><span class="SimpleMath">O_10^-(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7BBBEEEF834F1002">11.5-17 <span class="Heading"><span class="SimpleMath">O_14^-(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X8477457780B69BC7">11.5-18 <span class="Heading"><span class="SimpleMath">O_12^+(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X854D85F287767342">11.5-19 <span class="Heading"><span class="SimpleMath">∗</span> <span class="SimpleMath">S_4(8)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X82CFBAF07D3487A0">11.5-20 <span class="Heading"><span class="SimpleMath">S_6(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X826658207D9D6570">11.5-21 <span class="Heading"><span class="SimpleMath">S_8(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X82A6496887F80843">11.5-22 <span class="Heading"><span class="SimpleMath">∗</span> <span class="SimpleMath">S_10(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7A03F8EC839AF0B5">11.5-23 <span class="Heading"><span class="SimpleMath">U_4(2)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7D738BE5804CF22E">11.5-24 <span class="Heading"><span class="SimpleMath">U_4(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7D4BC6A38074BF68">11.5-25 <span class="Heading"><span class="SimpleMath">U_6(3)</span></span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap11.html#X7A92577A830B5F23">11.5-26 <span class="Heading"><span class="SimpleMath">U_8(2)</span></span></a>
+</span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chapBib.html"><span class="Heading">References</span></a></div>
+<div class="ContChap"><a href="chapInd.html"><span class="Heading">Index</span></a></div>
+<br />
+</div>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chap7.html">7</a>  <a href="chap8.html">8</a>  <a href="chap9.html">9</a>  <a href="chap10.html">10</a>  <a href="chap11.html">11</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

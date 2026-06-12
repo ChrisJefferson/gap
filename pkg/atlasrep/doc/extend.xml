@@ -1,0 +1,515 @@
+
+<!-- %W  extend.xml      GAP 4 package AtlasRep             Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="chap:Private Extensions">
+<Heading>Extensions of the &AtlasRep; Package</Heading>
+
+It may be interesting to use the functions of the &GAP; interface also
+for representations or programs that are <E>not</E> part of the
+&ATLAS; of Group Representations.
+This chapter describes how to achieve this.
+
+<P/>
+
+The main idea is that users can notify collections of
+<Q>private</Q> data files, which may consist of
+
+<Enum>
+<Item>
+  new faithful representations and programs for groups
+  that are declared already in the core part of the database that belongs
+  to the <Q>official</Q> &ATLAS; of Group Representations
+  (see Section&nbsp;<Ref Sect="sect:Adding a Private Data Directory"/>),
+</Item>
+<Item>
+  the declaration of groups that are not declared in the
+  &ATLAS; of Group Representations,
+  and representations and programs for them
+  (see Section&nbsp;<Ref Sect="sect:Effect of Private Extensions"/>),
+  and
+</Item>
+<Item>
+  the definition of new kinds of representations and programs
+  (see Section&nbsp;<Ref Sect="sect:Data Types Used in the AGR"/>).
+</Item>
+</Enum>
+
+<P/>
+
+A test example of a local extension is given in
+Section&nbsp;<Ref Sect="sect:An Example of Extending AtlasRep"/>.
+Another such example is the small collection of data that is distributed
+together with the package, in its <F>datapkg</F> directory;
+its contents can be listed by calling
+<C>DisplayAtlasInfo( "contents", "internal" )</C>.
+
+<P/>
+
+Examples of extensions by files that can be downloaded from the internet
+can be found in the &GAP; packages
+<Package>MFER</Package> <Cite Key="MFER"/> and
+<Package>CTBlocks</Package> <Cite Key="CTBlocks"/>.
+These extensions are automatically notified as soon as &AtlasRep; is
+available, via the default value of the user preference
+<C>AtlasRepTOCData</C>, see Section <Ref Subsect="subsect:AtlasRepTOCData"/>;
+their contents can be listed by calling
+<C>DisplayAtlasInfo( "contents", "mfer" )</C> and
+<C>DisplayAtlasInfo( "contents", "ctblocks" )</C>, respectively.
+
+<P/>
+
+Several of the sanity checks for the core part of the
+&AtlasRep; data make sense also for data extensions,
+see Section&nbsp;<Ref Sect="sect:AGR Sanity Checks"/>
+for more information.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Adding a Private Data Directory">
+<Heading>Notify Additional Data</Heading>
+
+<#Include Label="addprivate">
+<#Include Label="AtlasOfGroupRepresentationsNotifyData">
+<#Include Label="AtlasOfGroupRepresentationsForgetData">
+<#Include Label="StringOfAtlasTableOfContents">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Effect of Private Extensions">
+<Heading>The Effect of Extensions on the User Interface</Heading>
+
+First suppose that only new groups
+or new data for known groups or for new groups are added.
+
+<P/>
+
+In this case, <Ref Func="DisplayAtlasInfo"/> lists the additional
+representations and programs in the same way as other data known to &AtlasRep;,
+except that parts outside the core database are marked with the string
+that is the value of the user preference <C>AtlasRepMarkNonCoreData</C>,
+see Section <Ref Subsect="subsect:AtlasRepMarkNonCoreData"/>.
+The ordering of representations listed by <Ref Func="DisplayAtlasInfo"/>
+(and referred to by <Ref Func="AtlasGenerators"/>) will in general change
+whenever extensions get notified.
+For the other interface functions described in
+Chapter&nbsp;<Ref Chap="chap:The User Interface of the AtlasRep Package"/>,
+the only difference is that also the additional data can be accessed.
+
+<P/>
+
+If also new data types are introduced in an extension
+(see Section&nbsp;<Ref Sect="sect:Data Types Used in the AGR"/>)
+then additional columns or rows can appear in the output of
+<Ref Func="DisplayAtlasInfo"/>,
+and new inputs can become meaningful for all interface functions.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:An Example of Extending AtlasRep">
+<Heading>An Example of Extending the &AtlasRep; Data</Heading>
+
+This section shows an extension by a few <E>locally available</E> files.
+
+<P/>
+
+We set the info level of <Ref InfoClass="InfoAtlasRep"/> to <M>1</M>
+in this section.
+
+<P/>
+
+<Example><![CDATA[
+gap> locallevel:= InfoLevel( InfoAtlasRep );;
+gap> SetInfoLevel( InfoAtlasRep, 1 );
+]]></Example>
+
+<P/>
+
+Let us assume that the local directory <F>privdir</F> contains
+data for the cyclic group <M>C_4</M> of order <M>4</M>
+and for the alternating group <M>A_5</M> on <M>5</M> points, respectively.
+Note that it is obvious what the term <Q>standard generators</Q> means for
+the group <M>C_4</M>.
+
+<P/>
+
+Further let us assume that <F>privdir</F> contains the following files.
+
+<List>
+<Mark><F>C4G1-p4B0.m1</F></Mark>
+<Item>
+    a faithful permutation representation of <M>C_4</M> on <M>4</M> points,
+</Item>
+<Mark><F>C4G1-max1W1</F></Mark>
+<Item>
+    the straight line program that returns the square of its unique input,
+</Item>
+<Mark><F>C4G1-a2W1</F></Mark>
+<Item>
+    the straight line program that raises its unique input to the third
+    power,
+</Item>
+<Mark><F>C4G1-XtestW1</F></Mark>
+<Item>
+    the straight line program that returns the square of its unique input,
+</Item>
+<Mark><F>A5G1-p60B0.m1</F> and <F>A5G1-p60B0.m2</F></Mark>
+<Item>
+    standard generators for <M>A_5</M>
+    in its regular permutation representation.
+</Item>
+</List>
+
+<P/>
+
+The directory and the files can be created as follows.
+
+<P/>
+
+<Example><![CDATA[
+gap> prv:= DirectoryTemporary( "privdir" );;
+gap> FileString( Filename( prv, "C4G1-p4B0.m1" ),
+>                MeatAxeString( [ (1,2,3,4) ], 4 ) );;
+gap> FileString( Filename( prv, "C4G1-max1W1" ),
+>                "inp 1\npwr 2 1 2\noup 1 2\n" );;
+gap> FileString( Filename( prv, "C4G1-XtestW1" ),
+>                "inp 1\npwr 2 1 2\noup 1 2\n" );;
+gap> FileString( Filename( prv, "C4G1-a2W1" ),
+>                "inp 1\npwr 3 1 2\noup 1 2\n" );;
+gap> FileString( Filename( prv, "C4G1-Ar1aB0.g" ),
+>                "return rec( generators:= [ [[E(4)]] ] );\n" );;
+gap> points:= Elements( AlternatingGroup( 5 ) );;
+gap> FileString( Filename( prv, "A5G1-p60B0.m1" ),
+>      MeatAxeString( [ Permutation( (1,2)(3,4), points, OnRight ) ], 60 ) );;
+gap> FileString( Filename( prv, "A5G1-p60B0.m2" ),
+>      MeatAxeString( [ Permutation( (1,3,5), points, OnRight ) ], 60 ) );;
+]]></Example>
+
+<P/>
+
+(We could also introduce intermediate directories <F>C4</F> and <F>A5</F>,
+say, each with the data for one group only.)
+
+<P/>
+
+The core part of the &AtlasRep; data does not contain
+information about <M>C_4</M>,
+so we first notify this group, in the file <F>privdir/toc.json</F>.
+Besides the name of the group, we store the following information:
+the group order, the number of (classes of) maximal subgroups,
+their orders, their structures,
+and describing data about the three representations.
+The group <M>A_5</M> is already known with name <C>A5</C>
+in the core part of the &AtlasRep; data,
+so it need not and cannot be notified again.
+
+<P/>
+
+<Example><![CDATA[
+gap> FileString( Filename( prv, "toc.json" ), Concatenation( [ "{\n",
+>        "\"ID\":\"priv\",\n",
+>        "\"Data\":[\n",
+>        "[\"GNAN\",[\"C4\",\"C4\"]],\n",
+>        "[\"GRS\",[\"C4\",4]],\n",
+>        "[\"MXN\",[\"C4\",1]],\n",
+>        "[\"MXO\",[\"C4\",[2]]],\n",
+>        "[\"MXS\",[\"C4\",[\"C2\"]]],\n",
+>        "[\"RNG\",[\"C4G1-Ar1aB0\",\"CF(4)\",",
+>                  "[\"QuadraticField\",-1],[1,0,1]]],\n",
+>        "[\"API\",[\"C4G1-p4B0\",[1,4,\"imprim\",\"1 < C2\"]]],\n",
+>        "[\"API\",[\"A5G1-p60B0\",[1,60,\"imprim\",\"1 < S3\"]]]\n",
+>        "]\n",
+>        "}\n" ] ) );;
+]]></Example>
+
+<P/>
+
+Then we notify the extension.
+
+<P/>
+
+<Example><![CDATA[
+gap> AtlasOfGroupRepresentationsNotifyData( prv, "priv", true );
+true
+]]></Example>
+
+<P/>
+
+Now we can use the interface functions for accessing the additional data.
+
+<P/>
+
+<Example><![CDATA[
+gap> DisplayAtlasInfo( [ "C4" ] );
+group | # | maxes | cl | cyc | out | fnd | chk | prs
+------+---+-------+----+-----+-----+-----+-----+----
+C4*   | 2 |     1 |    |     |   2 |     |     |    
+gap> DisplayAtlasInfo( "C4" );
+Representations for G = C4:    (all refer to std. generators 1)
+---------------------------
+1: G <= Sym(4)*       rank 4, on cosets of 1 < C2
+2: G <= GL(1a,CF(4))* 
+
+Programs for G = C4:    (all refer to std. generators 1)
+--------------------
+- automorphisms*:
+  2*               
+- maxes (all 1):
+  1*:  C2          
+- other scripts*:
+  "test"*          
+gap> DisplayAtlasInfo( "C4", IsPermGroup, true );
+Representations for G = C4:    (all refer to std. generators 1)
+---------------------------
+1: G <= Sym(4)* rank 4, on cosets of 1 < C2
+gap> DisplayAtlasInfo( "C4", IsMatrixGroup );
+Representations for G = C4:    (all refer to std. generators 1)
+---------------------------
+2: G <= GL(1a,CF(4))* 
+gap> DisplayAtlasInfo( "C4", Dimension, 2 );
+gap> DisplayAtlasInfo( "A5", NrMovedPoints, 60 );
+Representations for G = A5:    (all refer to std. generators 1)
+---------------------------
+4: G <= Sym(60)* rank 60, on cosets of 1 < S3
+gap> info:= OneAtlasGeneratingSetInfo( "C4" );
+rec( contents := "priv", groupname := "C4", id := "", 
+  identifier := [ "C4", [ [ "priv", "C4G1-p4B0.m1" ] ], 1, 4 ], 
+  isPrimitive := false, p := 4, rankAction := 4, 
+  repname := "C4G1-p4B0", repnr := 1, size := 4, 
+  stabilizer := "1 < C2", standardization := 1, transitivity := 1, 
+  type := "perm" )
+gap> AtlasGenerators( info.identifier );
+rec( contents := "priv", generators := [ (1,2,3,4) ], 
+  groupname := "C4", id := "", 
+  identifier := [ "C4", [ [ "priv", "C4G1-p4B0.m1" ] ], 1, 4 ], 
+  isPrimitive := false, p := 4, rankAction := 4, 
+  repname := "C4G1-p4B0", repnr := 1, size := 4, 
+  stabilizer := "1 < C2", standardization := 1, transitivity := 1, 
+  type := "perm" )
+gap> AtlasProgram( "C4", 1 );
+rec( groupname := "C4", 
+  identifier := [ "C4", [ [ "priv", "C4G1-max1W1" ] ], 1 ], 
+  program := <straight line program>, size := 2, standardization := 1,
+  subgroupname := "C2", version := "1" )
+gap> AtlasProgram( "C4", "maxes", 1 );
+rec( groupname := "C4", 
+  identifier := [ "C4", [ [ "priv", "C4G1-max1W1" ] ], 1 ], 
+  program := <straight line program>, size := 2, standardization := 1,
+  subgroupname := "C2", version := "1" )
+gap> AtlasProgram( "C4", "maxes", 2 );
+fail
+gap> AtlasGenerators( "C4", 1 );
+rec( contents := "priv", generators := [ (1,2,3,4) ], 
+  groupname := "C4", id := "", 
+  identifier := [ "C4", [ [ "priv", "C4G1-p4B0.m1" ] ], 1, 4 ], 
+  isPrimitive := false, p := 4, rankAction := 4, 
+  repname := "C4G1-p4B0", repnr := 1, size := 4, 
+  stabilizer := "1 < C2", standardization := 1, transitivity := 1, 
+  type := "perm" )
+gap> AtlasGenerators( "C4", 2 );
+rec( contents := "priv", dim := 1, generators := [ [ [ E(4) ] ] ], 
+  groupname := "C4", id := "a", 
+  identifier := [ "C4", [ [ "priv", "C4G1-Ar1aB0.g" ] ], 1, 1 ], 
+  polynomial := [ 1, 0, 1 ], repname := "C4G1-Ar1aB0", repnr := 2, 
+  ring := GaussianRationals, size := 4, standardization := 1, 
+  type := "matalg" )
+gap> AtlasGenerators( "C4", 3 );
+fail
+gap> AtlasProgram( "C4", "other", "test" );
+rec( groupname := "C4", 
+  identifier := [ "C4", [ [ "priv", "C4G1-XtestW1" ] ], 1 ], 
+  program := <straight line program>, standardization := 1, 
+  version := "1" )
+]]></Example>
+
+<P/>
+
+We can restrict the data shown by <Ref Func="DisplayAtlasInfo"/> to our
+extension, as follows.
+
+<P/>
+
+<Example><![CDATA[
+gap> DisplayAtlasInfo( "contents", "priv" );
+group | # | maxes | cl | cyc | out | fnd | chk | prs
+------+---+-------+----+-----+-----+-----+-----+----
+A5*   | 1 |       |    |     |     |     |     |    
+C4*   | 2 |     1 |    |     |   2 |     |     |    
+]]></Example>
+
+<P/>
+
+For checking the data in the extension, we apply the relevant sanity checks
+(see Section&nbsp;<Ref Sect="sect:AGR Sanity Checks"/>).
+
+<P/>
+
+<Example><![CDATA[
+gap> AGR.Test.Words( "priv" );
+true
+gap> AGR.Test.FileHeaders( "priv" );
+true
+gap> AGR.Test.Files( "priv" );
+true
+gap> AGR.Test.BinaryFormat( "priv" );
+true
+gap> AGR.Test.Primitivity( "priv" : TryToExtendData );
+true
+gap> AGR.Test.Characters( "priv" : TryToExtendData );
+#I  AGR.Test.Character:
+#I  add new info
+["CHAR",["A5","A5G1-p60B0",
+0,[1,[2,3],[3,3],[4,4],[5,5]],"1a+3a^3b^3+4a^4+5a^5"]],
+#I  AGR.Test.Character:
+#I  add new info
+["CHAR",["C4","C4G1-p4B0",0,[1,2,3,4],"1abcd"]],
+true
+]]></Example>
+
+<P/>
+
+We did not store the character information in the file
+<F>privdir/toc.json</F>,
+and &GAP; was able to identify the characters of the two permutation
+representations.
+(The identification of the character for the matrix representation
+fails because we cannot distinguish between the two Galois conjugate
+faithful characters.)
+
+<P/>
+
+If we store the character information as proposed by &GAP;,
+this information will for example become part of the records returned by
+<Ref Func="OneAtlasGeneratingSetInfo"/>.
+(Note that we have to enter <C>"priv"</C> as the last argument of
+<C>AGR.CHAR</C> when we call the function interactively,
+in order to assign the information to the right context.)
+
+<P/>
+
+<Example><![CDATA[
+gap> AGR.CHAR("A5","A5G1-p60B0",
+> 0,[1,[2,3],[3,3],[4,4],[5,5]],"1a+3a^3b^3+4a^4+5a^5", "priv" );
+gap> AGR.CHAR("C4","C4G1-p4B0",0,[1,2,3,4],"1abcd", "priv" );
+gap> AGR.Test.Characters( "priv" );
+true
+gap> OneAtlasGeneratingSetInfo( "C4" );
+rec( charactername := "1abcd", constituents := [ 1, 2, 3, 4 ], 
+  contents := "priv", groupname := "C4", id := "", 
+  identifier := [ "C4", [ [ "priv", "C4G1-p4B0.m1" ] ], 1, 4 ], 
+  isPrimitive := false, p := 4, rankAction := 4, 
+  repname := "C4G1-p4B0", repnr := 1, size := 4, 
+  stabilizer := "1 < C2", standardization := 1, transitivity := 1, 
+  type := "perm" )
+]]></Example>
+<P/>
+
+A string that describes the JSON format overview of the data extension
+can be created with <Ref Func="StringOfAtlasTableOfContents"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> Print( StringOfAtlasTableOfContents( "priv" ) );
+{
+"ID":"priv",
+"Data":[
+["GNAN",["C4","C4"]],
+
+["GRS",["C4",4]],
+
+["MXN",["C4",1]],
+
+["MXO",["C4",[2]]],
+
+["MXS",["C4",["C2"]]],
+
+["RNG",["C4G1-Ar1aB0","CF(4)",["QuadraticField",-1],[1,0,1]]],
+
+["API",["A5G1-p60B0",[1,60,"imprim","1 < S3"]]],
+["API",["C4G1-p4B0",[1,4,"imprim","1 < C2"]]],
+
+["CHAR",["A5","A5G1-p60B0",0,[1,[2,3],[3,3],[4,4],[5,5]],"1a+3a^3b^3+4\
+a^4+5a^5"]],
+["CHAR",["C4","C4G1-p4B0",0,[1,2,3,4],"1abcd"]]
+]
+}
+]]></Example>
+
+<P/>
+
+If we prescribe a <C>"DataURL"</C> component that starts with <C>"http"</C>
+then also the <C>"TOC"</C> lines are listed,
+in order to enable remote access to the data.
+
+<P/>
+
+<Example><![CDATA[
+gap> Print( StringOfAtlasTableOfContents(
+>               rec( ID:= "priv", DataURL:= "http://someurl" ) ) );
+{
+"ID":"priv",
+"DataURL":"http://someurl",
+"Data":[
+["GNAN",["C4","C4"]],
+
+["GRS",["C4",4]],
+
+["MXN",["C4",1]],
+
+["MXO",["C4",[2]]],
+
+["MXS",["C4",["C2"]]],
+
+["TOC",["perm","A5G1-p60B0.m",[118815263,24584221]]],
+["TOC",["matalg","C4G1-Ar1aB0.g",[49815028]]],
+["TOC",["otherscripts","C4G1-XtestW1",[-27672877]]],
+["TOC",["out","C4G1-a2W1",[126435524]]],
+["TOC",["maxes","C4G1-max1W1",[-27672877]]],
+["TOC",["perm","C4G1-p4B0.m",[102601978]]],
+
+["RNG",["C4G1-Ar1aB0","CF(4)",["QuadraticField",-1],[1,0,1]]],
+
+["API",["A5G1-p60B0",[1,60,"imprim","1 < S3"]]],
+["API",["C4G1-p4B0",[1,4,"imprim","1 < C2"]]],
+
+["CHAR",["A5","A5G1-p60B0",0,[1,[2,3],[3,3],[4,4],[5,5]],"1a+3a^3b^3+4\
+a^4+5a^5"]],
+["CHAR",["C4","C4G1-p4B0",0,[1,2,3,4],"1abcd"]]
+]
+}
+]]></Example>
+ 
+<P/>
+
+Finally, we <Q>uninstall</Q> our extension,
+and reset the info level that had been set to <M>1</M> in the beginning.
+(Also the group name <C>C4</C> is removed this way, which is an advantage of
+using a <F>toc.json</F> file over calling <C>AGR.GNAN</C> directly.),
+
+<P/>
+
+<Example><![CDATA[
+gap> AtlasOfGroupRepresentationsForgetData( "priv" );
+gap> SetInfoLevel( InfoAtlasRep, locallevel );
+]]></Example>
+
+<P/>
+
+We need not care about removing the temporary directory and the files in it.
+&GAP; will try to remove directories created with
+<Ref Func= "DirectoryTemporary" BookName="ref"/>
+at the end of the &GAP; session.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+</Chapter>
+

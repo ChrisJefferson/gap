@@ -1,0 +1,340 @@
+  
+  
+               [1XComputations with the [5XGAP[105X Character Table Library[101X
+  
+  
+                          (Version 1.3.11 of CTblLib)
+  
+  
+                                 Thomas Breuer
+  
+  
+  
+  Thomas Breuer
+      Email:    [7Xmailto:sam@math.rwth-aachen.de[107X
+      Homepage: [7Xhttps://www.math.rwth-aachen.de/~Thomas.Breuer[107X
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2013–2025 by Thomas Breuer[133X
+  
+  [33X[0;0YThis manuscript may be distributed under the terms and conditions of the GNU
+  Public License Version 3 or later, see [7Xhttp://www.gnu.org/licenses[107X.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (CTblLibXpls)[101X
+  
+  1 [33X[0;0YMaintenance Issues for the [5XGAP[105X Character Table Library[133X
+    1.1 [33X[0;0YDisproving Possible Character Tables (November 2006)[133X
+      1.1-1 [33X[0;0YA Perfect Pseudo Character Table (November 2006)[133X
+      1.1-2 [33X[0;0YAn Error in the Character Table of [22XE_6(2)[122X (March 2016)[133X
+      1.1-3 [33X[0;0YAn Error in a Power Map of the Character Table of [22X2.F_4(2).2[122X
+      (November 2015)[133X
+      1.1-4 [33X[0;0YA Character Table with a Wrong Name (May 2017)[133X
+    1.2 [33X[0;0YSome finite factor groups of perfect space groups (February 2014)[133X
+      1.2-1 [33X[0;0YConstructing the space groups in question[133X
+      1.2-2 [33X[0;0YConstructing the factor groups in question[133X
+      1.2-3 [33X[0;0YExamples with point group [22XA_5[122X[133X
+      1.2-4 [33X[0;0YExamples with point group [22XL_3(2)[122X[133X
+      1.2-5 [33X[0;0YExample with point group SL[22X_2(7)[122X[133X
+      1.2-6 [33X[0;0YExample with point group [22X2^3.L_3(2)[122X[133X
+      1.2-7 [33X[0;0YExamples with point group [22XA_6[122X[133X
+      1.2-8 [33X[0;0YExamples with point group [22XL_2(8)[122X[133X
+      1.2-9 [33X[0;0YExample with point group [22XM_11[122X[133X
+      1.2-10 [33X[0;0YExample with point group [22XU_3(3)[122X[133X
+      1.2-11 [33X[0;0YExamples with point group [22XU_4(2)[122X[133X
+      1.2-12 [33X[0;0YA remark on one of the example groups[133X
+    1.3 [33X[0;0YGenerality problems (December 2004/October 2015)[133X
+      1.3-1 [33X[0;0YListing possible generality problems[133X
+      1.3-2 [33X[0;0YA generality problem concerning the group [22XJ_3[122X (April 2015)[133X
+      1.3-3 [33X[0;0YA generality problem concerning the group [22XHN[122X (August 2022)[133X
+    1.4 [33X[0;0YBrauer Tables that can be derived from Known Tables[133X
+      1.4-1 [33X[0;0YBrauer Tables via Construction Information[133X
+      1.4-2 [33X[0;0YLiftable Brauer Characters (May 2017)[133X
+    1.5 [33X[0;0YInformation about certain subgroups of the Monster group[133X
+      1.5-1 [33X[0;0YThe Monster group does not contain subgroups of the type [22X2.U_4(2)[122X
+      (August 2023)[133X
+      1.5-2 [33X[0;0YPerfect central extensions of [22XL_3(4)[122X (August 2023)[133X
+      1.5-3 [33X[0;0YThe character table of [22X(2 × O_8^+(3)).S_4 ≤ 2.B[122X (October 2023)[133X
+  2 [33X[0;0YUsing Table Automorphisms for Constructing Character Tables in [5XGAP[105X[133X
+    2.1 [33X[0;0YOverview[133X
+    2.2 [33X[0;0YTheoretical Background[133X
+      2.2-1 [33X[0;0YCharacter Table Automorphisms[133X
+      2.2-2 [33X[0;0YPermutation Equivalence of Character Tables[133X
+      2.2-3 [33X[0;0YClass Fusions[133X
+      2.2-4 [33X[0;0YConstructing Character Tables of Certain Isoclinic Groups[133X
+      2.2-5 [33X[0;0YCharacter Tables of Isoclinic Groups of the Structure [22Xp.G.p[122X
+      (October 2016)[133X
+      2.2-6 [33X[0;0YIsoclinic Double Covers of Almost Simple Groups[133X
+      2.2-7 [33X[0;0YCharacters of Normal Subgroups[133X
+    2.3 [33X[0;0YThe Constructions[133X
+      2.3-1 [33X[0;0YCharacter Tables of Groups of the Structure [22XM.G.A[122X[133X
+      2.3-2 [33X[0;0YCharacter Tables of Groups of the Structure [22XG.S_3[122X[133X
+      2.3-3 [33X[0;0YCharacter Tables of Groups of the Structure [22XG.2^2[122X[133X
+      2.3-4 [33X[0;0YCharacter Tables of Groups of the Structure [22X2^2.G[122X (August 2005)[133X
+      2.3-5 [33X[0;0Y[22Xp[122X-Modular Tables of Extensions by [22Xp[122X-singular Automorphisms[133X
+      2.3-6 [33X[0;0YCharacter Tables of Subdirect Products of Index Two (July 2007)[133X
+    2.4 [33X[0;0YExamples for the Type [22XM.G.A[122X[133X
+      2.4-1 [33X[0;0YCharacter Tables of Dihedral Groups[133X
+      2.4-2 [33X[0;0YAn [22XM.G.A[122X Type Example with [22XM[122X noncentral in [22XM.G[122X (May 2004)[133X
+      2.4-3 [33X[0;0Y[5XAtlas[105X Tables of the Type [22XM.G.A[122X[133X
+      2.4-4 [33X[0;0YMore [5XAtlas[105X Tables of the Type [22XM.G.A[122X[133X
+      2.4-5 [33X[0;0YThe Character Tables of [22X4_2.L_3(4).2_3[122X and [22X12_2.L_3(4).2_3[122X[133X
+      2.4-6 [33X[0;0YThe Character Tables of [22X12_1.U_4(3).2_2'[122X and [22X12_2.U_4(3).2_3'[122X
+      (December 2015)[133X
+      2.4-7 [33X[0;0YGroups of the Structures [22X3.U_3(8).3_1[122X and [22X3.U_3(8).6[122X (February
+      2017)[133X
+      2.4-8 [33X[0;0YThe Character Table of [22X(2^2 × F_4(2)):2 < B[122X (March 2003)[133X
+      2.4-9 [33X[0;0YThe Character Table of [22X2.(S_3 × Fi_22.2) < 2.B[122X (March 2003)[133X
+      2.4-10 [33X[0;0YThe Character Table of [22X(2 × 2.Fi_22):2 < Fi_24[122X (November 2008)[133X
+      2.4-11 [33X[0;0YThe Character Table of [22XS_3 × 2.U_4(3).2_2 ≤ 2.Fi_22[122X (September
+      2002)[133X
+      2.4-12 [33X[0;0YThe Character Table of [22X4.HS.2 ≤ HN.2[122X (May 2002)[133X
+      2.4-13 [33X[0;0YThe Character Tables of [22X4.A_6.2_3[122X, [22X12.A_6.2_3[122X, and [22X4.L_2(25).2_3[122X[133X
+      2.4-14 [33X[0;0YThe Character Table of [22X4.L_2(49).2_3[122X (December 2020)[133X
+      2.4-15 [33X[0;0YThe Character Table of [22X4.L_2(81).2_3[122X (December 2020)[133X
+      2.4-16 [33X[0;0YThe Character Table of [22X9.U_3(8).3_3[122X (March 2017)[133X
+      2.4-17 [33X[0;0YPseudo Character Tables of the Type [22XM.G.A[122X (May 2004)[133X
+      2.4-18 [33X[0;0YSome Extra-ordinary [22Xp[122X-Modular Tables of the Type [22XM.G.A[122X (September
+      2005)[133X
+    2.5 [33X[0;0YExamples for the Type [22XG.S_3[122X[133X
+      2.5-1 [33X[0;0YSmall Examples[133X
+      2.5-2 [33X[0;0Y[5XAtlas[105X Tables of the Type [22XG.S_3[122X[133X
+    2.6 [33X[0;0YExamples for the Type [22XG.2^2[122X[133X
+      2.6-1 [33X[0;0YThe Character Table of [22XA_6.2^2[122X[133X
+      2.6-2 [33X[0;0Y[5XAtlas[105X Tables of the Type [22XG.2^2[122X – Easy Cases[133X
+      2.6-3 [33X[0;0YThe Character Table of [22XS_4(9).2^2[122X (September 2011)[133X
+      2.6-4 [33X[0;0YThe Character Tables of Groups of the Type [22X2.L_3(4).2^2[122X (June
+      2010)[133X
+      2.6-5 [33X[0;0YThe Character Tables of Groups of the Type [22X6.L_3(4).2^2[122X (October
+      2011)[133X
+      2.6-6 [33X[0;0YThe Character Tables of Groups of the Type [22X2.U_4(3).2^2[122X (February
+      2012)[133X
+      2.6-7 [33X[0;0YThe Character Tables of Groups of the Type [22X4_1.L_3(4).2^2[122X (October
+      2011)[133X
+      2.6-8 [33X[0;0YThe Character Tables of Groups of the Type [22X4_2.L_3(4).2^2[122X (October
+      2011)[133X
+      2.6-9 [33X[0;0YThe Character Table of Aut[22X(L_2(81))[122X[133X
+      2.6-10 [33X[0;0YThe Character Table of [22XO_8^+(3).2^2_111[122X[133X
+    2.7 [33X[0;0YExamples for the Type [22X2^2.G[122X[133X
+      2.7-1 [33X[0;0YThe Character Table of [22X2^2.Sz(8)[122X[133X
+      2.7-2 [33X[0;0Y[5XAtlas[105X Tables of the Type [22X2^2.G[122X (September 2005)[133X
+      2.7-3 [33X[0;0YThe Character Table of [22X2^2.O_8^+(3)[122X (March 2009)[133X
+      2.7-4 [33X[0;0YThe Character Table of the Schur Cover of [22XL_3(4)[122X (September 2005)[133X
+    2.8 [33X[0;0YExamples of Extensions by [22Xp[122X-singular Automorphisms[133X
+      2.8-1 [33X[0;0YSome [22Xp[122X-Modular Tables of Groups of the Type [22XM.G.A[122X[133X
+      2.8-2 [33X[0;0YSome [22Xp[122X-Modular Tables of Groups of the Type [22XG.S_3[122X[133X
+      2.8-3 [33X[0;0Y[22X2[122X-Modular Tables of Groups of the Type [22XG.2^2[122X[133X
+      2.8-4 [33X[0;0YThe [22X3[122X-Modular Table of [22XU_3(8).3^2[122X[133X
+    2.9 [33X[0;0YExamples of Subdirect Products of Index Two[133X
+      2.9-1 [33X[0;0YCertain Dihedral Groups as Subdirect Products of Index Two[133X
+      2.9-2 [33X[0;0YThe Character Table of [22X(D_10 × HN).2 < M[122X (June 2008)[133X
+      2.9-3 [33X[0;0YA Counterexample (August 2015)[133X
+  3 [33X[0;0YConstructing Character Tables of Central Extensions in [5XGAP[105X[133X
+    3.1 [33X[0;0YCoprime Central Extensions[133X
+      3.1-1 [33X[0;0YThe Character Table Head[133X
+      3.1-2 [33X[0;0YThe Irreducible Characters[133X
+      3.1-3 [33X[0;0YOrdering of Conjugacy Classes[133X
+      3.1-4 [33X[0;0YCompatibility with Smaller Factor Groups[133X
+    3.2 [33X[0;0YExamples[133X
+      3.2-1 [33X[0;0YCentral Extensions of Simple [5XAtlas[105X Groups[133X
+      3.2-2 [33X[0;0YCentral Extensions of Other [5XAtlas[105X Groups[133X
+      3.2-3 [33X[0;0YCompatible Central Extensions of Maximal Subgroups[133X
+      3.2-4 [33X[0;0YThe [10X2B[110X Centralizer in [22X3.Fi_24'[122X (January 2004)[133X
+  4 [33X[0;0Y[5XGAP[105X Computations Concerning Hamiltonian Cycles in the Generating Graphs of
+  Finite Groups[133X
+    4.1 [33X[0;0YOverview[133X
+    4.2 [33X[0;0YTheoretical Background[133X
+      4.2-1 [33X[0;0YCharacter-Theoretic Lower Bounds for Vertex Degrees[133X
+      4.2-2 [33X[0;0YChecking the Criteria[133X
+    4.3 [33X[0;0Y[5XGAP[105X Functions for the Computations[133X
+      4.3-1 [33X[0;0YComputing Vertex Degrees from the Group[133X
+      4.3-2 [33X[0;0YComputing Lower Bounds for Vertex Degrees[133X
+      4.3-3 [33X[0;0YEvaluating the (Lower Bounds for the) Vertex Degrees[133X
+    4.4 [33X[0;0YCharacter-Theoretic Computations[133X
+      4.4-1 [33X[0;0YSporadic Simple Groups[133X
+      4.4-2 [33X[0;0YThe Monster[133X
+      4.4-3 [33X[0;0YNonsimple Automorphism Groups of Sporadic Simple Groups[133X
+      4.4-4 [33X[0;0YAlternating and Symmetric Groups [22XA_n[122X, [22XS_n[122X, for [22X5 ≤ n ≤ 13[122X[133X
+    4.5 [33X[0;0YComputations With Groups[133X
+      4.5-1 [33X[0;0YNonabelian Simple Groups of Order up to [22X10^7[122X[133X
+      4.5-2 [33X[0;0YNonsimple Groups with Nonsolvable Socle of Order at most [22X10^6[122X[133X
+    4.6 [33X[0;0YThe Groups [22XPSL(2,q)[122X[133X
+  5 [33X[0;0Y[5XGAP[105X Computations with [22XO_8^+(5).S_3[122X and [22XO_8^+(2).S_3[122X[133X
+    5.1 [33X[0;0YOverview[133X
+    5.2 [33X[0;0YConstructing Representations of [22XM.2[122X and [22XS.2[122X[133X
+      5.2-1 [33X[0;0YA Matrix Representation of the Weyl Group of Type [22XE_8[122X[133X
+      5.2-2 [33X[0;0YEmbedding the Weyl group of Type [22XE_8[122X into GO[22X^+(8,5)[122X[133X
+      5.2-3 [33X[0;0YCompatible Generators of [22XM[122X, [22XM.2[122X, [22XS[122X, and [22XS.2[122X[133X
+    5.3 [33X[0;0YConstructing Representations of [22XM.3[122X and [22XS.3[122X[133X
+      5.3-1 [33X[0;0YThe Action of [22XM.3[122X on [22XM[122X[133X
+      5.3-2 [33X[0;0YThe Action of [22XS.3[122X on [22XS[122X[133X
+    5.4 [33X[0;0YConstructing Compatible Generators of [22XH[122X and [22XG[122X[133X
+    5.5 [33X[0;0YApplication: Regular Orbits of [22XH[122X on [22XG/H[122X[133X
+    5.6 [33X[0;0YAppendix: The Permutation Character [22X(1_H^G)_H[122X[133X
+    5.7 [33X[0;0YAppendix: The Data File[133X
+  6 [33X[0;0YSolvable Subgroups of Maximal Order in Sporadic Simple Groups[133X
+    6.1 [33X[0;0YThe Result[133X
+    6.2 [33X[0;0YThe Approach[133X
+      6.2-1 [33X[0;0YUse the Table of Marks[133X
+      6.2-2 [33X[0;0YUse Information from the Character Table Library[133X
+    6.3 [33X[0;0YCases where the Table of Marks is available in [5XGAP[105X[133X
+    6.4 [33X[0;0YCases where the Table of Marks is not available in [5XGAP[105X[133X
+      6.4-1 [33X[0;0Y[22XG = Ru[122X[133X
+      6.4-2 [33X[0;0Y[22XG = Suz[122X[133X
+      6.4-3 [33X[0;0Y[22XG = ON[122X[133X
+      6.4-4 [33X[0;0Y[22XG = Co_2[122X[133X
+      6.4-5 [33X[0;0Y[22XG = Fi_22[122X[133X
+      6.4-6 [33X[0;0Y[22XG = HN[122X[133X
+      6.4-7 [33X[0;0Y[22XG = Ly[122X[133X
+      6.4-8 [33X[0;0Y[22XG = Th[122X[133X
+      6.4-9 [33X[0;0Y[22XG = Fi_23[122X[133X
+      6.4-10 [33X[0;0Y[22XG = Co_1[122X[133X
+      6.4-11 [33X[0;0Y[22XG = J_4[122X[133X
+      6.4-12 [33X[0;0Y[22XG = Fi_24^'[122X[133X
+      6.4-13 [33X[0;0Y[22XG = B[122X[133X
+      6.4-14 [33X[0;0Y[22XG = M[122X[133X
+    6.5 [33X[0;0YProof of the Corollary[133X
+  7 [33X[0;0YLarge Nilpotent Subgroups of Sporadic Simple Groups[133X
+    7.1 [33X[0;0YThe Result[133X
+    7.2 [33X[0;0YThe Proof[133X
+    7.3 [33X[0;0YAlternative: Use [5XGAP[105X's Tables of Marks[133X
+  8 [33X[0;0YPermutation Characters in [5XGAP[105X[133X
+    8.1 [33X[0;0YSome Computations with [22XM_24[122X[133X
+    8.2 [33X[0;0YAll Possible Permutation Characters of [22XM_11[122X[133X
+    8.3 [33X[0;0YThe Action of [22XU_6(2)[122X on the Cosets of [22XM_22[122X[133X
+    8.4 [33X[0;0YDegree [22X20736[122X Permutation Characters of [22XU_6(2)[122X[133X
+    8.5 [33X[0;0YDegree [22X57572775[122X Permutation Characters of [22XO_8^+(3)[122X[133X
+    8.6 [33X[0;0YThe Action of [22XO_7(3).2[122X on the Cosets of [22X2^7.S_7[122X[133X
+    8.7 [33X[0;0YThe Action of [22XO_8^+(3).2_1[122X on the Cosets of [22X2^7.A_8[122X[133X
+    8.8 [33X[0;0YThe Action of [22XS_4(4).4[122X on the Cosets of [22X5^2.[2^5][122X[133X
+    8.9 [33X[0;0YThe Action of [22XCo_1[122X on the Cosets of Involution Centralizers[133X
+    8.10 [33X[0;0YThe Multiplicity Free Permutation Characters of [22XG_2(3)[122X[133X
+    8.11 [33X[0;0YDegree [22X11200[122X Permutation Characters of [22XO_8^+(2)[122X[133X
+    8.12 [33X[0;0YA Proof of Nonexistence of a Certain Subgroup[133X
+    8.13 [33X[0;0YA Permutation Character of the Lyons group[133X
+    8.14 [33X[0;0YIdentifying two subgroups of Aut[22X(U_3(5))[122X (October 2001)[133X
+    8.15 [33X[0;0YA Permutation Character of Aut[22X(O_8^+(2))[122X (October 2001)[133X
+    8.16 [33X[0;0YFour Primitive Permutation Characters of the Monster Group[133X
+      8.16-1 [33X[0;0YThe Subgroup [22X2^2.2^11.2^22.(S_3 × M_24)[122X (June 2009)[133X
+      8.16-2 [33X[0;0YThe Subgroup [22X2^3.2^6.2^12.2^18.(L_3(2) × 3.S_6)[122X (September 2009)[133X
+      8.16-3 [33X[0;0YThe Subgroup [22X2^5.2^10.2^20.(S_3 × L_5(2))[122X (October 2009)[133X
+      8.16-4 [33X[0;0YThe Subgroup [22X2^{10+16}.O_10^+(2)[122X (November 2009)[133X
+    8.17 [33X[0;0YA permutation character of the Baby Monster (June 2012)[133X
+    8.18 [33X[0;0YA permutation character of [22X2.B[122X (October 2017)[133X
+    8.19 [33X[0;0YGeneration of sporadic simple groups by [22Xπ[122X- and [22Xπ'[122X-subgroups
+    (December 2021)[133X
+      8.19-1 [33X[0;0YSpecial Arguments for the Monster Group that are no longer needed[133X
+  9 [33X[0;0YAmbiguous Class Fusions in the [5XGAP[105X Character Table Library[133X
+    9.1 [33X[0;0YSome [5XGAP[105X Utilities[133X
+    9.2 [33X[0;0YFusions Determined by Factorization through Intermediate Subgroups[133X
+      9.2-1 [33X[0;0Y[22XCo_3N5 → Co_3[122X (September 2002)[133X
+      9.2-2 [33X[0;0Y[22X31:15 → B[122X (March 2003)[133X
+      9.2-3 [33X[0;0Y[22XSuzN3 → Suz[122X (September 2002)[133X
+      9.2-4 [33X[0;0Y[22XF_{3+}N5 → F_{3+}[122X (March 2002)[133X
+    9.3 [33X[0;0YFusions Determined Using Commutative Diagrams Involving Smaller
+    Subgroups[133X
+      9.3-1 [33X[0;0Y[22XBN7 → B[122X (March 2002)[133X
+      9.3-2 [33X[0;0Y[22X(A_4 × O_8^+(2).3).2 → Fi_24^'[122X (November 2002)[133X
+      9.3-3 [33X[0;0Y[22XA_6 × L_2(8).3 → Fi_24^'[122X (November 2002)[133X
+      9.3-4 [33X[0;0Y[22X(3^2:D_8 × U_4(3).2^2).2 → B[122X (June 2007)[133X
+      9.3-5 [33X[0;0Y[22X7^1+4:(3 × 2.S_7) → M[122X (May 2009)[133X
+      9.3-6 [33X[0;0Y[22X3^7.O_7(3):2 → Fi_24[122X (November 2010)[133X
+      9.3-7 [33X[0;0Y[22X^2E_6(2)N3C → ^2E_6(2)[122X (January 2019)[133X
+    9.4 [33X[0;0YFusions Determined Using Commutative Diagrams Involving Factor Groups[133X
+      9.4-1 [33X[0;0Y[22X3.A_7 → 3.Suz[122X (December 2010)[133X
+      9.4-2 [33X[0;0Y[22XS_6 → U_4(2)[122X (September 2011)[133X
+    9.5 [33X[0;0YFusions Determined Using Commutative Diagrams Involving Automorphic
+    Extensions[133X
+      9.5-1 [33X[0;0Y[22XU_3(8).3_1 → ^2E_6(2)[122X (December 2010)[133X
+      9.5-2 [33X[0;0Y[22XL_3(4).2_1 → U_6(2)[122X (December 2010)[133X
+    9.6 [33X[0;0YConditions Imposed by Brauer Tables[133X
+      9.6-1 [33X[0;0Y[22XL_2(16).4 → J_3.2[122X (January 2004)[133X
+      9.6-2 [33X[0;0Y[22XL_2(17) → S_8(2)[122X (July 2004)[133X
+      9.6-3 [33X[0;0Y[22XL_2(19) → J_3[122X (April 2003)[133X
+    9.7 [33X[0;0YFusions Determined by Information about the Groups[133X
+      9.7-1 [33X[0;0Y[22XU_3(3).2 → Fi_24^'[122X (November 2002)[133X
+      9.7-2 [33X[0;0Y[22XL_2(13).2 → Fi_24^'[122X (September 2002)[133X
+      9.7-3 [33X[0;0Y[22XM_11 → B[122X (April 2009)[133X
+      9.7-4 [33X[0;0Y[22XL_2(11):2 → B[122X (April 2009)[133X
+      9.7-5 [33X[0;0Y[22XL_3(3) → B[122X (April 2009)[133X
+      9.7-6 [33X[0;0Y[22XL_2(17).2 → B[122X (March 2004)[133X
+      9.7-7 [33X[0;0Y[22XL_2(49).2_3 → B[122X (June 2006)[133X
+      9.7-8 [33X[0;0Y[22X2^3.L_3(2) → G_2(5)[122X (January 2004)[133X
+      9.7-9 [33X[0;0Y[22X5^{1+4}.2^{1+4}.A_5.4 → B[122X (April 2009)[133X
+      9.7-10 [33X[0;0YThe fusion from the character table of [22X7^2:2L_2(7).2[122X into the
+      table of marks (January 2004)[133X
+      9.7-11 [33X[0;0Y[22X3 × U_4(2) → 3_1.U_4(3)[122X (March 2010)[133X
+      9.7-12 [33X[0;0Y[22X2.3^4.2^3.S_4 → 2.A12[122X (September 2011)[133X
+      9.7-13 [33X[0;0Y[22X127:7 → L_7(2)[122X (January 2012)[133X
+      9.7-14 [33X[0;0Y[22XL_2(59) → M[122X (May 2009) – Do not use this![133X
+      9.7-15 [33X[0;0Y[22XL_2(71) → M[122X (May 2009)[133X
+      9.7-16 [33X[0;0Y[22XL_2(41) → M[122X (April 2012)[133X
+  10 [33X[0;0Y[5XGAP[105X computations needed in the proof of [?DNT?][133X
+    10.1 [33X[0;0Y[22XG/N ≅ Sz(8)[122X and [22X|N| = 2^12[122X[133X
+    10.2 [33X[0;0Y[22XG/N ≅ M_22[122X and [22X|N| = 2^10[122X[133X
+    10.3 [33X[0;0Y[22XG/N ≅ J_2[122X and [22X|N| = 2^12[122X[133X
+    10.4 [33X[0;0Y[22XG/N ≅ J_2[122X and [22X|N| = 5^14[122X[133X
+    10.5 [33X[0;0Y[22XG/N ≅ J_2[122X and [22X|N| = 2^28[122X[133X
+    10.6 [33X[0;0Y[22XG/N ≅ ^3D_4(2)[122X and [22X|N| = 2^26[122X[133X
+    10.7 [33X[0;0Y[22XG/N ≅ ^3D_4(2)[122X and [22X|N| = 3^25[122X[133X
+  11 [33X[0;0Y[5XGAP[105X Computations Concerning Probabilistic Generation of Finite Simple
+  Groups[133X
+    11.1 [33X[0;0YOverview[133X
+    11.2 [33X[0;0YPrerequisites[133X
+      11.2-1 [33X[0;0YTheoretical Background[133X
+      11.2-2 [33X[0;0YComputational Criteria[133X
+    11.3 [33X[0;0Y[5XGAP[105X Functions for the Computations[133X
+      11.3-1 [33X[0;0YGeneral Utilities[133X
+      11.3-2 [33X[0;0YCharacter-Theoretic Computations[133X
+      11.3-3 [33X[0;0YComputations with Groups[133X
+    11.4 [33X[0;0YCharacter-Theoretic Computations[133X
+      11.4-1 [33X[0;0YSporadic Simple Groups[133X
+      11.4-2 [33X[0;0YNo longer necessary computations for the Baby Monster and the
+      Monster[133X
+      11.4-3 [33X[0;0YAutomorphism Groups of Sporadic Simple Groups[133X
+      11.4-4 [33X[0;0YOther Simple Groups – Easy Cases[133X
+      11.4-5 [33X[0;0YAutomorphism Groups of other Simple Groups – Easy Cases[133X
+      11.4-6 [33X[0;0Y[22XO_8^-(3)[122X[133X
+      11.4-7 [33X[0;0Y[22XO_10^+(2)[122X[133X
+      11.4-8 [33X[0;0Y[22XO_10^-(2)[122X[133X
+      11.4-9 [33X[0;0Y[22XO_12^+(2)[122X[133X
+      11.4-10 [33X[0;0Y[22XO_12^-(2)[122X[133X
+      11.4-11 [33X[0;0Y[22XS_6(4)[122X[133X
+      11.4-12 [33X[0;0Y[22X∗[122X [22XS_6(5)[122X[133X
+      11.4-13 [33X[0;0Y[22XS_8(3)[122X[133X
+      11.4-14 [33X[0;0Y[22XU_4(4)[122X[133X
+      11.4-15 [33X[0;0Y[22XU_6(2)[122X[133X
+    11.5 [33X[0;0YComputations using Groups[133X
+      11.5-1 [33X[0;0Y[22XA_2m+1[122X, [22X2 ≤ m ≤ 11[122X[133X
+      11.5-2 [33X[0;0Y[22XA_5[122X[133X
+      11.5-3 [33X[0;0Y[22XA_6[122X[133X
+      11.5-4 [33X[0;0Y[22XA_7[122X[133X
+      11.5-5 [33X[0;0Y[22XL_d(q)[122X[133X
+      11.5-6 [33X[0;0Y[22X∗[122X [22XL_d(q)[122X with prime [22Xd[122X[133X
+      11.5-7 [33X[0;0YAutomorphic Extensions of [22XL_d(q)[122X[133X
+      11.5-8 [33X[0;0Y[22XL_3(2)[122X[133X
+      11.5-9 [33X[0;0Y[22XM_11[122X[133X
+      11.5-10 [33X[0;0Y[22XM_12[122X[133X
+      11.5-11 [33X[0;0Y[22XO_7(3)[122X[133X
+      11.5-12 [33X[0;0Y[22XO_8^+(2)[122X[133X
+      11.5-13 [33X[0;0Y[22XO_8^+(3)[122X[133X
+      11.5-14 [33X[0;0Y[22XO^+_8(4)[122X[133X
+      11.5-15 [33X[0;0Y[22X∗[122X [22XO_9(3)[122X[133X
+      11.5-16 [33X[0;0Y[22XO_10^-(3)[122X[133X
+      11.5-17 [33X[0;0Y[22XO_14^-(2)[122X[133X
+      11.5-18 [33X[0;0Y[22XO_12^+(3)[122X[133X
+      11.5-19 [33X[0;0Y[22X∗[122X [22XS_4(8)[122X[133X
+      11.5-20 [33X[0;0Y[22XS_6(2)[122X[133X
+      11.5-21 [33X[0;0Y[22XS_8(2)[122X[133X
+      11.5-22 [33X[0;0Y[22X∗[122X [22XS_10(2)[122X[133X
+      11.5-23 [33X[0;0Y[22XU_4(2)[122X[133X
+      11.5-24 [33X[0;0Y[22XU_4(3)[122X[133X
+      11.5-25 [33X[0;0Y[22XU_6(3)[122X[133X
+      11.5-26 [33X[0;0Y[22XU_8(2)[122X[133X
+  
+  
+  [32X

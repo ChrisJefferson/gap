@@ -1,0 +1,33 @@
+  
+  [1X9 [33X[0;0YHints and conventions for writing [5XGAP[105X[101X[1X programs[133X[101X
+  
+  [33X[0;0YIdea:  Collect  hints  or  ideas  on questions like: name clashes, functions
+  versus  operations,  declaration  and implementation files, organising large
+  sets of data, ...[133X
+  
+  [33X[0;0Y(We certainly don't want to develop [21Xobligatory coding guidelines[121X, but it may
+  be  sensible to fix some unwritten conventions to reduce clashes between the
+  library and packages and to make the use of [5XGAP[105X easier.)[133X
+  
+  [33X[0;0YSuch a section may also be useful for editors/referees of packages.[133X
+  
+  
+  [1X9.1 [33X[0;0YNaming conventions[133X[101X
+  
+  [33X[0;0YBy   convention,   names   of   documented   global  variables  are  usually
+  concatenations  of  capitalized  words, like e.g. [10XConjugacyClassesSubgroups[110X.
+  Thus,  words are separated by capital letters rather than underscores. Names
+  of  only  internally  used  global  variables are usually written in capital
+  letters   only,   and   words   are  separated  by  underscores,  like  e.g.
+  [10XSHALLOWCOPY_GF2MAT[110X.[133X
+  
+  [33X[0;0YAs  there  is only one global name space, some care has to be taken to avoid
+  name  clashes between packages or between packages and the library. A useful
+  rule in this context is the following:[133X
+  
+  [33X[0;0YNames  standing  for  general  concepts  can be introduced in the library as
+  names  of  wrapper functions like e.g. [10XGroup[110X or of operations or attributes.
+  If  they  are  introduced  in  packages,  they  should  always  be  used for
+  operations  or attributes to allow other packages to install methods as well
+  or to declare an operation of the same name with a different scope.[133X
+  

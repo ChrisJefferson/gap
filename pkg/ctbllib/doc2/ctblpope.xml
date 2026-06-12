@@ -1,0 +1,4817 @@
+
+<!-- %W  ctblpope.xml    GAP 4 package CTblLib              Thomas Breuer -->
+
+<Chapter Label="chap:ctblpope">
+
+<Heading>Permutation Characters in &GAP;</Heading>
+
+Date: April 17th, 1999
+
+<P/>
+
+This is a loose collection of examples of computations with
+permutation characters and possible permutation characters in
+the &GAP; system&nbsp;<Cite Key="GAP"/>.
+We mainly use the &GAP; implementation of the algorithms to compute
+possible permutation characters that are described
+in&nbsp;<Cite Key="BP98copy"/>,
+and information from the Atlas of Finite Groups&nbsp;<Cite Key="CCN85"/>.
+ 
+A <E>possible permutation character</E> of a finite group <M>G</M>
+is a character satisfying the conditions listed in Section
+<Q>Possible Permutation Characters</Q> of the &GAP; Reference Manual.
+
+<P/>
+
+<List>
+<Item>
+  Sections&nbsp;<Ref Sect="sect:U35sub"/> and&nbsp;<Ref Sect="sect:O82sub"/>
+  were added in October&nbsp;2001.
+</Item>
+<Item>
+  Section&nbsp;<Ref Subsect="subsect:monsterperm1"/>
+  was added in June&nbsp;2009.
+</Item>
+<Item>
+  Section&nbsp;<Ref Subsect="subsect:monsterperm2"/>
+  was added in September&nbsp;2009.
+</Item>
+<Item>
+  Section&nbsp;<Ref Subsect="subsect:monsterperm3"/>
+  was added in October&nbsp;2009.
+</Item>
+<Item>
+  Section&nbsp;<Ref Subsect="subsect:monsterperm4"/>
+  was added in November&nbsp;2009.
+</Item>
+<Item>
+  Section&nbsp;<Ref Sect="sect:comp_B"/>
+  was added in June&nbsp;2012.
+</Item>
+<Item>
+  Section&nbsp;<Ref Sect="sect:comp_2B"/>
+  was added in October&nbsp;2017.
+</Item>
+<Item>
+  Section&nbsp;<Ref Sect="sect:comp_pi_piprime"/>
+  was added in December&nbsp;2021.
+</Item>
+</List>
+
+<P/>
+
+<!-- %T missing: -->
+<!-- %T more examples for the combin. and ineq. algorithm, -->
+<!-- %T the use of tables of marks, -->
+<!-- %T and the examples in ~/Saxl/M12.2, ~/Saxl/Suz !! -->
+<!-- %T show an example where the modular criteria are guaranteed by starting -->
+<!-- %T from the matrix of projective indecomposables! -->
+
+In the following,
+the &GAP; Character Table Library&nbsp;<Cite Key="CTblLib"/>
+will be used frequently.
+
+<P/>
+
+<Example><![CDATA[
+gap> LoadPackage( "ctbllib", "1.2", false );
+true
+]]></Example>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:comp_M24">
+<Heading>Some Computations with <M>M_{24}</M></Heading>
+ 
+We start with the sporadic simple Mathieu group <M>G = M_{24}</M>
+in its natural action on <M>24</M> points.
+
+<P/>
+
+<Example><![CDATA[
+gap> g:= MathieuGroup( 24 );;
+gap> SetName( g, "m24" );
+gap> Size( g );  IsSimple( g );  NrMovedPoints( g );
+244823040
+true
+24
+]]></Example>
+
+<P/>
+
+The conjugacy classes that are computed for a group can be ordered
+differently in different &GAP; sessions.
+In order to make the output shown in the following examples stable,
+we first sort the conjugacy classes of <M>G</M> for our purposes.
+
+<P/>
+
+<Example><![CDATA[
+gap> ccl:= AttributeValueNotSet( ConjugacyClasses, g );;
+gap> HasConjugacyClasses( g );
+false
+gap> invariants:= List( ccl, c -> [ Order( Representative( c ) ),
+>        Size( c ), Size( ConjugacyClass( g, Representative( c )^2 ) ) ] );;
+gap> SortParallel( invariants, ccl );
+gap> SetConjugacyClasses( g, ccl );
+]]></Example>
+
+<P/>
+
+The permutation character <C>pi</C> of <M>G</M> corresponding to the action on
+the moved points is constructed.
+This action is <M>5</M>-transitive.
+
+<P/>
+
+<Example><![CDATA[
+gap> NrConjugacyClasses( g );
+26
+gap> pi:= NaturalCharacter( g );
+Character( CharacterTable( m24 ),
+ [ 24, 8, 0, 6, 0, 0, 4, 0, 4, 2, 0, 3, 3, 2, 0, 2, 0, 0, 1, 1, 1, 1, 
+  0, 0, 1, 1 ] )
+gap> IsTransitive( pi );  Transitivity( pi );
+true
+5
+gap> SetIdentifier( CharacterTable( g ), "M24table" );
+gap> Display( pi );
+M24table
+
+     2 10 10  9  3  3  7  7  5  2  3  3  1  1  4   2   .   2   2   1
+     3  3  1  1  3  2  1  .  1  1  1  1  1  1  .   .   .   1   1   .
+     5  1  .  1  1  .  .  .  .  1  .  .  .  .  .   1   .   .   .   .
+     7  1  1  .  .  1  .  .  .  .  .  .  1  1  .   .   .   .   .   1
+    11  1  .  .  .  .  .  .  .  .  .  .  .  .  .   .   1   .   .   .
+    23  1  .  .  .  .  .  .  .  .  .  .  .  .  .   .   .   .   .   .
+
+       1a 2a 2b 3a 3b 4a 4b 4c 5a 6a 6b 7a 7b 8a 10a 11a 12a 12b 14a
+
+Y.1    24  8  .  6  .  .  4  .  4  2  .  3  3  2   .   2   .   .   1
+
+     2   1   .   .   .   .   .   .
+     3   .   1   1   1   1   .   .
+     5   .   1   1   .   .   .   .
+     7   1   .   .   1   1   .   .
+    11   .   .   .   .   .   .   .
+    23   .   .   .   .   .   1   1
+
+       14b 15a 15b 21a 21b 23a 23b
+
+Y.1      1   1   1   .   .   1   1
+]]></Example>
+
+<P/>
+
+(We have set the <Ref Attr="Identifier" BookName="ctbllib"/> value of the
+character table because otherwise some default identifier would be chosen,
+which depends on the &GAP; session.)
+
+<P/>
+
+<C>pi</C> determines the permutation characters of the <M>G</M>-actions on
+related sets,
+for example <C>piop</C> on the set of ordered and <C>piup</C> on the set of
+unordered pairs of points.
+
+<P/>
+
+<Example><![CDATA[
+gap> piop:= pi * pi;
+Character( CharacterTable( m24 ),
+ [ 576, 64, 0, 36, 0, 0, 16, 0, 16, 4, 0, 9, 9, 4, 0, 4, 0, 0, 1, 1, 
+  1, 1, 0, 0, 1, 1 ] )
+gap> IsTransitive( piop );
+false
+gap> piup:= SymmetricParts( UnderlyingCharacterTable(pi), [ pi ], 2 )[1];
+Character( CharacterTable( m24 ),
+ [ 300, 44, 12, 21, 0, 4, 12, 0, 10, 5, 0, 6, 6, 4, 2, 3, 0, 1, 2, 2, 
+  1, 1, 0, 0, 1, 1 ] )
+gap> IsTransitive( piup );
+false
+]]></Example>
+
+<P/>
+
+Clearly the action on unordered pairs is not transitive, since the pairs
+<M>[ i, i ]</M> form an orbit of their own.
+There are exactly two <M>G</M>-orbits on the unordered pairs,
+hence the <M>G</M>-action on <M>2</M>-sets of points is transitive.
+
+<P/>
+
+<Example><![CDATA[
+gap> ScalarProduct( piup, TrivialCharacter( g ) );
+2
+gap> comb:= Combinations( [ 1 .. 24 ], 2 );;
+gap> hom:= ActionHomomorphism( g, comb, OnSets );;
+gap> pihom:= NaturalCharacter( hom );
+Character( CharacterTable( m24 ),
+ [ 276, 36, 12, 15, 0, 4, 8, 0, 6, 3, 0, 3, 3, 2, 2, 1, 0, 1, 1, 1, 
+  0, 0, 0, 0, 0, 0 ] )
+gap> Transitivity( pihom );
+1
+]]></Example>
+
+<P/>
+
+In terms of characters, the permutation character <C>pihom</C> is the difference
+of <C>piup</C> and <C>pi</C> .
+Note that &GAP; does not know that this difference is in fact a character;
+in general this question is not easy to decide without knowing the
+irreducible characters of <M>G</M>,
+and up to now &GAP; has not computed the irreducibles.
+
+<P/>
+
+<Example><![CDATA[
+gap> pi2s:= piup - pi;
+VirtualCharacter( CharacterTable( m24 ),
+ [ 276, 36, 12, 15, 0, 4, 8, 0, 6, 3, 0, 3, 3, 2, 2, 1, 0, 1, 1, 1, 
+  0, 0, 0, 0, 0, 0 ] )
+gap> pi2s = pihom;
+true
+gap> HasIrr( g );  HasIrr( CharacterTable( g ) );
+false
+false
+]]></Example>
+
+<P/>
+
+The point stabilizer in the action on <M>2</M>-sets is in fact a maximal
+subgroup of <M>G</M>, which is isomorphic to the automorphism group
+<M>M_{22}:2</M> of the Mathieu group <M>M_{22}</M>.
+Thus this permutation action is primitive.
+But we cannot apply
+<Ref Func="IsPrimitive" BookName="ref"/>
+to the character <C>pihom</C> for getting
+this answer because primitivity of characters is defined in a different
+way, cf.&nbsp;<Ref Func="IsPrimitiveCharacter" BookName="ref"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> IsPrimitive( g, comb, OnSets );
+true
+]]></Example>
+
+<P/>
+
+<!-- %T It should be noted that for <M>k > 2</M>, -->
+<!-- %T the <M>k</M>-th symmetrisation of a permutation character -->
+<!-- %T does in general not decompose into permutation characters -->
+<!-- %T corresponding to the action on <M>l</M>-sets, for <M>l \leq k</M>. -->
+ 
+We could also have computed the transitive permutation character of
+degree <M>276</M> using the &GAP; Character Table Library instead of
+the group <M>G</M>,
+since the character tables of <M>G</M> and all its maximal subgroups are
+available, together with the class fusions of the maximal subgroups
+into <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> tbl:= CharacterTable( "M24" );
+CharacterTable( "M24" )
+gap> maxes:= Maxes( tbl );
+[ "M23", "M22.2", "2^4:a8", "M12.2", "2^6:3.s6", "L3(4).3.2_2", 
+  "2^6:(psl(3,2)xs3)", "L2(23)", "L3(2)" ]
+gap> s:= CharacterTable( maxes[2] );
+CharacterTable( "M22.2" )
+gap> TrivialCharacter( s )^tbl;
+Character( CharacterTable( "M24" ),
+ [ 276, 36, 12, 15, 0, 4, 8, 0, 6, 3, 0, 3, 3, 2, 2, 1, 1, 0, 1, 1, 
+  0, 0, 0, 0, 0, 0 ] )
+]]></Example>
+
+<P/>
+
+Note that the sequence of conjugacy classes in the library table of
+<M>G</M> does in general not agree with the succession computed for the
+group.
+
+<!-- %T mention class identification program? -->
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:poss_perm_char_M11">
+<Heading>All Possible Permutation Characters of <M>M_{11}</M></Heading>
+ 
+We compute all possible permutation characters of the Mathieu group
+<M>M_{11}</M>, using the three different strategies available in &GAP;.
+ 
+First we try the algorithm that enumerates all candidates via solving
+a system of inequalities,
+which is described in&nbsp;<Cite Key="BP98copy" Where="Section 3.2"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> m11:= CharacterTable( "M11" );;
+gap> SetName( m11, "m11" );
+gap> perms:= PermChars( m11 );
+[ Character( m11, [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ), Character( m11,
+  [ 11, 3, 2, 3, 1, 0, 1, 1, 0, 0 ] ), Character( m11,
+  [ 12, 4, 3, 0, 2, 1, 0, 0, 1, 1 ] ), Character( m11,
+  [ 22, 6, 4, 2, 2, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 55, 7, 1, 3, 0, 1, 1, 1, 0, 0 ] ), Character( m11,
+  [ 66, 10, 3, 2, 1, 1, 0, 0, 0, 0 ] ), Character( m11,
+  [ 110, 6, 2, 2, 0, 0, 2, 2, 0, 0 ] ), Character( m11,
+  [ 110, 6, 2, 6, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 110, 14, 2, 2, 0, 2, 0, 0, 0, 0 ] ), Character( m11,
+  [ 132, 12, 6, 0, 2, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 144, 0, 0, 0, 4, 0, 0, 0, 1, 1 ] ), Character( m11,
+  [ 165, 13, 3, 1, 0, 1, 1, 1, 0, 0 ] ), Character( m11,
+  [ 220, 4, 4, 0, 0, 4, 0, 0, 0, 0 ] ), Character( m11,
+  [ 220, 12, 4, 4, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 220, 20, 4, 0, 0, 2, 0, 0, 0, 0 ] ), Character( m11,
+  [ 330, 2, 6, 2, 0, 2, 0, 0, 0, 0 ] ), Character( m11,
+  [ 330, 18, 6, 2, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 396, 12, 0, 4, 1, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 440, 8, 8, 0, 0, 2, 0, 0, 0, 0 ] ), Character( m11,
+  [ 440, 24, 8, 0, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 495, 15, 0, 3, 0, 0, 1, 1, 0, 0 ] ), Character( m11,
+  [ 660, 4, 3, 4, 0, 1, 0, 0, 0, 0 ] ), Character( m11,
+  [ 660, 12, 3, 0, 0, 3, 0, 0, 0, 0 ] ), Character( m11,
+  [ 660, 12, 12, 0, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 660, 28, 3, 0, 0, 1, 0, 0, 0, 0 ] ), Character( m11,
+  [ 720, 0, 0, 0, 0, 0, 0, 0, 5, 5 ] ), Character( m11,
+  [ 792, 24, 0, 0, 2, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 880, 0, 16, 0, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 990, 6, 0, 2, 0, 0, 2, 2, 0, 0 ] ), Character( m11,
+  [ 990, 6, 0, 6, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 990, 30, 0, 2, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 1320, 8, 6, 0, 0, 2, 0, 0, 0, 0 ] ), Character( m11,
+  [ 1320, 24, 6, 0, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 1584, 0, 0, 0, 4, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 1980, 12, 0, 4, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 1980, 36, 0, 0, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 2640, 0, 12, 0, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 3960, 24, 0, 0, 0, 0, 0, 0, 0, 0 ] ), Character( m11,
+  [ 7920, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+gap> Length( perms );
+39
+]]></Example>
+
+<P/>
+
+<!-- %T This algorithm admits a second search strategy, which uses the inequalities -->
+<!-- %T for a sort of previewing. -->
+<!-- %T But this does not work correctly, -->
+<!-- %T already the GAP 3 version did not do what was promised. -->
+<!-- %T (Apparently, the additional options were used rarely.) -->
+ 
+Next we try the improved combinatorial approach that is sketched at the
+end of Section&nbsp;3.2 in&nbsp;<Cite Key="BP98copy"/>.
+We get the same characters, except that they may be ordered in a different
+way; thus we compare the ordered lists.
+
+<P/>
+
+<Example><![CDATA[
+gap> degrees:= DivisorsInt( Size( m11 ) );;
+gap> perms2:= [];;
+gap> for d in degrees do
+>      Append( perms2, PermChars( m11, d ) );
+>    od;
+gap> Set( perms ) = Set( perms2 );
+true
+]]></Example>
+
+<P/>
+
+Finally, we try the algorithm that is based on Gaussian elimination
+and that is described in&nbsp;<Cite Key="BP98copy" Where="Section 3.3"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> perms3:= [];;
+gap> for d in degrees do
+>      Append( perms3, PermChars( m11, rec( torso:= [ d ] ) ) );
+>    od;
+gap> Set( perms ) = Set( perms3 );
+true
+]]></Example>
+
+<P/>
+
+&GAP; provides two more functions to test properties of permutation
+characters.
+The first one yields no new information in our case,
+but the second excludes one possible permutation character;
+note that <C>TestPerm5</C> needs a <M>p</M>-modular Brauer table,
+and the &GAP; character table library contains all Brauer tables
+of <M>M_{11}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> newperms:= TestPerm4( m11, perms );;
+gap> newperms = perms;
+true
+gap> newperms:= TestPerm5( m11, perms, m11 mod 11 );;
+gap> newperms = perms;
+false
+gap> Difference( perms, newperms );
+[ Character( m11, [ 220, 4, 4, 0, 0, 4, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<P/>
+
+&GAP; knows the table of marks of <M>M_{11}</M>,
+from which the permutation characters can be extracted.
+It turns out that <M>M_{11}</M> has <M>39</M> conjugacy classes of subgroups
+but only <M>36</M> different permutation characters,
+so three candidates computed above are in fact not permutation characters.
+
+<P/>
+
+<Example><![CDATA[
+gap> tom:= TableOfMarks( "M11" );
+TableOfMarks( "M11" )
+gap> trueperms:= PermCharsTom( m11, tom );;
+gap> Length( trueperms );  Length( Set( trueperms ) );
+39
+36
+gap> Difference( perms, trueperms );
+[ Character( m11, [ 220, 4, 4, 0, 0, 4, 0, 0, 0, 0 ] ), 
+  Character( m11, [ 660, 4, 3, 4, 0, 1, 0, 0, 0, 0 ] ), 
+  Character( m11, [ 660, 12, 3, 0, 0, 3, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:act_U62_M22">
+<Heading>The Action of <M>U_6(2)</M> on the Cosets of <M>M_{22}</M></Heading>
+ 
+We are interested in the permutation character of <M>U_6(2)</M>
+(see&nbsp;<Cite Key="CCN85" Where="p. 115"/>)
+that corresponds to the action on the cosets of a <M>M_{22}</M> subgroup
+(see&nbsp;<Cite Key="CCN85" Where="p. 39"/>).
+The character tables of both the group and the point stabilizer
+are available in the &GAP; character table library,
+so we can compute class fusion and permutation character directly;
+note that if the class fusion is not stored on the table of the subgroup,
+in general one will not get a unique fusion but only a list of candidates
+for the fusion.
+
+<P/>
+
+<Example><![CDATA[
+gap> u62:= CharacterTable( "U6(2)" );;
+gap> m22:= CharacterTable( "M22" );;
+gap> fus:= PossibleClassFusions( m22, u62 );
+[ [ 1, 3, 7, 10, 14, 15, 22, 24, 24, 26, 33, 34 ], 
+  [ 1, 3, 7, 10, 14, 15, 22, 24, 24, 26, 34, 33 ], 
+  [ 1, 3, 7, 11, 14, 15, 22, 24, 24, 27, 33, 34 ], 
+  [ 1, 3, 7, 11, 14, 15, 22, 24, 24, 27, 34, 33 ], 
+  [ 1, 3, 7, 12, 14, 15, 22, 24, 24, 28, 33, 34 ], 
+  [ 1, 3, 7, 12, 14, 15, 22, 24, 24, 28, 34, 33 ] ]
+gap> RepresentativesFusions( m22, fus, u62 );
+[ [ 1, 3, 7, 10, 14, 15, 22, 24, 24, 26, 33, 34 ] ]
+]]></Example>
+
+<P/>
+
+We see that there are six possible class fusions that are equivalent
+under table automorphisms of <M>U_6(2)</M> and <M>M22</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= Set( fus,
+>  x -> Induced( m22, u62, [ TrivialCharacter( m22 ) ], x )[1] );
+[ Character( CharacterTable( "U6(2)" ),
+  [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 0, 0, 48, 0, 16, 6, 0, 0, 0, 0, 
+      0, 0, 6, 0, 2, 0, 0, 0, 4, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0 ] ), Character( CharacterTable( "U6(2)" ),
+  [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 0, 48, 0, 0, 16, 6, 0, 0, 0, 0, 
+      0, 0, 6, 0, 2, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0 ] ), Character( CharacterTable( "U6(2)" ),
+  [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 48, 0, 0, 0, 16, 6, 0, 0, 0, 0, 
+      0, 0, 6, 0, 2, 0, 4, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0 ] ) ]
+gap> PermCharInfo( u62, cand ).ATLAS;
+[ "1a+22a+252a+616a+1155c+1386a+8064a+9240c", 
+  "1a+22a+252a+616a+1155b+1386a+8064a+9240b", 
+  "1a+22a+252a+616a+1155a+1386a+8064a+9240a" ]
+gap> aut:= AutomorphismsOfTable( u62 );;  Size( aut );
+24
+gap> elms:= Filtered( Elements( aut ), x -> Order( x ) = 3 );
+[ (10,11,12)(26,27,28)(40,41,42), (10,12,11)(26,28,27)(40,42,41) ]
+gap> Position( cand, Permuted( cand[1], elms[1] ) );
+3
+gap> Position( cand, Permuted( cand[3], elms[1] ) );
+2
+]]></Example>
+
+<P/>
+
+The six fusions induce three different characters,
+they are conjugate under the action of the unique subgroup of order <M>3</M>
+in the group of table automorphisms of <M>U_6(2)</M>.
+The table automorphisms of order <M>3</M> are induced by group automorphisms
+of <M>U_6(2)</M> (see&nbsp;<Cite Key="CCN85" Where="p. 120"/>).
+As can be seen from the list of maximal subgroups of <M>U_6(2)</M>
+in&nbsp;<Cite Key="CCN85" Where="p. 115"/>,
+the three induced characters are in fact permutation characters
+which belong to the three classes of maximal subgroups of type <M>M_{22}</M>
+in <M>U_6(2)</M>, which are permuted by an outer automorphism of order 3.
+ 
+Now we want to compute the extension of the above permutation character
+to the group <M>U_6(2).2</M>,
+which corresponds to the action of this group on the cosets of a <M>M_{22}.2</M>
+subgroup.
+
+<P/>
+
+<Example><![CDATA[
+gap> u622:= CharacterTable( "U6(2).2" );;
+gap> m222:= CharacterTable( "M22.2" );;
+gap> fus:= PossibleClassFusions( m222, u622 );
+[ [ 1, 3, 7, 10, 13, 14, 20, 22, 22, 24, 29, 38, 39, 42, 41, 46, 50, 
+      53, 58, 59, 59 ] ]
+gap> cand:= Induced( m222, u622, [ TrivialCharacter( m222 ) ], fus[1] );
+[ Character( CharacterTable( "U6(2).2" ),
+  [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 48, 0, 0, 16, 6, 0, 0, 0, 0, 0, 
+      6, 0, 2, 0, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1080, 72, 
+      0, 48, 8, 0, 0, 0, 18, 0, 0, 0, 8, 0, 0, 2, 0, 0, 0, 0, 2, 2, 
+      0, 0, 0, 0, 0, 0 ] ) ]
+gap> PermCharInfo( u622, cand ).ATLAS;
+[ "1a+22a+252a+616a+1155a+1386a+8064a+9240a" ]
+]]></Example>
+
+<P/>
+
+We see that for the embedding of <M>M_{22}.2</M> into <M>U_6(2).2</M>,
+the class fusion is unique,
+so we get a unique extension of one of the above permutation characters.
+This implies that exactly one class of maximal subgroups of type <M>M_{22}</M>
+extends to <M>M_{22}.2</M> in a given group <M>U_6(2).2</M>.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:deg_20736_U62">
+<Heading>Degree <M>20\,736</M> Permutation Characters of <M>U_6(2)</M></Heading>
+ 
+Now we show an alternative way to compute the characters dealt with
+in the previous example.
+This works also if the character table of the point stabilizer is not
+available.
+In this situation we can compute all those characters that have certain
+properties of permutation characters.
+ 
+Of course this may take much longer than the above computations,
+which needed only a few seconds.
+(The following calculations may need several hours,
+depending on the computer used.)
+
+<P/>
+
+<Log><![CDATA[
+gap> cand:= PermChars( u62, rec( torso := [ 20736 ] ) );
+[ Character( CharacterTable( "U6(2)" ), 
+    [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 0, 0, 48, 0, 16, 6, 0, 0, 0, 
+      0, 0, 0, 6, 0, 2, 0, 0, 0, 4, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0 ] ), Character( CharacterTable( "U6(2)" ), 
+    [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 0, 48, 0, 0, 16, 6, 0, 0, 0, 
+      0, 0, 0, 6, 0, 2, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0 ] ), Character( CharacterTable( "U6(2)" ), 
+    [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 48, 0, 0, 0, 16, 6, 0, 0, 0, 
+      0, 0, 0, 6, 0, 2, 0, 4, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0 ] ) ]
+]]></Log>
+
+<P/>
+
+For the next step, that is, the computation of the extension of the
+permutation character to <M>U_6(2).2</M>, we may use the above information,
+since the values on the inner classes are prescribed.
+ 
+The question which of the three candidates for <M>U_6(2)</M> extends to
+<M>U_6(2).2</M> depends on the choice of the class fusion of <M>U_6(2)</M> into
+<M>U_6(2).2</M>.
+With respect to the class fusion that is stored on the &GAP; library table,
+the third candidate extends,
+as can be seen from the fact that this one is invariant under the
+permutation of conjugacy classes of <M>U_6(2)</M> that is induced by the
+action of the chosen supergroup <M>U_6(2).2</M>.
+
+<P/>
+
+<Log><![CDATA[
+gap> u622:= CharacterTable( "U6(2).2" );;
+gap> inv:= InverseMap( GetFusionMap( u62, u622 ) );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, [ 11, 12 ], 13, 14, 15, [ 16, 17 ], 
+  18, 19, 20, 21, 22, 23, 24, 25, 26, [ 27, 28 ], [ 29, 30 ], 31, 32, 
+  [ 33, 34 ], [ 35, 36 ], 37, [ 38, 39 ], 40, [ 41, 42 ], 43, 44, 
+  [ 45, 46 ] ]
+gap> ext:= List( cand, x -> CompositionMaps( x, inv ) );
+[ [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 0, [ 0, 48 ], 0, 16, 6, 0, 0, 
+      0, 0, 0, 6, 0, 2, 0, 0, [ 0, 4 ], 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 
+      0, 0 ], 
+  [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 0, [ 0, 48 ], 0, 16, 6, 0, 0, 
+      0, 0, 0, 6, 0, 2, 0, 0, [ 0, 4 ], 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 
+      0, 0 ], 
+  [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 48, 0, 0, 16, 6, 0, 0, 0, 0, 0, 
+      6, 0, 2, 0, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 ] ]
+gap> cand:= PermChars( u622, rec( torso:= ext[3] ) );
+[ Character( CharacterTable( "U6(2).2" ), 
+    [ 20736, 0, 384, 0, 0, 0, 54, 0, 0, 48, 0, 0, 16, 6, 0, 0, 0, 0, 
+      0, 6, 0, 2, 0, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1080, 
+      72, 0, 48, 8, 0, 0, 0, 18, 0, 0, 0, 8, 0, 0, 2, 0, 0, 0, 0, 2, 
+      2, 0, 0, 0, 0, 0, 0 ] ) ]
+]]></Log>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:degree_57572775_O8p3">
+<Heading>Degree <M>57\,572\,775</M> Permutation Characters of <M>O_8^+(3)</M></Heading>
+ 
+The group <M>O_8^+(3)</M> (see&nbsp;<Cite Key="CCN85" Where="p. 140"/>)
+contains a subgroup of type <M>2^{{3+6}}.L_3(2)</M>,
+which extends to a maximal subgroup <M>U</M> in <M>O_8^+(3).3</M>.
+For the computation of the permutation character,
+we cannot use explicit induction since the table of <M>U</M> is not available
+in the &GAP; table library.
+ 
+Since <M>U \cap O_8^+(3)</M> is contained in a <M>O_8^+(2)</M> subgroup
+of <M>O_8^+(3)</M>, we can try to find the permutation character of <M>O_8^+(2)</M>
+corresponding to the action on the cosets of <M>U \cap O_8^+(3)</M>,
+and then induce this character to <M>O_8^+(3)</M>.
+ 
+This kind of computations becomes more difficult with increasing degree,
+so we try to reduce the problem further.
+In fact, the <M>2^{{3+6}}.L_3(2)</M> group is contained in a <M>2^6:A_8</M> subgroup
+of <M>O_8^+(2)</M>, in which the index is only <M>15</M>;
+the unique possible permutation character of this degree can be read off
+immediately.
+ 
+Induction to <M>O_8^+(3)</M> through the chain of subgroups is possible
+provided the class fusions are available.
+There are <M>24</M> possible fusions from <M>O_8^+(2)</M> into <M>O_8^+(3)</M>,
+which are all equivalent w.r.t.&nbsp;table automorphisms of <M>O_8^+(3)</M>.
+If we later want to consider the extension of the permutation character
+in question to <M>O_8^+(3).3</M> then we have to choose a fusion of an
+<M>O_8^+(2)</M> subgroup that does <E>not</E> extend to <M>O_8^+(2).3</M>.
+But if for example our question is just whether the resulting permutation
+character is multiplicity-free then this can be decided already from the
+permutation character of <M>O_8^+(3)</M>.
+ 
+<P/>
+ 
+<Example><![CDATA[
+gap> o8p3:= CharacterTable("O8+(3)");;
+gap> Size( o8p3 ) / (2^9*168);
+57572775
+gap> o8p2:= CharacterTable( "O8+(2)" );;
+gap> fus:= PossibleClassFusions( o8p2, o8p3 );;
+gap> Length( fus );
+24
+gap> rep:= RepresentativesFusions( o8p2, fus, o8p3 );
+[ [ 1, 5, 2, 3, 4, 5, 7, 8, 12, 16, 17, 19, 23, 20, 21, 22, 23, 24, 
+      25, 26, 37, 38, 42, 31, 32, 36, 49, 52, 51, 50, 43, 44, 45, 53, 
+      55, 56, 57, 71, 71, 71, 72, 73, 74, 78, 79, 83, 88, 89, 90, 94, 
+      100, 101, 105 ] ]
+gap> fus:= rep[1];;
+gap> Size( o8p2 ) / (2^9*168);
+2025
+gap> sub:= CharacterTable( "2^6:A8" );;
+gap> subfus:= GetFusionMap( sub, o8p2 );
+[ 1, 3, 2, 2, 4, 5, 6, 13, 3, 6, 12, 13, 14, 7, 21, 24, 11, 30, 29, 
+  31, 13, 17, 15, 16, 14, 17, 36, 37, 18, 41, 24, 44, 48, 28, 33, 32, 
+  34, 35, 35, 51, 51 ]
+gap> fus:= CompositionMaps( fus, subfus );
+[ 1, 2, 5, 5, 3, 4, 5, 23, 2, 5, 19, 23, 20, 7, 37, 31, 17, 50, 51, 
+  43, 23, 23, 21, 22, 20, 23, 56, 57, 24, 72, 31, 78, 89, 52, 45, 44, 
+  53, 55, 55, 100, 100 ]
+gap> Size( sub ) / (2^9*168);
+15
+gap> List( Irr( sub ), Degree );
+[ 1, 7, 14, 20, 21, 21, 21, 28, 35, 45, 45, 56, 64, 70, 28, 28, 35, 
+  35, 35, 35, 70, 70, 70, 70, 140, 140, 140, 140, 140, 210, 210, 252, 
+  252, 280, 280, 315, 315, 315, 315, 420, 448 ]
+gap> cand:= PermChars( sub, 15 );
+[ Character( CharacterTable( "2^6:A8" ),
+  [ 15, 15, 15, 7, 7, 7, 7, 7, 3, 3, 3, 3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 
+      3, 3, 3, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0 ] ) ]
+gap> ind:= Induced( sub, o8p3, cand, fus );
+[ Character( CharacterTable( "O8+(3)" ),
+  [ 57572775, 59535, 59535, 59535, 3591, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 2187, 0, 27, 135, 135, 135, 243, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 27, 27, 0, 0, 0, 0, 27, 
+      27, 27, 27, 0, 8, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0 ] ) ]
+gap> o8p33:= CharacterTable( "O8+(3).3" );;
+gap> inv:= InverseMap( GetFusionMap( o8p3, o8p33 ) );
+[ 1, [ 2, 3, 4 ], 5, 6, [ 7, 8, 9 ], [ 10, 11, 12 ], 13, 
+  [ 14, 15, 16 ], 17, 18, 19, [ 20, 21, 22 ], 23, [ 24, 25, 26 ], 
+  [ 27, 28, 29 ], 30, [ 31, 32, 33 ], [ 34, 35, 36 ], [ 37, 38, 39 ], 
+  [ 40, 41, 42 ], [ 43, 44, 45 ], 46, [ 47, 48, 49 ], 50, 
+  [ 51, 52, 53 ], 54, 55, 56, 57, [ 58, 59, 60 ], [ 61, 62, 63 ], 64, 
+  [ 65, 66, 67 ], 68, [ 69, 70, 71 ], [ 72, 73, 74 ], [ 75, 76, 77 ], 
+  [ 78, 79, 80 ], [ 81, 82, 83 ], 84, 85, [ 86, 87, 88 ], 
+  [ 89, 90, 91 ], [ 92, 93, 94 ], 95, 96, [ 97, 98, 99 ], 
+  [ 100, 101, 102 ], [ 103, 104, 105 ], [ 106, 107, 108 ], 
+  [ 109, 110, 111 ], [ 112, 113, 114 ] ]
+gap> ext:= CompositionMaps( ind[1], inv );
+[ 57572775, 59535, 3591, 0, 0, 0, 0, 0, 2187, 0, 27, 135, 243, 0, 0, 
+  0, 0, 0, 0, 0, 27, 0, 0, 27, 27, 0, 8, 1, 1, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+gap> perms:= PermChars( o8p33, rec( torso:= ext ) );
+[ Character( CharacterTable( "O8+(3).3" ),
+  [ 57572775, 59535, 3591, 0, 0, 0, 0, 0, 2187, 0, 27, 135, 243, 0, 
+      0, 0, 0, 0, 0, 0, 27, 0, 0, 27, 27, 0, 8, 1, 1, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3159, 
+      3159, 243, 243, 39, 39, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 
+      3, 3, 3, 0, 0, 0, 0, 0, 0, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 
+      0, 0 ] ) ]
+gap> PermCharInfo( o8p33, perms ).ATLAS;
+[ "1a+780aabb+2457a+2808abc+9450aaabbcc+18200abcdddef+24192a+54600a^{5\
+}b+70200aabb+87360ab+139776a^{5}+147420a^{4}b^{4}+163800ab+184275aabc+\
+199017aa+218700a+245700a+291200aef+332800a^{4}b^{5}c^{5}+491400aaabcd+\
+531441a^{5}b^{4}c^{4}+552825a^{4}+568620aabb+698880a^{4}b^{4}+716800aa\
+abbccdddeeff+786240aabb+873600aa+998400aa+1257984a^{6}+1397760aa" ]
+]]></Example>
+
+<!-- %T Alternatively, if the table of marks of the group is available -->
+<!-- %T then one can extract the permutation characters from it. -->
+<!-- %T The table of marks of <M>O_8^+(2)</M> is in fact available, -->
+<!-- %T but it requires some time to read the data into &GAP;, -->
+<!-- %T since the file is about <M>25</M> MB large. -->
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:action_O73d2_27S7">
+<Heading>The Action of <M>O_7(3).2</M> on the Cosets of <M>2^7.S_7</M></Heading>
+ 
+We want to know whether the permutation character of <M>O_7(3).2</M>
+(see&nbsp;<Cite Key="CCN85" Where="p. 108"/>)
+on the cosets of its maximal subgroup <M>U</M>
+of type <M>2^7.S_7</M> is multiplicity-free.
+ 
+As in the previous examples, first we try to compute the permutation
+character of the simple group <M>O_7(3)</M>.
+It turns out that the direct computation of all candidates from the
+degree is very time consuming.
+But we can use for example the additional information provided by the fact
+that <M>U</M> contains an <M>A_7</M> subgroup.
+We compute the possible class fusions.
+
+<P/>
+
+<Example><![CDATA[
+gap> o73:= CharacterTable( "O7(3)" );;
+gap> a7:= CharacterTable( "A7" );;
+gap> fus:= PossibleClassFusions( a7, o73 );
+[ [ 1, 3, 6, 10, 15, 16, 24, 33, 33 ], 
+  [ 1, 3, 7, 10, 15, 16, 22, 33, 33 ] ]
+]]></Example>
+
+<P/>
+
+We cannot decide easily which fusion is the right one,
+but already the fact that no other fusions are possible
+gives us some information about impossible constituents of the
+permutation character we want to compute.
+
+<P/>
+
+<Example><![CDATA[
+gap> ind:= List( fus,
+>       x -> Induced( a7, o73, [ TrivialCharacter( a7 ) ], x )[1] );;
+gap> mat:= MatScalarProducts( o73, Irr( o73 ), ind );;
+gap> sum:= Sum( mat );
+[ 2, 6, 2, 0, 8, 6, 2, 4, 4, 8, 3, 0, 4, 4, 9, 3, 5, 0, 0, 9, 0, 10, 
+  5, 6, 15, 1, 12, 1, 15, 7, 2, 4, 14, 16, 0, 12, 12, 7, 8, 8, 14, 
+  12, 12, 14, 6, 6, 20, 16, 12, 12, 12, 10, 10, 12, 12, 8, 12, 6 ]
+gap> const:= Filtered( [ 1 .. Length( sum ) ], x -> sum[x] <> 0 );
+[ 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 20, 22, 23, 24, 
+  25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 37, 38, 39, 40, 41, 42, 
+  43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58 ]
+gap> Length( const );
+52
+gap> const:= Irr( o73 ){ const };;
+gap> rat:= RationalizedMat( const );;
+]]></Example>
+
+<P/>
+
+But much more can be deduced from the fact that certain zeros
+of the permutation character can be predicted.
+
+<P/>
+
+<Example><![CDATA[
+gap> names:= ClassNames( o73 );
+[ "1a", "2a", "2b", "2c", "3a", "3b", "3c", "3d", "3e", "3f", "3g", 
+  "4a", "4b", "4c", "4d", "5a", "6a", "6b", "6c", "6d", "6e", "6f", 
+  "6g", "6h", "6i", "6j", "6k", "6l", "6m", "6n", "6o", "6p", "7a", 
+  "8a", "8b", "9a", "9b", "9c", "9d", "10a", "10b", "12a", "12b", 
+  "12c", "12d", "12e", "12f", "12g", "12h", "13a", "13b", "14a", 
+  "15a", "18a", "18b", "18c", "18d", "20a" ]
+gap> List( fus, x -> names{ x } );
+[ [ "1a", "2b", "3b", "3f", "4d", "5a", "6h", "7a", "7a" ], 
+  [ "1a", "2b", "3c", "3f", "4d", "5a", "6f", "7a", "7a" ] ]
+gap> torso:= [ 28431 ];;
+gap> zeros:= [ 5, 8, 9, 11, 17, 20, 23, 28, 29, 32, 36, 37, 38,
+>              43, 46, 47, 48, 53, 54, 55, 56, 57, 58 ];;
+gap> names{ zeros };
+[ "3a", "3d", "3e", "3g", "6a", "6d", "6g", "6l", "6m", "6p", "9a", 
+  "9b", "9c", "12b", "12e", "12f", "12g", "15a", "18a", "18b", "18c", 
+  "18d", "20a" ]
+]]></Example>
+
+<P/>
+
+Every order <M>3</M> element of <M>U</M> lies in an <M>A_7</M> subgroup of <M>U</M>,
+so among the classes of element order <M>3</M>, at most the classes <C>3B</C>, <C>3C</C>,
+and <C>3F</C> can have nonzero permutation character values.
+The excluded classes of element order <M>6</M> are the square roots of the
+excluded order <M>3</M> elements,
+likewise the given classes of element orders <M>9</M>, <M>12</M>, and <M>18</M> are
+excluded.
+The character value on <C>20A</C> must be zero because <M>U</M> does not contain
+elements of this order.
+So we enter the additional information about these zeros.
+
+<P/>
+
+<Example><![CDATA[
+gap> for i in zeros do
+>      torso[i]:= 0;
+>    od;
+gap> torso;
+[ 28431,,,, 0,,, 0, 0,, 0,,,,,, 0,,, 0,,, 0,,,,, 0, 0,,, 0,,,, 0, 0, 
+  0,,,,, 0,,, 0, 0, 0,,,,, 0, 0, 0, 0, 0, 0 ]
+gap> perms:= PermChars( o73, rec( torso:= torso, chars:= rat ) );
+[ Character( CharacterTable( "O7(3)" ),
+  [ 28431, 567, 567, 111, 0, 0, 243, 0, 0, 81, 0, 15, 3, 27, 15, 6, 
+      0, 0, 27, 0, 3, 27, 0, 0, 0, 3, 9, 0, 0, 3, 3, 0, 4, 1, 1, 0, 
+      0, 0, 0, 2, 2, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0 ] ) ]
+gap> PermCharInfo( o73, perms ).ATLAS;
+[ "1a+78a+168a+182a+260ab+1092a+2457a+2730a+4095b+5460a+11648a" ]
+]]></Example>
+
+<P/>
+
+We see that this character is already multiplicity free,
+so this holds also for its extension to <M>O_7(3).2</M>,
+and we need not compute this extension.
+(Of course we could compute it in the same way as in the examples above.)
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:action_O8p3d2a_27A8">
+<Heading>The Action of <M>O_8^+(3).2_1</M> on the Cosets of <M>2^7.A_8</M></Heading>
+ 
+We are interested in the permutation character of <M>O_8^+(3).2_1</M>
+that corresponds to the action on the cosets of a subgroup of type
+<M>2^7.A_8</M>.
+The intersection of the point stabilizer with the simple group <M>O_8^+(3)</M>
+is of type <M>2^6.A_8</M>.
+First we compute the class fusion of these groups,
+modulo problems with ambiguities due to table automorphisms.
+
+<P/>
+
+<Example><![CDATA[
+gap> o8p3:= CharacterTable( "O8+(3)" );;
+gap> o8p2:= CharacterTable( "O8+(2)" );;
+gap> fus:= PossibleClassFusions( o8p2, o8p3 );;
+gap> NamesOfFusionSources( o8p2 );
+[ "A9", "2^8:O8+(2)", "(D10xD10).2^2", "(3x3^3:S3):2", 
+  "(3x3^(1+2)+:2A4).2", "2^(3+3+3).L3(2)", "NRS(O8+(2),2^(3+3+3)_a)", 
+  "NRS(O8+(2),2^(3+3+3)_b)", "O8+(2)N2", "O8+(2)M2", "O8+(2)M3", 
+  "O8+(2)M5", "O8+(2)M6", "O8+(2)M8", "O8+(2)M9", "(3xU4(2)):2", 
+  "O8+(2)M11", "O8+(2)M12", "2^(1+8)_+:(S3xS3xS3)", "3^4:2^3.S4(a)", 
+  "(A5xA5):2^2", "O8+(2)M16", "O8+(2)M17", "2^(1+8)+.O8+(2)", "7:6", 
+  "(A5xD10).2", "(D10xA5).2", "O8+(2)N5C", "2^6:A8", "2.O8+(2)", 
+  "2^2.O8+(2)", "S6(2)" ]
+gap> sub:= CharacterTable( "2^6:A8" );;
+gap> subfus:= GetFusionMap( sub, o8p2 );
+[ 1, 3, 2, 2, 4, 5, 6, 13, 3, 6, 12, 13, 14, 7, 21, 24, 11, 30, 29, 
+  31, 13, 17, 15, 16, 14, 17, 36, 37, 18, 41, 24, 44, 48, 28, 33, 32, 
+  34, 35, 35, 51, 51 ]
+gap> fus:= List( fus, x -> CompositionMaps( x, subfus ) );;
+gap> fus:= Set( fus );;
+gap> Length( fus );
+24
+]]></Example>
+
+<P/>
+
+The ambiguities due to Galois automorphisms disappear when we are
+looking for the permutation characters induced by the fusions.
+
+<P/>
+
+<Example><![CDATA[
+gap> ind:= List( fus, x -> Induced( sub, o8p3,
+>                              [ TrivialCharacter( sub ) ], x )[1] );;
+gap> ind:= Set( ind );;
+gap> Length( ind );
+6
+]]></Example>
+
+<P/>
+
+Now we try to extend the candidates to <M>O_8^+(3).2_1</M>;
+the choice of the fusion of <M>O_8^+(3)</M> into <M>O_8^+(3).2_1</M> determines
+which of the candidates may extend.
+
+<P/>
+
+<Example><![CDATA[
+gap> o8p32:= CharacterTable( "O8+(3).2_1" );;
+gap> fus:= GetFusionMap( o8p3, o8p32 );;
+gap> ext:= List( ind, x -> CompositionMaps( x, InverseMap( fus ) ) );;
+gap> ext:= Filtered( ext, x -> ForAll( x, IsInt ) );
+[ [ 3838185, 17577, 8505, 8505, 873, 0, 0, 0, 0, 6561, 0, 0, 729, 0, 
+      9, 105, 45, 45, 105, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 189, 0, 0, 
+      0, 9, 9, 27, 27, 0, 0, 27, 9, 0, 8, 1, 1, 0, 0, 0, 0, 0, 0, 0, 
+      0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 
+      0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0 ], 
+  [ 3838185, 17577, 8505, 8505, 873, 0, 6561, 0, 0, 0, 0, 0, 729, 0, 
+      9, 105, 45, 45, 105, 30, 0, 0, 0, 0, 0, 0, 189, 0, 0, 0, 9, 0, 
+      0, 0, 9, 27, 27, 0, 0, 9, 27, 0, 8, 1, 1, 0, 0, 0, 0, 0, 0, 0, 
+      0, 2, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 
+      0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]
+]]></Example>
+
+<P/>
+
+We compute the extensions of the first candidate;
+the other belongs to another class of subgroups,
+which is the image under an outer automorphism.
+
+<!-- (These calculations may need about one hour,
+     depending on the computer used.) -->
+
+<P/>
+
+<Example><![CDATA[
+gap> perms:= PermChars( o8p32, rec( torso:= ext[1] ) );
+[ Character( CharacterTable( "O8+(3).2_1" ),
+  [ 3838185, 17577, 8505, 8505, 873, 0, 0, 0, 0, 6561, 0, 0, 729, 0, 
+      9, 105, 45, 45, 105, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 189, 0, 0, 
+      0, 9, 9, 27, 27, 0, 0, 27, 9, 0, 8, 1, 1, 0, 0, 0, 0, 0, 0, 0, 
+      0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 
+      0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 3159, 1575, 567, 63, 87, 
+      15, 0, 0, 45, 0, 81, 9, 27, 0, 0, 3, 3, 3, 3, 5, 5, 0, 0, 0, 4, 
+      0, 0, 27, 0, 9, 0, 0, 15, 0, 3, 0, 0, 2, 0, 0, 0, 0, 0, 3, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+gap> PermCharInfo( o8p32, perms ).ATLAS;
+[ "1a+260abc+520ab+819a+2808b+9450aab+18200a+23400ac+29120b+36400aab+4\
+6592abce+49140d+66339a+98280ab+163800a+189540d+232960d+332800ab+368550\
+a+419328a+531441ab" ]
+]]></Example>
+
+<P/>
+
+Now we repeat the calculations for <M>O_8^+(3).2_2</M> instead of
+<M>O_8^+(3).2_1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> o8p32:= CharacterTable( "O8+(3).2_2" );;
+gap> fus:= GetFusionMap( o8p3, o8p32 );;
+gap> ext:= List( ind, x -> CompositionMaps( x, InverseMap( fus ) ) );;
+gap> ext:= Filtered( ext, x -> ForAll( x, IsInt ) );;
+gap> perms:= PermChars( o8p32, rec( torso:= ext[1] ) );
+[ Character( CharacterTable( "O8+(3).2_2" ),
+  [ 3838185, 17577, 8505, 873, 0, 0, 0, 6561, 0, 0, 0, 0, 729, 0, 9, 
+      105, 45, 105, 30, 0, 0, 0, 0, 0, 0, 189, 0, 0, 0, 9, 0, 9, 27, 
+      0, 0, 0, 27, 27, 9, 0, 8, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      2, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 
+      0, 6, 0, 0, 0, 0, 0, 0, 0, 199017, 2025, 297, 441, 73, 9, 0, 
+      1215, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0, 27, 27, 0, 1, 9, 12, 0, 0, 
+      45, 0, 0, 1, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 
+      0, 0, 0, 0, 0 ] ) ]
+gap> PermCharInfo( o8p32, perms ).ATLAS;
+[ "1a+260aac+520ab+819a+2808a+9450aaa+18200accee+23400ac+29120a+36400a\
++46592aa+49140c+66339a+93184a+98280ab+163800a+184275ac+189540c+232960c\
++332800aa+419328a+531441aa" ]
+]]></Example>
+
+<P/>
+
+We might be interested in the extension to <M>O_8^+(3).(2^2)_{122}</M>.
+It is clear that this cannot be multiplicity free
+because of the multiplicity <C>9450aaa</C> in the character
+induced from <M>O_8^+(3).2_2</M>.
+We could put the extensions to the index two subgroups together,
+but it is simpler (and not expensive) to run the same program as above.
+
+<P/>
+
+<Example><![CDATA[
+gap> o8p322:= CharacterTable( "O8+(3).(2^2)_{122}" );;
+gap> fus:= GetFusionMap( o8p32, o8p322 );;
+gap> ext:= List( perms, x -> CompositionMaps( x, InverseMap( fus ) ) );;
+gap> ext:= Filtered( ext, x -> ForAll( x, IsInt ) );;
+gap> perms:= PermChars( o8p322, rec( torso:= ext[1] ) );
+[ Character( CharacterTable( "O8+(3).(2^2)_{122}" ),
+  [ 3838185, 17577, 8505, 873, 0, 0, 0, 6561, 0, 0, 729, 0, 9, 105, 
+      45, 105, 30, 0, 0, 0, 0, 0, 0, 189, 0, 0, 9, 9, 27, 0, 0, 27, 
+      9, 0, 8, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 9, 0, 0, 
+      0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 3159, 1575, 
+      567, 63, 87, 15, 0, 0, 45, 0, 81, 9, 27, 0, 0, 3, 3, 3, 5, 0, 
+      0, 4, 0, 0, 27, 0, 9, 0, 0, 15, 0, 3, 0, 0, 2, 0, 0, 0, 3, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 199017, 2025, 297, 441, 73, 9, 0, 
+      1215, 0, 0, 0, 0, 81, 0, 0, 0, 27, 27, 0, 1, 9, 12, 0, 0, 45, 
+      0, 0, 1, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 
+      0, 28431, 1647, 135, 63, 87, 39, 0, 0, 243, 27, 0, 0, 81, 63, 
+      0, 0, 0, 9, 0, 3, 3, 6, 2, 0, 0, 0, 9, 0, 0, 3, 3, 3, 0, 4, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0 ] ) ]
+gap> PermCharInfo( o8p322, perms ).ATLAS;
+[ "1a+260ace+819a+1040a+2808c+9450aac+18200a+23400ae+29120c+36400aac+4\
+6592ac+49140g+66339a+93184a+163800b+189540g+196560a+232960g+332800ac+3\
+68550a+419328a+531441ac" ]
+]]></Example>
+
+<!-- the runtime is 617892 msec -->
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:action_S44d4_5225">
+<Heading>The Action of <M>S_4(4).4</M> on the Cosets of <M>5^2.[2^5]</M></Heading>
+ 
+We want to know whether the permutation character corresponding to the
+action of <M>S_4(4).4</M> (see&nbsp;<Cite Key="CCN85" Where="p. 44"/>)
+on the cosets of its
+maximal subgroup of type <M>5^2:[2^5]</M> is multiplicity free.
+ 
+The library names of subgroups for which the class fusions are stored
+are listed as value of the attribute
+<Ref Func="NamesOfFusionSources" BookName="ref"/>,
+and for groups whose isomorphism type is not determined by the name
+this is the recommended way to find out whether the table of the subgroup
+is contained in the &GAP; library and known to belong to this group.
+(It might be that a table with such a name is contained in the library
+but belongs to another group,
+and it may also be that the table of the group is contained in the
+library --with any name-- but it is not known that this group is
+isomorphic to a subgroup of <M>S_4(4).4</M>.)
+
+<P/>
+
+<Example><![CDATA[
+gap> s444:= CharacterTable( "S4(4).4" );;
+gap> NamesOfFusionSources( s444 );
+[ "(L3(2)xS4(4):2).2", "S4(4)", "S4(4).2" ]
+]]></Example>
+
+<P/>
+
+So we cannot simply fetch the table of the subgroup.
+As in the previous examples, we compute the possible permutation
+characters.
+
+<P/>
+
+<Example><![CDATA[
+gap> perms:= PermChars( s444,
+>                rec( torso:= [ Size( s444 ) / ( 5^2*2^5 ) ] ) );
+[ Character( CharacterTable( "S4(4).4" ),
+  [ 4896, 384, 96, 0, 16, 32, 36, 16, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ), 
+  Character( CharacterTable( "S4(4).4" ),
+  [ 4896, 192, 32, 0, 0, 8, 6, 1, 0, 2, 0, 0, 36, 0, 12, 0, 0, 0, 1, 
+      0, 6, 6, 2, 2, 0, 0, 0, 0, 1, 1 ] ), 
+  Character( CharacterTable( "S4(4).4" ),
+  [ 4896, 240, 64, 0, 8, 8, 36, 16, 0, 0, 0, 0, 0, 12, 8, 0, 4, 4, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<P/>
+
+So there are three candidates.
+None of them is multiplicity free,
+so we need not decide which of the candidates actually belongs
+to the group <M>5^2:[2^5]</M> we have in mind.
+
+<P/>
+
+<Example><![CDATA[
+gap> PermCharInfo( s444, perms ).ATLAS;
+[ "1abcd+50abcd+153abcd+170a^{4}b^{4}+680aabb", 
+  "1a+50ac+153a+170aab+256a+680abb+816a+1020a", 
+  "1ac+50ac+68a+153abcd+170aabbb+204a+680abb+1020a" ]
+]]></Example>
+
+<P/>
+
+(If we would be interested which candidate is the right one,
+we could for example look at the intersection with <M>S_4(4)</M>,
+and hope for a contradiction to the fact that the group must lie
+in a <M>(A_5 \times A_5):2</M> subgroup.)
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:action_Co1_inv_centralizers">
+<Heading>The Action of <M>Co_1</M> on the Cosets of Involution Centralizers</Heading>
+ 
+We compute the permutation characters of the sporadic simple Conway group
+<M>Co_1</M> (see&nbsp;<Cite Key="CCN85" Where="p. 180"/>) corresponding to
+the actions on the cosets of involution centralizers.
+Equivalently, we are interested in the action of <M>Co_1</M> on conjugacy
+classes of involutions.
+These characters can be computed as follows.
+First we take the table of <M>Co_1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "Co1" );
+CharacterTable( "Co1" )
+]]></Example>
+
+<P/>
+
+The centralizer of each <C>2A</C> element is a maximal subgroup of <M>Co_1</M>.
+This group is also contained in the table library.
+So we can compute the permutation character by explicit induction,
+and the decomposition in irreducibles is computed with the command
+<Ref Func="PermCharInfo" BookName="ref"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> s:= CharacterTable( Maxes( t )[5] );
+CharacterTable( "2^(1+8)+.O8+(2)" )
+gap> ind:= Induced( s, t, [ TrivialCharacter( s ) ] );;
+gap> PermCharInfo( t, ind ).ATLAS;
+[ "1a+299a+17250a+27300a+80730a+313950a+644644a+2816856a+5494125a+1243\
+2420a+24794000a" ]
+]]></Example>
+
+<P/>
+
+The centralizer of a <C>2B</C> element is not maximal.
+First we compute which maximal subgroup can contain it.
+The character tables of all maximal subgroups of <M>Co_1</M> are contained
+in the &GAP;'s table library,
+so we may take these tables and look at the group orders.
+
+<P/>
+
+<Example><![CDATA[
+gap> centorder:= SizesCentralizers( t )[3];;
+gap> maxes:= List( Maxes( t ), CharacterTable );;
+gap> cand:= Filtered( maxes, x -> Size( x ) mod centorder = 0 );
+[ CharacterTable( "(A4xG2(4)):2" ) ]
+gap> u:= cand[1];;
+gap> index:= Size( u ) / centorder;
+3
+]]></Example>
+
+<P/>
+
+So there is a unique class of maximal subgroups containing the centralizer
+of a <C>2B</C> element, as a subgroup of index <M>3</M>.
+We compute the unique permutation character of degree <M>3</M> of this group,
+and induce this character to <M>G</M>.
+ 
+<!-- %T In fact we compute all those characters that have certain properties -->
+<!-- %T of permutation characters. -->
+<!-- %T In our situation, this is sufficient. -->
+<!-- %T -->
+<!-- %T For a very small degree, the algorithm that needs the <C>torso</C> component -->
+<!-- %T of the options record is a good choice. -->
+<!-- %T If one wants to use the combinatorial algorithm for a small degree and -->
+<!-- %T a not very small number of conjugacy classes, one should suppress the -->
+<!-- %T computation of bounds by setting the <C>bounds</C> component to <C>false</C>. -->
+
+<P/>
+
+<Example><![CDATA[
+gap> subperm:= PermChars( u, rec( degree := index, bounds := false ) );
+[ Character( CharacterTable( "(A4xG2(4)):2" ),
+  [ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
+      3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 
+      3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+      1, 1, 1, 1, 1, 1 ] ) ]
+gap> subperm = PermChars( u, rec( torso := [ 3 ] ) );
+true
+gap> ind:= Induced( u, t, subperm );
+[ Character( CharacterTable( "Co1" ),
+  [ 2065694400, 181440, 119408, 38016, 2779920, 0, 0, 378, 30240, 
+      864, 0, 720, 316, 80, 2520, 30, 0, 6480, 1508, 0, 0, 0, 0, 0, 
+      38, 18, 105, 0, 600, 120, 56, 24, 0, 12, 0, 0, 0, 120, 48, 18, 
+      0, 0, 6, 0, 360, 144, 108, 0, 0, 10, 0, 0, 0, 0, 0, 4, 2, 3, 9, 
+      0, 0, 15, 3, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 
+      12, 8, 0, 6, 0, 0, 3, 0, 1, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 
+      0 ] ) ]
+gap> PermCharInfo( t, ind ).ATLAS;
+[ "1a+1771a+8855a+27300aa+313950a+345345a+644644aa+871884aaa+1771000a+\
+2055625a+4100096a+7628985a+9669660a+12432420aa+21528000aa+23244375a+24\
+174150aa+24794000a+31574400aa+40370176a+60435375a+85250880aa+100725625\
+a+106142400a+150732800a+184184000a+185912496a+207491625a+299710125a+30\
+2176875a" ]
+]]></Example>
+
+<P/>
+
+Finally, we try the same for the centralizer of a <C>2C</C> element.
+
+<P/>
+
+<Example><![CDATA[
+gap> centorder:= SizesCentralizers( t )[4];;
+gap> cand:= Filtered( maxes, x -> Size( x ) mod centorder = 0 );
+[ CharacterTable( "Co2" ), CharacterTable( "2^11:M24" ) ]
+]]></Example>
+
+<P/>
+
+The group order excludes all except two classes of maximal subgroups.
+But the <C>2C</C> centralizer cannot lie in <M>Co_2</M> because the involution
+centralizers in <M>Co_2</M> are too small.
+
+<P/>
+
+<Example><![CDATA[
+gap> u:= cand[1];;
+gap> GetFusionMap( u, t );
+[ 1, 2, 2, 4, 7, 6, 9, 11, 11, 10, 11, 12, 14, 17, 16, 21, 23, 20, 
+  22, 22, 24, 28, 30, 33, 31, 32, 33, 33, 37, 42, 41, 43, 44, 48, 52, 
+  49, 53, 55, 53, 52, 54, 60, 60, 60, 64, 65, 65, 67, 66, 70, 73, 72, 
+  78, 79, 84, 85, 87, 92, 93, 93 ]
+gap> centorder;
+389283840
+gap> SizesCentralizers( u )[4];
+1474560
+]]></Example>
+
+<P/>
+
+So we try the second candidate.
+
+<P/>
+
+<Example><![CDATA[
+gap> u:= cand[2];
+CharacterTable( "2^11:M24" )
+gap> index:= Size( u ) / centorder;
+1288
+gap> subperm:= PermChars( u, rec( torso := [ index ] ) );
+[ Character( CharacterTable( "2^11:M24" ),
+  [ 1288, 1288, 1288, 56, 56, 56, 56, 56, 56, 48, 48, 48, 48, 48, 10, 
+      10, 10, 10, 7, 7, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
+      4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 3, 3, 3, 0, 0, 0, 0, 2, 2, 2, 
+      2, 3, 3, 3, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0 ] ) ]
+gap> subperm = PermChars( u, rec( degree:= index, bounds := false ) );
+true
+gap> ind:= Induced( u, t, subperm );
+[ Character( CharacterTable( "Co1" ),
+  [ 10680579000, 1988280, 196560, 94744, 0, 17010, 0, 945, 7560, 
+      3432, 2280, 1728, 252, 308, 0, 225, 0, 0, 0, 270, 0, 306, 0, 
+      46, 45, 25, 0, 0, 120, 32, 12, 52, 36, 36, 0, 0, 0, 0, 0, 45, 
+      15, 0, 9, 3, 0, 0, 0, 0, 18, 0, 30, 0, 6, 18, 0, 3, 5, 0, 0, 0, 
+      0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
+      6, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+gap> PermCharInfo( t, ind ).ATLAS;
+[ "1a+17250aa+27300a+80730aa+644644aaa+871884a+1821600a+2055625aaa+281\
+6856a+5494125a^{4}+12432420aa+16347825aa+23244375a+24174150aa+24667500\
+aa+24794000aaa+31574400a+40370176a+55255200a+66602250a^{4}+83720000aa+\
+85250880aaa+91547820aa+106142400a+150732800a+184184000aaa+185912496aaa\
++185955000aaa+207491625aaa+215547904aa+241741500aaa+247235625a+2578576\
+00aa+259008750a+280280000a+302176875a+326956500a+387317700a+402902500a\
++464257024a+469945476b+502078500a+503513010a+504627200a+522161640a" ]
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:multfree_G23">
+<Heading>The Multiplicity Free Permutation Characters of <M>G_2(3)</M></Heading>
+ 
+We compute the multiplicity free possible permutation characters of
+<M>G_2(3)</M> (see&nbsp;<Cite Key="CCN85" Where="p. 60"/>).
+ 
+For each divisor <M>d</M> of the group order,
+we compute all those possible permutation
+characters of degree <M>d</M> of <M>G</M> for which each irreducible constituent
+occurs with multiplicity at most <M>1</M>;
+this is done by prescribing the <C>maxmult</C> component of the second argument
+of
+<Ref Func="PermChars" BookName="ref"/>
+to be the list with <M>1</M> at each position.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "G2(3)" );
+CharacterTable( "G2(3)" )
+gap> t:= CharacterTable( "G2(3)" );;
+gap> n:= Length( RationalizedMat( Irr( t ) ) );;
+gap> maxmult:= List( [ 1 .. n ], i -> 1 );;
+gap> perms:= [];;
+gap> divs:= DivisorsInt( Size( t ) );;
+gap> for d in divs do
+>      Append( perms,
+>              PermChars( t, rec( bounds  := false,
+>                                 degree  := d,
+>                                 maxmult := maxmult ) ) );
+>    od;
+gap> Length( perms );
+42
+gap> List( perms, Degree );
+[ 1, 351, 351, 364, 364, 378, 378, 546, 546, 546, 546, 546, 702, 702, 
+  728, 728, 1092, 1092, 1092, 1092, 1092, 1092, 1092, 1092, 1456, 
+  1456, 1638, 1638, 2184, 2184, 2457, 2457, 2457, 2457, 3159, 3276, 
+  3276, 3276, 3276, 4368, 6552, 6552 ]
+]]></Example>
+
+<P/>
+
+For finding out which of these candidates are really permutation
+characters, we could inspect them piece by piece, using the information
+in&nbsp;<Cite Key="CCN85"/>.
+For example, the candidates of degrees <M>351</M>, <M>364</M>, and <M>378</M> are
+induced from the trivial characters of maximal subgroups of <M>G</M>,
+whereas the candidates of degree <M>546</M> are not permutation characters.
+ 
+<P/>
+ 
+Since the table of marks of <M>G</M> is available in &GAP;,
+we can extract all permutation characters from the table of marks,
+and then filter out the multiplicity free ones.
+
+<P/>
+
+<Example><![CDATA[
+gap> tom:= TableOfMarks( "G2(3)" );
+TableOfMarks( "G2(3)" )
+gap> tbl:= CharacterTable( "G2(3)" );
+CharacterTable( "G2(3)" )
+gap> permstom:= PermCharsTom( tbl, tom );;
+gap> Length( permstom );
+433
+gap> multfree:= Intersection( perms, permstom );;
+gap> Length( multfree );
+15
+gap> List( multfree, Degree );
+[ 1, 351, 351, 364, 364, 378, 378, 702, 702, 728, 728, 1092, 1092, 
+  2184, 2184 ]
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:degree_11200_O8p2">
+<Heading>Degree <M>11\,200</M> Permutation Characters of <M>O_8^+(2)</M></Heading>
+ 
+We compute the primitive permutation characters of degree <M>11\,200</M> of
+<M>O_8^+(2)</M> and <M>O_8^+(2).2</M>
+(see&nbsp;<Cite Key="CCN85" Where="p. 85"/>).
+The character table of the maximal subgroup of type <M>3^4:2^3.S_4</M> in
+<M>O_8^+(2)</M> is not available in the &GAP; table library.
+But the group extends to a wreath product of <M>S_3</M> and <M>S_4</M> in the
+group <M>O_8^+(2).2</M>, and the table of this wreath product can be
+constructed easily.
+
+<P/>
+
+<Example><![CDATA[
+gap> tbl2:= CharacterTable("O8+(2).2");;
+gap> s3:= CharacterTable( "Symmetric", 3 );;
+gap> s:= CharacterTableWreathSymmetric( s3, 4 );
+CharacterTable( "Sym(3)wrS4" )
+]]></Example>
+
+<P/>
+
+The permutation character <C>pi</C> of <M>O_8^+(2).2</M> can thus be computed by
+explicit induction, and the character of <M>O_8^+(2)</M> is obtained by
+restriction of <C>pi</C>.
+
+<P/>
+
+<Example><![CDATA[
+gap> fus:= PossibleClassFusions( s, tbl2 );
+[ [ 1, 41, 6, 3, 48, 9, 42, 19, 51, 8, 5, 50, 24, 49, 7, 2, 44, 22, 
+      42, 12, 53, 17, 58, 21, 5, 47, 26, 50, 37, 52, 23, 60, 18, 4, 
+      46, 25, 14, 61, 20, 9, 53, 30, 51, 26, 64, 8, 52, 31, 13, 56, 
+      38 ] ]
+gap> pi:= Induced( s, tbl2, [ TrivialCharacter( s ) ], fus[1] )[1];
+Character( CharacterTable( "O8+(2).2" ),
+ [ 11200, 256, 160, 160, 80, 40, 40, 76, 13, 0, 0, 8, 8, 4, 0, 0, 16, 
+  16, 4, 4, 4, 1, 1, 1, 1, 5, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2, 2, 0, 
+  0, 1120, 96, 0, 16, 0, 16, 8, 10, 4, 6, 7, 12, 3, 0, 0, 2, 0, 4, 0, 
+  1, 1, 0, 0, 1, 0, 0, 0 ] )
+gap> PermCharInfo( tbl2, pi ).ATLAS;
+[ "1a+84a+168a+175a+300a+700c+972a+1400a+3200a+4200b" ]
+gap> tbl:= CharacterTable( "O8+(2)" );
+CharacterTable( "O8+(2)" )
+gap> rest:= RestrictedClassFunction( pi, tbl );
+Character( CharacterTable( "O8+(2)" ),
+ [ 11200, 256, 160, 160, 160, 80, 40, 40, 40, 76, 13, 0, 0, 8, 8, 8, 
+  4, 0, 0, 0, 16, 16, 16, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 5, 0, 0, 0, 
+  1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0 ] )
+gap> PermCharInfo( tbl, rest ).ATLAS;
+[ "1a+84abc+175a+300a+700bcd+972a+3200a+4200a" ]
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:proof_nonexistence">
+<Heading>A Proof of Nonexistence of a Certain Subgroup</Heading>
+ 
+We prove that the sporadic simple Mathieu group <M>G = M_{22}</M>
+(see&nbsp;<Cite Key="CCN85" Where="p. 39"/>)
+has no subgroup of index <M>56</M>.
+In&nbsp;<Cite Key="Isa76"/>, remark after Theorem&nbsp;5.18, this is stated as an example
+of the case that a character may be a possible permutation character but
+not a permutation character.
+ 
+Let us consider the possible permutation character of degree <M>56</M> of
+<M>G</M>.
+ 
+<P/>
+ 
+<Example><![CDATA[
+gap> tbl:= CharacterTable( "M22" );
+CharacterTable( "M22" )
+gap> perms:= PermChars( tbl, rec( torso:= [ 56 ] ) );
+[ Character( CharacterTable( "M22" ),
+  [ 56, 8, 2, 4, 0, 1, 2, 0, 0, 2, 1, 1 ] ) ]
+gap> pi:= perms[1];;
+gap> Norm( pi );
+2
+gap> Display( tbl, rec( chars:= perms ) );
+M22
+
+     2  7  7  2  5  4  .  2  .  .  3   .   .
+     3  2  1  2  .  .  .  1  .  .  .   .   .
+     5  1  .  .  .  .  1  .  .  .  .   .   .
+     7  1  .  .  .  .  .  .  1  1  .   .   .
+    11  1  .  .  .  .  .  .  .  .  .   1   1
+
+       1a 2a 3a 4a 4b 5a 6a 7a 7b 8a 11a 11b
+    2P 1a 1a 3a 2a 2a 5a 3a 7a 7b 4a 11b 11a
+    3P 1a 2a 1a 4a 4b 5a 2a 7b 7a 8a 11a 11b
+    5P 1a 2a 3a 4a 4b 1a 6a 7b 7a 8a 11a 11b
+    7P 1a 2a 3a 4a 4b 5a 6a 1a 1a 8a 11b 11a
+   11P 1a 2a 3a 4a 4b 5a 6a 7a 7b 8a  1a  1a
+
+Y.1    56  8  2  4  .  1  2  .  .  2   1   1
+]]></Example>
+ 
+<P/>
+ 
+Suppose that <C>pi</C> is a permutation character of <M>G</M>.
+Since <M>G</M> is <M>2</M>-transitive on the <M>56</M> cosets of the point stabilizer <M>S</M>,
+this stabilizer is transitive on <M>55</M> points,
+and thus <M>G</M> has a subgroup <M>U</M> of index <M>56 \cdot 55 = 3080</M>.
+We compute the possible permutation character of this degree.
+ 
+<P/>
+ 
+<Example><![CDATA[
+gap> perms:= PermChars( tbl, rec( torso:= [ 56 * 55 ] ) );;
+gap> Length( perms );
+16
+]]></Example>
+ 
+<P/>
+ 
+<M>U</M> is contained in <M>S</M>, so only those candidates must be considered
+that vanish on all classes where <C>pi</C> vanishes.
+Furthermore, the index of <M>U</M> in <M>S</M> is odd, so the Sylow <M>2</M> subgroups
+of <M>U</M> and <M>S</M> are isomorphic;
+<M>S</M> contains elements of order <M>8</M>, hence also <M>U</M> does.
+ 
+<P/>
+ 
+<Example><![CDATA[
+gap> OrdersClassRepresentatives( tbl );
+[ 1, 2, 3, 4, 4, 5, 6, 7, 7, 8, 11, 11 ]
+gap> perms:= Filtered( perms, x -> x[5] = 0 and x[10] <> 0 );
+[ Character( CharacterTable( "M22" ),
+  [ 3080, 56, 2, 12, 0, 0, 2, 0, 0, 2, 0, 0 ] ), 
+  Character( CharacterTable( "M22" ),
+  [ 3080, 8, 2, 8, 0, 0, 2, 0, 0, 4, 0, 0 ] ), 
+  Character( CharacterTable( "M22" ),
+  [ 3080, 24, 11, 4, 0, 0, 3, 0, 0, 2, 0, 0 ] ), 
+  Character( CharacterTable( "M22" ),
+  [ 3080, 24, 20, 4, 0, 0, 0, 0, 0, 2, 0, 0 ] ) ]
+]]></Example>
+ 
+<P/>
+ 
+For getting an overview of the distribution of the elements of <M>U</M> to the
+conjugacy classes of <M>G</M>, we use the output of
+<Ref Func="PermCharInfo" BookName="ref"/>.
+ 
+<P/>
+ 
+<Example><![CDATA[
+gap> infoperms:= PermCharInfo( tbl, perms );;
+gap> Display( tbl, infoperms.display );
+M22
+
+      2    7  7  2  5  2  3
+      3    2  1  2  .  1  .
+      5    1  .  .  .  .  .
+      7    1  .  .  .  .  .
+     11    1  .  .  .  .  .
+
+          1a 2a 3a 4a 6a 8a
+     2P   1a 1a 3a 2a 3a 4a
+     3P   1a 2a 1a 4a 2a 8a
+     5P   1a 2a 3a 4a 6a 8a
+     7P   1a 2a 3a 4a 6a 8a
+    11P   1a 2a 3a 4a 6a 8a
+
+I.1     3080 56  2 12  2  2
+I.2        1 21  8 54 24 36
+I.3        1  3  4  9 12 18
+I.4     3080  8  2  8  2  4
+I.5        1  3  8 36 24 72
+I.6        1  3  4  9 12 18
+I.7     3080 24 11  4  3  2
+I.8        1  9 44 18 36 36
+I.9        1  3  4  9 12 18
+I.10    3080 24 20  4  .  2
+I.11       1  9 80 18  . 36
+I.12       1  3  4  9 12 18
+]]></Example>
+ 
+<P/>
+ 
+We have four candidates.
+For each the above list shows first the character values,
+then the cardinality of the intersection of <M>U</M> with the classes,
+and then lower bounds for the lengths of <M>U</M>-conjugacy classes of these
+elements.
+Only those classes of <M>G</M> are shown that contain elements of <M>U</M>
+for at least one of the characters.
+ 
+<P/>
+ 
+If the first two candidates are permutation characters corresponding to
+<M>U</M> then <M>U</M> contains exactly <M>8</M> elements of order <M>3</M>
+and thus <M>U</M> has a normal Sylow <M>3</M> subgroup <M>P</M>.
+But the order of <M>N_G(P)</M> is bounded by <M>72</M>,
+which can be shown as follows.
+The only elements in <M>G</M> with centralizer order divisible by <M>9</M>
+are of order <M>1</M> or <M>3</M>, so <M>P</M> is self-centralizing in <M>G</M>.
+The factor <M>N_G(P)/C_G(P)</M> is isomorphic with a subgroup of
+Aut<M>(G) \cong GL(2,3)</M> which has order divisible
+by <M>16</M>, hence the order of <M>N_G(P)</M> divides <M>144</M>.
+Now note that <M>[ G : N_G(P) ] \equiv 1 \pmod{3}</M> by Sylow's Theorem,
+and <M>|G|/144 = 3\,080 \equiv -1 \pmod{3}</M>.
+Thus the first two candidates are not permutation characters.
+ 
+<P/>
+ 
+If the last two candidates are permutation characters corresponding to
+<M>U</M> then <M>U</M> has self-normalizing Sylow subgroups.
+This is because the index of a Sylow <M>2</M> normalizer
+in <M>G</M> is odd and divides <M>9</M>,
+and if it is smaller than <M>9</M> then <M>U</M> contains
+at most <M>3 \cdot 15 + 1</M> elements of <M>2</M> power order;
+the index of a Sylow <M>3</M> normalizer
+in <M>G</M> is congruent to <M>1</M> modulo <M>3</M> and divides <M>16</M>,
+and if it is smaller than <M>16</M> then <M>U</M> contains
+at most <M>4 \cdot 8</M> elements of order <M>3</M>.
+ 
+<P/>
+ 
+But since <M>U</M> is solvable and not a <M>p</M>-group,
+not all its Sylow subgroups can be self-normalizing;
+note that <M>U</M> has a proper normal subgroup <M>N</M> containing
+a Sylow <M>p</M> subgroup <M>P</M> of <M>U</M> for a prime divisor <M>p</M> of <M>|U|</M>,
+and <M>U = N \cdot N_U(P)</M> holds by the Frattini argument
+(see&nbsp;<Cite Key="Hup67" Where="Satz I.7.8"/>).
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:character_Lyons">
+<Heading>A Permutation Character of the Lyons group</Heading>
+
+Let <M>G</M> be a maximal subgroup with structure <M>3^{{2+4}}:2A_5.D_8</M>
+in the sporadic simple Lyons group <M>Ly</M>.
+We want to compute the permutation character <M>1_G^{Ly}</M>.
+(This construction has been explained
+in&nbsp;<Cite Key="BP98copy" Where="Section 4.2"/>,
+without showing explicit &GAP; code.)
+
+<P/>
+
+In the representation of <M>Ly</M> as automorphism group of the rank <M>5</M>
+graph <C>B</C> with <M>9\,606\,125</M> points
+(see&nbsp;<Cite Key="CCN85" Where="p. 174"/>),
+<M>G</M> is the stabilizer of an edge.
+A group <M>S</M> with structure <M>3.McL.2</M> is the point stabilizer.
+So the two point stabilizer <M>U = S \cap G</M> is a subgroup of index <M>2</M>
+in <M>G</M>.
+The index of <M>U</M> in <M>S</M> is <M>15\,400</M>, and according to the list of
+maximal subgroups of <M>McL.2</M>
+(see&nbsp;<Cite Key="CCN85" Where="p. 100"/>),
+the group <M>U</M> is isomorphic to the preimage in <M>3.McL.2</M> of a subgroup <M>H</M>
+of <M>McL.2</M> with structure <M>3_+^{{1+4}}:4S_5</M>.
+
+<P/>
+
+Using the improved combinatorial method described
+in&nbsp;<Cite Key="BP98copy" Where="Section 3.2"/>,
+all possible permutation characters of degree <M>15\,400</M> for the group <M>McL</M>
+are computed.
+(The method of&nbsp;<Cite Key="BP98copy" Where="Section 3.3"/>
+is slower but also needs only a few seconds.)
+
+<P/>
+
+<Example><![CDATA[
+gap> ly:= CharacterTable( "Ly" );;
+gap> mcl:= CharacterTable( "McL" );;
+gap> mcl2:= CharacterTable( "McL.2" );;
+gap> 3mcl2:= CharacterTable( "3.McL.2" );;
+gap> perms:= PermChars( mcl, rec( degree:= 15400 ) );
+[ Character( CharacterTable( "McL" ),
+  [ 15400, 56, 91, 10, 12, 25, 0, 11, 2, 0, 0, 2, 1, 1, 1, 0, 0, 3, 
+      0, 0, 1, 1, 1, 1 ] ), Character( CharacterTable( "McL" ),
+  [ 15400, 280, 10, 37, 20, 0, 5, 10, 1, 0, 0, 2, 1, 1, 0, 0, 0, 2, 
+      0, 0, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<P/>
+
+We get two characters, corresponding to the two classes of maximal
+subgroups of index <M>15\,400</M> in <M>McL</M>.
+The permutation character <M>\pi = 1_{{H \cap McL}}^{McL}</M> is the one with
+nonzero value on the class <C>10A</C>, since the subgroup of structure
+<M>2S_5</M> in <M>H \cap McL</M> contains elements of order <M>10</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> ord10:= Filtered( [ 1 .. NrConjugacyClasses( mcl ) ],
+>                      i -> OrdersClassRepresentatives( mcl )[i] = 10 );
+[ 15 ]
+gap> List( perms, pi -> pi[ ord10[1] ] );
+[ 1, 0 ]
+gap> pi:= perms[1];
+Character( CharacterTable( "McL" ),
+ [ 15400, 56, 91, 10, 12, 25, 0, 11, 2, 0, 0, 2, 1, 1, 1, 0, 0, 3, 0, 
+  0, 1, 1, 1, 1 ] )
+]]></Example>
+
+<P/>
+
+The character <M>1_H^{McL.2}</M> is an extension of <M>\pi</M>,
+so we can use the method of&nbsp;<Cite Key="BP98copy" Where="Section 3.3"/>
+to compute all
+possible permutation characters for the group <M>McL.2</M> that have
+the values of <M>\pi</M> on the classes of <M>McL</M>.
+We find that the extension of <M>\pi</M> to a permutation character of <M>McL.2</M>
+is unique.
+Regarded as a character of <M>3.McL.2</M>, this character is equal to <M>1_U^S</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> map:= InverseMap( GetFusionMap( mcl, mcl2 ) );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, [ 10, 11 ], 12, [ 13, 14 ], 15, 16, 17, 
+  18, [ 19, 20 ], [ 21, 22 ], [ 23, 24 ] ]
+gap> torso:= CompositionMaps( pi, map );
+[ 15400, 56, 91, 10, 12, 25, 0, 11, 2, 0, 2, 1, 1, 0, 0, 3, 0, 1, 1 ]
+gap> perms:= PermChars( mcl2, rec( torso:= torso ) );
+[ Character( CharacterTable( "McL.2" ),
+  [ 15400, 56, 91, 10, 12, 25, 0, 11, 2, 0, 2, 1, 1, 0, 0, 3, 0, 1, 
+      1, 110, 26, 2, 4, 0, 0, 5, 2, 1, 1, 0, 0, 1, 1 ] ) ]
+gap> pi:= Inflated( perms[1], 3mcl2 );
+Character( CharacterTable( "3.McL.2" ),
+ [ 15400, 15400, 56, 56, 91, 91, 10, 12, 12, 25, 25, 0, 0, 11, 11, 2, 
+  2, 0, 0, 0, 2, 2, 1, 1, 1, 0, 0, 0, 0, 3, 3, 0, 0, 0, 1, 1, 1, 1, 
+  1, 1, 110, 26, 2, 4, 0, 0, 5, 2, 1, 1, 0, 0, 1, 1 ] )
+]]></Example>
+
+<P/>
+
+The fusion of conjugacy classes of <M>S</M> in <M>Ly</M> can be computed from
+the character tables of <M>S</M> and <M>Ly</M> given in&nbsp;<Cite Key="CCN85"/>,
+it is unique up to Galois automorphisms of the table of <M>Ly</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> fus:= PossibleClassFusions( 3mcl2, ly );;  Length( fus );
+4
+gap> g:= AutomorphismsOfTable( ly );;
+gap> OrbitLengths( g, fus, OnTuples );    
+[ 4 ]
+]]></Example>
+
+<P/>
+
+Now we can induce <M>1_U^S</M> to <M>Ly</M>, which yields <M>(1_U^S)^{Ly} = 1_U^{Ly}</M>.
+<P/>
+<Example><![CDATA[
+gap> pi:= Induced( 3mcl2, ly, [ pi ], fus[1] )[1];
+Character( CharacterTable( "Ly" ),
+ [ 147934325000, 286440, 1416800, 1082, 784, 12500, 0, 672, 42, 24, 
+  0, 40, 0, 2, 20, 0, 0, 0, 64, 10, 0, 50, 2, 0, 0, 4, 0, 0, 0, 0, 4, 
+  0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] )
+]]></Example>
+
+<P/>
+
+All elements of odd order in <M>G</M> are contained in <M>U</M>,
+for such an element <M>g</M> we have
+
+<Display Mode="M">
+   1_G^{Ly}(g) = |C_{Ly}(g)| / |G| \cdot |G \cap Cl_{Ly}(g)|
+   = |C_{Ly}(g)| / (2 \cdot |U|) \cdot |U \cap Cl_{Ly}(g)|
+   = 1/2 \cdot 1_U^{Ly}(g) \ ,
+</Display>
+
+so we can prescribe the values of <M>1_G^{Ly}</M> on all classes of odd
+element order.
+For elements <M>g</M> of even order we have the weaker condition
+<M>U\cap Cl_{Ly}(g) \subseteq G \cap Cl_{Ly}(g)</M>
+and thus <M>1_G^{Ly}(g) \geq 1/2 \cdot 1_U^{Ly}(g)</M>,
+which gives lower bounds for the value of <M>1_G^{Ly}</M> on the
+remaining classes.
+
+<P/>
+
+<Example><![CDATA[
+gap> orders:= OrdersClassRepresentatives( ly );
+[ 1, 2, 3, 3, 4, 5, 5, 6, 6, 6, 7, 8, 8, 9, 10, 10, 11, 11, 12, 12, 
+  14, 15, 15, 15, 18, 20, 21, 21, 22, 22, 24, 24, 24, 25, 28, 30, 30, 
+  31, 31, 31, 31, 31, 33, 33, 37, 37, 40, 40, 42, 42, 67, 67, 67 ]
+gap> torso:= [];;                                   
+gap> for i in [ 1 .. Length( orders ) ] do
+>      if orders[i] mod 2 = 1 then
+>        torso[i]:= pi[i]/2;
+>      fi;
+>    od;
+gap> torso;
+[ 73967162500,, 708400, 541,, 6250, 0,,,, 0,,, 1,,, 0, 0,,,, 25, 1, 0,
+  ,, 0, 0,,,,,, 0,,,, 0, 0, 0, 0, 0, 0, 0, 0, 0,,,,, 0, 0, 0 ]
+]]></Example>
+
+<P/>
+
+Exactly one possible permutation character of <M>Ly</M> satisfies these
+conditions.
+
+<P/>
+
+<Example><![CDATA[
+gap> perms:= PermChars( ly, rec( torso:= torso ) );;
+gap> Length( perms );
+43
+gap> perms:= Filtered( perms, cand -> ForAll( [ 1 .. Length( orders ) ],
+>        i -> cand[i] >= pi[i] / 2 ) );
+[ Character( CharacterTable( "Ly" ),
+  [ 73967162500, 204820, 708400, 541, 392, 6250, 0, 1456, 61, 25, 0, 
+      22, 10, 1, 10, 0, 0, 0, 32, 5, 0, 25, 1, 0, 1, 2, 0, 0, 0, 0, 
+      4, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 
+      0, 0 ] ) ]
+]]></Example>
+
+<P/>
+
+(The permutation character <M>1_G^{Ly}</M> was used in the proof that the
+character <M>\chi_{37}</M> of <M>Ly</M>
+(see&nbsp;<Cite Key="CCN85" Where="p. 175"/>)
+occurs with multiplicity at least 2 in each character of <M>Ly</M>
+that is induced from a proper subgroup of <M>Ly</M>.)
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:U35sub">
+<Heading>Identifying two subgroups of Aut<M>(U_3(5))</M> (October&nbsp;2001)</Heading>
+
+According to the Atlas of Finite Groups&nbsp;<Cite Key="CCN85" Where="p. 34"/>,
+the group Aut<M>(U_3(5))</M> has two classes of maximal subgroups of
+order <M>2^4 \cdot 3^3</M>, which have the structures <M>3^2 \colon 2S_4</M> and
+<M>6^2 \colon D_{12}</M>, respectively.
+
+<P/>
+
+<Example><![CDATA[
+gap> tbl:= CharacterTable( "U3(5).3.2" );
+CharacterTable( "U3(5).3.2" )
+gap> deg:= Size( tbl ) / ( 2^4*3^3 );
+1750
+gap> pi:= PermChars( tbl, rec( torso:= [ deg ] ) );
+[ Character( CharacterTable( "U3(5).3.2" ),
+  [ 1750, 70, 13, 2, 0, 0, 1, 0, 0, 0, 10, 7, 10, 4, 2, 0, 0, 0, 0, 
+      0, 0, 30, 10, 3, 0, 0, 1, 0, 0 ] ), 
+  Character( CharacterTable( "U3(5).3.2" ),
+  [ 1750, 30, 4, 6, 0, 0, 0, 0, 0, 0, 40, 7, 0, 6, 0, 0, 0, 0, 0, 0, 
+      0, 20, 0, 2, 2, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<P/>
+
+Now the question is which character belongs to which subgroup.
+We see that the first character vanishes on the classes of element order
+<M>8</M> and the second does not, so only the first one can be the permutation
+character induced from <M>6^2 \colon D_{12}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> ord8:= Filtered( [ 1 .. NrConjugacyClasses( tbl ) ],
+>               i -> OrdersClassRepresentatives( tbl )[i] = 8 );
+[ 9, 25 ]
+gap> List( pi, x -> x{ ord8 } );
+[ [ 0, 0 ], [ 0, 2 ] ]
+]]></Example>
+
+<P/>
+
+Thus the question is whether the second candidate is really a permutation
+character.
+Since none of the two candidates vanishes on any outer coset of
+<M>U_3(5)</M> in Aut<M>(U_3(5))</M>, the point stabilizers are extensions
+of groups of order <M>2^3 \cdot 3^2</M> in <M>U_3(5)</M>.
+The restrictions of the candidates to <M>U_3(5)</M> are different,
+so we can try to answer the question using information about this group.
+
+<P/>
+
+<Example><![CDATA[
+gap> subtbl:= CharacterTable( "U3(5)" );
+CharacterTable( "U3(5)" )
+gap> rest:= RestrictedClassFunctions( pi, subtbl );
+[ Character( CharacterTable( "U3(5)" ),
+  [ 1750, 70, 13, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 ] ), 
+  Character( CharacterTable( "U3(5)" ),
+  [ 1750, 30, 4, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<P/>
+
+The intersection of the <M>3^2 \colon 2S_4</M> subgroup with <M>U_3(5)</M> lies
+inside the maximal subgroup of type <M>M_{10}</M>,
+which does not contain elements of order<M>6</M>.
+Only the second character has this property.
+
+<P/>
+
+<Example><![CDATA[
+gap> ord6:= Filtered( [ 1 .. NrConjugacyClasses( subtbl ) ],
+>               i -> OrdersClassRepresentatives( subtbl )[i] = 6 );
+[ 9 ]
+gap> List( rest, x -> x{ ord6 } );
+[ [ 1 ], [ 0 ] ]
+]]></Example>
+
+<P/>
+
+In order to establish the two characters as permutation characters,
+we could also compute the permutation characters of the degree in question
+directly from the table of marks of <M>U_3(5)</M>, which is contained in the
+&GAP; library of tables of marks.
+
+<P/>
+
+<Example><![CDATA[
+gap> tom:= TableOfMarks( "U3(5)" );
+TableOfMarks( "U3(5)" )
+gap> perms:= PermCharsTom( subtbl, tom );;
+gap> Set( Filtered( perms, x -> x[1] = deg ) ) = Set( rest );
+true
+]]></Example>
+
+<P/>
+
+We were mainly interested in the multiplicities of irreducible characters
+in these characters.
+The action of Aut<M>(U_3(5)</M> on the cosets of <M>3^2 \colon 2S_4</M>
+turns out to be multiplicity-free whereas that on the cosets of
+<M>6^2 \colon D_{12}</M> is not.
+
+<P/>
+
+<Example><![CDATA[
+gap> PermCharInfo( tbl, pi ).ATLAS;
+[ "1a+21a+42a+84aac+105a+125a+126a+250a+252a+288bc", 
+  "1a+42a+84ac+105ab+125a+126a+250a+252b+288bc" ]
+]]></Example>
+
+<P/>
+
+It should be noted that the restrictions of the multiplicity-free character
+to the subgroups <M>U_3(5).2</M> and <M>U_3(5).3</M> of Aut<M>(U_3(5)</M> are not
+multiplicity-free.
+
+<P/>
+
+<Example><![CDATA[
+gap> subtbl2:= CharacterTable( "U3(5).2" );;
+gap> rest2:= RestrictedClassFunctions( pi, subtbl2 );;
+gap> PermCharInfo( subtbl2, rest2 ).ATLAS;
+[ "1a+21aab+28aa+56aa+84a+105a+125aab+126aab+288aa", 
+  "1a+21ab+28a+56a+84a+105ab+125aab+126a+252a+288aa" ]
+gap> subtbl3:= CharacterTable( "U3(5).3" );;
+gap> rest3:= RestrictedClassFunctions( pi, subtbl3 );;
+gap> PermCharInfo( subtbl3, rest3 ).ATLAS;
+[ "1a+21abc+84aab+105a+125abc+126abc+144bcef", 
+  "1a+21bc+84ab+105aa+125abc+126adg+144bcef" ]
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:O82sub">
+<Heading>A Permutation Character of Aut<M>(O_8^+(2))</M> (October&nbsp;2001)</Heading>
+
+According to the Atlas of Finite Groups&nbsp;<Cite Key="CCN85" Where="p. 85"/>,
+the group <M>G =</M> Aut<M>(O_8^+(2))</M> has a class of maximal subgroups of
+order <M>2^{13} \cdot 3^2</M>, thus the index of these subgroups in <M>G</M> is
+<M>3^4 \cdot 5^2 \cdot 7</M>.
+The intersection of these subgroups with <M>H = O_8^+(2)</M> lie inside maximal
+subgroups of type <M>2^6 \colon A_8</M>.
+We want to show that the permutation character of the action of <M>G</M> on
+the cosets of these subgroups is not multiplicity-free.
+
+<P/>
+
+Since the table of marks for <M>H</M> is available in &GAP;, but not that for
+<M>G</M>, we first compute the <M>H</M>-permutation characters of the intersections
+with <M>H</M> of index <M>3^4 \cdot 5^2 \cdot 7 = 14\,175</M> subgroups in <M>G</M>.
+
+<P/>
+
+(Note that these intersections have order <M>2^{12} \cdot 3</M> because
+subgroups of order <M>2^{12} \cdot 3^2</M> are contained in <M>O_8^+(2).2</M>
+and hence are not maximal in <M>G</M>.)
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "O8+(2).3.2" );;
+gap> s:= CharacterTable( "O8+(2)" );;
+gap> tom:= TableOfMarks( s );;
+gap> perms:= PermCharsTom( s, tom );;
+gap> deg:= 3^4*5^2*7;
+14175
+gap> perms:= Filtered( perms, x -> x[1] = deg );;
+gap> Length( perms );
+4
+gap> Length( Set( perms ) );
+1
+]]></Example>
+
+<P/>
+
+We see that there are four classes of subgroups <M>S</M> in <M>H</M> that may
+belong to maximal subgroups of the desired index in <M>G</M>,
+and that the permutation characters are equal.
+They lead to such groups if they extend to <M>G</M>,
+so we compute the possible permutation characters of <M>G</M> that extend
+these characters.
+
+<P/>
+
+<Example><![CDATA[
+gap> fus:= PossibleClassFusions( s, t );
+[ [ 1, 2, 3, 3, 3, 4, 5, 5, 5, 6, 7, 8, 9, 10, 10, 10, 11, 12, 12, 
+      12, 13, 13, 13, 14, 14, 14, 15, 16, 16, 16, 17, 17, 17, 18, 19, 
+      20, 21, 22, 22, 22, 23, 23, 23, 24, 24, 24, 25, 26, 26, 26, 27, 
+      27, 27 ] ]
+gap> fus:= fus[1];;
+gap> inv:= InverseMap( fus );;
+gap> comp:= CompositionMaps( perms[1], inv );
+[ 14175, 1215, 375, 79, 0, 0, 27, 27, 99, 15, 7, 0, 0, 0, 0, 9, 3, 1, 
+  0, 1, 1, 0, 0, 0, 0, 0, 0 ]
+gap> ext:= PermChars( t, rec( torso:= comp ) );
+[ Character( CharacterTable( "O8+(2).3.2" ),
+  [ 14175, 1215, 375, 79, 0, 0, 27, 27, 99, 15, 7, 0, 0, 0, 0, 9, 3, 
+      1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 63, 9, 15, 7, 1, 0, 3, 3, 3, 1, 
+      0, 0, 1, 1, 945, 129, 45, 69, 21, 25, 13, 0, 0, 0, 9, 0, 3, 3, 
+      7, 1, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0 ] ) ]
+gap> PermCharInfo( t, ext[1] ).ATLAS;
+[ "1a+50b+100a+252bb+300b+700b+972bb+1400a+1944a+3200b+4032b" ]
+]]></Example>
+
+<P/>
+
+Thus we get one permutation character of <M>G</M>
+which is not multiplicity-free.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:monsterperm">
+<Heading>Four Primitive Permutation Characters of the Monster Group</Heading>
+
+In this section, we compute four primitive permutation characters
+<M>1_H^M</M> of the sporadic simple Monster group <M>M</M>,
+using the following strategy.
+
+<P/>
+
+Let <M>E</M> be an elementary abelian <M>2</M>-subgroup of <M>M</M>,
+and <M>H = N_M(E)</M>.
+For an involution <M>z \in E</M>,
+let <M>G = C_M(z)</M> and <M>U = G \cap H = C_H(z)</M>
+and <M>V = C_H(E)</M>, a normal subgroup of <M>H</M>.
+According to the
+Atlas of Finite Groups&nbsp;<Cite Key="CCN85" Where="p. 234"/>,
+<M>G</M> has the structure <M>2.B</M> if <M>z</M> is in the class <C>2A</C>
+of <M>M</M>,
+and <M>G</M> has the structure <M>2^{{1+24}}_+.Co_1</M>
+if <M>z</M> is in the class <C>2B</C> of <M>M</M>.
+In the latter case,
+let <M>N</M> denote the extraspecial normal subgroup of order
+<M>2^{25}</M> in <M>G</M>.
+It will turn out that in our situation, <M>U</M> contains <M>N</M>.
+
+<P/>
+
+We want to compute many values of <M>1_H^M</M>
+from the knowledge of permutation characters <M>1_X^M</M>,
+for suitable subgroups <M>X</M> with the property <M>V \leq X \leq U</M>,
+and then use the &GAP; function
+<Ref Func="PermChars" BookName="ref"/>
+for computing all those
+possible permutation characters of <M>M</M> that take the known values;
+if there is a unique solution then this is the desired character <M>1_H^M</M>.
+
+<P/>
+
+(In the year 2023, the character tables of three of the four maximal subgroups
+<M>H</M> in question became available,
+and the character table of the last one became available in 2025.
+Since then one can compute the permutation characters directly
+by first computing the possible class fusions to <M>M</M>
+and then inducing the trivial character of <M>H</M> to <M>M</M>.
+We get the same results this way, see below.)
+
+<P/>
+
+<Alt Only='HTML'><![CDATA[
+<center>
+<img src="ctblpope01.png" alt="setup: some subgroups of G"/>
+</center>
+]]></Alt>
+
+<Alt Only='Text'>
+<Verb>
+                     M
+                    ╱ ╲
+                   G   ╲
+                    ╲   H
+                     ╲ ╱
+                      U
+                       ╲
+                        VN
+                       ╱ ╲
+                      V   N
+                       ╲ ╱ 
+                       V∩N
+                        │
+                        Z
+                        │
+                        1
+</Verb>
+</Alt>
+
+<Alt Only='LaTeX'>
+<!-- BP ctblpope01 -->
+<![CDATA[
+\begin{center}
+\setlength{\unitlength}{3pt}
+\begin{picture}(30,50)(0,0)
+\put(20,0){\circle*{1}}
+\put(20,3){\circle*{1}} \put(23,3){\makebox(0,0){Z}}
+\put(20,10){\circle*{1}}
+\put(25,15){\circle*{1}} \put(28,15){\makebox(0,0){N}}
+\put(15,15){\circle*{1}} \put(12,15){\makebox(0,0){V}}
+\put(20,20){\circle*{1}} \put(24,20){\makebox(0,0){VN}}
+\put(15,25){\circle*{1}} \put(12,25){\makebox(0,0){U}}
+\put(5,35){\circle*{1}} \put(2,35){\makebox(0,0){G}}
+\put(20,30){\circle*{1}} \put(23,30){\makebox(0,0){H}}
+\put(15,45){\circle*{1}} \put(15,48){\makebox(0,0){M}}
+\put(20,0){\line(0,1){10}}
+\put(20,10){\line(1,1){5}}
+\put(20,10){\line(-1,1){5}}
+\put(15,15){\line(1,1){5}}
+\put(15,25){\line(1,1){5}}
+\put(25,15){\line(-1,1){20}}
+\put(5,35){\line(1,1){10}}
+\put(20,30){\line(-1,3){5}}
+\end{picture}
+\end{center}
+]]>
+<!-- EP -->
+</Alt>
+
+<P/>
+
+Why does this approach have a chance to be successful?
+Currently we do not have representations for the subgroups <M>H</M> in question,
+but the character tables of the involution centralizers <M>G</M> in <M>M</M>
+are available, and also either the character tables of <M>X/V</M>
+for the interesting subgroups <M>X</M> are known or we have enough information
+to compute the characters <M>1_X^G</M>.
+
+<P/>
+
+And how do we compute certain values of <M>1_H^M</M>?
+Suppose that <M>&CC;</M> is a union of classes of <M>M</M> and <M>I</M> is an index set
+such that
+<M>(1_H)_{{&CC; \cap H}} = (\sum_{{i \in I}} c_i 1_{{X_i}}^H)_{{&CC; \cap H}}</M>
+holds for suitable rational numbers <M>c_i</M>.
+
+<P/>
+
+The right hand side of this equality lives in <M>H/V</M>,
+provided that <M>&CC;</M> <Q>behaves well</Q> w.r.t. factoring out
+the normal subgroup <M>V</M> of <M>H</M>,
+i.&nbsp;e., if there is a set of classes in <M>H/V</M> whose preimages in <M>H</M>
+form the set <M>H \cap &CC;</M>.
+For example, <M>&CC;</M> may be the set of all those elements in <M>M</M>
+whose order is not divisible by a particular prime <M>p</M>
+that divides <M>|H|</M> but not <M>|U|</M>.
+
+<P/>
+
+Under these conditions, we have
+<M>(1_H^M)_{&CC;} = ((\sum_{{i \in I}} c_i 1_{{X_i}}^G)^M)_{&CC;}</M>,
+and we interpret the right hand side as follows:
+If <M>X_i</M> contains <M>N</M> then <M>1_{{X_i}}^G</M> can be identified
+with <M>1_{{X_i/N}}^{{G/N}}</M>.
+If <M>X_i</M> contains at least <M>Z</M> then <M>1_{{X_i}}^G</M> can be identified
+with <M>1_{{X_i/Z}}^{{G/Z}}</M>.
+As mentioned above, we have good chances to compute these characters.
+So the main task in each of the following sections is to find,
+for a suitable set <M>&CC;</M> of classes,
+a linear combination of permutation characters of <M>H/V</M>
+whose restriction to <M>(&CC; \cap H) / V</M> is constant and nonzero.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:monsterperm1">
+<Heading>The Subgroup <M>2^2.2^{11}.2^{22}.(S_3 \times M_{24})</M>
+(June&nbsp;2009)</Heading>
+
+According to the Atlas of Finite Groups&nbsp;<Cite Key="CCN85" Where="p. 234"/>,
+the Monster group <M>M</M> has a class of maximal subgroups <M>H</M> of the type
+<M>2^2.2^{11}.2^{22}.(S_3 \times M_{24})</M>.
+Currently the character table of <M>H</M> and the class fusion into <M>M</M>
+are not available in &GAP;.
+We are interested in the permutation character <M>1_H^G</M>,
+and we will compute it without this information.
+
+<P/>
+
+The subgroup <M>H</M> normalizes a Klein four group <M>E</M>
+whose involutions lie in the class <C>2B</C>.
+We fix an involution <M>z</M> in <M>E</M>, and set <M>G = C_M(z)</M>, <M>U = C_H(z)</M>,
+and <M>V = C_H(E)</M>.
+Further, let <M>N</M> be the extraspecial normal subgroup of order <M>2^{25}</M>
+in <M>G</M>.
+
+<P/>
+
+So <M>G</M> has the structure <M>2^{{1+24}}_+.Co_1</M>, and <M>U</M> has index three in <M>H</M>.
+The order of <M>N U / N</M> is a multiple of
+<M>2^{{2+11+22-25}} \cdot 2 \cdot |M_{24}|</M>,
+and <M>N U / N</M> occurs as a subgroup of <M>G / N \cong Co_1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> co1:= CharacterTable( "Co1" );;
+gap> order:= 2^(2+11+22-25) * 2 * Size( CharacterTable( "M24" ) );
+501397585920
+gap> maxes:= List( Maxes( co1 ), CharacterTable );;
+gap> filt:= Filtered( maxes, t -> Size( t ) mod order = 0 );
+[ CharacterTable( "2^11:M24" ) ]
+gap> List( filt, t -> Size( t ) / order );
+[ 1 ]
+gap> k:= filt[1];;
+]]></Example>
+
+<P/>
+
+The list of maximal subgroups of <M>Co_1</M>
+(see&nbsp;<Cite Key="CCN85" Where="p. 183"/>)
+tells us that <M>NU / N</M> is a maximal subgroup <M>K</M> of <M>Co_1</M>
+and has the structure <M>2^{11}:M_{24}</M>.
+In particular, <M>U</M> contains <M>N</M> and thus <M>U/N \cong K</M>.
+
+<P/>
+
+Let <M>&CC; = \{ g \in M; 3 \nmid |g|</M> or <M>1_V^M(g^3) = 0 \}</M>.
+
+<P/>
+
+Then <M>(1_H)_{{&CC; \cap H}} = (1_U^H - 1/3 1_V^H)_{{&CC; \cap H}}</M>
+holds, as we can see from computations with <M>H/V \cong S_3</M>, as follows.
+
+<P/>
+
+<Example><![CDATA[
+gap> f:= CharacterTable( "Symmetric", 3 );
+CharacterTable( "Sym(3)" )
+gap> OrdersClassRepresentatives( f );
+[ 1, 2, 3 ]
+gap> deg3:= PermChars( f, 3 );
+[ Character( CharacterTable( "Sym(3)" ), [ 3, 1, 0 ] ) ]
+gap> deg6:= PermChars( f, 6 );
+[ Character( CharacterTable( "Sym(3)" ), [ 6, 0, 0 ] ) ]
+gap> deg3[1] - 1/3 * deg6[1];
+ClassFunction( CharacterTable( "Sym(3)" ), [ 1, 1, 0 ] )
+]]></Example>
+
+<P/>
+
+The character table of <M>G</M> is available in &GAP;,
+so we can compute the permutation character <M>\pi = 1_U^G</M>
+by computing the primitive permutation character <M>1_K^{{Co_1}}</M>,
+identifying it with <M>1_{{U/N}}^{{G/N}}</M>,
+and then inflating this character to <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> m:= CharacterTable( "M" );
+CharacterTable( "M" )
+gap> g:= CharacterTable( "MC2B" );
+CharacterTable( "2^1+24.Co1" )
+gap> pi:= RestrictedClassFunction( TrivialCharacter( k )^co1, g );;
+]]></Example>
+
+<P/>
+
+Next we consider the permutation character <M>\phi = 1_V^G</M>.
+The group <M>V</M> does not contain <M>N</M> because <M>K</M> is perfect.
+But <M>V</M> contains <M>Z</M> because otherwise <M>U</M> would be a direct product
+of <M>V</M> and <M>Z</M>, which would imply that <M>N</M> would be
+a direct product of <M>V \cap N</M> and <M>Z</M>.
+So we can regard <M>\phi</M> as the inflation of <M>1_{{V/Z}}^{{G/Z}}</M>
+from <M>G/Z</M> to <M>G</M>,
+i.&nbsp;e., we can perform the computations with the character table of the
+factor group <M>G/Z</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> zclasses:= ClassPositionsOfCentre( g );;
+gap> gmodz:= g / zclasses;
+CharacterTable( "2^1+24.Co1/[ 1, 2 ]" )
+gap> invmap:= InverseMap( GetFusionMap( g, gmodz ) );;
+gap> pibar:= CompositionMaps( pi, invmap );;
+]]></Example>
+
+<P/>
+
+Since <M>\phi(g) = [G:V] \cdot |g^G \cap V| / |g^G|</M> holds for <M>g \in G</M>,
+and since <M>g^G \cap V \subseteq g^G \cap VN</M>,
+with equality if <M>g</M> has odd order,
+we get <M>\phi(g) = 2 \cdot \pi(g)</M> if <M>g</M> has odd order,
+and <M>\phi(g) = 0</M> if <M>\pi(g) = 0</M>.
+
+<P/>
+
+We want to compute the possible permutation characters with these
+values.
+
+<P/>
+
+<Example><![CDATA[
+gap> factorders:= OrdersClassRepresentatives( gmodz );;
+gap> phibar:= [];;
+gap> for i in [ 1 .. NrConjugacyClasses( gmodz ) ] do
+>      if factorders[i] mod 2 = 1 then
+>        phibar[i]:= 2 * pibar[i];
+>      elif pibar[i] = 0 then
+>        phibar[i]:= 0;
+>      fi;
+>    od;
+gap> cand:= PermChars( gmodz, rec( torso:= phibar ) );;
+gap> Length( cand );
+1
+]]></Example>
+
+<P/>
+
+Now we know <M>\pi^M = 1_U^M</M> and <M>\phi^M = 1_V^M</M>,
+so we can write down <M>(1_H^M)_{&CC;}</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> phi:= RestrictedClassFunction( cand[1], g )^m;;
+gap> pi:= pi^m;;
+gap> cand:= ShallowCopy( pi - 1/3 * phi );;
+gap> morders:= OrdersClassRepresentatives( m );;
+gap> for i in [ 1 .. Length( morders ) ] do
+>      if morders[i] mod 3 = 0 and phi[ PowerMap( m, 3 )[i] ] <> 0 then
+>        Unbind( cand[i] );
+>      fi;
+>    od;
+]]></Example>
+
+<P/>
+
+We claim that <M>1_H^M(g) \geq \pi^M(g) - 1/3 \psi^M(g)</M> for all <M>g \in M</M>.
+In order to see this, let <M>H'</M> denote the index two subgroup of <M>H</M>,
+and let <M>g \in M</M>.
+Since <M>H</M> is the disjoint union of <M>V</M>, <M>H' \setminus V</M>, and three
+<M>H</M>-conjugates of <M>U \setminus V</M>, we get
+
+<Alt Only="LaTeX"><![CDATA[
+\begin{eqnarray*}
+  1_H^M(g) & = & [M:H] \cdot |g^M \cap H| / |g^M| \\
+           & = & [M:H] \cdot \left( |g^M \cap V|
+                             + 3 |g^M \cap U \setminus V|
+                             + |g^M \cap H' \setminus V| \right) / |g^M| \\
+           & = & [M:H] \cdot \left( 3 |g^M \cap U| - 2 |g^M \cap V|
+                             + |g^M \cap H' \setminus V| \right) / |g^M| \\
+           & = & 1_U^M(g) - 1/3 \cdot 1_V^G(g) +
+                    [M:H] \cdot |g^M \cap H' \setminus V| / |g^M| .
+\end{eqnarray*}
+]]></Alt>
+
+<Alt Only="Text">
+<Verb>
+  1_H^M(g) = [M:H] ⋅ |g^M ∩ H| / |g^M|
+           = [M:H] ⋅ ( |g^M ∩ V| + 3 |g^M ∩ U \ V|
+                                 + |g^M ∩ H' \ V| ) / |g^M|
+           = [M:H] ⋅ ( 3 |g^M ∩ U| - 2 |g^M ∩ V|
+                                   + |g^M ∩ H' \ V| ) / |g^M|
+           = 1_U^M(g) - 1/3 ⋅ 1_V^G(g)
+                      + [M:H] ⋅ |g^M ∩ H' \ V| / |g^M| .
+</Verb>
+</Alt>
+
+<Alt Only="HTML"><![CDATA[
+<div class="pcenter"><table>
+<tr>
+  <td class="tdright"><span class="SimpleMath">1_H^M(g)</span></td>
+  <td class="tdcenter"><span class="SimpleMath">=</span></td>
+  <td class="tdleft"><span class="SimpleMath">[M:H] ⋅ |g^M ∩ H| / |g^M|</span></td>
+</tr>
+<tr>
+  <td class="tdcenter"><span class="SimpleMath">&nbsp;</span></td>
+  <td class="tdcenter"><span class="SimpleMath">=</span></td>
+  <td class="tdcenter"><span class="SimpleMath">[M:H] ⋅ ( |g^M ∩ V| + 3 |g^M ∩ U \ V|
+                                 + |g^M ∩ H' \ V| ) / |g^M|</span></td>
+</tr>
+<tr>
+  <td class="tdcenter"><span class="SimpleMath">&nbsp;</span></td>
+  <td class="tdcenter"><span class="SimpleMath">=</span></td>
+  <td class="tdcenter"><span class="SimpleMath">[M:H] ⋅ ( 3 |g^M ∩ U| - 2 |g^M ∩ V|
+                                   + |g^M ∩ H' \ V| ) / |g^M|</span></td>
+</tr>
+<tr>
+  <td class="tdcenter"><span class="SimpleMath">&nbsp;</span></td>
+  <td class="tdcenter"><span class="SimpleMath">=</span></td>
+  <td class="tdcenter"><span class="SimpleMath">1_U^M(g) - 1/3 ⋅ 1_V^G(g)
+                      + [M:H] ⋅ |g^M ∩ H' \ V| / |g^M| .</span></td>
+</tr>
+</table>
+</div>
+]]></Alt>
+
+<P/>
+
+Possible constituents of <M>1_H^M</M> are those rational irreducible
+characters of <M>M</M> that are constituents of <M>\pi^M</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> constit:= Filtered( RationalizedMat( Irr( m ) ),
+>                        chi -> ScalarProduct( m, chi, pi ) <> 0 );;
+]]></Example>
+
+<P/>
+
+Now we compute the possible permutation characters that
+have the prescribed values,
+are compatible with the given lower bounds for values,
+and have only constituents in the given list.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= PermChars( m,
+>      rec( torso:= cand, chars:= constit,
+>           lower:= ShallowCopy( pi - 1/3 * phi ),
+>           normalsubgroup:= [ 1 .. NrConjugacyClasses( m ) ],
+>           nonfaithful:= TrivialCharacter( m ) ) );
+[ Character( CharacterTable( "M" ),
+  [ 16009115629875684006343550944921875, 7774182899642733721875, 
+      120168544413337875, 4436049512692980, 215448838605, 
+      131873639625, 760550656275, 110042727795, 943894035, 568854195, 
+      1851609375, 0, 4680311220, 405405, 78624756, 14467005, 178605, 
+      248265, 874650, 0, 76995, 591163, 224055, 34955, 29539, 20727, 
+      0, 0, 375375, 15775, 0, 0, 0, 495, 116532, 3645, 62316, 1017, 
+      11268, 357, 1701, 45, 117, 705, 0, 0, 4410, 1498, 0, 3780, 810, 
+      0, 0, 83, 135, 31, 0, 0, 0, 0, 0, 0, 0, 255, 195, 0, 215, 0, 0, 
+      210, 0, 42, 0, 35, 15, 1, 1, 160, 48, 9, 92, 25, 9, 9, 5, 1, 
+      21, 0, 0, 0, 0, 0, 98, 74, 42, 0, 0, 0, 120, 76, 10, 0, 0, 0, 
+      0, 0, 1, 1, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 0, 
+      0, 0, 18, 0, 10, 0, 3, 3, 0, 1, 1, 1, 1, 0, 0, 2, 0, 0, 0, 0, 
+      0, 0, 2, 0, 0, 0, 0, 0, 6, 12, 0, 0, 2, 0, 0, 0, 2, 0, 0, 1, 1, 
+      0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<!-- % The last command requires about 20 minutes of CPU time. -->
+
+<P/>
+
+There is only one candidate, so we have found the permutation character.
+
+<P/>
+
+The character table of <M>H</M> is available since 2023.
+We can compute the permutation character directly from this table.
+
+<P/>
+
+<Example><![CDATA[
+gap> h:= CharacterTable( "2^(2+11+22).(M24xS3)" );;
+gap> fus:= PossibleClassFusions( h, m );;
+gap> cand = Set( fus, map -> InducedClassFunctionsByFusionMap( h, m,
+>                              [ TrivialCharacter( h ) ], map )[1] );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:monsterperm2">
+<Heading>The Subgroup <M>2^3.2^6.2^{12}.2^{18}.(L_3(2) \times 3.S_6)</M>
+(September&nbsp;2009)</Heading>
+
+According to the Atlas of Finite Groups&nbsp;<Cite Key="CCN85" Where="p. 234"/>,
+the Monster group <M>M</M> has a class of maximal subgroups <M>H</M> of the type
+<M>2^3.2^6.2^{12}.2^{18}.(L_3(2) \times 3.S_6)</M>.
+Currently the character table of <M>H</M> and the class fusion into <M>M</M>
+are not available in &GAP;.
+We are interested in the permutation character <M>1_H^G</M>,
+and we will compute it without this information.
+
+<P/>
+
+The subgroup <M>H</M> normalizes an elementary abelian group <M>E</M> of order eight
+whose involutions lie in the class <C>2B</C>.
+We fix an involution <M>z</M> in <M>E</M>, and set <M>G = C_M(z)</M>, <M>U = C_H(z)</M>,
+and <M>V = C_H(E)</M>.
+Further, let <M>N</M> be the extraspecial normal subgroup of order <M>2^{25}</M>
+in <M>G</M>.
+
+<P/>
+
+So <M>G</M> has the structure <M>2^{{1+24}}_+.Co_1</M>,
+and <M>U</M> has index seven in <M>H</M>.
+<!-- % Note that there must be an orbit of odd length on the seven involutions, -->
+<!-- % and there is no smaller nontrivial odd index than seven. -->
+The order of <M>N U / N</M> is a multiple of
+<M>2^{{3+6+12+18-25}} \cdot |L_3(2)| \cdot |3.S_6| / 7</M>,
+and <M>N U / N</M> occurs as a subgroup of <M>G / N \cong Co_1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> co1:= CharacterTable( "Co1" );;
+gap> order:= 2^(3+6+12+18-25) * 168 * 3 * Factorial( 6 ) / 7;
+849346560
+gap> maxes:= List( Maxes( co1 ), CharacterTable );;
+gap> filt:= Filtered( maxes, t -> Size( t ) mod order = 0 );
+[ CharacterTable( "2^(1+8)+.O8+(2)" ), 
+  CharacterTable( "2^(4+12).(S3x3S6)" ) ]
+gap> List( filt, t -> Size( t ) / order );
+[ 105, 1 ]
+gap> o8p2:= CharacterTable( "O8+(2)" );;
+gap> PermChars( o8p2, rec( torso:= [ 105 ] ) );
+[  ]
+gap> k:= filt[2];;
+]]></Example>
+
+<P/>
+
+The list of maximal subgroups of <M>Co_1</M> (see&nbsp;<Cite Key="CCN85" Where="p. 183"/>)
+tells us that <M>NU / N</M> is a maximal subgroup <M>K</M> of <M>Co_1</M>
+and has the structure <M>2^{{4+12}}.(S_3 \times 3.S_6)</M>.
+(Note that the group <M>O_8^+(2)</M> has no proper subgroup of index <M>105</M>.)
+In particular, <M>U</M> contains <M>N</M> and thus <M>U/N \cong K</M>.
+
+<P/>
+
+Let <M>&CC;</M> be the set of elements in <M>M</M> whose order is not divisible by <M>7</M>.
+Then
+<M>(1_H)_{{&CC; \cap H}} =
+ (1_U^H - 1/3 1_{VN}^H + 1/21 1_V^H)_{{&CC; \cap H}}</M>
+holds, as we can see from computations with <M>H/V \cong L_3(2)</M>, as follows.
+
+<P/>
+
+<!-- How to <E>find</E> such an expression:
+
+     gap> pi:= PermCharsTom( t, TableOfMarks( t ) );
+     [ Character( CharacterTable( "L3(2)" ), [ 168, 0, 0, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 84, 4, 0, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 56, 0, 2, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 42, 6, 0, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 42, 6, 0, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 42, 2, 0, 2, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 28, 4, 1, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 24, 0, 0, 0, 3, 3 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 21, 5, 0, 1, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 14, 2, 2, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 14, 2, 2, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 8, 0, 2, 0, 1, 1 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 7, 3, 1, 1, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 7, 3, 1, 1, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 1, 1, 1, 1, 1, 1 ] ) ]
+     gap> SolutionMat( pi, [1,1,1,1,0,0] );  # not good enough ...
+     [ -2/7, 0, 1/2, 0, 0, 1/2, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+     gap> pi:= pi{[1,4,9,13]};
+     [ Character( CharacterTable( "L3(2)" ), [ 168, 0, 0, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 42, 6, 0, 0, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 21, 5, 0, 1, 0, 0 ] ), 
+       Character( CharacterTable( "L3(2)" ), [ 7, 3, 1, 1, 0, 0 ] ) ]
+     gap> SolutionMat( pi, [1,1,1,1,0,0] );
+     [ 1/21, -1/3, 0, 1 ] -->
+
+  So S4, V4, 1 suffice! -->
+
+<P/>
+
+<Example><![CDATA[
+gap> f:= CharacterTable( "L3(2)" );
+CharacterTable( "L3(2)" )
+gap> OrdersClassRepresentatives( f );
+[ 1, 2, 3, 4, 7, 7 ]
+gap> deg7:= PermChars( f, 7 );
+[ Character( CharacterTable( "L3(2)" ), [ 7, 3, 1, 1, 0, 0 ] ) ]
+gap> deg42:= PermChars( f, 42 );
+[ Character( CharacterTable( "L3(2)" ), [ 42, 2, 0, 2, 0, 0 ] ), 
+  Character( CharacterTable( "L3(2)" ), [ 42, 6, 0, 0, 0, 0 ] ) ]
+gap> deg168:= PermChars( f, 168 );
+[ Character( CharacterTable( "L3(2)" ), [ 168, 0, 0, 0, 0, 0 ] ) ]
+gap> deg7[1] - 1/3 * deg42[2] + 1/21 * deg168[1];
+ClassFunction( CharacterTable( "L3(2)" ), [ 1, 1, 1, 1, 0, 0 ] )
+]]></Example>
+
+<P/>
+
+(Note that <M>VN/V</M> is a Klein four group, and there is only one
+transitive permutation character of <M>L_3(2)</M> that is induced from
+such subgroups.)
+
+<P/>
+
+The character table of <M>G</M> is available in &GAP;,
+so we can compute the permutation character <M>\pi = 1_U^G</M>
+by computing the primitive permutation character <M>1_K^{{Co_1}}</M>,
+identifying it with <M>1_{{U/N}}^{{G/N}}</M>,
+and then inflating this character to <M>G</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> m:= CharacterTable( "M" );
+CharacterTable( "M" )
+gap> g:= CharacterTable( "MC2B" );
+CharacterTable( "2^1+24.Co1" )
+gap> pi:= RestrictedClassFunction( TrivialCharacter( k )^co1, g );;
+]]></Example>
+
+<P/>
+
+The permutation character <M>\psi = 1_{VN}^G</M> can be computed as
+the inflation of <M>1_{{VN/N}}^{{G/N}} = (1_{{VN/N}}^{{U/N}})^{{G/N}}</M>,
+where <M>1_{{VN/N}}^{{U/N}}</M> is a character of <M>K</M> that can be
+identified with the regular permutation character of <M>U/VN \cong S_3</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> nsg:= ClassPositionsOfNormalSubgroups( k );;
+gap> nsgsizes:= List( nsg, x -> Sum( SizesConjugacyClasses( k ){ x } ) );;
+gap> nn:= nsg[ Position( nsgsizes, Size( k ) / 6 ) ];;
+gap> psi:= 0 * [ 1 .. NrConjugacyClasses( k ) ];;
+gap> for i in nn do
+>      psi[i]:= 6;
+>    od;
+gap> psi:= InducedClassFunction( k, psi, co1 );;
+gap> psi:= RestrictedClassFunction( psi, g );;
+]]></Example>
+
+<P/>
+
+Next we consider the permutation character <M>\phi = 1_V^G</M>.
+The group <M>V</M> does not contain <M>N</M> because <M>K</M> does not have a factor group
+of the type <M>S_4</M>.
+But <M>V</M> contains <M>Z</M> because <M>U/V</M> is centerless.
+So we can regard <M>\phi</M> as the inflation of <M>1_{{V/Z}}^{{G/Z}}</M>
+from <M>G/Z</M> to <M>G</M>,
+i.&nbsp;e., we can perform the computations with the character table of the
+factor group <M>G/Z</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> zclasses:= ClassPositionsOfCentre( g );;
+gap> gmodz:= g / zclasses;
+CharacterTable( "2^1+24.Co1/[ 1, 2 ]" )
+gap> invmap:= InverseMap( GetFusionMap( g, gmodz ) );;
+gap> psibar:= CompositionMaps( psi, invmap );;
+]]></Example>
+
+<P/>
+
+Since <M>\phi(g) = [G:V] \cdot |g^G \cap V| / |g^G|</M> holds for <M>g \in G</M>,
+and since <M>g^G \cap V \subseteq g^G \cap VN</M>,
+with equality if <M>g</M> has odd order,
+we get <M>\phi(g) = 4 \cdot \psi(g)</M> if <M>g</M> has odd order,
+and <M>\phi(g) = 0</M> if <M>\psi(g) = 0</M>.
+
+<P/>
+
+We want to compute the possible permutation characters with these
+values.
+This is easier if we <Q>go down</Q> from <M>VN</M> to <M>V</M> in two steps.
+
+<P/>
+
+<Example><![CDATA[
+gap> factorders:= OrdersClassRepresentatives( gmodz );;
+gap> phibar:= [];;
+gap> upperphibar:= [];;
+gap> for i in [ 1 .. NrConjugacyClasses( gmodz ) ] do
+>      if factorders[i] mod 2 = 1 then
+>        phibar[i]:= 2 * psibar[i];
+>      elif psibar[i] = 0 then
+>        phibar[i]:= 0;
+>      fi;
+>      upperphibar[i]:= 2 * psibar[i];
+>    od;
+gap> cand:= PermChars( gmodz, rec( torso:= phibar,
+>             upper:= upperphibar,
+>             normalsubgroup:= [ 1 .. NrConjugacyClasses( gmodz ) ],
+>             nonfaithful:= TrivialCharacter( gmodz ) ) );;
+gap> Length( cand );
+3
+]]></Example>
+
+<P/>
+
+<!-- % This first step requires about 6.5 seconds. -->
+
+One of the candidates computed in this first step is excluded by the fact
+that it is induced from a subgroup that contains <M>N/Z</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> nn:= First( ClassPositionsOfNormalSubgroups( gmodz ),
+>                x -> Sum( SizesConjugacyClasses( gmodz ){x} ) = 2^24 );
+[ 1 .. 4 ]
+gap> cont:= PermCharInfo( gmodz, cand ).contained;;
+gap> cand:= cand{ Filtered( [ 1 .. Length( cand ) ],
+>                           i -> Sum( cont[i]{ nn } ) < 2^24 ) };;
+gap> Length( cand );
+2
+]]></Example>
+
+<P/>
+
+Now we run the second step.
+After excluding the candidates that cannot be induced from subgroups
+whose intersection with <M>N/Z</M> has index four in <M>N/Z</M>,
+we get four solutions.
+
+<P/>
+
+<Example><![CDATA[
+gap> poss:= [];;
+gap> for v in cand do
+>      phibar:= [];
+>      upperphibar:= [];
+>      for i in [ 1 .. NrConjugacyClasses( gmodz ) ] do
+>        if factorders[i] mod 2 = 1 then
+>          phibar[i]:= 2 * v[i];
+>        elif v[i] = 0 then
+>          phibar[i]:= 0;
+>        fi;
+>        upperphibar[i]:= 2 * v[i];
+>      od;
+>      Append( poss, PermChars( gmodz, rec( torso:= phibar,
+>                      upper:= upperphibar,
+>                      normalsubgroup:= [ 1 .. NrConjugacyClasses( gmodz ) ],
+>                      nonfaithful:= TrivialCharacter( gmodz ) ) ) );
+>    od;
+gap> Length( poss );
+6
+gap> cont:= PermCharInfo( gmodz, poss ).contained;;
+gap> poss:= poss{ Filtered( [ 1 .. Length( poss ) ],
+>                           i -> Sum( cont[i]{ nn } ) < 2^23 ) };;
+gap> Length( poss );
+4
+gap> phicand:= RestrictedClassFunctions( poss, g );;
+]]></Example>
+
+<!-- % This needed about 40 seconds. -->
+
+<P/>
+
+Since we have several candidates for <M>1_V^G</M>,
+we form the linear combinations for all these candidates.
+
+<P/>
+
+<Example><![CDATA[
+gap> phicand:= RestrictedClassFunctions( poss, g );;
+gap> phicand:= InducedClassFunctions( phicand, m );;
+gap> psi:= psi^m;;
+gap> pi:= pi^m;;
+gap> cand:= List( phicand,
+>             phi -> ShallowCopy( pi - 1/3 * psi + 1/21 * phi ) );;
+gap> morders:= OrdersClassRepresentatives( m );;
+gap> for x in cand do
+>      for i in [ 1 .. Length( morders ) ] do
+>        if morders[i] mod 7 = 0 then
+>          Unbind( x[i] );
+>        fi;
+>      od;
+>    od;
+]]></Example>
+
+<P/>
+
+Exactly one of the candidates has only integral values.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= Filtered( cand, x -> ForAll( x, IsInt ) );
+[ [ 4050306254358548053604918389065234375, 148844831270071996434375, 
+      2815847622206994375, 14567365753025085, 3447181417680, 
+      659368198125, 3520153823175, 548464353255, 5706077895, 
+      3056566695, 264515625, 0, 19572895485, 6486480, 186109245, 
+      61410960, 758160, 688365,,, 172503, 1264351, 376155, 137935, 
+      99127, 52731, 0, 0, 119625, 3625, 0, 0, 0, 0, 402813, 29160, 
+      185301, 2781, 21069, 1932, 4212, 360, 576, 1125, 0, 0,,,, 2160, 
+      810, 0, 0, 111, 179, 43, 0, 0, 0, 0, 0, 0, 0, 185, 105, 0, 65, 
+      0, 0,,,,, 0, 0, 0, 0, 337, 105, 36, 157, 37, 18, 18, 16, 4, 21, 
+      0, 0, 0, 0, 0,,,,, 0, 0, 60, 40, 10, 0, 0, 0, 0, 0, 1, 1, 0, 0, 
+      0,,, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 1, 0, 0, 0,,,,, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0,,,, 0, 0, 0, 6, 8, 0, 0, 2, 
+      0, 0, 0, 0, 0, 0, 0, 0,,, 0, 0, 0, 0, 0,,,, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0,, 0 ] ]
+]]></Example>
+ 
+<P/>
+
+Possible constituents of <M>1_H^M</M> are those rational irreducible
+characters of <M>M</M> that are constituents of <M>\pi^M</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> constit:= Filtered( RationalizedMat( Irr( m ) ),
+>                        chi -> ScalarProduct( m, chi, pi ) <> 0 );;
+]]></Example>
+
+<P/>
+
+Now we compute the possible permutation characters that
+have the prescribed values
+and have only constituents in the given list.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= PermChars( m, rec( torso:= cand[1], chars:= constit ) );
+[ Character( CharacterTable( "M" ),
+  [ 4050306254358548053604918389065234375, 148844831270071996434375, 
+      2815847622206994375, 14567365753025085, 3447181417680, 
+      659368198125, 3520153823175, 548464353255, 5706077895, 
+      3056566695, 264515625, 0, 19572895485, 6486480, 186109245, 
+      61410960, 758160, 688365, 58310, 0, 172503, 1264351, 376155, 
+      137935, 99127, 52731, 0, 0, 119625, 3625, 0, 0, 0, 0, 402813, 
+      29160, 185301, 2781, 21069, 1932, 4212, 360, 576, 1125, 0, 0, 
+      1302, 294, 0, 2160, 810, 0, 0, 111, 179, 43, 0, 0, 0, 0, 0, 0, 
+      0, 185, 105, 0, 65, 0, 0, 224, 0, 14, 0, 0, 0, 0, 0, 337, 105, 
+      36, 157, 37, 18, 18, 16, 4, 21, 0, 0, 0, 0, 0, 70, 38, 14, 0, 
+      0, 0, 60, 40, 10, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 10, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 5, 1, 0, 0, 0, 24, 0, 6, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 6, 8, 0, 0, 2, 
+      0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0, 2, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0 ] ) ]
+]]></Example>
+
+<!-- % The last command requires about 2 seconds. -->
+
+<P/>
+
+There is only one candidate, so we have found the permutation character.
+
+<P/>
+
+The character table of <M>H</M> is available since 2023.
+We can compute the permutation character directly from this table.
+(The class fusion from <M>H</M> to <M>M</M> is unique up to table
+automorphisms, but its computation is a bit tricky,
+thus we do not compute this fusion here.)
+
+<P/>
+
+<Example><![CDATA[
+gap> h:= CharacterTable( "2^[39].(L3(2)x3.S6)" );;
+gap> cand[1] = TrivialCharacter( h )^m;
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:monsterperm3">
+<Heading>The Subgroup <M>2^5.2^{10}.2^{20}.(S_3 \times L_5(2))</M>
+(October&nbsp;2009)</Heading>
+
+According to the Atlas of Finite Groups&nbsp;<Cite Key="CCN85" Where="p. 234"/>,
+the Monster group <M>M</M> has a class of maximal subgroups <M>H</M> of the type
+<M>2^5.2^{10}.2^{20}.(S_3 \times L_5(2))</M>.
+Currently the character table of <M>H</M> and the class fusion into <M>M</M>
+are not available in &GAP;.
+We are interested in the permutation character <M>1_H^G</M>,
+and we will compute it without this information.
+
+<P/>
+
+The subgroup <M>H</M> normalizes an elementary abelian group <M>E</M> of order <M>32</M>
+whose involutions lie in the class <C>2B</C>.
+We fix an involution <M>z</M> in <M>E</M>, and set <M>G = C_M(z)</M>, <M>U = C_H(z)</M>,
+and <M>V = C_H(E)</M>.
+Further, let <M>N</M> be the extraspecial normal subgroup of order <M>2^{25}</M>
+in <M>G</M>.
+<P/>
+So <M>G</M> has the structure <M>2^{{1+24}}_+.Co_1</M>, and <M>U</M> has index <M>31</M> in <M>H</M>.
+<!-- % Note that there must be an orbit of odd length on the <M>31</M> involutions, -->
+<!-- % and there is no smaller nontrivial odd index than seven. -->
+The order of <M>N U / N</M> is a multiple of
+<M>2^{{5+10+20-25}} \cdot |L_5(2)| \cdot |S_3| / 31</M>,
+and <M>N U / N</M> occurs as a subgroup of <M>G / N \cong Co_1</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> co1:= CharacterTable( "Co1" );;
+gap> order:= 2^35*Size( CharacterTable( "L5(2)" ) )*6 / 2^25 / 31;
+1981808640
+gap> maxes:= List( Maxes( co1 ), CharacterTable );;
+gap> filt:= Filtered( maxes, t -> Size( t ) mod order = 0 );
+[ CharacterTable( "2^11:M24" ), CharacterTable( "2^(1+8)+.O8+(2)" ), 
+  CharacterTable( "2^(2+12):(A8xS3)" ) ]
+gap> List( filt, t -> Size( t ) / order );
+[ 253, 45, 1 ]
+gap> m24:= CharacterTable( "M24" );;
+gap> cand:= PermChars( m24, rec( torso:=[ 253 ] ) );
+[ Character( CharacterTable( "M24" ),
+  [ 253, 29, 13, 10, 1, 5, 5, 1, 3, 2, 1, 1, 1, 1, 3, 0, 2, 1, 1, 1, 
+      0, 0, 1, 1, 0, 0 ] ) ]
+gap> TestPerm5( m24, cand, m24 mod 11 );
+[  ]
+gap> PermChars( CharacterTable( "O8+(2)" ), rec( torso:=[ 45 ] ) );
+[  ]
+gap> k:= filt[3];;
+]]></Example>
+
+<P/>
+
+The list of maximal subgroups of <M>Co_1</M> (see&nbsp;<Cite Key="CCN85" Where="p. 183"/>)
+tells us that <M>NU / N</M> is a maximal subgroup <M>K</M> of <M>Co_1</M>
+and has the structure <M>2^{{2+12}}.(A_8 \times S_3)</M>.
+(Note that the group <M>M_{24}</M> has no proper subgroup of index <M>253</M>,
+which is shown above using the <M>11</M>-modular Brauer table of <M>M_{24}</M>.
+Furthermore, the group <M>O_8^+(2)</M> has no subgroup of index <M>45</M>.)
+In particular, <M>U</M> contains <M>N</M> and thus <M>U/N \cong K</M>.
+
+<P/>
+
+Let <M>&CC;</M> be the set of elements in <M>M</M> whose order is not divisible by <M>31</M>
+or <M>21</M>.
+We want to find an index set <M>I</M> and subgroups <M>X_i</M>, for <M>i \in I</M>,
+with the property that <M>V \leq X_i \leq U</M> and
+
+<Display Mode="M">
+   (1_H)_{{&CC; \cap H}} = \left( \sum_{{i \in I}} c_i 1_{{X_i}}^H \right)_{{&CC; \cap H}}
+</Display>
+
+holds for suitable rational integers <M>c_i</M>.
+Let <M>W</M> be the full preimage of the elementary normal subgroup of order <M>16</M>
+in <M>U/V \cong 2^4.A_8</M> under the natural epimorphism from <M>U</M> to <M>U/V</M>,
+and set <M>I_1 = \{ i \in I; W \leq X_i \}</M> and <M>I_2 = I \setminus I_1</M>.
+
+<P/>
+
+Using the known table of marks of <M>U/V</M>,
+we will find a solution such that <M>[W:(W \cap X_i)] = 2</M> for all <M>i \in I_2</M>.
+First we compute the permutation characters <M>1_S^{{U/V}}</M> for all
+subgroups <M>S</M> of <M>U/V</M> that contain <M>W/V</M>,
+and induce them to <M>H/V</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> subtbl:= CharacterTable( "2^4:A8" );;
+gap> subtom:= TableOfMarks( subtbl );;
+gap> perms:= PermCharsTom( subtbl, subtom );;
+gap> nsg:= ClassPositionsOfNormalSubgroups( subtbl );
+[ [ 1 ], [ 1, 2 ], [ 1 .. 25 ] ]
+gap> above:= Filtered( perms, x -> x[1] = x[2] );;
+gap> tbl:= CharacterTable( "L5(2)" );;
+gap> above:= Set( Induced( subtbl, tbl, above ) );;
+]]></Example>
+
+<P/>
+
+Next we compute the permutation characters <M>1_S^{{U/V}}</M> for all
+subgroups <M>S</M> of <M>U/V</M> whose intersection with <M>W/V</M> has index two
+in <M>W/V</M>.
+Afterwards we exclude certain subgroups that would slow down later
+computations,
+and induce also these characters to <M>H/V</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> index2:= Filtered( perms,
+>      x -> Sum( PermCharInfo( subtbl, [x] ).contained[1]{ [1,2] } ) = 8 );;
+gap> index2:= Filtered( index2, x -> not x[1] in [ 630, 840, 1260, 1680 ] );;
+gap> index2:= Set( Induced( subtbl, tbl, index2 ) );;
+]]></Example>
+
+<P/>
+
+Now we induce the permutation characters to <M>H/V</M>,
+and compute the coefficients of a linear combination as desired.
+
+<P/>
+
+<Example><![CDATA[
+gap> orders:= OrdersClassRepresentatives( tbl );;
+gap> goodclasses:= Filtered( [ 1 .. NrConjugacyClasses( tbl ) ],
+>                            i -> not orders[i] in [ 21, 31 ] );
+[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ]
+gap> matrix:= List( Concatenation( above, index2 ), x -> x{ goodclasses } );;
+gap> sol:= SolutionMat( matrix,
+>              ListWithIdenticalEntries( Length( goodclasses ), 1 ) );
+[ 692/651, 57/217, -78/217, -26/217, 0, 74/651, 11/217, 0, 3/217, 
+  151/651, 0, 22/651, 0, 0, 0, -11/217, 0, 0, 0, 0, 0, 0, 0, 0, 
+  -115/651, 0, -3/31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -34/93, 
+  -11/651, 0, 2/21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1/31, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+gap> nonzero:= Filtered( [ 1 .. Length( sol ) ], i -> sol[i] <> 0 );
+[ 1, 2, 3, 4, 6, 7, 9, 10, 12, 16, 25, 27, 106, 107, 109, 120 ]
+gap> sol:= sol{ nonzero };;
+]]></Example>
+
+<P/>
+
+Now we transfer this linear combination to the character tables
+which are given in our situation.
+
+<P/>
+
+Those constituents that are induced from subgroups of <M>H</M> above <M>W</M>
+can be identified uniquely via their degrees and their values distribution;
+we compute these characters in the character table of <M>U/W</M> obtained
+as a factor table of the character table of <M>U/N</M>, lift them back
+to <M>U/N</M>, induce them to <M>G/N</M>, inflate them to <M>G</M>,
+and then induce them fo <M>M</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> a8degrees:= List( above{ Filtered( nonzero,
+>                                 x -> x <= Length( above ) ) },
+>                      x -> x[1] ) / 31;
+[ 1, 8, 15, 28, 56, 56, 70, 105, 120, 168, 336, 336 ]
+gap> a8tbl:= subtbl / [ 1, 2 ];;
+gap> invtoa8:= InverseMap( GetFusionMap( subtbl, a8tbl ) );;
+gap> nsg:= ClassPositionsOfNormalSubgroups( k );;
+gap> nn:= First( nsg, x -> Sum( SizesConjugacyClasses( k ){ x } ) = 6*2^14 );;
+gap> a8tbl_other:= k / nn;;
+gap> g:= CharacterTable( "MC2B" );
+CharacterTable( "2^1+24.Co1" )
+gap> constit:= [];;
+gap> for i in [ 1 .. Length( a8degrees ) ] do
+>      cand:= PermChars( a8tbl_other, rec( torso:= [ a8degrees[i] ] ) );
+>      filt:= Filtered( perms, x -> x^tbl = above[ nonzero[i] ] );
+>      filt:= List( filt, x -> CompositionMaps( x, invtoa8 ) );
+>      cand:= Filtered( cand,
+>               x -> ForAny( filt, y -> Collected( x ) = Collected(y) ) );
+>      Add( constit, List( Induced( Restricted( Induced(
+>        Restricted( cand, k ), co1 ), g ), m ), ValuesOfClassFunction ) );
+>    od;
+gap> List( constit, Length );
+[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+]]></Example>
+
+<P/>
+
+Dealing with the remaining constituents is more involved.
+For a permutation character <M>1_{{X/V}}^{{U/V}}</M>, we compute
+<M>1_{{WX/V}}^{{U/V}}</M>, a character whose degree is half as large
+and which can be regarded as a character of <M>U/W</M>.
+This character can be treated like the ones above:
+We lift it to <M>U/N</M>, induce it to <M>G/N</M>, and inflate it to <M>G/Z(G)</M>;
+let this character be <M>1_Y^{{G/Z(G)}}</M>, for some subgroup <M>Y</M>.
+Then we compute the possible permutation characters of <M>G/Z(G)</M> that
+can be induced from a subgroup of index two inside <M>Y</M>,
+inflate these characters to <M>G</M> and then induce them to <M>M</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> downdegrees:= List( index2{ Filtered( nonzero,
+>                                    x -> x > Length( above ) )
+>                                - Length( above ) },
+>                        x -> x[1] ) / 31;
+[ 30, 210, 210, 1920 ]
+gap> f:= g / ClassPositionsOfCentre( g );;
+gap> forders:= OrdersClassRepresentatives( f );;
+gap> inv:= InverseMap( GetFusionMap( g, f ) );;
+gap> for j in [ 1 .. Length( downdegrees ) ] do
+>      chars:= [];
+>      cand:= PermChars( a8tbl_other, rec( torso:= [ downdegrees[j]/2 ] ) );
+>      filt:= Filtered( perms, x -> x^tbl = index2[ nonzero[
+>                   j + Length( a8degrees ) ] - Length( above ) ] );
+>      filt:= Induced( subtbl, a8tbl, filt,
+>                      GetFusionMap( subtbl, a8tbl ));
+>      cand:= Filtered( cand, x -> ForAny( filt,
+>                 y -> Collected( x ) = Collected( y ) ) );
+>      cand:= Restricted( Induced( Restricted( cand, k ), co1 ), g );
+>      for chi in cand do
+>        cchi:= CompositionMaps( chi, inv );
+>        upper:= [];
+>        pphi:= [];
+>        for i in [ 1 .. NrConjugacyClasses( f ) ] do
+>          if forders[i] mod 2 = 1 then
+>            pphi[i]:= 2 * cchi[i];
+>          elif cchi[i] = 0 then
+>            pphi[i]:= 0;
+>          fi;
+>          upper[i]:= 2* cchi[i];
+>        od;
+>        Append( chars, PermChars( f, rec( torso:= ShallowCopy( pphi ),
+>            upper:= upper,
+>            normalsubgroup:= [ 1 .. 4 ],
+>            nonfaithful:= cchi ) ) );
+>      od;
+>      Add( constit, List( Induced( Restricted( chars, g ), m ),
+>                          ValuesOfClassFunction ) );
+>    od;
+gap> List( constit, Length );
+[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 10, 10, 2 ]
+]]></Example>
+
+<P/>
+
+Now we form the possible linear combinations.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= List( Cartesian( constit ), l -> sol * l );;
+gap> m:= CharacterTable( "M" );
+CharacterTable( "M" )
+gap> morders:= OrdersClassRepresentatives( m );;
+gap> for x in cand do
+>      for i in [ 1 .. Length( morders ) ] do
+>        if morders[i] mod 31 = 0 or morders[i] mod 21 = 0 then
+>          Unbind( x[i] );
+>        fi;
+>      od;
+>    od;
+]]></Example>
+
+<P/>
+
+Exactly one of the candidates has only integral values.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= Filtered( cand, x -> ForAll( x, IsInt ) );
+[ [ 391965121389536908413379198941796875, 23914487292951376996875, 
+      474163138042468875, 9500455925885925, 646346515815, 
+      334363486275, 954161764875, 147339103275, 1481392395, 
+      1313281515, 0, 8203125, 9827885925, 1216215, 91556325, 9388791, 
+      115911, 587331, 874650, 0, 79515, 581955, 336375, 104371, 
+      62331, 36855, 0, 0, 0, 0, 28125, 525, 1125, 0, 188325, 16767, 
+      88965, 2403, 9477, 1155, 891, 207, 351, 627, 0, 0, 4410, 1498, 
+      0, 0, 0, 30, 150, 91, 151, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 125, 
+      0, 5, 5,,,,, 0, 0, 0, 0, 141, 45, 27, 61, 27, 9, 9, 7, 3, 15, 
+      0, 0, 0, 0, 0, 98, 74, 42, 0, 0, 30, 0, 0, 0, 6, 6, 6,,, 1, 1, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,,,,, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 
+      0, 0, 2, 2, 0, 2,,, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,,,, 0, 
+      0, 0, 0, 0, 0,,, 0, 0, 0, 0, 0, 0,, 0, 0, 0 ] ]
+]]></Example>
+
+<P/>
+
+Now we compute the possible permutation characters that
+have the prescribed values.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= PermChars( m, rec( torso:= cand[1] ) );
+[ Character( CharacterTable( "M" ),
+  [ 391965121389536908413379198941796875, 23914487292951376996875, 
+      474163138042468875, 9500455925885925, 646346515815, 
+      334363486275, 954161764875, 147339103275, 1481392395, 
+      1313281515, 0, 8203125, 9827885925, 1216215, 91556325, 9388791, 
+      115911, 587331, 874650, 0, 79515, 581955, 336375, 104371, 
+      62331, 36855, 0, 0, 0, 0, 28125, 525, 1125, 0, 188325, 16767, 
+      88965, 2403, 9477, 1155, 891, 207, 351, 627, 0, 0, 4410, 1498, 
+      0, 0, 0, 30, 150, 91, 151, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 125, 
+      0, 5, 5, 210, 0, 42, 0, 0, 0, 0, 0, 141, 45, 27, 61, 27, 9, 9, 
+      7, 3, 15, 0, 0, 0, 0, 0, 98, 74, 42, 0, 0, 30, 0, 0, 0, 6, 6, 
+      6, 3, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      1, 1, 0, 18, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 
+      0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 2, 3, 3, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<!-- The last command requires about 2 seconds.
+     Therefore, we do not think about restricting the set of possible
+     constituents. -->
+
+<P/>
+
+There is only one candidate, so we have found the permutation character.
+
+<P/>
+
+The character table of <M>H</M> is available since 2025.
+We can compute the permutation character directly from this table.
+
+<P/>
+
+<Example><![CDATA[
+gap> h:= CharacterTable( "2^(5+10+20).(S3xL5(2))" );;
+gap> fus:= PossibleClassFusions( h, m );;
+gap> cand = Set( fus, map -> InducedClassFunctionsByFusionMap( h, m,
+>                              [ TrivialCharacter( h ) ], map )[1] );
+true
+]]></Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:monsterperm4">
+<Heading>The Subgroup <M>2^{{10+16}}.O_{10}^+(2)</M> (November&nbsp;2009)</Heading>
+
+According to the Atlas of Finite Groups&nbsp;<Cite Key="CCN85" Where="p. 234"/>,
+the Monster group <M>M</M> has a class of maximal subgroups <M>H</M> of the type
+<M>2^{{10+16}}.O_{10}^+(2)</M>.
+Currently the character table of <M>H</M> and the class fusion into <M>M</M>
+are not available in &GAP;.
+We are interested in the permutation character <M>1_H^M</M>,
+and we will compute it without this information.
+
+<P/>
+
+The subgroup <M>H</M> normalizes an elementary abelian group <M>E</M> of order <M>2^{10}</M>
+which contains <M>496</M> involutions in the class <C>2A</C> and <M>527</M> involutions
+in the class <C>2B</C>.
+Let <M>V</M> denote the normal subgroup of order <M>2^{26}</M> in <M>H</M>,
+and set <M>\bar{H} = H/N</M>.
+Since the smallest two indices of maximal subgroups of <M>\bar{H}</M>
+are <M>496</M> and <M>527</M>, respectively, <M>H</M> acts transitively on both the
+<C>2A</C> and the <C>2B</C> involutions in <M>E</M>,
+and the centralizers of these involutions contain <M>V</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> Hbar:= CharacterTable( "O10+(2)" );;
+gap> U_Abar:= CharacterTable( "O10+(2)M1" );
+CharacterTable( "S8(2)" )
+gap> Index( Hbar, U_Abar );
+496
+gap> U_Bbar:= CharacterTable( "O10+(2)M2" );
+CharacterTable( "2^8:O8+(2)" )
+gap> Index( Hbar, U_Bbar );
+527
+]]></Example>
+
+<P/>
+
+<!-- % careful: the 2^8 in O10+(2) is apparently NOT the one above the 2^(1+24), -->
+<!-- % since the 2^8:O8+(2) is not a factor of Co1M5 !!! -->
+<!-- % (The irreducibles coincide but the power maps do not fit!) -->
+
+We fix a <C>2A</C> involution <M>z_A</M> in <M>E</M>, and set <M>G_A = C_M(z_A)</M>
+and <M>U_A = C_H(z_A)</M>.
+So <M>G_A</M> has the structure <M>2.B</M> and <M>U_A</M> has the structure
+<M>2^{{10+16}}.S_8(2)</M>.
+From the list of maximal subgroups of <M>B</M> we see that the image of <M>G_A</M>
+under the natural epimorphism from <M>G_A</M> to <M>B</M> is a maximal
+subgroup of <M>B</M> and has the structure <M>2^{{9+16}}.S_8(2)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> b:= CharacterTable( "B" );
+CharacterTable( "B" )
+gap> Horder:= 2^26 * Size( Hbar );
+1577011055923770163200
+gap> order:= Horder / ( 2 * 496 );
+1589728887019929600
+gap> maxes:= List( Maxes( b ), CharacterTable );;
+gap> filt:= Filtered( maxes, t -> Size( t ) mod order = 0 );
+[ CharacterTable( "2^(9+16).S8(2)" ) ]
+gap> List( filt, t -> Size( t ) / order );
+[ 1 ]
+gap> u1:= filt[1];
+CharacterTable( "2^(9+16).S8(2)" )
+]]></Example>
+
+<P/>
+
+Analogously,
+we fix a <C>2B</C> involution <M>z_B</M> in <M>E</M>, and set <M>G_B = C_M(z_B)</M>
+and <M>U_B = C_H(z_B)</M>,
+Further, let <M>N</M> be the extraspecial normal subgroup of order <M>2^{25}</M>
+in <M>G_B</M>.
+So <M>G_B</M> has the structure <M>2^{{1+24}}_+.Co_1</M>,
+and <M>U_B</M> has index <M>527</M> in <M>G_B</M>.
+From the list of maximal subgroups of <M>Co_1</M> we see that the image of <M>U_B</M>
+under the natural epimorphism from <M>G_B</M> to <M>Co_1</M> is a maximal
+subgroup of <M>Co_1</M> and has the structure <M>2^{{1+8}}_+.O_8^+(2)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> co1:= CharacterTable( "Co1" );;
+gap> order:= Horder / ( 2^25 * 527 );
+89181388800
+gap> maxes:= List( Maxes( co1 ), CharacterTable );;
+gap> filt:= Filtered( maxes, t -> Size( t ) mod order = 0 );
+[ CharacterTable( "2^(1+8)+.O8+(2)" ) ]
+gap> List( filt, t -> Size( t ) / order );
+[ 1 ]
+gap> u2:= filt[1];
+CharacterTable( "2^(1+8)+.O8+(2)" )
+]]></Example>
+
+<P/>
+
+First we compute the permutation characters <M>\pi_A = 1_{{U_A}}^M</M> and
+<M>\pi_B = 1_{{U_B}}^M</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> m:= CharacterTable( "M" );
+CharacterTable( "M" )
+gap> 2b:= CharacterTable( "MC2A" );
+CharacterTable( "2.B" )
+gap> mm:= CharacterTable( "MC2B" );
+CharacterTable( "2^1+24.Co1" )
+gap> pi_A:= RestrictedClassFunction( TrivialCharacter( u1 )^b, 2b )^m;;
+gap> pi_B:= RestrictedClassFunction( TrivialCharacter( u2 )^co1, mm )^m;;
+]]></Example>
+
+<P/>
+
+The degree of <M>1_H^M</M> is of course known.
+
+<P/>
+
+<Example><![CDATA[
+gap> torso:= [ Size( m ) / Horder ];
+[ 512372707698741056749515292734375 ]
+]]></Example>
+
+<P/>
+
+Next we compute some zero values of <M>1_H^M</M>,
+using the following conditions.
+
+<!-- %T \why does this help? -->
+<!-- %T The question is whether <Ref Func="PermChars" BookName="ref"/>
+        can use the perm. characters of subgroups -->
+<!-- %T in general, for getting additional zeros. -->
+<!-- %T Or would the zeros shown here be found automatically by
+        <Ref Func="PermChars" BookName="ref"/> in its -->
+<!-- %T initialization? -->
+
+<P/>
+
+<List>
+<Item>
+    For <M>g \in M</M>, if <M>|g|</M> does not divide <M>|H|</M> or
+    if <M>|g|</M> is not the product of an element order in <M>H/V</M> and a <M>2</M>-power.
+    (In fact we could use that the exponent of <M>V</M> is <M>4</M>,
+    but this would not improve the result.)
+</Item>
+<Item>
+    Let <M>U \leq H \leq G</M>, and let <M>p</M> be a prime that does not divide
+    <M>[H:U]</M>.
+    Then <M>U</M> contains a Sylow <M>p</M> subgroup of <M>H</M>,
+    so each element of order <M>p</M> in <M>H</M> is conjugate in <M>H</M> to an element
+    in <M>U</M>.
+    For <M>g \in G</M>, <M>g = g_p h</M>, where the order of <M>g_p</M> is a power of <M>p</M>
+    such that <M>1_U^G(g_p) = 0</M> holds, we have <M>1_H^G(g) = 0</M>.
+    We apply this to <M>U \in \{ U_A, U_B \}</M>.
+<!-- % One of these groups would suffice. -->
+</Item>
+</List>
+
+<!-- Since these conditions are closed under taking roots,
+     we need not run through the roots of the positions where zeros are set. -->
+
+<P/>
+
+<Example><![CDATA[
+gap> morders:= OrdersClassRepresentatives( m );;
+gap> 2parts:= Union( [ 1 ], Filtered( Set( morders ),
+>                          x -> IsPrimePowerInt( x ) and IsEvenInt( x ) ) );
+[ 1, 2, 4, 8, 16, 32 ]
+gap> factorders:= Set( OrdersClassRepresentatives( Hbar ) );;
+gap> primes_A:= Filtered( PrimeDivisors( Horder ), p -> 496 mod p <> 0 );
+[ 3, 5, 7, 17 ]
+gap> primes_B:= Filtered( PrimeDivisors( Horder ), p -> 527 mod p <> 0 );
+[ 2, 3, 5, 7 ]
+gap> primes:= Union( primes_A, primes_B );;
+gap> n:= NrConjugacyClasses( m );;
+gap> for i in [ 1 .. n ] do
+>   if Horder mod morders[i] <> 0 then
+>     torso[i]:= 0;
+>   elif ForAll( factorders, x -> not morders[i] / x in 2parts ) then
+>     torso[i]:= 0;
+>   else
+>     for p in primes do
+>       if morders[i] mod p = 0 then
+>         pprime:= morders[i];
+>         while pprime mod p = 0 do pprime:= pprime / p; od;
+>         pos:= PowerMap( m, pprime )[i];
+>         if p in primes_A and pi_A[ pos ] = 0 then
+>           torso[i]:= 0;
+>         elif p in primes_B and pi_B[ pos ] = 0 then
+>           torso[i]:= 0;
+>         fi;
+>       fi;
+>     od;
+>   fi;
+> od;
+gap> torso;
+[ 512372707698741056749515292734375,,,,, 0,,,,,,,,,,,, 0,, 0,,,,,,,,,,
+  ,,,, 0,,,, 0,,,,,, 0, 0, 0,,, 0,,,, 0,,,,,,,,,, 0,,,,,,,, 0, 0, 0, 
+  0, 0, 0, 0,,,,, 0,,,,, 0, 0, 0, 0, 0, 0,,,, 0, 0,,,,, 0,,,,,,, 0, 0,
+  , 0, 0,,,,, 0, 0, 0, 0, 0,,,,, 0,, 0, 0, 0, 0, 0,, 0, 0, 0, 0, 0, 0,
+  , 0,, 0, 0, 0, 0,, 0, 0, 0, 0, 0,,,,,, 0,,, 0, 0,, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0,, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0 ]
+]]></Example>
+
+<P/>
+
+Now we want to compute as many nonzero values of <M>1_H^M</M> as possible,
+using the same approach as in the previous sections.
+For that, we first compute several permutation characters <M>1_X^M</M>,
+for subgroups <M>X</M> with the property
+<M>V &lt; X &lt; U_A</M> or <M>V &lt; X &lt; U_B</M>.
+Then we find several subsets <M>&CC;</M> of <M>M</M>,
+each being a union of conjugacy classes of <M>M</M>
+such that <M>(1_H)_{{&CC; \cap H}}</M> is a linear combination of the characters
+<M>1_X^H</M>, restricted to <M>&CC; \cap H</M>.
+This yields the values of <M>1_H^M</M> on the classes in <M>&CC;</M>.
+
+<P/>
+
+The actual computations are performed with the characters <M>1_{{X/V}}^{{H/V}}</M>.
+So we build two parallel lists <C>cand</C> and <C>candbar</C> of permutation characters
+of <M>M</M> and of <M>H/V</M>, respectively.
+For that, we write two small &GAP; functions:
+
+<P/>
+
+<List>
+<Item>
+    In the function <C>AddSubgroupOfS82</C>,
+    we choose a subgroup <M>Y</M> of <M>S_8(2) \cong U_A/V</M>,
+    compute <M>1_Y^{{U_A/V}}</M>, inflate it to a character of <M>U_A</M>,
+    induce this character to <M>B</M>, inflate the result to <M>G_A</M>,
+    and finally induce this character to <M>M</M>.
+</Item>
+<Item>
+    In the function <C>AddSubgroupOfO8p2</C>,
+    we choose a subgroup <M>Y</M> of the factor group <M>F \cong O_8^+(2)</M> of
+    <M>U_B/N</M>, compute <M>1_Y^F</M>, inflate it to a character of <M>U_B/N</M>,
+    induce this to a character of <M>G_B/N \cong Co_1</M>,
+    inflate this to a character of <M>G_B</M>,
+    and finally induce this character to <M>M</M>.
+<P/>
+    One difficulty in this case is that choosing a subgroup <M>X/V</M> of <M>H/V</M>
+    involves fixing the class fusion into <M>H/V</M>,
+    but it is not clear which is a compatible class fusion of the
+    corresponding subgroup <M>X</M> into <M>M</M>;
+    therefore, each entry of <C>cand</C> is in fact not the permutation character
+    of <M>M</M> in question but a list of possibilities.
+</Item>
+</List>
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= [ [ pi_A ], [ pi_B ] ];;
+gap> candbar:= [ TrivialCharacter( U_Abar )^Hbar,
+>                TrivialCharacter( U_Bbar )^Hbar ];;
+gap> AddSubgroupOfS82:= function( subname )
+>   local psis82;
+> 
+>   psis82:= TrivialCharacter( CharacterTable( subname ) )^U_Abar;
+>   Add( cand, [ Restricted( Restricted( psis82, u1 )^b, 2b )^m ] );
+>   Add( candbar, psis82 ^ Hbar );
+> end;;
+gap> tt1:= CharacterTable( "O8+(2)" );
+CharacterTable( "O8+(2)" )
+gap> AddSubgroupOfO8p2:= function( subname )
+>   local psi, list, char;
+> 
+>   psi:= TrivialCharacter( CharacterTable( subname ) )^tt1;
+>   list:= [];
+>   for char in Orbit( AutomorphismsOfTable( tt1 ), psi, Permuted ) do
+>     AddSet( list, Restricted( Restricted( char, u2 ) ^ co1, mm ) ^ m );
+>   od;
+>   Add( cand, list );
+>   Add( candbar, Restricted( psi, U_Bbar ) ^ Hbar );
+> end;;
+]]></Example>
+
+<P/>
+
+Now we choose the subgroups that will turn out to be sufficient
+for our computations.
+
+<P/>
+
+<Example><![CDATA[
+gap> AddSubgroupOfS82( "O8+(2).2" );
+gap> AddSubgroupOfO8p2( "S6(2)" );
+gap> AddSubgroupOfS82( "O8-(2).2" );
+gap> AddSubgroupOfS82( "A10.2" );
+gap> AddSubgroupOfS82( "S4(4).2" );
+gap> AddSubgroupOfS82( "L2(17)" );
+gap> AddSubgroupOfO8p2( "A9" );
+gap> AddSubgroupOfO8p2( "2^6:A8" );
+gap> AddSubgroupOfO8p2( "(3xU4(2)):2" );
+gap> AddSubgroupOfO8p2( "(A5xA5):2^2" );
+gap> AddSubgroupOfS82( "S8(2)M4" );
+]]></Example>
+
+<P/>
+
+In the case of <M>A_5 &lt; S_8(2)</M>,
+the function <C>AddSubgroupOfS82</C> does not
+work because there are several class fusions of <M>A_5</M> into <M>S_8(2)</M>.
+We choose one fusion; the fact that it really describes an embedding of
+an <M>A_5</M> type subgroup of <M>S_8(2)</M> can be checked using the function
+<Ref Func="NrPolyhedralSubgroups" BookName="ref"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> a5:= CharacterTable( "A5" );;
+gap> fus:= PossibleClassFusions( a5, U_Abar )[1];;
+gap> NrPolyhedralSubgroups( U_Abar, fus[2], fus[3], fus[4] );
+rec( number := 548352, type := "A5" )
+gap> psis82:= Induced( a5, U_Abar, [ TrivialCharacter( a5 ) ], fus )[1];;
+gap> Add( cand, [ Restricted( Restricted( psis82, u1 )^b, 2b )^m ] );
+gap> Add( candbar, psis82 ^ Hbar );
+gap> List( cand, Length );
+[ 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1 ]
+]]></Example>
+
+<P/>
+
+The following function takes a condition on conjugacy classes in terms of
+their element orders, which gives a set <M>&CC;</M> of elements in <M>M</M>.
+It forms the corresponding set of elements in <M>H/V</M> and tries to express
+the restriction of <M>1_{{H/V}}</M> as a linear combination of the characters
+<M>1_X^{{H/V}}</M> that are stored in the list <C>candbar</C>.
+If this works and if the corresponding linear combination of the
+candidates in <C>cand</C> is unique,
+the newly found values of <M>1_H^M</M> are entered into the list <C>torso</C>.
+
+<P/>
+
+<Example><![CDATA[
+gap> Hbarorders:= OrdersClassRepresentatives( Hbar );;
+gap> TryCondition:= function( cond )
+>   local pos, sol, lincomb, oldknown, i;
+> 
+>   pos:= Filtered( [ 1 .. Length( Hbarorders ) ],
+>             i -> cond( Hbarorders[i] ) );
+>   sol:= SolutionMat( candbar{[1..Length(candbar)]}{ pos },
+>             ListWithIdenticalEntries( Length( pos ), 1 ) );
+>   if sol = fail then
+>     return "no solution";
+>   fi;
+> 
+>   pos:= Filtered( [ 1 .. Length( morders) ], i -> cond( morders[i] ) );
+>   lincomb:= Filtered( Set( Cartesian( cand ), x -> sol * x ),
+>                 x -> ForAll( pos, i -> IsPosInt( x[i] ) or x[i] = 0 ) );
+>   if Length( lincomb ) <> 1 then
+>     return "solution is not unique";
+>   fi;
+> 
+>   lincomb:= lincomb[1];;
+>   oldknown:= Number( torso );
+>   for i in pos do
+>     if IsBound( torso[i] ) then
+>       if torso[i] <> lincomb[i] then
+>         Error( "contradiction of new and known value at position ", i );
+>       fi;
+>     elif not IsInt( lincomb[i] ) or lincomb[i] < 0 then
+>       Error( "new value at position ", i, " is not a nonneg. integer" );
+>     fi;
+>     torso[i]:= lincomb[i];
+>   od;
+>   return Concatenation( "now ", String( Number( torso ) ), " values (",
+>              String( Number( torso ) - oldknown ), " new)" );
+> end;;
+]]></Example>
+
+<P/>
+
+This procedure makes sense only if the elements of <M>H</M> that satisfy the
+condition are contained in the full preimage of the classes of <M>H/V</M>
+that satisfy the condition.
+Note that this is in fact the case for the conditions used below.
+This is clear for condition concerning only <E>odd</E> element orders,
+because <M>V</M> is a <M>2</M>-group.
+Also the set of all elements of the orders <M>9</M>, <M>18</M>,
+and <M>36</M> is such a
+<Q>closed</Q> set, since <M>M</M> has no elements of order <M>72</M>.
+Finally, the set of all elements of the orders <M>1</M>, <M>2</M>,
+and <M>4</M> in <M>H</M> is
+admissible because it is contained in the preimage of the set of all
+elements of these orders in <M>H/V</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> TryCondition( x -> x mod 7 = 0 and x mod 3 <> 0 );
+"now 99 values (7 new)"
+gap> TryCondition( x -> x mod 17 = 0 and x mod 3 <> 0 );
+"now 102 values (3 new)"
+gap> TryCondition( x -> x mod 5 = 0 and x mod 3 <> 0 );
+"now 119 values (17 new)"
+gap> TryCondition( x -> 4 mod x = 0 );
+"now 125 values (6 new)"
+gap> TryCondition( x -> 9 mod x = 0 );
+"now 129 values (4 new)"
+gap> TryCondition( x -> x in [ 9, 18, 36 ] );
+"now 138 values (9 new)"
+]]></Example>
+
+<P/>
+
+Possible constituents of <M>1_H^M</M> are those rational irreducible
+characters of <M>M</M> that are constituents of <M>\pi^M</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> constit:= Filtered( RationalizedMat( Irr( m ) ),
+>               x -> ScalarProduct( m, x, pi_A ) <> 0
+>                    and ScalarProduct( m, x, pi_B ) <> 0 );;
+]]></Example>
+
+<!-- % Prescribing bounds for the multiplicities of the constituents -->
+<!-- % does not help. -->
+
+<P/>
+
+For the missing values, we can provide at least lower bounds,
+using that <M>U \leq H \leq G</M> implies 
+<M>1_H^G(g) \geq 1_U^G(g) / [H:U] = [G:H] \cdot 1_U^G(g) / 1_U^G(1)</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> lower:= [];;
+gap> Hindex:= Size( m ) / Horder;
+512372707698741056749515292734375
+gap> for i in [ 1 .. NrConjugacyClasses( m ) ] do
+>   lower[i]:= Maximum( pi_A[i] / ( pi_A[1] / Hindex ),
+>                       pi_B[i] / ( pi_B[1] / Hindex ) );
+>   if not IsInt( lower[i] ) then
+>     lower[i]:= Int( lower[i] + 1 );
+>   fi;
+> od;
+]]></Example>
+
+<P/>
+
+Now we compute the possible permutation characters that
+have the prescribed values,
+are compatible with the given lower bounds for values,
+and have only constituents in the given list.
+
+<P/>
+
+<Example><![CDATA[
+gap> cand:= PermChars( m, rec( torso:= torso, chars:= constit,
+>      lower:= lower, normalsubgroup:= [ 1 .. NrConjugacyClasses( m ) ],
+>      nonfaithful:= TrivialCharacter( m ) ) );
+[ Character( CharacterTable( "M" ),
+  [ 512372707698741056749515292734375, 405589064025344574375, 
+      29628786742129575, 658201521662685, 215448838605, 0, 
+      121971774375, 28098354375, 335229607, 108472455, 164587500, 
+      4921875, 2487507165, 2567565, 26157789, 6593805, 398925, 0, 
+      437325, 0, 44983, 234399, 90675, 21391, 41111, 12915, 6561, 
+      6561, 177100, 7660, 6875, 315, 275, 0, 113373, 17901, 57213, 0, 
+      4957, 1197, 909, 301, 397, 0, 0, 0, 3885, 525, 0, 2835, 90, 45, 
+      0, 103, 67, 43, 28, 81, 189, 9, 9, 9, 0, 540, 300, 175, 20, 15, 
+      7, 420, 0, 0, 0, 0, 0, 0, 0, 165, 61, 37, 37, 0, 9, 9, 13, 5, 
+      0, 0, 0, 0, 0, 0, 77, 45, 13, 0, 0, 45, 115, 19, 10, 0, 5, 5, 
+      9, 9, 1, 1, 0, 0, 4, 0, 0, 9, 9, 3, 1, 0, 0, 0, 0, 0, 0, 4, 1, 
+      1, 0, 24, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 4, 0, 0, 0, 
+      0, 1, 0, 0, 0, 0, 0, 3, 3, 1, 1, 2, 0, 3, 3, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0 ] ) ]
+]]></Example>
+
+<!-- % The PermChars call requires about 25 minutes of CPU time. -->
+
+<P/>
+
+There is only one candidate, so we have found the permutation character.
+
+<P/>
+
+The character table of <M>H</M> is available since 2023.
+We can compute the permutation character directly from this table.
+
+<P/>
+
+<Example><![CDATA[
+gap> h:= CharacterTable( "2^(10+16).O10+(2)" );;
+gap> fus:= PossibleClassFusions( h, m );;
+gap> cand = Set( fus, map -> InducedClassFunctionsByFusionMap( h, m,
+>                              [ TrivialCharacter( h ) ], map )[1] );
+true
+]]></Example>
+
+</Subsection>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:comp_B">
+<Heading>A permutation character of the Baby Monster (June&nbsp;2012)</Heading>
+
+We compute the character of the Baby Monster
+that is induced from the trivial character of a Sylow <M>2</M>-subgroup.
+(Gabriel Navarro had asked me how &GAP; can compute this character.)
+
+We start with the computation of those transitive permutation
+characters of the symmetric group on five points that have degree <M>15</M>.
+Note that the function
+<Ref Func="PermChars" BookName="ref"/>
+computes in general only candidates,
+but here we are sure that the result consists of permutation characters
+because it is unique.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "S5" );
+CharacterTable( "A5.2" )
+gap> pi:= PermChars( t, rec( torso:= [ 15 ] ) );
+[ Character( CharacterTable( "A5.2" ), [ 15, 3, 0, 0, 3, 1, 0 ] ) ]
+]]></Example>
+
+<P/>
+
+Next, we regard this character as a character of the group <M>2^5:S_5</M>
+that occurs as a maximal subgroup of index <M>231</M> in <M>M_{22}:2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> m222:= CharacterTable( "M22.2" );
+CharacterTable( "M22.2" )
+gap> mx:= List( Maxes( m222 ), CharacterTable );;
+gap> mx:= Filtered( mx, x -> Size( m222 ) / Size( x ) = 231 );
+[ CharacterTable( "M22.2M4" ) ]
+gap> pi:= pi[1]{ GetFusionMap( mx[1], t ) };
+[ 15, 15, 3, 3, 3, 0, 0, 3, 3, 1, 1, 0, 15, 15, 3, 3, 3, 0, 0, 3, 3, 
+  1, 1, 0 ]
+]]></Example>
+
+<P/>
+
+We induce this character to <M>M_{22}:2</M>.
+(Note that this is the character that is induced from the trivial character
+of a Sylow <M>2</M>-subgroup of <M>M_{22}:2</M>.)
+
+<P/>
+
+<Example><![CDATA[
+gap> pi:= InducedClassFunction( mx[1], pi, m222 );
+ClassFunction( CharacterTable( "M22.2" ),
+ [ 3465, 105, 0, 9, 5, 0, 0, 0, 0, 1, 0, 189, 45, 9, 13, 0, 1, 0, 0, 
+  0, 0 ] )
+]]></Example>
+
+<P/>
+
+Next, we regard this character as a character of the group
+<M>2^{10}:M_{22}:2</M>
+that occurs as a maximal subgroup of index <M>46575</M> in <M>Co_2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> co2:= CharacterTable( "Co2" );
+CharacterTable( "Co2" )
+gap> mx:= List( Maxes( co2 ), CharacterTable );;
+gap> mx:= Filtered( mx, x -> Size( co2 ) / Size( x ) = 46575 );
+[ CharacterTable( "2^10:m22:2" ) ]
+gap> pi:= pi{ GetFusionMap( mx[1], m222 ) };
+[ 3465, 3465, 3465, 3465, 105, 105, 105, 105, 105, 105, 105, 105, 0, 
+  0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 1, 1, 1, 0, 189, 189, 189, 189, 189, 189, 45, 45, 45, 45, 
+  9, 9, 9, 9, 13, 13, 13, 13, 13, 13, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 
+  0, 0, 0, 0, 0, 0, 0 ]
+]]></Example>
+
+<P/>
+
+We induce this character to <M>Co_2</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> pi:= InducedClassFunction( mx[1], pi, co2 );
+ClassFunction( CharacterTable( "Co2" ),
+ [ 161382375, 626535, 162855, 27495, 0, 0, 6615, 3975, 2727, 855, 
+  567, 975, 115, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 51, 19, 27, 35, 7, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0 ] )
+]]></Example>
+
+<P/>
+
+Next, we regard this character as a character of the group
+<M>2^{{1+22}}.Co_2</M>
+that occurs as a maximal subgroup of index <M>11707448673375</M>
+in the Baby Monster.
+
+<P/>
+
+<Example><![CDATA[
+gap> b:= CharacterTable( "B" );
+CharacterTable( "B" )
+gap> mx:= List( Maxes( b ), CharacterTable );;
+gap> mx:= Filtered( mx, x -> Size( b ) / Size( x ) = 11707448673375 );
+[ CharacterTable( "2^(1+22).Co2" ) ]
+gap> pi:= pi{ GetFusionMap( mx[1], co2 ) };;
+gap> pi[1];
+161382375
+]]></Example>
+
+<P/>
+
+We induce this character to the Baby Monster.
+
+<P/>
+
+<Example><![CDATA[
+gap> pi:= InducedClassFunction( mx[1], pi, b );
+ClassFunction( CharacterTable( "B" ),
+ [ 1889375872099856765625, 2609385408855225, 62316674429625, 
+  207818526825, 268788490425, 0, 0, 13052741625, 7537207545, 
+  128298681, 270580905, 46366425, 74315385, 35633385, 3937689, 
+  201825, 1233225, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 713097, 
+  241425, 320625, 88521, 275265, 57705, 19305, 20089, 9441, 6489, 
+  2577, 1825, 5345, 753, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  273, 417, 105, 97, 185, 33, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] )
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:comp_2B">
+<Heading>A permutation character of <M>2.B</M> (October&nbsp;2017)</Heading>
+
+We compute the character of the double cover <M>2.B</M> of the Baby Monster
+that is induced from the trivial character of a subgroup <M>U</M>
+of the structure <M>2^{1+22}.McL</M>.
+
+<P/>
+
+This subgroup occurs as the intersection of two conjugates of <M>2.B</M>
+inside the Monster group <M>M</M>.
+More precisely, we consider <M>2.B</M> as the centralizer of an involution
+<M>a</M> in <M>M</M>,
+and we are interested in the permutation action of <M>M</M>
+on the cosets of <M>2.B</M>
+(or, equivalently, on the conjugacy class in <M>M</M> of this involution).
+The restriction of this action to <M>2.B</M> has nine orbits.
+One of them has point stabilizer <M>U</M>.
+
+<P/>
+
+Background information can be found in <Cite Key="GMS89"/>.
+The decomposition into the nine orbits appears in Definition (3.4.9)
+on p&nbsp;587,
+and our orbit is characterized in Table&nbsp;VII (on p.&nbsp;582)
+by the facts that its points <M>c</M> have order <M>4</M> and the squares
+of <M>a c</M> lie in the class <C>2B</C> of <M>M</M>.
+This implies that <M>a</M> and <M>c</M> do not commute,
+hence <M>a</M> does not lie in <M>U</M>.
+
+<P/>
+
+From this description, we know that <M>U</M> is a subgroup
+of a maximal subgroup of the type <M>2^{2+22}.Co_2</M> in <M>2.B</M>,
+and the group <M>\langle U, a \rangle</M> has the type <M>2^{2+22}.McL</M>.
+
+<P/>
+
+Thus we can proceed in two steps.
+First we induce the trivial character of <M>\langle U, a \rangle</M>
+to <M>2.B</M>.
+Then we use the variant of the &GAP; function
+<Ref Func="PermChars" BookName="ref"/> that allows us to prescribe the
+permutation character of the closure with a normal subgroup,
+which is <M>\langle a \rangle</M> in our case.
+
+<P/>
+
+The first step can be performed by inducing the trivial character
+of <M>McL</M> to <M>Co_2</M>, <M>\ldots</M>
+
+<P/>
+
+<Example><![CDATA[
+gap> mcl:= CharacterTable( "McL" );
+CharacterTable( "McL" )
+gap> co2:= CharacterTable( "Co2" );
+CharacterTable( "Co2" )
+gap> ind:= Induced( mcl, co2, [ TrivialCharacter( mcl ) ] )[1];
+Character( CharacterTable( "Co2" ),
+ [ 47104, 0, 1024, 0, 16, 160, 0, 0, 0, 0, 64, 0, 0, 4, 24, 16, 0, 0, 
+  0, 16, 0, 8, 0, 0, 0, 0, 0, 8, 4, 4, 0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 
+  0, 0, 2, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 ] )
+]]></Example>
+
+<P/>
+
+<M>\ldots</M> regarding this character as a character of <M>2^{1+22}.Co_2</M>,
+<M>\ldots</M>
+
+<P/>
+
+<Example><![CDATA[
+gap> m:= CharacterTable( "BM2" );
+CharacterTable( "2^(1+22).Co2" )
+gap> infl:= ind{ GetFusionMap( m, co2 ) };
+[ 47104, 47104, 47104, 47104, 47104, 47104, 47104, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 
+  1024, 1024, 1024, 1024, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 16, 16, 16, 16, 160, 160, 160, 160, 160, 160, 160, 160, 
+  160, 160, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 4, 4, 4, 24, 24, 24, 24, 24, 24, 24, 24, 16, 16, 16, 
+  16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 
+  16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 
+  8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, 4, 
+  4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 
+  2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 
+  4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 
+  2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  1, 1, 1, 1 ]
+]]></Example>
+
+<P/>
+
+<M>\ldots</M> inducing this character to <M>B</M>, <M>\ldots</M>
+
+<P/>
+
+<Example><![CDATA[
+gap> b:= CharacterTable( "B" );
+CharacterTable( "B" )
+gap> ind:= Induced( m, b, [ infl ] )[1];
+ClassFunction( CharacterTable( "B" ),
+ [ 551467662310656000, 186911262720, 272993634304, 0, 634521600, 
+  194594400, 69984, 8495104, 17465344, 129024, 276480, 2073600, 
+  16384, 798720, 46080, 0, 5120, 138600, 1000, 110880, 252000, 
+  112480, 432, 12960, 0, 1312, 8352, 864, 432, 0, 2520, 0, 2880, 
+  2880, 3072, 2880, 0, 0, 256, 64, 1152, 576, 640, 192, 96, 0, 108, 
+  2520, 744, 0, 104, 120, 40, 30, 160, 16, 1120, 1024, 0, 0, 96, 288, 
+  64, 144, 0, 96, 0, 108, 16, 48, 0, 32, 12, 0, 0, 0, 168, 0, 104, 
+  48, 0, 4, 0, 0, 0, 0, 32, 16, 8, 8, 0, 24, 12, 4, 0, 0, 0, 0, 24, 
+  4, 24, 24, 0, 0, 0, 0, 4, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 16, 8, 4, 0, 0, 0, 0, 0, 4, 2, 
+  2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] )
+]]></Example>
+
+<P/>
+
+<M>\ldots</M> and regarding the result as a character of <M>2.B</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> 2b:= CharacterTable( "2.B" );
+CharacterTable( "2.B" )
+gap> infl:= ind{ GetFusionMap( 2b, b ) };
+[ 551467662310656000, 551467662310656000, 186911262720, 272993634304, 
+  272993634304, 0, 634521600, 194594400, 194594400, 69984, 69984, 
+  8495104, 17465344, 129024, 276480, 2073600, 2073600, 16384, 798720, 
+  46080, 0, 5120, 138600, 138600, 1000, 1000, 110880, 252000, 112480, 
+  112480, 432, 12960, 0, 1312, 1312, 8352, 864, 864, 432, 0, 2520, 
+  2520, 0, 2880, 2880, 3072, 2880, 0, 0, 256, 64, 1152, 576, 576, 
+  640, 192, 96, 0, 0, 108, 108, 2520, 744, 744, 0, 104, 104, 120, 40, 
+  40, 30, 30, 160, 16, 1120, 1024, 0, 0, 0, 96, 288, 64, 144, 144, 0, 
+  96, 0, 108, 108, 16, 48, 0, 32, 12, 12, 0, 0, 0, 0, 168, 0, 104, 
+  104, 48, 0, 0, 4, 4, 0, 0, 0, 0, 32, 16, 8, 8, 8, 0, 0, 24, 12, 4, 
+  4, 0, 0, 0, 0, 0, 0, 24, 4, 24, 24, 0, 0, 0, 0, 0, 4, 0, 0, 0, 6, 
+  6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 
+  0, 0, 0, 0, 0, 0, 8, 0, 16, 8, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 2, 2, 
+  2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+]]></Example>
+
+<P/>
+
+Now we have the character <M>\psi</M> that represents the
+<Q>nonfaithful half</Q> of the desired permutation character.
+We have to <Q>fill it up</Q> with faithful characters of <M>2.B</M>
+of total degree <M>\psi(1)</M> such that the sum with <M>\psi</M>
+can be a permutation character of <M>2.B</M>.
+
+<P/>
+
+The &GAP; function <Ref Func="PermChars" BookName="ref"/>
+is designed for this situation.
+We specify the normal subgroup <M>N = \langle a \rangle</M> by listing
+the positions of its conjugacy classes in the character table of <M>2.B</M>,
+we enter the known permutation character <M>1_{{UN}}^{{2.B}}</M>,
+and of course we specify the degree of the possible permutation characters.
+
+<P/>
+
+<Example><![CDATA[
+gap> centre:= ClassPositionsOfCentre( 2b );
+[ 1, 2 ]
+gap> pi:= PermChars( 2b, rec( torso:= [ 2 * infl[1], 0 ],
+>                             normalsubgroup:= centre,
+>                             nonfaithful:= infl ) );
+[ Character( CharacterTable( "2.B" ),
+  [ 1102935324621312000, 0, 186911262720, 541790208000, 4197060608, 
+      0, 634521600, 389188800, 0, 139968, 0, 8495104, 17465344, 
+      129024, 276480, 4026240, 120960, 16384, 798720, 46080, 0, 5120, 
+      277200, 0, 2000, 0, 110880, 252000, 190080, 34880, 432, 12960, 
+      0, 2592, 32, 8352, 1728, 0, 432, 0, 5040, 0, 0, 2880, 2880, 
+      3072, 2880, 0, 0, 256, 64, 1152, 1008, 144, 640, 192, 96, 0, 0, 
+      216, 0, 2520, 960, 528, 0, 200, 8, 120, 80, 0, 60, 0, 160, 16, 
+      1120, 1024, 0, 0, 0, 96, 288, 64, 216, 72, 0, 96, 0, 216, 0, 
+      16, 48, 0, 32, 24, 0, 0, 0, 0, 0, 168, 0, 160, 48, 48, 0, 0, 8, 
+      0, 0, 0, 0, 0, 32, 16, 8, 12, 4, 0, 0, 24, 12, 0, 8, 0, 0, 0, 
+      0, 0, 0, 24, 4, 24, 24, 0, 0, 0, 0, 0, 4, 0, 0, 0, 6, 6, 8, 4, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 
+      0, 0, 0, 0, 8, 0, 16, 8, 8, 0, 0, 0, 0, 0, 0, 0, 8, 0, 2, 2, 2, 
+      2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+gap> MatScalarProducts( 2b, Irr( 2b ), pi );
+[ [ 1, 1, 2, 1, 2, 0, 2, 3, 2, 0, 0, 1, 4, 1, 2, 0, 3, 2, 0, 2, 0, 0, 
+      2, 2, 0, 0, 2, 3, 1, 5, 0, 4, 3, 2, 0, 0, 3, 2, 0, 6, 4, 0, 1, 
+      1, 0, 0, 0, 0, 3, 0, 1, 0, 0, 5, 0, 5, 2, 0, 0, 2, 0, 0, 4, 1, 
+      0, 2, 0, 4, 2, 4, 4, 3, 0, 2, 4, 2, 4, 0, 3, 0, 3, 2, 5, 0, 1, 
+      0, 3, 1, 0, 1, 1, 2, 5, 3, 1, 1, 4, 5, 1, 1, 0, 3, 0, 0, 3, 2, 
+      1, 1, 2, 1, 1, 4, 0, 3, 2, 3, 1, 3, 0, 1, 3, 0, 2, 2, 1, 3, 3, 
+      0, 0, 2, 0, 0, 0, 0, 3, 0, 3, 3, 3, 1, 0, 3, 0, 4, 0, 1, 0, 0, 
+      2, 0, 0, 2, 0, 0, 2, 1, 1, 0, 0, 0, 0, 1, 2, 1, 1, 1, 0, 1, 1, 
+      1, 1, 1, 1, 0, 2, 1, 1, 3, 3, 0, 0, 0, 1, 1, 1, 1, 2, 3, 2, 0, 
+      0, 2, 2, 4, 3, 5, 2, 4, 0, 0, 0, 0, 5, 2, 0, 0, 0, 1, 1, 0, 0, 
+      0, 0, 0, 0, 7, 0, 0, 1, 7, 7, 0, 0, 0, 1, 6, 4, 5, 0, 0, 3, 0, 
+      0, 0, 0, 0, 4, 1, 1, 3, 8, 3, 2, 2, 5, 0, 1 ] ]
+]]></Example>
+
+<P/>
+
+We are lucky:
+There is a unique solution, and its computation is quite fast.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:comp_pi_piprime">
+<Heading>Generation of sporadic simple groups by <M>\pi</M>- and <M>\pi'</M>-subgroups (December&nbsp;2021)</Heading>
+
+This section shows the computations that are needed in order to show
+the following statements from <Cite Key="BG21"/>.
+
+<P/>
+
+At the time when this paper was written,
+a special treatment of the Monster group was necessary
+because the classification of its maximal subgroups was not yet complete,
+and also not all character tables of the known maximal subgroups were
+available.
+The now unnecessary computations for the Monster group are shown in
+Section <Ref Subsect="subsect:Monster"/>.
+
+<P/>
+
+<E>Proposition&nbsp;2.2</E>:
+Let <M>S</M> be a sporadic simple group
+and let <M>P</M> be a Sylow <M>2</M>-subgroup of <M>S</M>.
+If <M>1 \neq x \in S</M>, then
+<M>S = \langle P, x^g \rangle</M> for some <M>g \in S</M>.
+
+<P/>
+
+<E>Theorem&nbsp;7.1</E>:
+Let <M>S</M> be a sporadic simple group and let <M>p \leq q</M> be primes
+each dividing <M>|S|</M>.
+Then <M>S</M> can be generated by a Sylow <M>p</M>-subgroup and
+a Sylow <M>q</M>-subgroup.
+
+<P/>
+
+A stronger version of Theorem&nbsp;7.1:
+Let <M>S</M> be a sporadic simple group,
+<M>p</M> be a prime dividing <M>|S|</M>,
+and <M>P</M> be a Sylow <M>p</M>-subgroup of <M>S</M>.
+If <M>1 \neq x \in S</M>, then
+<M>S = \langle P, x^g \rangle</M> for some <M>g \in S</M>.
+
+<P/>
+
+First we show <Cite Key="BG21" Where="Proposition 2.2"/>.
+Let <M>S</M> be a sporadic simple group,
+fix a Sylow <M>2</M>-subgroup <M>P</M> of <M>S</M>,
+and let <M>x</M> be a nonidentity element in <M>S</M>.
+We use known information about maximal subgroups of <M>S</M>
+to show that <M>x^S</M> is not a subset of the union
+of those maximal subgroups in <M>S</M> that contain <M>P</M>.
+
+<P/>
+
+Let <M>M</M> be a maximal subgroup of <M>S</M> with the property
+<M>P \leq M</M>.
+The number of <M>S</M>-conjugates of <M>M</M> that contain <M>P</M>
+is equal to <M>|N_S(P)|/|N_M(P)| \leq [N_S(P):P]</M>,
+thus these subgroups can contain at most
+<M>[N_S(P):P] |x^S \cap M|</M> elements from the class <M>x^S</M>.
+
+<P/>
+
+Thus the number of elements in <M>x^S</M> that generate a proper subgroup of <M>S</M>
+together with <M>P</M> is bounded from above by
+<M>[N_S(P):P] \sum_M |x^S \cap M|</M>,
+where the sum is taken over representatives <M>M</M> of conjugacy classes
+of maximal subgroups of odd index in <M>S</M>.
+
+<P/>
+
+Let <M>1_M^S</M> denote the permutation character of the action of <M>S</M>
+on the cosets of <M>M</M>.
+We have <M>|x^S \cap M| = |x^S| 1_M^S(x) / 1_M^S(1)</M>.
+Hence we are done when we show that
+<Display Mode="M">
+   [N_S(P):P] \sum_M 1_M^S(x) / 1_M^S(1) &lt; 1
+</Display>
+holds.
+
+<P/>
+
+The numbers <M>[N_S(P):P]</M> can be read off from
+<Cite Key="Wil98" Where="Table I"/>.
+Here we use the fact that the character table of
+the Sylow <M>2</M>-normalizer of <M>S</M> is available except if
+<M>S</M> is one of 
+<M>Co_1</M>, <M>J_4</M>, <M>F_{3+}</M>, <M>B</M>, or <M>M</M>,
+and that the Sylow <M>2</M>-subgroup if self-normalizing in these cases.
+
+<P/>
+
+<Example><![CDATA[
+gap> names:= AllCharacterTableNames( IsSporadicSimple, true,
+>            IsDuplicateTable, false : OrderedBy:= Size );
+[ "M11", "M12", "J1", "M22", "J2", "M23", "HS", "J3", "M24", "McL", 
+  "He", "Ru", "Suz", "ON", "Co3", "Co2", "Fi22", "HN", "Ly", "Th", 
+  "Fi23", "Co1", "J4", "F3+", "B", "M" ]
+gap> normindices:= rec( Co1:= 1, J4:= 1, F3\+:= 1, B:= 1, M:= 1 );;
+gap> for name in names do
+>      n:= CharacterTable( Concatenation( name, "N2" ) );
+>      if n = fail then
+>        Print( name, "\n" );
+>      else
+>        2part:= 2^Length( Positions( Factors( Size( n ) ), 2 ) );
+>        normindices.( name ):= Size( n ) / 2part;
+>      fi;
+>    od;
+Co1
+J4
+F3+
+B
+M
+]]></Example>
+
+<P/>
+
+For all sporadic simple groups <M>S</M>,
+the primitive permutation characters <M>1_M^S</M> can be computed
+from the data about maximal subgroups contained in
+&GAP;'s library of character tables.
+
+<P/>
+
+<Example><![CDATA[
+gap> maxbound:= [];;
+gap> for name in names do
+>      t:= CharacterTable( name );
+>      mx:= List( Maxes( t ), CharacterTable );
+>      odd:= Filtered( mx, s -> ( Size( t ) / Size( s ) ) mod 2 <> 0 );
+>      primperm:= List( odd, s -> TrivialCharacter( s )^t );
+>      sum:= normindices.( name ) * Sum( primperm, pi -> pi / pi[1] );
+>      Add( maxbound,
+>           [ name, Maximum( sum{ [ 2 .. Length( sum ) ] } ) ] );
+>    od;
+gap> SortBy( maxbound, x -> - x[2] );
+gap> maxbound[1];
+[ "J2", 3/5 ]
+]]></Example>
+
+<P/>
+
+We see that the left hand side of the above inequality is always less than
+or equal to <M>3/5</M>, in particular it is less than <M>1</M>.
+
+<P/>
+
+Next we show <Cite Key="BG21" Where="Theorem 7.1"/>
+and its stronger version stated above.
+
+<P/>
+
+As a first step, we generalize the approach from the above computations
+in order to check for which prime divisors <M>p</M> of <M>|S|</M>
+and for which nontrivial conjugacy classes <M>x^S</M> of <M>S</M>
+the group <M>S</M> is generated by a Sylow <M>p</M>-subgroup <M>P</M>
+together with a conjugate of <M>x</M>.
+
+<P/>
+
+The upper bound <M>[N_S(P):P]</M> for <M>|N_S(P)|/|N_M(P)|</M>,
+for a maximal subgroup <M>M</M> of <M>S</M> that contains <M>P</M>,
+is not good enough in some of the cases considered here.
+Instead of it, we compute the upper bound <M>u(S, M, p)</M>
+which is defined as follows;
+we assume that we know <M>|N_S(P)|</M>.
+
+<P/>
+
+<List>
+<Item>
+  If <M>P</M> is cyclic then
+  we can compute <M>|N_M(P)|</M> from the character table of <M>M</M>,
+  and set <M>u(S, M, p) = |N_S(P)| / |N_M(P)|</M>.
+</Item>
+<Item>
+  Otherwise, if <M>P</M> is normal in <M>M</M>,
+  we set <M>u(S, M, p) = |N_S(P)| / |M|</M>.
+</Item>
+<Item>
+  Otherwise, if we know a subgroup <M>U</M> of <M>M</M> such that
+  <M>P</M> is a proper normal subgroup of <M>U</M>,
+  we set <M>u(S, M, p) = |N_S(P)| / |U|</M>.
+</Item>
+<Item>
+  Otherwise, we set <M>u(S, M, p) = |N_S(P)| / |P|</M>.
+</Item>
+</List>
+
+<P/>
+
+<Example><![CDATA[
+gap> upper_bound:= function( tblS, tblM, p )
+>    local ppart, ppartposS, ppartposM, n, N_S, f, subname, u;
+> 
+>    ppart:= Product( Filtered( Factors( Size( tblS ) ), x -> x = p ), 1 );
+>    ppartposS:= Positions( OrdersClassRepresentatives( tblS ), ppart );
+>    if 0 < Length( ppartposS ) then
+>      # P is cyclic.
+>      if tblM = fail then
+>        return ( SizesCentralizers( tblS )[ ppartposS[1] ] * Phi( ppart )
+>                 / Length( ppartposS ) ) / ppart;
+>      else
+>        ppartposM:= Positions( OrdersClassRepresentatives( tblM ), ppart );
+>        return ( SizesCentralizers( tblS )[ ppartposS[1] ] * Phi( ppart )
+>                 / Length( ppartposS ) ) /
+>               ( SizesCentralizers( tblM )[ ppartposM[1] ] * Phi( ppart )
+>                 / Length( ppartposM ) );
+>      fi;
+>    fi;
+>  
+>    # Compute |N_S(P)|.
+>    n:= CharacterTable( Concatenation( Identifier( tblS ), "N",
+>                            String( p ) ) );
+>    if n <> fail then
+>      N_S:= Size( n );
+>    elif p = 2 then
+>      N_S:= ppart * normindices.( Identifier( tblS ) );
+>    elif Identifier( tblS ) = "M" and p = 3 then
+>      # The Sylow 3-normalizer is contained in 3^(3+2+6+6):(L3(3)xSD16)
+>      N_S:= ppart * 2^6;
+>    elif Identifier( tblS ) = "F3+" and p = 3 then
+>      N_S:= ppart * 8;
+>    else
+>      Error( "cannot compute |N_S(P)|" );
+>    fi;
+>  
+>    if tblM = fail then
+>      return N_S / ppart;
+>    elif Sum( SizesConjugacyClasses( tblM ){
+>                  ClassPositionsOfPCore( tblM, p ) } ) = ppart then
+>      # P is normal in M.
+>      return N_S / Size( tblM );
+>    fi;
+> 
+>    # Inspect known character tables of subgroups of M.
+>    f:= N_S / ppart;
+>    for subname in NamesOfFusionSources( tblM ) do
+>      u:= CharacterTable( subname );
+>      if ClassPositionsOfKernel( GetFusionMap( u, tblM ) ) = [ 1 ] and
+>         Sum( SizesConjugacyClasses( u ){
+>                  ClassPositionsOfPCore( u, p ) } ) = ppart then
+>        f:= Minimum( f, N_S / Size( u ) );
+>      fi;
+>    od;
+> 
+>    return f;
+>  end;;
+]]></Example>
+
+<P/>
+
+We run over the sporadic simple groups
+and collect in the list <C>badcases_strong</C> those <Q>bad</Q> prime divisors
+<M>p</M> of <M>|S|</M> and conjugacy class representatives <M>x</M> of
+nonidentity elements in <M>S</M> for which
+
+<Display Mode="M">
+   \sum_M u(S, M, p) 1_M^S(x) / 1_M^S(1) \geq 1
+</Display>
+
+holds,
+where the sum is taken over representatives <M>M</M> of conjugacy classes
+of maximal subgroups of <M>S</M> whose index in <M>S</M> is coprime to
+<M>p</M>.
+In these cases, we have to find other arguments.
+
+<P/>
+
+For the proof of <Cite Key="BG21" Where="Theorem 7.1"/>,
+we can discard all those entries from the list of <Q>bad</Q> <M>p</M> and
+<M>x</M> where <M>x</M> is not a <M>q</M>-element, for some prime <M>q</M>,
+or where another nonidentity <M>q</M>-element exists that does not occur
+in the list.
+This is done by collecting a second list <C>badcases_thm</C> of the
+remaining <Q>bad</Q> cases.
+
+<P/>
+
+For the proof of the stronger version, 
+we will later explicitly compute group elements from the classes in question
+that generate <M>S</M> together with a Sylow <M>p</M>-subgroup.
+
+(The only technical complication is that the class fusion of maximal
+subgroups of the type <M>(2^2 \times F_4(2)):2</M> of the Baby Monster
+is currently not known, thus we cannot simply induce the trivial character
+in this case.
+However, the permutation character is uniquely determined by the two
+character tables.)
+
+<!-- Computing the possible class fusions takes about 10 minutes. -->
+
+<Example><![CDATA[
+gap> badcases_thm:= [];;
+gap> badcases_strong:= [];;
+gap> good:= "dummy";;   #  Avoid a message about an unbound variable ...
+gap> for name in Filtered( names, x -> x <> "M" ) do
+>      t:= CharacterTable( name );
+>      orders:= OrdersClassRepresentatives( t );
+>      n:= NrConjugacyClasses( t );
+>      mx:= List( Maxes( t ), CharacterTable );
+>      for p in PrimeDivisors( Size( t ) ) do
+>        good:= Filtered( mx, s -> ( Size( t ) / Size( s ) ) mod p <> 0 );
+>        primperm:= [];
+>        for s in good do
+>          if GetFusionMap( s, t ) <> fail then
+>            Add( primperm, TrivialCharacter( s )^t );
+>          else
+>            ind:= Set( PossibleClassFusions( s, t ),
+>                       map -> InducedClassFunctionsByFusionMap( s, t,
+>                                  [ TrivialCharacter( s ) ], map )[1] );
+>            if Length( ind ) <> 1 then
+>              Error( "permutation character not uniquely determined" );
+>            fi;
+>            Add( primperm, ind[1] );
+>          fi;
+>        od;
+>        sum:= Sum( [ 1 .. Length( good ) ],
+>                   i -> upper_bound( t, good[i], p )
+>                        * primperm[i] / primperm[i][1] );
+>        badpos:= Filtered( [ 2 .. Length( sum ) ], i -> sum[i] >= 1 );
+>        if badpos <> [] then
+>          Add( badcases_strong, [ name, p, ShallowCopy( badpos ) ] );
+>          for i in ShallowCopy( badpos ) do
+>            q:= SmallestRootInt( orders[i] );
+>            if IsPrimeInt( q ) then
+>              if ForAny( [ 2 .. n ],
+>                         j -> SmallestRootInt( orders[j] ) = q
+>                              and not j in badpos ) then
+>                RemoveSet( badpos, i );
+>              fi;
+>            fi;
+>          od;
+>          if not IsEmpty( badpos ) then
+>            Add( badcases_thm, [ name, p, badpos ] );
+>          fi;
+>        fi;
+>      od;
+>    od;
+gap> badcases_thm;
+[ [ "M23", 3, [ 3 ] ], [ "HS", 3, [ 4, 11 ] ] ]
+gap> badcases_strong;
+[ [ "M11", 5, [ 2 ] ], [ "M12", 5, [ 3, 4 ] ], [ "M22", 3, [ 2 ] ], 
+  [ "M22", 5, [ 2 ] ], [ "J2", 3, [ 2 ] ], [ "M23", 3, [ 2, 3 ] ], 
+  [ "M23", 5, [ 2 ] ], [ "M23", 7, [ 2 ] ], 
+  [ "HS", 3, [ 2, 3, 4, 5, 6, 7, 9, 11 ] ], [ "HS", 5, [ 2, 3, 5 ] ], 
+  [ "M24", 5, [ 2, 4 ] ], [ "M24", 7, [ 2, 4 ] ], [ "He", 5, [ 2 ] ], 
+  [ "Co2", 3, [ 2, 3 ] ], [ "Fi22", 5, [ 2 ] ], [ "Fi22", 7, [ 2 ] ], 
+  [ "Fi23", 5, [ 2, 3, 5 ] ], [ "Fi23", 7, [ 2 ] ], [ "B", 7, [ 2 ] ] 
+ ]
+]]></Example>
+
+<P/>
+
+Most of these open cases can be ruled out by constructing the group <M>S</M>
+and a Sylow <M>p</M>-subgroup <M>P</M> in question and then finding
+explicit elements <M>x</M> such that <M>S</M> is generated by <M>P</M> and
+<M>x</M>.
+For that, we use the data from the
+&ATLAS; of Group Representations&nbsp;<Cite Key="AGRv3"/>.
+
+<P/>
+
+The following function tries to find random elements from all conjugacy
+classes of nonidentity elements that have the desired property.
+It returns <K>fail</K> if no straight line program is available for
+computing class representatives, and returns <M>P</M> and the list of
+class representatives that generate together with <M>P</M> if such
+elements were found.
+Thus the function will not return if the generation property does not hold.
+
+<P/>
+
+<Example><![CDATA[
+gap> prove_generation:= function( name, p )
+>    local S, prg, P, reps, good, x, g, U;
+> 
+>    prg:= AtlasProgram( name, "classes" );
+>    if prg = fail then
+>      return fail;
+>    fi;
+> 
+>    S:= AtlasGroup( name );
+>    P:= SylowSubgroup( S, p );
+>    reps:= ResultOfStraightLineProgram( prg.program, GeneratorsOfGroup( S ) );
+>    good:= [];
+>    for x in Filtered( reps, x -> Order( x ) <> 1 ) do
+>      repeat
+>        g:= Random( S );
+>        U:= ClosureGroup( P, x^g );
+>      until Size( U ) = Size( S );
+>      Add( good, x^g );
+>    od;
+> 
+>    return [ P, good ];
+>  end;;
+gap> for entry in badcases_strong do
+>      res:= prove_generation( entry[1], entry[2] );
+>      if res = fail then
+>        Print( "no classes script for ", entry, "\n" );
+>      fi;
+>    od;
+no classes script for [ "He", 5, [ 2 ] ]
+no classes script for [ "Fi22", 5, [ 2 ] ]
+no classes script for [ "Fi22", 7, [ 2 ] ]
+no classes script for [ "Fi23", 5, [ 2, 3, 5 ] ]
+no classes script for [ "Fi23", 7, [ 2 ] ]
+no classes script for [ "B", 7, [ 2 ] ]
+]]></Example>
+
+In the remaining cases, we show only the generation property for
+the class representatives in the list.
+These are involutions from the class <C>2A</C>,
+and for the group <M>Fi_{23}</M> and <M>p = 5</M> additionally
+elements from the classes <C>2B</C> and <C>3A</C>.
+
+<P/>
+
+A <C>2A</C> element in the group <M>He</M> can be found as the fifth power
+of any element of order <M>10</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> S:= AtlasGroup( "He" );;
+gap> repeat
+>      x:= Random( S );
+>    until Order( x ) = 10;
+gap> x:= x^5;;
+gap> P5:= SylowSubgroup( S, 5 );;
+gap> repeat
+>      g:= Random( S );
+>      U:= ClosureGroup( P5, x^g );
+>    until Size( U ) = Size( S );
+]]></Example>
+
+<P/>
+
+A <C>2A</C> element in the group <M>Fi_{22}</M> can be found as
+the <M>15</M>-th power of any element of order <M>30</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> S:= AtlasGroup( "Fi22" );;
+gap> repeat
+>      x:= Random( S );
+>    until Order( x ) = 30;
+gap> x:= x^15;;
+gap> P5:= SylowSubgroup( S, 5 );;
+gap> repeat
+>      g:= Random( S );
+>      U:= ClosureGroup( P5, x^g );
+>    until Size( U ) = Size( S );
+gap> P7:= SylowSubgroup( S, 7 );;
+gap> repeat
+>      g:= Random( S );
+>      U:= ClosureGroup( P7, x^g );
+>    until Size( U ) = Size( S );
+]]></Example>
+
+<P/>
+
+A <C>2A</C> element in the group <M>Fi_{23}</M> can be found as
+the <M>21</M>-st power of any element of order <M>42</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> S:= AtlasGroup( "Fi23" );;
+gap> repeat
+>      x:= Random( S );
+>    until Order( x ) = 42;
+gap> x:= x^21;;
+gap> P5:= SylowSubgroup( S, 5 );;
+gap> repeat
+>      g:= Random( S );
+>      U:= ClosureGroup( P5, x^g );
+>    until Size( U ) = Size( S );
+gap> P7:= SylowSubgroup( S, 7 );;
+gap> repeat
+>      g:= Random( S );
+>      U:= ClosureGroup( P7, x^g );
+>    until Size( U ) = Size( S );
+]]></Example>
+
+<P/>
+
+A <C>2B</C> element in the group <M>Fi_{23}</M> can be found as
+the <M>30</M>-th power of any element of order <M>60</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> repeat
+>      x:= Random( S );
+>    until Order( x ) = 60;
+gap> x:= x^30;;
+gap> repeat
+>      g:= Random( S );
+>      U:= ClosureGroup( P5, x^g );
+>    until Size( U ) = Size( S );
+]]></Example>
+
+<P/>
+
+A <C>3A</C> element in the group <M>Fi_{23}</M> can be found as
+the <M>20</M>-th power of any element of order <M>60</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> repeat
+>      x:= Random( S );
+>    until Order( x ) = 60;
+gap> x:= x^20;;
+gap> repeat
+>      g:= Random( S );
+>      U:= ClosureGroup( P5, x^g );
+>    until Size( U ) = Size( S );
+]]></Example>
+
+<P/>
+
+In the open case for the Baby Monster, we have to show that the group
+is generated by a <C>2A</C> element and an element of order <M>7</M>.
+This can be done character-theoretically, for example as follows.
+There are such elements <M>x</M> and <M>y</M> whose product <M>x y</M>
+has order <M>47</M>,
+and the only proper subgroups of the Baby Monster that contain elements
+of order <M>47</M> are contained in maximal subgroups of the type
+<M>47:23</M>.
+Thus <M>x</M> and <M>y</M> generate the Baby Monster.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "B" );;
+gap> 7pos:= Positions( OrdersClassRepresentatives( t ), 7 );
+[ 31 ]
+gap> 47pos:= Positions( OrdersClassRepresentatives( t ), 47 );
+[ 172, 173 ]
+gap> ClassMultiplicationCoefficient( t, 2, 7pos[1], 47pos[1] );
+7332
+gap> Filtered( Maxes( t ),
+>        x -> Size( CharacterTable( x ) ) mod 47 = 0 );
+[ "47:23" ]
+]]></Example>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:Monster">
+<Heading>Special Arguments for the Monster Group that are no longer needed</Heading>
+
+The following computations were needed to prove the statements in question
+before the complete list of conjugacy classes of maximal subgroups of the
+Monster group was known, due to <Cite Key="DLP25"/>,
+and before the character tables of all maximal subgroups of the Monster
+were available.
+
+<P/>
+
+First we show <Cite Key="BG21" Where="Proposition 2.2"/>.
+
+<P/>
+
+The Monster group is known to contain exactly five classes
+of maximal subgroups of odd index, of the structures
+<M>2^{1+24}.Co_1</M> (the normalizer of a <C>2B</C> element in the Monster),
+<M>2^{10+16}.O_{10}^+(2)</M>,
+<M>2^{2+11+22}.(M_{24} \times S_3)</M>,
+<M>2^{5+10+20}.(S_3 \times L_5(2))</M>,
+<M>[2^{39}].(L_3(2) \times 3S_6)</M>.
+The corresponding permutation characters are known,
+see Section <Ref Sect="sect:monsterperm"/>.
+First we read the information about the known primitive permutation
+characters of the Monster into the &GAP; session,
+and extract the primitive permutation characters of odd degree.
+
+<P/>
+
+<Example><![CDATA[
+gap> dir:= DirectoriesPackageLibrary( "ctbllib", "data" );;
+gap> filename:= Filename( dir, "prim_perm_M.json" );;
+gap> Monster_prim_data:= EvalString( StringFile( filename ) )[2];;
+gap> Length( Monster_prim_data );
+46
+gap> t:= CharacterTable( "M" );;
+gap> monstermaxindices:= [];;
+gap> monstermaxtables:= [];;
+gap> for entry in Monster_prim_data do
+>      if Length( entry ) = 1 then
+>        s:= CharacterTable( entry[1] );
+>        Add( monstermaxtables, s );
+>        Add( monstermaxindices, Size( t ) / Size( s ) );
+>      else
+>        Add( monstermaxtables, fail );
+>        Add( monstermaxindices, entry[2][1] );
+>      fi;
+>    od;
+gap> odd_prim:= [];;
+gap> for i in [ 1 .. Length( Monster_prim_data ) ] do
+>      if monstermaxindices[i] mod 2 <> 0 then
+>        if monstermaxtables[i] <> fail then
+>          Add( odd_prim, TrivialCharacter( monstermaxtables[i] )^t );
+>        else
+>          Add( odd_prim, Monster_prim_data[i][2] );
+>        fi;
+>      fi;
+>    od;
+gap> Length( odd_prim );
+5
+]]></Example>
+
+<P/>
+
+Now we can use the same approach as for the other sporadic simple groups.
+
+<P/>
+
+<Example><![CDATA[
+gap> sum:= normindices.M * Sum( odd_prim, pi -> pi / pi[1] );;
+gap> max:= Maximum( sum{ [ 2 .. Length( sum ) ] } );
+12784979/103007903752128375
+gap> max < 10^-9;
+true
+]]></Example>
+
+<P/>
+
+Next we show <Cite Key="BG21" Where="Theorem 7.1"/>
+and its stronger version stated above.
+
+<P/>
+
+From <Cite Key="NW12"/> and <Cite Key="Mmaxes"/> we know <M>44</M> classes
+of maximal subgroups,
+and that each possible additional maximal subgroup is almost simple
+and has socle <M>L_2(13)</M>, <M>U_3(4)</M>, <M>U_3(8)</M>, or <M>Sz(8)</M>.
+This implies that we know all those maximal subgroups that contain
+a Sylow <M>p</M>-subgroup of <M>S</M> except in the case <M>p = 19</M>,
+where maximal subgroups with socle <M>U_3(8)</M> may arise.
+
+<P/>
+
+Thus let us first consider that at least one of <M>p</M>, <M>r</M>
+is different from <M>19</M>.
+In this situation,
+we use the same approach as for the other sporadic simple groups.
+The only complication is that not all permutation characters <M>1_M^S</M>,
+for the relevant maximal subgroups <M>M</M> of <M>S</M>, are known;
+however, if this happens then the character table of <M>M</M> is known,
+and we can compute the possible permutation characters,
+and take the common upper bounds for these characters.
+In each case, we get that the claimed property holds.
+
+<P/>
+
+<Example><![CDATA[
+gap> t:= CharacterTable( "M" );;
+gap> orders:= OrdersClassRepresentatives( t );;
+gap> for p in Difference( PrimeDivisors( Size( t ) ), [ 19 ] ) do
+>   goodpos:= Filtered( [ 1 .. Length( Monster_prim_data ) ],
+>                       i -> monstermaxindices[i] mod p <> 0 );
+>   sum:= ListWithIdenticalEntries( NrConjugacyClasses( t ), 0 );
+>   for i in goodpos do
+>     if Length( Monster_prim_data[i] ) = 2 then
+>       # We know the permutation character but not the subgroup table.
+>       sum:= sum + upper_bound( t, fail, p )
+>                   * Monster_prim_data[i][2] / monstermaxindices[i];
+>     else
+>       s:= monstermaxtables[i];
+>       if GetFusionMap( s, t ) <> fail then
+>         # We can compute the permutation character.
+>         sum:= sum + upper_bound( t, s, p )
+>                     * TrivialCharacter( s )^t / monstermaxindices[i];
+>       else
+>         # We get only candidates for the permutation character.
+>         cand:= Set( PossibleClassFusions( s, t ),
+>                     map -> InducedClassFunctionsByFusionMap( s, t,
+>                                [ TrivialCharacter( s ) ], map )[1] );
+>         # For each class, take the maximum of the possible values.
+>         sum:= sum + upper_bound( t, s, p )
+>                     * List( TransposedMat( cand ), Maximum )
+>                     / monstermaxindices[i];
+>       fi;
+>     fi;
+>   od;
+>   badpos:= Filtered( [ 2 .. Length( sum ) ], i -> sum[i] >= 1 );
+>   if badpos <> [] then
+>     Error( "check open cases in ", badpos, "\n" );
+>   fi;
+> od;
+]]></Example>
+
+<P/>
+
+Finally, let <M>p = r = 19</M>.
+The group <M>S</M> has exactly one class of elements of order <M>19</M>.
+Let <M>x</M> be such an element.
+From the character table of <M>S</M>, we compute that there exist
+conjugates <M>y</M> of <M>x</M> such that <M>x y</M> has order <M>71</M>.
+Since <M>\langle x, y \rangle = \langle x, x y \rangle</M> holds
+and no maximal subgroup of <M>S</M> has order divisible by <M>19 \cdot 71</M>,
+we have <M>\langle x, y \rangle = S</M>.
+
+<P/>
+
+<Example><![CDATA[
+gap> pos19:= Positions( OrdersClassRepresentatives( t ), 19 );
+[ 63 ]
+gap> pos71:= Positions( OrdersClassRepresentatives( t ), 71 );
+[ 169, 170 ]
+gap> ClassMultiplicationCoefficient( t, pos19[1], pos19[1], pos71[1] );
+621743152370566020417806353602387433415016198936
+gap> ForAny( monstermaxindices,
+>            x -> ( Size( t ) / x ) mod ( 19 * 71 ) = 0 );
+false
+gap> ForAny( [ "L2(13)", "U3(4)", "U3(8)", "Sz(8)" ],
+>            x -> Size( CharacterTable( x ) ) mod 71 = 0 );
+false
+]]></Example>
+
+</Subsection>
+
+</Section>
+
+</Chapter>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+

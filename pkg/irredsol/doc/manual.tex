@@ -1,0 +1,99 @@
+%!TEX root = manual.in.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  manual.in.tex            IRREDSOL documentation            Burkhard Höfling
+%%
+%%  Copyright © 2003–2016 Burkhard Höfling 
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\tracingcommands 1 
+%\tracingonline 1
+%\tracingmacros 1 
+
+% define default paths so that this file can be used as GAP input,
+% avoid backlsash before GAPROOT, so that it doesn't get replaced by Makefile
+\expandafter\def\csname GAPROOT\endcsname{../../..}
+\expandafter\def\csname PKGROOT\endcsname{../../../pkg}
+
+% input GAP macro file
+\input ../../../doc/gapmacro.tex
+%\batchmode
+
+\def\letter#1{%
+  \edef\tempa{LeTtEr#1}%
+  \nameddest{\tempa}%
+  \setbookmark{\tempa}{#1}%
+  \bigskip{\secfont #1}\par\nobreak\smallskip\nobreak}
+
+\citebookstrue
+\biblitemtrue
+\bibindent 4em
+
+% declare some package names
+\Package{IRREDSOL}
+\Package{CRISP}
+\Package{PrimGrp}
+
+% allow manual line breaks in long function names
+\gdef\\{\discretionary{\char92}{}{}} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\BeginningOfBook{irredsol}
+  \UseReferences{../../../doc/ref}
+  \UseReferences{../../crisp/doc}
+  \UseReferences{../../primgrp/doc}
+
+  \TitlePage{\unskip{
+    % \def\centerline#1{\hbox to \hsize{\hfill #1\hskip 1 cm}}
+    \vskip 24 pt
+    \baselineskip 24 pt
+    \centerline{\subtitlefont Burkhard H{\accent 127 o}f{}ling}
+    \vfill
+    \baselineskip 84 pt
+    \centerline{\inchhigh IRRED}
+    \centerline{\inchhigh SOL}
+    \vskip 24 pt
+    \baselineskip 24 pt
+    \centerline{\subtitlefont Version 1.4.4}
+    \vskip 24 pt
+    \centerline{\subtitlefont A library}
+    \centerline{\subtitlefont of irreducible soluble matrix groups}
+    \centerline{\subtitlefont over finite fields}
+    \centerline{\subtitlefont and of primitive soluble groups}
+ }}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \TableOfContents
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \FrontMatter
+  
+\immediate\write\citeout{\bs bibdata{manual}} 
+   \def\thechapter{}
+    \input copyright
+
+%    \Input{preface}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \Chapters
+  
+ \Input{overview}
+ \Input{access}
+ \Input{recognition}
+ \Input{matgroups}
+ \Input{primitive}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \Appendices     % don't uncomment - this is needed for the online manual
+  
+    \Input{versions}
+    \Bibliography
+    \Index
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\EndOfBook
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E
+%%

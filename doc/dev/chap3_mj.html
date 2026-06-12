@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (dev) - Chapter 3: Maintaining the GAP kernel and library</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3.html">[MathJax off]</a></p>
+<p><a id="X87069A9C7F80F2F6" name="X87069A9C7F80F2F6"></a></p>
+<div class="ChapSects"><a href="chap3_mj.html#X87069A9C7F80F2F6">3 <span class="Heading">Maintaining the <strong class="pkg">GAP</strong> kernel and library</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X8429278B82F8422F">3.1 <span class="Heading">Debugging the <strong class="pkg">GAP</strong> Kernel</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X872B5589872B5589">3.2 <span class="Heading">...</span></a>
+</span>
+</div>
+</div>
+
+<h3>3 <span class="Heading">Maintaining the <strong class="pkg">GAP</strong> kernel and library</span></h3>
+
+<p><a id="X8429278B82F8422F" name="X8429278B82F8422F"></a></p>
+
+<h4>3.1 <span class="Heading">Debugging the <strong class="pkg">GAP</strong> Kernel</span></h4>
+
+<p>The <strong class="pkg">GAP</strong> kernel supports a variety of options which can be enabled by running <code class="code">configure</code> which provide various checks which can be useful when writing and debugging <strong class="pkg">GAP</strong> kernel code.</p>
+
+<p>The first option, <code class="code">--enable-debug</code>, is well supported and can be used whenever the <strong class="pkg">GAP</strong> kernel, or kernel modules, are being developed (although developers should still check their code works without it).</p>
+
+<p><code class="code">--enable-debug</code> enables assertions throughout the kernel. These assertions are implemented using the <code class="code">GAP_ASSERT</code> macro. These assertions are disabled when <strong class="pkg">GAP</strong> is compiled without <code class="code">--enable-debug</code>. When <code class="code">--enable-debug</code> is enabled, <code class="code">KernelDebug</code> will be shown in the line starting <code class="code">Configuration:</code> when <strong class="pkg">GAP</strong> is started.</p>
+
+<p>The next two options are more experimental, and are not designed to be constantly enabled. They are particularly designed to track down bugs relating to memory corruption relating to GASMAN (<strong class="pkg">GAP</strong>'s memory manager). They cannot both be enabled at the same time. These options assume you are familiar somewhat familiar with the internals of GASMAN (see gasman.c for more information). In particular, GASMAN represents memory using an object of type Bag. The contents of these Bags can be moved during garbage collection.</p>
+
+<p><code class="code">--enable-memory-checking</code> makes <strong class="pkg">GAP</strong> check for C pointers to the content of Bags being used after a new Bag has been created or a Bag is resized. GASMAN moves Bags during garbage collection, which can happen whenever a new Bag is created or a Bag is resized. However, as it is very unlikely that any single allocation will cause a garbage collection, these bugs trigger very rarely. Also the problems caused by these bugs are, if the C pointer is written to, a random other Bag, somewhere in <strong class="pkg">GAP</strong>, is changed.</p>
+
+<p>After configuring, the memory checking must still be turned on. This can be done either by passing <code class="code">--enableMemCheck</code> to <strong class="pkg">GAP</strong>'s command line, or calling <code class="code">GASMAN_MEM_CHECK(1)</code>. Note that enabling these tests makes <strong class="pkg">GAP</strong> VERY, VERY slow. It can (depending on the machine and operating system) take <strong class="pkg">GAP</strong> over a day to start, and load all standard packages. The recommending way to use this option is to start <strong class="pkg">GAP</strong>, and then load small test files to try to isolate the problem. <code class="code">MemCheck</code> will be shown in the line starting <code class="code">Configuration:</code> when <strong class="pkg">GAP</strong> is started.</p>
+
+<p>Known bugs: <strong class="pkg">GAP</strong> will crash if <code class="code">IO_fork</code> from the IO package is called while memory checking is enabled.</p>
+
+<p><code class="code">--enable-valgrind</code> makes changes to GASMAN so it is compatible with the <span class="URL"><a href="https://valgrind.org">valgrind</a></span> memory checking program. Without this, Valgrind will report many incorrect warnings relating to GASMAN and no useful warnings.</p>
+
+<p>At present, this <code class="code">--enable-valgrind</code> only checks for invalid writes to the last bag which was created. Also, this option does not do anything unless <strong class="pkg">GAP</strong> is run through Valgrind (for example by running <code class="code">valgrind gap</code>.</p>
+
+<p>Modules, PROPOSALs, ...</p>
+
+<p><a id="X872B5589872B5589" name="X872B5589872B5589"></a></p>
+
+<h4>3.2 <span class="Heading">...</span></h4>
+
+<p>...</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chap8_mj.html">8</a>  <a href="chap9_mj.html">9</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

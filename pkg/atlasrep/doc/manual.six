@@ -1,0 +1,712 @@
+#SIXFORMAT  GapDocGAP
+HELPBOOKINFOSIXTMP := rec(
+encoding := "UTF-8",
+bookname := "AtlasRep",
+entries :=
+[ [ "Title page", "0.0", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" 
+     ], 
+  [ "Copyright", "0.0-1", [ 0, 0, 1 ], 36, 2, "copyright", 
+      "X81488B807F2A1CF1" ], 
+  [ "Table of Contents", "0.0-2", [ 0, 0, 2 ], 44, 3, "table of contents", 
+      "X8537FEB07AF2BEC8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YIntroduction to the \033[5XAtlasRep\033[105X\033[\
+101X\027\033[1X\027 Package\033[133X\033[101X", "1", [ 1, 0, 0 ], 1, 5, 
+      "introduction to the atlasrep package", "X780A68B584B7F3DF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe \033[5XATLAS\033[105X\033[101X\027\033[1X\\
+027 of Group Representations\033[133X\033[101X", "1.1", [ 1, 1, 0 ], 36, 5, 
+      "the atlas of group representations", "X7A76DF957E7AF8AE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe GAP Interface to the \033[5XATLAS\033[105X\\
+033[101X\027\033[1X\027 of Group Representations\033[133X\033[101X", "1.2", 
+      [ 1, 2, 0 ], 73, 6, 
+      "the gap interface to the atlas of group representations", 
+      "X8033B61682EE6A23" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in \033[5XAtlasRep\033[105X\033[101X\\
+027\033[1X\027, Compared to Older Versions?\033[133X\033[101X", "1.3", 
+      [ 1, 3, 0 ], 101, 6, "whats new in atlasrep compared to older versions?"
+        , "X7B864EDC7CB211FD" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.9? (August 2024)\033[13\
+3X\033[101X", "1.3-1", [ 1, 3, 1 ], 104, 6, 
+      "whats new in version 2.1.9? august 2024", "X7E024E377C2E8C27" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.8? (January 2024)\033[1\
+33X\033[101X", "1.3-2", [ 1, 3, 2 ], 127, 7, 
+      "whats new in version 2.1.8? january 2024", "X85FE8BE580751F58" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.7? (August 2023)\033[13\
+3X\033[101X", "1.3-3", [ 1, 3, 3 ], 136, 7, 
+      "whats new in version 2.1.7? august 2023", "X7B5DB23579AD1066" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.6? (October 2022)\033[1\
+33X\033[101X", "1.3-4", [ 1, 3, 4 ], 167, 7, 
+      "whats new in version 2.1.6? october 2022", "X7D4644167F6C9D4C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.5? (August 2022)\033[13\
+3X\033[101X", "1.3-5", [ 1, 3, 5 ], 182, 8, 
+      "whats new in version 2.1.5? august 2022", "X823B2D767C11246A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.4? (August 2022)\033[13\
+3X\033[101X", "1.3-6", [ 1, 3, 6 ], 189, 8, 
+      "whats new in version 2.1.4? august 2022", "X7BEBD3618260FE03" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.3? (August 2022)\033[13\
+3X\033[101X", "1.3-7", [ 1, 3, 7 ], 195, 8, 
+      "whats new in version 2.1.3? august 2022", "X7DB709CD7FECC9B1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.2? (March 2022)\033[133\
+X\033[101X", "1.3-8", [ 1, 3, 8 ], 209, 8, 
+      "whats new in version 2.1.2? march 2022", "X7A2A60D7841AF2CE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.1? (February 2022)\033[\
+133X\033[101X", "1.3-9", [ 1, 3, 9 ], 219, 8, 
+      "whats new in version 2.1.1? february 2022", "X7B0E14E57E9FC37E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 2.1.0? (May 2019)\033[133X\\
+033[101X", "1.3-10", [ 1, 3, 10 ], 256, 9, 
+      "whats new in version 2.1.0? may 2019", "X7DA8E7647A422775" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.5.1? (March 2016)\033[133\
+X\033[101X", "1.3-11", [ 1, 3, 11 ], 403, 11, 
+      "whats new in version 1.5.1? march 2016", "X7EACAC887E257302" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.5? (July 2011)\033[133X\\
+033[101X", "1.3-12", [ 1, 3, 12 ], 452, 12, 
+      "whats new in version 1.5? july 2011", "X86002B747AE0741B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.4? (June 2008)\033[133X\\
+033[101X", "1.3-13", [ 1, 3, 13 ], 521, 13, 
+      "whats new in version 1.4? june 2008", "X878EBA108716DDF0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3.1? (October 2007)\033[1\
+33X\033[101X", "1.3-14", [ 1, 3, 14 ], 571, 14, 
+      "whats new in version 1.3.1? october 2007", "X87A53CE182C9E086" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.3? (June 2007)\033[133X\\
+033[101X", "1.3-15", [ 1, 3, 15 ], 588, 14, 
+      "whats new in version 1.3? june 2007", "X79CCC5517897924C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.2? (November 2003)\033[13\
+3X\033[101X", "1.3-16", [ 1, 3, 16 ], 649, 15, 
+      "whats new in version 1.2? november 2003", "X7BDCA94D83DCFFB8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhat's New in Version 1.1? (October 2002)\033[133\
+X\033[101X", "1.3-17", [ 1, 3, 17 ], 686, 15, 
+      "whats new in version 1.1? october 2002", "X831628B47F669B29" ], 
+  [ "\033[1X\033[33X\033[0;-2YAcknowledgements\033[133X\033[101X", "1.4", 
+      [ 1, 4, 0 ], 729, 16, "acknowledgements", "X82A988D47DFAFCFA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YTutorial for the \033[5XAtlasRep\033[105X\033[101\
+X\027\033[1X\027 Package\033[133X\033[101X", "2", [ 2, 0, 0 ], 1, 18, 
+      "tutorial for the atlasrep package", "X8171B3798425E183" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing a Specific Group in \033[5XAtlasRep\\
+033[105X\033[101X\027\033[1X\027\033[133X\033[101X", "2.1", [ 2, 1, 0 ], 56, 
+      19, "accessing a specific group in atlasrep", "X79CECBFE7A8EE2C2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing a Group in \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 via its Name\033[133X\033[101X", "2.1-1", 
+      [ 2, 1, 1 ], 67, 19, "accessing a group in atlasrep via its name", 
+      "X87CD0FFB87D0BDD7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing a Maximal Subgroup of a Group in \033[5\
+XAtlasRep\033[105X\033[101X\027\033[1X\027\033[133X\033[101X", "2.1-2", 
+      [ 2, 1, 2 ], 129, 20, 
+      "accessing a maximal subgroup of a group in atlasrep", 
+      "X826C681B7EB3B67A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing Specific Generators in \033[5XAtlasRep\\
+033[105X\033[101X\027\033[1X\027\033[133X\033[101X", "2.2", [ 2, 2, 0 ], 206, 
+      21, "accessing specific generators in atlasrep", "X7F616D9685292471" ], 
+  [ "\033[1X\033[33X\033[0;-2YBasic Concepts used in \033[5XAtlasRep\033[105X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "2.3", [ 2, 3, 0 ], 288, 22, 
+      "basic concepts used in atlasrep", "X7D3A29F879B140D3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YGroups, Generators, and Representations\033[133X\\
+033[101X", "2.3-1", [ 2, 3, 1 ], 291, 22, 
+      "groups generators and representations", "X7E2FB5E5852AD970" ], 
+  [ "\033[1X\033[33X\033[0;-2YStraight Line Programs\033[133X\033[101X", 
+      "2.3-2", [ 2, 3, 2 ], 349, 23, "straight line programs", 
+      "X7DC99E4284093FBB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples of Using the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "2.4", [ 2, 4, 0 ], 389, 
+      24, "examples of using the atlasrep package", "X87ACE06E82B68589" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Class Representatives\033[133X\033[101X"
+        , "2.4-1", [ 2, 4, 1 ], 392, 24, "example: class representatives", 
+      "X8563D96878AC685C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Permutation and Matrix Representations\\
+033[133X\033[101X", "2.4-2", [ 2, 4, 2 ], 485, 26, 
+      "example: permutation and matrix representations", "X81C9233778A3A817" ]
+    , 
+  [ "\033[1X\033[33X\033[0;-2YExample: Outer Automorphisms\033[133X\033[101X",
+      "2.4-3", [ 2, 4, 3 ], 550, 27, "example: outer automorphisms", 
+      "X8284D7E87D38889C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Using Semi-presentations and Black Box P\
+rograms\033[133X\033[101X", "2.4-4", [ 2, 4, 4 ], 642, 28, 
+      "example: using semi-presentations and black box programs", 
+      "X794D669E7A507310" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Using the \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027 Library of Tables of Marks\033[133X\033[101X", "2.4-5", 
+      [ 2, 4, 5 ], 779, 31, 
+      "example: using the gap library of tables of marks", 
+      "X7CE7C2068017525C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Index \033[22X770\033[122X\033[101X\027\\
+033[1X\027 Subgroups in \033[22XM_22\033[122X\033[101X\027\033[1X\027\033[133X\
+\033[101X", "2.4-6", [ 2, 4, 6 ], 836, 32, 
+      "example: index 770 subgroups in m_22", "X82550A9683E0DCA2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Index \033[22X462\033[122X\033[101X\027\\
+033[1X\027 Subgroups in \033[22XM_22\033[122X\033[101X\027\033[1X\027\033[133X\
+\033[101X", "2.4-7", [ 2, 4, 7 ], 905, 33, 
+      "example: index 462 subgroups in m_22", "X84F9D163795B7DE1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe User Interface of the \033[5XAtlasRep\033[105\
+X\033[101X\027\033[1X\027 Package\033[133X\033[101X", "3", [ 3, 0, 0 ], 1, 
+      36, "the user interface of the atlasrep package", "X87EAF8E578D95793" ],
+  [ "\033[1X\033[33X\033[0;-2YAccessing vs. Constructing Representations\033[1\
+33X\033[101X", "3.1", [ 3, 1, 0 ], 14, 36, 
+      "accessing vs. constructing representations", "X87D26B13819A8209" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YGroup Names Used in the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "3.2", [ 3, 2, 0 ], 27, 
+      36, "group names used in the atlasrep package", "X81BF52FC7B8C08D4" ], 
+  [ "\033[1X\033[33X\033[0;-2YStandard Generators Used in the \033[5XAtlasRep\
+\033[105X\033[101X\027\033[1X\027 Package\033[133X\033[101X", "3.3", 
+      [ 3, 3, 0 ], 55, 37, "standard generators used in the atlasrep package",
+      "X795DB7E486E0817D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YClass Names Used in the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "3.4", [ 3, 4, 0 ], 79, 
+      37, "class names used in the atlasrep package", "X861CD545803B97E8" ], 
+  [ "\033[1X\033[33X\033[0;-2YDefinition of \033[5XATLAS\033[105X\033[101X\027\
+\033[1X\027 Class Names\033[133X\033[101X", "3.4-1", [ 3, 4, 1 ], 93, 37, 
+      "definition of atlas class names", "X850EEDEE831EE039" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAccessing Data via \033[5XAtlasRep\033[105X\033[1\
+01X\027\033[1X\027\033[133X\033[101X", "3.5", [ 3, 5, 0 ], 238, 40, 
+      "accessing data via atlasrep", "X7CC88B2287A72204" ], 
+  [ "\033[1X\033[33X\033[0;-2YExamples for DisplayAtlasInfo\033[133X\033[101X"
+        , "3.5-2", [ 3, 5, 2 ], 514, 44, "examples for displayatlasinfo", 
+      "X7CE4FF2380DB47F2" ], 
+  [ "\033[1X\033[33X\033[0;-2YAtlasGroup\033[133X\033[101X", "3.5-8", 
+      [ 3, 5, 8 ], 1309, 57, "atlasgroup", "X80AABEE783363B70" ], 
+  [ "\033[1X\033[33X\033[0;-2YAtlasSubgroup\033[133X\033[101X", "3.5-9", 
+      [ 3, 5, 9 ], 1351, 58, "atlassubgroup", "X7A3E460C82B3D9A3" ], 
+  [ "\033[1X\033[33X\033[0;-2YEvaluatePresentation\033[133X\033[101X", 
+      "3.5-11", [ 3, 5, 11 ], 1469, 60, "evaluatepresentation", 
+      "X87B012B080D01413" ], 
+  [ "\033[1X\033[33X\033[0;-2YStandardGeneratorsData\033[133X\033[101X", 
+      "3.5-12", [ 3, 5, 12 ], 1520, 61, "standardgeneratorsdata", 
+      "X79F63403821C1E24" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XBrowse\033[105X\033[101X\027\033[1X\027 Ap\
+plications Provided by \033[5XAtlasRep\033[105X\033[101X\027\033[1X\027\033[13\
+3X\033[101X", "3.6", [ 3, 6, 0 ], 1654, 63, 
+      "browse applications provided by atlasrep", "X790D5F8C7E8E6947" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCustomizations of the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "4", [ 4, 0, 0 ], 1, 66, 
+      "customizations of the atlasrep package", "X797694467B534D0E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInstalling the \033[5XAtlasRep\033[105X\033[101X\\
+027\033[1X\027 Package\033[133X\033[101X", "4.1", [ 4, 1, 0 ], 4, 66, 
+      "installing the atlasrep package", "X7F25ECBA7B675901" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser Preferences of the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "4.2", [ 4, 2, 0 ], 50, 
+      67, "user preferences of the atlasrep package", "X851A50E6810EF8C5" ], 
+  [ "\033[1X\033[33X\033[0;-2YUser preference \033[10XAtlasRepAccessRemoteFile\
+s\033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-1", [ 4, 2, 1 ], 
+      99, 67, "user preference atlasrepaccessremotefiles", 
+      "X7C3293A98577EE68" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XAtlasRepDataDirectory\\
+033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-2", [ 4, 2, 2 ], 
+      113, 68, "user preference atlasrepdatadirectory", "X7C36E9A78021A71A" ],
+  [ "\033[1X\033[33X\033[0;-2YUser preference \033[10XAtlasRepTOCData\033[110X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-3", [ 4, 2, 3 ], 130, 68, 
+      "user preference atlasreptocdata", "X7F21FFBE7F8108E4" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XCompressDownloadedMeatAxe\
+Files\033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-4", 
+      [ 4, 2, 4 ], 143, 68, "user preference compressdownloadedmeataxefiles", 
+      "X8766BE5D7AD6C526" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XFileAccessFunctions\033[1\
+10X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-5", [ 4, 2, 5 ], 158, 
+      68, "user preference fileaccessfunctions", "X81AD105979465162" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XAtlasRepLocalServerPath\\
+033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-6", [ 4, 2, 6 ], 
+      180, 69, "user preference atlasreplocalserverpath", "X85C48D6D81095161" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XHowToReadMeatAxeTextFiles\
+\033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-7", [ 4, 2, 7 ], 
+      194, 69, "user preference howtoreadmeataxetextfiles", 
+      "X79993585808450FA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XWriteHeaderFormatOfMeatAx\
+eFiles\033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-8", 
+      [ 4, 2, 8 ], 217, 69, "user preference writeheaderformatofmeataxefiles",
+      "X7B8F757B85F87936" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XWriteMeatAxeFilesOfMode2\\
+033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-9", [ 4, 2, 9 ], 
+      238, 69, "user preference writemeataxefilesofmode2", 
+      "X7941C4378261E28A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XBaseOfMeatAxePermutation\\
+033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-10", [ 4, 2, 10 ], 
+      248, 70, "user preference baseofmeataxepermutation", 
+      "X877E40DB7A4E36C9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XDisplayFunction\033[110X\\
+033[101X\027\033[1X\027\033[133X\033[101X", "4.2-11", [ 4, 2, 11 ], 260, 70, 
+      "user preference displayfunction", "X81F055037F9D3068" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XAtlasRepMarkNonCoreData\\
+033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-12", [ 4, 2, 12 ], 
+      272, 70, "user preference atlasrepmarknoncoredata", "X862C660878D422FA" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XDebugFileLoading\033[110X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-13", [ 4, 2, 13 ], 279, 70, 
+      "user preference debugfileloading", "X80958D068147325B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUser preference \033[10XAtlasRepJsonFilesAddresse\
+s\033[110X\033[101X\027\033[1X\027\033[133X\033[101X", "4.2-14", 
+      [ 4, 2, 14 ], 285, 70, "user preference atlasrepjsonfilesaddresses", 
+      "X850D135E79EFF3F7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWeb Contents for the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "4.3", [ 4, 3, 0 ], 295, 
+      70, "web contents for the atlasrep package", "X7C50F18587ADC3B5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExtending the \033[5XATLAS\033[105X\033[101X\027\\
+033[1X\027 Database\033[133X\033[101X", "4.4", [ 4, 4, 0 ], 323, 71, 
+      "extending the atlas database", "X7FB64AD37D4620E6" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExtensions of the \033[5XAtlasRep\033[105X\033[10\
+1X\027\033[1X\027 Package\033[133X\033[101X", "5", [ 5, 0, 0 ], 1, 72, 
+      "extensions of the atlasrep package", "X7B0718A178BB10CA" ], 
+  [ "\033[1X\033[33X\033[0;-2YNotify Additional Data\033[133X\033[101X", 
+      "5.1", [ 5, 1, 0 ], 37, 72, "notify additional data", 
+      "X78E7F7347DE8A125" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAtlasOfGroupRepresentationsNotifyData\033[133X\\
+033[101X", "5.1-1", [ 5, 1, 1 ], 59, 73, 
+      "atlasofgrouprepresentationsnotifydata", "X81B5FA0578257653" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Effect of Extensions on the User Interface\\
+033[133X\033[101X", "5.2", [ 5, 2, 0 ], 215, 75, 
+      "the effect of extensions on the user interface", "X7A6024EC87A95E0B" ],
+  [ "\033[1X\033[33X\033[0;-2YAn Example of Extending the \033[5XAtlasRep\033[\
+105X\033[101X\027\033[1X\027 Data\033[133X\033[101X", "5.3", [ 5, 3, 0 ], 
+      234, 75, "an example of extending the atlasrep data", 
+      "X7E7307FC835D09DF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YNew \033[5XGAP\033[105X\033[101X\027\033[1X\027 O\
+bjects and Utility Functions provided by the \033[5XAtlasRep\033[105X\033[101X\
+\027\033[1X\027 Package\033[133X\033[101X", "6", [ 6, 0, 0 ], 1, 82, 
+      "new gap objects and utility functions provided by the atlasrep package"
+        , "X83827EDB7D36C407" ], 
+  [ "\033[1X\033[33X\033[0;-2YStraight Line Decisions\033[133X\033[101X", 
+      "6.1", [ 6, 1, 0 ], 13, 82, "straight line decisions", 
+      "X8121E9567A7137C9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSemi-Presentations and Presentations\033[133X\\
+033[101X", "6.1-7", [ 6, 1, 7 ], 215, 85, 
+      "semi-presentations and presentations", "X7C94ECAC8583CEAE" ], 
+  [ "\033[1X\033[33X\033[0;-2YBlack Box Programs\033[133X\033[101X", "6.2", 
+      [ 6, 2, 0 ], 375, 88, "black box programs", "X7BE856BC785A9E8F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YRepresentations of Minimal Degree\033[133X\033[10\
+1X", "6.3", [ 6, 3, 0 ], 688, 93, "representations of minimal degree", 
+      "X87E1F08D80C9E069" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCriteria Used to Compute Minimality Information\\
+033[133X\033[101X", "6.3-4", [ 6, 3, 4 ], 872, 96, 
+      "criteria used to compute minimality information", "X7FC33DFF8481F8D1" ]
+    , [ "\033[1X\033[33X\033[0;-2YA JSON Interface\033[133X\033[101X", "6.4", 
+      [ 6, 4, 0 ], 928, 97, "a json interface", "X7E5CB1637F127B2E" ], 
+  [ "\033[1X\033[33X\033[0;-2YWhy JSON?\033[133X\033[101X", "6.4-1", 
+      [ 6, 4, 1 ], 992, 98, "why json?", "X7870BBB184574D18" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YTechnicalities of the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "7", [ 7, 0, 0 ], 1, 100, 
+      "technicalities of the atlasrep package", "X7F77634D817156B3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YGlobal Variables Used by the \033[5XAtlasRep\033[\
+105X\033[101X\027\033[1X\027 Package\033[133X\033[101X", "7.1", [ 7, 1, 0 ], 
+      21, 100, "global variables used by the atlasrep package", 
+      "X7DC2B7917DC30B28" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YHow to Customize the Access to Data files\033[133\
+X\033[101X", "7.2", [ 7, 2, 0 ], 100, 102, 
+      "how to customize the access to data files", "X81C5B5E78215169D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YReading and Writing MeatAxe Format Files\033[133X\
+\033[101X", "7.3", [ 7, 3, 0 ], 187, 103, 
+      "reading and writing meataxe format files", "X7D76D4437A9646E7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YReading and Writing \033[5XATLAS\033[105X\033[101\
+X\027\033[1X\027 Straight Line Programs\033[133X\033[101X", "7.4", 
+      [ 7, 4, 0 ], 400, 106, 
+      "reading and writing atlas straight line programs", "X7FEE162B7F63BEA0" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YData Types Used in the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "7.5", [ 7, 5, 0 ], 581, 
+      109, "data types used in the atlasrep package", "X809898027EFDA56E" ], 
+  [ "\033[1X\033[33X\033[0;-2YFilenames Used in the \033[5XAtlasRep\033[105X\
+\033[101X\027\033[1X\027 Package\033[133X\033[101X", "7.6", [ 7, 6, 0 ], 763, 
+      112, "filenames used in the atlasrep package", "X7A86627B80980F61" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe record component \033[10Xidentifier\033[110X\\
+033[101X\027\033[1X\027 used by the \033[5XAtlasRep\033[105X\033[101X\027\033[\
+1X\027 Package\033[133X\033[101X", "7.7", [ 7, 7, 0 ], 958, 116, 
+      "the record component identifier used by the atlasrep package", 
+      "X7CCA3DE97E756F01" ], 
+  [ "\033[1X\033[33X\033[0;-2YAtlasRepIdentifier\033[133X\033[101X", "7.7-1", 
+      [ 7, 7, 1 ], 1005, 116, "atlasrepidentifier", "X81685FC979BC3FB8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Tables of Contents of the \033[5XAtlasRep\\
+033[105X\033[101X\027\033[1X\027 Package\033[133X\033[101X", "7.8", 
+      [ 7, 8, 0 ], 1060, 117, "the tables of contents of the atlasrep package"
+        , "X7B1DECF080AEB806" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSanity Checks for the \033[5XAtlasRep\033[105X\\
+033[101X\027\033[1X\027 Package\033[133X\033[101X", "7.9", [ 7, 9, 0 ], 1227, 
+      120, "sanity checks for the atlasrep package", "X79C5F2267ACCF52A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSanity Checks for a Table of Contents\033[133X\\
+033[101X", "7.9-1", [ 7, 9, 1 ], 1255, 120, 
+      "sanity checks for a table of contents", "X86FDCF0B85496AE5" ], 
+  [ "\033[1X\033[33X\033[0;-2YOther Sanity Checks\033[133X\033[101X", 
+      "7.9-2", [ 7, 9, 2 ], 1402, 123, "other sanity checks", 
+      "X7FBFA8D287B807D2" ], 
+  [ "Bibliography", "bib", [ "Bib", 0, 0 ], 1, 124, "bibliography", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "References", "bib", [ "Bib", 0, 0 ], 1, 124, "references", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 126, "index", "X83A0356F839C696F" ], 
+  [ "AtlasRep", "0.0", [ 0, 0, 0 ], 1, 1, "atlasrep", "X7D2C85EC87DD46E5" ], 
+  [ "black box program", "1.1", [ 1, 1, 0 ], 36, 5, "black box program", 
+      "X7A76DF957E7AF8AE" ], 
+  [ "straight line program", "1.1", [ 1, 1, 0 ], 36, 5, 
+      "straight line program", "X7A76DF957E7AF8AE" ], 
+  [ "\033[5XMeatAxe\033[105X", "1.1", [ 1, 1, 0 ], 36, 5, "meataxe", 
+      "X7A76DF957E7AF8AE" ], 
+  [ "\033[5XMagma\033[105X", "1.1", [ 1, 1, 0 ], 36, 5, "magma", 
+      "X7A76DF957E7AF8AE" ], 
+  [ "\033[10XC\033[110X-\033[5XMeatAxe\033[105X", "1.2", [ 1, 2, 0 ], 73, 6, 
+      "c-meataxe", "X8033B61682EE6A23" ], 
+  [ "\033[11Xwget\033[111X", "1.3-15", [ 1, 3, 15 ], 588, 14, "wget", 
+      "X79CCC5517897924C" ], 
+  [ "\033[11Xftp\033[111X", "1.3-15", [ 1, 3, 15 ], 588, 14, "ftp", 
+      "X79CCC5517897924C" ], 
+  [ "\033[11Xperl\033[111X", "1.3-15", [ 1, 3, 15 ], 588, 14, "perl", 
+      "X79CCC5517897924C" ], 
+  [ "\033[11Xwget\033[111X", "1.3-17", [ 1, 3, 17 ], 686, 15, "wget", 
+      "X831628B47F669B29" ], 
+  [ "\033[11Xgzip\033[111X", "1.3-17", [ 1, 3, 17 ], 686, 15, "gzip", 
+      "X831628B47F669B29" ], 
+  [ "\033[11Xperl\033[111X", "1.4", [ 1, 4, 0 ], 729, 16, "perl", 
+      "X82A988D47DFAFCFA" ], 
+  [ "\033[2XAtlasClassNames\033[102X", "3.4-2", [ 3, 4, 2 ], 184, 39, 
+      "atlasclassnames", "X78166D1D7D18EFBF" ], 
+  [ "\033[2XAtlasCharacterNames\033[102X", "3.4-3", [ 3, 4, 3 ], 223, 39, 
+      "atlascharacternames", "X7B14A254870BA5A1" ], 
+  [ "\033[2XDisplayAtlasInfo\033[102X", "3.5-1", [ 3, 5, 1 ], 246, 40, 
+      "displayatlasinfo", "X79DACFFA7E2D1A99" ], 
+  [ 
+      "\033[2XDisplayAtlasInfo\033[102X for a group name, and optionally further \
+restrictions", "3.5-1", [ 3, 5, 1 ], 246, 40, 
+      "displayatlasinfo for a group name and optionally further restrictions",
+      "X79DACFFA7E2D1A99" ], 
+  [ "straight line program", "3.5-1", [ 3, 5, 1 ], 246, 40, 
+      "straight line program", "X79DACFFA7E2D1A99" ], 
+  [ "\033[2XAtlasGenerators\033[102X", "3.5-3", [ 3, 5, 3 ], 723, 47, 
+      "atlasgenerators", "X7D1CCCF8852DFF39" ], 
+  [ "\033[2XAtlasGenerators\033[102X for an identifier", "3.5-3", 
+      [ 3, 5, 3 ], 723, 47, "atlasgenerators for an identifier", 
+      "X7D1CCCF8852DFF39" ], 
+  [ "\033[2XAtlasProgram\033[102X", "3.5-4", [ 3, 5, 4 ], 885, 50, 
+      "atlasprogram", "X801F2E657C8A79ED" ], 
+  [ "\033[2XAtlasProgram\033[102X for an identifier", "3.5-4", [ 3, 5, 4 ], 
+      885, 50, "atlasprogram for an identifier", "X801F2E657C8A79ED" ], 
+  [ "straight line program for maximal subgroups", "3.5-4", [ 3, 5, 4 ], 885, 
+      50, "straight line program for maximal subgroups", "X801F2E657C8A79ED" ]
+    , 
+  [ "maximal subgroups", "3.5-4", [ 3, 5, 4 ], 885, 50, "maximal subgroups", 
+      "X801F2E657C8A79ED" ], 
+  [ "straight line program for normal subgroups", "3.5-4", [ 3, 5, 4 ], 885, 
+      50, "straight line program for normal subgroups", "X801F2E657C8A79ED" ],
+  [ "straight line program for kernels of epimorphisms", "3.5-4", 
+      [ 3, 5, 4 ], 885, 50, 
+      "straight line program for kernels of epimorphisms", 
+      "X801F2E657C8A79ED" ], 
+  [ "straight line program for class representatives", "3.5-4", [ 3, 5, 4 ], 
+      885, 50, "straight line program for class representatives", 
+      "X801F2E657C8A79ED" ], 
+  [ "class representatives", "3.5-4", [ 3, 5, 4 ], 885, 50, 
+      "class representatives", "X801F2E657C8A79ED" ], 
+  [ "straight line program for representatives of cyclic subgroups", "3.5-4", 
+      [ 3, 5, 4 ], 885, 50, 
+      "straight line program for representatives of cyclic subgroups", 
+      "X801F2E657C8A79ED" ], 
+  [ "cyclic subgroups", "3.5-4", [ 3, 5, 4 ], 885, 50, "cyclic subgroups", 
+      "X801F2E657C8A79ED" ], 
+  [ "maximally cyclic subgroups", "3.5-4", [ 3, 5, 4 ], 885, 50, 
+      "maximally cyclic subgroups", "X801F2E657C8A79ED" ], 
+  [ "straight line program for outer automorphisms", "3.5-4", [ 3, 5, 4 ], 
+      885, 50, "straight line program for outer automorphisms", 
+      "X801F2E657C8A79ED" ], 
+  [ "automorphisms", "3.5-4", [ 3, 5, 4 ], 885, 50, "automorphisms", 
+      "X801F2E657C8A79ED" ], 
+  [ "straight line decision for checking standard generators", "3.5-4", 
+      [ 3, 5, 4 ], 885, 50, 
+      "straight line decision for checking standard generators", 
+      "X801F2E657C8A79ED" ], 
+  [ "straight line decision encoding a presentation", "3.5-4", [ 3, 5, 4 ], 
+      885, 50, "straight line decision encoding a presentation", 
+      "X801F2E657C8A79ED" ], 
+  [ "black box program for finding standard generators", "3.5-4", 
+      [ 3, 5, 4 ], 885, 50, 
+      "black box program for finding standard generators", 
+      "X801F2E657C8A79ED" ], 
+  [ "straight line program for restandardizing", "3.5-4", [ 3, 5, 4 ], 885, 
+      50, "straight line program for restandardizing", "X801F2E657C8A79ED" ], 
+  [ "straight line program free format", "3.5-4", [ 3, 5, 4 ], 885, 50, 
+      "straight line program free format", "X801F2E657C8A79ED" ], 
+  [ "\033[2XAtlasProgramInfo\033[102X", "3.5-5", [ 3, 5, 5 ], 1083, 53, 
+      "atlasprograminfo", "X83DFD8967E6BC831" ], 
+  [ "\033[2XOneAtlasGeneratingSetInfo\033[102X", "3.5-6", [ 3, 5, 6 ], 1102, 
+      54, "oneatlasgeneratingsetinfo", "X841478AB7CD06D44" ], 
+  [ "\033[2XAllAtlasGeneratingSetInfos\033[102X", "3.5-7", [ 3, 5, 7 ], 1267, 
+      57, "allatlasgeneratingsetinfos", "X84C2D76482E60E42" ], 
+  [ "\033[2XAtlasGroup\033[102X for various arguments", "3.5-8", [ 3, 5, 8 ], 
+      1309, 57, "atlasgroup for various arguments", "X80AABEE783363B70" ], 
+  [ "\033[2XAtlasGroup\033[102X for an identifier record", "3.5-8", 
+      [ 3, 5, 8 ], 1309, 57, "atlasgroup for an identifier record", 
+      "X80AABEE783363B70" ], 
+  [ 
+      "\033[2XAtlasSubgroup\033[102X for a group name (and various arguments) and\
+ a number", "3.5-9", [ 3, 5, 9 ], 1351, 58, 
+      "atlassubgroup for a group name and various arguments and a number", 
+      "X7A3E460C82B3D9A3" ], 
+  [ "\033[2XAtlasSubgroup\033[102X for an identifier record and a number", 
+      "3.5-9", [ 3, 5, 9 ], 1351, 58, 
+      "atlassubgroup for an identifier record and a number", 
+      "X7A3E460C82B3D9A3" ], 
+  [ "\033[2XAtlasSubgroup\033[102X for a group and a number", "3.5-9", 
+      [ 3, 5, 9 ], 1351, 58, "atlassubgroup for a group and a number", 
+      "X7A3E460C82B3D9A3" ], 
+  [ "\033[2XAtlasRepInfoRecord\033[102X for a group", "3.5-10", [ 3, 5, 10 ], 
+      1404, 59, "atlasrepinforecord for a group", "X87BC7D9C7BA2F27A" ], 
+  [ "\033[2XAtlasRepInfoRecord\033[102X for a string", "3.5-10", 
+      [ 3, 5, 10 ], 1404, 59, "atlasrepinforecord for a string", 
+      "X87BC7D9C7BA2F27A" ], 
+  [ 
+      "\033[2XEvaluatePresentation\033[102X for a group, a group name (and a numb\
+er)", "3.5-11", [ 3, 5, 11 ], 1469, 60, 
+      "evaluatepresentation for a group a group name and a number", 
+      "X87B012B080D01413" ], 
+  [ 
+      "\033[2XEvaluatePresentation\033[102X for a list of generators, a group nam\
+e (and a number)", "3.5-11", [ 3, 5, 11 ], 1469, 60, 
+      "evaluatepresentation for a list of generators a group name and a number\
+", "X87B012B080D01413" ], 
+  [ 
+      "\033[2XStandardGeneratorsData\033[102X for a group, a group name (and a nu\
+mber)", "3.5-12", [ 3, 5, 12 ], 1520, 61, 
+      "standardgeneratorsdata for a group a group name and a number", 
+      "X79F63403821C1E24" ], 
+  [ 
+      "\033[2XStandardGeneratorsData\033[102X for a list of generators, a group n\
+ame (and a number)", "3.5-12", [ 3, 5, 12 ], 1520, 61, 
+      "standardgeneratorsdata for a list of generators a group name and a numb\
+er", "X79F63403821C1E24" ], 
+  [ "\033[2XBrowseMinimalDegrees\033[102X", "3.6-1", [ 3, 6, 1 ], 1662, 63, 
+      "browseminimaldegrees", "X7F31A7CB841FE63F" ], 
+  [ "\033[2XBrowseBibliographySporadicSimple\033[102X", "3.6-2", [ 3, 6, 2 ], 
+      1721, 64, "browsebibliographysporadicsimple", "X84ED4FC182C28198" ], 
+  [ "\033[10XAtlasRepAccessRemoteFiles\033[110X", "4.2-1", [ 4, 2, 1 ], 99, 
+      67, "atlasrepaccessremotefiles", "X7C3293A98577EE68" ], 
+  [ "local access", "4.2-1", [ 4, 2, 1 ], 99, 67, "local access", 
+      "X7C3293A98577EE68" ], 
+  [ "remote access", "4.2-1", [ 4, 2, 1 ], 99, 67, "remote access", 
+      "X7C3293A98577EE68" ], 
+  [ "\033[10XAtlasRepDataDirectory\033[110X", "4.2-2", [ 4, 2, 2 ], 113, 68, 
+      "atlasrepdatadirectory", "X7C36E9A78021A71A" ], 
+  [ "\033[10XAtlasRepTOCData\033[110X", "4.2-3", [ 4, 2, 3 ], 130, 68, 
+      "atlasreptocdata", "X7F21FFBE7F8108E4" ], 
+  [ "\033[10XCompressDownloadedMeatAxeFiles\033[110X", "4.2-4", [ 4, 2, 4 ], 
+      143, 68, "compressdownloadedmeataxefiles", "X8766BE5D7AD6C526" ], 
+  [ "\033[10Xcompress\033[110X", "4.2-4", [ 4, 2, 4 ], 143, 68, "compress", 
+      "X8766BE5D7AD6C526" ], 
+  [ "\033[11Xgzip\033[111X", "4.2-4", [ 4, 2, 4 ], 143, 68, "gzip", 
+      "X8766BE5D7AD6C526" ], 
+  [ "\033[10XFileAccessFunctions\033[110X", "4.2-5", [ 4, 2, 5 ], 158, 68, 
+      "fileaccessfunctions", "X81AD105979465162" ], 
+  [ "\033[10XAtlasRepLocalServerPath\033[110X", "4.2-6", [ 4, 2, 6 ], 180, 
+      69, "atlasreplocalserverpath", "X85C48D6D81095161" ], 
+  [ "\033[10XHowToReadMeatAxeTextFiles\033[110X", "4.2-7", [ 4, 2, 7 ], 194, 
+      69, "howtoreadmeataxetextfiles", "X79993585808450FA" ], 
+  [ "\033[10XWriteHeaderFormatOfMeatAxeFiles\033[110X", "4.2-8", [ 4, 2, 8 ], 
+      217, 69, "writeheaderformatofmeataxefiles", "X7B8F757B85F87936" ], 
+  [ "\033[10XWriteMeatAxeFilesOfMode2\033[110X", "4.2-9", [ 4, 2, 9 ], 238, 
+      69, "writemeataxefilesofmode2", "X7941C4378261E28A" ], 
+  [ "\033[10XBaseOfMeatAxePermutation\033[110X", "4.2-10", [ 4, 2, 10 ], 248, 
+      70, "baseofmeataxepermutation", "X877E40DB7A4E36C9" ], 
+  [ "\033[10XDisplayFunction\033[110X", "4.2-11", [ 4, 2, 11 ], 260, 70, 
+      "displayfunction", "X81F055037F9D3068" ], 
+  [ "\033[10XAtlasRepMarkNonCoreData\033[110X", "4.2-12", [ 4, 2, 12 ], 272, 
+      70, "atlasrepmarknoncoredata", "X862C660878D422FA" ], 
+  [ "\033[10XDebugFileLoading\033[110X", "4.2-13", [ 4, 2, 13 ], 279, 70, 
+      "debugfileloading", "X80958D068147325B" ], 
+  [ "\033[10XAtlasRepJsonFilesAddresses\033[110X", "4.2-14", [ 4, 2, 14 ], 
+      285, 70, "atlasrepjsonfilesaddresses", "X850D135E79EFF3F7" ], 
+  [ 
+      "\033[2XAtlasOfGroupRepresentationsNotifyData\033[102X for a local director\
+y of private data", "5.1-1", [ 5, 1, 1 ], 59, 73, 
+      "atlasofgrouprepresentationsnotifydata for a local directory of private \
+data", "X81B5FA0578257653" ], 
+  [ 
+      "\033[2XAtlasOfGroupRepresentationsNotifyData\033[102X for a local file des\
+cribing private data", "5.1-1", [ 5, 1, 1 ], 59, 73, 
+      "atlasofgrouprepresentationsnotifydata for a local file describing priva\
+te data", "X81B5FA0578257653" ], 
+  [ 
+      "\033[2XAtlasOfGroupRepresentationsNotifyData\033[102X for a remote file de\
+scribing private data", "5.1-1", [ 5, 1, 1 ], 59, 73, 
+      "atlasofgrouprepresentationsnotifydata for a remote file describing priv\
+ate data", "X81B5FA0578257653" ], 
+  [ "\033[2XAtlasOfGroupRepresentationsForgetData\033[102X", "5.1-2", 
+      [ 5, 1, 2 ], 176, 74, "atlasofgrouprepresentationsforgetdata", 
+      "X7E0DC24681F17A9D" ], 
+  [ "\033[2XStringOfAtlasTableOfContents\033[102X", "5.1-3", [ 5, 1, 3 ], 
+      186, 75, "stringofatlastableofcontents", "X81C5440983E47DBD" ], 
+  [ "\033[2XIsStraightLineDecision\033[102X", "6.1-1", [ 6, 1, 1 ], 59, 83, 
+      "isstraightlinedecision", "X8787E2EC7DB85A89" ], 
+  [ "\033[2XLinesOfStraightLineDecision\033[102X", "6.1-2", [ 6, 1, 2 ], 66, 
+      83, "linesofstraightlinedecision", "X82AFAD9F7FA5CE8A" ], 
+  [ "\033[2XNrInputsOfStraightLineDecision\033[102X", "6.1-3", [ 6, 1, 3 ], 
+      84, 83, "nrinputsofstraightlinedecision", "X7B1A43427BD97FDF" ], 
+  [ "\033[2XScanStraightLineDecision\033[102X", "6.1-4", [ 6, 1, 4 ], 97, 83, 
+      "scanstraightlinedecision", "X82A3632782E45F35" ], 
+  [ "\033[2XStraightLineDecision\033[102X", "6.1-5", [ 6, 1, 5 ], 135, 84, 
+      "straightlinedecision", "X825C4E4180F3D989" ], 
+  [ "\033[2XStraightLineDecisionNC\033[102X", "6.1-5", [ 6, 1, 5 ], 135, 84, 
+      "straightlinedecisionnc", "X825C4E4180F3D989" ], 
+  [ "\033[2XResultOfStraightLineDecision\033[102X", "6.1-6", [ 6, 1, 6 ], 
+      152, 84, "resultofstraightlinedecision", "X7E7B328A84685480" ], 
+  [ "semi-presentation", "6.1-7", [ 6, 1, 7 ], 215, 85, "semi-presentation", 
+      "X7C94ECAC8583CEAE" ], 
+  [ "presentation", "6.1-7", [ 6, 1, 7 ], 215, 85, "presentation", 
+      "X7C94ECAC8583CEAE" ], 
+  [ "\033[2XAsStraightLineDecision\033[102X", "6.1-8", [ 6, 1, 8 ], 301, 87, 
+      "asstraightlinedecision", "X7C13D08C7D55E20A" ], 
+  [ "\033[2XStraightLineProgramFromStraightLineDecision\033[102X", "6.1-9", 
+      [ 6, 1, 9 ], 327, 87, "straightlineprogramfromstraightlinedecision", 
+      "X7EA613C57DDC67D5" ], 
+  [ "\033[2XIsBBoxProgram\033[102X", "6.2-1", [ 6, 2, 1 ], 448, 89, 
+      "isbboxprogram", "X87CAF2DE870D0E3B" ], 
+  [ "\033[2XScanBBoxProgram\033[102X", "6.2-2", [ 6, 2, 2 ], 454, 89, 
+      "scanbboxprogram", "X7EA20532868F9863" ], 
+  [ "\033[2XRunBBoxProgram\033[102X", "6.2-3", [ 6, 2, 3 ], 517, 90, 
+      "runbboxprogram", "X7D211A5D8602B330" ], 
+  [ "\033[2XResultOfBBoxProgram\033[102X", "6.2-4", [ 6, 2, 4 ], 589, 91, 
+      "resultofbboxprogram", "X869BACFB80A3CC87" ], 
+  [ "\033[2XAsBBoxProgram\033[102X", "6.2-5", [ 6, 2, 5 ], 622, 92, 
+      "asbboxprogram", "X826ACFE887E0B6B8" ], 
+  [ "\033[2XAsStraightLineProgram\033[102X", "6.2-6", [ 6, 2, 6 ], 662, 93, 
+      "asstraightlineprogram", "X7D36DFA87C8B2C48" ], 
+  [ "\033[2XMinimalRepresentationInfo\033[102X", "6.3-1", [ 6, 3, 1 ], 702, 
+      93, "minimalrepresentationinfo", "X7DC66D8282B2BB7F" ], 
+  [ "\033[2XMinimalRepresentationInfoData\033[102X", "6.3-2", [ 6, 3, 2 ], 
+      776, 94, "minimalrepresentationinfodata", "X7E1B76DC86A8C405" ], 
+  [ "\033[2XSetMinimalRepresentationInfo\033[102X", "6.3-3", [ 6, 3, 3 ], 
+      810, 95, "setminimalrepresentationinfo", "X79C4C9F683E919C9" ], 
+  [ "\033[2XAGR.JsonText\033[102X", "6.4-2", [ 6, 4, 2 ], 1037, 99, 
+      "agr.jsontext", "X87A307D284975AA9" ], 
+  [ "\033[2XAGR.GapObjectOfJsonText\033[102X", "6.4-3", [ 6, 4, 3 ], 1068, 
+      99, "agr.gapobjectofjsontext", "X79DF4DC67DCFE27B" ], 
+  [ "\033[2XInfoAtlasRep\033[102X", "7.1-1", [ 7, 1, 1 ], 33, 100, 
+      "infoatlasrep", "X8006BE167EB81E16" ], 
+  [ "\033[2XInfoCMeatAxe\033[102X", "7.1-2", [ 7, 1, 2 ], 42, 100, 
+      "infocmeataxe", "X78601C3A87921E08" ], 
+  [ "\033[2XInfoBBox\033[102X", "7.1-3", [ 7, 1, 3 ], 50, 101, "infobbox", 
+      "X80D5EF9A7FEF124B" ], 
+  [ "\033[2XAGR\033[102X", "7.1-4", [ 7, 1, 4 ], 58, 101, "agr", 
+      "X84A157BF7D0CB270" ], 
+  [ "\033[2XAtlasOfGroupRepresentationsInfo\033[102X", "7.1-5", [ 7, 1, 5 ], 
+      66, 101, "atlasofgrouprepresentationsinfo", "X7BEC94A6781E126E" ], 
+  [ "matrix MeatAxe format", "7.3", [ 7, 3, 0 ], 187, 103, 
+      "matrix meataxe format", "X7D76D4437A9646E7" ], 
+  [ "permutation MeatAxe format", "7.3", [ 7, 3, 0 ], 187, 103, 
+      "permutation meataxe format", "X7D76D4437A9646E7" ], 
+  [ "\033[2XScanMeatAxeFile\033[102X", "7.3-1", [ 7, 3, 1 ], 190, 103, 
+      "scanmeataxefile", "X83D5103780E1238F" ], 
+  [ "\033[11Xzcv\033[111X", "7.3-1", [ 7, 3, 1 ], 190, 103, "zcv", 
+      "X83D5103780E1238F" ], 
+  [ "\033[2XMeatAxeString\033[102X", "7.3-2", [ 7, 3, 2 ], 219, 103, 
+      "meataxestring", "X7DDD09BE87063052" ], 
+  [ "\033[2XMeatAxeString\033[102X for permutations and a degree", "7.3-2", 
+      [ 7, 3, 2 ], 219, 103, "meataxestring for permutations and a degree", 
+      "X7DDD09BE87063052" ], 
+  [ "\033[2XMeatAxeString\033[102X for a permutation, q, and dims", "7.3-2", 
+      [ 7, 3, 2 ], 219, 103, "meataxestring for a permutation q and dims", 
+      "X7DDD09BE87063052" ], 
+  [ "\033[2XMeatAxeString\033[102X for a matrix of integers", "7.3-2", 
+      [ 7, 3, 2 ], 219, 103, "meataxestring for a matrix of integers", 
+      "X7DDD09BE87063052" ], 
+  [ "\033[2XFFList\033[102X", "7.3-3", [ 7, 3, 3 ], 299, 105, "fflist", 
+      "X79D9AE4878E9DFA6" ], 
+  [ "\033[2XFFLists\033[102X", "7.3-3", [ 7, 3, 3 ], 299, 105, "fflists", 
+      "X79D9AE4878E9DFA6" ], 
+  [ "\033[2XCMtxBinaryFFMatOrPerm\033[102X", "7.3-4", [ 7, 3, 4 ], 340, 105, 
+      "cmtxbinaryffmatorperm", "X8477AA668733255C" ], 
+  [ "\033[2XFFMatOrPermCMtxBinary\033[102X", "7.3-5", [ 7, 3, 5 ], 376, 106, 
+      "ffmatorpermcmtxbinary", "X872FA00C7F791FBB" ], 
+  [ "\033[2XScanStraightLineProgram\033[102X", "7.4-1", [ 7, 4, 1 ], 403, 
+      106, "scanstraightlineprogram", "X7D6617E47B013A37" ], 
+  [ "\033[2XAtlasStringOfProgram\033[102X", "7.4-2", [ 7, 4, 2 ], 502, 108, 
+      "atlasstringofprogram", "X82842D807A7B7DF7" ], 
+  [ "\033[2XAtlasStringOfProgram\033[102X for MeatAxe format output", 
+      "7.4-2", [ 7, 4, 2 ], 502, 108, 
+      "atlasstringofprogram for meataxe format output", "X82842D807A7B7DF7" ],
+  [ "\033[2XAGR.DeclareDataType\033[102X", "7.5-1", [ 7, 5, 1 ], 608, 110, 
+      "agr.declaredatatype", "X836AA4EA8346BE5B" ], 
+  [ "semi-presentation", "7.6", [ 7, 6, 0 ], 763, 112, "semi-presentation", 
+      "X7A86627B80980F61" ], 
+  [ "presentation", "7.6", [ 7, 6, 0 ], 763, 112, "presentation", 
+      "X7A86627B80980F61" ], 
+  [ "black box program for finding standard generators", "7.6", [ 7, 6, 0 ], 
+      763, 112, "black box program for finding standard generators", 
+      "X7A86627B80980F61" ], 
+  [ "\033[2XAGR.ParseFilenameFormat\033[102X", "7.6-1", [ 7, 6, 1 ], 906, 
+      115, "agr.parsefilenameformat", "X8486CCB181FC99A3" ], 
+  [ "\033[2XAGR.FileContents\033[102X", "7.6-2", [ 7, 6, 2 ], 939, 115, 
+      "agr.filecontents", "X78AB92DB7C2CAB6E" ], 
+  [ 
+      "\033[2XAtlasRepIdentifier\033[102X convert an old type identifier to a new\
+ type one", "7.7-1", [ 7, 7, 1 ], 1005, 116, 
+      "atlasrepidentifier convert an old type identifier to a new type one", 
+      "X81685FC979BC3FB8" ], 
+  [ 
+      "\033[2XAtlasRepIdentifier\033[102X convert a new type identifier to an old\
+ type one", "7.7-1", [ 7, 7, 1 ], 1005, 116, 
+      "atlasrepidentifier convert a new type identifier to an old type one", 
+      "X81685FC979BC3FB8" ] ]
+);

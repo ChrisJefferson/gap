@@ -1,0 +1,75 @@
+  
+  [1XA [33X[0;0YThe File [11X3k+1.xml[111X[101X[1X[133X[101X
+  
+  [33X[0;0YHere  is  the  complete  source  of  the  example  [5XGAPDoc[105X  document [11X3k+1.xml[111X
+  discussed in Section [14X1.2[114X.[133X
+  
+  [4X[32X  3k+1.xml  [32X[104X
+    [4X<?xml version="1.0" encoding="UTF-8"?>[104X
+    [4X[104X
+    [4X<!--   A complete "fake package" documentation   [104X
+    [4X-->[104X
+    [4X[104X
+    [4X<!DOCTYPE Book SYSTEM "gapdoc.dtd">[104X
+    [4X[104X
+    [4X<Book Name="3k+1">[104X
+    [4X[104X
+    [4X<TitlePage>[104X
+    [4X  <Title>The <Package>ThreeKPlusOne</Package> Package</Title>[104X
+    [4X  <Version>Version 42</Version>[104X
+    [4X  <Author>Dummy Authör[104X
+    [4X    <Email>3kplusone@dev.null</Email>[104X
+    [4X  </Author>[104X
+    [4X[104X
+    [4X  <Copyright>&copyright; 2000 The Author. <P/>[104X
+    [4X    You can do with this package what you want.<P/> Really.[104X
+    [4X  </Copyright>[104X
+    [4X</TitlePage>[104X
+    [4X[104X
+    [4X<TableOfContents/>[104X
+    [4X[104X
+    [4X<Body>[104X
+    [4X  <Chapter> <Heading>The <M>3k+1</M> Problem</Heading>[104X
+    [4X    <Section Label="sec:theory"> <Heading>Theory</Heading>[104X
+    [4X      Let  <M>k \in  &NN;</M> be  a  natural number.  We consider  the[104X
+    [4X      sequence <M>n(i, k), i \in &NN;,</M> with <M>n(1, k) = k</M> and[104X
+    [4X      else <M>n(i+1,  k) = n(i, k)  / 2</M> if <M>n(i,  k)</M> is even[104X
+    [4X      and <M>n(i+1, k) =  3 n(i, k) + 1</M> if  <M>n(i, k)</M> is odd.[104X
+    [4X      <P/> It  is not known  whether for  any natural number  <M>k \in[104X
+    [4X      &NN;</M> there is an <M>m \in &NN;</M> with <M>n(m, k) = 1</M>.[104X
+    [4X      <P/>[104X
+    [4X      <Package>ThreeKPlusOne</Package>  provides   the  function  <Ref[104X
+    [4X      Func="ThreeKPlusOneSequence"/>   to  explore   this  for   given[104X
+    [4X      <M>n</M>.  If  you really  want  to  know something  about  this[104X
+    [4X      problem, see <Cite Key="Wi98"/> or[104X
+    [4X      <URL Text="this homepage">https://www.ku.de/mgf/mathematik/statistik/personen-des-lehrstuhls/prof-dr-guenther-wirsching</URL>[104X
+    [4X      for more details (and forget this package).[104X
+    [4X    </Section>[104X
+    [4X[104X
+    [4X    <Section> <Heading>Program</Heading>[104X
+    [4X      In this section we describe the main function of this package.[104X
+    [4X      <ManSection> [104X
+    [4X        <Func Name="ThreeKPlusOneSequence" Arg="k[, max]"/>[104X
+    [4X        <Description>[104X
+    [4X          This  function computes  for a  natural number  <A>k</A> the[104X
+    [4X          beginning of the sequence  <M>n(i, k)</M> defined in section[104X
+    [4X          <Ref Sect="sec:theory"/>.  The sequence  stops at  the first[104X
+    [4X          <M>1</M>  or at  <M>n(<A>max</A>, k)</M>,  if <A>max</A>  is[104X
+    [4X          given.[104X
+    [4X<Example>[104X
+    [4Xgap> ThreeKPlusOneSequence(101);[104X
+    [4X"Sorry, not yet implemented. Wait for Version 84 of the package"[104X
+    [4X</Example>[104X
+    [4X        </Description>[104X
+    [4X      </ManSection>[104X
+    [4X    </Section>[104X
+    [4X  </Chapter>[104X
+    [4X</Body>[104X
+    [4X[104X
+    [4X<Bibliography Databases="3k+1" />[104X
+    [4X<TheIndex/>[104X
+    [4X[104X
+    [4X</Book>[104X
+    [4X[104X
+  [4X[32X[104X
+  

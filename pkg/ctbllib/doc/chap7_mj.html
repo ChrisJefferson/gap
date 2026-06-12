@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (CTblLib) - Chapter 7: Utility Functions Provided by the CTblLib
+Package</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap7"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap7.html">[MathJax off]</a></p>
+<p><a id="X797E1693780F1093" name="X797E1693780F1093"></a></p>
+<div class="ChapSects"><a href="chap7_mj.html#X797E1693780F1093">7 <span class="Heading">Utility Functions Provided by the <strong class="pkg">CTblLib</strong>
+Package</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X7BC89F7C8460E979">7.1 <span class="Heading">Write Character Values in Terms of Atomic <strong class="pkg">Atlas</strong>
+Irrationalities</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X874167957FD2B7EA">7.1-1 CTblLib.StringOfAtlasIrrationality</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X7D867FE08240B83B">7.2 <span class="Heading">Create a String that Describes the Group Structure</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X816807E4874585FD">7.2-1 StructureDescriptionCharacterTableName</a></span>
+</div></div>
+</div>
+
+<h3>7 <span class="Heading">Utility Functions Provided by the <strong class="pkg">CTblLib</strong>
+Package</span></h3>
+
+<p>This chapter describes <strong class="pkg">GAP</strong> functions that are provided by the <strong class="pkg">CTblLib</strong> package but that might be of general interest.</p>
+
+<p>For the moment, there are just two features to describe, the generation of <strong class="pkg">Atlas</strong> irrationalities from cyclotomic integers (see Section <a href="chap7_mj.html#X7BC89F7C8460E979"><span class="RefLink">7.1</span></a>), and the generation of information about the group structure from identifiers of character tables (see Section <a href="chap7_mj.html#X7D867FE08240B83B"><span class="RefLink">7.2</span></a>).</p>
+
+<p><a id="X7BC89F7C8460E979" name="X7BC89F7C8460E979"></a></p>
+
+<h4>7.1 <span class="Heading">Write Character Values in Terms of Atomic <strong class="pkg">Atlas</strong>
+Irrationalities</span></h4>
+
+<p><a id="X874167957FD2B7EA" name="X874167957FD2B7EA"></a></p>
+
+<h5>7.1-1 CTblLib.StringOfAtlasIrrationality</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CTblLib.StringOfAtlasIrrationality</code>( <var class="Arg">cyc</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: a string that describes the cyclotomic integer <var class="Arg">cyc</var>.</p>
+
+<p>This function is intended for expressing the cyclotomic integer <var class="Arg">cyc</var> as a linear combination of so-called <q>atomic <strong class="pkg">Atlas</strong> irrationalities</q> (see <a href="chapBib_mj.html#biBCCN85">[CCN+85, p. xxvii]</a>), with integer coefficients.</p>
+
+<p>Often there is no <q>optimal</q> expression of that kind for <var class="Arg">cyc</var>, and this function uses certain heuristics for finding a not too bad expression. Concerning the character tables in the <strong class="pkg">Atlas</strong> of Finite Groups <a href="chapBib_mj.html#biBCCN85">[CCN+85]</a>, an explicit mapping between the values which are computed by this function and the descriptions that are shown in the book is available, see <code class="code">CTblLib.IrrationalityMapping</code>. Such a mapping is not yet available for the character tables from the <strong class="pkg">Atlas</strong> of Brauer Characters <a href="chapBib_mj.html#biBJLPW95">[JLPW95]</a>, <em>this function is only experimental</em> for these tables, it is likely to be changed in the future.</p>
+
+<p><code class="func">CTblLib.StringOfAtlasIrrationality</code> is used by <code class="func">BrowseAtlasTable</code> (<a href="chap3_mj.html#X79DC72707B08A701"><span class="RefLink">3.5-9</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">values:= List( [ "e31", "y'24+3", "r2+i", "r2+i2" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                  AtlasIrrationality );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List( values, CTblLib.StringOfAtlasIrrationality );</span>
+[ "e31", "y'24+3", "z8-&amp;3+i", "2z8" ]
+</pre></div>
+
+<p>The implementation uses the following heuristics for computing a description of the cyclotomic integer <var class="Arg">cyc</var> with conductor <span class="SimpleMath">\(N\)</span>, say.</p>
+
+
+<ul>
+<li><p>If <span class="SimpleMath">\(N\)</span> is not squarefree the let <span class="SimpleMath">\(N_0\)</span> be the squarefree part of <span class="SimpleMath">\(N\)</span>, split <var class="Arg">cyc</var> into the sum of its odd squarefree part and its non-squarefree part, and consider the two values separately; note that the odd squarefree part is well-defined by the fact that the basis of the <span class="SimpleMath">\(N\)</span>-th cyclotomic field given by <code class="func">ZumbroichBase</code> (<a href="../../../doc/ref/chap60_mj.html#X7F52BEA0862E06F2"><span class="RefLink">Reference: ZumbroichBase</span></a>) contains all primitive <span class="SimpleMath">\(N_0\)</span>-th roots of unity. Also note that except for quadratic irrationalities (where <span class="SimpleMath">\(N\)</span> is squarefree), all roots of unity that are involved in the representation of atomic irrationalities w. r. t. this basis have the same multiplicative order.</p>
+
+</li>
+<li><p>If <var class="Arg">cyc</var> is a multiple of a root of unity then write it as such, i. e., as a string involving <span class="SimpleMath">\(z_N\)</span>.</p>
+
+</li>
+<li><p>Otherwise, if <var class="Arg">cyc</var> lies in a quadratic number field then write it as a linear combination of an integer. Usually the string involves <span class="SimpleMath">\(r_N\)</span>, <span class="SimpleMath">\(i_N\)</span>, or <span class="SimpleMath">\(b_N\)</span>, but also multiples of <span class="SimpleMath">\(b_M\)</span> may occur, where <span class="SimpleMath">\(M\)</span> is a –not squarefree– multiple of <span class="SimpleMath">\(N\)</span>.</p>
+
+</li>
+<li><p>Otherwise, find a large cyclic subgroup of the stabilizer of <var class="Arg">cyc</var> inside the Galois group over the Rationals –this subgroup defines an atomic irrationality– and express <var class="Arg">cyc</var> as a linear combination of the orbit sums. In the worst case, there is no nontrivial stabilizer, and we find only a description as a sum of roots of unity.</p>
+
+</li>
+</ul>
+<p>There is of course a lot of space for improvements. For example, one could use the Bosma basis representation (see <code class="func">BosmaBase</code> (<a href="chap6_mj.html#X79D160BD7ECA6D2F"><span class="RefLink">6.5-1</span></a>)) of <var class="Arg">cyc</var> for splitting the value into a sum of values from strictly smaller cyclotomic fields, which would be useful at least if their conductors are coprime. Note that the Bosma basis of the <span class="SimpleMath">\(N\)</span>-th cyclotomic field has the property that it is a union of bases for the cyclotomic fields with conductor dividing <span class="SimpleMath">\(N\)</span>. Thus one can easily find out that <span class="SimpleMath">\(\sqrt{{5}} + \sqrt{{7}}\)</span> can be written as a sum of two values in terms of <span class="SimpleMath">\(5\)</span>-th and <span class="SimpleMath">\(7\)</span>-th roots of unity. In non-coprime situations, this argument fails. For example, one can still detect that <span class="SimpleMath">\(\sqrt{{15}} + \sqrt{{21}}\)</span> involves only <span class="SimpleMath">\(15\)</span>-th and <span class="SimpleMath">\(21\)</span>-th roots of unity, but it is not obvious how to split the value into the two parts.</p>
+
+<p><a id="X7D867FE08240B83B" name="X7D867FE08240B83B"></a></p>
+
+<h4>7.2 <span class="Heading">Create a String that Describes the Group Structure</span></h4>
+
+<p><a id="X816807E4874585FD" name="X816807E4874585FD"></a></p>
+
+<h5>7.2-1 StructureDescriptionCharacterTableName</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StructureDescriptionCharacterTableName</code>( <var class="Arg">name</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>For a string <var class="Arg">name</var> that is an admissible name of a character table, <code class="func">StructureDescriptionCharacterTableName</code> returns a string that is intended as a description of the structure of the underlying group.</p>
+
+<p>Note that many identifiers of character tables (see <code class="func">Identifier</code> (<a href="../../../doc/ref/chap71_mj.html#X79C40EE97890202F"><span class="RefLink">Reference: Identifier for character tables</span></a>)) do not describe the group structure in an appropriate way. One reason for choosing such identifiers on purpose is that several character tables for isomorphic groups can be contained in the library, because the groups have different class fusions into another group. For example, the Mathieu group <span class="SimpleMath">\(M_{12}\)</span> contains two classes of subgroups isomorphic with <span class="SimpleMath">\(M_{11}\)</span>, and the identifiers of the character tables corresponding to these subgroups are <code class="code">"M11"</code> and <code class="code">"M12M2"</code>, respectively.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StructureDescriptionCharacterTableName( "M12M2" );</span>
+"M11"
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap6_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

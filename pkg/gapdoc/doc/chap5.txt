@@ -1,0 +1,1010 @@
+  
+  [1X5 [33X[0;0YThe Converters and an XML Parser[133X[101X
+  
+  [33X[0;0YThe  [5XGAPDoc[105X  package  contains a set of programs which allow us to convert a
+  [5XGAPDoc[105X book into several output versions and to make them available to [5XGAP[105X's
+  online help.[133X
+  
+  [33X[0;0YCurrently  the  following  output  formats  are  provided: text for browsing
+  inside  a  terminal  running  [5XGAP[105X,  LaTeX  with  [10Xhyperref[110X-package  for cross
+  references via hyperlinks and HTML for reading with a Web-browser.[133X
+  
+  
+  [1X5.1 [33X[0;0YProducing Documentation from Source Files[133X[101X
+  
+  [33X[0;0YHere  we explain how to use the functions which are described in more detail
+  in  the  following sections. We assume that we have the main file [11XMyBook.xml[111X
+  of  a  book [10X"MyBook"[110X in the directory [11X/my/book/path[111X. This contains [10X<#Include
+  ...>[110X-statements  as  explained in Chapter [14X4[114X. These refer to some other files
+  as well as pieces of text which are found in the comments of some [5XGAP[105X source
+  files  [11X../lib/a.gd[111X  and  [11X../lib/b.gi[111X  (relative to the path above). A BibTeX
+  database  [11XMyBook.bib[111X for the citations is also in the directory given above.
+  We  want to produce a text-, [10Xpdf-[110X and HTML-version of the document. (A LaTeX
+  version  of  the manual is produced, so it is also easy to compile [10Xdvi[110X-, and
+  postscript-versions.)[133X
+  
+  [33X[0;0YAll  the commands shown in this Section are collected in the single function
+  [2XMakeGAPDocDoc[102X ([14X5.1-1[114X).[133X
+  
+  [33X[0;0YFirst   we   construct   the   complete   XML-document   as  a  string  with
+  [2XComposedDocument[102X   ([14X4.2-1[114X).   This   interprets  recursively  the  [10X<#Include
+  ...>[110X-statements.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xpath := Directory("/my/book/path");;[127X[104X
+    [4X[25Xgap>[125X [27Xmain := "MyBook.xml";;[127X[104X
+    [4X[25Xgap>[125X [27Xfiles := ["../lib/a.gd", "../lib/b.gi"];;[127X[104X
+    [4X[25Xgap>[125X [27Xbookname := "MyBook";;[127X[104X
+    [4X[25Xgap>[125X [27Xdoc := ComposedDocument("GAPDoc", path, main, files, true);;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow  [10Xdoc[110X  is  a  list with two entries, the first is a string containing the
+  XML-document,  the  second  gives information from which files and locations
+  which  part  of the document was collected. This is useful in the next step,
+  if there are any errors in the document.[133X
+  
+  [33X[0;0YNext  we  parse  the  document  and  store its structure in a tree-like data
+  structure.   The  commands  for  this  are  [2XParseTreeXMLString[102X  ([14X5.2-1[114X)  and
+  [2XCheckAndCleanGapDocTree[102X ([14X5.2-8[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xr := ParseTreeXMLString(doc[1], doc[2]);;[127X[104X
+    [4X[25Xgap>[125X [27XCheckAndCleanGapDocTree(r);[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  start  to  produce  a text version of the manual, which can be read in a
+  terminal  (window).  The  command  is  [2XGAPDoc2Text[102X  ([14X5.3-2[114X). This produces a
+  record with the actual text and some additional information. The text can be
+  written  chapter-wise into files with [2XGAPDoc2TextPrintTextFiles[102X ([14X5.3-3[114X). The
+  names  of  these files are [11Xchap0.txt[111X, [11Xchap1.txt[111X and so on. The text contains
+  some  markup  using ANSI escape sequences. This markup is substituted by the
+  [5XGAP[105X  help  system (user configurable) to show the text with colors and other
+  attributes.  For  the  bibliography  we have to tell [2XGAPDoc2Text[102X ([14X5.3-2[114X) the
+  location of the BibTeX database by specifying a [10Xpath[110X as second argument.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xt := GAPDoc2Text(r, path);;[127X[104X
+    [4X[25Xgap>[125X [27XGAPDoc2TextPrintTextFiles(t, path);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  command  constructs  all  parts  of  the  document  including table of
+  contents,  bibliography and index. The functions [2XFormatParagraph[102X ([14X6.1-4[114X) for
+  formatting  text  paragraphs  and  [2XParseBibFiles[102X  ([14X7.1-1[114X) for reading BibTeX
+  files with [5XGAP[105X may be of independent interest.[133X
+  
+  [33X[0;0YWith  the  text  version we have also produced the information which is used
+  for searching with [5XGAP[105X's online help. Also, labels are produced which can be
+  used by links in the HTML- and [10Xpdf[110X-versions of the manual.[133X
+  
+  [33X[0;0YNext  we  produce  a  LaTeX  version  of  the document. [2XGAPDoc2LaTeX[102X ([14X5.3-1[114X)
+  returns   a  string  containing  the  LaTeX  source.  The  utility  function
+  [2XFileString[102X  ([14X6.3-5[114X)  writes  the  content  of  a string to a file, we choose
+  [11XMyBook.tex[111X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xl := GAPDoc2LaTeX(r);;[127X[104X
+    [4X[25Xgap>[125X [27XFileString(Filename(path, Concatenation(bookname, ".tex")), l);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAssuming  that  you  have  a sufficiently good installation of TeX available
+  (see  [2XGAPDoc2LaTeX[102X  ([14X5.3-1[114X) for details) this can be processed with a series
+  of commands like in the following example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xcd /my/book/path[128X[104X
+    [4X[28Xpdflatex MyBook[128X[104X
+    [4X[28Xbibtex MyBook[128X[104X
+    [4X[28Xpdflatex MyBook[128X[104X
+    [4X[28Xmakeindex MyBook[128X[104X
+    [4X[28Xpdflatex MyBook[128X[104X
+    [4X[28Xmv MyBook.pdf manual.pdf[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAfter  this we have a [10Xpdf[110X-version of the document in the file [11Xmanual.pdf[111X. It
+  contains  hyperlink  information which can be used with appropriate browsers
+  for convenient reading of the document on screen (e.g., [10Xxpdf[110X is nice because
+  it  allows  remote  calls  to  display  named locations of the document). Of
+  course,  we could also use other commands like [10Xlatex[110X or [10Xdvips[110X to process the
+  LaTeX  source  file. Furthermore we have produced a file [11XMyBook.pnr[111X which is
+  [5XGAP[105X-readable and contains the page number information for each (sub-)section
+  of the document.[133X
+  
+  [33X[0;0YWe  can  add  this  page  number  information  to  the  indexing information
+  collected  by  the  text converter and then print a [11Xmanual.six[111X file which is
+  read by [5XGAP[105X when the manual is loaded. This is done with [2XAddPageNumbersToSix[102X
+  ([14X5.3-4[114X) and [2XPrintSixFile[102X ([14X5.3-5[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAddPageNumbersToSix(r, Filename(path, "MyBook.pnr"));[127X[104X
+    [4X[25Xgap>[125X [27XPrintSixFile(Filename(path, "manual.six"), r, bookname);[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally   we   produce   an  HTML-version  of  the  document  and  write  it
+  (chapter-wise) into files [11Xchap0.html[111X, [11Xchap1.html[111X and so on. They can be read
+  with   any   Web-browser.   The   commands   are   [2XGAPDoc2HTML[102X  ([14X5.3-7[114X)  and
+  [2XGAPDoc2HTMLPrintHTMLFiles[102X  ([14X5.3-8[114X).  We  also add a link from [11Xmanual.html[111X to
+  [11Xchap0.html[111X.  You  probably  want  to  copy  stylesheet  files  into the same
+  directory,  see  [14X5.3-9[114X  for  more  details. The argument [10Xpath[110X of [2XGAPDoc2HTML[102X
+  ([14X5.3-7[114X) specifies the directory containing the BibTeX database files.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xh := GAPDoc2HTML(r, path);;[127X[104X
+    [4X[25Xgap>[125X [27XGAPDoc2HTMLPrintHTMLFiles(h, path);[127X[104X
+  [4X[32X[104X
+  
+  [1X5.1-1 MakeGAPDocDoc[101X
+  
+  [33X[1;0Y[29X[2XMakeGAPDocDoc[102X( [3Xpath[103X, [3Xmain[103X, [3Xfiles[103X, [3Xbookname[103X[, [3Xgaproot[103X][, [3X...[103X] ) [32X function[133X
+  
+  [33X[0;0YThis  function  collects  all  the  commands for producing a text-, [10Xpdf[110X- and
+  HTML-version of a [5XGAPDoc[105X document as described in Section [14X5.1[114X. It checks the
+  [10X.log[110X  file  from  the  call  of  [10Xpdflatex[110X  and  reports if there are errors,
+  warnings or overfull boxes.[133X
+  
+  [33X[0;0Y[13XNote:[113X  If  this  function works for you depends on your operating system and
+  installed  software.  It  will  probably  work  on  most [10XUNIX[110X systems with a
+  standard  LaTeX  installation.  If the function doesn't work for you look at
+  the source code and adjust it to your system.[133X
+  
+  [33X[0;0YHere  [3Xpath[103X  must be the directory (as string or directory object) containing
+  the  main  file  [3Xmain[103X  of  the  document  (given  with  or  without the [10X.xml[110X
+  extension.  The  argument  [3Xfiles[103X  is  a list of (probably source code) files
+  relative  to  [3Xpath[103X  which  contain  pieces  of  documentation  which must be
+  included  in  the  document,  see Chapter [14X4[114X. And [3Xbookname[103X is the name of the
+  book  used  by  [5XGAP[105X's  online  help. The optional argument [3Xgaproot[103X must be a
+  string  which  gives  the  relative  path  from  [3Xpath[103X  to  the main [5XGAP[105X root
+  directory. If this is given, the HTML files are produced with relative paths
+  to external books.[133X
+  
+  [33X[0;0YIf  the string [10X"nopdf"[110X is given as optional argument then [2XMakeGAPDocDoc[102X will
+  not  produce  a  [10Xpdf[110X-version  of  the  help  book  (the  source [10X.tex[110X-file is
+  generated).  Consequently,  the  index  for the help system will not contain
+  page  numbers for the [10Xpdf[110X-version. This variant of [2XMakeGAPDocDoc[102X should work
+  independently  of  the  operating  system  because  no external programs are
+  called. It is recommended that distributed manuals contain the [10Xpdf[110X-version.[133X
+  
+  [33X[0;0Y[2XMakeGAPDocDoc[102X  can  be  called  with  additional  arguments [10X"MathJax"[110X, [10X"Tth"[110X
+  and/or  [10X"MathML"[110X.  If  these  are  given  additional  variants  of  the HTML
+  conversion are called, see [2XGAPDoc2HTML[102X ([14X5.3-7[114X) for details.[133X
+  
+  [33X[0;0YIt  is  possible  to  use  [5XGAPDoc[105X  with  other  languages  than English, see
+  [2XSetGapDocLanguage[102X ([14X5.3-13[114X) for more details.[133X
+  
+  
+  [1X5.2 [33X[0;0YParsing XML Documents[133X[101X
+  
+  [33X[0;0YArbitrary  well-formed  XML  documents  can  be  parsed  and  browsed by the
+  following  functions.  A  proper  validation  can  be  done with an external
+  program, see [2XXMLValidate[102X ([14X5.2-11[114X) below.[133X
+  
+  [1X5.2-1 ParseTreeXMLString[101X
+  
+  [33X[1;0Y[29X[2XParseTreeXMLString[102X( [3Xstr[103X[, [3Xsrcinfo[103X][, [3Xentitydict[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XParseTreeXMLFile[102X( [3Xfname[103X[, [3Xentitydict[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya record which is root of a tree structure[133X
+  
+  [33X[0;0YThe  first  function parses an XML-document stored in string [3Xstr[103X and returns
+  the document in form of a tree.[133X
+  
+  [33X[0;0YThe   optional   argument   [3Xsrcinfo[103X   must   have  the  same  format  as  in
+  [2XOriginalPositionDocument[102X  ([14X4.2-2[114X).  If it is given then error messages refer
+  to the original source of the text with the problem.[133X
+  
+  [33X[0;0YWith  the  optional  argument  [3Xentitydict[103X named entities can be given to the
+  parser,  for  example  entities which are defined in the [10X.dtd[110X-file (which is
+  not  read  by  this  parser).  The  standard  XML-entities do not need to be
+  provided,  and  for  [5XGAPDoc[105X documents the entity definitions from [10Xgapdoc.dtd[110X
+  are automatically provided. Entities in the document's [10X<!DOCTYPE[110X declaration
+  are  parsed  and  also need not to be provided here. The argument [3Xentitydict[103X
+  must  be  a  record where each component name is an entity name (without the
+  surrounding & and ;) to which is assigned its substitution string.[133X
+  
+  [33X[0;0YThe   second   function   is   just   a   shortcut  for  [10XParseTreeXMLString(
+  StringFile([110X[3Xfname[103X[10X), ... )[110X, see [2XStringFile[102X ([14X6.3-5[114X).[133X
+  
+  [33X[0;0YAfter  these  functions  return  the list of named entities which were known
+  during the parsing can be found in the record [10XENTITYDICT[110X.[133X
+  
+  [33X[0;0YA  node  in the result tree corresponds to an XML element, or to some parsed
+  character data. In the first case it looks as follows:[133X
+  
+  [4X[32X  Example Node  [32X[104X
+    [4Xrec( name := "Book",[104X
+    [4X     attributes := rec( Name := "EDIM" ),[104X
+    [4X     content := [ ... list of nodes for content ...],[104X
+    [4X     start := 312,[104X
+    [4X     stop := 15610,[104X
+    [4X     next := 15611     )[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  means that [10X[3Xstr[103X[10X{[312..15610]}[110X looks like [10X<Book Name="EDIM"> ... content
+  ... </Book>[110X.[133X
+  
+  [33X[0;0YThe  leaves  of  the  tree  encode parsed character data as in the following
+  example:[133X
+  
+  [4X[32X  Example Node  [32X[104X
+    [4Xrec( name := "PCDATA", [104X
+    [4X     content := "text without markup "     )[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis function checks whether the XML document is [13Xwell formed[113X, see [14X2.1-14[114X for
+  an  explanation.  If an error in the XML structure is found, a break loop is
+  entered  and the text around the position where the problem starts is shown.
+  With  [10XShow();[110X  one  can  browse  the original input in the [2XPager[102X ([14XReference:
+  Pager[114X),  starting  with  the line where the error occurred. All entities are
+  resolved  when  they  are  either entities defined in the [5XGAPDoc[105X package (in
+  particular  the standard XML entities) or if their definition is included in
+  the [10X<!DOCTYPE ..>[110X tag of the document.[133X
+  
+  [33X[0;0YNote  that [2XParseTreeXMLString[102X does not parse and interpret the corresponding
+  document  type  definition  (the  [10X.dtd[110X-file given in the [10X<!DOCTYPE ..>[110X tag).
+  Hence  it  also  does not check the [13Xvalidity[113X of the document (i.e., it is no
+  [13Xvalidating XML parser[113X).[133X
+  
+  [33X[0;0YIf  you  are  using  this  function  to  parse a [5XGAPDoc[105X document you can use
+  [2XCheckAndCleanGapDocTree[102X  ([14X5.2-8[114X) for some validation and additional checking
+  of the document structure.[133X
+  
+  [1X5.2-2 StringXMLElement[101X
+  
+  [33X[1;0Y[29X[2XStringXMLElement[102X( [3Xtree[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya list [10X[string, positions][110X[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X must have a format of a node in the parse tree of an XML
+  document  as returned by [2XParseTreeXMLString[102X ([14X5.2-1[114X) (including the root node
+  representing  the  full  document).  This  function computes a pair [10X[string,
+  positions][110X  where  [10Xstring[110X  contains XML code which is equivalent to the code
+  which  was  parsed  to  get  [3Xtree[103X.  And [10Xpositions[110X is a list of lists of four
+  numbers  [10X[eltb,  elte,  contb,  conte][110X.  There is one such list for each XML
+  element  occuring  in  [10Xstring[110X,  where  [10Xeltb[110X  and  [10Xelte[110X are the begin and end
+  position  of  this element in [10Xstring[110X and where [10Xcontb[110X and [10Xconte[110X are begin and
+  end  position  of  the content of this element, or both are [10X0[110X if there is no
+  content.[133X
+  
+  [33X[0;0YNote  that  parsing  XML code is an irreversible task, we can only expect to
+  get equivalent XML code from this function. But parsing the resulting [10Xstring[110X
+  again  and  applying  [2XStringXMLElement[102X  again gives the same result. See the
+  function  [2XEntitySubstitution[102X  ([14X5.2-3[114X)  for back-substitutions of entities in
+  the result.[133X
+  
+  [1X5.2-3 EntitySubstitution[101X
+  
+  [33X[1;0Y[29X[2XEntitySubstitution[102X( [3Xxmlstring[103X, [3Xentities[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string[133X
+  
+  [33X[0;0YThe  argument  [3Xxmlstring[103X  must  be  a  string  containing XML code or a pair
+  [10X[string,  positions][110X  as  returned by [2XStringXMLElement[102X ([14X5.2-2[114X). The argument
+  [3Xentities[103X  specifies entity names (without the surrounding [3X&[103X and [10X;[110X) and their
+  substitution  strings, either a list of pairs of strings or as a record with
+  the names as components and the substitutions as values.[133X
+  
+  [33X[0;0YThis  function  tries  to substitute non-intersecting parts of [10Xstring[110X by the
+  given entities. If the [10Xpositions[110X information is given then only parts of the
+  document  which  allow  a  valid  substitution  by an entity are considered.
+  Otherwise a simple text substitution without further check is done.[133X
+  
+  [33X[0;0YNote that in general the entity resolution in XML documents is a complicated
+  and  non-reversible task. But nevertheless this utility may be useful in not
+  too complicated situations.[133X
+  
+  [1X5.2-4 DisplayXMLStructure[101X
+  
+  [33X[1;0Y[29X[2XDisplayXMLStructure[102X( [3Xtree[103X ) [32X function[133X
+  
+  [33X[0;0YThis  utility  displays  the  tree  structure  of  an  XML document as it is
+  returned by [2XParseTreeXMLString[102X ([14X5.2-1[114X) (without the [10XPCDATA[110X leaves).[133X
+  
+  [33X[0;0YSince  this  is  usually  quite  long  the  result  is shown using the [2XPager[102X
+  ([14XReference: Pager[114X).[133X
+  
+  [1X5.2-5 ApplyToNodesParseTree[101X
+  
+  [33X[1;0Y[29X[2XApplyToNodesParseTree[102X( [3Xtree[103X, [3Xfun[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XAddRootParseTree[102X( [3Xtree[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XRemoveRootParseTree[102X( [3Xtree[103X ) [32X function[133X
+  
+  [33X[0;0YThe  function  [2XApplyToNodesParseTree[102X  applies a function [3Xfun[103X to all nodes of
+  the  parse  tree  [3Xtree[103X  of  an  XML  document returned by [2XParseTreeXMLString[102X
+  ([14X5.2-1[114X).[133X
+  
+  [33X[0;0YThe  function  [2XAddRootParseTree[102X  is  an  application of this. It adds to all
+  nodes  a  component [10X.root[110X to which the top node tree [3Xtree[103X is assigned. These
+  components can be removed afterwards with [2XRemoveRootParseTree[102X.[133X
+  
+  [33X[0;0YHere are two more utilities which use [2XApplyToNodesParseTree[102X.[133X
+  
+  [1X5.2-6 GetTextXMLTree[101X
+  
+  [33X[1;0Y[29X[2XGetTextXMLTree[102X( [3Xtree[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya string[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X must be a node of a parse tree of some XML document, see
+  [2XParseTreeXMLFile[102X ([14X5.2-1[114X). This function collects the content of this and all
+  included elements recursively into a string.[133X
+  
+  [1X5.2-7 XMLElements[101X
+  
+  [33X[1;0Y[29X[2XXMLElements[102X( [3Xtree[103X, [3Xeltnames[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya list of nodes[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X must be a node of a parse tree of some XML document, see
+  [2XParseTreeXMLFile[102X  ([14X5.2-1[114X).  This  function returns a list of all subnodes of
+  [3Xtree[103X  (possibly  including  [3Xtree[103X) of elements with name given in the list of
+  strings  [3Xeltnames[103X.  Use  [10X"PCDATA"[110X  as name for leave nodes which contain the
+  actual  text  of  the  document.  As  an abbreviation [3Xeltnames[103X can also be a
+  string which is then put in a one element list.[133X
+  
+  [33X[0;0YAnd here are utilities for processing [5XGAPDoc[105X XML documents.[133X
+  
+  [1X5.2-8 CheckAndCleanGapDocTree[101X
+  
+  [33X[1;0Y[29X[2XCheckAndCleanGapDocTree[102X( [3Xtree[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X of this function is a parse tree from [2XParseTreeXMLString[102X
+  ([14X5.2-1[114X) of some [5XGAPDoc[105X document. This function does an (incomplete) validity
+  check  of  the  document  according  to  the  document  type  declaration in
+  [11Xgapdoc.dtd[111X. It also does some additional checks which cannot be described in
+  the  DTD  (like  checking whether chapters and sections have a heading). For
+  elements  with  element  content  the  whitespace  between these elements is
+  removed.[133X
+  
+  [33X[0;0YIn  case of an error the break loop is entered and the position of the error
+  in  the  original  XML  document is printed. With [10XShow();[110X one can browse the
+  original input in the [2XPager[102X ([14XReference: Pager[114X).[133X
+  
+  [1X5.2-9 AddParagraphNumbersGapDocTree[101X
+  
+  [33X[1;0Y[29X[2XAddParagraphNumbersGapDocTree[102X( [3Xtree[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThe argument [3Xtree[103X must be an XML tree returned by [2XParseTreeXMLString[102X ([14X5.2-1[114X)
+  applied  to a [5XGAPDoc[105X document. This function adds to each node of the tree a
+  component   [10X.count[110X   which  is  of  form  [10X[Chapter[,  Section[,  Subsection,
+  Paragraph]  ] ][110X. Here the first three numbers should be the same as produced
+  by  the  LaTeX  version  of  the  document. Text before the first chapter is
+  counted  as  chapter  [10X0[110X  and  similarly  for  sections and subsections. Some
+  elements are always considered to start a new paragraph.[133X
+  
+  [1X5.2-10 InfoXMLParser[101X
+  
+  [33X[1;0Y[29X[2XInfoXMLParser[102X [32X info class[133X
+  
+  [33X[0;0YThe default level of this info class is 1. Functions like [2XParseTreeXMLString[102X
+  ([14X5.2-1[114X) are then printing some information, in particular in case of errors.
+  You can suppress it by setting the level of [2XInfoXMLParser[102X to 0. With level 2
+  there may be some more information for debugging purposes.[133X
+  
+  [1X5.2-11 XMLValidate[101X
+  
+  [33X[1;0Y[29X[2XXMLValidate[102X( [3Xdoc[103X, [3Xdtdpath[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xfail[109X or a record[133X
+  
+  [33X[0;0YThe argument [3Xdoc[103X must be a string which is an XML document, and [3Xdtdpath[103X is a
+  path containing the corresponding DTD file.[133X
+  
+  [33X[0;0YThe function returns [9Xfail[109X if the program [10Xxmllint[110X cannot be called.[133X
+  
+  [33X[0;0YOtherwise the document is validated via the external program [10Xxmllint[110X via the
+  function  [2XIO_PipeThroughWithError[102X  ([14XIO:  IO_PipeThroughWithError[114X),  and  its
+  resulting record is returned.[133X
+  
+  [1X5.2-12 ValidateGAPDoc[101X
+  
+  [33X[1;0Y[29X[2XValidateGAPDoc[102X( [3Xdoc[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xfail[109X, [9Xtrue[109X or a record[133X
+  
+  [33X[0;0YThe  argument  [3Xdoc[103X must be a string which is a GAPDoc XML document or a pair
+  of  a  string and list as returned by [2XComposedDocument[102X ([14X4.2-1[114X) with argument
+  [3Xinfo[103X set to [9Xtrue[109X.[133X
+  
+  [33X[0;0YThe function returns [9Xfail[109X in case of a problem.[133X
+  
+  [33X[0;0YOtherwise  the  document  is  validated  using  [2XXMLValidate[102X ([14X5.2-11[114X). If the
+  validation  was  successful  this  function  returns  [9Xtrue[109X.  In  the case of
+  validation  errors some information is printed and the result of [2XXMLValidate[102X
+  ([14X5.2-11[114X) is returned.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xfn := Filename(DirectoriesPackageLibrary("gapdoc", ""), [127X[104X
+    [4X[25X>[125X [27X                                            "3k+1/3k+1.xml");;[127X[104X
+    [4X[25Xgap>[125X [27Xdoc := ComposedDocument("GAPDoc", "", fn, [], true);;[127X[104X
+    [4X[25Xgap>[125X [27Xdoc[1][220] := 't';;[127X[104X
+    [4X[25Xgap>[125X [27Xcheck := ValidateGAPDoc(doc);;[127X[104X
+    [4X[28XValidateGAPDoc found problems:[128X[104X
+    [4X[28XLine 11:  parser error : Opening and ending tag mismatch[128X[104X
+    [4X[28X   source position: /opt/gap/pkg/GAPDoc-1.6.4/3k+1/3k+1.xml, line 11[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X5.3 [33X[0;0YThe Converters[133X[101X
+  
+  [33X[0;0YHere  are  more  details  about  the  conversion  programs  for  [5XGAPDoc[105X  XML
+  documents.[133X
+  
+  [1X5.3-1 GAPDoc2LaTeX[101X
+  
+  [33X[1;0Y[29X[2XGAPDoc2LaTeX[102X( [3Xtree[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YLaTeX document as string[133X
+  
+  [33X[1;0Y[29X[2XSetGapDocLaTeXOptions[102X( [[3X...[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YNothing[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X  for  this  function  is  a tree describing a [5XGAPDoc[105X XML
+  document  as  returned  by [2XParseTreeXMLString[102X ([14X5.2-1[114X) (probably also checked
+  with  [2XCheckAndCleanGapDocTree[102X  ([14X5.2-8[114X)). The output is a string containing a
+  version  of  the  document which can be written to a file and processed with
+  LaTeX or pdfLaTeX (and probably BibTeX and [10Xmakeindex[110X).[133X
+  
+  [33X[0;0YThe  output  uses  the  [10Xreport[110X  document class and needs the following LaTeX
+  packages:  [10Xamssymb[110X,  [10Xinputenc[110X,  [10Xmakeidx[110X,  [10Xcolor[110X,  [10Xfancyvrb[110X, [10Xpsnfss[110X, [10Xpslatex[110X,
+  [10Xenumitem[110X  and  [10Xhyperref[110X.  These  are  for  example  provided  by the [5Xtexlive[105X
+  distribution  of TeX (which in turn is used for most TeX packages of current
+  Linux distributions); see [7Xhttps://www.tug.org/texlive/[107X.[133X
+  
+  [33X[0;0YIn  particular, the resulting [10Xpdf[110X-output (and [10Xdvi[110X-output) contains (internal
+  and  external)  hyperlinks which can be very useful for onscreen browsing of
+  the document.[133X
+  
+  [33X[0;0YThe  LaTeX  processing also produces a file with extension [10X.pnr[110X which is [5XGAP[105X
+  readable  and  contains  the  page  numbers  for  all  (sub)sections  of the
+  document.  This  can  be  used by [5XGAP[105X's online help; see [2XAddPageNumbersToSix[102X
+  ([14X5.3-4[114X). Non-ASCII characters in the [5XGAPDoc[105X document are translated to LaTeX
+  input  in  ASCII-encoding  with  the  help  of [2XEncode[102X ([14X6.2-2[114X) and the option
+  [10X"LaTeX"[110X.  See  the documentation of [2XEncode[102X ([14X6.2-2[114X) for how to proceed if you
+  have a character which is not handled (yet).[133X
+  
+  [33X[0;0YThis  function  works  by  running recursively through the document tree and
+  calling  a  handler  function  for  each  [5XGAPDoc[105X  XML element. Many of these
+  handler  functions  (usually  in  [10XGAPDoc2LaTeXProcs.<ElementName>[110X)  are  not
+  difficult  to  understand  (the greatest complications are some commands for
+  index  entries,  labels  or  the  output  of page number information). So it
+  should  be  easy  to  adjust  layout  details  to  your  own taste by slight
+  modifications of the program.[133X
+  
+  [33X[0;0YFormer  versions of [5XGAPDoc[105X supported some XML processing instructions to add
+  some  extra  lines  to  the  preamble  of the LaTeX document. Its use is now
+  deprecated,  use  the  much more flexible [2XSetGapDocLaTeXOptions[102X instead: The
+  default   layout   of   the   resulting   documents   can  be  changed  with
+  [2XSetGapDocLaTeXOptions[102X.  This  changes  parts of the header of the LaTeX file
+  produced  by  [5XGAPDoc[105X.  You  can  see  the  header  with some placeholders by
+  [10XPage(GAPDoc2LaTeXProcs.Head);[110X.  The  placeholders are filled with components
+  from   the   record   [10XGAPDoc2LaTeXProcs.DefaultOptions[110X.   The  arguments  of
+  [2XSetGapDocLaTeXOptions[102X  can  be  records with the same structure (or parts of
+  it)  with  different  values.  As abbreviations there are also three strings
+  supported  as  arguments.  These  are  [10X"nocolor"[110X for switching all colors to
+  black;  then  [10X"nopslatex"[110X  to use standard LaTeX fonts instead of postscript
+  fonts;  and  finally  [10X"utf8"[110X to choose UTF-8 as input encoding for the LaTeX
+  document.[133X
+  
+  [1X5.3-2 GAPDoc2Text[101X
+  
+  [33X[1;0Y[29X[2XGAPDoc2Text[102X( [3Xtree[103X[, [3Xbibpath[103X][, [3Xwidth[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yrecord containing text files as strings and other information[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X  for  this  function  is  a tree describing a [5XGAPDoc[105X XML
+  document  as  returned  by [2XParseTreeXMLString[102X ([14X5.2-1[114X) (probably also checked
+  with [2XCheckAndCleanGapDocTree[102X ([14X5.2-8[114X)). This function produces a text version
+  of  the document which can be used with [5XGAP[105X's online help (with the [10X"screen"[110X
+  viewer,  see  [2XSetHelpViewer[102X  ([14XReference:  SetHelpViewer[114X)). It includes title
+  page,  bibliography  and  index.  The bibliography is made from BibXMLext or
+  BibTeX  databases,  see  [14X7[114X.  Their  location must be given with the argument
+  [3Xbibpath[103X (as string or directory object).[133X
+  
+  [33X[0;0YThe  output is a record with one component for each chapter (with names [10X"0"[110X,
+  [10X"1"[110X,  ...,  [10X"Bib"[110X and [10X"Ind"[110X). Each such component is again a record with the
+  following components:[133X
+  
+  [8X[10Xtext[110X[8X[108X
+        [33X[0;6Ythe text of the whole chapter as a string[133X
+  
+  [8X[10Xssnr[110X[8X[108X
+        [33X[0;6Ylist  of  subsection  numbers  in  this  chapter  (like  [10X[3, 2, 1][110X for
+        chapter 3, section 2, subsection 1)[133X
+  
+  [8X[10Xlinenr[110X[8X[108X
+        [33X[0;6Ycorresponding list of line numbers where the subsections start[133X
+  
+  [8X[10Xlen[110X[8X[108X
+        [33X[0;6Ynumber of lines of this chapter[133X
+  
+  [33X[0;0YThe    result    can    be    written    into   files   with   the   command
+  [2XGAPDoc2TextPrintTextFiles[102X ([14X5.3-3[114X).[133X
+  
+  [33X[0;0YAs  a  side  effect  this  function also produces the [11Xmanual.six[111X information
+  which is used for searching in [5XGAP[105X's online help. This is stored in [10X[3Xtree[103X[10X.six[110X
+  and  can  be  printed  into  a  [11Xmanual.six[111X  file  with  [2XPrintSixFile[102X ([14X5.3-5[114X)
+  (preferably  after  producing  a  LaTeX  version of the document as well and
+  adding the page number information to [10X[3Xtree[103X[10X.six[110X, see [2XGAPDoc2LaTeX[102X ([14X5.3-1[114X) and
+  [2XAddPageNumbersToSix[102X ([14X5.3-4[114X)).[133X
+  
+  [33X[0;0YThe  text  produced  by  this  function contains some markup via ANSI escape
+  sequences. The sequences used here are usually ignored by terminals. But the
+  [5XGAP[105X  help  system  will  substitute  them by interpreted color and attribute
+  sequences  (see [2XTextAttr[102X ([14X6.1-2[114X)) before displaying them. There is a default
+  markup  used  for  this  but  it  can  also  be  configured by the user, see
+  [2XSetGAPDocTextTheme[102X  ([14X5.3-6[114X).  Furthermore,  the  text  produced  is in UTF-8
+  encoding.    The    encoding   is   also   translated   on   the   fly,   if
+  [10XGAPInfo.TermEncoding[110X  is  set  to some encoding supported by [2XEncode[102X ([14X6.2-2[114X),
+  e.g., [10X"ISO-8859-1"[110X or [10X"latin1"[110X.[133X
+  
+  [33X[0;0YWith the optional argument [3Xwidth[103X a different length of the output text lines
+  can  be  chosen. The default is 76 and all lines in the resulting text start
+  with  two  spaces. This looks good on a terminal with a standard width of 80
+  characters and you probably don't want to use this argument.[133X
+  
+  [1X5.3-3 GAPDoc2TextPrintTextFiles[101X
+  
+  [33X[1;0Y[29X[2XGAPDoc2TextPrintTextFiles[102X( [3Xt[103X[, [3Xpath[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThe  first  argument  must  be a result returned by [2XGAPDoc2Text[102X ([14X5.3-2[114X). The
+  second  argument is a path for the files to write, it can be given as string
+  or  directory  object.  The  text of each chapter is written into a separate
+  file with name [11Xchap0.txt[111X, [11Xchap1.txt[111X, ..., [11XchapBib.txt[111X, and [11XchapInd.txt[111X.[133X
+  
+  [33X[0;0YIf  you  want  to  make your document accessible via the [5XGAP[105X online help you
+  must  put  at  least  these  files  for  the  text version into a directory,
+  together  with  the  file [11Xmanual.six[111X, see [2XPrintSixFile[102X ([14X5.3-5[114X). Then specify
+  the  path  to  the  [11Xmanual.six[111X  file in the packages [11XPackageInfo.g[111X file, see
+  [14X'Reference: The PackageInfo.g File'[114X.[133X
+  
+  [33X[0;0YOptionally  you  can add the [10Xdvi[110X- and [10Xpdf[110X-versions of the document which are
+  produced  with  [2XGAPDoc2LaTeX[102X  ([14X5.3-1[114X) to this directory. The files must have
+  the  names  [11Xmanual.dvi[111X  and  [11Xmanual.pdf[111X,  respectively. Also you can add the
+  files  of  the  HTML  version  produced  with  [2XGAPDoc2HTML[102X  ([14X5.3-7[114X)  to this
+  directory,  see  [2XGAPDoc2HTMLPrintHTMLFiles[102X ([14X5.3-8[114X). The handler functions in
+  [5XGAP[105X  for this help format detect automatically which of the optional formats
+  of a book are actually available.[133X
+  
+  [1X5.3-4 AddPageNumbersToSix[101X
+  
+  [33X[1;0Y[29X[2XAddPageNumbersToSix[102X( [3Xtree[103X, [3Xpnrfile[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YHere  [3Xtree[103X  must  be  the  XML  tree  of  a  [5XGAPDoc[105X  document,  returned  by
+  [2XParseTreeXMLString[102X    ([14X5.2-1[114X).    Running    [10Xlatex[110X    on   the   result   of
+  [10XGAPDoc2LaTeX([3Xtree[103X[10X)[110X  produces  a  file  [3Xpnrfile[103X  (with  extension  [10X.pnr[110X). The
+  command  [10XGAPDoc2Text([3Xtree[103X[10X)[110X  creates  a component [10X[3Xtree[103X[10X.six[110X which contains all
+  information  about  the  document  for  the [5XGAP[105X online help, except the page
+  numbers  in  the [10X.dvi, .ps, .pdf[110X versions of the document. This command adds
+  the missing page number information to [10X[3Xtree[103X[10X.six[110X.[133X
+  
+  [1X5.3-5 PrintSixFile[101X
+  
+  [33X[1;0Y[29X[2XPrintSixFile[102X( [3Xtree[103X, [3Xbookname[103X, [3Xfname[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThis  function  prints  the  [10X.six[110X file [3Xfname[103X for a [5XGAPDoc[105X document stored in
+  [3Xtree[103X with name [3Xbookname[103X. Such a file contains all information about the book
+  which  is  needed  by  the  [5XGAP[105X  online help. This information must first be
+  created by calls of [2XGAPDoc2Text[102X ([14X5.3-2[114X) and [2XAddPageNumbersToSix[102X ([14X5.3-4[114X).[133X
+  
+  [1X5.3-6 SetGAPDocTextTheme[101X
+  
+  [33X[1;0Y[29X[2XSetGAPDocTextTheme[102X( [[3Xoptrec1[103X[, [3Xoptrec2[103X], [3X...[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThis  utility  function  is for readers of the screen version of [5XGAP[105X manuals
+  which  are generated by the [5XGAPDoc[105X package. It allows to configure the color
+  and  attribute layout of the displayed text. There is a default which can be
+  reset by calling this function without argument.[133X
+  
+  [33X[0;0YAs  an  abbreviation  the arguments [3Xoptrec1[103X and so on can be strings for the
+  known  name  of  a  theme.  Information  about  valid  names  is  shown with
+  [10XSetGAPDocTextTheme("");[110X.[133X
+  
+  [33X[0;0YOtherwise,  [3Xoptrec1[103X  and  so  on must be a record. Its entries overwrite the
+  corresponding entries in the default and in previous arguments. To construct
+  valid  markup  you can use [2XTextAttr[102X ([14X6.1-2[114X). Entries must be either pairs of
+  strings,  which  are  put  before and after the corresponding text, or as an
+  abbreviation  it  can  be  a  single  string. In the latter case, the second
+  string  is  implied;  if  the  string contains an escape sequence the second
+  string  is [10XTextAttr.reset[110X, otherwise the given string is used. The following
+  components are recognized:[133X
+  
+  [8X[10Xflush[110X[8X[108X
+        [33X[0;6Y[10X"both"[110X  for  left-right  justified  paragraphs,  and [10X"left"[110X for ragged
+        right ones[133X
+  
+  [8X[10XHeading[110X[8X[108X
+        [33X[0;6Ychapter and (sub-)section headings[133X
+  
+  [8X[10XFunc[110X[8X[108X
+        [33X[0;6Yfunction, operation, ... names[133X
+  
+  [8X[10XArg[110X[8X[108X
+        [33X[0;6Yargument names in descriptions[133X
+  
+  [8X[10XExample[110X[8X[108X
+        [33X[0;6Yexample code[133X
+  
+  [8X[10XPackage[110X[8X[108X
+        [33X[0;6Ypackage names[133X
+  
+  [8X[10XReturns[110X[8X[108X
+        [33X[0;6YReturns-line in descriptions[133X
+  
+  [8X[10XURL[110X[8X[108X
+        [33X[0;6YURLs[133X
+  
+  [8X[10XMark[110X[8X[108X
+        [33X[0;6YMarks in description lists[133X
+  
+  [8X[10XK[110X[8X[108X
+        [33X[0;6Y[5XGAP[105X keywords[133X
+  
+  [8X[10XC[110X[8X[108X
+        [33X[0;6Ycode or text to type[133X
+  
+  [8X[10XF[110X[8X[108X
+        [33X[0;6Yfile names[133X
+  
+  [8X[10XB[110X[8X[108X
+        [33X[0;6Ybuttons[133X
+  
+  [8X[10XM[110X[8X[108X
+        [33X[0;6Ysimplified math elements[133X
+  
+  [8X[10XMath[110X[8X[108X
+        [33X[0;6Ynormal math elements[133X
+  
+  [8X[10XDisplay[110X[8X[108X
+        [33X[0;6Ydisplayed math elements[133X
+  
+  [8X[10XEmph[110X[8X[108X
+        [33X[0;6Yemphasized text[133X
+  
+  [8X[10XQ[110X[8X[108X
+        [33X[0;6Yquoted text[133X
+  
+  [8X[10XRef[110X[8X[108X
+        [33X[0;6Yreference text[133X
+  
+  [8X[10XPrompt[110X[8X[108X
+        [33X[0;6Y[5XGAP[105X prompt in examples[133X
+  
+  [8X[10XBrkPrompt[110X[8X[108X
+        [33X[0;6Y[5XGAP[105X break prompt in examples[133X
+  
+  [8X[10XGAPInput[110X[8X[108X
+        [33X[0;6Y[5XGAP[105X input in examples[133X
+  
+  [8X[10Xreset[110X[8X[108X
+        [33X[0;6Yreset to default, don't change this[133X
+  
+  [8X[10XBibAuthor[110X[8X[108X
+        [33X[0;6Yauthor names in bibliography[133X
+  
+  [8X[10XBibTitle[110X[8X[108X
+        [33X[0;6Ytitles in bibliography[133X
+  
+  [8X[10XBibJournal[110X[8X[108X
+        [33X[0;6Yjournal names in bibliography[133X
+  
+  [8X[10XBibVolume[110X[8X[108X
+        [33X[0;6Yvolume number in bibliography[133X
+  
+  [8X[10XBibLabel[110X[8X[108X
+        [33X[0;6Ylabels for bibliography entries[133X
+  
+  [8X[10XBibReset[110X[8X[108X
+        [33X[0;6Yreset for bibliography, don't change[133X
+  
+  [8X[10XListBullet[110X[8X[108X
+        [33X[0;6Ybullet for simple lists (2 visible characters long)[133X
+  
+  [8X[10XEnumMarks[110X[8X[108X
+        [33X[0;6Yone visible character before and after the number in enumerated lists[133X
+  
+  [8X[10XDefLineMarker[110X[8X[108X
+        [33X[0;6Ymarker  before function and variable definitions (2 visible characters
+        long)[133X
+  
+  [8X[10XFillString[110X[8X[108X
+        [33X[0;6Yfor filling in definitions and example separator lines[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# use no colors for GAP examples and [127X[104X
+    [4X[25Xgap>[125X [27X# change display of headings to bold green[127X[104X
+    [4X[25Xgap>[125X [27XSetGAPDocTextTheme("noColorPrompt", [127X[104X
+    [4X[25X>[125X [27X           rec(Heading:=Concatenation(TextAttr.bold, TextAttr.2)));[127X[104X
+  [4X[32X[104X
+  
+  [1X5.3-7 GAPDoc2HTML[101X
+  
+  [33X[1;0Y[29X[2XGAPDoc2HTML[102X( [3Xtree[103X[, [3Xbibpath[103X[, [3Xgaproot[103X]][, [3Xmtrans[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yrecord containing HTML files as strings and other information[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X  for  this  function  is  a tree describing a [5XGAPDoc[105X XML
+  document  as  returned  by [2XParseTreeXMLString[102X ([14X5.2-1[114X) (probably also checked
+  with  [2XCheckAndCleanGapDocTree[102X  ([14X5.2-8[114X)).  Without  an  [3Xmtrans[103X  argument this
+  function produces an HTML version of the document which can be read with any
+  Web-browser  and  also  be  used  with  [5XGAP[105X's online help (see [2XSetHelpViewer[102X
+  ([14XReference:  SetHelpViewer[114X)).  It  includes  title  page,  bibliography, and
+  index.  The  bibliography is made from BibTeX databases. Their location must
+  be  given  with  the argument [3Xbibpath[103X (as string or directory object, if not
+  given the current directory is used). If the third argument [3Xgaproot[103X is given
+  and  is  a  string then this string is interpreted as relative path to [5XGAP[105X's
+  main  root directory. Reference-URLs to external HTML-books which begin with
+  the  [5XGAP[105X root path are then rewritten to start with the given relative path.
+  This  makes  the HTML-documentation portable provided a package is installed
+  in some standard location below the [5XGAP[105X root.[133X
+  
+  [33X[0;0YThe  output is a record with one component for each chapter (with names [10X"0"[110X,
+  [10X"1"[110X,  ..., [10X"Bib"[110X, and [10X"Ind"[110X). Each such component is again a record with the
+  following components:[133X
+  
+  [8X[10Xtext[110X[8X[108X
+        [33X[0;6Ythe text of an HTML file containing the whole chapter (as a string)[133X
+  
+  [8X[10Xssnr[110X[8X[108X
+        [33X[0;6Ylist  of  subsection  numbers  in  this  chapter  (like  [10X[3, 2, 1][110X for
+        chapter 3, section 2, subsection 1)[133X
+  
+  [33X[0;0Y[13XStandard output format without[113X [3Xmtrans[103X [13Xargument[113X[133X
+  
+  [33X[0;0YThe HTML code produced with this converter conforms to the W3C specification
+  [21XXHTML  1.0  strict[121X, see [7Xhttps://www.w3.org/TR/xhtml1[107X. First, this means that
+  the  HTML  files are valid XML files. Secondly, the extension [21Xstrict[121X says in
+  particular  that  the  code  doesn't  contain  any  explicit  font  or color
+  information.[133X
+  
+  [33X[0;0YMathematical  formulae  are  handled  as  in  the text converter [2XGAPDoc2Text[102X
+  ([14X5.3-2[114X). We don't want to assume that the browser can use symbol fonts. Some
+  [5XGAP[105X  users  like  to  browse  the  online  help with [10Xlynx[110X, see [2XSetHelpViewer[102X
+  ([14XReference:  SetHelpViewer[114X),  which runs inside the same terminal windows as
+  [5XGAP[105X.[133X
+  
+  [33X[0;0YTo  view  the  generated  files in graphical browsers, stylesheet files with
+  layout  configuration should be copied into the directory with the generated
+  HTML files, see [14X5.3-9[114X.[133X
+  
+  [33X[0;0Y[13XOutput format with[113X [3Xmtrans[103X argument[133X
+  
+  [33X[0;0YCurrently, there are three variants of this converter available which handle
+  mathematical  formulae  differently. They are accessed via the optional last
+  [3Xmtrans[103X argument.[133X
+  
+  [33X[0;0YIf [3Xmtrans[103X is set to [10X"MathJax"[110X the formulae are essentially translated as for
+  LaTeX  documents  (there  is  no  processing  of [10X<M>[110X elements as decribed in
+  [14X3.8-2[114X). Inline formulae are delimited by [10X\([110X and [10X\)[110X and displayed formulae by
+  [10X\[[110X  and  [10X\][110X. With [5XMathJax[105X webpages can contain nicely formatted scalable and
+  searchable    formulae.   The   resulting   files   link   by   default   to
+  [7Xhttps://www.jsdelivr.com/[107X  to  get  the [5XMathJax[105X script and fonts. This means
+  that they can only be used on computers with internet access. An alternative
+  URL  can  be  set by overwriting [10XGAPDoc2HTMLProcs.MathJaxURL[110X before building
+  the HTML version of a manual. This way a local installation of [5XMathJax[105X could
+  be used. See [7Xhttps://www.mathjax.org/[107X for more details.[133X
+  
+  [33X[0;0YThe  following  possibilities  for [3Xmtrans[103X are still supported, but since the
+  [5XMathJax[105X approach seems much better, their use is deprecated.[133X
+  
+  [33X[0;0YIf the argument [3Xmtrans[103X is set to [10X"Tth"[110X it is assumed that you have installed
+  the  LaTeX  to  HTML  translation program [10Xtth[110X. This is used to translate the
+  contents  of  the [10XM[110X, [10XMath[110X and [10XDisplay[110X elements into HTML code. Note that the
+  resulting  code is not compliant with any standard. Formally it is [21XXHTML 1.0
+  Transitional[121X, it contains explicit font specifications and the characters of
+  mathematical  symbols are included via their position in a [21XSymbol[121X font. Some
+  graphical  browsers  can  be  configured to display this in a useful manner,
+  check  the  Tth  homepage  ([7Xhttp://hutchinson.belmont.ma.us/tth/[107X)  for  more
+  details.[133X
+  
+  [33X[0;0YThis  function  works  by  running recursively through the document tree and
+  calling  a  handler  function  for  each  [5XGAPDoc[105X  XML element. Many of these
+  handler   functions  (usually  in  [10XGAPDoc2TextProcs.<ElementName>[110X)  are  not
+  difficult  to  understand  (the greatest complications are some commands for
+  index  entries,  labels  or  the  output  of page number information). So it
+  should  be  easy  to  adjust  certain  details  to  your own taste by slight
+  modifications of the program.[133X
+  
+  [33X[0;0YThe  result  of  this  converter  can  be  written to files with the command
+  [2XGAPDoc2HTMLPrintHTMLFiles[102X ([14X5.3-8[114X).[133X
+  
+  [33X[0;0YThere  are  two  user  preferences  for reading the HTML manuals produced by
+  [5XGAPDoc[105X.  A  user  can  choose  among several style files which determine the
+  appearance of the manual pages with [10XSetUserPreference("GAPDoc", "HTMLStyle",
+  [...]);[110X   where   the   list   in  the  third  argument  are  arguments  for
+  [2XSetGAPDocHTMLStyle[102X    ([14X5.3-11[114X).    The   second   preference   is   set   by
+  [10XSetUserPreference("GAPDoc",  "UseMathJax", ...);[110X where the third argument is
+  [9Xtrue[109X  or  [9Xfalse[109X  (default).  If  this  is  set  to [9Xtrue[109X, the [5XGAP[105X help system
+  displays the [5XMathJax[105X version of the HTML manuals.[133X
+  
+  [1X5.3-8 GAPDoc2HTMLPrintHTMLFiles[101X
+  
+  [33X[1;0Y[29X[2XGAPDoc2HTMLPrintHTMLFiles[102X( [3Xt[103X[, [3Xpath[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThe  first  argument  must  be a result returned by [2XGAPDoc2HTML[102X ([14X5.3-7[114X). The
+  second  argument is a path for the files to write, it can be given as string
+  or  directory  object.  The  text of each chapter is written into a separate
+  file with name [11Xchap0.html[111X, [11Xchap1.html[111X, ..., [11XchapBib.html[111X, and [11XchapInd.html[111X.[133X
+  
+  [33X[0;0YThe   [5XMathJax[105X   versions   are   written   to   files   [11Xchap0_mj.html[111X,  ...,
+  [11XchapInd_mj.html[111X.[133X
+  
+  [33X[0;0YThe experimental version which is produced with [10Xtth[110X uses different names for
+  the  files,  namely  [11Xchap0_sym.html[111X,  and  so on for files which need symbol
+  fonts.[133X
+  
+  [33X[0;0YYou  should  also add stylesheet files to the directory with the HTML files,
+  see [14X5.3-9[114X.[133X
+  
+  
+  [1X5.3-9 [33X[0;0YStylesheet files[133X[101X
+  
+  [33X[0;0YFor  graphical  browsers  the  layout  of  the generated HTML manuals can be
+  highly  configured  by cascading stylesheet (CSS) and javascript files. Such
+  files are provided in the [11Xstyles[111X directory of the [5XGAPDoc[105X package.[133X
+  
+  [33X[0;0YWe  recommend  that  these files are copied into each manual directory (such
+  that   each   of  them  is  selfcontained).  There  is  a  utility  function
+  [2XCopyHTMLStyleFiles[102X  ([14X5.3-10[114X)  which does this. Of course, these files may be
+  changed  or  new  styles  may  be  added. New styles may also be sent to the
+  [5XGAPDoc[105X authors for possible inclusion in future versions.[133X
+  
+  [33X[0;0YThe  generated HTML files refer to the file [11Xmanual.css[111X which conforms to the
+  W3C  specification  CSS  2.0,  see  [7Xhttps://www.w3.org/TR/REC-CSS2[107X,  and the
+  javascript file [11Xmanual.js[111X (only in browsers which support CSS or javascript,
+  respectively;  but the HTML files are also readable without any of them). To
+  add  a  style  [10Xmystyle[110X  one  or  both  of [11Xmystyle.css[111X and [11Xmystyle.js[111X must be
+  provided;  these  can  overwrite  default  settings  and  add new javascript
+  functions. For more details see the comments in [11Xmanual.js[111X.[133X
+  
+  [1X5.3-10 CopyHTMLStyleFiles[101X
+  
+  [33X[1;0Y[29X[2XCopyHTMLStyleFiles[102X( [3Xdir[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThis  utility  function  copies  the  [11X*.css[111X  and  [11X*.js[111X files from the [11Xstyles[111X
+  directory of the [5XGAPDoc[105X package into the directory [3Xdir[103X.[133X
+  
+  [1X5.3-11 SetGAPDocHTMLStyle[101X
+  
+  [33X[1;0Y[29X[2XSetGAPDocHTMLStyle[102X( [[3Xstyle1[103X[, [3Xstyle2[103X], [3X...[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThis  utility  function  is  for  readers of the HTML version of [5XGAP[105X manuals
+  which  are  generated  by  the  [5XGAPDoc[105X  package.  It allows to configure the
+  display style of the manuals. This will only have an effect if you are using
+  a browser that supports [5Xjavascript[105X. There is a default which can be reset by
+  calling this function without argument.[133X
+  
+  [33X[0;0YThe  arguments  [3Xstyle1[103X and so on must be strings. You can find out about the
+  valid  strings  by  following  the  [12X[Style][112X  link on top of any manual page.
+  (Going  back to the original page, its address has a setting for [10XGAPDocStyle[110X
+  which is the list of strings, separated by commas, you want to use here.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X# show/hide subsections in tables on contents only after click,[127X[104X
+    [4X[25Xgap>[125X [27X# and don't use colors in GAP examples[127X[104X
+    [4X[25Xgap>[125X [27XSetGAPDocHTMLStyle("toggless", "nocolorprompt");[127X[104X
+  [4X[32X[104X
+  
+  [1X5.3-12 InfoGAPDoc[101X
+  
+  [33X[1;0Y[29X[2XInfoGAPDoc[102X [32X info class[133X
+  
+  [33X[0;0YThe  default  level  of  this  info  class is 1. The converter functions for
+  [5XGAPDoc[105X  documents  are then printing some information. You can suppress this
+  by setting the level of [2XInfoGAPDoc[102X to 0. With level 2 there may be some more
+  information for debugging purposes.[133X
+  
+  [1X5.3-13 SetGapDocLanguage[101X
+  
+  [33X[1;0Y[29X[2XSetGapDocLanguage[102X( [[3Xlang[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ynothing[133X
+  
+  [33X[0;0YThe  [5XGAPDoc[105X  converter programs sometimes produce text which is not explicit
+  in  the  document,  e.g.,  headers  like  [21XAbstract[121X,  [21XAppendix[121X, links to [21XNext
+  Chapter[121X, variable types [21Xfunction[121X and so on.[133X
+  
+  [33X[0;0YWith  [2XSetGapDocLanguage[102X  the  language  for  these texts can be changed. The
+  argument  [3Xlang[103X must be a string. Calling without argument or with a language
+  name  for  which  no  translations  are  available  is the same as using the
+  default [10X"english"[110X.[133X
+  
+  [33X[0;0YIf   your   language   [3Xlang[103X  is  not  yet  available,  look  at  the  record
+  [10XGAPDocTexts.english[110X  and translate all the strings to [3Xlang[103X. Then assign this
+  record to [10XGAPDocTexts.([3Xlang[103X[10X)[110X and send it to the [5XGAPDoc[105X authors for inclusion
+  in  future  versions  of  [5XGAPDoc[105X.  (Currently,  there  are  translations for
+  [10Xenglish[110X, [10Xgerman[110X, [10Xrussian[110X and [10Xukrainian[110X.)[133X
+  
+  [33X[0;0Y[13XFurther  hints:[113X To get strings produced by LaTeX right you will probably use
+  the  [10Xbabel[110X  package  with option [3Xlang[103X, see [2XSetGapDocLaTeXOptions[102X ([14X5.3-1[114X). If
+  [3Xlang[103X cannot be encoded in [10Xlatin1[110X encoding you can consider the use of [10X"utf8"[110X
+  with [2XSetGapDocLaTeXOptions[102X ([14X5.3-1[114X).[133X
+  
+  
+  [1X5.4 [33X[0;0YTesting Manual Examples[133X[101X
+  
+  [33X[0;0YWe  also  provide  some  tools  to  check  and  adjust the examples given in
+  [10X<Example>[110X-elements.[133X
+  
+  [33X[0;0YFormer   versions   of   [5XGAPDoc[105X   provided   functions   [10XManualExamples[110X  and
+  [10XTestManualExamples[110X.  These  functions  are  still  available,  but no longer
+  documented. Their use is deprecated.[133X
+  
+  [1X5.4-1 ExtractExamples[101X
+  
+  [33X[1;0Y[29X[2XExtractExamples[102X( [3Xpath[103X, [3Xmain[103X, [3Xfiles[103X, [3Xunits[103X[, [3XwithLog[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya list of lists[133X
+  
+  [33X[1;0Y[29X[2XExtractExamplesXMLTree[102X( [3Xtree[103X, [3Xunits[103X[, [3XwithLog[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya list of lists[133X
+  
+  [33X[0;0YThe  argument  [3Xtree[103X  must  be  a  parse  tree  of  a  [5XGAPDoc[105X  document,  see
+  [2XParseTreeXMLFile[102X ([14X5.2-1[114X). The function [2XExtractExamplesXMLTree[102X returns a data
+  structure  representing  the  [10X<Example>[110X elements of the document. The return
+  value  can  be  used with [2XRunExamples[102X ([14X5.4-2[114X) to check and optionally update
+  the examples of the document.[133X
+  
+  [33X[0;0YDepending  on the argument [3Xunits[103X several examples are collected in one list.
+  Recognized  values  for  [3Xunits[103X  are  [10X"Chapter"[110X,  [10X"Section"[110X,  [10X"Subsection"[110X or
+  [10X"Single"[110X.  The latter means that each example is in a separate list. For all
+  other value of [3Xunits[103X just one list with all examples is returned.[133X
+  
+  [33X[0;0YThe  arguments  [3Xpath[103X,  [3Xmain[103X and [3Xfiles[103X of [2XExtractExamples[102X are the same as for
+  [2XComposedDocument[102X  ([14X4.2-1[114X).  This  function  first  contructs  and parses the
+  [5XGAPDoc[105X document and then applies [2XExtractExamplesXMLTree[102X.[133X
+  
+  [33X[0;0YIf  the  optional argument [3XwithLog[103X is given and [9Xtrue[109X then [10X<Log>[110X elements are
+  handled  like [10X<Example>[110X elements. This allows to put examples which can only
+  run  under  certain  conditions,  e.g.,  when  certain external programs are
+  available,  into  [10X<Log>[110X elements. (Put example code which should also not be
+  included by this variant into [10X<Listing>[110X elements.)[133X
+  
+  [1X5.4-2 RunExamples[101X
+  
+  [33X[1;0Y[29X[2XRunExamples[102X( [3Xexmpls[103X[, [3Xoptrec[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[9Xtrue[109X or [9Xfalse[109X[133X
+  
+  [33X[0;0YThe  argument [3Xexmpls[103X must be the output of a call to [2XExtractExamples[102X ([14X5.4-1[114X)
+  or  [2XExtractExamplesXMLTree[102X  ([14X5.4-1[114X).  The optional argument [3Xoptrec[103X must be a
+  record, its components can change the default behaviour of this function.[133X
+  
+  [33X[0;0YBy default this function runs the [5XGAP[105X input of all examples and compares the
+  actual  output  with  the output given in the examples. If differences occur
+  these  are displayed together with information on the location of the source
+  code  of  that  example.  Before running the examples in each unit (entry of
+  [3Xexmpls[103X)  the  function  [2XSTART_TEST[102X ([14XReference: START_TEST[114X) is called and the
+  screen width is set to 72 characters.[133X
+  
+  [33X[0;0YThis function returns [9Xtrue[109X if no differences are found and [9Xfalse[109X otherwise.[133X
+  
+  [33X[0;0YIf the argument [3Xoptrec[103X is given, the following components are recognized:[133X
+  
+  [8X[10XshowDiffs[110X[8X[108X
+        [33X[0;6YThe  default value is [9Xtrue[109X, if set to something else found differences
+        in the examples are not displayed.[133X
+  
+  [8X[10Xwidth[110X[8X[108X
+        [33X[0;6YThe  value  must  be  a positive integer which is used as screen width
+        when running the examples. As mentioned above, the default is 72 which
+        is  a  sensible value for the text version of the [5XGAPDoc[105X document used
+        in a 80 character wide terminal.[133X
+  
+  [8X[10XignoreComments[110X[8X[108X
+        [33X[0;6YThe default is [9Xfalse[109X.[133X
+        [33X[0;6YIf  set  to  [9Xtrue[109X  comments  in  the  input will be ignored (as in the
+        default behaviour of the [2XTest[102X ([14XReference: Test[114X) function).[133X
+  
+  [8X[10XchangeSources[110X[8X[108X
+        [33X[0;6YIf  this  is  set  to [9Xtrue[109X then the source code of all manual examples
+        which show differences is adjusted to the current outputs. The default
+        is [9Xfalse[109X.[133X
+        [33X[0;6YUse  this  feature  with  care.  Note  that  sometimes differences can
+        indicate  a  bug, and in such a case it is more appropriate to fix the
+        bug instead of changing the example output.[133X
+  
+  [8X[10XcompareFunction[110X[8X[108X
+        [33X[0;6YThe  function  used to compare the output shown in the example and the
+        current output. See [2XTest[102X ([14XReference: Test[114X) for more details.[133X
+  
+  [8X[10XcheckWidth[110X[8X[108X
+        [33X[0;6YIf this option is a positive integer [10Xn[110X the function prints warnings if
+        an  example  contains  any line with more than [10Xn[110X characters (input and
+        output lines are considered). By default this option is set to [9Xfalse[109X.[133X
+  

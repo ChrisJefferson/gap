@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    FGA
+  </Title>
+  <Subtitle>
+    Free Group Algorithms
+  </Subtitle>
+  <Version>
+    1.5.0
+  </Version>
+  <TitleComment>
+    <E>Note:</E> This version of FGA is a fork of the original FGA, maintained by the GAP Team.
+  </TitleComment>
+  <Author>
+    Christian Sievers<Alt Only="LaTeX"><Br/></Alt>
+<Email>c.sievers@tu-bs.de</Email>
+
+  </Author>
+  <Date>
+    4 April 2023
+  </Date>
+  </TitlePage>

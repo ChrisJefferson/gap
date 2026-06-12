@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (3k+1) - Chapter 1: The 3k+1 Problem</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap1"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap1_mj.html">[MathJax on]</a></p>
+<p><a id="X8769FB038733F6F4" name="X8769FB038733F6F4"></a></p>
+<div class="ChapSects"><a href="chap1.html#X8769FB038733F6F4">1 <span class="Heading">The <span class="SimpleMath">3k+1</span> Problem</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8729B87B848E3F89">1.1 <span class="Heading">Theory</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7A4605C07A94C9F6">1.2 <span class="Heading">Program</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7B1A31B8870EA092">1.2-1 ThreeKPlusOneSequence</a></span>
+</div></div>
+</div>
+
+<h3>1 <span class="Heading">The <span class="SimpleMath">3k+1</span> Problem</span></h3>
+
+<p><a id="X8729B87B848E3F89" name="X8729B87B848E3F89"></a></p>
+
+<h4>1.1 <span class="Heading">Theory</span></h4>
+
+<p>Let <span class="SimpleMath">k ∈ ℕ</span> be a natural number. We consider the sequence <span class="SimpleMath">n(i, k), i ∈ ℕ,</span> with <span class="SimpleMath">n(1, k) = k</span> and else <span class="SimpleMath">n(i+1, k) = n(i, k) / 2</span> if <span class="SimpleMath">n(i, k)</span> is even and <span class="SimpleMath">n(i+1, k) = 3 n(i, k) + 1</span> if <span class="SimpleMath">n(i, k)</span> is odd.</p>
+
+<p>It is not known whether for any natural number <span class="SimpleMath">k ∈ ℕ</span> there is an <span class="SimpleMath">m ∈ ℕ</span> with <span class="SimpleMath">n(m, k) = 1</span>.</p>
+
+<p><strong class="pkg">ThreeKPlusOne</strong> provides the function <code class="func">ThreeKPlusOneSequence</code> (<a href="chap1.html#X7B1A31B8870EA092"><span class="RefLink">1.2-1</span></a>) to explore this for given <span class="SimpleMath">n</span>. If you really want to know something about this problem, see <a href="chapBib.html#biBWi98">[Wir98]</a> or <span class="URL"><a href="https://www.ku.de/mgf/mathematik/statistik/personen-des-lehrstuhls/prof-dr-guenther-wirsching">this homepage</a></span> for more details (and forget this package).</p>
+
+<p><a id="X7A4605C07A94C9F6" name="X7A4605C07A94C9F6"></a></p>
+
+<h4>1.2 <span class="Heading">Program</span></h4>
+
+<p>In this section we describe the main function of this package.</p>
+
+<p><a id="X7B1A31B8870EA092" name="X7B1A31B8870EA092"></a></p>
+
+<h5>1.2-1 ThreeKPlusOneSequence</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ThreeKPlusOneSequence</code>( <var class="Arg">k</var>[, <var class="Arg">max</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>This function computes for a natural number <var class="Arg">k</var> the beginning of the sequence <span class="SimpleMath">n(i, k)</span> defined in section <a href="chap1.html#X8729B87B848E3F89"><span class="RefLink">1.1</span></a>. The sequence stops at the first <span class="SimpleMath">1</span> or at <span class="SimpleMath">n(<var class="Arg">max</var>, k)</span>, if <var class="Arg">max</var> is given.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ThreeKPlusOneSequence(101);</span>
+"Sorry, not yet implemented. Wait for Version 84 of the package"
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

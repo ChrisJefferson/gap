@@ -1,0 +1,58 @@
+# translation of a Magma format presentation
+inp 2
+chor 1 2
+chor 2 20
+mu 1 2 3
+chor 3 21
+cj 1 2 4  # y^-1 x y
+mu 1 4 5
+chor 5 3
+cj 4 2 6  # y^-2 x y^2
+mu 1 6 7
+chor 7 3
+cj 6 2 8  # y^-3 x y^3
+mu 1 8 9
+chor 9 2
+cj 8 2 10  # y^-4 x y^4
+mu 1 10 11
+chor 11 4
+cj 10 2 12  # y^-5 x y^5
+mu 1 12 13
+chor 13 3
+mu 2 2 14  # y^2
+mu 2 14 15  # y^3
+cj 12 15 16  # y^-8 x y^8
+mu 1 16 17
+chor 17 3
+mu 15 2 18  # y^4
+mu 1 18 19  # x*y^4
+chor 19 6
+mu 18 2 20  # y^5
+pwr 2 20 21  # y^10
+mu 1 21 22  # x*y^10
+chor 22 3
+mu 19 4 23
+mu 23 19 24
+mu 24 18 25
+mu 25 4 26
+mu 26 23 27
+mu 27 12 28
+cj 16 18 29  # y^-12 x y^12
+mu 28 29 30
+mu 30 18 31
+chor 31 1
+mu 14 1 32
+mu 32 21 33
+mu 33 12 34
+mu 34 21 35
+mu 35 6 36
+cj 1 36 37
+mu 1 37 38
+chor 38 1
+mu 16 10 39
+mu 39 19 40
+mu 40 15 41
+mu 41 20 42
+cj 1 42 43
+mu 1 43 44
+chor 44 1

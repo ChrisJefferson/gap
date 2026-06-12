@@ -1,0 +1,305 @@
+  
+  [1X2 [33X[0;0YFunctionality of the FGA package[133X[101X
+  
+  [33X[0;0YThis chapter describes methods available from the [5XFGA[105X package.[133X
+  
+  [33X[0;0YIn  the following, let [3Xf[103X be a free group created by [10XFreeGroup([3Xn[103X[10X)[110X, and let [3Xu[103X,
+  [3Xu1[103X and [3Xu2[103X be finitely generated subgroups of [3Xf[103X created by [10XGroup[110X or [10XSubgroup[110X,
+  or computed from some other subgroup of [3Xf[103X. Let [3Xelm[103X be an element of [3Xf[103X.[133X
+  
+  [33X[0;0YFor example:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := FreeGroup( 2 );                                             [127X[104X
+    [4X[28X<free group on the generators [ f1, f2 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xu := Group( f.1^2, f.2^2, f.1*f.2 );[127X[104X
+    [4X[28XGroup([ f1^2, f2^2, f1*f2 ])[128X[104X
+    [4X[25Xgap>[125X [27Xu1 := Subgroup( u, [f.1^2, f.1^4*f.2^6] );[127X[104X
+    [4X[28XGroup([ f1^2, f1^4*f2^6 ])[128X[104X
+    [4X[25Xgap>[125X [27Xelm := f.1;[127X[104X
+    [4X[28Xf1[128X[104X
+    [4X[25Xgap>[125X [27Xu2 := Normalizer( u, elm );[127X[104X
+    [4X[28XGroup([ f1^2 ])[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.1 [33X[0;0YNew operations for free groups[133X[101X
+  
+  [33X[0;0YThese  new operations are available for finitely generated subgroups of free
+  groups:[133X
+  
+  [1X2.1-1 FreeGeneratorsOfGroup[101X
+  
+  [33X[1;0Y[29X[2XFreeGeneratorsOfGroup[102X( [3Xu[103X ) [32X attribute[133X
+  
+  [33X[0;0Yreturns  a list of free generators of the finitely generated subgroup [3Xu[103X of a
+  free group.[133X
+  
+  [33X[0;0YThe elements in this list form an N-reduced set. In addition to being a free
+  (and thus minimal) generating set for [3Xu[103X, this means that whenever [3Xv1[103X, [3Xv2[103X and
+  [3Xv3[103X are elements or inverses of elements of this list, then[133X
+  
+  [30X    [33X[0;6Y[22X[3Xv1[103X[3Xv2[103X≠1[122X implies [22X|[3Xv1[103X[3Xv2[103X|≥max(|[3Xv1[103X|, |[3Xv2[103X|)[122X, and[133X
+  
+  [30X    [33X[0;6Y[22X[3Xv1[103X[3Xv2[103X≠1[122X and [22X[3Xv2[103X[3Xv3[103X≠1[122X implies [22X|[3Xv1[103X[3Xv2[103X[3Xv3[103X| > |[3Xv1[103X| - |[3Xv2[103X| + |[3Xv3[103X|[122X[133X
+  
+  [33X[0;0Yhold, where [22X|.|[122X denotes the word length.[133X
+  
+  [1X2.1-2 RankOfFreeGroup[101X
+  
+  [33X[1;0Y[29X[2XRankOfFreeGroup[102X( [3Xu[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XRank[102X( [3Xu[103X ) [32X operation[133X
+  
+  [33X[0;0Yreturns the rank of the finitely generated subgroup [3Xu[103X of a free group.[133X
+  
+  [1X2.1-3 CyclicallyReducedWord[101X
+  
+  [33X[1;0Y[29X[2XCyclicallyReducedWord[102X( [3Xelm[103X ) [32X operation[133X
+  
+  [33X[0;0Yreturns the cyclically reduced form of [3Xelm[103X.[133X
+  
+  
+  [1X2.2 [33X[0;0YMethod installations[133X[101X
+  
+  [33X[0;0YThis  section  lists  operations that are already known to [5XGAP[105X. [5XFGA[105X installs
+  new  methods  for  them  so  that they can also be used with free groups. In
+  cases where [5XFGA[105X installs methods that are usually only used internally, user
+  functions are shown instead.[133X
+  
+  [1X2.2-1 Normalizer[101X
+  
+  [33X[1;0Y[29X[2XNormalizer[102X( [3Xu1[103X, [3Xu2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XNormalizer[102X( [3Xu[103X, [3Xelm[103X ) [32X operation[133X
+  
+  [33X[0;0YThe  first variant returns the normalizer of the finitely generated subgroup
+  [3Xu2[103X in [3Xu1[103X.[133X
+  
+  [33X[0;0YThe  second  variant  returns  the  normalizer  of  [22X⟨  [3Xelm[103X ⟩[122X in the finitely
+  generated   subgroup  [3Xu[103X  (see  [2XNormalizer[102X  ([14XReference:  Normalizer[114X)  in  the
+  Reference Manual).[133X
+  
+  [1X2.2-2 RepresentativeAction[101X
+  
+  [33X[1;0Y[29X[2XRepresentativeAction[102X( [3Xu[103X, [3Xd[103X, [3Xe[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsConjugate[102X( [3Xu[103X, [3Xd[103X, [3Xe[103X ) [32X operation[133X
+  
+  [33X[0;0Y[10XRepresentativeAction[110X  returns  an  element  [22X[3Xr[103X  ∈  [3Xu[103X[122X,  where  [3Xu[103X is a finitely
+  generated  subgroup  of a free group, such that [22X[3Xd[103X^[3Xr[103X=[3Xe[103X[122X, or fail, if no such [3Xr[103X
+  exists. [3Xd[103X and [3Xe[103X may be elements or subgroups of [3Xu[103X.[133X
+  
+  [33X[0;0Y[10XIsConjugate[110X returns a boolean indicating whether such an element [3Xr[103X exists.[133X
+  
+  [1X2.2-3 Centralizer[101X
+  
+  [33X[1;0Y[29X[2XCentralizer[102X( [3Xu[103X, [3Xu2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XCentralizer[102X( [3Xu[103X, [3Xelm[103X ) [32X operation[133X
+  
+  [33X[0;0Yreturns the centralizer of [3Xu2[103X or [3Xelm[103X in the finitely generated subgroup [3Xu[103X of
+  a free group.[133X
+  
+  [1X2.2-4 Index[101X
+  
+  [33X[1;0Y[29X[2XIndex[102X( [3Xu1[103X, [3Xu2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIndexNC[102X( [3Xu1[103X, [3Xu2[103X ) [32X operation[133X
+  
+  [33X[0;0Yreturn  the  index  of  [3Xu2[103X  in  [3Xu1[103X,  where  [3Xu1[103X and [3Xu2[103X are finitely generated
+  subgroups  of  a  free  group. The first variant returns fail if [3Xu2[103X is not a
+  subgroup of [3Xu1[103X, the second may return anything in this case.[133X
+  
+  [1X2.2-5 Intersection[101X
+  
+  [33X[1;0Y[29X[2XIntersection[102X( [3Xu1[103X, [3Xu2[103X, [3X\dots[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  the  intersection  of  [3Xu1[103X  and  [3Xu2[103X,  where  [3Xu1[103X  and [3Xu2[103X are finitely
+  generated subgroups of a free group.[133X
+  
+  [1X2.2-6 \in[101X
+  
+  [33X[1;0Y[29X[2X\in[102X( [3Xelm[103X, [3Xu[103X ) [32X method[133X
+  
+  [33X[0;0Ytests  whether  [3Xelm[103X  is  contained in the finitely generated subgroup [3Xu[103X of a
+  free group.[133X
+  
+  [1X2.2-7 IsSubgroup[101X
+  
+  [33X[1;0Y[29X[2XIsSubgroup[102X( [3Xu1[103X, [3Xu2[103X ) [32X function[133X
+  
+  [33X[0;0Ytests whether [3Xu2[103X is a subgroup of [3Xu1[103X, where [3Xu1[103X and [3Xu2[103X are finitely generated
+  subgroups of a free group.[133X
+  
+  [1X2.2-8 \=[101X
+  
+  [33X[1;0Y[29X[2X\=[102X( [3Xu1[103X, [3Xu2[103X ) [32X method[133X
+  
+  [33X[0;0Ytest  whether the two finitely generated subgroups [3Xu1[103X and [3Xu2[103X of a free group
+  are equal.[133X
+  
+  [1X2.2-9 MinimalGeneratingSet[101X
+  
+  [33X[1;0Y[29X[2XMinimalGeneratingSet[102X( [3Xu[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XSmallGeneratingSet[102X( [3Xu[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XGeneratorsOfGroup[102X( [3Xu[103X ) [32X attribute[133X
+  
+  [33X[0;0Yreturn  generating  sets  for  the  finitely  generated subgroup [3Xu[103X of a free
+  group.  [10XMinimalGeneratingSet[110X  and  [10XSmallGeneratingSet[110X  return  the same free
+  generators  as [10XFreeGeneratorsOfGroup[110X, which are in fact a minimal generating
+  set. [10XGeneratorsOfGroup[110X also returns these generators, if no other generators
+  were stored at creation time.[133X
+  
+  
+  [1X2.3 [33X[0;0YConstructive membership test[133X[101X
+  
+  [33X[0;0YIt  is  not  only  possible  to  test  whether  an  element is in a finitely
+  generated  subgroup of free group, this can also be done constructively. The
+  idiomatic way to do so is by using a homomorphism.[133X
+  
+  [33X[0;0YHere  is  an  example  that  computes  how  to write [10Xf.1^2[110X in the generators
+  [10Xa=f1^2*f2^2[110X  and [10Xb=f.1^2*f.2[110X, checks the result, and then tries to write [10Xf.1[110X
+  in the same generators:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := FreeGroup( 2 );[127X[104X
+    [4X[28X<free group on the generators [ f1, f2 ]>[128X[104X
+    [4X[25Xgap>[125X [27Xua := f.1^2*f.2^2;; ub := f.1^2*f.2;;[127X[104X
+    [4X[25Xgap>[125X [27Xu := Group( ua, ub );;[127X[104X
+    [4X[25Xgap>[125X [27Xg := FreeGroup( "a", "b" );;[127X[104X
+    [4X[25Xgap>[125X [27Xhom := GroupHomomorphismByImages( g, u,[127X[104X
+    [4X[25X>[125X [27X            GeneratorsOfGroup(g),[127X[104X
+    [4X[25X>[125X [27X            GeneratorsOfGroup(u) );[127X[104X
+    [4X[28X[ a, b ] -> [ f1^2*f2^2, f1^2*f2 ][128X[104X
+    [4X[25Xgap>[125X [27X# how can f.1^2 be expressed?[127X[104X
+    [4X[25Xgap>[125X [27XPreImagesRepresentative( hom, f.1^2 );[127X[104X
+    [4X[28Xb*a^-1*b[128X[104X
+    [4X[25Xgap>[125X [27Xlast ^ hom; # check this[127X[104X
+    [4X[28Xf1^2[128X[104X
+    [4X[25Xgap>[125X [27Xub * ua^-1 * ub; # another check[127X[104X
+    [4X[28Xf1^2[128X[104X
+    [4X[25Xgap>[125X [27XPreImagesRepresentative( hom, f.1 ); # try f.1[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27Xf.1 in u;[127X[104X
+    [4X[28Xfalse[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThere are also lower level operations to get the same results.[133X
+  
+  [1X2.3-1 AsWordLetterRepInGenerators[101X
+  
+  [33X[1;0Y[29X[2XAsWordLetterRepInGenerators[102X( [3Xelm[103X, [3Xu[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XAsWordLetterRepInFreeGenerators[102X( [3Xelm[103X, [3Xu[103X ) [32X operation[133X
+  
+  [33X[0;0Yreturn  a letter representation (see Section [14X'Reference: Representations for
+  Associative Words'[114X in the [5XGAP[105X Reference Manual) of the given [3Xelm[103X relative to
+  the generators the group was created with or the free generators as returned
+  by [10XFreeGeneratorsOfGroup[110X.[133X
+  
+  [33X[0;0YContinuing the above example:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XAsWordLetterRepInGenerators( f.1^2, u );    [127X[104X
+    [4X[28X[ 2, -1, 2 ][128X[104X
+    [4X[25Xgap>[125X [27XAsWordLetterRepInFreeGenerators( f.1^2, u );[127X[104X
+    [4X[28X[ 2 ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  means:  to get [10Xf.1^2[110X, multiply the second of the given generators with
+  the  inverse of the first and again with the second; or just take the second
+  free generator.[133X
+  
+  
+  [1X2.4 [33X[0;0YAutomorphism groups of free groups[133X[101X
+  
+  [33X[0;0YThe  [5XFGA[105X  package  knows  presentations  of  the automorphism groups of free
+  groups.  It also allows to express an automorphism as word in the generators
+  of these presentations. This sections repeats the [5XGAP[105X standard methods to do
+  so and shows functions to obtain the generating automorphisms.[133X
+  
+  [1X2.4-1 AutomorphismGroup[101X
+  
+  [33X[1;0Y[29X[2XAutomorphismGroup[102X( [3Xu[103X ) [32X attribute[133X
+  
+  [33X[0;0Yreturns  the  automorphism  group  of the finitely generated subgroup [3Xu[103X of a
+  free group.[133X
+  
+  [33X[0;0YOnly  a  few methods will work with this group. But there is a way to obtain
+  an isomorphic finitely presented group:[133X
+  
+  [1X2.4-2 IsomorphismFpGroup[101X
+  
+  [33X[1;0Y[29X[2XIsomorphismFpGroup[102X( [3Xgroup[103X ) [32X attribute[133X
+  
+  [33X[0;0Yreturns  an  isomorphism  of  [3Xgroup[103X  to  a  finitely  presented  group.  For
+  automorphism   groups  of  free  groups,  the  [5XFGA[105X  package  implements  the
+  presentations  of  [Neu33].  The finitely presented group itself can then be
+  obtained with the command [10XRange[110X.[133X
+  
+  [33X[0;0YHere is an example:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xf := FreeGroup( 2 );;[127X[104X
+    [4X[25Xgap>[125X [27Xa := AutomorphismGroup( f );;[127X[104X
+    [4X[25Xgap>[125X [27Xiso := IsomorphismFpGroup( a );;[127X[104X
+    [4X[25Xgap>[125X [27XRange( iso );[127X[104X
+    [4X[28X<fp group on the generators [ O, P, U ]>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YTo  express  an  automorphism as word in the generators of the presentation,
+  just apply the isomorphism obtained from [10XIsomorphismFpGroup[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xaut := GroupHomomorphismByImages( f, f,[127X[104X
+    [4X[25X>[125X [27X             GeneratorsOfGroup( f ), [ f.1^f.2, f.1*f.2 ] );[127X[104X
+    [4X[28X[ f1, f2 ] -> [ f2^-1*f1*f2, f1*f2 ][128X[104X
+    [4X[25Xgap>[125X [27XImageElm( iso, aut );[127X[104X
+    [4X[28XO^2*U*O*P^-1*U[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIt  is  also  possible to use [10Xaut^iso[110X or [10XImage( iso, aut )[110X. Using [10XImage[110X will
+  perform additional checks on the arguments.[133X
+  
+  [33X[0;0YThe [5XFGA[105X package provides a simpler way to create endomorphisms:[133X
+  
+  [1X2.4-3 FreeGroupEndomorphismByImages[101X
+  
+  [33X[1;0Y[29X[2XFreeGroupEndomorphismByImages[102X( [3Xg[103X, [3Ximgs[103X ) [32X function[133X
+  
+  [33X[0;0Yreturns  the  endomorphism  that  maps  the  free generators of the finitely
+  generated subgroup [3Xg[103X of a free group to the elements listed in [3Ximgs[103X. You may
+  then apply [10XIsBijective[110X to check whether it is an automorphism.[133X
+  
+  [33X[0;0YThe   following  functions  return  automorphisms  that  correspond  to  the
+  generators in the presentation:[133X
+  
+  [1X2.4-4 FreeGroupAutomorphismsGeneratorO[101X
+  
+  [33X[1;0Y[29X[2XFreeGroupAutomorphismsGeneratorO[102X( [3Xgroup[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFreeGroupAutomorphismsGeneratorP[102X( [3Xgroup[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFreeGroupAutomorphismsGeneratorU[102X( [3Xgroup[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFreeGroupAutomorphismsGeneratorS[102X( [3Xgroup[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFreeGroupAutomorphismsGeneratorT[102X( [3Xgroup[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFreeGroupAutomorphismsGeneratorQ[102X( [3Xgroup[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFreeGroupAutomorphismsGeneratorR[102X( [3Xgroup[103X ) [32X function[133X
+  
+  [33X[0;0Yreturn the automorphism which maps the free generators [[22Xx_1, x_2, dots, x_n[122X]
+  of [3Xgroup[103X to[133X
+  
+  [8XO:[108X
+        [33X[0;6Y[[22Xx_1^-1, x_2, dots, x_n[122X] ([22Xn≥1[122X)[133X
+  
+  [8XP:[108X
+        [33X[0;6Y[[22Xx_2, x_1, x_3, dots, x_n[122X] ([22Xn≥2[122X)[133X
+  
+  [8XU:[108X
+        [33X[0;6Y[[22Xx_1x_2, x_2, x_3, dots, x_n[122X] ([22Xn≥2[122X)[133X
+  
+  [8XS:[108X
+        [33X[0;6Y[[22Xx_2^-1, x_3^-1, dots, x_n^-1, x_1^-1[122X] ([22Xn≥1[122X)[133X
+  
+  [8XT:[108X
+        [33X[0;6Y[[22Xx_2, x_1^-1, x_3, dots, x_n[122X] ([22Xn≥2[122X)[133X
+  
+  [8XQ:[108X
+        [33X[0;6Y[[22Xx_2, x_3, dots, x_n, x_1[122X] ([22Xn≥2[122X)[133X
+  
+  [8XR:[108X
+        [33X[0;6Y[[22Xx_2^-1, x_1, x_3, x_4, dots, x_n-2, x_nx_n-1^-1, x_n-1^-1[122X] ([22Xn≥4[122X)[133X
+  

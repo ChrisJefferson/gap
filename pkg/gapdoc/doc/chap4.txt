@@ -1,0 +1,162 @@
+  
+  [1X4 [33X[0;0YDistributing a Document into Several Files[133X[101X
+  
+  [33X[0;0YIn  [5XGAPDoc[105X there are facilities to distribute a single document over several
+  files.  This  is  for  example  interesting,  if  one  wants  to  store  the
+  documentation  of  some code in the same file as the code itself. Or, if one
+  just wants to store chapters of a document in separate files. There is a set
+  of  conventions  how  this  is  done  and some tools to collect the text for
+  further processing.[133X
+  
+  [33X[0;0YThe  technique  can  also  be  used to distribute and collect other types of
+  documents   into   respectively  from  several  files  (e.g.,  source  code,
+  examples).[133X
+  
+  
+  [1X4.1 [33X[0;0YThe Conventions[133X[101X
+  
+  [33X[0;0YIn  this  description  we  use  the  string  [10XGAPDoc[110X  for marking pieces of a
+  document to collect.[133X
+  
+  [33X[0;0YPieces of documentation that shall be incorporated into another document are
+  marked as follows:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X##  <#GAPDoc Label="MyPiece">[128X[104X
+    [4X[28X##  <E>This</E> is the piece.[128X[104X
+    [4X[28X##  The hash characters are removed.[128X[104X
+    [4X[28X##  <#/GAPDoc>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis piece is then included into another file by a statement like: [10X<#Include
+  Label="MyPiece">[110X Here are the exact rules, how pieces are gathered:[133X
+  
+  [30X    [33X[0;6YAll   lines   up   to   a   line  containing  the  character  sequence
+        [21X[10X<#GAPDoc Label="[110X[121X  (exactly  one  space  character)  are  ignored.  The
+        characters on the same line before this sequence are stored as [21Xprefix[121X.
+        The  characters  after  the  sequence  up  to  the  next double quotes
+        character  (which  should not contain whitespace) are stored as [21Xlabel[121X.
+        All other characters in the line are ignored.[133X
+  
+  [30X    [33X[0;6YThe  following  lines  up  to a line containing the character sequence
+        [21X[10X<#/GAPDoc>[110X[121X  are  stored  under the label. These lines are processed as
+        follows: The longest possible substring from the beginning of the line
+        that equals the corresponding substring of the prefix is removed.[133X
+  
+  [33X[0;0YHaving stored a list of labels and pieces of text gathered as above this can
+  be used as follows.[133X
+  
+  [30X    [33X[0;6YIn  [5XGAPDoc[105X  documentation  files  all statements of the form [21X[10X<#Include
+        Label="Key">[110X[121X  are  replaced  by the sequence of lines stored under the
+        label [10XKey[110X.[133X
+  
+  [30X    [33X[0;6YAdditionally,  every  occurrence  of a statement of the form [21X[10X<#Include
+        SYSTEM "Filename">[110X[121X is replaced by the whole file stored under the name
+        [10XFilename[110X in the file system.[133X
+  
+  [30X    [33X[0;6YThese substitutions are done recursively (although one should probably
+        avoid to use this extensively).[133X
+  
+  [33X[0;0YHere is another example:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X# # <#GAPDoc Label="AnotherPiece">  some characters[128X[104X
+    [4X[28X# # This text is not indented.[128X[104X
+    [4X[28X#  This text is indented by one blank.[128X[104X
+    [4X[28X#Not indented.[128X[104X
+    [4X[28X#<#/GAPDoc>[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0Yreplaces [10X<#Include Label="AnotherPiece">[110X by[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XThis text is not indented.[128X[104X
+    [4X[28X This text is indented by one blank. [128X[104X
+    [4X[28XNot indented.[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSince  these  rules  are  very simple it is quite easy to write a program in
+  almost any programming language which does this gathering of text pieces and
+  the  substitutions.  In  [5XGAPDoc[105X  there  is the [5XGAP[105X function [2XComposedDocument[102X
+  ([14X4.2-1[114X) which does this.[133X
+  
+  [33X[0;0YNote  that  the  XML-tag-like  markup  we  have used here is not a legal XML
+  markup,  since  the  hash  character  is  not  allowed in element names. The
+  mechanism described here is a preprocessing step which composes a document.[133X
+  
+  
+  [1X4.2 [33X[0;0YA Tool for Collecting a Document[133X[101X
+  
+  [1X4.2-1 ComposedDocument[101X
+  
+  [33X[1;0Y[29X[2XComposedDocument[102X( [3Xtagname[103X, [3Xpath[103X, [3Xmain[103X, [3Xsource[103X[, [3Xinfo[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XComposedXMLString[102X( [3Xpath[103X, [3Xmain[103X, [3Xsource[103X[, [3Xinfo[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  document  as string, or a list with this string and information
+            about the source positions[133X
+  
+  [33X[0;0YThe  argument  [3Xtagname[103X is the string used for the pseudo elements which mark
+  the  pieces of a document to collect. (In [14X4.1[114X we used [10XGAPDoc[110X as [3Xtagname[103X. The
+  second   function   [2XComposedXMLString[102X[10X(   ...   )[110X   is  an  abbreviation  for
+  [2XComposedDocument[102X[10X("GAPDoc", ... )[110X.[133X
+  
+  [33X[0;0YThe  argument  [3Xpath[103X must be a path to some directory (as string or directory
+  object), [3Xmain[103X the name of a file and [3Xsource[103X a list of file names. These file
+  names  are  relative  to  [3Xpath[103X,  except  they  start  with [10X"/"[110X to specify an
+  absolute  path or they start with [10X"gap://"[110X to specify a file relative to the
+  [5XGAP[105X  roots  (see  [2XFilenameGAP[102X  ([14X4.2-3[114X)). The document is constructed via the
+  mechanism described in Section [14X4.1[114X.[133X
+  
+  [33X[0;0YFirst  the  files  given  in  [3Xsource[103X  are scanned for chunks of the document
+  marked  by  [10X<#[3Xtagname[103X[10X Label="...">[110X and [10X</#[3Xtagname[103X[10X>[110X pairs. Then the file [3Xmain[103X
+  is  read  and  all [10X<#Include ... >[110X-tags are substituted recursively by other
+  files or chunks of documentation found in the first step, respectively.[133X
+  
+  [33X[0;0YIf the optional argument [3Xinfo[103X is given and set to [9Xtrue[109X this function returns
+  a list [10X[str, origin][110X, where [10Xstr[110X is a string containing the composed document
+  and  [10Xorigin[110X  is  a sorted list of entries of the form [10X[pos, filename, line][110X.
+  Here  [10Xpos[110X  runs  through  all  character positions of starting lines or text
+  pieces  from  different  files  in  [10Xstr[110X.  The [10Xfilename[110X and [10Xline[110X describe the
+  origin of this part of the collected document.[133X
+  
+  [33X[0;0YWithout the fourth argument only the string [10Xstr[110X is returned.[133X
+  
+  [33X[0;0YBy  default  [2XComposedDocument[102X  runs  into  an error if an [10X<#Include ...>[110X-tag
+  cannot  be  substituted (because a file or chunk is missing). This behaviour
+  can  be changed by setting [10XDOCCOMPOSEERROR := false;[110X. Then the missing parts
+  are  substituted  by  a  short  note  about what is missing. Of course, this
+  feature  is  only  useful  if the resulting document is a valid XML document
+  (e.g., when the missing pieces are complete paragraphs or sections).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xdoc := ComposedDocument("GAPDoc", "/my/dir", "manual.xml", [127X[104X
+    [4X[25X>[125X [27X["../lib/func.gd", "../lib/func.gi"], true);;[127X[104X
+  [4X[32X[104X
+  
+  [1X4.2-2 OriginalPositionDocument[101X
+  
+  [33X[1;0Y[29X[2XOriginalPositionDocument[102X( [3Xsrcinfo[103X, [3Xpos[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA pair [10X[filename, linenumber][110X.[133X
+  
+  [33X[0;0YHere  [3Xsrcinfo[103X  must  be  a  data  structure  as  returned as second entry by
+  [2XComposedDocument[102X  ([14X4.2-1[114X)  called  with  [3Xinfo[103X=[9Xtrue[109X.  It  returns for a given
+  position  [3Xpos[103X  in  the  composed document the file name and line number from
+  which that text was collected.[133X
+  
+  [1X4.2-3 FilenameGAP[101X
+  
+  [33X[1;0Y[29X[2XFilenameGAP[102X( [3Xfname[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yfile name as string or fail[133X
+  
+  [33X[0;0YThis functions returns the full path of a file with name [3Xfname[103X relative to a
+  [5XGAP[105X root path, or [9Xfail[109X if such a file does not exist. The argument [3Xfname[103X can
+  optionally start with the prefix [10X"gap://"[110X which will be removed.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFilenameGAP("hsdkfhs.g");[127X[104X
+    [4X[28Xfail[128X[104X
+    [4X[25Xgap>[125X [27XFilenameGAP("lib/system.g");[127X[104X
+    [4X[28X"/usr/local/gap4/lib/system.g"[128X[104X
+    [4X[25Xgap>[125X [27XFilenameGAP("gap://lib/system.g");[127X[104X
+    [4X[28X"/usr/local/gap4/lib/system.g"[128X[104X
+  [4X[32X[104X
+  

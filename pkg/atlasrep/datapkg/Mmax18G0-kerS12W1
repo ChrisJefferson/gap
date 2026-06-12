@@ -1,0 +1,7 @@
+inp 2
+mu 1 2 3
+pwr 11 3 4
+mu 1 4 5
+pwr 2 5 6
+oup 2 4 6
+

@@ -1,0 +1,43 @@
+
+<!-- %W  utils.xml       GAP 4 package CTblLib              Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="chap:utilities">
+<Heading>Utility Functions Provided by the <Package>CTblLib</Package>
+Package</Heading>
+
+This chapter describes &GAP; functions that are provided by the
+<Package>CTblLib</Package> package but that might be of general interest.
+
+<P/>
+
+For the moment, there are just two features to describe,
+the generation of &ATLAS; irrationalities from cyclotomic integers
+(see Section&nbsp;<Ref Sect="sect:CTblLib.StringOfAtlasIrrationality"/>),
+and the generation of information about the group structure from
+identifiers of character tables
+(see Section&nbsp;<Ref Sect="sect:StructureDescriptionCharacterTableName"/>).
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:CTblLib.StringOfAtlasIrrationality">
+<Heading>Write Character Values in Terms of Atomic &ATLAS;
+Irrationalities</Heading>
+
+<#Include Label="CTblLib.StringOfAtlasIrrationality">
+
+</Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:StructureDescriptionCharacterTableName">
+<Heading>Create a String that Describes the Group Structure</Heading>
+
+<#Include Label="StructureDescriptionCharacterTableName">
+
+</Section>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+</Chapter>
+

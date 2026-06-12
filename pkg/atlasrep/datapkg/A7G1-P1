@@ -1,0 +1,12 @@
+# translation of a Magma format presentation
+inp 2
+chor 1 3
+chor 2 5
+mu 1 2 3
+chor 3 7
+cj 1 2 4
+mu 1 4 5
+chor 5 2
+cj 4 2 6
+mu 1 6 7
+chor 7 2

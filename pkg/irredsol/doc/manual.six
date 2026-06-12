@@ -1,0 +1,173 @@
+C overview.tex 1. Overview
+I 1.0. IRREDSOL
+I 1.0. structure of IRREDSOL
+C access.tex 2. Accessing the data library
+S 2.1. Design of the group library
+I 2.1. IRREDSOL!database design
+S 2.2. Low level access functions
+I 2.2. IRREDSOL!accessing low level data
+F 2.2. IsAvailableIrreducibleSolubleGroupData
+F 2.2. IsAvailableIrreducibleSolvableGroupData
+F 2.2. IndicesIrreducibleSolubleMatrixGroups
+F 2.2. IndicesIrreducibleSolvableMatrixGroups
+F 2.2. IrreducibleSolubleMatrixGroup
+F 2.2. IrreducibleSolvableMatrixGroup
+F 2.2. IsAvailableAbsolutelyIrreducibleSolubleGroupData
+F 2.2. IsAvailableAbsolutelyIrreducibleSolvableGroupData
+F 2.2. IndicesMaximalAbsolutelyIrreducibleSolubleMatrixGroups
+F 2.2. IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups
+F 2.2. IndicesAbsolutelyIrreducibleSolubleMatrixGroups
+F 2.2. AbsolutelyIrreducibleSolubleMatrixGroup
+S 2.3. Finding matrix groups with given properties
+I 2.3. find!matrix group
+I 2.3. matrix group!with given properties
+F 2.3. AllIrreducibleSolubleMatrixGroups
+F 2.3. AllIrreducibleSolvableMatrixGroups
+F 2.3. AllIrredSolMatGroups
+F 2.3. OneIrreducibleSolubleMatrixGroup
+F 2.3. OneIrreducibleSolvableMatrixGroup
+F 2.3. OneIrredSolMatGroup
+F 2.3. IteratorIrreducibleSolubleMatrixGroups
+F 2.3. IteratorIrreducibleSolvableMatrixGroups
+F 2.3. IteratorIrredSolMatGroups
+S 2.4. Loading and unloading group data manually
+I 2.4. loading!of group data
+I 2.4. unloading!of group data
+I 2.4. workspace!running out of
+F 2.4. LoadAbsolutelyIrreducibleSolubleGroupData
+F 2.4. LoadAbsolutelyIrreducibleSolvableGroupData
+F 2.4. LoadAbsoIrredSolGroupData
+F 2.4. LoadedAbsolutelyIrreducibleSolubleGroupData
+F 2.4. LoadedAbsolutelyIrreducibleSolvableGroupData
+F 2.4. LoadedAbsoIrredSolGroupData
+F 2.4. UnloadAbsolutelyIrreducibleSolubleGroupData
+F 2.4. UnloadAbsolutelyIrreducibleSolvableGroupData
+F 2.4. UnloadAbsoIrredSolGroupData
+C recognition.tex 3. Recognition of matrix groups
+I 3.0. recognition!of matrix groups
+I 3.0. identification!of matrix groups
+S 3.1. Identification of irreducible groups
+F 3.1. IsAvailableIdIrreducibleSolubleMatrixGroup
+F 3.1. IsAvailableIdIrreducibleSolvableMatrixGroup
+F 3.1. IsAvailableIdAbsolutelyIrreducibleSolubleMatrixGroup
+F 3.1. IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup
+F 3.1. IdIrreducibleSolubleMatrixGroup
+F 3.1. IdIrreducibleSolvableMatrixGroup
+F 3.1. RecognitionIrreducibleSolubleMatrixGroup
+F 3.1. RecognitionIrreducibleSolubleMatrixGroupNC
+F 3.1. RecognitionIrreducibleSolvableMatrixGroup
+F 3.1. RecognitionIrreducibleSolvableMatrixGroupNC
+F 3.1. IdAbsolutelyIrreducibleSolubleMatrixGroup
+F 3.1. RecognitionAbsolutelyIrreducibleSolubleMatrixGroup
+F 3.1. RecognitionAbsolutelyIrreducibleSolubleMatrixGroupNC
+F 3.1. IdAbsolutelyIrreducibleSolvableMatrixGroup
+F 3.1. RecognitionAbsolutelyIrreducibleSolvableMatrixGroup
+F 3.1. RecognitionAbsolutelyIrreducibleSoluvaleMatrixGroupNC
+S 3.2. Compatibility with other data libraries
+I 3.2. compatibility!with other data libraries
+F 3.2. IdIrreducibleSolubleMatrixGroupIndexMS
+F 3.2. IndexMSIdIrreducibleSolubleMatrixGroup
+S 3.3. Loading and unloading recognition data manually
+I 3.3. loading!of recognition data
+I 3.3. unloading!of recognition data
+I 3.3. workspace!running out of
+F 3.3. LoadAbsolutelyIrreducibleSolubleGroupFingerprints
+F 3.3. LoadedAbsolutelyIrreducibleSolubleGroupFingerprints
+F 3.3. UnloadAbsolutelyIrreducibleSolubleGroupFingerprints
+C matgroups.tex 4. Additional functionality for matrix groups
+S 4.1. Basic attributes for matrix groups
+I 4.1. attributes!basic, for matrix groups
+I 4.1. matrix group!basic attributes
+F 4.1. DegreeOfMatrixGroup
+F 4.1. Degree!for matrix groups
+F 4.1. DimensionOfMatrixGroup
+F 4.1. Dimension!for matrix groups
+F 4.1. FieldOfMatrixGroup
+F 4.1. DefaultFieldOfMatrixGroup
+F 4.1. SplittingField
+F 4.1. CharacteristicOfField
+F 4.1. Characteristic!for matrix groups
+F 4.1. RepresentationIsomorphism
+S 4.2. Irreducibility and maximality of matrix groups
+I 4.2. matrix group!irreducibility
+I 4.2. matrix group!maximality
+I 4.2. irreducibility!of matrix group
+I 4.2. maximality!of matrix group
+F 4.2. IsIrreducibleMatrixGroup
+F 4.2. IsIrreducibleMatrixGroup
+F 4.2. IsIrreducible!for matrix groups
+F 4.2. IsAbsolutelyIrreducibleMatrixGroup
+F 4.2. IsAbsolutelyIrreducible
+F 4.2. IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup
+F 4.2. IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup
+S 4.3. Primitivity of matrix groups
+I 4.3. matrix group!primitivity
+I 4.3. primitivity!of matrix group
+F 4.3. MinimalBlockDimensionOfMatrixGroup
+F 4.3. MinimalBlockDimensionOfMatrixGroup
+F 4.3. MinimalBlockDimension!for matrix groups
+F 4.3. IsPrimitiveMatrixGroup
+F 4.3. IsPrimitiveMatrixGroup
+F 4.3. IsPrimitive!for matrix groups
+F 4.3. IsLinearlyPrimitive
+F 4.3. ImprimitivitySystems
+S 4.4. Conjugating matrix groups into smaller fields
+I 4.4. matrix group!conjugating into smaller fieldss
+F 4.4. TraceField
+F 4.4. ConjugatingMatTraceField
+C primitive.tex 5. Primitive soluble groups
+I 5.0. primitive soluble groups
+I 5.0. soluble primitive groups
+I 5.0. group!primitive soluble
+I 5.0. permutation group!primitive soluble
+S 5.1. Converting between irreducible soluble matrix groups and primitive soluble groups
+F 5.1. PrimitivePcGroup
+F 5.1. PrimitiveSolublePermGroup
+F 5.1. PrimitiveSolvablePermGroup
+F 5.1. PrimitivePcGroupIrreducibleMatrixGroup
+F 5.1. PrimitivePcGroupIrreducibleMatrixGroupNC
+F 5.1. PrimitivePermGroupIrreducibleMatrixGroup
+F 5.1. PrimitivePermGroupIrreducibleMatrixGroupNC
+F 5.1. IrreducibleMatrixGroupPrimitiveSolubleGroup
+F 5.1. IrreducibleMatrixGroupPrimitiveSolvableGroupNC
+S 5.2. Finding primitive pc groups with given properties
+I 5.2. find!primitive pc group
+I 5.2. primitive pc group!with given properties
+F 5.2. AllPrimitivePcGroups
+F 5.2. OnePrimitivePcGroup
+F 5.2. IteratorPrimitivePcGroups
+S 5.3. Finding primitive soluble permutation groups with given properties
+I 5.3. find!primitive permutation group
+I 5.3. primitive permutation group!with given properties
+F 5.3. AllPrimitiveSolublePermGroups
+F 5.3. AllPrimitiveSolvablePermGroups
+F 5.3. OnePrimitiveSolublePermGroup
+F 5.3. OnePrimitiveSolvablePermGroup
+F 5.3. IteratorPrimitivePermGroups
+S 5.4. Recognising primitive soluble groups
+I 5.4. identification!of primitive pc group
+I 5.4. identification!of primitive permutation group
+I 5.4. recognition!of primitive pc group
+I 5.4. recognition!of primitive permutation group
+I 5.4. primitive pc group!identification
+I 5.4. primitive permutation group!identification
+I 5.4. primitive pc group!recognition
+I 5.4. primitive permutation group!recognition
+F 5.4. IdPrimitiveSolubleGroup
+F 5.4. IdPrimitiveSolubleGroupNC
+F 5.4. IdPrimitiveSolvableGroup
+F 5.4. IdPrimitiveSolvableGroupNC
+F 5.4. RecognitionPrimitiveSolubleGroup
+F 5.4. RecognitionPrimitiveSolvableGroup
+S 5.5. Obsolete functions
+I 5.5. obsolete functions!for primitive soluble permutation groups
+F 5.5. PrimitiveSolublePermutationGroup
+F 5.5. PrimitiveSolvablePermutationGroup
+F 5.5. PrimitivePermutationGroupIrreducibleMatrixGroup
+F 5.5. PrimitivePermutationGroupIrreducibleMatrixGroupNC
+F 5.5. AllPrimitiveSolublePermutationGroups
+F 5.5. AllPrimitiveSolvablePermutationGroups
+F 5.5. IteratorPrimitivePermutationGroups
+F 5.5. OnePrimitiveSolublePermutationGroup
+F 5.5. OnePrimitiveSolvablePermutationGroup
+C versions.tex 6. Version History

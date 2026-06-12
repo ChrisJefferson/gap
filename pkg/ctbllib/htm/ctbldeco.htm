@@ -1,0 +1,929 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.59">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+             
+<title> Decomposition Matrices in GAP</title>
+ 
+<h1 align="center">Decomposition Matrices in GAP </h1>
+  <body bgcolor="FFFFFF"> 
+
+<div class="p"><!----></div>
+
+<h3 align="center"> T<font size="-2">HOMAS</font> B<font size="-2">REUER</font> <br />
+<i>Lehrstuhl D f&#252;r Mathematik</i> <br />
+<i>RWTH, 52056 Aachen, Germany</i> </h3>
+
+<div class="p"><!----></div>
+
+<h3 align="center">June 13th, 1999 </h3>
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+This is a sample <font face="helvetica">GAP</font> session showing computations concerning
+decomposition matrices.
+For the description of the commands for character tables,
+see the <font face="helvetica">GAP</font> Character Table Library&nbsp;[<a href="#CTblLib" name="CITECTblLib">Bre25</a>]
+and the chapter "Character Tables" of the
+
+ <a href="link"><font face="helvetica">GAP</font> Reference Manual</a>.
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; LoadPackage( "ctbllib", false );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Basis Computations with Characters of M<sub>11</sub></h2>
+
+<div class="p"><!----></div>
+We start with the inspection of the Mathieu group M<sub>11</sub>.
+Its ordinary character table and 2-modular Brauer table are fetched
+from the character table library using the command <tt>CharacterTable</tt>
+and the <tt>mod</tt> operator.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ordtbl:= CharacterTable( "M11" );
+    CharacterTable( "M11" )
+    gap&#62; p:= 2;
+    2
+    gap&#62; modtbl:= ordtbl mod p;
+    BrauerTable( "M11", 2 )
+
+</pre>
+
+<div class="p"><!----></div>
+The above commands assign the character tables to the variables <tt>ordtbl</tt>
+and <tt>modtbl</tt>, respectively.
+
+<div class="p"><!----></div>
+The matrices of irreducible characters and additional information
+such as centralizer orders (in factorized form) and power maps
+are displayed using <tt>Display</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Display( ordtbl );
+    M11
+    
+          2  4  4  1  3  .  1  3  3   .   .
+          3  2  1  2  .  .  1  .  .   .   .
+          5  1  .  .  .  1  .  .  .   .   .
+         11  1  .  .  .  .  .  .  .   1   1
+    
+            1a 2a 3a 4a 5a 6a 8a 8b 11a 11b
+         2P 1a 1a 3a 2a 5a 3a 4a 4a 11b 11a
+         3P 1a 2a 1a 4a 5a 2a 8a 8b 11a 11b
+         5P 1a 2a 3a 4a 1a 6a 8b 8a 11a 11b
+        11P 1a 2a 3a 4a 5a 6a 8a 8b  1a  1a
+    
+    X.1      1  1  1  1  1  1  1  1   1   1
+    X.2     10  2  1  2  . -1  .  .  -1  -1
+    X.3     10 -2  1  .  .  1  A -A  -1  -1
+    X.4     10 -2  1  .  .  1 -A  A  -1  -1
+    X.5     11  3  2 -1  1  . -1 -1   .   .
+    X.6     16  . -2  .  1  .  .  .   B  /B
+    X.7     16  . -2  .  1  .  .  .  /B   B
+    X.8     44  4 -1  . -1  1  .  .   .   .
+    X.9     45 -3  .  1  .  . -1 -1   1   1
+    X.10    55 -1  1 -1  . -1  1  1   .   .
+    
+    A = E(8)+E(8)^3
+      = Sqrt(-2) = i2
+    B = E(11)+E(11)^3+E(11)^4+E(11)^5+E(11)^9
+      = (-1+Sqrt(-11))/2 = b11
+    gap&#62; Display( modtbl );
+    M11mod2
+    
+         2  4  1  .   .   .
+         3  2  2  .   .   .
+         5  1  .  1   .   .
+        11  1  .  .   1   1
+    
+           1a 3a 5a 11a 11b
+        2P 1a 3a 5a 11b 11a
+        3P 1a 1a 5a 11a 11b
+        5P 1a 3a 1a 11a 11b
+       11P 1a 3a 5a  1a  1a
+    
+    X.1     1  1  1   1   1
+    X.2    10  1  .  -1  -1
+    X.3    16 -2  1   A  /A
+    X.4    16 -2  1  /A   A
+    X.5    44 -1 -1   .   .
+    
+    A = E(11)+E(11)^3+E(11)^4+E(11)^5+E(11)^9
+      = (-1+Sqrt(-11))/2 = b11
+
+</pre>
+
+<div class="p"><!----></div>
+The restrictions of ordinary irreducible characters to
+conjugacy classes of element order prime to p decompose into the
+irreducible p-modular Brauer characters,
+with nonnegative integer coefficients.
+The matrix of coefficients, the so-called decomposition matrix,
+w.r.t.&nbsp;the given ordering of characters is computed by <tt>DecompositionMatrix</tt>.
+Again <tt>Display</tt> can be used to produce a formatted output.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; mat:= DecompositionMatrix( modtbl );
+    [ [ 1, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], [ 0, 1, 0, 0, 0 ], 
+      [ 1, 1, 0, 0, 0 ], [ 0, 0, 1, 0, 0 ], [ 0, 0, 0, 1, 0 ], [ 0, 0, 0, 0, 1 ], 
+      [ 1, 0, 0, 0, 1 ], [ 1, 1, 0, 0, 1 ] ]
+    gap&#62; Display( mat );
+    [ [  1,  0,  0,  0,  0 ],
+      [  0,  1,  0,  0,  0 ],
+      [  0,  1,  0,  0,  0 ],
+      [  0,  1,  0,  0,  0 ],
+      [  1,  1,  0,  0,  0 ],
+      [  0,  0,  1,  0,  0 ],
+      [  0,  0,  0,  1,  0 ],
+      [  0,  0,  0,  0,  1 ],
+      [  1,  0,  0,  0,  1 ],
+      [  1,  1,  0,  0,  1 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Often one is more interested in the decomposition matrices of a specific
+p-block.
+The distribution of ordinary irreducible characters to blocks is computed
+by <tt>PrimeBlocks</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; blocks:= PrimeBlocks( ordtbl, p );;
+    gap&#62; blocks.block;
+    [ 1, 1, 1, 1, 1, 2, 3, 1, 1, 1 ]
+    gap&#62; blocks.defect;
+    [ 4, 0, 0 ]
+
+</pre>
+
+<div class="p"><!----></div>
+The output means that the first five and the last three irreducibles
+of M<sub>11</sub> together lie in the principal block, which has defect 4,
+and the remaining two irreducibles are defect zero characters.
+
+<div class="p"><!----></div>
+This information is computed from the ordinary table only,
+so it is available also if the Brauer table is not known.
+But if we have access to the brauer table then information concerning
+the dirstribution of ordinary and Brauer characters to blocks is
+computed with <tt>BlocksInfo</tt>, applied to the Brauer table.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; blocksinfo:= BlocksInfo( modtbl );
+    [ rec( basicset := [ 1, 2, 8 ], 
+          decinv := [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ], defect := 4, 
+          modchars := [ 1, 2, 5 ], ordchars := [ 1, 2, 3, 4, 5, 8, 9, 10 ] ), 
+      rec( basicset := [ 6 ], decinv := [ [ 1 ] ], defect := 0, modchars := [ 3 ],
+          ordchars := [ 6 ] ), 
+      rec( basicset := [ 7 ], decinv := [ [ 1 ] ], defect := 0, modchars := [ 4 ],
+          ordchars := [ 7 ] ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+If we are interested in the decomposition matrix of the i-th block
+then i can be entered as second parameter of the command
+<tt>DecompositionMatrix</tt>.
+So the following command computes and displays the decomposition matrix
+of the principal block.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Display( DecompositionMatrix( modtbl, 1 ) );
+    [ [  1,  0,  0 ],
+      [  0,  1,  0 ],
+      [  0,  1,  0 ],
+      [  0,  1,  0 ],
+      [  1,  1,  0 ],
+      [  0,  0,  1 ],
+      [  1,  0,  1 ],
+      [  1,  1,  1 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+The return value of <tt>BlocksInfo</tt> is a list, the i-th entry being a record
+that comprises the data about the i-th block.
+The record for the principal block can be accessed as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; principalinfo:= blocksinfo[1];
+    rec( basicset := [ 1, 2, 8 ], 
+      decinv := [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 0, 1 ] ], 
+      decmat := [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ], 
+          [ 1, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 1 ], [ 1, 1, 1 ] ], defect := 4, 
+      modchars := [ 1, 2, 5 ], ordchars := [ 1, 2, 3, 4, 5, 8, 9, 10 ] )
+
+</pre>
+
+<div class="p"><!----></div>
+We see that additionally to the <tt>blocksinfo</tt> value we had got above,
+now the decomposition matrix of the block is stored in the record.
+This is because <tt>DecompositionMatrix</tt> has stored the matrix once
+it had been computed.
+
+<div class="p"><!----></div>
+Components of the record can be accessed as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ordpos:= principalinfo.ordchars;
+    [ 1, 2, 3, 4, 5, 8, 9, 10 ]
+
+</pre>
+
+<div class="p"><!----></div>
+This list is the list of positions of the characters in the principal
+block, w.r.t.&nbsp;the ordering in <tt>ordtbl</tt>.
+The ordinary irreducibles in the principal block can then be extracted
+using the <tt>Irr</tt> command as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ordchars:= Irr( ordtbl ){ ordpos };
+    [ Character( CharacterTable( "M11" ), [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ), 
+      Character( CharacterTable( "M11" ), [ 10, 2, 1, 2, 0, -1, 0, 0, -1, -1 ] ), 
+      Character( CharacterTable( "M11" ),
+      [ 10, -2, 1, 0, 0, 1, E(8)+E(8)^3, -E(8)-E(8)^3, -1, -1 ] ), 
+      Character( CharacterTable( "M11" ),
+      [ 10, -2, 1, 0, 0, 1, -E(8)-E(8)^3, E(8)+E(8)^3, -1, -1 ] ), 
+      Character( CharacterTable( "M11" ), [ 11, 3, 2, -1, 1, 0, -1, -1, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 44, 4, -1, 0, -1, 1, 0, 0, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 45, -3, 0, 1, 0, 0, -1, -1, 1, 1 ] ), 
+      Character( CharacterTable( "M11" ), [ 55, -1, 1, -1, 0, -1, 1, 1, 0, 0 ] ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+We restrict these characters to the p-regular classes,
+and use <tt>Decomposition</tt> to compute the decomposition of these characters
+into the Brauer characters of the principal block.
+The result is again the decomposition matrix,
+and this is exactly what <tt>DecompositionMatrix</tt> does.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rest:= RestrictedClassFunctions( ordchars, modtbl );
+    [ Character( BrauerTable( "M11", 2 ), [ 1, 1, 1, 1, 1 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 10, 1, 0, -1, -1 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 10, 1, 0, -1, -1 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 10, 1, 0, -1, -1 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 11, 2, 1, 0, 0 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 44, -1, -1, 0, 0 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 45, 0, 0, 1, 1 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 55, 1, 0, 0, 0 ] ) ]
+    gap&#62; modchars:= Irr( modtbl ){ principalinfo.modchars };    
+    [ Character( BrauerTable( "M11", 2 ), [ 1, 1, 1, 1, 1 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 10, 1, 0, -1, -1 ] ), 
+      Character( BrauerTable( "M11", 2 ), [ 44, -1, -1, 0, 0 ] ) ]
+    gap&#62; dec:= Decomposition( modchars, rest, "nonnegative" );
+    [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ], 
+      [ 0, 0, 1 ], [ 1, 0, 1 ], [ 1, 1, 1 ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+For printing decomposition matrices, <font face="helvetica">GAP</font> provides the function
+<tt>LaTeXStringDecompositionMatrix</tt> that produces <span class="roman">L</span><sup><span class="roman">A</span></sup><span class="roman">T</span><sub><span class="roman">E</span></sub><span class="roman">X</span> code.
+(If the second argument is omitted then <span class="roman">L</span><sup><span class="roman">A</span></sup><span class="roman">T</span><sub><span class="roman">E</span></sub><span class="roman">X</span> code for printing
+the full decomposition matrix of the group is produced.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Print( LaTeXStringDecompositionMatrix( modtbl, 1 ) );
+    \[
+    \begin{array}{r|rrr} \hline
+     &amp; {\tt Y}_{1}
+     &amp; {\tt Y}_{2}
+     &amp; {\tt Y}_{5}
+     \rule[-7pt]{0pt}{20pt} \\ \hline
+    {\tt X}_{1} &amp; 1 &amp; . &amp; . \rule[0pt]{0pt}{13pt} \\
+    {\tt X}_{2} &amp; . &amp; 1 &amp; . \\
+    {\tt X}_{3} &amp; . &amp; 1 &amp; . \\
+    {\tt X}_{4} &amp; . &amp; 1 &amp; . \\
+    {\tt X}_{5} &amp; 1 &amp; 1 &amp; . \\
+    {\tt X}_{8} &amp; . &amp; . &amp; 1 \\
+    {\tt X}_{9} &amp; 1 &amp; . &amp; 1 \\
+    {\tt X}_{10} &amp; 1 &amp; 1 &amp; 1 \rule[-7pt]{0pt}{5pt} \\
+    \hline
+    \end{array}
+    \]
+
+</pre>
+
+<div class="p"><!----></div>
+In a <span class="roman">L</span><sup><span class="roman">A</span></sup><span class="roman">T</span><sub><span class="roman">E</span></sub><span class="roman">X</span> document, this looks as follows.
+
+<div class="p"><!----></div>
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+</td><td nowrap="nowrap" align="center">
+<table>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+</td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>Y</tt><sub>1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>Y</tt><sub>2</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>Y</tt><sub>5</sub>  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+.  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>2</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>3</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>4</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>5</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>8</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>9</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+<tt>X</tt><sub>10</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1  </td></tr></table></td></tr></table>
+</td><td nowrap="nowrap" align="center">
+</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Blocks of Symmetric Groups</h2>
+
+<div class="p"><!----></div>
+The conjugacy classes and the irreducibles characters of the symmetric
+group of degree n, say,
+correspond to the partitions of n in a natural way,
+and it is reasonable to use these partitions as labels for the (ordinary)
+irreducibles in decomposition matrices.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+First we need a little utility for converting a list denoting a partition
+into a short string.
+For example, <tt>[ 2, 1, 1, 1, 1 ]</tt> shall be written as 2 &nbsp;1<sup>4</sup>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; StringOfPartition:= function( part )
+    &#62;    local pair;
+    &#62; 
+    &#62;    part:= List( Reversed( Collected( part ) ),
+    &#62;                 pair -&#62; List( pair, String ) );
+    &#62;    for pair in part do
+    &#62;      if pair[2] = "1" then
+    &#62;        Unbind( pair[2] );
+    &#62;      else
+    &#62;        pair[2]:= Concatenation( "{", pair[2], "}" );
+    &#62;      fi;
+    &#62;    od;
+    &#62;    return JoinStringsWithSeparator( List( part,
+    &#62;               p -&#62; JoinStringsWithSeparator( p, "^" ) ), " \\ " );
+    &#62;  end;;
+    gap&#62; StringOfPartition( [ 2, 1, 1, 1, 1 ] );
+    "2 \\ 1^{4}"
+
+</pre>
+
+<div class="p"><!----></div>
+Now we put also the construction of the row labels and of the final string
+into a little function.
+Here we use that the partitions corresponding to the ordinary irreducibles
+of a character table of a symmetric group are stored in the attribute
+<tt>CharacterParameters</tt>, provided that the table was constructed with
+<tt>CharacterTable( "Symmetric", n )</tt> and not from the symmetric group;
+for small values of n, for example n = 7, also <tt>CharacterTable( "S7" )</tt>
+can be used.
+Each entry in the <tt>CharacterParameters</tt> list for the table of a symmetric
+group is a pair, the desired partition is the second entry.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; MyLaTeXMatrix:= function( symt, blocknr )
+    &#62;    local alllabels, rowlabels;
+    &#62; 
+    &#62;    alllabels:= List( CharacterParameters( OrdinaryCharacterTable( symt ) ),
+    &#62;                      x -&#62; StringOfPartition( x[2] ) );
+    &#62;    rowlabels:= alllabels{ BlocksInfo( symt )[ blocknr ].ordchars };
+    &#62; 
+    &#62;    return LaTeXStringDecompositionMatrix( symt, blocknr,
+    &#62;               rec(  phi:= "\\varphi", rowlabels:= rowlabels ) );
+    &#62; end;;
+
+</pre>
+
+<div class="p"><!----></div>
+Now we get for example the following output for the principal block of the
+5-modular table of S<sub>6</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; t:= CharacterTable( "S6" ) mod 5;
+    BrauerTable( "A6.2_1", 5 )
+    gap&#62; b:= 1;
+    1
+    gap&#62; Print( MyLaTeXMatrix( t, b ) );
+    \[
+    \begin{array}{r|rrrr} \hline
+     &amp; \varphi_{1}
+     &amp; \varphi_{2}
+     &amp; \varphi_{7}
+     &amp; \varphi_{8}
+     \rule[-7pt]{0pt}{20pt} \\ \hline
+    6 &amp; 1 &amp; . &amp; . &amp; . \rule[0pt]{0pt}{13pt} \\
+    1^{6} &amp; . &amp; 1 &amp; . &amp; . \\
+    3 \ 2 \ 1 &amp; . &amp; . &amp; 1 &amp; 1 \\
+    4 \ 2 &amp; 1 &amp; . &amp; 1 &amp; . \\
+    2^{2} \ 1^{2} &amp; . &amp; 1 &amp; . &amp; 1 \rule[-7pt]{0pt}{5pt} \\
+    \hline
+    \end{array}
+    \]
+
+</pre>
+
+<div class="p"><!----></div>
+In the <span class="roman">L</span><sup><span class="roman">A</span></sup><span class="roman">T</span><sub><span class="roman">E</span></sub><span class="roman">X</span> document, this looks as follows.
+
+<div class="p"><!----></div>
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+</td><td nowrap="nowrap" align="center">
+<table>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+</td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>2</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>7</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>8</sub>  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+6 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+.  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1<sup>6</sup> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+3 &nbsp;2 &nbsp;1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+4 &nbsp;2 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+2<sup>2</sup> &nbsp;1<sup>2</sup> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1  </td></tr></table></td></tr></table>
+</td><td nowrap="nowrap" align="center">
+</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+For breaking the array into several row and column portions,
+we could put the optional components <tt>nrows</tt> and <tt>ncols</tt> into the record
+that is given as the second argument of <tt>LaTeXStringDecompositionMatrix</tt>.
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;Computations with  A<font size="-2">TLAS</font> Tables in <font face="helvetica">GAP</font></h2>
+
+<div class="p"><!----></div>
+When dealing with ordinary character tables contained in the  A<font size="-2">TLAS</font> of
+Finite Groups and Brauer character tables contained in the  A<font size="-2">TLAS</font> of
+Brauer Characters,
+it is convenient to refer to characters and conjugacy classes via the
+labels chosen in these books.
+
+<div class="p"><!----></div>
+For a simple group G, the ordering of characters and classes in the
+ A<font size="-2">TLAS</font> table and in the <font face="helvetica">GAP</font> library table coincide.
+This means that the ordinary irreducible character with  A<font size="-2">TLAS</font> label
+&#967;<sub>i</sub> is the i-th entry in the list of irreducibles returned by
+the function <tt>Irr</tt> when called with the ordinary <font face="helvetica">GAP</font> library table.
+Analogously, the j-th entry in the <tt>Irr</tt> list of the p-modular
+<font face="helvetica">GAP</font> library table has  A<font size="-2">TLAS</font> label &#981;<sub>j</sub>.
+
+<div class="p"><!----></div>
+The function <tt>AtlasLabelsOfIrreducibles</tt> returns the list of  A<font size="-2">TLAS</font>
+labels of a <font face="helvetica">GAP</font> library table.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ordtbl:= CharacterTable( "A6" );
+    CharacterTable( "A6" )
+    gap&#62; ordlabels:= AtlasLabelsOfIrreducibles( ordtbl );
+    [ "\\chi_{1}", "\\chi_{2}", "\\chi_{3}", "\\chi_{4}", "\\chi_{5}", 
+      "\\chi_{6}", "\\chi_{7}" ]
+    gap&#62; modtbl:= ordtbl mod 5;
+    BrauerTable( "A6", 5 )
+    gap&#62; modlabels:= AtlasLabelsOfIrreducibles( modtbl );
+    [ "\\varphi_{1}", "\\varphi_{2}", "\\varphi_{3}", "\\varphi_{4}", 
+      "\\varphi_{5}" ]
+
+</pre>
+
+<div class="p"><!----></div>
+These labels can be used to replace the default labels used by
+<tt>LaTeXStringDecompositionMatrix</tt>, via an optional record entered as
+third argument.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; rowlabels:= ordlabels{ BlocksInfo( modtbl )[1].ordchars };
+    [ "\\chi_{1}", "\\chi_{4}", "\\chi_{5}", "\\chi_{6}" ]
+    gap&#62; collabels:= modlabels{ BlocksInfo( modtbl )[1].modchars };
+    [ "\\varphi_{1}", "\\varphi_{4}" ]
+    gap&#62; options:= rec( rowlabels:= rowlabels, collabels:= collabels );;
+    gap&#62; Print( LaTeXStringDecompositionMatrix( modtbl, 1, options ) );
+    \[
+    \begin{array}{r|rr} \hline
+     &amp; \varphi_{1}
+     &amp; \varphi_{4}
+     \rule[-7pt]{0pt}{20pt} \\ \hline
+    \chi_{1} &amp; 1 &amp; . \rule[0pt]{0pt}{13pt} \\
+    \chi_{4} &amp; . &amp; 1 \\
+    \chi_{5} &amp; . &amp; 1 \\
+    \chi_{6} &amp; 1 &amp; 1 \rule[-7pt]{0pt}{5pt} \\
+    \hline
+    \end{array}
+    \]
+
+</pre>
+
+<div class="p"><!----></div>
+In the <span class="roman">L</span><sup><span class="roman">A</span></sup><span class="roman">T</span><sub><span class="roman">E</span></sub><span class="roman">X</span> document, this looks as follows.
+
+<div class="p"><!----></div>
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+</td><td nowrap="nowrap" align="center">
+<table>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+</td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>4</sub>  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+.  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>4</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>5</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>6</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1  </td></tr></table></td></tr></table>
+</td><td nowrap="nowrap" align="center">
+</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+The output can be influenced by several other components of the
+options record, for example bigger matrices can be broken into
+several portions of rows and columns using components <tt>nrows</tt> and
+<tt>ncols</tt>.
+
+<div class="p"><!----></div>
+For central extensions of simple groups by a group of order at least 3,
+the ordering of characters in the  A<font size="-2">TLAS</font> table and the <font face="helvetica">GAP</font> table
+differ in the sense that the  A<font size="-2">TLAS</font> does not list all irreducibles.
+In the list of labels of the <font face="helvetica">GAP</font> table, the characters not printed in
+the  A<font size="-2">TLAS</font> are denoted as algebraic conjugates of characters printed in
+the  A<font size="-2">TLAS</font>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; AtlasLabelsOfIrreducibles( CharacterTable( "3.A6" ) );
+    [ "\\chi_{1}", "\\chi_{2}", "\\chi_{3}", "\\chi_{4}", "\\chi_{5}", 
+      "\\chi_{6}", "\\chi_{7}", "\\chi_{14}", "\\chi_{14}^{\\ast 11}", 
+      "\\chi_{15}", "\\chi_{15}^{\\ast 11}", "\\chi_{16}", "\\chi_{16}^{\\ast 2}",
+      "\\chi_{17}", "\\chi_{17}^{\\ast 2}", "\\chi_{18}", "\\chi_{18}^{\\ast 2}" ]
+    gap&#62; AtlasLabelsOfIrreducibles( CharacterTable( "3.A6" ) mod 5 );
+    [ "\\varphi_{1}", "\\varphi_{2}", "\\varphi_{3}", "\\varphi_{4}", 
+      "\\varphi_{5}", "\\varphi_{10}", "\\varphi_{10}^{\\ast 2}", "\\varphi_{11}",
+      "\\varphi_{11}^{\\ast 2}", "\\varphi_{12}", "\\varphi_{12}^{\\ast 2}" ]
+
+</pre>
+
+<div class="p"><!----></div>
+Note that due to the numbering of characters in the  A<font size="-2">TLAS</font>,
+certain "offsets" in the labels of a table may occur.
+For example, the first faithful ordinary character of 3.A<sub>6</sub> has
+number 14 in the  A<font size="-2">TLAS</font> but is the 8-th in the <font face="helvetica">GAP</font> table,
+and the 9-th character in the <font face="helvetica">GAP</font> table is the complex conjugate
+of this character, which is not printed in the  A<font size="-2">TLAS</font>.
+
+<div class="p"><!----></div>
+For cyclic upward extensions of perfect groups,
+the labels of irreducibles are formed relative to those of the
+derived subgroup.
+Namely, extensions of a character with label &#967;<sub>i</sub> have labels of the
+form &#967;<sub>i,j</sub>, with nonnegative integers j,
+and an irreducible character whose restriction to the derived subgroup
+is the sum of pairwise different characters &#967;<sub>i<sub>1</sub></sub>, &#967;<sub>i<sub>2</sub></sub>,
+..., &#967;<sub>i<sub>k</sub></sub> has label &#967;<sub>i<sub>1</sub> + i<sub>2</sub> + &#8230;+ i<sub>k</sub></sub>;
+for the latter kind of labels, a short form &#967;<sub>i<sub>1</sub>+</sub> are available.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; AtlasLabelsOfIrreducibles( CharacterTable( "3.A6.2_1" ) );
+    [ "\\chi_{1,0}", "\\chi_{1,1}", "\\chi_{2,0}", "\\chi_{2,1}", "\\chi_{3,0}", 
+      "\\chi_{3,1}", "\\chi_{4+5}", "\\chi_{6,0}", "\\chi_{6,1}", "\\chi_{7,0}", 
+      "\\chi_{7,1}", "\\chi_{14+15\\ast 11}", "\\chi_{14\\ast 11+15}", 
+      "\\chi_{16+16\\ast 2}", "\\chi_{17+17\\ast 2}", "\\chi_{18+18\\ast 2}" ]
+    gap&#62; AtlasLabelsOfIrreducibles( CharacterTable( "3.A6.2_1" ), "short" );
+    [ "\\chi_{1,0}", "\\chi_{1,1}", "\\chi_{2,0}", "\\chi_{2,1}", "\\chi_{3,0}", 
+      "\\chi_{3,1}", "\\chi_{4+}", "\\chi_{6,0}", "\\chi_{6,1}", "\\chi_{7,0}", 
+      "\\chi_{7,1}", "\\chi_{14+}", "\\chi_{15+}", "\\chi_{16+}", "\\chi_{17+}", 
+      "\\chi_{18+}" ]
+
+</pre>
+
+<div class="p"><!----></div>
+Used for printing decomposition matrices, these labels occur as follows.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ordtbl:= CharacterTable( "3.A6.2_1" );;
+    gap&#62; ordlabels:= AtlasLabelsOfIrreducibles( ordtbl, "short" );;
+    gap&#62; modtbl:= ordtbl mod 3;;
+    gap&#62; modlabels:= AtlasLabelsOfIrreducibles( modtbl, "short" );;
+    gap&#62; rowlabels:= ordlabels{ BlocksInfo( modtbl )[1].ordchars };;
+    gap&#62; collabels:= modlabels{ BlocksInfo( modtbl )[1].modchars };;
+    gap&#62; options:= rec( rowlabels:= rowlabels, collabels:= collabels );;
+    gap&#62; Print( LaTeXStringDecompositionMatrix( modtbl, 1, options ) );
+    \[
+    \begin{array}{r|rrrrr} \hline
+     &amp; \varphi_{1,0}
+     &amp; \varphi_{1,1}
+     &amp; \varphi_{2+}
+     &amp; \varphi_{4,0}
+     &amp; \varphi_{4,1}
+     \rule[-7pt]{0pt}{20pt} \\ \hline
+    \chi_{1,0} &amp; 1 &amp; . &amp; . &amp; . &amp; . \rule[0pt]{0pt}{13pt} \\
+    \chi_{1,1} &amp; . &amp; 1 &amp; . &amp; . &amp; . \\
+    \chi_{2,0} &amp; 1 &amp; . &amp; . &amp; 1 &amp; . \\
+    \chi_{2,1} &amp; . &amp; 1 &amp; . &amp; . &amp; 1 \\
+    \chi_{3,0} &amp; 1 &amp; . &amp; . &amp; . &amp; 1 \\
+    \chi_{3,1} &amp; . &amp; 1 &amp; . &amp; 1 &amp; . \\
+    \chi_{4+} &amp; 1 &amp; 1 &amp; 1 &amp; 1 &amp; 1 \\
+    \chi_{7,0} &amp; . &amp; . &amp; 1 &amp; 1 &amp; . \\
+    \chi_{7,1} &amp; . &amp; . &amp; 1 &amp; . &amp; 1 \\
+    \chi_{14+} &amp; . &amp; . &amp; 1 &amp; . &amp; . \\
+    \chi_{15+} &amp; . &amp; . &amp; 1 &amp; . &amp; . \\
+    \chi_{16+} &amp; 2 &amp; 2 &amp; . &amp; 1 &amp; 1 \\
+    \chi_{18+} &amp; 1 &amp; 1 &amp; 2 &amp; 2 &amp; 2 \rule[-7pt]{0pt}{5pt} \\
+    \hline
+    \end{array}
+    \]
+
+</pre>
+
+<div class="p"><!----></div>
+In the <span class="roman">L</span><sup><span class="roman">A</span></sup><span class="roman">T</span><sub><span class="roman">E</span></sub><span class="roman">X</span> document, this looks as follows.
+
+<div class="p"><!----></div>
+
+<br clear="all" /><table border="0" width="100%"><tr><td>
+<table align="center" cellspacing="0"  cellpadding="2"><tr><td nowrap="nowrap" align="center">
+</td><td nowrap="nowrap" align="center">
+<table>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+</td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>1,0</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>1,1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>2+</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>4,0</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#981;<sub>4,1</sub>  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>1,0</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+.  </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>1,1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>2,0</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>2,1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>3,0</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>3,1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>4+</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>7,0</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>7,1</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>14+</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>15+</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>16+</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+2 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+2 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+. </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td></tr>
+<tr><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+&#967;<sub>18+</sub> </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+1 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+2 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+2 </td></tr></table></td><td align="right"><table border="0" cellspacing="0" cellpadding="0"><tr><td nowrap="nowrap" align="center">
+2  </td></tr></table></td></tr></table>
+</td><td nowrap="nowrap" align="center">
+</td></tr></table>
+</td></tr></table>
+
+
+
+<div class="p"><!----></div>
+For further questions about <font face="helvetica">GAP</font>, consult the <font face="helvetica">GAP</font> Reference Manual.
+
+<div class="p"><!----></div>
+
+
+<h2>References</h2>
+
+<dl compact="compact">
+ <dt><a href="#CITECTblLib" name="CTblLib">[Bre25]</a></dt><dd>
+T.&nbsp;Breuer, <em>The <font face="helvetica">GAP</font> Character Table Library, Version
+  1.3.10</em>, <a href="https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib"><tt>https://www.math.rwth<tt>-</tt>aachen.de/</tt>
+<tt><tt>~</tt>Thomas.Breuer/</tt>
+<tt>ctbllib</tt></a>, May 2025, <font face="helvetica">GAP</font> package.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEGAP4" name="GAP4">[GAP04]</a></dt><dd>
+The GAP&nbsp;Group, <em>GAP-Groups, Algorithms, and
+  Programming, Version 4.4</em>, 2004, <a href="http://www.gap-system.org"><tt>http://www.gap-system.org</tt></a>.</dd>
+</dl>
+
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.59.<br />On 22 May 2025, 15:03.</small>
+</html>

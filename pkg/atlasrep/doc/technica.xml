@@ -1,0 +1,295 @@
+
+<!-- %W  technica.xml    GAP 4 package AtlasRep             Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="chap:Technicalities of the AtlasRep Package">
+<Heading>Technicalities of the &AtlasRep; Package</Heading>
+
+This chapter describes those parts of the &GAP; interface to the
+&ATLAS; of Group Representations that do not belong to the user interface
+(cf.&nbsp;Chapter&nbsp;<Ref Chap="chap:The User Interface of the AtlasRep Package"/>).
+<P/>
+Besides global variables used for administrational purposes
+(see Section&nbsp;<Ref Sect="sect:Global Variables Used by the AtlasRep Package"/>)
+and several sanity checks
+(see Section&nbsp;<Ref Sect="sect:AGR Sanity Checks"/>),
+they can be regarded as
+the interface between the data actually contained in the files and
+the corresponding &GAP; objects
+(see
+Section&nbsp;<Ref Sect="sect:How to Customize the Access to Data files"/>,
+<Ref Sect="sect:Reading and Writing MeatAxe Format Files"/>,
+<Ref Sect="sect:Reading and Writing Atlas Straight Line Programs"/>,
+and&nbsp;<Ref Sect="sect:Data Types Used in the AGR"/>),
+and the interface between the remote and the local version of the database
+(see Section&nbsp;<Ref Sect="sect:Filenames Used in the AGR"/>
+and&nbsp;<Ref Sect="sect:The Tables of Contents of the AGR"/>).
+The former interface contains functions to read and write files in
+&MeatAxe; format, which may be interesting for users familiar with
+&MeatAxe; standalones (see for example&nbsp;<Cite Key="CMeatAxe"/>).
+Other low level functions may be undocumented in the sense that they are
+not described in this manual.
+Users interested in them may look at the actual implementation in the
+<F>gap</F> directory of the package,
+but it may happen that this will be changed
+in future versions of the package.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Global Variables Used by the AtlasRep Package">
+<Heading>Global Variables Used by the &AtlasRep; Package</Heading>
+
+For debugging purposes, &AtlasRep; functions print information depending on
+the info level of the info classes <Ref InfoClass="InfoAtlasRep"/>,
+<Ref InfoClass="InfoCMeatAxe"/>, and <Ref InfoClass="InfoBBox"/>
+(cf.&nbsp;<Ref Sect="Info Functions" BookName="ref"/>).
+
+<P/>
+
+The info level of an info class can be changed using
+<Ref Func="SetInfoLevel" BookName="ref"/>.
+For example, the info level of <Ref InfoClass="InfoAtlasRep"/> can be set
+to the nonnegative integer <M>n</M> using
+<C>SetInfoLevel( InfoAtlasRep, </C><M>n</M><C> )</C>.
+
+<P/>
+
+<#Include Label="InfoAtlasRep">
+<#Include Label="InfoCMeatAxe">
+<#Include Label="InfoBBox">
+
+<P/>
+
+<#Include Label="AGR">
+<#Include Label="AtlasOfGroupRepresentationsInfo">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:How to Customize the Access to Data files">
+<Heading>How to Customize the Access to Data files</Heading>
+
+<#Include Label="AccessFunctionsDefault">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Reading and Writing MeatAxe Format Files">
+<Heading>Reading and Writing MeatAxe Format Files</Heading>
+
+<Index Subkey="MeatAxe format">matrix</Index>
+<Index Subkey="MeatAxe format">permutation</Index>
+
+<#Include Label="ScanMeatAxeFile">
+<#Include Label="MeatAxeString">
+<#Include Label="FFList">
+<#Include Label="CMtxBinaryFFMatOrPerm">
+<#Include Label="FFMatOrPermCMtxBinary">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Reading and Writing Atlas Straight Line Programs">
+<Heading>Reading and Writing &ATLAS; Straight Line Programs</Heading>
+
+<#Include Label="ScanStraightLineProgram">
+<#Include Label="AtlasStringOfProgram">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Data Types Used in the AGR">
+<Heading>Data Types Used in the &AtlasRep; Package</Heading>
+
+Each representation or program that is administrated by the
+&AtlasRep; package belongs to a unique <E>data type</E>.
+Informally, examples of data types are
+<Q>permutation representation</Q>,
+<Q>matrix representation over the integers</Q>, or
+<Q>straight line program for computing class representatives</Q>.
+
+<P/>
+
+The idea is that for each data type, there can be
+<List>
+<Item>
+  a column of its own in the output produced by
+  <Ref Func="DisplayAtlasInfo"/>
+  when called without arguments or with only argument a list of
+  group names,
+</Item>
+<Item>
+  a line format of its own for the output produced by
+  <Ref Func="DisplayAtlasInfo"/>
+  when called with first argument a group name,
+</Item>
+<Item>
+  an input format of its own for <Ref Func="AtlasProgram"/>,
+</Item>
+<Item>
+  an input format of its own for <Ref Func="OneAtlasGeneratingSetInfo"/>,
+  and
+</Item>
+<Item>
+  specific tests for the data of this data type;
+  these functions are used by the global tests described in
+  Section&nbsp;<Ref Sect="sect:AGR Sanity Checks"/>.
+</Item>
+</List>
+
+<P/>
+
+Formally, a data type is defined by a record whose components are used by
+the interface functions.
+The details are described in the following.
+
+<#Include Label="AGRDeclareDataType">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:Filenames Used in the AGR">
+<Heading>Filenames Used in the &AtlasRep; Package</Heading>
+
+<#Include Label="[1]{access}">
+
+<P/>
+
+<#Include Label="AGRParseFilenameFormat">
+<#Include Label="AGRFileContents">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:identifier component">
+<Heading>The record component <C>identifier</C> used by the &AtlasRep; Package</Heading>
+
+The functions
+<Ref Func="AtlasGenerators"/>,
+<Ref Func="AtlasProgram"/>,
+<Ref Func="AtlasProgramInfo"/>,
+<Ref Func="OneAtlasGeneratingSetInfo"/>, and
+<Ref Func="AllAtlasGeneratingSetInfos"/>
+return records which have a component <C>identifier</C>.
+The value of this component describes the record
+in the sense that one can reconstruct the whole record from it,
+and the <C>identifier</C> value can be used as an input for
+<Ref Func="AtlasGenerators"/>,
+<Ref Func="AtlasProgram"/>,
+<Ref Func="AtlasProgramInfo"/>,
+<Ref Func="AtlasGroup" Label="for various arguments"/>, and
+<Ref Func="AtlasSubgroup"
+Label="for a group name (and various arguments) and a number"/>.
+
+<P/>
+
+The <C>identifier</C> component has the following format.
+
+<P/>
+
+<List>
+<Item>
+For records describing representations,
+it is a list of the form <C>[ gapname, files, std, info ]</C>.
+</Item>
+<Item>
+For records describing straight line programs and straight line decisions,
+it is a list of the form <C>[ gapname, files, std ]</C>.
+</Item>
+</List>
+
+<P/>
+
+Here <C>gapname</C> is the &GAP; name of the group in question,
+<C>files</C> defines the data files,
+<C>std</C> is the standardization of its generators,
+and <C>info</C> is some information that depends on the type of the
+representation, for example the number of moved points in the case of a
+permutation representation.
+
+<P/>
+
+The <C>files</C> entry has one of the following formats:
+
+<P/>
+
+<List>
+<Item>
+  a string, in the case that exactly one file is needed
+  that does not belong to a private extension;
+  an example of such an <C>identifier</C> value is
+  <C>[ "J1", "J1G1-cycW1", 1 ]</C>
+</Item>
+<Item>
+  a list whose entries are strings
+  (which refer to files from the core part of the database)
+  and pairs of the form <C>[ tocid, file ]</C>
+  (which refer to files from the extension given by <C>tocid</C>);
+  examples of <C>identifier</C> values are
+  <C>[ "A5", [ "A5G1-p5B0.m1", "A5G1-p5B0.m2" ], 1, 5 ]</C>,
+  <C>[ "2.M12", [ [ "mfer", "2M12G1-cclsW1" ] ], 1 ]</C>,
+  <C>[ "2.M12", [ "M12G1-max1W1", [ "internal", "2M12G1-kerM12W1" ] ], 1 ]</C>,
+  <C>[ "2.M12", [ [ "mfer", "2M12G1-p24bB0.m1" ],
+  [ "mfer", "2M12G1-p24bB0.m2" ] ], 1, 24 ]</C>.
+</Item>
+</List>
+
+<P/>
+
+Up to version&nbsp;1.5 of the &AtlasRep; package,
+a different <C>identifier</C> format was used for files from
+extensions of the database.
+Namely, the first entry of the list was a pair <C>[ tocid, groupname ]</C>,
+and the second entry was either a string or a list of strings.
+Note that with that old format,
+it was not possible to describe a combination of several files
+from different sources (core part and extension, or different extensions).
+The function <Ref Func="AtlasRepIdentifier"
+Label="convert an old type identifier to a new type one"/>
+can be used to convert between the two formats.
+
+<#Include Label="AtlasRepIdentifier">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:The Tables of Contents of the AGR">
+<Heading>The Tables of Contents of the &AtlasRep; Package</Heading>
+
+<#Include Label="toc">
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:AGR Sanity Checks">
+<Heading>Sanity Checks for the &AtlasRep; Package</Heading>
+
+<#Include Label="tests">
+
+
+Finally, we reset the user preference and the info level
+which had been set at the beginning of Chapter <Ref Chap="chap:tutorial"/>.
+
+<P/>
+
+<Example><![CDATA[
+gap> SetUserPreference( "AtlasRep", "DisplayFunction", origpref );
+gap> SetInfoLevel( InfoAtlasRep, globallevel );
+]]></Example>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+</Chapter>
+

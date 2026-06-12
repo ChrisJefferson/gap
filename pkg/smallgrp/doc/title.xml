@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    SmallGrp
+  </Title>
+  <Subtitle>
+    The &GAP; Small Groups Library
+  </Subtitle>
+  <Version>
+    1.5.4
+  </Version>
+  <Author>
+    Hans Ulrich Besche<Alt Only="LaTeX"><Br/></Alt>
+
+  </Author>
+  <Author>
+    Bettina Eick<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Institut Analysis und Algebra<Br/>
+TU Braunschweig<Br/>
+Universitätsplatz 2<Br/>
+D-38106 Braunschweig<Br/>
+Germany<Br/>
+</Address>
+<Email>beick@tu-bs.de</Email>
+<Homepage>http://www.iaa.tu-bs.de/beick</Homepage>
+
+  </Author>
+  <Author>
+    Eamonn O'Brien<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Department of Mathematics<Br/>
+University of Auckland<Br/>
+Private Bag 92019<Br/>
+ Auckland<Br/>
+ New Zealand<Br/>
+</Address>
+<Email>obrien@math.auckland.ac.nz</Email>
+<Homepage>https://www.math.auckland.ac.nz/~obrien</Homepage>
+
+  </Author>
+  <Date>
+    4 July 2024
+  </Date>
+  </TitlePage>

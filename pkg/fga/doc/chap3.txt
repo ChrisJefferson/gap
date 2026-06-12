@@ -1,0 +1,40 @@
+  
+  [1X3 [33X[0;0YInstalling and loading the FGA package[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YInstalling the FGA package[133X[101X
+  
+  [33X[0;0YThe  installation  of  the  [5XFGA[105X  package  follows standard [5XGAP[105X rules. So the
+  standard  method is to unpack the archive into the [10Xpkg[110X directory of your [5XGAP[105X
+  distribution. This will create an [10Xfga[110X subdirectory.[133X
+  
+  [33X[0;0YFor  other  non-standard options please see Chapter [14X'Reference: Installing a
+  GAP Package'[114X in the [5XGAP[105X Reference Manual.[133X
+  
+  
+  [1X3.2 [33X[0;0YLoading the FGA package[133X[101X
+  
+  [33X[0;0YThe  [5XFGA[105X  package is configured to autoload, so its functionality is usually
+  available once [5XGAP[105X is started.[133X
+  
+  [33X[0;0YIf  [5XGAP[105X  does not autoload, you can request the package with the [10XLoadPackage[110X
+  command like this:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "fga" );[127X[104X
+    [4X[28X-----------------------------------------------------------------------------[128X[104X
+    [4X[28XLoading  FGA 1.5.0-DEV (Free Group Algorithms)[128X[104X
+    [4X[28Xby Christian Sievers (c.sievers@tu-bs.de).[128X[104X
+    [4X[28Xmaintained by:[128X[104X
+    [4X[28X   The GAP Team (support@gap-system.org).[128X[104X
+    [4X[28XHomepage: https://gap-packages.github.io/fga/[128X[104X
+    [4X[28XReport issues at https://github.com/gap-packages/fga/issues[128X[104X
+    [4X[28X-----------------------------------------------------------------------------[128X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YYou will not see the banner if [5XFGA[105X has already been loaded.[133X
+  
+  [33X[0;0YThe  [10XLoadPackage[110X  command  and  ways to disable autoloading are described in
+  Section [14X'Reference: Loading a GAP Package'[114X in the [5XGAP[105X Reference Manual.[133X
+  

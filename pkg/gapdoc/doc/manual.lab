@@ -1,0 +1,320 @@
+\GAPDocLabFile{gapdoc}
+\makelabel{gapdoc:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{gapdoc:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{gapdoc:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{gapdoc:Introduction and Example}{1}{X7D4EE663818DA109}
+\makelabel{gapdoc:XML}{1.1}{X8590236E858F7E93}
+\makelabel{gapdoc:A complete example}{1.2}{X7B47AFA881BFC9DC}
+\makelabel{gapdoc:Some questions}{1.3}{X79A97B867F45E5C7}
+\makelabel{gapdoc:How To Type a GAPDoc Document}{2}{X7890CF967F3E2FED}
+\makelabel{gapdoc:General XML Syntax}{2.1}{X7B3A544986A1A9EA}
+\makelabel{gapdoc:Head of XML Document}{2.1.1}{X84E8D39687638CF0}
+\makelabel{gapdoc:Comments}{2.1.2}{X780C79EB85C32138}
+\makelabel{gapdoc:Processing Instructions}{2.1.3}{X82DBCCAD8358BB63}
+\makelabel{gapdoc:Names in XML and Whitespace}{2.1.4}{X7A0FB16C7FEC0B53}
+\makelabel{gapdoc:Elements}{2.1.5}{X79B130FC7906FB4C}
+\makelabel{gapdoc:Start Tags}{2.1.6}{X7DD1DCB783588BD5}
+\makelabel{gapdoc:End Tags}{2.1.7}{X7E5A567E83005B62}
+\makelabel{gapdoc:Combined Tags for Empty Elements}{2.1.8}{X843A02A88514D919}
+\makelabel{gapdoc:Entities}{2.1.9}{X78FB56C77B1F391A}
+\makelabel{gapdoc:Special Characters in XML}{2.1.10}{X84A95A19801EDE76}
+\makelabel{gapdoc:Rules for Attribute Values}{2.1.11}{X7F49E7AD785AED22}
+\makelabel{gapdoc:CDATA}{2.1.12}{X82E77E707A062908}
+\makelabel{gapdoc:Encoding of an XML Document}{2.1.13}{X8709BD337DA09ED5}
+\makelabel{gapdoc:Well Formed and Valid XML Documents}{2.1.14}{X8561F07A81CABDD6}
+\makelabel{gapdoc:Entering GAPDoc Documents}{2.2}{X7BDE59B17CF1D5D2}
+\makelabel{gapdoc:Other special characters}{2.2.1}{X79171E047B069F94}
+\makelabel{gapdoc:Mathematical Formulae}{2.2.2}{X7EAE0C5A835F126F}
+\makelabel{gapdoc:More Entities}{2.2.3}{X7BDFF6D37FBED400}
+\makelabel{gapdoc:The Document Type Definition}{3}{X7859CFF180D52D49}
+\makelabel{gapdoc:What is a DTD?}{3.1}{X7B76F6F786521F6B}
+\makelabel{gapdoc:Overall Document Structure}{3.2}{X7DB0F9E57879CC76}
+\makelabel{gapdoc:<Book>}{3.2.1}{X7C7258A57B831934}
+\makelabel{gapdoc:<TitlePage>}{3.2.2}{X842B421A7FBCDD2C}
+\makelabel{gapdoc:<Title>}{3.2.3}{X7BCC8E6F79021294}
+\makelabel{gapdoc:<Subtitle>}{3.2.4}{X82E82AF48217CC14}
+\makelabel{gapdoc:<Version>}{3.2.5}{X876962807DCC52B3}
+\makelabel{gapdoc:<TitleComment>}{3.2.6}{X87E7CD5B79230B90}
+\makelabel{gapdoc:<Author>}{3.2.7}{X8731459C7E4C56DA}
+\makelabel{gapdoc:<Date>}{3.2.8}{X8264A69D7DCDD773}
+\makelabel{gapdoc:<Address>}{3.2.9}{X7EEF65A07A094F65}
+\makelabel{gapdoc:<Abstract>}{3.2.10}{X833110FE79628313}
+\makelabel{gapdoc:<Copyright>}{3.2.11}{X84BBD8307E08E62F}
+\makelabel{gapdoc:<Acknowledgements>}{3.2.12}{X8143972D7C17838E}
+\makelabel{gapdoc:<Colophon>}{3.2.13}{X7C09A3398059D18C}
+\makelabel{gapdoc:<TableOfContents>}{3.2.14}{X7E97263A83DC26E9}
+\makelabel{gapdoc:<Bibliography>}{3.2.15}{X84F3DF21786A8751}
+\makelabel{gapdoc:<TheIndex>}{3.2.16}{X7C53615A8477F1E5}
+\makelabel{gapdoc:Sectioning Elements}{3.3}{X80E2AD7481DD69D9}
+\makelabel{gapdoc:<Body>}{3.3.1}{X7B38415687510D0A}
+\makelabel{gapdoc:<Chapter>}{3.3.2}{X7A86B2BA7D688B6B}
+\makelabel{gapdoc:<Heading>}{3.3.3}{X79825E1C821D0B79}
+\makelabel{gapdoc:<Appendix>}{3.3.4}{X7C701B2779767556}
+\makelabel{gapdoc:<Section>}{3.3.5}{X844DC2B47FB37339}
+\makelabel{gapdoc:<Subsection>}{3.3.6}{X803ACA187E292969}
+\makelabel{gapdoc:ManSection–a special kind of subsection}{3.4}{X877B8B7C7EDD09E9}
+\makelabel{gapdoc:<ManSection>}{3.4.1}{X8375D9CC8672A1D5}
+\makelabel{gapdoc:<Func>}{3.4.2}{X7C41A7B5845205C4}
+\makelabel{gapdoc:<Oper>}{3.4.3}{X7A15825E818A81CD}
+\makelabel{gapdoc:<Constr>}{3.4.4}{X7FBFD7A3786C7CAB}
+\makelabel{gapdoc:<Meth>}{3.4.5}{X81196E2B7F286A01}
+\makelabel{gapdoc:<Filt>}{3.4.6}{X7D8D2C38828D5854}
+\makelabel{gapdoc:<Prop>}{3.4.7}{X7D6400A67C30B752}
+\makelabel{gapdoc:<Attr>}{3.4.8}{X78CEEC5986987A97}
+\makelabel{gapdoc:<Var>}{3.4.9}{X7C3AACBE7BC6AABF}
+\makelabel{gapdoc:<Fam>}{3.4.10}{X85EE992E7FED2FE6}
+\makelabel{gapdoc:<InfoClass>}{3.4.11}{X78F0D4D1811E5BAE}
+\makelabel{gapdoc:Cross Referencing and Citations}{3.5}{X78595FB585569617}
+\makelabel{gapdoc:<Ref>}{3.5.1}{X8656F2338007406E}
+\makelabel{gapdoc:<Label>}{3.5.2}{X7C85CA5484344DB5}
+\makelabel{gapdoc:<Cite>}{3.5.3}{X851DE9D279D8FB04}
+\makelabel{gapdoc:<Index>}{3.5.4}{X811042BA78843777}
+\makelabel{gapdoc:<URL>}{3.5.5}{X81B3E46F839E1C5B}
+\makelabel{gapdoc:<Email>}{3.5.6}{X8310C4F084CD9DB9}
+\makelabel{gapdoc:<Homepage>}{3.5.7}{X7D5CC4267D04D7E7}
+\makelabel{gapdoc:Structural Elements like Lists}{3.6}{X840099DF83823686}
+\makelabel{gapdoc:<List>}{3.6.1}{X785183F67DA402A0}
+\makelabel{gapdoc:<Mark>}{3.6.2}{X7B1545A9797442DC}
+\makelabel{gapdoc:<Item>}{3.6.3}{X86C204987AB4B13D}
+\makelabel{gapdoc:<Enum>}{3.6.4}{X78A52B00846562DE}
+\makelabel{gapdoc:<Table>}{3.6.5}{X7F9CAA577EB4070B}
+\makelabel{gapdoc:Types of Text}{3.7}{X7CA1E1327AFBA578}
+\makelabel{gapdoc:<Emph> and <E>}{3.7.1}{X7B15C428861749FD}
+\makelabel{gapdoc:<Quoted> and <Q>}{3.7.2}{X80028C2483C9467E}
+\makelabel{gapdoc:<Keyword> and <K>}{3.7.3}{X867BB95E7DC87014}
+\makelabel{gapdoc:<Arg> and <A>}{3.7.4}{X86FD4CCA7F98351F}
+\makelabel{gapdoc:<Code> and <C>}{3.7.5}{X8400998B7B3A4379}
+\makelabel{gapdoc:<File> and <F>}{3.7.6}{X875AF9B4812C5249}
+\makelabel{gapdoc:<Button> and <B>}{3.7.7}{X7929BA7D78A977FF}
+\makelabel{gapdoc:<Package>}{3.7.8}{X7F4FFA877B775188}
+\makelabel{gapdoc:<Listing>}{3.7.9}{X7F531B157D656836}
+\makelabel{gapdoc:<Log> and <Example>}{3.7.10}{X810DEA1E83A57CFE}
+\makelabel{gapdoc:<Verb>}{3.7.11}{X7F8C4D018346B2CF}
+\makelabel{gapdoc:Elements for Mathematical Formulae}{3.8}{X8145F6B37C04AA0A}
+\makelabel{gapdoc:<Math> and <Display>}{3.8.1}{X7AA02845868AA533}
+\makelabel{gapdoc:<M>}{3.8.2}{X7ABF42328467E966}
+\makelabel{gapdoc:Everything else}{3.9}{X7A0D26B180BEDE37}
+\makelabel{gapdoc:<Alt>}{3.9.1}{X850E69017945AE3E}
+\makelabel{gapdoc:<Par> and <P>}{3.9.2}{X85D23A648444069F}
+\makelabel{gapdoc:<Br>}{3.9.3}{X7A3EF0647B10C1EC}
+\makelabel{gapdoc:<Ignore>}{3.9.4}{X7A81FB717A30B485}
+\makelabel{gapdoc:Distributing a Document into Several Files}{4}{X7A3355C07F57C280}
+\makelabel{gapdoc:The Conventions}{4.1}{X7CE078A07E8256DC}
+\makelabel{gapdoc:A Tool for Collecting a Document}{4.2}{X81E07B0F83EBDA5F}
+\makelabel{gapdoc:The Converters and an XML Parser}{5}{X845E7FDC7C082CC4}
+\makelabel{gapdoc:Producing Documentation from Source Files}{5.1}{X7D1BB5867C13FA14}
+\makelabel{gapdoc:Parsing XML Documents}{5.2}{X7FE2AF49838D9034}
+\makelabel{gapdoc:The Converters}{5.3}{X8560E1A2845EC2C1}
+\makelabel{gapdoc:Stylesheet files}{5.3.9}{X788AB14383272FDB}
+\makelabel{gapdoc:Testing Manual Examples}{5.4}{X800299827B88ABBE}
+\makelabel{gapdoc:String and Text Utilities}{6}{X86CEF540862EE042}
+\makelabel{gapdoc:Text Utilities}{6.1}{X847DA07C7C46B38A}
+\makelabel{gapdoc:Unicode Strings}{6.2}{X8489C67D80399814}
+\makelabel{gapdoc:Unicode Strings and Characters}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:Lengths of UTF-8 strings}{6.2.3}{X801237207E06A876}
+\makelabel{gapdoc:Print Utilities}{6.3}{X860C83047DC4F1BC}
+\makelabel{gapdoc:Utilities for Bibliographies}{7}{X7EB94CE97ABF7192}
+\makelabel{gapdoc:Parsing BibTeX Files}{7.1}{X7A4126EC7BD68F64}
+\makelabel{gapdoc:The BibXMLext Format}{7.2}{X7FB8F6BD80D859D1}
+\makelabel{gapdoc:Utilities for BibXMLext data}{7.3}{X7AC255DE7D2531B6}
+\makelabel{gapdoc:Translating BibTeX to BibXMLext}{7.3.1}{X7C5548E77ECA29D7}
+\makelabel{gapdoc:Bibliography Entries as Records}{7.3.6}{X82167F1280F4310E}
+\makelabel{gapdoc:Getting BibTeX entries from MathSciNet}{7.4}{X842336AF7B20048E}
+\makelabel{gapdoc:The File gapdoc.dtd}{B}{X85366C6480D58C51}
+\makelabel{gapdoc:The File bibxmlext.dtd}{C}{X7E2788757A1AA098}
+\makelabel{gapdoc:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{gapdoc:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{gapdoc:Index}{Ind}{X83A0356F839C696F}
+\makelabel{gapdoc:License}{}{X81488B807F2A1CF1}
+\makelabel{gapdoc:XML}{1.1}{X8590236E858F7E93}
+\makelabel{gapdoc:Book}{3.2.1}{X7C7258A57B831934}
+\makelabel{gapdoc:TitlePage}{3.2.2}{X842B421A7FBCDD2C}
+\makelabel{gapdoc:Title}{3.2.3}{X7BCC8E6F79021294}
+\makelabel{gapdoc:Subtitle}{3.2.4}{X82E82AF48217CC14}
+\makelabel{gapdoc:Version}{3.2.5}{X876962807DCC52B3}
+\makelabel{gapdoc:TitleComment}{3.2.6}{X87E7CD5B79230B90}
+\makelabel{gapdoc:Author}{3.2.7}{X8731459C7E4C56DA}
+\makelabel{gapdoc:Date}{3.2.8}{X8264A69D7DCDD773}
+\makelabel{gapdoc:Address}{3.2.9}{X7EEF65A07A094F65}
+\makelabel{gapdoc:Abstract}{3.2.10}{X833110FE79628313}
+\makelabel{gapdoc:Copyright}{3.2.11}{X84BBD8307E08E62F}
+\makelabel{gapdoc:Acknowledgements}{3.2.12}{X8143972D7C17838E}
+\makelabel{gapdoc:Colophon}{3.2.13}{X7C09A3398059D18C}
+\makelabel{gapdoc:TableOfContents}{3.2.14}{X7E97263A83DC26E9}
+\makelabel{gapdoc:Bibliography}{3.2.15}{X84F3DF21786A8751}
+\makelabel{gapdoc:TheIndex}{3.2.16}{X7C53615A8477F1E5}
+\makelabel{gapdoc:Body}{3.3.1}{X7B38415687510D0A}
+\makelabel{gapdoc:Chapter}{3.3.2}{X7A86B2BA7D688B6B}
+\makelabel{gapdoc:Heading}{3.3.3}{X79825E1C821D0B79}
+\makelabel{gapdoc:Appendix}{3.3.4}{X7C701B2779767556}
+\makelabel{gapdoc:Section}{3.3.5}{X844DC2B47FB37339}
+\makelabel{gapdoc:Subsection}{3.3.6}{X803ACA187E292969}
+\makelabel{gapdoc:ManSection}{3.4.1}{X8375D9CC8672A1D5}
+\makelabel{gapdoc:Description}{3.4.1}{X8375D9CC8672A1D5}
+\makelabel{gapdoc:Returns}{3.4.1}{X8375D9CC8672A1D5}
+\makelabel{gapdoc:Func}{3.4.2}{X7C41A7B5845205C4}
+\makelabel{gapdoc:Oper}{3.4.3}{X7A15825E818A81CD}
+\makelabel{gapdoc:Constr}{3.4.4}{X7FBFD7A3786C7CAB}
+\makelabel{gapdoc:Meth}{3.4.5}{X81196E2B7F286A01}
+\makelabel{gapdoc:Filt}{3.4.6}{X7D8D2C38828D5854}
+\makelabel{gapdoc:Prop}{3.4.7}{X7D6400A67C30B752}
+\makelabel{gapdoc:Attr}{3.4.8}{X78CEEC5986987A97}
+\makelabel{gapdoc:Var}{3.4.9}{X7C3AACBE7BC6AABF}
+\makelabel{gapdoc:Fam}{3.4.10}{X85EE992E7FED2FE6}
+\makelabel{gapdoc:InfoClass}{3.4.11}{X78F0D4D1811E5BAE}
+\makelabel{gapdoc:Ref}{3.5.1}{X8656F2338007406E}
+\makelabel{gapdoc:Label}{3.5.2}{X7C85CA5484344DB5}
+\makelabel{gapdoc:Cite}{3.5.3}{X851DE9D279D8FB04}
+\makelabel{gapdoc:Index}{3.5.4}{X811042BA78843777}
+\makelabel{gapdoc:URL}{3.5.5}{X81B3E46F839E1C5B}
+\makelabel{gapdoc:Email}{3.5.6}{X8310C4F084CD9DB9}
+\makelabel{gapdoc:Homepage}{3.5.7}{X7D5CC4267D04D7E7}
+\makelabel{gapdoc:List}{3.6.1}{X785183F67DA402A0}
+\makelabel{gapdoc:Mark}{3.6.2}{X7B1545A9797442DC}
+\makelabel{gapdoc:Item}{3.6.3}{X86C204987AB4B13D}
+\makelabel{gapdoc:Enum}{3.6.4}{X78A52B00846562DE}
+\makelabel{gapdoc:Table}{3.6.5}{X7F9CAA577EB4070B}
+\makelabel{gapdoc:<Caption>}{3.6.5}{X7F9CAA577EB4070B}
+\makelabel{gapdoc:<Row>}{3.6.5}{X7F9CAA577EB4070B}
+\makelabel{gapdoc:<Align>}{3.6.5}{X7F9CAA577EB4070B}
+\makelabel{gapdoc:<HorLine>}{3.6.5}{X7F9CAA577EB4070B}
+\makelabel{gapdoc:<Item> in <Table>}{3.6.5}{X7F9CAA577EB4070B}
+\makelabel{gapdoc:Emph}{3.7.1}{X7B15C428861749FD}
+\makelabel{gapdoc:E}{3.7.1}{X7B15C428861749FD}
+\makelabel{gapdoc:Quoted}{3.7.2}{X80028C2483C9467E}
+\makelabel{gapdoc:Q}{3.7.2}{X80028C2483C9467E}
+\makelabel{gapdoc:Keyword}{3.7.3}{X867BB95E7DC87014}
+\makelabel{gapdoc:K}{3.7.3}{X867BB95E7DC87014}
+\makelabel{gapdoc:Arg}{3.7.4}{X86FD4CCA7F98351F}
+\makelabel{gapdoc:A}{3.7.4}{X86FD4CCA7F98351F}
+\makelabel{gapdoc:Code}{3.7.5}{X8400998B7B3A4379}
+\makelabel{gapdoc:C}{3.7.5}{X8400998B7B3A4379}
+\makelabel{gapdoc:File}{3.7.6}{X875AF9B4812C5249}
+\makelabel{gapdoc:F}{3.7.6}{X875AF9B4812C5249}
+\makelabel{gapdoc:Button}{3.7.7}{X7929BA7D78A977FF}
+\makelabel{gapdoc:B}{3.7.7}{X7929BA7D78A977FF}
+\makelabel{gapdoc:Package}{3.7.8}{X7F4FFA877B775188}
+\makelabel{gapdoc:Listing}{3.7.9}{X7F531B157D656836}
+\makelabel{gapdoc:Log}{3.7.10}{X810DEA1E83A57CFE}
+\makelabel{gapdoc:Example}{3.7.10}{X810DEA1E83A57CFE}
+\makelabel{gapdoc:Math}{3.8.1}{X7AA02845868AA533}
+\makelabel{gapdoc:Display}{3.8.1}{X7AA02845868AA533}
+\makelabel{gapdoc:M}{3.8.2}{X7ABF42328467E966}
+\makelabel{gapdoc:Alt}{3.9.1}{X850E69017945AE3E}
+\makelabel{gapdoc:Par}{3.9.2}{X85D23A648444069F}
+\makelabel{gapdoc:P}{3.9.2}{X85D23A648444069F}
+\makelabel{gapdoc:Br}{3.9.3}{X7A3EF0647B10C1EC}
+\makelabel{gapdoc:Ignore}{3.9.4}{X7A81FB717A30B485}
+\makelabel{gapdoc:<Include>}{4.1}{X7CE078A07E8256DC}
+\makelabel{gapdoc:<GAPDoc>}{4.1}{X7CE078A07E8256DC}
+\makelabel{gapdoc:ComposedDocument}{4.2.1}{X857D77557D12559D}
+\makelabel{gapdoc:ComposedXMLString}{4.2.1}{X857D77557D12559D}
+\makelabel{gapdoc:OriginalPositionDocument}{4.2.2}{X86D1141E7EDCAAC8}
+\makelabel{gapdoc:FilenameGAP}{4.2.3}{X81E67E4678FB6843}
+\makelabel{gapdoc:MakeGAPDocDoc}{5.1.1}{X826F530686F4D052}
+\makelabel{gapdoc:MathJax in MakeGAPDocDoc}{5.1.1}{X826F530686F4D052}
+\makelabel{gapdoc:ParseTreeXMLString}{5.2.1}{X847EB8498151D443}
+\makelabel{gapdoc:ParseTreeXMLFile}{5.2.1}{X847EB8498151D443}
+\makelabel{gapdoc:StringXMLElement}{5.2.2}{X835887057D0B4DA8}
+\makelabel{gapdoc:EntitySubstitution}{5.2.3}{X786827BF793191B3}
+\makelabel{gapdoc:DisplayXMLStructure}{5.2.4}{X86589C5C859ACE38}
+\makelabel{gapdoc:ApplyToNodesParseTree}{5.2.5}{X7A7B223A83E38B40}
+\makelabel{gapdoc:AddRootParseTree}{5.2.5}{X7A7B223A83E38B40}
+\makelabel{gapdoc:RemoveRootParseTree}{5.2.5}{X7A7B223A83E38B40}
+\makelabel{gapdoc:GetTextXMLTree}{5.2.6}{X7F76D4A27C7FB946}
+\makelabel{gapdoc:XMLElements}{5.2.7}{X8466F74C80442F7D}
+\makelabel{gapdoc:CheckAndCleanGapDocTree}{5.2.8}{X84CFF72484B19C0D}
+\makelabel{gapdoc:AddParagraphNumbersGapDocTree}{5.2.9}{X84062CD67B286FF0}
+\makelabel{gapdoc:InfoXMLParser}{5.2.10}{X78A22C58841E5D0B}
+\makelabel{gapdoc:XMLValidate}{5.2.11}{X8403741C8386E7F0}
+\makelabel{gapdoc:ValidateGAPDoc}{5.2.12}{X797F96F8876D7452}
+\makelabel{gapdoc:GAPDoc2LaTeX}{5.3.1}{X85BE6DF178423EF5}
+\makelabel{gapdoc:SetGapDocLaTeXOptions}{5.3.1}{X85BE6DF178423EF5}
+\makelabel{gapdoc:GAPDoc2Text}{5.3.2}{X86CD0B197CD58D2A}
+\makelabel{gapdoc:GAPDoc2TextPrintTextFiles}{5.3.3}{X7DFCE7357D6032A2}
+\makelabel{gapdoc:AddPageNumbersToSix}{5.3.4}{X7EB5E86F87A09F94}
+\makelabel{gapdoc:PrintSixFile}{5.3.5}{X7D42CFED7885BC00}
+\makelabel{gapdoc:SetGAPDocTextTheme}{5.3.6}{X7DEB37417BBD8941}
+\makelabel{gapdoc:GAPDoc2HTML}{5.3.7}{X84F22EEB78845CFD}
+\makelabel{gapdoc:MathJax}{5.3.7}{X84F22EEB78845CFD}
+\makelabel{gapdoc:GAPDoc2HTMLPrintHTMLFiles}{5.3.8}{X84A7007778073E7A}
+\makelabel{gapdoc:CSS stylesheets}{5.3.9}{X788AB14383272FDB}
+\makelabel{gapdoc:CopyHTMLStyleFiles}{5.3.10}{X813599E982DE9B98}
+\makelabel{gapdoc:SetGAPDocHTMLStyle}{5.3.11}{X85AFD98383174BB5}
+\makelabel{gapdoc:InfoGAPDoc}{5.3.12}{X864A528B81C661A2}
+\makelabel{gapdoc:SetGapDocLanguage}{5.3.13}{X82AB468887ED0DBB}
+\makelabel{gapdoc:Using GAPDoc with other languages}{5.3.13}{X82AB468887ED0DBB}
+\makelabel{gapdoc:ManualExamples}{5.4}{X800299827B88ABBE}
+\makelabel{gapdoc:TestManualExamples}{5.4}{X800299827B88ABBE}
+\makelabel{gapdoc:ExtractExamples}{5.4.1}{X8337B2BC79253B3F}
+\makelabel{gapdoc:ExtractExamplesXMLTree}{5.4.1}{X8337B2BC79253B3F}
+\makelabel{gapdoc:RunExamples}{5.4.2}{X781D56FC7B938DCB}
+\makelabel{gapdoc:WHITESPACE}{6.1.1}{X786D477C7AB636AA}
+\makelabel{gapdoc:CAPITALLETTERS}{6.1.1}{X786D477C7AB636AA}
+\makelabel{gapdoc:SMALLLETTERS}{6.1.1}{X786D477C7AB636AA}
+\makelabel{gapdoc:LETTERS}{6.1.1}{X786D477C7AB636AA}
+\makelabel{gapdoc:DIGITS}{6.1.1}{X786D477C7AB636AA}
+\makelabel{gapdoc:HEXDIGITS}{6.1.1}{X786D477C7AB636AA}
+\makelabel{gapdoc:BOXCHARS}{6.1.1}{X786D477C7AB636AA}
+\makelabel{gapdoc:TextAttr}{6.1.2}{X785F61E77899580E}
+\makelabel{gapdoc:UseColorsInTerminal}{6.1.2}{X785F61E77899580E}
+\makelabel{gapdoc:WrapTextAttribute}{6.1.3}{X7B8AD7517E5FD0EA}
+\makelabel{gapdoc:FormatParagraph}{6.1.4}{X812058CE7C8E9022}
+\makelabel{gapdoc:SubstitutionSublist}{6.1.5}{X82A9121678923445}
+\makelabel{gapdoc:StripBeginEnd}{6.1.6}{X83DE31017B557136}
+\makelabel{gapdoc:StripEscapeSequences}{6.1.7}{X7A5978CF84C3C2D3}
+\makelabel{gapdoc:RepeatedString}{6.1.8}{X7D71CB837EE969D4}
+\makelabel{gapdoc:RepeatedUTF8String}{6.1.8}{X7D71CB837EE969D4}
+\makelabel{gapdoc:NumberDigits}{6.1.9}{X7CEEA5B57D7BB38F}
+\makelabel{gapdoc:DigitsNumber}{6.1.9}{X7CEEA5B57D7BB38F}
+\makelabel{gapdoc:LabelInt}{6.1.10}{X79EF038284598D41}
+\makelabel{gapdoc:PositionMatchingDelimiter}{6.1.11}{X7AF694D9839BF65C}
+\makelabel{gapdoc:WordsString}{6.1.12}{X832556617F10AAA8}
+\makelabel{gapdoc:Base64String}{6.1.13}{X83F2821783DA9826}
+\makelabel{gapdoc:StringBase64}{6.1.13}{X83F2821783DA9826}
+\makelabel{gapdoc:Unicode}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:UChar}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:IsUnicodeString}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:IsUnicodeCharacter}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:IntListUnicodeString}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:URL encoding}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:RFC 3986}{6.2.1}{X8475671278948DDD}
+\makelabel{gapdoc:Encode}{6.2.2}{X818A31567EB30A39}
+\makelabel{gapdoc:SimplifiedUnicodeString}{6.2.2}{X818A31567EB30A39}
+\makelabel{gapdoc:LowercaseUnicodeString}{6.2.2}{X818A31567EB30A39}
+\makelabel{gapdoc:UppercaseUnicodeString}{6.2.2}{X818A31567EB30A39}
+\makelabel{gapdoc:LaTeXUnicodeTable}{6.2.2}{X818A31567EB30A39}
+\makelabel{gapdoc:SimplifiedUnicodeTable}{6.2.2}{X818A31567EB30A39}
+\makelabel{gapdoc:LowercaseUnicodeTable}{6.2.2}{X818A31567EB30A39}
+\makelabel{gapdoc:WidthUTF8String}{6.2.3}{X801237207E06A876}
+\makelabel{gapdoc:NrCharsUTF8String}{6.2.3}{X801237207E06A876}
+\makelabel{gapdoc:InitialSubstringUTF8String}{6.2.4}{X7E2974CD84977819}
+\makelabel{gapdoc:PrintTo1}{6.3.1}{X8603B90C7C3F0AB1}
+\makelabel{gapdoc:AppendTo1}{6.3.1}{X8603B90C7C3F0AB1}
+\makelabel{gapdoc:StringPrint}{6.3.2}{X829B720C86E57E8B}
+\makelabel{gapdoc:StringView}{6.3.2}{X829B720C86E57E8B}
+\makelabel{gapdoc:StringDisplay}{6.3.2}{X829B720C86E57E8B}
+\makelabel{gapdoc:PrintFormattedString}{6.3.3}{X812A8326844BC910}
+\makelabel{gapdoc:Page}{6.3.4}{X7BB6731F7E3AAA98}
+\makelabel{gapdoc:PageDisplay}{6.3.4}{X7BB6731F7E3AAA98}
+\makelabel{gapdoc:StringFile}{6.3.5}{X7E14D32181FBC3C3}
+\makelabel{gapdoc:FileString}{6.3.5}{X7E14D32181FBC3C3}
+\makelabel{gapdoc:ParseBibFiles}{7.1.1}{X82555C307FDC1817}
+\makelabel{gapdoc:ParseBibStrings}{7.1.1}{X82555C307FDC1817}
+\makelabel{gapdoc:NormalizedNameAndKey}{7.1.2}{X7C9F0C337A0A0FF0}
+\makelabel{gapdoc:NormalizeNameAndKey}{7.1.2}{X7C9F0C337A0A0FF0}
+\makelabel{gapdoc:WriteBibFile}{7.1.3}{X7C2B2F65851EAA0B}
+\makelabel{gapdoc:LabelsFromBibTeX}{7.1.4}{X783FD118794399DF}
+\makelabel{gapdoc:InfoBibTools}{7.1.5}{X85C1D50F7E37A99A}
+\makelabel{gapdoc:HeuristicTranslationsLaTeX2XML.Apply}{7.3.2}{X7A025E0A7A1CD390}
+\makelabel{gapdoc:HeuristicTranslationsLaTeX2XML.ApplyToFile}{7.3.2}{X7A025E0A7A1CD390}
+\makelabel{gapdoc:StringBibAsXMLext}{7.3.3}{X85F33C64787A00B7}
+\makelabel{gapdoc:ParseBibXMLextString}{7.3.4}{X86BD29AE7A453721}
+\makelabel{gapdoc:ParseBibXMLextFiles}{7.3.4}{X86BD29AE7A453721}
+\makelabel{gapdoc:WriteBibXMLextFile}{7.3.5}{X7811108C7E5B1709}
+\makelabel{gapdoc:RecBibXMLEntry}{7.3.7}{X786C33ED79F425F1}
+\makelabel{gapdoc:AddHandlerBuildRecBibXMLEntry}{7.3.8}{X8067261385905A36}
+\makelabel{gapdoc:StringBibXMLEntry}{7.3.9}{X790A295680F7CD24}
+\makelabel{gapdoc:TemplateBibXML}{7.3.10}{X7C6FF57087016019}
+\makelabel{gapdoc:SearchMR}{7.4.1}{X8009F8A17DDFF9AF}
+\makelabel{gapdoc:SearchMRBib}{7.4.1}{X8009F8A17DDFF9AF}

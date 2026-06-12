@@ -1,0 +1,169 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XABC[120X]  [17XImprovements  to  the  ATLAS  of  Brauer  Characters[117X,  The MOC Group,
+  https://www.math.rwth-aachen.de/homes/MOC/ABCerr.html.
+  
+  [[20XBGL+10[120X] [16XBreuer, T., Guralnick, R. M., Lucchini, A., Maróti, A. and Nagy, G.
+  P.[116X,  [17XHamiltonian  cycles  in  the  generating graphs of finite groups[117X, [18XBull.
+  London Math. Soc.[118X, [19X42[119X, 4 (2010), 621–633.
+  
+  [[20XBL23[120X]  [16XBreuer,  T.  and  Lübeck, F.[116X, [17XBrowse, ncurses interface and browsing
+  applications,      Version      1.8.21[117X      (2023),      (GAP      package),
+  https://www.math.rwth-aachen.de/~Browse.
+  
+  [[20XBMO17[120X]   [16XBreuer,  T.,  Malle,  G.  and  O'Brien,  E.  A.[116X,  [17XReliability  and
+  reproducibility  of Atlas information[117X, in Finite simple groups: thirty years
+  of  the atlas and beyond, Amer. Math. Soc., Contemp. Math., [19X694[119X, Providence,
+  RI (2017), 21–31.
+  
+  [[20XBMW20[120X]  [16XBreuer,  T.,  Magaard,  K.  and  Wilson, R. A.[116X, [17XVerification of the
+  ordinary  character  table  of  the  Baby  Monster[117X,  [18XJ. Algebra[118X, [19X561[119X (2020),
+  111–130.
+  
+  [[20XBMW24[120X]  [16XBreuer,  T.,  Magaard,  K.  and  Wilson, R. A.[116X, [17XVerification of the
+  conjugacy  classes  and  ordinary  character  table  of  the Monster[117X (2024),
+  submitted.
+  
+  [[20XBN95[120X]  [16XBreuer,  T.  and  Norton,  S.  P.[116X,  [17XImprovements  to  the Atlas[117X, The
+  Clarendon   Press  Oxford  University  Press,  London  Mathematical  Society
+  Monographs.  New  Series,  [19X11[119X,  New  York (1995), 297–327, (Appendix 2 by T.
+  Breuer and S. Norton, Oxford Science Publications).
+  
+  [[20XBos90[120X]  [16XBosma,  W.[116X,  [17XCanonical  bases  for cyclotomic fields[117X, [18XAppl. Algebra
+  Engrg. Comm. Comput.[118X, [19X1[119X, 2 (1990), 125–134.
+  
+  [[20XBrea[120X]  [16XBreuer,  T.[116X,  [17XAmbiguous  Class  Fusions  in  the GAP Character Table
+  Library[117X,
+  https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf.
+  
+  [[20XBreb[120X]  [16XBreuer,  T.[116X,  [17XConstructing Character Tables of Central Extensions in
+  GAP[117X, https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf.
+  
+  [[20XBrec[120X]  [16XBreuer, T.[116X, [17XConstructing the ordinary character tables of some Atlas
+  groups     using     character    theoretic    methods.[117X,    arXiv:1604.00754
+  (https://export.arxiv.org/abs/1604.00754).
+  
+  [[20XBred[120X]      [16XBreuer,      T.[116X,      [17XPermutation     Characters     in     GAP[117X,
+  https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf.
+  
+  [[20XBree[120X]  [16XBreuer,  T.[116X, [17XGAP computations concerning probabilistic generation of
+  finite              simple              groups[117X,              arXiv:0710.3267
+  (https://export.arxiv.org/abs/0710.3267).
+  
+  [[20XBref[120X]  [16XBreuer,  T.[116X,  [17XUsing  Table  Automorphisms for Constructing Character
+  Tables                                in                                GAP[117X,
+  https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf.
+  
+  [[20XBre11[120X]  [16XBreuer, T.[116X, [17XComputing character tables of groups of type M.G.A[117X, [18XLMS
+  J. Comput. Math.[118X, [19X14[119X (2011), 173–178.
+  
+  [[20XCCN+85[120X]  [16XConway,  J.  H.,  Curtis,  R. T., Norton, S. P., Parker, R. A. and
+  Wilson,  R.  A.[116X,  [17XAtlas  of  finite groups[117X, Oxford University Press, Eynsham
+  (1985),  xxxiv+252  pages,  (Maximal  subgroups  and ordinary characters for
+  simple groups, With computational assistance from J. G. Thackray).
+  
+  [[20XCla05[120X]   [16XClaßen-Houben,   M.[116X,   [17XJordan-Zerlegung  der  Charaktere  für  die
+  GAP-Charaktertafeln   der   endlichen  Gruppen  vom  Lie-Typ[117X,  Diplomarbeit,
+  Lehrstuhl  D  für  Mathematik, Rheinisch Westfälische Technische Hochschule,
+  Aachen, Germany (2005).
+  
+  [[20XCP96[120X]  [16XCannon,  J.  J.  and  Playoust,  C.[116X,  [17XAn  introduction  to algebraic
+  programming  in  Magma[117X,  School of Mathematics and Statistics, University of
+  Sydney, Sydney, Australia (1996), http://www.math.usyd.edu.au:8000/u/magma.
+  
+  [[20XDan06[120X]  [16XDany,  S.[116X,  [17XBerechnung  von Charaktertafeln zentraler Erweiterungen
+  ausgewählter  Gruppen[117X,  Diplomarbeit,  Lehrstuhl D für Mathematik, Rheinisch
+  Westfälische Technische Hochschule, Aachen, Germany (2006).
+  
+  [[20XDLP25[120X]  [16XDietrich,  H., Lee, M. and Popiel, T.[116X, [17XThe maximal subgroups of the
+  Monster[117X   (2025),   Advances  in  Mathematics  469  (2025),  article  110214
+  (https://doi.org/10.1016/j.aim.2025.110214).
+  
+  [[20XDLPP24[120X]  [16XDietrich,  H.,  Lee,  M.,  Pisani,  A.  and  Popiel,  T.[116X, [17XExplicit
+  construction   of   the   maximal   subgroups   of   the   Monster[117X   (2024),
+  arXiv:2411.12230 (https://arxiv.org/abs/2411.12230).
+  
+  [[20XGAP24[120X]  [17XGAP  –  Groups,  Algorithms,  and  Programming, Version 4.13.1[117X, The
+  GAP Group (2024), https://www.gap-system.org.
+  
+  [[20XGR[120X]  [16XGuralnick,  R.  M.  and  Robinson,  G.  R.[116X,  [17XCommuting involutions and
+  elementary    abelian   subgroups   of   simple   groups[117X,   arXiv:2012.08693
+  (http://export.arxiv.org/abs/2012.08693).
+  
+  [[20XHan88[120X]    [16XHanrath,   W.[116X,   [17XIrreduzible   Darstellungen   von   Raumgruppen[117X,
+  Dissertation,  Rheinisch Westfälische Technische Hochschule, Aachen, Germany
+  (1988).
+  
+  [[20XHJLP[120X]  [16XHiss,  G.,  Jansen,  C.,  Lux,  K.  and Parker, R. A.[116X, [17XComputational
+  Modular Character Theory[117X, http://www.math.rwth-aachen.de/~MOC/CoMoChaT/.
+  
+  [[20XHP89[120X]  [16XHolt,  D.  F.  and  Plesken, W.[116X, [17XPerfect groups[117X, The Clarendon Press
+  Oxford  University  Press,  Oxford Mathematical Monographs, New York (1989),
+  xii+364   pages,   (With   an   appendix   by  W.  Hanrath,  Oxford  Science
+  Publications).
+  
+  [[20XJLPW95[120X]  [16XJansen, C., Lux, K., Parker, R. and Wilson, R.[116X, [17XAn atlas of Brauer
+  characters[117X, The Clarendon Press Oxford University Press, London Mathematical
+  Society  Monographs.  New  Series,  [19X11[119X,  New  York  (1995), xviii+327 pages,
+  (Appendix 2 by T. Breuer and S. Norton, Oxford Science Publications).
+  
+  [[20XLN18[120X]  [16XLübeck,  F.  and  Neunhöffer,  M.[116X,  [17XGAPDoc,  A  Meta Package for GAP
+  Documentation,      Version      1.6.2[117X      (2018),      (GAP      package),
+  https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc.
+  
+  [[20XLOST10[120X] [16XLiebeck, M. W., O'Brien, E. A., Shalev, A. and Tiep, P. H.[116X, [17XThe Ore
+  conjecture[117X, [18XJ. Eur. Math. Soc. (JEMS)[118X, [19X12[119X, 4 (2010), 939–1008.
+  
+  [[20XLP91[120X]  [16XLux,  K.  and Pahlings, H.[116X ([1m[31mMichler, G. O. and Ringel, C. M.[15X, Eds.),
+  [17XComputational   aspects  of  representation  theory  of  finite  groups[117X,  in
+  Representation  theory  of  finite  groups  and  finite-dimensional algebras
+  (Bielefeld, 1991), Birkhäuser, Progr. Math., [19X95[119X, Basel (1991), 37–64.
+  
+  [[20XLP10[120X]  [16XLux,  K.  and  Pahlings,  H.[116X,  [17XRepresentations  of groups[117X, Cambridge
+  University  Press, Cambridge Studies in Advanced Mathematics, [19X124[119X, Cambridge
+  (2010), x+460 pages, (A computational approach).
+  
+  [[20XMNP19[120X] [16XMerkwitz, T., Naughton, L. and Pfeiffer, G.[116X, [17XTomLib, The GAP Library
+  of    Tables    of    Marks,    Version   1.2.9[117X   (2019),   (GAP   package),
+  https://gap-packages.github.io/tomlib.
+  
+  [[20XNav98[120X]  [16XNavarro,  G.[116X,  [17XCharacters  and  blocks  of finite groups[117X, Cambridge
+  University  Press,  London  Mathematical  Society  Lecture Note Series, [19X250[119X,
+  Cambridge (1998), x+287 pages.
+  
+  [[20XNoe02[120X]  [16XNoeske,  F.[116X,  [17XZur  Darstellungstheorie der Schurschen Erweiterungen
+  symmetrischer  Gruppen[117X,  Diplomarbeit, Lehrstuhl D für Mathematik, Rheinisch
+  Westfälische Technische Hochschule (2002).
+  
+  [[20XNor[120X]     [16XNorton,     S.     P.[116X,     [17XImprovements     to    the    ATLAS–II[117X,
+  http://brauer.maths.qmul.ac.uk/Atlas/info/fullatlasmods.html.
+  
+  [[20XNPP84[120X]  [16XNeubüser,  J., Pahlings, H. and Plesken, W.[116X ([1m[31mAtkinson, M. D.[15X, Ed.),
+  [17XCAS;  design  and  use  of a system for the handling of characters of finite
+  groups[117X, in Computational group theory (Durham, 1982), Academic Press, London
+  (1984), 195–247.
+  
+  [[20XOst86[120X]  [16XOstermann, T.[116X, [17XCharaktertafeln von Sylownormalisatoren sporadischer
+  einfacher   Gruppen[117X,   Universität   Essen,  Universität  Essen  Fachbereich
+  Mathematik,  Vorlesungen  aus  dem Fachbereich Mathematik der Universität GH
+  Essen  [Lecture  Notes in Mathematics at the University of Essen], [19X14[119X, Essen
+  (1986), x+187 pages.
+  
+  [[20XPis25[120X]  [16XPisani,  A.[116X,  [17XComputing  the  Character  Table of a 2-local Maximal
+  Subgroup       of       the       Monster[117X      (2025),      arXiv:2503.15857
+  (https://arxiv.org/abs/2503.15857).
+  
+  [[20XPP24[120X]  [16XPisani,  A. and Popiel, T.[116X, [17XConjugacy class fusion from four maximal
+  subgroups       of       the       Monste[117X      (2024),      arXiv:2404.05194
+  (https://arxiv.org/abs/2404.05194).
+  
+  [[20XWPN+22[120X]  [16XWilson,  R.  A.,  Parker,  R.  A.,  Nickerson, S., Bray, J. N. and
+  Breuer, T.[116X, [17XAtlasRep, A GAP Interface to the Atlas of Group Representations,
+  Version           2.1.6[117X           (2022),           (GAP           package),
+  https://www.math.rwth-aachen.de/~Thomas.Breuer/atlasrep.
+  
+  
+  
+  [32X

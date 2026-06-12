@@ -1,0 +1,8 @@
+<!ENTITY AutoDoc '<Package>AutoDoc</Package>'>
+<!ENTITY MathJax '<M>{\sf MathJax}</M>'>
+<!ENTITY ResClasses '<Package>ResClasses</Package>'>
+<!ENTITY RCWA '<Package>RCWA</Package>'>
+<!ENTITY XMod '<Package>XMod</Package>'>
+<!ENTITY Home '<Package>Home</Package>'>
+<!ENTITY Magma '<M>{\sf Magma}</M>'>
+<!ENTITY Utils '<Package>Utils</Package>'>

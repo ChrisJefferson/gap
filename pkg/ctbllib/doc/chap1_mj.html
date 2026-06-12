@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (CTblLib) - Chapter 1: Introduction to the GAP Character Table Library</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap1"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap1.html">[MathJax off]</a></p>
+<p><a id="X86DEA3CF7802FFF7" name="X86DEA3CF7802FFF7"></a></p>
+<div class="ChapSects"><a href="chap1_mj.html#X86DEA3CF7802FFF7">1 <span class="Heading">Introduction to the <strong class="pkg">GAP</strong> Character Table Library</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7ED5D4B77E9F2A4C">1.1 <span class="Heading">History of the <strong class="pkg">GAP</strong> Character Table Library</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7DFD446B7840A6E0">1.2 <span class="Heading">What's New in <strong class="pkg">CTblLib</strong>,
+Compared to Older Versions?</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X84BDBA6B7F5900CC">1.2-1 <span class="Heading">What's New in Version 1.3.11?
+(May 2025)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X85710FDF79D428D2">1.2-2 <span class="Heading">What's New in Version 1.3.9? (March 2024)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X78A8624787A5F2BB">1.2-3 <span class="Heading">What's New in Version 1.3.8? (March 2024)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X87C0A6BA86AF8C25">1.2-4 <span class="Heading">What's New in Version 1.3.7? (January 2024)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X788E2D9E8715CEBF">1.2-5 <span class="Heading">What's New in Version 1.3.6? (May 2023)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X853CED1A7F4A7CB6">1.2-6 <span class="Heading">What's New in Version 1.3.5? (March 2023)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X8673993582B1792E">1.2-7 <span class="Heading">What's New in Version 1.3.4? (April 2022)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X81F15ABF81515359">1.2-8 <span class="Heading">What's New in Version 1.3.3? (January 2022)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7C0B3B6D7EC044DC">1.2-9 <span class="Heading">What's New in Version 1.3.2? (March 2021)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X79418416826FE5F2">1.2-10 <span class="Heading">What's New in Version 1.3.1? (April 2020)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X83D8236D7E750DFE">1.2-11 <span class="Heading">What's New in Version 1.3.0? (December 2019)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7BC6B5FD7F720EA0">1.2-12 <span class="Heading">What's New in Version 1.2.2? (March 2013)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7E26A5FD7EBB4FA1">1.2-13 <span class="Heading">What's New in Version 1.2.0 and 1.2.1? (May 2012)</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X79402202865D152A">1.2-14 <span class="Heading">What's New in Version 1.1? (November 2003)</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X82A988D47DFAFCFA">1.3 <span class="Heading">Acknowledgements</span></a>
+</span>
+</div>
+</div>
+
+<h3>1 <span class="Heading">Introduction to the <strong class="pkg">GAP</strong> Character Table Library</span></h3>
+
+<p>The usefulness of <strong class="pkg">GAP</strong> for character theoretic tasks depends on the availability of many known character tables, and there are a lot of character tables in the <strong class="pkg">GAP</strong> table library. Of course, this library is <q>open</q> in the sense that it shall be extended. So we would be grateful for any further tables of interest sent to us for inclusion into our library. Please offer interesting new character tables via e-mail to <span class="URL"><a href="mailto:sam@math.rwth-aachen.de">sam@math.rwth-aachen.de</a></span>.</p>
+
+<p>It depends on your <strong class="pkg">GAP</strong> installation whether the character table library is available. You can check this as follows.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">InstalledPackageVersion( "ctbllib" ) &lt;&gt; fail;</span>
+true
+</pre></div>
+
+<p>If the result is <code class="keyw">false</code> then the library is not installed, and you may ask your system administrator for installing it, or install the library in your home directory, see Section <a href="chap4_mj.html#X8202ACD57ACD5CAC"><span class="RefLink">4.5-1</span></a>.</p>
+
+<p>For general information about character tables in <strong class="pkg">GAP</strong>, see Chapter <a href="../../../doc/ref/chap71_mj.html#X7B7A9EE881E01C10"><span class="RefLink">Reference: Character Tables</span></a>.</p>
+
+<p><a name="application_files">Examples of character theoretic computations</a> involving the <strong class="pkg">GAP</strong> Character Table Library are part of the package. They are dealing with the following aspects.</p>
+
+
+<ul>
+<li><p>Maintenance issues concerning the <strong class="pkg">GAP</strong> Character Table Library <a href="../doc2/chap1_mj.html#X8354C98179CDB193"><span class="RefLink">CTblLibXpls: Maintenance Issues for the GAP Character Table Library</span></a>.</p>
+
+</li>
+<li><p>Constructions of character tables using table automorphisms, see <a href="../doc2/chap2_mj.html#X7B77FD307F0DE563"><span class="RefLink">CTblLibXpls: Using Table Automorphisms for Constructing Character Tables in GAP</span></a>.</p>
+
+</li>
+<li><p>Computations of common central extensions, see <a href="../doc2/chap3_mj.html#X7A80D5ED7D6E57B7"><span class="RefLink">CTblLibXpls: Constructing Character Tables of Central Extensions in GAP</span></a>.</p>
+
+</li>
+<li><p>Hamiltonian cycles in the generating graphs of finite groups, see <a href="../doc2/chap4_mj.html#X7D5919C182B1A462"><span class="RefLink">CTblLibXpls: GAP Computations Concerning Hamiltonian Cycles in the Generating Graphs of Finite Groups</span></a>.</p>
+
+</li>
+<li><p>A question about the group PSO<span class="SimpleMath">\(^+(8,5).S_3\)</span>, see <a href="../doc2/chap5_mj.html#X8703EFEE81DDE3DD"><span class="RefLink">CTblLibXpls: GAP Computations with O_8^+(5).S_3 and O_8^+(2).S_3</span></a>.</p>
+
+</li>
+<li><p>Solvable subgroups of maximal order in sporadic simple groups <a href="../doc2/chap6_mj.html#X7EF73AA88384B5F3"><span class="RefLink">CTblLibXpls: Solvable Subgroups of Maximal Order in Sporadic Simple Groups</span></a>.</p>
+
+</li>
+<li><p>Large Nilpotent Subgroups of sporadic simple groups <a href="../doc2/chap7_mj.html#X8102827B85FE3BCA"><span class="RefLink">CTblLibXpls: Large Nilpotent Subgroups of Sporadic Simple Groups</span></a>.</p>
+
+</li>
+<li><p>Computations of possible permutation characters, see <a href="../doc2/chap8_mj.html#X7A7EEBE9858333E1"><span class="RefLink">CTblLibXpls: Permutation Characters in GAP</span></a>.</p>
+
+</li>
+<li><p>Ambiguous class fusions, see <a href="../doc2/chap9_mj.html#X7A03A83E87FB1189"><span class="RefLink">CTblLibXpls: Ambiguous Class Fusions in the GAP Character Table Library</span></a>.</p>
+
+</li>
+<li><p>Some computations concerning the classification of groups with the property that all complex irreducible characters of the same degree are Galois conjugate (together with Klaus Lux), see <a href="../doc2/chap10_mj.html#X831E9D0A7A2DBC72"><span class="RefLink">CTblLibXpls: GAP computations needed in the proof of [DNT13, Theorem 6.1 (ii)]</span></a>.</p>
+
+</li>
+<li><p>Probabilistic generation of finite simple groups, see <a href="chapBib_mj.html#biBProbGenArxiv">[Bree]</a> or an updated version at <a href="../doc2/chap11_mj.html#X7BE9906583D0FCEC"><span class="RefLink">CTblLibXpls: GAP Computations Concerning Probabilistic Generation of Finite Simple Groups</span></a>.</p>
+
+</li>
+<li><p>Ordinary character tables, Brauer tables, and decomposition matrices, see <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctbldeco.pdf"><code class="file">doc/ctbldeco.pdf</code></a></span> and <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctbldeco.htm"><code class="file">htm/ctbldeco.htm</code></a></span>.</p>
+
+</li>
+<li><p>Multiplicity-free permutation characters of the sporadic simple groups and their automorphism groups, see <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/multfree.pdf"><code class="file">doc/multfree.pdf</code></a></span> and <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/multfree.htm"><code class="file">htm/multfree.htm</code></a></span>.</p>
+
+</li>
+<li><p>Multiplicity-free permutation characters of central extensions of the sporadic simple groups, and their automorphic extensions (together with Jürgen Müller), see <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/multfre2.pdf"><code class="file">doc/multfre2.pdf</code></a></span> and <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/multfre2.htm"><code class="file">htm/multfre2.htm</code></a></span>.</p>
+
+</li>
+<li><p>The construction of some character tables of <strong class="pkg">Atlas</strong> groups, using character theoretic methods, see <a href="chapBib_mj.html#biBAtlasVerifyLargeArxiv">[Brec]</a> or an updated version at <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctblatlas.pdf"><code class="file">doc/ctblatlas.pdf</code></a></span> and <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctblatlas.htm"><code class="file">htm/ctblatlas.htm</code></a></span>.</p>
+
+</li>
+<li><p>The verification of the character table of the Baby Monster group, see <a href="chapBib_mj.html#biBBMverify">[BMW20]</a> or an updated version at <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctblbm.pdf"><code class="file">doc/ctblbm.pdf</code></a></span> and <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctblbm.htm"><code class="file">htm/ctblbm.htm</code></a></span>.</p>
+
+</li>
+<li><p>The verification of the character table of the Monster group, see <a href="chapBib_mj.html#biBMverify">[BMW24]</a> or an updated version at <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctblm.pdf"><code class="file">doc/ctblm.pdf</code></a></span> and <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/htm/ctblm.htm"><code class="file">htm/ctblm.htm</code></a></span>.</p>
+
+</li>
+</ul>
+<p>If you use the <strong class="pkg">GAP</strong> Character Table Library to solve a problem then please send a short e-mail to <span class="URL"><a href="mailto:sam@math.rwth-aachen.de">sam@math.rwth-aachen.de</a></span> about it. The <strong class="pkg">GAP</strong> Character Table Library database should be referenced as follows.</p>
+
+
+<div class="example"><pre>
+@misc{ CTblLib1.3.11,
+  author =       {Breuer, T.},
+  title =        {The \textsf{GAP} {C}haracter {T}able {L}ibrary,
+                  {V}ersion 1.3.11},
+  month =        {May},
+  year =         {2025},
+  note =         {\textsf{GAP} package},
+  howpublished = {http://www.math.rwth-aachen.de/\~{}Thomas.Breuer/ctbllib}
+}
+</pre></div>
+
+<p>For referencing the <strong class="pkg">GAP</strong> system in general, use the entry <a href="chapBib_mj.html#biBGAP">[GAP24]</a> in the bibliography of this manual, see also</p>
+
+<p><span class="URL"><a href="http://www.gap-system.org">http://www.gap-system.org</a></span>.</p>
+
+<p><a id="X7ED5D4B77E9F2A4C" name="X7ED5D4B77E9F2A4C"></a></p>
+
+<h4>1.1 <span class="Heading">History of the <strong class="pkg">GAP</strong> Character Table Library</span></h4>
+
+<p>The first version of the <strong class="pkg">GAP</strong> Character Table Library was released with <strong class="pkg">GAP</strong> 3.1 in March 1992.</p>
+
+<p>It was the first aim of this library to continue the character table library of the <strong class="pkg">CAS</strong> system (see <a href="chapBib_mj.html#biBNPP84">[NPP84]</a>) in <strong class="pkg">GAP</strong>, as a part of the process of reimplementing the algorithms of <strong class="pkg">CAS</strong> in <strong class="pkg">GAP</strong>, see <a href="../../../doc/ref/chap71_mj.html#X7F8AB7CB7A46002F"><span class="RefLink">Reference: History of Character Theory Stuff in GAP</span></a>. <strong class="pkg">GAP</strong> 3.1 provided only very restricted methods for computing character tables from groups, so its character theory part was concerned mainly with library tables.</p>
+
+<p>A second aspect of the character table library was to make all character tables shown in the <strong class="pkg">Atlas</strong> of Finite Groups <a href="chapBib_mj.html#biBCCN85">[CCN+85]</a> available in <strong class="pkg">GAP</strong>. In fact <strong class="pkg">GAP</strong> turned out to provide a very good environment for systematic checks of these character tables.</p>
+
+<p>To some extent, the access to the (ordinary) character tables in <a href="chapBib_mj.html#biBCCN85">[CCN+85]</a> was a prerequisite for storing also the corresponding Brauer character tables in the <strong class="pkg">GAP</strong> Character Table Library. Already <strong class="pkg">GAP</strong> 3.1 contained many of these tables. They have been computed mainly <q>outside of <strong class="pkg">GAP</strong></q>, using the methods described in <a href="chapBib_mj.html#biBHJLP92">[HJLP]</a>, and part of the library has been published in the <strong class="pkg">Atlas</strong> of Brauer Characters <a href="chapBib_mj.html#biBJLPW95">[JLPW95]</a>. One of the roles of <strong class="pkg">GAP</strong> was again to perform systematic checks.</p>
+
+<p>Besides these projects, many individual character tables have been added to the <strong class="pkg">GAP</strong> Character Table Library since the times of <strong class="pkg">GAP</strong> 3.1. They were computed from groups or with character theoretic methods or using a combination of these two possibilities (see, e. g., <a href="chapBib_mj.html#biBNPP84">[NPP84]</a> and <a href="chapBib_mj.html#biBLP91">[LP91]</a>).</p>
+
+<p>Section <a href="chap4_mj.html#X80EEFF8B79856A75"><span class="RefLink">4.1</span></a> lists some of the sources. The changes in the <strong class="pkg">GAP</strong> Character Table Library since the release of <strong class="pkg">GAP</strong> 4.1 (in July 1999) are individually documented in the file <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc/ctbldiff.pdf"><code class="file">doc/ctbldiff.pdf</code></a></span> of the package.</p>
+
+<p>Currently the main focus in the development of the <strong class="pkg">GAP</strong> Character Table Library is –besides the addition of tables that appear to be interesting– the better interaction with other databases, such as the <strong class="pkg">Atlas</strong> of Group Representations and the <strong class="pkg">GAP</strong> Library of Tables of Marks (see the <strong class="pkg">GAP</strong> packages <strong class="pkg">AtlasRep</strong> and <strong class="pkg">TomLib</strong>) and <strong class="pkg">GAP</strong>'s group libraries, and an improvement of the <q>database</q> aspect of the character table library itself, see the sections <a href="chap3_mj.html#X7A5EECF8853A05A0"><span class="RefLink">3.1</span></a> and <a href="chap3_mj.html#X7900893987A89915"><span class="RefLink">3.5</span></a>.</p>
+
+<p>Until the release of <strong class="pkg">GAP</strong> 4.3 in spring 2002, the <strong class="pkg">GAP</strong> Character Table Library had been a part of the main <strong class="pkg">GAP</strong> library. With <strong class="pkg">GAP</strong> 4.3, it was <q>split off</q> as a <strong class="pkg">GAP</strong> package.</p>
+
+<p><a id="X7DFD446B7840A6E0" name="X7DFD446B7840A6E0"></a></p>
+
+<h4>1.2 <span class="Heading">What's New in <strong class="pkg">CTblLib</strong>,
+Compared to Older Versions?</span></h4>
+
+<p>The PDF file <code class="file">doc/ctbldiff.pdf</code> of the package lists the important changes to the data since October 1996, mainly related to the relevant simple groups.</p>
+
+<p>A perhaps more suitable overview of these changes is given by the <strong class="pkg">GAP</strong> readable file <code class="file">data/ctbldiff.json</code>, which contains a complete overview of all changes, including the additions of class fusions. (Note that each added or changed fusion is mentioned twice in this list, once for the <q>from</q> table and once for the <q>to</q> table.) This list of changes can be shown and evaluated using <code class="func">BrowseCTblLibDifferences</code> (<a href="chap3_mj.html#X87CA74CF7B533CC6"><span class="RefLink">3.5-4</span></a>) if the <strong class="pkg">Browse</strong> package (see <a href="chapBib_mj.html#biBBrowse">[BL23]</a>) is available. <a id="sect:news"/></p>
+
+<p><a id="X84BDBA6B7F5900CC" name="X84BDBA6B7F5900CC"></a></p>
+
+<h5>1.2-1 <span class="Heading">What's New in Version 1.3.11?
+(May 2025)</span></h5>
+
+<p><em>The following bugs were fixed.</em></p>
+
+
+<ul>
+<li><p>The paper <a href="chapBib_mj.html#biBDLPP24">[DLPP24]</a> corrects an error in the classification of the maximal subgroups of the Monster group: The Monster has no maximal subgroups of the type <span class="SimpleMath">\(L_2(59)\)</span>, hence the groups of the structure <span class="SimpleMath">\(59:29\)</span> are maximal.</p>
+
+<p>Due to this bugfix, the character tables of the maximal subgroups had to be reordered. (Note that a similar reordering had happened in version 1.3.7, see Section <a href="chap1_mj.html#X87C0A6BA86AF8C25"><span class="RefLink">1.2-4</span></a>.) This means that the following changes of relative admissible names were necessary.</p>
+
+<div class="pcenter"><table class="GAPDocTable">
+<tr>
+<td class="tdleft">Identifier</td>
+<td class="tdcenter">New name</td>
+<td class="tdcenter">Former name</td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(59)"</code></td>
+<td class="tdcenter">–</td>
+<td class="tdcenter"><code class="code">"MM39"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"11^2:(5x2.A5)"</code></td>
+<td class="tdcenter"><code class="code">"MM39"</code></td>
+<td class="tdcenter"><code class="code">"MM40"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(41)"</code></td>
+<td class="tdcenter"><code class="code">"MM40"</code></td>
+<td class="tdcenter"><code class="code">"MM41"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(29).2"</code></td>
+<td class="tdcenter"><code class="code">"MM41"</code></td>
+<td class="tdcenter"><code class="code">"MM42"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"7^2:2psl(2,7)"</code></td>
+<td class="tdcenter"><code class="code">"MM42"</code></td>
+<td class="tdcenter"><code class="code">"MM43"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(19).2"</code></td>
+<td class="tdcenter"><code class="code">"MM43"</code></td>
+<td class="tdcenter"><code class="code">"MM44"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(13).2"</code></td>
+<td class="tdcenter"><code class="code">"MM44"</code></td>
+<td class="tdcenter"><code class="code">"MM45"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"59:29"</code></td>
+<td class="tdcenter"><code class="code">"MM45"</code></td>
+<td class="tdcenter">–</td>
+</tr>
+</table><br />
+</div>
+
+<p>The known information about the primitive permutation characters of the Monster in the (now no longer important) data file <code class="file">data/prim_perm_M.json</code> has been updated accordingly.</p>
+
+</li>
+<li><p>The <q>individual</q> <code class="func">GroupInfoForCharacterTable</code> (<a href="chap3_mj.html#X78DCD38B7D96D8A4"><span class="RefLink">3.3-1</span></a>) entry for the character table with identifier <code class="code">"3^(1+10)_+:(2x2^(1+6)_-:3^(1+2)_+:2S4)"</code> had erroneously been assigned to the table with identifier <code class="code">"3^(1+8).2^(1+6).3^(1+2).2S4"</code>. (Thanks to Frank Lübeck who pointed out this error.)</p>
+
+</li>
+<li><p>The <code class="func">CharacterParameters</code> (<a href="../../../doc/ref/chap71_mj.html#X8333E8038308947E"><span class="RefLink">Reference: CharacterParameters</span></a>) value for the ordinary character table of the symmetric group on six points (with <code class="func">Identifier</code> (<a href="../../../doc/ref/chap70_mj.html#X810E53597B5BB4F8"><span class="RefLink">Reference: Identifier for tables of marks</span></a>) value <code class="code">"A_6.2_1"</code>) was not consistent with the correspnding parameters stored on the <span class="SimpleMath">\(p\)</span>-modular Brauer tables, for <span class="SimpleMath">\(p \in \{ 2, 3, 5 \}\)</span>. Now this inconsistency was fixed, by permuting the stored parameters with the permutation that is induced by the outer automorphism of the group.</p>
+
+</li>
+</ul>
+<p><em>The following data have been added.</em></p>
+
+
+<ul>
+<li><p>The character table of the maximal subgroup of the type <span class="SimpleMath">\(2^{5+10+20}.(S_3 \times L_5(2))\)</span> in the Monster group has been computed by Anthony Pisani (see <a href="chapBib_mj.html#biBPis25">[Pis25]</a>) and is now available in the table library.</p>
+
+<p>By the classification of maximal subgroups of the Monster in <a href="chapBib_mj.html#biBDLP25">[DLP25]</a> and <a href="chapBib_mj.html#biBDLPP24">[DLPP24]</a>, this means that now the character table library contains the character tables of all maximal subgroups of the Monster. Also all their class fusions into the Monster are known (see for example <a href="chapBib_mj.html#biBPP24">[PP24]</a>), hence one can now easily compute the primitive permutation characters of the Monster, as follows.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m:= CharacterTable( "M" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">prim:= List( Maxes( m ),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">                nam -&gt; TrivialCharacter( CharacterTable( nam ) )^m );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Length( prim );</span>
+46
+</pre></div>
+
+</li>
+<li><p>A description of computations that arose in the verification of the character table of the Monster group is now part of the package, see the overview at the beginning of Chapter <a href="chap1_mj.html#X86DEA3CF7802FFF7"><span class="RefLink">1</span></a>.</p>
+
+</li>
+<li><p>The errata list <a href="chapBib_mj.html#biBABCImp">[ABC]</a> for the <strong class="pkg">Atlas</strong> of Brauer Characters <a href="chapBib_mj.html#biBJLPW95">[JLPW95]</a> has been updated. (The contents can be shown by <code class="func">BrowseAtlasImprovements</code> (<a href="chap3_mj.html#X79E3F783818FE75A"><span class="RefLink">3.5-10</span></a>).)</p>
+
+</li>
+<li><p><code class="func">CharacterParameters</code> (<a href="../../../doc/ref/chap71_mj.html#X8333E8038308947E"><span class="RefLink">Reference: CharacterParameters</span></a>) values for all Brauer character tables of symmetric groups in the library are now available. (Thanks to Benjamin Sambale for pointing out that the values were missing for some tables, and to Jürgen Müller for pointing me to a reference for the definition of these character parameters.)</p>
+
+</li>
+</ul>
+<p><em>The following functionality has been changed.</em></p>
+
+
+<ul>
+<li><p>When <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>) is called with an <code class="code">OrderedBy</code> function, the returned list is now <em>stably</em> sorted w.r.t. entries which have the same <code class="code">OrderedBy</code> value.</p>
+
+</li>
+<li><p>The property <code class="func">IsAtlasCharacterTable</code> (<a href="chap3_mj.html#X867813EB79DC6953"><span class="RefLink">3.7-6</span></a>) is new. It can for example be used for filtering, as an argument of <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>).</p>
+
+</li>
+<li><p>Also the Boolean attribute <code class="code">HasFusionToTom</code> (see <code class="func">FusionToTom</code> (<a href="chap3_mj.html#X7B1AAED68753B1BE"><span class="RefLink">3.2-4</span></a>)) is now a supported argument of <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>).</p>
+
+</li>
+<li><p>Now version 4.13 of <strong class="pkg">GAP</strong> is required, such that the <q>package extension</q> feature can be assumed. As a consequence, the behaviour of the <strong class="pkg">CTblLib</strong> package does not depend on the order in which its needed and suggested packages get (installed and) loaded.</p>
+
+</li>
+</ul>
+<p><a id="X85710FDF79D428D2" name="X85710FDF79D428D2"></a></p>
+
+<h5>1.2-2 <span class="Heading">What's New in Version 1.3.9? (March 2024)</span></h5>
+
+<p>The release of Version 1.3.9 was necessary because of a bug in the changes for version 1.3.8: Depending on the order in which packages are loaded, <strong class="pkg">GAP</strong> ran into an error when it tried to load <strong class="pkg">CTblLib</strong>.</p>
+
+<p><a id="X78A8624787A5F2BB" name="X78A8624787A5F2BB"></a></p>
+
+<h5>1.2-3 <span class="Heading">What's New in Version 1.3.8? (March 2024)</span></h5>
+
+<p><em>The following bug was fixed.</em></p>
+
+
+<ul>
+<li><p>The table with identifier <code class="code">"2^2x3^2.2.S4"</code> is encoded as a direct product. Up to now, one of the two factors did not fit to the identifier. Now this has been corrected.</p>
+
+</li>
+</ul>
+<p><em>The following data have been added.</em></p>
+
+
+<ul>
+<li><p>The class fusions from the maximal subgroups <span class="SimpleMath">\((L_2(11) \times L_2(11)):4\)</span>, <span class="SimpleMath">\(11^2:(5 \times 2.A_5)\)</span>, <span class="SimpleMath">\(7^2:2L_2(7)\)</span>, and <span class="SimpleMath">\(L_2(19).2\)</span> of the Monster group have been added. The proofs can be found in a paper by Anthony Pisani and Tomasz Popiel, see <a href="chapBib_mj.html#biBPP24">[PP24]</a>.</p>
+
+</li>
+</ul>
+<p><em>The following functionality has been changed.</em></p>
+
+
+<ul>
+<li><p>In order to make <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>) efficient also if the <strong class="pkg">Browse</strong> package is not available, the relevant code from that package has been copied into <strong class="pkg">CTblLib</strong>.</p>
+
+</li>
+</ul>
+<p><a id="X87C0A6BA86AF8C25" name="X87C0A6BA86AF8C25"></a></p>
+
+<h5>1.2-4 <span class="Heading">What's New in Version 1.3.7? (January 2024)</span></h5>
+
+<p><em>The following bug was fixed.</em></p>
+
+
+<ul>
+<li><p>The <code class="func">GroupInfoForCharacterTable</code> (<a href="chap3_mj.html#X78DCD38B7D96D8A4"><span class="RefLink">3.3-1</span></a>) entry <code class="code">"SigmaL(2,9)"</code> had been erroneously attributed to the table with identifier <code class="code">"2.A6.2_2"</code>, but the correct table is that of <code class="code">"2.A6.2_1"</code>. (Thanks to Bernhard Böhmler for pointing this out.)</p>
+
+</li>
+</ul>
+<p><em>The following data have been added.</em></p>
+
+
+<ul>
+<li><p>Due to <a href="chapBib_mj.html#biBDLP25">[DLP25]</a>, all classes of maximal subgroups of the Monster group are now known, their number is <span class="SimpleMath">\(46\)</span>. Currently not all their character tables (and the class fusions to the Monster) are available in the character table library. The known information about the primitive permutation characters of the Monster in the data file <code class="file">data/prim_perm_M.json</code> has been updated accordingly.</p>
+
+<p>Now the groups with character tables <code class="code">"U3(4).4"</code> and <code class="code">"L2(13).2"</code> have been found as maximal subgroups of the Monster. This means that the following changes of relative admissible names were necessary.</p>
+
+<div class="pcenter"><table class="GAPDocTable">
+<tr>
+<td class="tdleft">Identifier</td>
+<td class="tdcenter">New name</td>
+<td class="tdcenter">Former name</td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"U3(4).4"</code></td>
+<td class="tdcenter"><code class="code">"MM37"</code></td>
+<td class="tdcenter">–</td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(71)"</code></td>
+<td class="tdcenter"><code class="code">"MM38"</code></td>
+<td class="tdcenter"><code class="code">"MM37"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(59)"</code></td>
+<td class="tdcenter"><code class="code">"MM39"</code></td>
+<td class="tdcenter"><code class="code">"MM38"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"11^2:(5x2.A5)"</code></td>
+<td class="tdcenter"><code class="code">"MM40"</code></td>
+<td class="tdcenter"><code class="code">"MM39"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(41)"</code></td>
+<td class="tdcenter"><code class="code">"MM41"</code></td>
+<td class="tdcenter"><code class="code">"MM40"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(29).2"</code></td>
+<td class="tdcenter"><code class="code">"MM42"</code></td>
+<td class="tdcenter"><code class="code">"MM41"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"7^2:2psl(2,7)"</code></td>
+<td class="tdcenter"><code class="code">"MM43"</code></td>
+<td class="tdcenter"><code class="code">"MM42"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(19).2"</code></td>
+<td class="tdcenter"><code class="code">"MM44"</code></td>
+<td class="tdcenter"><code class="code">"MM43"</code></td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"L2(13).2"</code></td>
+<td class="tdcenter"><code class="code">"MM45"</code></td>
+<td class="tdcenter">–</td>
+</tr>
+<tr>
+<td class="tdleft"><code class="code">"41:40"</code></td>
+<td class="tdcenter"><code class="code">"MM46"</code></td>
+<td class="tdcenter"><code class="code">"MM44"</code></td>
+</tr>
+</table><br />
+</div>
+
+<p>As a consequence, some arguments concerning the Monster in the chapters <a href="../doc2/chap4_mj.html#X7D5919C182B1A462"><span class="RefLink">CTblLibXpls: GAP Computations Concerning Hamiltonian Cycles in the Generating Graphs of Finite Groups</span></a> and <a href="../doc2/chap6_mj.html#X7EF73AA88384B5F3"><span class="RefLink">CTblLibXpls: Solvable Subgroups of Maximal Order in Sporadic Simple Groups</span></a> have been adjusted.</p>
+
+</li>
+<li><p>The following ordinary character tables of maximal subgroups of the Monster have been added to the library: <code class="code">"2^(10+16).O10+(2)"</code> was contributed by Alexander Hulpke. <code class="code">"3^8.O8-(3).2_3"</code>, <code class="code">"(3^2:2xO8+(3)).S4"</code>, <code class="code">"3^(2+5+10).(M11x2S4)"</code>, <code class="code">"3^(3+2+6+6):(L3(3)xSD16)"</code> were contributed by Tim Burness. <code class="code">"2^[39].(L3(2)x3.S6)"</code> and <code class="code">"2^(2+11+22).(M24xS3)"</code> were computed using <strong class="pkg">MAGMA</strong>.</p>
+
+<p>As a consequence, the permutation characters induced from these subgroups can be computed directly. The relevant subsections in Section <a href="../doc2/chap8_mj.html#X8337F3C682B6BE63"><span class="RefLink">CTblLibXpls: Four Primitive Permutation Characters of the Monster Group</span></a> have been extended accordingly.</p>
+
+</li>
+<li><p>The known information about orthogonal discriminants of orthogonally stable irreducible characters of almost simple groups is now available, via the data in the file <code class="file">data/odresults.json</code>. The functions <code class="func">Display</code> (<a href="../../../doc/ref/chap71_mj.html#X7B41F36478C47364"><span class="RefLink">Reference: Display for a character table</span></a>) and <code class="func">Browse (for character tables)</code> (<a href="../../../pkg/browse/doc/chap6_mj.html#X870C744182073CF6"><span class="RefLink">Browse: Browse for character tables</span></a>) support the component <code class="code">OD</code> in the optional second argument, in order to show a column with the known orthogonal discriminants.</p>
+
+</li>
+<li><p>Three new example sections have been added, which deal with subgroups of the Monster group: <a href="../doc2/chap1_mj.html#X82C7A03684DD7C6E"><span class="RefLink">CTblLibXpls: The Monster group does not contain subgroups of the type 2.U_4(2) (August 2023)</span></a>, <a href="../doc2/chap1_mj.html#X87EC0C48866D1BDE"><span class="RefLink">CTblLibXpls: Perfect central extensions of L_3(4) (August 2023)</span></a> <a href="../doc2/chap1_mj.html#X7F605CA28441687F"><span class="RefLink">CTblLibXpls: The character table of (2 × O_8^+(3)).S_4 ≤ 2.B (October 2023)</span></a>.</p>
+
+</li>
+</ul>
+<p><a id="X788E2D9E8715CEBF" name="X788E2D9E8715CEBF"></a></p>
+
+<h5>1.2-5 <span class="Heading">What's New in Version 1.3.6? (May 2023)</span></h5>
+
+<p>The release of Version 1.3.6 was necessary for technical reasons: The code for building the documentation of the package had to be adjusted to <span class="URL"><a href="https://github.com/gap-system/gap/pull/5178">a change in <strong class="pkg">GAP</strong> 4.13</a></span>. This does not affect most users of the package because the package archive contains a ready documentation. (The ability to rebuild the package documentation had been requested by packagers for Linux distributions.)</p>
+
+<p><a id="X853CED1A7F4A7CB6" name="X853CED1A7F4A7CB6"></a></p>
+
+<h5>1.2-6 <span class="Heading">What's New in Version 1.3.5? (March 2023)</span></h5>
+
+
+<ul>
+<li><p><strong class="pkg">GAP</strong> 4.13 will provide the new <q>package extension</q> feature, which allows a package to execute <strong class="pkg">GAP</strong> code <em>after</em> the package and some other required packages have been loaded. In <strong class="pkg">CTblLib</strong>, this feature is now used for example in order to achieve that those functions which depend on the <strong class="pkg">Browse</strong> package can be used also if this package gets (installed and) loaded after <strong class="pkg">CTblLib</strong> has been loaded.</p>
+
+</li>
+<li><p>A few (modular and ordinary) character tables have been added that were used for the computation of orthogonal discriminants of characters. Also a few formerly unknown <span class="SimpleMath">\(2\)</span>-modular indicator values have been added.</p>
+
+</li>
+<li><p>Character parameters for modular tables of symmetric groups are now available. (Thanks to Jürgen Müller for these data.)</p>
+
+</li>
+<li><p>The identifier of one character table had to be changed from <code class="code">"D8.(S4x2)"</code> to <code class="code">"2^3.(S4×2)"</code> because the old name suggested a wrong group structure. This bug had been announced in <span class="URL"><a href="https://math.stackexchange.com/questions/4577016/group-names-in-gap-character-table-library">a StackExchange discussion</a></span>.</p>
+
+</li>
+<li><p>The <span class="SimpleMath">\(11\)</span>-modular character tables of <span class="SimpleMath">\(HN\)</span> and <span class="SimpleMath">\(HN.2\)</span> (and as a consequence also that of <span class="SimpleMath">\((D_{10} \times HN).2\)</span>) had to be changed, in order to solve a generality problem. See <a href="../doc2/chap1_mj.html#X82C37532783168AA"><span class="RefLink">CTblLibXpls: A generality problem concerning the group HN (August 2022)</span></a> for the details.</p>
+
+</li>
+<li><p>A few class fusions had to be replaced; they were valid for the ordinary character tables in question but not for their Brauer tables.</p>
+
+</li>
+</ul>
+<p><a id="X8673993582B1792E" name="X8673993582B1792E"></a></p>
+
+<h5>1.2-7 <span class="Heading">What's New in Version 1.3.4? (April 2022)</span></h5>
+
+<p>The release of Version 1.3.4 was necessary for technical reasons: Now the testfile mentioned in <code class="file">PackageInfo.g</code> exits <strong class="pkg">GAP</strong> in the end.</p>
+
+<p><a id="X81F15ABF81515359" name="X81F15ABF81515359"></a></p>
+
+<h5>1.2-8 <span class="Heading">What's New in Version 1.3.3? (January 2022)</span></h5>
+
+<p>The reason for this release was the addition of the new example section <a href="../doc2/chap8_mj.html#X849F0EA6807C9B19"><span class="RefLink">CTblLibXpls: Generation of sporadic simple groups by π- and π'-subgroups (December 2021)</span></a>, which requires the new data file <code class="file">data/prim_perm_M.json</code>. (The data had already been used before in the example section <a href="../doc2/chap4_mj.html#X867D338F7F453092"><span class="RefLink">CTblLibXpls: The Monster</span></a>, which has now been changed accordingly.)</p>
+
+<p>The database attribute <code class="code">IsQuasisimple</code> has been added, which describes perfect central extensions of nonabelian simple groups. It can be used for example to select the character tables of quasisimple groups with <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>). Thanks to Gunter Malle for suggesting this addition.</p>
+
+<p>No new character tables have been added, and there are only a few new class fusions, admissible names, and group constructions.</p>
+
+<p><a id="X7C0B3B6D7EC044DC" name="X7C0B3B6D7EC044DC"></a></p>
+
+<h5>1.2-9 <span class="Heading">What's New in Version 1.3.2? (March 2021)</span></h5>
+
+<p>The main new features of this release are technical.</p>
+
+
+<ul>
+<li><p>The initialization of the database (at the time when the package gets loaded) has been changed. Instead of executing <strong class="pkg">GAP</strong> code in the formerly available (huge) file <code class="file">data/ctprimar.tbl</code>, now one calls a few short <strong class="pkg">GAP</strong> functions, in the new file <code class="file">gap4/ctprimar.g</code>, which evaluate JSON format files. This was one more step on the way to make the database independent of <strong class="pkg">GAP</strong>.</p>
+
+</li>
+<li><p>Also the files with the precomputed attribute values are now in JSON format, since now the <strong class="pkg">Browse</strong> supports this format.</p>
+
+</li>
+<li><p>The <span class="URL"><a href="http://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/ctbltoc/index.html"><q>WWW table of contents</q></a></span> of the package has been updated in the sense that it shows the same as the functions <code class="func">DisplayCTblLibInfo</code> (<a href="chap3_mj.html#X8684C73E844E7033"><span class="RefLink">3.5-1</span></a>) and <code class="func">BrowseCTblLibInfo</code> (<a href="chap3_mj.html#X7A038A267CD17032"><span class="RefLink">3.5-2</span></a>); at the same time, these functions have been extended in order to link each table to its main table and to its duplicates. The code for creating the HTML files is now distributed with the package, in the <code class="file">ctbltoc</code> directory.</p>
+
+</li>
+<li><p>The mechanism for processing the package documentation (which contains two <strong class="pkg">GAPDoc</strong> books) has been changed to a more standard way. Now it is enough to process one <strong class="pkg">GAP</strong> input file in the package directory.</p>
+
+</li>
+</ul>
+<p>In several <code class="func">InfoText</code> (<a href="chap3_mj.html#X871562FD7F982C12"><span class="RefLink">3.7-5</span></a>) values of character tables, information about group constructions has been added; where possible, these constructions are now also available via <code class="func">GroupInfoForCharacterTable</code> (<a href="chap3_mj.html#X78DCD38B7D96D8A4"><span class="RefLink">3.3-1</span></a>); for example, this function now supports also the construction of a group as the automorphism group of a simple group. (Thanks to Gunter Malle for ideas and discussions about this feature.)</p>
+
+<p>The function <code class="func">BrowseAtlasImprovements</code> (<a href="chap3_mj.html#X79E3F783818FE75A"><span class="RefLink">3.5-10</span></a>) can now show (also) the improvements for the <strong class="pkg">Atlas</strong> of Brauer Characters <a href="chapBib_mj.html#biBJLPW95">[JLPW95]</a>.</p>
+
+<p>The strings <code class="code">"L2(49)"</code> and <code class="code">"L2(81)"</code> are now valid inputs for <code class="func">DisplayAtlasMap</code> (<a href="chap3_mj.html#X875A6BB485A49976"><span class="RefLink">3.5-8</span></a>) and <code class="func">BrowseAtlasTable</code> (<a href="chap3_mj.html#X79DC72707B08A701"><span class="RefLink">3.5-9</span></a>), and <code class="func">DisplayAtlasContents</code> (<a href="chap3_mj.html#X810789F77F20C839"><span class="RefLink">3.5-6</span></a>) and <code class="func">BrowseAtlasContents</code> (<a href="chap3_mj.html#X8135745381E1C0E2"><span class="RefLink">3.5-5</span></a>) now show information about these two and <code class="code">"L6(2)"</code> and <code class="code">"S10(2)"</code>.</p>
+
+<p>Besides these changes, a few new tables and class fusions have been added. A few new examples of applications have been added, see the sections <a href="chap2_mj.html#X7AD5E36B7D44C507"><span class="RefLink">2.3-10</span></a>, <a href="../doc2/chap2_mj.html#X7BD79BA37C3E729B"><span class="RefLink">CTblLibXpls: The Character Table of 4.L_2(49).2_3 (December 2020)</span></a>, <a href="../doc2/chap2_mj.html#X817A961487D2DFD1"><span class="RefLink">CTblLibXpls: The Character Table of 4.L_2(81).2_3 (December 2020)</span></a>.</p>
+
+<p><a id="X79418416826FE5F2" name="X79418416826FE5F2"></a></p>
+
+<h5>1.2-10 <span class="Heading">What's New in Version 1.3.1? (April 2020)</span></h5>
+
+<p>This release was motivated by small technical changes: A few typos were fixed, an acknowledgement was added, the directory name of the package now contains the version number (in order not to overwrite older versions), and the process to generate the package documentation was made independent of other packages.</p>
+
+<p>Besides that, the function <code class="func">CharacterTableComputedByMagma</code> (<a href="chap6_mj.html#X824D2B4A79A9E5AE"><span class="RefLink">6.5-3</span></a>) was made more robust.</p>
+
+<p>In particular, the data part of the package was not changed at all.</p>
+
+<p><a id="X83D8236D7E750DFE" name="X83D8236D7E750DFE"></a></p>
+
+<h5>1.2-11 <span class="Heading">What's New in Version 1.3.0? (December 2019)</span></h5>
+
+<p>We distinguish bug fixes, new features, new character table data, new data of other kind, and changed documentation.</p>
+
+<p><em>The following bugs were fixed.</em></p>
+
+
+<ul>
+<li><p>The <span class="SimpleMath">\(2\)</span>-modular Brauer table of the character table with the identifier <code class="code">"3.(2x2^(1+8)):(U4(2):2x2)"</code> was wrong, due to an error in the <strong class="pkg">GAP</strong> function that constructs this Brauer table from the known Brauer table of <span class="SimpleMath">\(U_4(2).2\)</span>; this was the only case in the library that was affected by this bug. (Thanks to Jürgen Müller who pointed out this error.)</p>
+
+</li>
+<li><p>The <span class="SimpleMath">\(2\)</span>-power map of the character table with the identifier <code class="code">"2.F4(2).2"</code> was wrong, see Section <a href="../doc2/chap1_mj.html#X7D7982CD87413F76"><span class="RefLink">CTblLibXpls: An Error in a Power Map of the Character Table of 2.F_4(2).2 (November 2015)</span></a>. (This error has been found in the context of the computations that are described in <a href="chapBib_mj.html#biBBMO17">[BMO17]</a>.)</p>
+
+</li>
+<li><p>The character table of <span class="SimpleMath">\(E_6(2)\)</span> was wrong w. r. t. some irrational character values and power maps on the classes of element order <span class="SimpleMath">\(91\)</span>, see Section <a href="../doc2/chap1_mj.html#X80F0B4E07B0B2277"><span class="RefLink">CTblLibXpls: An Error in the Character Table of E_6(2) (March 2016)</span></a>. (Thanks to Bill Unger who pointed out this error.)</p>
+
+</li>
+<li><p>Character tables with construction info <code class="func">ConstructAdjusted</code> (<a href="chap5_mj.html#X85FE8954830F85A0"><span class="RefLink">5.8-12</span></a>) had immutable <code class="func">ComputedPowerMaps</code> (<a href="../../../doc/ref/chap73_mj.html#X781FAA497E3B4D1A"><span class="RefLink">Reference: ComputedPowerMaps</span></a>) values, which made it impossible to add more power maps. (Thanks to Fabian Gundlach who pointed out this error.)</p>
+
+</li>
+</ul>
+<p><em>The following features have been added.</em></p>
+
+
+<ul>
+<li><p>The functions <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>), <code class="func">OneCharacterTableName</code> (<a href="chap3_mj.html#X7EC4A57E8393D75C"><span class="RefLink">3.1-5</span></a>), and <code class="func">BrowseCTblLibInfo</code> (<a href="chap3_mj.html#X7A038A267CD17032"><span class="RefLink">3.5-2</span></a>) support now the global option <code class="code">OrderedBy</code>.</p>
+
+</li>
+<li><p>The operation <code class="func">BrauerTable</code> (<a href="chap3_mj.html#X7E42C22278DA4048"><span class="RefLink">3.1-3</span></a>) now admits also a string as its first argument, and then delegates to the ordinary character table with this name.</p>
+
+</li>
+<li><p>The operation <code class="func">BrauerTable</code> (<a href="chap3_mj.html#X7E42C22278DA4048"><span class="RefLink">3.1-3</span></a>) is now successful also if the ordinary character table in question has the attribute <code class="func">ConstructionInfoCharacterTable</code> (<a href="chap3_mj.html#X851118377D1D6EC9"><span class="RefLink">3.7-4</span></a>) set and the first entry of the attribute value is the string <code class="code">"ConstructGS3"</code> and the Brauer tables for the character tables involved in the construction are available, see Section <a href="../doc2/chap2_mj.html#X7F50C782840F06E4"><span class="RefLink">CTblLibXpls: Examples for the Type G.S_3</span></a>.</p>
+
+</li>
+<li><p>The function <code class="func">CambridgeMaps</code> (<a href="chap6_mj.html#X78A84889878D98BB"><span class="RefLink">6.4-1</span></a>) has been improved in the sense that <q>relative</q> class names such as <code class="code">"B*2"</code> occur whenever this is possible, where the element order does not appear in the class name, and a Galois automorphism describes the relation to another class. (The character table with identifier <code class="code">"L2(13)"</code> is an example for which the result is now different.)</p>
+
+</li>
+<li><p>The function <code class="func">ConstructIsoclinic</code> (<a href="chap5_mj.html#X7F6A9FE57C77D778"><span class="RefLink">5.8-10</span></a>) has been extended, according to the extended functionality of <code class="func">CharacterTableIsoclinic</code> (<a href="../../../doc/ref/chap71_mj.html#X85BE46F784B83938"><span class="RefLink">Reference: CharacterTableIsoclinic</span></a>). For examples, see the sections <a href="../doc2/chap2_mj.html#X8379003582D06130"><span class="RefLink">CTblLibXpls: Groups of the Structures 3.U_3(8).3_1 and 3.U_3(8).6 (February 2017)</span></a> and <a href="../doc2/chap2_mj.html#X7AF324AF7A54798F"><span class="RefLink">CTblLibXpls: The Character Table of 9.U_3(8).3_3 (March 2017)</span></a>.</p>
+
+</li>
+<li><p>There is now a default <code class="func">InfoText</code> (<a href="chap3_mj.html#X871562FD7F982C12"><span class="RefLink">3.7-5</span></a>) method for library character tables, which returns an empty string. This admits searches for properties of the info text via <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>). Similarly, also properties of <code class="func">Identifier</code> (<a href="../../../doc/ref/chap71_mj.html#X79C40EE97890202F"><span class="RefLink">Reference: Identifier for character tables</span></a>) can now be searched efficiently, see <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>) for examples.</p>
+
+</li>
+<li><p>With the user preference <code class="code">DisplayFunction</code> of the <strong class="pkg">AtlasRep</strong> package (see Section <a href="chap4_mj.html#X7E859C3482F27089"><span class="RefLink">4.5-3</span></a>), one can configure how functions like <code class="func">DisplayCTblLibInfo</code> (<a href="chap3_mj.html#X8684C73E844E7033"><span class="RefLink">3.5-1</span></a>) place their output on the screen. (Up to now, the function <code class="func">Pager</code> (<a href="../../../doc/ref/chap2_mj.html#X7ED03E41792C3840"><span class="RefLink">Reference: Pager</span></a>) had always been called.)</p>
+
+</li>
+<li><p>The definition of <q>duplicate tables</q> has been extended in order to get a better integration of the <strong class="pkg">SpinSym</strong> package, see Section <a href="chap3_mj.html#X7E5CFB187E313B11"><span class="RefLink">3.6</span></a>.</p>
+
+</li>
+<li><p>A new variant of the function <code class="func">GAPTableOfMagmaFile</code> (<a href="chap6_mj.html#X7B1FAE1A7FD5D5A1"><span class="RefLink">6.5-2</span></a>) admits entering a <strong class="pkg">MAGMA</strong> format string instead of the name of a file that contains this string.</p>
+
+</li>
+<li><p>The new function <code class="func">CharacterTableComputedByMagma</code> (<a href="chap6_mj.html#X824D2B4A79A9E5AE"><span class="RefLink">6.5-3</span></a>) uses the <strong class="pkg">MAGMA</strong> system (if this is available) for computing the character table of a permutation group.</p>
+
+</li>
+<li><p>The new function <code class="func">NotifyCharacterTables</code> (<a href="chap4_mj.html#X8374B5D081F85DBC"><span class="RefLink">4.7-6</span></a>) is more efficient than <code class="func">NotifyCharacterTable</code> (<a href="chap4_mj.html#X79366F797CD02DAF"><span class="RefLink">4.7-5</span></a>) if one wants to add several private character tables at the same time.</p>
+
+</li>
+<li><p>In the tables of maximal subgroups and Sylow <span class="SimpleMath">\(p\)</span> normalizers shown by <code class="func">DisplayCTblLibInfo</code> (<a href="chap3_mj.html#X8684C73E844E7033"><span class="RefLink">3.5-1</span></a>) and <code class="func">BrowseCTblLibInfo</code> (<a href="chap3_mj.html#X7A038A267CD17032"><span class="RefLink">3.5-2</span></a>), the former <code class="code">Name</code> column has been replaced by two columns <code class="code">Structure</code> (which tries to show information about the structures of the groups, using <code class="func">StructureDescriptionCharacterTableName</code> (<a href="chap7_mj.html#X816807E4874585FD"><span class="RefLink">7.2-1</span></a>)) and <code class="code">Name</code> (which just shows the identifiers of the character tables). This improvement arose from a discussion with Gabriel Navarro.</p>
+
+</li>
+<li><p>The former <strong class="pkg">GAP</strong> readable text file <code class="file">data/ctbldiff.dat</code> has been replaced by the (still <strong class="pkg">GAP</strong> readable) JSON format file <code class="file">data/ctbldiff.json</code>. (It is planned for future releases to replace more data files by JSON format files, in order to make the data independent of <strong class="pkg">GAP</strong>.)</p>
+
+</li>
+<li><p>Two filenames of the package have been changed, from <code class="file">ctadmin.tbd</code> and <code class="file">ctadmin.tbi</code> to <code class="file">ctadmin.gd</code> and <code class="file">ctadmin.gi</code>, respectively.</p>
+
+</li>
+</ul>
+<p>Concerning <em>added character table data</em>, the full list of differences w. r. t. earlier versions can be found in the file <code class="file">data/ctbldiff.json</code> of the package; see <code class="func">BrowseCTblLibDifferences</code> (<a href="chap3_mj.html#X87CA74CF7B533CC6"><span class="RefLink">3.5-4</span></a>) for a way to utilize this list in a <strong class="pkg">GAP</strong> session.</p>
+
+<p><em>The following other data have been added.</em></p>
+
+
+<ul>
+<li><p><code class="func">GroupInfoForCharacterTable</code> (<a href="chap3_mj.html#X78DCD38B7D96D8A4"><span class="RefLink">3.3-1</span></a>) works now for more character tables than before.</p>
+
+<p>In particular there are representations for all <strong class="pkg">Atlas</strong> groups (bicyclic extensions of simple groups whose character tables are shown in the <strong class="pkg">Atlas</strong> of Finite Groups <a href="chapBib_mj.html#biBCCN85">[CCN+85]</a>, up to isoclinism), except the groups <span class="SimpleMath">\(2.B\)</span> and <span class="SimpleMath">\(M\)</span>; several of these representations were computed in the context of the computations that are described in <a href="chapBib_mj.html#biBBMO17">[BMO17]</a>.</p>
+
+<p>Also the library tables of groups that occur in <strong class="pkg">GAP</strong>'s library of primitive groups (the <strong class="pkg">GAP</strong> package <strong class="pkg">PrimGrp</strong>) know about this fact; note that older versions of <strong class="pkg">PrimGrp</strong> contained only groups of degree at most <span class="SimpleMath">\(2499\)</span>.</p>
+
+<p>See Section <a href="../doc2/chap1_mj.html#X8159D79C7F071B33"><span class="RefLink">CTblLibXpls: Some finite factor groups of perfect space groups (February 2014)</span></a> for some other representations that are now available.</p>
+
+</li>
+</ul>
+<p><em>Finally, the documentation was changed as follows.</em></p>
+
+
+<ul>
+<li><p>Several of the files showing examples of character theoretic computations with <strong class="pkg">GAP</strong> have been turned into the <strong class="pkg">GAPDoc</strong> book <q>CTblLibXpls</q>, see above. Some advantages of this new setup are that the contents can be accessed also in <strong class="pkg">GAP</strong>'s interactive help, and that cross-referencing is simpler.</p>
+
+</li>
+</ul>
+<p><a id="X7BC6B5FD7F720EA0" name="X7BC6B5FD7F720EA0"></a></p>
+
+<h5>1.2-12 <span class="Heading">What's New in Version 1.2.2? (March 2013)</span></h5>
+
+<p>The following bugs were fixed.</p>
+
+
+<ul>
+<li><p>The functions <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>) and <code class="func">OneCharacterTableName</code> (<a href="chap3_mj.html#X7EC4A57E8393D75C"><span class="RefLink">3.1-5</span></a>) ran into an error in certain situations, if the library had been extended by private tables, see Section <a href="chap4_mj.html#X78FFDF0F83E7EB0D"><span class="RefLink">4.7</span></a>. (As a consequence, the description of <code class="func">IsDuplicateTable</code> (<a href="chap3_mj.html#X7FD4A9DF7CBAA418"><span class="RefLink">3.6-1</span></a>) has been extended.) Thanks to Alexander Konovalov and Lukas Maas for pointing out this error.</p>
+
+</li>
+<li><p>The function <code class="func">CharacterTableOfIndexTwoSubdirectProduct</code> (<a href="chap5_mj.html#X7D0207B07B48FD06"><span class="RefLink">5.5-1</span></a>) returned a wrong result if the two factors were given by the <em>same</em> character table. An example is <span class="SimpleMath">\((A_5 \times A_5).2\)</span>, created as a subdirect product of two copies of <span class="SimpleMath">\(S_5\)</span>.</p>
+
+</li>
+</ul>
+<p><a id="X7E26A5FD7EBB4FA1" name="X7E26A5FD7EBB4FA1"></a></p>
+
+<h5>1.2-13 <span class="Heading">What's New in Version 1.2.0 and 1.2.1? (May 2012)</span></h5>
+
+<p>Concerning character table data, we have the following.</p>
+
+
+<ul>
+<li><p>A few bugs in character tables have been fixed.</p>
+
+</li>
+<li><p>Several class fusions stored in character tables have been changed, in order to be more consistent with related data, see Section <a href="chap4_mj.html#X7D24C9D17DAB50D0"><span class="RefLink">4.9</span></a> for reasons of such changes.</p>
+
+</li>
+<li><p>Many new character tables have been added. For example, a character table is available for each table of marks in the <strong class="pkg">TomLib</strong> package.</p>
+
+</li>
+</ul>
+<p>Besides these changes of the data, the following features are new.</p>
+
+
+<ul>
+<li><p>A tutorial for beginners was added to the package manual, see Chapter <a href="chap2_mj.html#X7C4E7E1181E82D8E"><span class="RefLink">2</span></a>, and the package manual was restructured. The manual is now based on the <strong class="pkg">GAPDoc</strong> package (see <a href="chapBib_mj.html#biBGAPDoc">[LN18]</a>).</p>
+
+</li>
+<li><p>Generic constructions of Brauer tables are now available if the underlying ordinary table is encoded via <code class="func">ConstructMGA</code> (<a href="chap5_mj.html#X7A948B397B5BC0AD"><span class="RefLink">5.8-1</span></a>), <code class="func">ConstructIndexTwoSubdirectProduct</code> (<a href="chap5_mj.html#X8714D24B802DA949"><span class="RefLink">5.5-2</span></a>), or <code class="func">ConstructV4G</code> (<a href="chap5_mj.html#X7C1CE54A864936E0"><span class="RefLink">5.8-4</span></a>), and if the Brauer tables of the compound tables are known.</p>
+
+</li>
+<li><p>The attributes <code class="func">FusionToTom</code> (<a href="chap3_mj.html#X7B1AAED68753B1BE"><span class="RefLink">3.2-4</span></a>) and <code class="func">Maxes</code> (<a href="chap3_mj.html#X8150E63F7DBDF252"><span class="RefLink">3.7-1</span></a>) are no longer set in duplicate tables. This can be regarded as a bugfix, in the following sense. For the sake of consistency, it would in general be necessary to apply a permutation to the fusion into the table of marks, and to add the class fusions from the tables of the maximal subgroups to the duplicate table.</p>
+
+</li>
+<li><p>The consistency checks for character tables have been improved and are now documented, see Section <a href="chap4_mj.html#X7E3235FD7864A672"><span class="RefLink">4.8</span></a>. Due to these checks, several class fusions had to be replaced.</p>
+
+</li>
+<li><p>The concept of duplicate character tables is now documented, see Section <a href="chap3_mj.html#X7E5CFB187E313B11"><span class="RefLink">3.6</span></a>. As a consequence, the behaviour of <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>) has changed in situations where <code class="func">IsSimple</code> (<a href="../../../doc/ref/chap71_mj.html#X81EFD9FE804AC6EE"><span class="RefLink">Reference: IsSimple for a character table</span></a>) or <code class="func">IsSporadicSimple</code> (<a href="../../../doc/ref/chap71_mj.html#X81EFD9FE804AC6EE"><span class="RefLink">Reference: IsSporadicSimple for a character table</span></a>) occur as arguments (see <a href="../../../doc/ref/chap71_mj.html#X81EFD9FE804AC6EE"><span class="RefLink">Reference: Group Operations Applicable to Character Tables</span></a>), as follows. In earlier versions of the package, duplicate tables had automatically been excluded. From now on, duplicates can be excluded if one wants so, but they are not automatically excluded. This change may be regarded as a bugfix.</p>
+
+</li>
+<li><p>Several attribute values for character tables, such as <code class="func">Size</code> (<a href="../../../doc/ref/chap30_mj.html#X858ADA3B7A684421"><span class="RefLink">Reference: Size</span></a>) and <code class="func">NrConjugacyClasses</code> (<a href="../../../doc/ref/chap39_mj.html#X8733F87B7E4C9903"><span class="RefLink">Reference: NrConjugacyClasses</span></a>) are now available without reading the character table data files, provided that the <strong class="pkg">Browse</strong> package (see <a href="chapBib_mj.html#biBBrowse">[BL23]</a>) has been loaded. See the documentation of <code class="func">AllCharacterTableNames</code> (<a href="chap3_mj.html#X7C091641852BB6FE"><span class="RefLink">3.1-4</span></a>) for details; this function is much faster if only these attributes appear in the conditions given. Thus it is now more reasonable to use this function for searches in the table library.</p>
+
+</li>
+<li><p><strong class="pkg">GAP</strong>'s group libraries provide many groups for which the Character Table Library contains the character tables. Given a character table from the library, one can list and access available groups with the functions described in Section <a href="chap3_mj.html#X83D85EB2792D9D22"><span class="RefLink">3.3</span></a>, provided that the <strong class="pkg">Browse</strong> package (see <a href="chapBib_mj.html#biBBrowse">[BL23]</a>) has been loaded.</p>
+
+</li>
+<li><p>An interactive overview of the contents is now available that is based on the <strong class="pkg">Browse</strong> package <a href="chapBib_mj.html#biBBrowse">[BL23]</a>, see Section <a href="chap3_mj.html#X7900893987A89915"><span class="RefLink">3.5</span></a>.</p>
+
+</li>
+<li><p>Information about Deligne-Lusztig names of unipotent characters of finite groups of Lie type is now available, see Section <a href="chap3_mj.html#X7C1F6C01852D7933"><span class="RefLink">3.4</span></a>.</p>
+
+</li>
+<li><p>An interface for reading <strong class="pkg">MAGMA</strong> tables was added, see Section <a href="chap6_mj.html#X8676916F81F40A0F"><span class="RefLink">6.5</span></a>.</p>
+
+</li>
+</ul>
+<p><a id="X79402202865D152A" name="X79402202865D152A"></a></p>
+
+<h5>1.2-14 <span class="Heading">What's New in Version 1.1? (November 2003)</span></h5>
+
+<p>First of all, of course several character tables were added; for an overview, see the file <code class="file">doc/ctbldiff.pdf</code> in the home directory of the package. Also lots of class fusions were added. This includes factor fusions onto the tables of the factor groups modulo the largest normal <span class="SimpleMath">\(p\)</span>-subgroups whenever the tables of the factors are available; these maps admit the automatic construction of the <span class="SimpleMath">\(p\)</span>-modular Brauer tables if the corresponding tables of the factors are available. For example, the <span class="SimpleMath">\(2\)</span>-modular Brauer table of the maximal subgroup of the type <span class="SimpleMath">\(2^{10}:M_{22}\)</span> in the group <span class="SimpleMath">\(Fi_{22}\)</span> is available because of the known <span class="SimpleMath">\(2\)</span>-modular table of <span class="SimpleMath">\(M_{22}\)</span> and the stored factor fusion onto the table of <span class="SimpleMath">\(M_{22}\)</span>.</p>
+
+<p>Second, more information has been made more explicit, in the following sense.</p>
+
+
+<ul>
+<li><p><code class="func">Identifier</code> (<a href="../../../doc/ref/chap71_mj.html#X79C40EE97890202F"><span class="RefLink">Reference: Identifier for character tables</span></a>) values of tables that are constructed from generic tables are now valid arguments of <code class="func">CharacterTable</code> (<a href="../../../doc/ref/chap71_mj.html#X7FCA7A7A822BDA33"><span class="RefLink">Reference: CharacterTable</span></a>), for example <code class="code">CharacterTable( "C10" )</code> and <code class="code">CharacterTable( "Sym(5)" )</code> can be used to create the character table of the cyclic group of order <span class="SimpleMath">\(10\)</span> and of the symmetric group of degree <span class="SimpleMath">\(5\)</span>, respectively.</p>
+
+</li>
+<li><p>Attributes have been introduced that replace more or less hidden components (see Section <a href="chap3_mj.html#X7CCFEC998135F6FA"><span class="RefLink">3.7</span></a>); in particular, the way how many ordinary tables are encoded via the construction from other tables is no longer encapsulated in a function call but instead the name of the function and the arguments are stored as an attribute value (see <code class="func">ConstructionInfoCharacterTable</code> (<a href="chap3_mj.html#X851118377D1D6EC9"><span class="RefLink">3.7-4</span></a>)).</p>
+
+</li>
+<li><p>The functions that are used for the table constructions have been documented (see Chapter <a href="chap5_mj.html#X7B915AD178236991"><span class="RefLink">5</span></a>).</p>
+
+</li>
+<li><p>Several consistency checks are now part of the package distribution, in the files <code class="file">gap4/test.gd</code> and <code class="file">gap4/test.gi</code>. However, currently they are not documented. The new file <code class="file">tst/testall.g</code> lists the files that belong to the <q>standard test suite</q>. Further checks involving the <strong class="pkg">GAP</strong> Character Table Library are parts of the <strong class="pkg">GAP</strong> packages AtlasRep (see <a href="chapBib_mj.html#biBAtlasRep">[WPN+22]</a>) and TomLib.</p>
+
+</li>
+<li><p>As a part of the consistency checks, class fusions between character tables and from character tables into corresponding tables of marks have been recomputed, and the <code class="code">text</code> components have been standardized; this means that the texts express whether the maps are unique, unique up to table automorphisms, or ambiguous. However, currently this is not documented.</p>
+
+</li>
+<li><p>One can now avoid unloading the contents of data files, which can speed up computations involving many library tables. (In version 1.1, the function <code class="code">CTblLibSetUnload</code> had been provided for that. Since version 1.2, a <strong class="pkg">GAP</strong> 4.5 user preference replaces this function.)</p>
+
+</li>
+</ul>
+<p>Third, several errors have been corrected (again see <code class="file">doc/ctbldiff.pdf</code>). Most of them affect class fusions, and for most of those, the term <q>error</q> could be regarded as not really appropriate. See <a href="chap4_mj.html#X7D24C9D17DAB50D0"><span class="RefLink">4.9</span></a> for details.</p>
+
+<p>Finally, the <strong class="pkg">GAP</strong> functions for reading and writing other formats of character tables have been moved from the main <strong class="pkg">GAP</strong> library to this package (see Chapter <a href="chap6_mj.html#X81C250407B91443F"><span class="RefLink">6</span></a>), because they are useful only for library tables. The <strong class="pkg">GAP</strong> 3 format is now also supported, mainly for documentation purposes (see Section <a href="chap6_mj.html#X80E1850F7DCED030"><span class="RefLink">6.3</span></a>).</p>
+
+<p><a id="X82A988D47DFAFCFA" name="X82A988D47DFAFCFA"></a></p>
+
+<h4>1.3 <span class="Heading">Acknowledgements</span></h4>
+
+<p>The development of the <strong class="pkg">GAP</strong> Character Table Library has been supported by several DFG grants, in particular the project <q>Representation Theory of Finite Groups and Finite Dimensional Algebras</q> (until 1991), the Schwerpunkt <q>Algorithmische Zahlentheorie und Algebra</q> (from 1991 until 1997), and the <span class="URL"><a href="https://www.computeralgebra.de/sfb/">SFB-TRR 195 <q>Symbolic Tools in Mathematics and their Applications</q></a></span> (Project-ID 286237555, since 2017).</p>
+
+<p>The functions for the conversion of <strong class="pkg">CAS</strong> tables to <strong class="pkg">GAP</strong> format have been written by Götz Pfeiffer. The functions for converting the so-called <q>Cambridge format</q> (in which the original data of the <strong class="pkg">Atlas</strong> of Finite Groups had been stored) to <strong class="pkg">GAP</strong> format have been written by Christoph Jansen.</p>
+
+<p>The generic character tables of double covers of alternating and symmetric groups were contributed by Felix Noeske, see <a href="chapBib_mj.html#biBNoe02">[Noe02]</a>.</p>
+
+<p>The functions in Section <a href="chap3_mj.html#X7C1F6C01852D7933"><span class="RefLink">3.4</span></a> (<code class="func">DeligneLusztigName</code> (<a href="chap3_mj.html#X84B9D8EF84EB4145"><span class="RefLink">3.4-3</span></a>), <code class="func">DeligneLusztigNames</code> (<a href="chap3_mj.html#X803FD7F87AFBBDE4"><span class="RefLink">3.4-2</span></a>), and <code class="func">UnipotentCharacter</code> (<a href="chap3_mj.html#X79F645F278C27F23"><span class="RefLink">3.4-1</span></a>)) as well as the corresponding data for the finite groups of Lie type in the <strong class="pkg">GAP</strong> Character Table Library have been contributed by Michael Claßen-Houben, see <a href="chapBib_mj.html#biBCla05">[Cla05]</a>.</p>
+
+<p>Several character tables of maximal subgroups of covering groups of simple groups have been computed by Sebastian Dany, see <a href="chapBib_mj.html#biBDan06">[Dan06]</a>.</p>
+
+<p>Thanks to Frank Lübeck and Max Neunhöffer for their help with solving technical problems concerning the HMTL part of the example files that belong to the package documentation, and to Ian Hutchinson whose TeX to HTML translator <code class="code">TtH</code> was used to provide these HTML files.</p>
+
+<p>Thanks to Frank Lübeck and Max Neunhöffer also for developing the <strong class="pkg">GAPDoc</strong> package (see <a href="chapBib_mj.html#biBGAPDoc">[LN18]</a>), on which the manual of the <strong class="pkg">CTblLib</strong> package is based. The previously available documentation format had been completely inappropriate.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chap7_mj.html">7</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

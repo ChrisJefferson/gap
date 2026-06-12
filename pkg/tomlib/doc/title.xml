@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    TomLib
+  </Title>
+  <Subtitle>
+    The &GAP; Library of Tables of Marks
+  </Subtitle>
+  <Version>
+    1.2.11
+  </Version>
+  <Author>
+    Thomas Merkwitz<Alt Only="LaTeX"><Br/></Alt>
+<Email>tmez2525@web.de</Email>
+
+  </Author>
+  <Author>
+    Liam Naughton<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Liam Naughton<Br/>
+School of Mathematics and Computer Science<Br/>
+University of Wolverhampton<Br/>
+Wulfruna Street<Br/>
+Wolverhampton<Br/>
+United Kingdom<Br/>
+WV1 1LY<Br/>
+</Address>
+<Email>l.naughton@wlv.ac.uk</Email>
+
+  </Author>
+  <Author>
+    Götz Pfeiffer<Alt Only="LaTeX"><Br/></Alt>
+<Email>goetz.pfeiffer@nuigalway.ie</Email>
+
+  </Author>
+  <Date>
+    12 January 2024
+  </Date>
+  <Copyright>
+                &copyright; 2016 We adopt the copyright regulations of GAP as
+            detailed in the copyright notice in the GAP manual.
+            
+  </Copyright>
+  <Acknowledgements>
+                This documentation was prepared with the <Package>GAPDoc</Package>
+            package by Frank Lübeck and Max Neunhöffer.
+            
+  </Acknowledgements>
+  </TitlePage>

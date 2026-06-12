@@ -1,0 +1,11 @@
+inp 4 2 3 4 6
+pwr 2 6 13B
+pwr 2 4 7B
+pwr 2 2 2A
+pwr 2 13B 13C
+pwr 2 7B 7C
+pwr 2 2A 1A
+pwr 3 2 4B
+echo "Classes 1A 2A 4A 4B 5A 7A 7B 7C 13A 13B 13C"
+oup 11 1A 2A 2 4B 3 4 7B 7C 6 13B 13C
+

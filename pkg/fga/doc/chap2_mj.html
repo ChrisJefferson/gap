@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (FGA) - Chapter 2: Functionality of the FGA package</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap2"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap2.html">[MathJax off]</a></p>
+<p><a id="X7B92AEAE7ACBE77D" name="X7B92AEAE7ACBE77D"></a></p>
+<div class="ChapSects"><a href="chap2_mj.html#X7B92AEAE7ACBE77D">2 <span class="Heading">Functionality of the FGA package</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X86E0C3F57990A253">2.1 <span class="Heading">New operations for free groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X829FB22C7DFBEADC">2.1-1 FreeGeneratorsOfGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7D7AE4F284F17C20">2.1-2 RankOfFreeGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7DD1809D868165AD">2.1-3 CyclicallyReducedWord</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7AB44D3D80E0F85A">2.2 <span class="Heading">Method installations</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X87B5370C7DFD401D">2.2-1 Normalizer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X857DC7B085EB0539">2.2-2 RepresentativeAction</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7A2BF4527E08803C">2.2-3 Centralizer</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X83A0356F839C696F">2.2-4 Index</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X851069107CACF98E">2.2-5 Intersection</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X87BDB89B7AAFE8AD"><code>2.2-6 \in</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7839D8927E778334">2.2-7 IsSubgroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X806A4814806A4814"><code>2.2-8 \=</code></a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X81D15723804771E2">2.2-9 MinimalGeneratingSet</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X82B7B32E783A39B0">2.3 <span class="Heading">Constructive membership test</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X78917F717E5DB86A">2.3-1 AsWordLetterRepInGenerators</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7AEFC7BA80FA4CFC">2.4 <span class="Heading">Automorphism groups of free groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X87677B0787B4461A">2.4-1 AutomorphismGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7F28268F850F454E">2.4-2 IsomorphismFpGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X85AD957084C1E38D">2.4-3 FreeGroupEndomorphismByImages</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X8173ECA579D6172B">2.4-4 FreeGroupAutomorphismsGeneratorO</a></span>
+</div></div>
+</div>
+
+<h3>2 <span class="Heading">Functionality of the FGA package</span></h3>
+
+<p>This chapter describes methods available from the <strong class="pkg">FGA</strong> package.</p>
+
+<p>In the following, let <var class="Arg">f</var> be a free group created by <code class="code">FreeGroup(<var class="Arg">n</var>)</code>, and let <var class="Arg">u</var>, <var class="Arg">u1</var> and <var class="Arg">u2</var> be finitely generated subgroups of <var class="Arg">f</var> created by <code class="code">Group</code> or <code class="code">Subgroup</code>, or computed from some other subgroup of <var class="Arg">f</var>. Let <var class="Arg">elm</var> be an element of <var class="Arg">f</var>.</p>
+
+<p>For example:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := FreeGroup( 2 );                                             </span>
+&lt;free group on the generators [ f1, f2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u := Group( f.1^2, f.2^2, f.1*f.2 );</span>
+Group([ f1^2, f2^2, f1*f2 ])
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u1 := Subgroup( u, [f.1^2, f.1^4*f.2^6] );</span>
+Group([ f1^2, f1^4*f2^6 ])
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">elm := f.1;</span>
+f1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u2 := Normalizer( u, elm );</span>
+Group([ f1^2 ])
+</pre></div>
+
+<p><a id="X86E0C3F57990A253" name="X86E0C3F57990A253"></a></p>
+
+<h4>2.1 <span class="Heading">New operations for free groups</span></h4>
+
+<p>These new operations are available for finitely generated subgroups of free groups:</p>
+
+<p><a id="X829FB22C7DFBEADC" name="X829FB22C7DFBEADC"></a></p>
+
+<h5>2.1-1 FreeGeneratorsOfGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGeneratorsOfGroup</code>( <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>returns a list of free generators of the finitely generated subgroup <var class="Arg">u</var> of a free group.</p>
+
+<p>The elements in this list form an N-reduced set. In addition to being a free (and thus minimal) generating set for <var class="Arg">u</var>, this means that whenever <var class="Arg">v1</var>, <var class="Arg">v2</var> and <var class="Arg">v3</var> are elements or inverses of elements of this list, then</p>
+
+
+<ul>
+<li><p><span class="SimpleMath">\(\textit{v1}\textit{v2}\neq1\)</span> implies <span class="SimpleMath">\(|\textit{v1}\textit{v2}|\geq\max(|\textit{v1}|, |\textit{v2}|)\)</span>, and</p>
+
+</li>
+<li><p><span class="SimpleMath">\(\textit{v1}\textit{v2}\neq1\)</span> and <span class="SimpleMath">\(\textit{v2}\textit{v3}\neq1\)</span> implies <span class="SimpleMath">\(|\textit{v1}\textit{v2}\textit{v3}| &gt; |\textit{v1}| - |\textit{v2}| + |\textit{v3}|\)</span></p>
+
+</li>
+</ul>
+<p>hold, where <span class="SimpleMath">\(|.|\)</span> denotes the word length.</p>
+
+<p><a id="X7D7AE4F284F17C20" name="X7D7AE4F284F17C20"></a></p>
+
+<h5>2.1-2 RankOfFreeGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RankOfFreeGroup</code>( <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Rank</code>( <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>returns the rank of the finitely generated subgroup <var class="Arg">u</var> of a free group.</p>
+
+<p><a id="X7DD1809D868165AD" name="X7DD1809D868165AD"></a></p>
+
+<h5>2.1-3 CyclicallyReducedWord</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CyclicallyReducedWord</code>( <var class="Arg">elm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>returns the cyclically reduced form of <var class="Arg">elm</var>.</p>
+
+<p><a id="X7AB44D3D80E0F85A" name="X7AB44D3D80E0F85A"></a></p>
+
+<h4>2.2 <span class="Heading">Method installations</span></h4>
+
+<p>This section lists operations that are already known to <strong class="pkg">GAP</strong>. <strong class="pkg">FGA</strong> installs new methods for them so that they can also be used with free groups. In cases where <strong class="pkg">FGA</strong> installs methods that are usually only used internally, user functions are shown instead.</p>
+
+<p><a id="X87B5370C7DFD401D" name="X87B5370C7DFD401D"></a></p>
+
+<h5>2.2-1 Normalizer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Normalizer</code>( <var class="Arg">u1</var>, <var class="Arg">u2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Normalizer</code>( <var class="Arg">u</var>, <var class="Arg">elm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>The first variant returns the normalizer of the finitely generated subgroup <var class="Arg">u2</var> in <var class="Arg">u1</var>.</p>
+
+<p>The second variant returns the normalizer of <span class="SimpleMath">\(\langle \textit{elm} \rangle\)</span> in the finitely generated subgroup <var class="Arg">u</var> (see <code class="func">Normalizer</code> (<a href="../../../doc/ref/chap39_mj.html#X87B5370C7DFD401D"><span class="RefLink">Reference: Normalizer</span></a>) in the Reference Manual).</p>
+
+<p><a id="X857DC7B085EB0539" name="X857DC7B085EB0539"></a></p>
+
+<h5>2.2-2 RepresentativeAction</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RepresentativeAction</code>( <var class="Arg">u</var>, <var class="Arg">d</var>, <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsConjugate</code>( <var class="Arg">u</var>, <var class="Arg">d</var>, <var class="Arg">e</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p><code class="code">RepresentativeAction</code> returns an element <span class="SimpleMath">\( \textit{r} \in \textit{u} \)</span>, where <var class="Arg">u</var> is a finitely generated subgroup of a free group, such that <span class="SimpleMath">\(\textit{d}^{\textit{r}}=\textit{e}\)</span>, or fail, if no such <var class="Arg">r</var> exists. <var class="Arg">d</var> and <var class="Arg">e</var> may be elements or subgroups of <var class="Arg">u</var>.</p>
+
+<p><code class="code">IsConjugate</code> returns a boolean indicating whether such an element <var class="Arg">r</var> exists.</p>
+
+<p><a id="X7A2BF4527E08803C" name="X7A2BF4527E08803C"></a></p>
+
+<h5>2.2-3 Centralizer</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Centralizer</code>( <var class="Arg">u</var>, <var class="Arg">u2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Centralizer</code>( <var class="Arg">u</var>, <var class="Arg">elm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>returns the centralizer of <var class="Arg">u2</var> or <var class="Arg">elm</var> in the finitely generated subgroup <var class="Arg">u</var> of a free group.</p>
+
+<p><a id="X83A0356F839C696F" name="X83A0356F839C696F"></a></p>
+
+<h5>2.2-4 Index</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Index</code>( <var class="Arg">u1</var>, <var class="Arg">u2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IndexNC</code>( <var class="Arg">u1</var>, <var class="Arg">u2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>return the index of <var class="Arg">u2</var> in <var class="Arg">u1</var>, where <var class="Arg">u1</var> and <var class="Arg">u2</var> are finitely generated subgroups of a free group. The first variant returns fail if <var class="Arg">u2</var> is not a subgroup of <var class="Arg">u1</var>, the second may return anything in this case.</p>
+
+<p><a id="X851069107CACF98E" name="X851069107CACF98E"></a></p>
+
+<h5>2.2-5 Intersection</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Intersection</code>( <var class="Arg">u1</var>, <var class="Arg">u2</var>, <var class="Arg">\dots</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>returns the intersection of <var class="Arg">u1</var> and <var class="Arg">u2</var>, where <var class="Arg">u1</var> and <var class="Arg">u2</var> are finitely generated subgroups of a free group.</p>
+
+<p><a id="X87BDB89B7AAFE8AD" name="X87BDB89B7AAFE8AD"></a></p>
+
+<h5><code>2.2-6 \in</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \in</code>( <var class="Arg">elm</var>, <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
+<p>tests whether <var class="Arg">elm</var> is contained in the finitely generated subgroup <var class="Arg">u</var> of a free group.</p>
+
+<p><a id="X7839D8927E778334" name="X7839D8927E778334"></a></p>
+
+<h5>2.2-7 IsSubgroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSubgroup</code>( <var class="Arg">u1</var>, <var class="Arg">u2</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>tests whether <var class="Arg">u2</var> is a subgroup of <var class="Arg">u1</var>, where <var class="Arg">u1</var> and <var class="Arg">u2</var> are finitely generated subgroups of a free group.</p>
+
+<p><a id="X806A4814806A4814" name="X806A4814806A4814"></a></p>
+
+<h5><code>2.2-8 \=</code></h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; \=</code>( <var class="Arg">u1</var>, <var class="Arg">u2</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
+<p>test whether the two finitely generated subgroups <var class="Arg">u1</var> and <var class="Arg">u2</var> of a free group are equal.</p>
+
+<p><a id="X81D15723804771E2" name="X81D15723804771E2"></a></p>
+
+<h5>2.2-9 MinimalGeneratingSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MinimalGeneratingSet</code>( <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SmallGeneratingSet</code>( <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GeneratorsOfGroup</code>( <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>return generating sets for the finitely generated subgroup <var class="Arg">u</var> of a free group. <code class="code">MinimalGeneratingSet</code> and <code class="code">SmallGeneratingSet</code> return the same free generators as <code class="code">FreeGeneratorsOfGroup</code>, which are in fact a minimal generating set. <code class="code">GeneratorsOfGroup</code> also returns these generators, if no other generators were stored at creation time.</p>
+
+<p><a id="X82B7B32E783A39B0" name="X82B7B32E783A39B0"></a></p>
+
+<h4>2.3 <span class="Heading">Constructive membership test</span></h4>
+
+<p>It is not only possible to test whether an element is in a finitely generated subgroup of free group, this can also be done constructively. The idiomatic way to do so is by using a homomorphism.</p>
+
+<p>Here is an example that computes how to write <code class="code">f.1^2</code> in the generators <code class="code">a=f1^2*f2^2</code> and <code class="code">b=f.1^2*f.2</code>, checks the result, and then tries to write <code class="code">f.1</code> in the same generators:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := FreeGroup( 2 );</span>
+&lt;free group on the generators [ f1, f2 ]&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ua := f.1^2*f.2^2;; ub := f.1^2*f.2;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">u := Group( ua, ub );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">g := FreeGroup( "a", "b" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">hom := GroupHomomorphismByImages( g, u,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            GeneratorsOfGroup(g),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">            GeneratorsOfGroup(u) );</span>
+[ a, b ] -&gt; [ f1^2*f2^2, f1^2*f2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput"># how can f.1^2 be expressed?</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PreImagesRepresentative( hom, f.1^2 );</span>
+b*a^-1*b
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">last ^ hom; # check this</span>
+f1^2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ub * ua^-1 * ub; # another check</span>
+f1^2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">PreImagesRepresentative( hom, f.1 ); # try f.1</span>
+fail
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f.1 in u;</span>
+false
+</pre></div>
+
+<p>There are also lower level operations to get the same results.</p>
+
+<p><a id="X78917F717E5DB86A" name="X78917F717E5DB86A"></a></p>
+
+<h5>2.3-1 AsWordLetterRepInGenerators</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsWordLetterRepInGenerators</code>( <var class="Arg">elm</var>, <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsWordLetterRepInFreeGenerators</code>( <var class="Arg">elm</var>, <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>return a letter representation (see Section <a href="../../../doc/ref/chap37_mj.html#X80A9F39582ED296E"><span class="RefLink">Reference: Representations for Associative Words</span></a> in the <strong class="pkg">GAP</strong> Reference Manual) of the given <var class="Arg">elm</var> relative to the generators the group was created with or the free generators as returned by <code class="code">FreeGeneratorsOfGroup</code>.</p>
+
+<p>Continuing the above example:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AsWordLetterRepInGenerators( f.1^2, u );    </span>
+[ 2, -1, 2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AsWordLetterRepInFreeGenerators( f.1^2, u );</span>
+[ 2 ]
+</pre></div>
+
+<p>This means: to get <code class="code">f.1^2</code>, multiply the second of the given generators with the inverse of the first and again with the second; or just take the second free generator.</p>
+
+<p><a id="X7AEFC7BA80FA4CFC" name="X7AEFC7BA80FA4CFC"></a></p>
+
+<h4>2.4 <span class="Heading">Automorphism groups of free groups</span></h4>
+
+<p>The <strong class="pkg">FGA</strong> package knows presentations of the automorphism groups of free groups. It also allows to express an automorphism as word in the generators of these presentations. This sections repeats the <strong class="pkg">GAP</strong> standard methods to do so and shows functions to obtain the generating automorphisms.</p>
+
+<p><a id="X87677B0787B4461A" name="X87677B0787B4461A"></a></p>
+
+<h5>2.4-1 AutomorphismGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutomorphismGroup</code>( <var class="Arg">u</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>returns the automorphism group of the finitely generated subgroup <var class="Arg">u</var> of a free group.</p>
+
+<p>Only a few methods will work with this group. But there is a way to obtain an isomorphic finitely presented group:</p>
+
+<p><a id="X7F28268F850F454E" name="X7F28268F850F454E"></a></p>
+
+<h5>2.4-2 IsomorphismFpGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismFpGroup</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<p>returns an isomorphism of <var class="Arg">group</var> to a finitely presented group. For automorphism groups of free groups, the <strong class="pkg">FGA</strong> package implements the presentations of <a href="chapBib_mj.html#biBNeumann33">[Neu33]</a>. The finitely presented group itself can then be obtained with the command <code class="code">Range</code>.</p>
+
+<p>Here is an example:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">f := FreeGroup( 2 );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">a := AutomorphismGroup( f );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">iso := IsomorphismFpGroup( a );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Range( iso );</span>
+&lt;fp group on the generators [ O, P, U ]&gt;
+</pre></div>
+
+<p>To express an automorphism as word in the generators of the presentation, just apply the isomorphism obtained from <code class="code">IsomorphismFpGroup</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">aut := GroupHomomorphismByImages( f, f,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">             GeneratorsOfGroup( f ), [ f.1^f.2, f.1*f.2 ] );</span>
+[ f1, f2 ] -&gt; [ f2^-1*f1*f2, f1*f2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ImageElm( iso, aut );</span>
+O^2*U*O*P^-1*U
+</pre></div>
+
+<p>It is also possible to use <code class="code">aut^iso</code> or <code class="code">Image( iso, aut )</code>. Using <code class="code">Image</code> will perform additional checks on the arguments.</p>
+
+<p>The <strong class="pkg">FGA</strong> package provides a simpler way to create endomorphisms:</p>
+
+<p><a id="X85AD957084C1E38D" name="X85AD957084C1E38D"></a></p>
+
+<h5>2.4-3 FreeGroupEndomorphismByImages</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupEndomorphismByImages</code>( <var class="Arg">g</var>, <var class="Arg">imgs</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>returns the endomorphism that maps the free generators of the finitely generated subgroup <var class="Arg">g</var> of a free group to the elements listed in <var class="Arg">imgs</var>. You may then apply <code class="code">IsBijective</code> to check whether it is an automorphism.</p>
+
+<p>The following functions return automorphisms that correspond to the generators in the presentation:</p>
+
+<p><a id="X8173ECA579D6172B" name="X8173ECA579D6172B"></a></p>
+
+<h5>2.4-4 FreeGroupAutomorphismsGeneratorO</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupAutomorphismsGeneratorO</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupAutomorphismsGeneratorP</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupAutomorphismsGeneratorU</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupAutomorphismsGeneratorS</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupAutomorphismsGeneratorT</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupAutomorphismsGeneratorQ</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FreeGroupAutomorphismsGeneratorR</code>( <var class="Arg">group</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>return the automorphism which maps the free generators [<span class="SimpleMath">\( x_1, x_2, \dots, x_n \)</span>] of <var class="Arg">group</var> to</p>
+
+
+<dl>
+<dt><strong class="Mark">O:</strong></dt>
+<dd><p>[<span class="SimpleMath">\( x_1^{-1}, x_2, \dots, x_n \)</span>] (<span class="SimpleMath">\(n\ge1\)</span>)</p>
+
+</dd>
+<dt><strong class="Mark">P:</strong></dt>
+<dd><p>[<span class="SimpleMath">\( x_2, x_1, x_3, \dots, x_n \)</span>] (<span class="SimpleMath">\(n\ge2\)</span>)</p>
+
+</dd>
+<dt><strong class="Mark">U:</strong></dt>
+<dd><p>[<span class="SimpleMath">\( x_1x_2, x_2, x_3, \dots, x_n \)</span>] (<span class="SimpleMath">\(n\ge2\)</span>)</p>
+
+</dd>
+<dt><strong class="Mark">S:</strong></dt>
+<dd><p>[<span class="SimpleMath">\( x_2^{-1}, x_3^{-1}, \dots, x_n^{-1}, x_1^{-1} \)</span>] (<span class="SimpleMath">\(n\ge1\)</span>)</p>
+
+</dd>
+<dt><strong class="Mark">T:</strong></dt>
+<dd><p>[<span class="SimpleMath">\( x_2, x_1^{-1}, x_3, \dots, x_n \)</span>] (<span class="SimpleMath">\(n\ge2\)</span>)</p>
+
+</dd>
+<dt><strong class="Mark">Q:</strong></dt>
+<dd><p>[<span class="SimpleMath">\( x_2, x_3, \dots, x_n, x_1 \)</span>] (<span class="SimpleMath">\(n\ge2\)</span>)</p>
+
+</dd>
+<dt><strong class="Mark">R:</strong></dt>
+<dd><p>[<span class="SimpleMath">\( x_2^{-1}, x_1, x_3, x_4, \dots, x_{n-2}, x_nx_{n-1}^{-1}, x_{n-1}^{-1} \)</span>] (<span class="SimpleMath">\(n\ge4\)</span>)</p>
+
+</dd>
+</dl>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

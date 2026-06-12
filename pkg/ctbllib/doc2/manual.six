@@ -1,0 +1,1339 @@
+#SIXFORMAT  GapDocGAP
+HELPBOOKINFOSIXTMP := rec(
+encoding := "UTF-8",
+bookname := "CTblLibXpls",
+entries :=
+[ [ "Title page", "0.0", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" 
+     ], 
+  [ "Copyright", "0.0-1", [ 0, 0, 1 ], 18, 2, "copyright", 
+      "X81488B807F2A1CF1" ], 
+  [ "Table of Contents", "0.0-2", [ 0, 0, 2 ], 26, 3, "table of contents", 
+      "X8537FEB07AF2BEC8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YMaintenance Issues for the \033[5XGAP\033[105X\\
+033[101X\027\033[1X\027 Character Table Library\033[133X\033[101X", "1", 
+      [ 1, 0, 0 ], 1, 10, 
+      "maintenance issues for the gap character table library", 
+      "X8354C98179CDB193" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YDisproving Possible Character Tables (November 20\
+06)\033[133X\033[101X", "1.1", [ 1, 1, 0 ], 9, 10, 
+      "disproving possible character tables november 2006", 
+      "X7ECA800587320C2C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA Perfect Pseudo Character Table (November 2006)\\
+033[133X\033[101X", "1.1-1", [ 1, 1, 1 ], 23, 10, 
+      "a perfect pseudo character table november 2006", "X795DCCEA7F4D187A" ],
+  [ "\033[1X\033[33X\033[0;-2YAn Error in the Character Table of \033[22XE_6(2\
+)\033[122X\033[101X\027\033[1X\027 (March 2016)\033[133X\033[101X", "1.1-2", 
+      [ 1, 1, 2 ], 208, 13, 
+      "an error in the character table of e_6 2 march 2016", 
+      "X80F0B4E07B0B2277" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAn Error in a Power Map of the Character Table of\
+ \033[22X2.F_4(2).2\033[122X\033[101X\027\033[1X\027 (November 2015)\033[133X\
+\033[101X", "1.1-3", [ 1, 1, 3 ], 245, 14, 
+      "an error in a power map of the character table of 2.f_4 2 .2 november 2\
+015", "X7D7982CD87413F76" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA Character Table with a Wrong Name (May 2017)\\
+033[133X\033[101X", "1.1-4", [ 1, 1, 4 ], 304, 15, 
+      "a character table with a wrong name may 2017", "X836E4B6184F32EF5" ], 
+  [ "\033[1X\033[33X\033[0;-2YSome finite factor groups of perfect space group\
+s (February 2014)\033[133X\033[101X", "1.2", [ 1, 2, 0 ], 354, 16, 
+      "some finite factor groups of perfect space groups february 2014", 
+      "X8159D79C7F071B33" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConstructing the space groups in question\033[133\
+X\033[101X", "1.2-1", [ 1, 2, 1 ], 387, 16, 
+      "constructing the space groups in question", "X8710D4947AEB366F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConstructing the factor groups in question\033[13\
+3X\033[101X", "1.2-2", [ 1, 2, 2 ], 435, 17, 
+      "constructing the factor groups in question", "X84E7FE70843422B0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples with point group \033[22XA_5\033[122X\\
+033[101X\027\033[1X\027\033[133X\033[101X", "1.2-3", [ 1, 2, 3 ], 498, 18, 
+      "examples with point group a_5", "X79109A20873E76DA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples with point group \033[22XL_3(2)\033[122X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "1.2-4", [ 1, 2, 4 ], 583, 19, 
+      "examples with point group l_3 2", "X83523D1E792F9E01" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample with point group SL\033[22X_2(7)\033[122X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "1.2-5", [ 1, 2, 5 ], 704, 21, 
+      "example with point group sl_2 7", "X7A01A9BC846BE39A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample with point group \033[22X2^3.L_3(2)\033[1\
+22X\033[101X\027\033[1X\027\033[133X\033[101X", "1.2-6", [ 1, 2, 6 ], 768, 
+      22, "example with point group 2^3.l_3 2", "X7D3100B58093F37D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples with point group \033[22XA_6\033[122X\\
+033[101X\027\033[1X\027\033[133X\033[101X", "1.2-7", [ 1, 2, 7 ], 820, 23, 
+      "examples with point group a_6", "X80800F3B7D6EF06C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples with point group \033[22XL_2(8)\033[122X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "1.2-8", [ 1, 2, 8 ], 918, 25, 
+      "examples with point group l_2 8", "X7D43452C79B0EAE1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample with point group \033[22XM_11\033[122X\\
+033[101X\027\033[1X\027\033[133X\033[101X", "1.2-9", [ 1, 2, 9 ], 998, 26, 
+      "example with point group m_11", "X8575CE147A9819BF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample with point group \033[22XU_3(3)\033[122X\\
+033[101X\027\033[1X\027\033[133X\033[101X", "1.2-10", [ 1, 2, 10 ], 1031, 27, 
+      "example with point group u_3 3", "X7C0201B77DA1682A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples with point group \033[22XU_4(2)\033[122X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "1.2-11", [ 1, 2, 11 ], 1091, 
+      28, "examples with point group u_4 2", "X85D9C329792E58F3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA remark on one of the example groups\033[133X\\
+033[101X", "1.2-12", [ 1, 2, 12 ], 1148, 29, 
+      "a remark on one of the example groups", "X8635EE0B78A66120" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YGenerality problems (December 2004/October 2015)\\
+033[133X\033[101X", "1.3", [ 1, 3, 0 ], 1167, 29, 
+      "generality problems december 2004/october 2015", "X8448022280E82C52" ],
+  [ "\033[1X\033[33X\033[0;-2YListing possible generality problems\033[133X\
+\033[101X", "1.3-1", [ 1, 3, 1 ], 1178, 29, 
+      "listing possible generality problems", "X7D1A66C3844D09B1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA generality problem concerning the group \033[22\
+XJ_3\033[122X\033[101X\027\033[1X\027 (April 2015)\033[133X\033[101X", 
+      "1.3-2", [ 1, 3, 2 ], 1674, 38, 
+      "a generality problem concerning the group j_3 april 2015", 
+      "X80EB5D827A78975A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA generality problem concerning the group \033[22\
+XHN\033[122X\033[101X\027\033[1X\027 (August 2022)\033[133X\033[101X", 
+      "1.3-3", [ 1, 3, 3 ], 1810, 40, 
+      "a generality problem concerning the group hn august 2022", 
+      "X82C37532783168AA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YBrauer Tables that can be derived from Known Tabl\
+es\033[133X\033[101X", "1.4", [ 1, 4, 0 ], 1926, 42, 
+      "brauer tables that can be derived from known tables", 
+      "X7D8C6D1883C9CECA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YBrauer Tables via Construction Information\033[13\
+3X\033[101X", "1.4-1", [ 1, 4, 1 ], 1939, 42, 
+      "brauer tables via construction information", "X7DF018B77E722CA7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YLiftable Brauer Characters (May 2017)\033[133X\\
+033[101X", "1.4-2", [ 1, 4, 2 ], 1964, 43, 
+      "liftable brauer characters may 2017", "X795419A287BD228E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YInformation about certain subgroups of the Monste\
+r group\033[133X\033[101X", "1.5", [ 1, 5, 0 ], 2047, 44, 
+      "information about certain subgroups of the monster group", 
+      "X864EFF897A854F89" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Monster group does not contain subgroups of t\
+he type \033[22X2.U_4(2)\033[122X\033[101X\027\033[1X\027 (August 2023)\033[13\
+3X\033[101X", "1.5-1", [ 1, 5, 1 ], 2050, 44, 
+      "the monster group does not contain subgroups of the type 2.u_4 2 august\
+ 2023", "X82C7A03684DD7C6E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YPerfect central extensions of \033[22XL_3(4)\033[\
+122X\033[101X\027\033[1X\027 (August 2023)\033[133X\033[101X", "1.5-2", 
+      [ 1, 5, 2 ], 2097, 45, "perfect central extensions of l_3 4 august 2023"
+        , "X87EC0C48866D1BDE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe character table of \033[22X(2 \303\227 O_8^+(\
+3)).S_4 \342\211\244 2.B\033[122X\033[101X\027\033[1X\027 (October 2023)\033[1\
+33X\033[101X", "1.5-3", [ 1, 5, 3 ], 2268, 47, 
+      "the character table of 2 a\227 o_8^+ 3 .s_4 a\211\244 2.b october 2023"
+        , "X7F605CA28441687F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUsing Table Automorphisms for Constructing Charac\
+ter Tables in \033[5XGAP\033[105X\033[101X\027\033[1X\027\033[133X\033[101X", 
+      "2", [ 2, 0, 0 ], 1, 51, 
+      "using table automorphisms for constructing character tables in gap", 
+      "X7B77FD307F0DE563" ], 
+  [ "\033[1X\033[33X\033[0;-2YOverview\033[133X\033[101X", "2.1", 
+      [ 2, 1, 0 ], 13, 51, "overview", "X8389AD927B74BA4A" ], 
+  [ "\033[1X\033[33X\033[0;-2YTheoretical Background\033[133X\033[101X", 
+      "2.2", [ 2, 2, 0 ], 33, 51, "theoretical background", 
+      "X7B6AEBDF7B857E2E" ], 
+  [ "\033[1X\033[33X\033[0;-2YCharacter Table Automorphisms\033[133X\033[101X"
+        , "2.2-1", [ 2, 2, 1 ], 36, 51, "character table automorphisms", 
+      "X78EBF9BA7A34A9C2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YPermutation Equivalence of Character Tables\033[1\
+33X\033[101X", "2.2-2", [ 2, 2, 2 ], 67, 52, 
+      "permutation equivalence of character tables", "X832525DE7AB34F16" ], 
+  [ "\033[1X\033[33X\033[0;-2YClass Fusions\033[133X\033[101X", "2.2-3", 
+      [ 2, 2, 3 ], 114, 53, "class fusions", "X7906869F7F190E76" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConstructing Character Tables of Certain Isoclini\
+c Groups\033[133X\033[101X", "2.2-4", [ 2, 2, 4 ], 157, 53, 
+      "constructing character tables of certain isoclinic groups", 
+      "X80C37276851D5E39" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Isoclinic Groups of the Struc\
+ture \033[22Xp.G.p\033[122X\033[101X\027\033[1X\027 (October 2016)\033[133X\
+\033[101X", "2.2-5", [ 2, 2, 5 ], 241, 54, 
+      "character tables of isoclinic groups of the structure p.g.p october 201\
+6", "X7AEFFEEC84511FD0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YIsoclinic Double Covers of Almost Simple Groups\\
+033[133X\033[101X", "2.2-6", [ 2, 2, 6 ], 288, 55, 
+      "isoclinic double covers of almost simple groups", "X78F41D2A78E70BEE" ]
+    , 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacters of Normal Subgroups\033[133X\033[101X"
+        , "2.2-7", [ 2, 2, 7 ], 391, 57, "characters of normal subgroups", 
+      "X834B42A07E98FBC6" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Constructions\033[133X\033[101X", "2.3", 
+      [ 2, 3, 0 ], 423, 57, "the constructions", "X787F430E7FDB8765" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of the Structure \033[\
+22XM.G.A\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "2.3-1", 
+      [ 2, 3, 1 ], 426, 57, 
+      "character tables of groups of the structure m.g.a", 
+      "X82E75B6880EC9E6C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of the Structure \033[\
+22XG.S_3\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "2.3-2", 
+      [ 2, 3, 2 ], 498, 58, 
+      "character tables of groups of the structure g.s_3", 
+      "X7CCABDDE864E6300" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of the Structure \033[\
+22XG.2^2\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "2.3-3", 
+      [ 2, 3, 3 ], 582, 60, 
+      "character tables of groups of the structure g.2^2", 
+      "X7D3EF3BC83BE05CF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Groups of the Structure \033[\
+22X2^2.G\033[122X\033[101X\027\033[1X\027 (August 2005)\033[133X\033[101X", 
+      "2.3-4", [ 2, 3, 4 ], 660, 61, 
+      "character tables of groups of the structure 2^2.g august 2005", 
+      "X81464C4B8178C85A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22Xp\033[122X\033[101X\027\033[1X\027-Modula\
+r Tables of Extensions by \033[22Xp\033[122X\033[101X\027\033[1X\027-singular \
+Automorphisms\033[133X\033[101X", "2.3-5", [ 2, 3, 5 ], 819, 63, 
+      "p-modular tables of extensions by p-singular automorphisms", 
+      "X86CF6A607B0827EE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Subdirect Products of Index T\
+wo (July 2007)\033[133X\033[101X", "2.3-6", [ 2, 3, 6 ], 844, 64, 
+      "character tables of subdirect products of index two july 2007", 
+      "X788591D78451C024" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples for the Type \033[22XM.G.A\033[122X\033[\
+101X\027\033[1X\027\033[133X\033[101X", "2.4", [ 2, 4, 0 ], 946, 65, 
+      "examples for the type m.g.a", "X817D2134829FA8FA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter Tables of Dihedral Groups\033[133X\033[\
+101X", "2.4-1", [ 2, 4, 1 ], 949, 65, "character tables of dihedral groups", 
+      "X7F2DBAB48437052C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAn \033[22XM.G.A\033[122X\033[101X\027\033[1X\\
+027 Type Example with \033[22XM\033[122X\033[101X\027\033[1X\027 noncentral in\
+ \033[22XM.G\033[122X\033[101X\027\033[1X\027 (May 2004)\033[133X\033[101X", 
+      "2.4-2", [ 2, 4, 2 ], 1037, 67, 
+      "an m.g.a type example with m noncentral in m.g may 2004", 
+      "X7925DBFA7C5986B5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XAtlas\033[105X\033[101X\027\033[1X\027 Tab\
+les of the Type \033[22XM.G.A\033[122X\033[101X\027\033[1X\027\033[133X\033[10\
+1X", "2.4-3", [ 2, 4, 3 ], 1124, 68, "atlas tables of the type m.g.a", 
+      "X7ED45AB379093A70" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YMore \033[5XAtlas\033[105X\033[101X\027\033[1X\\
+027 Tables of the Type \033[22XM.G.A\033[122X\033[101X\027\033[1X\027\033[133X\
+\033[101X", "2.4-4", [ 2, 4, 4 ], 1411, 73, 
+      "more atlas tables of the type m.g.a", "X7A236EDE7A7A28F9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of \033[22X4_2.L_3(4).2_3\\
+033[122X\033[101X\027\033[1X\027 and \033[22X12_2.L_3(4).2_3\033[122X\033[101X\
+\027\033[1X\027\033[133X\033[101X", "2.4-5", [ 2, 4, 5 ], 1561, 76, 
+      "the character tables of 4_2.l_3 4 .2_3 and 12_2.l_3 4 .2_3", 
+      "X794EC2FD7F69B4E6" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of \033[22X12_1.U_4(3).2_2'\\
+033[122X\033[101X\027\033[1X\027 and \033[22X12_2.U_4(3).2_3'\033[122X\033[101\
+X\027\033[1X\027 (December\302\2402015)\033[133X\033[101X", "2.4-6", 
+      [ 2, 4, 6 ], 1708, 78, 
+      "the character tables of 12_1.u_4 3 .2_2 and 12_2.u_4 3 .2_3 decembera\
+\2402015", "X7E3E748E85AEDDB3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YGroups of the Structures \033[22X3.U_3(8).3_1\\
+033[122X\033[101X\027\033[1X\027 and \033[22X3.U_3(8).6\033[122X\033[101X\027\
+\033[1X\027 (February 2017)\033[133X\033[101X", "2.4-7", [ 2, 4, 7 ], 1767, 
+      79, "groups of the structures 3.u_3 8 .3_1 and 3.u_3 8 .6 february 2017"
+        , "X8379003582D06130" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X(2^2 \303\227 F_4(\
+2)):2 < B\033[122X\033[101X\027\033[1X\027 (March\302\2402003)\033[133X\033[10\
+1X", "2.4-8", [ 2, 4, 8 ], 1896, 81, 
+      "the character table of 2^2 a\227 f_4 2 :2 < b marcha\2402003", 
+      "X7B46C77B850D3B4D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X2.(S_3 \303\227 Fi\
+_22.2) < 2.B\033[122X\033[101X\027\033[1X\027 (March\302\2402003)\033[133X\033\
+[101X", "2.4-9", [ 2, 4, 9 ], 2010, 83, 
+      "the character table of 2. s_3 a\227 fi_22.2 < 2.b marcha\2402003", 
+      "X8254AA4A843F99BE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X(2 \303\227 2.Fi_2\
+2):2 < Fi_24\033[122X\033[101X\027\033[1X\027 (November\302\2402008)\033[133X\
+\033[101X", "2.4-10", [ 2, 4, 10 ], 2188, 86, 
+      "the character table of 2 a\227 2.fi_22 :2 < fi_24 novembera\2402008", 
+      "X7AF125168239D208" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22XS_3 \303\227 2.U_4\
+(3).2_2 \342\211\244 2.Fi_22\033[122X\033[101X\027\033[1X\027 (September 2002)\
+\033[133X\033[101X", "2.4-11", [ 2, 4, 11 ], 2286, 87, 
+      "the character table of s_3 a\227 2.u_4 3 .2_2 a\211\244 2.fi_22 septemb\
+er 2002", "X79C93F7D87D9CF1D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X4.HS.2 \342\211\\
+244 HN.2\033[122X\033[101X\027\033[1X\027 (May 2002)\033[133X\033[101X", 
+      "2.4-12", [ 2, 4, 12 ], 2371, 88, 
+      "the character table of 4.hs.2 a\211\244 hn.2 may 2002", 
+      "X83724BCE86FCD77B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of \033[22X4.A_6.2_3\033[122\
+X\033[101X\027\033[1X\027, \033[22X12.A_6.2_3\033[122X\033[101X\027\033[1X\027\
+, and \033[22X4.L_2(25).2_3\033[122X\033[101X\027\033[1X\027\033[133X\033[101X\
+", "2.4-13", [ 2, 4, 13 ], 2536, 91, 
+      "the character tables of 4.a_6.2_3 12.a_6.2_3 and 4.l_2 25 .2_3", 
+      "X7E9A88DA7CBF6426" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X4.L_2(49).2_3\033[\
+122X\033[101X\027\033[1X\027 (December 2020)\033[133X\033[101X", "2.4-14", 
+      [ 2, 4, 14 ], 2917, 97, 
+      "the character table of 4.l_2 49 .2_3 december 2020", 
+      "X7BD79BA37C3E729B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X4.L_2(81).2_3\033[\
+122X\033[101X\027\033[1X\027 (December 2020)\033[133X\033[101X", "2.4-15", 
+      [ 2, 4, 15 ], 2995, 99, 
+      "the character table of 4.l_2 81 .2_3 december 2020", 
+      "X817A961487D2DFD1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X9.U_3(8).3_3\033[1\
+22X\033[101X\027\033[1X\027 (March 2017)\033[133X\033[101X", "2.4-16", 
+      [ 2, 4, 16 ], 3089, 100, 
+      "the character table of 9.u_3 8 .3_3 march 2017", "X7AF324AF7A54798F" ],
+  [ "\033[1X\033[33X\033[0;-2YPseudo Character Tables of the Type \033[22XM.G.\
+A\033[122X\033[101X\027\033[1X\027 (May 2004)\033[133X\033[101X", "2.4-17", 
+      [ 2, 4, 17 ], 3386, 105, 
+      "pseudo character tables of the type m.g.a may 2004", 
+      "X7E0C603880157C4E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSome Extra-ordinary \033[22Xp\033[122X\033[101X\\
+027\033[1X\027-Modular Tables of the Type \033[22XM.G.A\033[122X\033[101X\027\
+\033[1X\027 (September 2005)\033[133X\033[101X", "2.4-18", [ 2, 4, 18 ], 
+      3523, 108, 
+      "some extra-ordinary p-modular tables of the type m.g.a september 2005",
+      "X844185EF7A8F2A99" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples for the Type \033[22XG.S_3\033[122X\033[\
+101X\027\033[1X\027\033[133X\033[101X", "2.5", [ 2, 5, 0 ], 3706, 111, 
+      "examples for the type g.s_3", "X7F50C782840F06E4" ], 
+  [ "\033[1X\033[33X\033[0;-2YSmall Examples\033[133X\033[101X", "2.5-1", 
+      [ 2, 5, 1 ], 3709, 111, "small examples", "X7F0DC29F874AA09F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XAtlas\033[105X\033[101X\027\033[1X\027 Tab\
+les of the Type \033[22XG.S_3\033[122X\033[101X\027\033[1X\027\033[133X\033[10\
+1X", "2.5-2", [ 2, 5, 2 ], 3803, 112, "atlas tables of the type g.s_3", 
+      "X80F9BC057980A9E9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples for the Type \033[22XG.2^2\033[122X\033[\
+101X\027\033[1X\027\033[133X\033[101X", "2.6", [ 2, 6, 0 ], 3993, 116, 
+      "examples for the type g.2^2", "X7EA489E07D7C7D86" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22XA_6.2^2\033[122X\\
+033[101X\027\033[1X\027\033[133X\033[101X", "2.6-1", [ 2, 6, 1 ], 3996, 116, 
+      "the character table of a_6.2^2", "X8054FDE679053B1C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XAtlas\033[105X\033[101X\027\033[1X\027 Tab\
+les of the Type \033[22XG.2^2\033[122X\033[101X\027\033[1X\027 \342\200\223 Ea\
+sy Cases\033[133X\033[101X", "2.6-2", [ 2, 6, 2 ], 4071, 117, 
+      "atlas tables of the type g.2^2 a\200\223 easy cases", 
+      "X7FEC3AB081487AF2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22XS_4(9).2^2\033[122\
+X\033[101X\027\033[1X\027 (September 2011)\033[133X\033[101X", "2.6-3", 
+      [ 2, 6, 3 ], 4351, 122, 
+      "the character table of s_4 9 .2^2 september 2011", "X869B65D3863EDEC3" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of Groups of the Type \033[2\
+2X2.L_3(4).2^2\033[122X\033[101X\027\033[1X\027 (June 2010)\033[133X\033[101X"
+        , "2.6-4", [ 2, 6, 4 ], 4406, 123, 
+      "the character tables of groups of the type 2.l_3 4 .2^2 june 2010", 
+      "X7B38006380618543" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of Groups of the Type \033[2\
+2X6.L_3(4).2^2\033[122X\033[101X\027\033[1X\027 (October 2011)\033[133X\033[10\
+1X", "2.6-5", [ 2, 6, 5 ], 4628, 127, 
+      "the character tables of groups of the type 6.l_3 4 .2^2 october 2011", 
+      "X79818ABD7E972370" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of Groups of the Type \033[2\
+2X2.U_4(3).2^2\033[122X\033[101X\027\033[1X\027 (February 2012)\033[133X\033[1\
+01X", "2.6-6", [ 2, 6, 6 ], 4875, 131, 
+      "the character tables of groups of the type 2.u_4 3 .2^2 february 2012",
+      "X878889308653435F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of Groups of the Type \033[2\
+2X4_1.L_3(4).2^2\033[122X\033[101X\027\033[1X\027 (October 2011)\033[133X\033[\
+101X", "2.6-7", [ 2, 6, 7 ], 5043, 134, 
+      "the character tables of groups of the type 4_1.l_3 4 .2^2 october 2011"
+        , "X7DC42AE57E9EED4D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Tables of Groups of the Type \033[2\
+2X4_2.L_3(4).2^2\033[122X\033[101X\027\033[1X\027 (October 2011)\033[133X\033[\
+101X", "2.6-8", [ 2, 6, 8 ], 5269, 138, 
+      "the character tables of groups of the type 4_2.l_3 4 .2^2 october 2011"
+        , "X7E9AF180869B4786" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of Aut\033[22X(L_2(81))\033[1\
+22X\033[101X\027\033[1X\027\033[133X\033[101X", "2.6-9", [ 2, 6, 9 ], 5504, 
+      142, "the character table of aut l_2 81", "X7EAF9CD07E536120" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22XO_8^+(3).2^2_111\\
+033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "2.6-10", [ 2, 6, 10 ], 
+      5559, 143, "the character table of o_8^+ 3 .2^2_111", 
+      "X78AED04685EDCC19" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples for the Type \033[22X2^2.G\033[122X\033[\
+101X\027\033[1X\027\033[133X\033[101X", "2.7", [ 2, 7, 0 ], 5648, 144, 
+      "examples for the type 2^2.g", "X845BAA2A7FD768B0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X2^2.Sz(8)\033[122X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "2.7-1", [ 2, 7, 1 ], 5656, 145, 
+      "the character table of 2^2.sz 8", "X87EEBDB987249117" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XAtlas\033[105X\033[101X\027\033[1X\027 Tab\
+les of the Type \033[22X2^2.G\033[122X\033[101X\027\033[1X\027 (September 2005\
+)\033[133X\033[101X", "2.7-2", [ 2, 7, 2 ], 5815, 147, 
+      "atlas tables of the type 2^2.g september 2005", "X83652A0282A64D14" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X2^2.O_8^+(3)\033[\
+122X\033[101X\027\033[1X\027 (March 2009)\033[133X\033[101X", "2.7-3", 
+      [ 2, 7, 3 ], 6021, 151, "the character table of 2^2.o_8^+ 3 march 2009",
+      "X7F63DDF77870F967" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of the Schur Cover of \033[22\
+XL_3(4)\033[122X\033[101X\027\033[1X\027 (September 2005)\033[133X\033[101X", 
+      "2.7-4", [ 2, 7, 4 ], 6067, 152, 
+      "the character table of the schur cover of l_3 4 september 2005", 
+      "X86A1607787DE6BB9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples of Extensions by \033[22Xp\033[122X\033[\
+101X\027\033[1X\027-singular Automorphisms\033[133X\033[101X", "2.8", 
+      [ 2, 8, 0 ], 6202, 154, 
+      "examples of extensions by p-singular automorphisms", 
+      "X8711DBB083655A25" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSome \033[22Xp\033[122X\033[101X\027\033[1X\027-M\
+odular Tables of Groups of the Type \033[22XM.G.A\033[122X\033[101X\027\033[1X\
+\027\033[133X\033[101X", "2.8-1", [ 2, 8, 1 ], 6205, 154, 
+      "some p-modular tables of groups of the type m.g.a", 
+      "X81C08739850E4AAE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSome \033[22Xp\033[122X\033[101X\027\033[1X\027-M\
+odular Tables of Groups of the Type \033[22XG.S_3\033[122X\033[101X\027\033[1X\
+\027\033[133X\033[101X", "2.8-2", [ 2, 8, 2 ], 6260, 155, 
+      "some p-modular tables of groups of the type g.s_3", 
+      "X7FED618F83ACB7C2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X2\033[122X\033[101X\027\033[1X\027-Modula\
+r Tables of Groups of the Type \033[22XG.2^2\033[122X\033[101X\027\033[1X\027\
+\033[133X\033[101X", "2.8-3", [ 2, 8, 3 ], 6327, 156, 
+      "2-modular tables of groups of the type g.2^2", "X7EEF6A7F8683177A" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe \033[22X3\033[122X\033[101X\027\033[1X\027-M\
+odular Table of \033[22XU_3(8).3^2\033[122X\033[101X\027\033[1X\027\033[133X\
+\033[101X", "2.8-4", [ 2, 8, 4 ], 6375, 157, 
+      "the 3-modular table of u_3 8 .3^2", "X875F8DD77C0997FA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExamples of Subdirect Products of Index Two\033[1\
+33X\033[101X", "2.9", [ 2, 9, 0 ], 6415, 158, 
+      "examples of subdirect products of index two", "X7A4D6044865E516B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCertain Dihedral Groups as Subdirect Products of \
+Index Two\033[133X\033[101X", "2.9-1", [ 2, 9, 1 ], 6424, 158, 
+      "certain dihedral groups as subdirect products of index two", 
+      "X850FF694801700CF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Character Table of \033[22X(D_10 \303\227 HN)\
+.2 < M\033[122X\033[101X\027\033[1X\027 (June 2008)\033[133X\033[101X", 
+      "2.9-2", [ 2, 9, 2 ], 6451, 159, 
+      "the character table of d_10 a\227 hn .2 < m june 2008", 
+      "X80C5D6FA83D7E2CF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA Counterexample (August 2015)\033[133X\033[101X"
+        , "2.9-3", [ 2, 9, 3 ], 6531, 160, "a counterexample august 2015", 
+      "X85EECFD47EC252A2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConstructing Character Tables of Central Extensio\
+ns in \033[5XGAP\033[105X\033[101X\027\033[1X\027\033[133X\033[101X", "3", 
+      [ 3, 0, 0 ], 1, 162, 
+      "constructing character tables of central extensions in gap", 
+      "X7A80D5ED7D6E57B7" ], 
+  [ "\033[1X\033[33X\033[0;-2YCoprime Central Extensions\033[133X\033[101X", 
+      "3.1", [ 3, 1, 0 ], 16, 162, "coprime central extensions", 
+      "X87B17873861E2F64" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Character Table Head\033[133X\033[101X", 
+      "3.1-1", [ 3, 1, 1 ], 36, 162, "the character table head", 
+      "X85CB2671851D1206" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Irreducible Characters\033[133X\033[101X", 
+      "3.1-2", [ 3, 1, 2 ], 88, 163, "the irreducible characters", 
+      "X7D8F6E5D7D632046" ], 
+  [ "\033[1X\033[33X\033[0;-2YOrdering of Conjugacy Classes\033[133X\033[101X"
+        , "3.1-3", [ 3, 1, 3 ], 141, 164, "ordering of conjugacy classes", 
+      "X867D16E07D36560F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCompatibility with Smaller Factor Groups\033[133X\
+\033[101X", "3.1-4", [ 3, 1, 4 ], 182, 165, 
+      "compatibility with smaller factor groups", "X813B9F5180A45077" ], 
+  [ "\033[1X\033[33X\033[0;-2YExamples\033[133X\033[101X", "3.2", 
+      [ 3, 2, 0 ], 254, 166, "examples", "X7A489A5D79DA9E5C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCentral Extensions of Simple \033[5XAtlas\033[105\
+X\033[101X\027\033[1X\027 Groups\033[133X\033[101X", "3.2-1", [ 3, 2, 1 ], 
+      265, 166, "central extensions of simple atlas groups", 
+      "X861B5C3F7B1F6AB7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCentral Extensions of Other \033[5XAtlas\033[105X\
+\033[101X\027\033[1X\027 Groups\033[133X\033[101X", "3.2-2", [ 3, 2, 2 ], 
+      368, 168, "central extensions of other atlas groups", 
+      "X799ADD5487613BA2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCompatible Central Extensions of Maximal Subgroup\
+s\033[133X\033[101X", "3.2-3", [ 3, 2, 3 ], 459, 169, 
+      "compatible central extensions of maximal subgroups", 
+      "X861F558380FE4812" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe \033[10X2B\033[110X\033[101X\027\033[1X\027 C\
+entralizer in \033[22X3.Fi_24'\033[122X\033[101X\027\033[1X\027 (January 2004)\
+\033[133X\033[101X", "3.2-4", [ 3, 2, 4 ], 511, 170, 
+      "the 2b centralizer in 3.fi_24 january 2004", "X7C73944579D6EE73" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XGAP\033[105X\033[101X\027\033[1X\027 Compu\
+tations Concerning Hamiltonian Cycles in the Generating Graphs of Finite Group\
+s\033[133X\033[101X", "4", [ 4, 0, 0 ], 1, 172, 
+      "gap computations concerning hamiltonian cycles in the generating graphs\
+ of finite groups", "X7D5919C182B1A462" ], 
+  [ "\033[1X\033[33X\033[0;-2YOverview\033[133X\033[101X", "4.1", 
+      [ 4, 1, 0 ], 60, 173, "overview", "X8389AD927B74BA4A" ], 
+  [ "\033[1X\033[33X\033[0;-2YTheoretical Background\033[133X\033[101X", 
+      "4.2", [ 4, 2, 0 ], 86, 173, "theoretical background", 
+      "X7B6AEBDF7B857E2E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter-Theoretic Lower Bounds for Vertex Degre\
+es\033[133X\033[101X", "4.2-1", [ 4, 2, 1 ], 133, 174, 
+      "character-theoretic lower bounds for vertex degrees", 
+      "X7AD3962D7AE4ADFB" ], 
+  [ "\033[1X\033[33X\033[0;-2YChecking the Criteria\033[133X\033[101X", 
+      "4.2-2", [ 4, 2, 2 ], 201, 175, "checking the criteria", 
+      "X825776BA8687E475" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XGAP\033[105X\033[101X\027\033[1X\027 Funct\
+ions for the Computations\033[133X\033[101X", "4.3", [ 4, 3, 0 ], 265, 176, 
+      "gap functions for the computations", "X7B56BE5384BAD54E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YComputing Vertex Degrees from the Group\033[133X\\
+033[101X", "4.3-1", [ 4, 3, 1 ], 275, 176, 
+      "computing vertex degrees from the group", "X802B2ED2802334B0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YComputing Lower Bounds for Vertex Degrees\033[133\
+X\033[101X", "4.3-2", [ 4, 3, 2 ], 410, 178, 
+      "computing lower bounds for vertex degrees", "X87FE2DDD7F086D2F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YEvaluating the (Lower Bounds for the) Vertex Degr\
+ees\033[133X\033[101X", "4.3-3", [ 4, 3, 3 ], 510, 180, 
+      "evaluating the lower bounds for the vertex degrees", 
+      "X8677A8B1788ACD2C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter-Theoretic Computations\033[133X\033[101\
+X", "4.4", [ 4, 4, 0 ], 662, 183, "character-theoretic computations", 
+      "X7A221012861440E2" ], 
+  [ "\033[1X\033[33X\033[0;-2YSporadic Simple Groups\033[133X\033[101X", 
+      "4.4-1", [ 4, 4, 1 ], 692, 183, "sporadic simple groups", 
+      "X86CE51E180A3D4ED" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Monster\033[133X\033[101X", "4.4-2", 
+      [ 4, 4, 2 ], 719, 183, "the monster", "X867D338F7F453092" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YNonsimple Automorphism Groups of Sporadic Simple \
+Groups\033[133X\033[101X", "4.4-3", [ 4, 4, 3 ], 952, 187, 
+      "nonsimple automorphism groups of sporadic simple groups", 
+      "X7DC6DFCC83502CC3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAlternating and Symmetric Groups \033[22XA_n\033[\
+122X\033[101X\027\033[1X\027, \033[22XS_n\033[122X\033[101X\027\033[1X\027, fo\
+r \033[22X5 \342\211\244 n \342\211\244 13\033[122X\033[101X\027\033[1X\027\
+\033[133X\033[101X", "4.4-4", [ 4, 4, 4 ], 987, 188, 
+      "alternating and symmetric groups a_n s_n for 5 a\211\244 n a\211\244 13\
+", "X8130C9CB7A33140F" ], 
+  [ "\033[1X\033[33X\033[0;-2YComputations With Groups\033[133X\033[101X", 
+      "4.5", [ 4, 5, 0 ], 1035, 189, "computations with groups", 
+      "X83DACCF07EF62FAE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YNonabelian Simple Groups of Order up to \033[22X1\
+0^7\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "4.5-1", 
+      [ 4, 5, 1 ], 1074, 189, "nonabelian simple groups of order up to 10^7", 
+      "X7B9ADC91802EE09F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YNonsimple Groups with Nonsolvable Socle of Order \
+at most \033[22X10^6\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", 
+      "4.5-2", [ 4, 5, 2 ], 1172, 191, 
+      "nonsimple groups with nonsolvable socle of order at most 10^6", 
+      "X8033892B7FD6E62B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Groups \033[22XPSL(2,q)\033[122X\033[101X\\
+027\033[1X\027\033[133X\033[101X", "4.6", [ 4, 6, 0 ], 1322, 194, 
+      "the groups psl 2 q", "X84E62545802FAB30" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XGAP\033[105X\033[101X\027\033[1X\027 Compu\
+tations with \033[22XO_8^+(5).S_3\033[122X\033[101X\027\033[1X\027 and \033[22\
+XO_8^+(2).S_3\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "5", 
+      [ 5, 0, 0 ], 1, 197, 
+      "gap computations with o_8^+ 5 .s_3 and o_8^+ 2 .s_3", 
+      "X8703EFEE81DDE3DD" ], 
+  [ "\033[1X\033[33X\033[0;-2YOverview\033[133X\033[101X", "5.1", 
+      [ 5, 1, 0 ], 14, 197, "overview", "X8389AD927B74BA4A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConstructing Representations of \033[22XM.2\033[1\
+22X\033[101X\027\033[1X\027 and \033[22XS.2\033[122X\033[101X\027\033[1X\027\
+\033[133X\033[101X", "5.2", [ 5, 2, 0 ], 58, 198, 
+      "constructing representations of m.2 and s.2", "X85FF559084C08F0F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA Matrix Representation of the Weyl Group of Type\
+ \033[22XE_8\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "5.2-1", 
+      [ 5, 2, 1 ], 61, 198, 
+      "a matrix representation of the weyl group of type e_8", 
+      "X7FEE53AB845B9327" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YEmbedding the Weyl group of Type \033[22XE_8\033[\
+122X\033[101X\027\033[1X\027 into GO\033[22X^+(8,5)\033[122X\033[101X\027\033[\
+1X\027\033[133X\033[101X", "5.2-2", [ 5, 2, 2 ], 97, 198, 
+      "embedding the weyl group of type e_8 into go^+ 8 5", 
+      "X7C8AA7747F160F8A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCompatible Generators of \033[22XM\033[122X\033[1\
+01X\027\033[1X\027, \033[22XM.2\033[122X\033[101X\027\033[1X\027, \033[22XS\
+\033[122X\033[101X\027\033[1X\027, and \033[22XS.2\033[122X\033[101X\027\033[1\
+X\027\033[133X\033[101X", "5.2-3", [ 5, 2, 3 ], 142, 199, 
+      "compatible generators of m m.2 s and s.2", "X83E3E79F8724C365" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConstructing Representations of \033[22XM.3\033[1\
+22X\033[101X\027\033[1X\027 and \033[22XS.3\033[122X\033[101X\027\033[1X\027\
+\033[133X\033[101X", "5.3", [ 5, 3, 0 ], 204, 200, 
+      "constructing representations of m.3 and s.3", "X83F897DD7C48511C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Action of \033[22XM.3\033[122X\033[101X\027\\
+033[1X\027 on \033[22XM\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", 
+      "5.3-1", [ 5, 3, 1 ], 207, 200, "the action of m.3 on m", 
+      "X7B7561D0855EC4F1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Action of \033[22XS.3\033[122X\033[101X\027\\
+033[1X\027 on \033[22XS\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", 
+      "5.3-2", [ 5, 3, 2 ], 283, 201, "the action of s.3 on s", 
+      "X8246803779EB8FEE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConstructing Compatible Generators of \033[22XH\\
+033[122X\033[101X\027\033[1X\027 and \033[22XG\033[122X\033[101X\027\033[1X\
+\027\033[133X\033[101X", "5.4", [ 5, 4, 0 ], 358, 203, 
+      "constructing compatible generators of h and g", "X816AFA187E95C018" ], 
+  [ "\033[1X\033[33X\033[0;-2YApplication: Regular Orbits of \033[22XH\033[122\
+X\033[101X\027\033[1X\027 on \033[22XG/H\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "5.5", [ 5, 5, 0 ], 412, 203, 
+      "application: regular orbits of h on g/h", "X83F0387D789709D1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAppendix: The Permutation Character \033[22X(1_H^\
+G)_H\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "5.6", [ 5, 6, 0 ], 
+      436, 204, "appendix: the permutation character 1_h^g _h", 
+      "X7F0C266082BE1578" ], 
+  [ "\033[1X\033[33X\033[0;-2YAppendix: The Data File\033[133X\033[101X", 
+      "5.7", [ 5, 7, 0 ], 634, 207, "appendix: the data file", 
+      "X7F3A630780F8E262" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSolvable Subgroups of Maximal Order in Sporadic S\
+imple Groups\033[133X\033[101X", "6", [ 6, 0, 0 ], 1, 209, 
+      "solvable subgroups of maximal order in sporadic simple groups", 
+      "X7EF73AA88384B5F3" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Result\033[133X\033[101X", "6.1", 
+      [ 6, 1, 0 ], 36, 209, "the result", "X7F817DC57A69CF0D" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Approach\033[133X\033[101X", "6.2", 
+      [ 6, 2, 0 ], 229, 213, "the approach", "X876F77197B2FB84A" ], 
+  [ "\033[1X\033[33X\033[0;-2YUse the Table of Marks\033[133X\033[101X", 
+      "6.2-1", [ 6, 2, 1 ], 251, 213, "use the table of marks", 
+      "X792957AB7B24C5E0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUse Information from the Character Table Library\\
+033[133X\033[101X", "6.2-2", [ 6, 2, 2 ], 307, 214, 
+      "use information from the character table library", "X7B39A4467A1CCF8A" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCases where the Table of Marks is available in \\
+033[5XGAP\033[105X\033[101X\027\033[1X\027\033[133X\033[101X", "6.3", 
+      [ 6, 3, 0 ], 383, 215, 
+      "cases where the table of marks is available in gap", 
+      "X834298A87BF43AAF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCases where the Table of Marks is not available i\
+n \033[5XGAP\033[105X\033[101X\027\033[1X\027\033[133X\033[101X", "6.4", 
+      [ 6, 4, 0 ], 486, 217, 
+      "cases where the table of marks is not available in gap", 
+      "X85559C0F7AA73E48" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Ru\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-1", [ 6, 4, 1 ], 493, 217, "g = ru", 
+      "X7E393459822E78B5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Suz\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-2", [ 6, 4, 2 ], 539, 218, "g = suz", 
+      "X7AFF09337CCB7745" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = ON\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-3", [ 6, 4, 3 ], 575, 219, "g = on", 
+      "X7969AE067D3862A3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Co_2\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "6.4-4", [ 6, 4, 4 ], 608, 219, "g = co_2", 
+      "X84921B85845EDA31" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Fi_22\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "6.4-5", [ 6, 4, 5 ], 669, 220, "g = fi_22", 
+      "X7D777A0D82BE8498" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = HN\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-6", [ 6, 4, 6 ], 708, 221, "g = hn", 
+      "X7D9DB76A861A6F62" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Ly\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-7", [ 6, 4, 7 ], 739, 221, "g = ly", 
+      "X83E6436678AF562C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Th\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-8", [ 6, 4, 8 ], 773, 222, "g = th", 
+      "X7D6CF8EC812EF6FB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Fi_23\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "6.4-9", [ 6, 4, 9 ], 805, 222, "g = fi_23", 
+      "X7A07090483C935DC" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Co_1\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "6.4-10", [ 6, 4, 10 ], 834, 223, "g = co_1", 
+      "X7D028E9E7CB62A4F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = J_4\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-11", [ 6, 4, 11 ], 873, 223, "g = j_4", 
+      "X84208AB781344A9D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = Fi_24^'\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "6.4-12", [ 6, 4, 12 ], 933, 224, "g = fi_24^", 
+      "X7BC589718203F125" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = B\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-13", [ 6, 4, 13 ], 972, 225, "g = b", 
+      "X7EDF990985573EB6" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG = M\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "6.4-14", [ 6, 4, 14 ], 1264, 229, "g = m", 
+      "X87D468D07D7237CB" ], 
+  [ "\033[1X\033[33X\033[0;-2YProof of the Corollary\033[133X\033[101X", 
+      "6.5", [ 6, 5, 0 ], 1548, 234, "proof of the corollary", 
+      "X7CD8E04C7F32AD56" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YLarge Nilpotent Subgroups of Sporadic Simple Grou\
+ps\033[133X\033[101X", "7", [ 7, 0, 0 ], 1, 235, 
+      "large nilpotent subgroups of sporadic simple groups", 
+      "X8102827B85FE3BCA" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Result\033[133X\033[101X", "7.1", 
+      [ 7, 1, 0 ], 13, 235, "the result", "X7F817DC57A69CF0D" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe Proof\033[133X\033[101X", "7.2", 
+      [ 7, 2, 0 ], 127, 237, "the proof", "X787B841383A16711" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAlternative: Use \033[5XGAP\033[105X\033[101X\\
+027\033[1X\027's Tables of Marks\033[133X\033[101X", "7.3", [ 7, 3, 0 ], 331, 
+      240, "alternative: use gaps tables of marks", "X798EACC07F6C36D9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YPermutation Characters in \033[5XGAP\033[105X\\
+033[101X\027\033[1X\027\033[133X\033[101X", "8", [ 8, 0, 0 ], 1, 243, 
+      "permutation characters in gap", "X7A7EEBE9858333E1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSome Computations with \033[22XM_24\033[122X\033[\
+101X\027\033[1X\027\033[133X\033[101X", "8.1", [ 8, 1, 0 ], 38, 243, 
+      "some computations with m_24", "X86A1325B82E5AECD" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAll Possible Permutation Characters of \033[22XM_\
+11\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "8.2", [ 8, 2, 0 ], 
+      200, 246, "all possible permutation characters of m_11", 
+      "X79C9051F805851DB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Action of \033[22XU_6(2)\033[122X\033[101X\\
+027\033[1X\027 on the Cosets of \033[22XM_22\033[122X\033[101X\027\033[1X\027\
+\033[133X\033[101X", "8.3", [ 8, 3, 0 ], 316, 248, 
+      "the action of u_6 2 on the cosets of m_22", "X81A5FC968782CFC3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YDegree \033[22X20736\033[122X\033[101X\027\033[1X\
+\027 Permutation Characters of \033[22XU_6(2)\033[122X\033[101X\027\033[1X\027\
+\033[133X\033[101X", "8.4", [ 8, 4, 0 ], 403, 250, 
+      "degree 20736 permutation characters of u_6 2", "X7EE1811C8496C428" ], 
+  [ "\033[1X\033[33X\033[0;-2YDegree \033[22X57572775\033[122X\033[101X\027\
+\033[1X\027 Permutation Characters of \033[22XO_8^+(3)\033[122X\033[101X\027\
+\033[1X\027\033[133X\033[101X", "8.5", [ 8, 5, 0 ], 462, 251, 
+      "degree 57572775 permutation characters of o_8^+ 3", 
+      "X7DC6A6E785A347C8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Action of \033[22XO_7(3).2\033[122X\033[101X\\
+027\033[1X\027 on the Cosets of \033[22X2^7.S_7\033[122X\033[101X\027\033[1X\
+\027\033[133X\033[101X", "8.6", [ 8, 6, 0 ], 562, 252, 
+      "the action of o_7 3 .2 on the cosets of 2^7.s_7", "X792D2C2380591D8D" ]
+    , 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Action of \033[22XO_8^+(3).2_1\033[122X\033[1\
+01X\027\033[1X\027 on the Cosets of \033[22X2^7.A_8\033[122X\033[101X\027\033[\
+1X\027\033[133X\033[101X", "8.7", [ 8, 7, 0 ], 655, 254, 
+      "the action of o_8^+ 3 .2_1 on the cosets of 2^7.a_8", 
+      "X875B361C8512939F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Action of \033[22XS_4(4).4\033[122X\033[101X\\
+027\033[1X\027 on the Cosets of \033[22X5^2.[2^5]\033[122X\033[101X\027\033[1X\
+\027\033[133X\033[101X", "8.8", [ 8, 8, 0 ], 794, 257, 
+      "the action of s_4 4 .4 on the cosets of 5^2.[2^5]", 
+      "X7B1DFAF98182CFF4" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Action of \033[22XCo_1\033[122X\033[101X\027\\
+033[1X\027 on the Cosets of Involution Centralizers\033[133X\033[101X", 
+      "8.9", [ 8, 9, 0 ], 848, 257, 
+      "the action of co_1 on the cosets of involution centralizers", 
+      "X7F04F0C684AA8B30" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Multiplicity Free Permutation Characters of \\
+033[22XG_2(3)\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "8.10", 
+      [ 8, 10, 0 ], 982, 260, 
+      "the multiplicity free permutation characters of g_2 3", 
+      "X8230719D8538384B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YDegree \033[22X11200\033[122X\033[101X\027\033[1X\
+\027 Permutation Characters of \033[22XO_8^+(2)\033[122X\033[101X\027\033[1X\
+\027\033[133X\033[101X", "8.11", [ 8, 11, 0 ], 1041, 261, 
+      "degree 11200 permutation characters of o_8^+ 2", "X7E3E326C7CB0E2CD" ],
+  [ "\033[1X\033[33X\033[0;-2YA Proof of Nonexistence of a Certain Subgroup\
+\033[133X\033[101X", "8.12", [ 8, 12, 0 ], 1086, 262, 
+      "a proof of nonexistence of a certain subgroup", "X7D8572E68194CBB9" ], 
+  [ "\033[1X\033[33X\033[0;-2YA Permutation Character of the Lyons group\033[1\
+33X\033[101X", "8.13", [ 8, 13, 0 ], 1217, 264, 
+      "a permutation character of the lyons group", "X8068E9DA7CD03BF2" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YIdentifying two subgroups of Aut\033[22X(U_3(5))\\
+033[122X\033[101X\027\033[1X\027 (October\302\2402001)\033[133X\033[101X", 
+      "8.14", [ 8, 14, 0 ], 1359, 266, 
+      "identifying two subgroups of aut u_3 5 octobera\2402001", 
+      "X87D6C1A67CC7EE0A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA Permutation Character of Aut\033[22X(O_8^+(2))\\
+033[122X\033[101X\027\033[1X\027 (October\302\2402001)\033[133X\033[101X", 
+      "8.15", [ 8, 15, 0 ], 1462, 268, 
+      "a permutation character of aut o_8^+ 2 octobera\2402001", 
+      "X793669787CF73A55" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YFour Primitive Permutation Characters of the Mons\
+ter Group\033[133X\033[101X", "8.16", [ 8, 16, 0 ], 1523, 269, 
+      "four primitive permutation characters of the monster group", 
+      "X8337F3C682B6BE63" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Subgroup \033[22X2^2.2^11.2^22.(S_3 \303\227 \
+M_24)\033[122X\033[101X\027\033[1X\027 (June\302\2402009)\033[133X\033[101X", 
+      "8.16-1", [ 8, 16, 1 ], 1592, 270, 
+      "the subgroup 2^2.2^11.2^22. s_3 a\227 m_24 junea\2402009", 
+      "X78A8A1248336DD26" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Subgroup \033[22X2^3.2^6.2^12.2^18.(L_3(2) \\
+303\227 3.S_6)\033[122X\033[101X\027\033[1X\027 (September\302\2402009)\033[13\
+3X\033[101X", "8.16-2", [ 8, 16, 2 ], 1768, 273, 
+      "the subgroup 2^3.2^6.2^12.2^18. l_3 2 a\227 3.s_6 septembera\2402009", 
+      "X79E9247182B20474" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Subgroup \033[22X2^5.2^10.2^20.(S_3 \303\227 \
+L_5(2))\033[122X\033[101X\027\033[1X\027 (October\302\2402009)\033[133X\033[10\
+1X", "8.16-3", [ 8, 16, 3 ], 2033, 277, 
+      "the subgroup 2^5.2^10.2^20. s_3 a\227 l_5 2 octobera\2402009", 
+      "X7BC36C597E542DEE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe Subgroup \033[22X2^{10+16}.O_10^+(2)\033[122X\
+\033[101X\027\033[1X\027 (November\302\2402009)\033[133X\033[101X", "8.16-4", 
+      [ 8, 16, 4 ], 2308, 282, 
+      "the subgroup 2^{10+16}.o_10^+ 2 novembera\2402009", 
+      "X7F2ABD3E7AFF5F6E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA permutation character of the Baby Monster (June\
+\302\2402012)\033[133X\033[101X", "8.17", [ 8, 17, 0 ], 2677, 288, 
+      "a permutation character of the baby monster junea\2402012", 
+      "X87D11B097D95D027" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YA permutation character of \033[22X2.B\033[122X\\
+033[101X\027\033[1X\027 (October\302\2402017)\033[133X\033[101X", "8.18", 
+      [ 8, 18, 0 ], 2781, 290, 
+      "a permutation character of 2.b octobera\2402017", "X86827FA97D27F3A2" ]
+    , 
+  [ 
+      "\033[1X\033[33X\033[0;-2YGeneration of sporadic simple groups by \033[22X\\
+317\200\033[122X\033[101X\027\033[1X\027- and \033[22X\317\200'\033[122X\033[1\
+01X\027\033[1X\027-subgroups (December\302\2402021)\033[133X\033[101X", 
+      "8.19", [ 8, 19, 0 ], 2951, 293, 
+      "generation of sporadic simple groups by i\200- and i\200-subgroups dece\
+mbera\2402021", "X849F0EA6807C9B19" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSpecial Arguments for the Monster Group that are \
+no longer needed\033[133X\033[101X", "8.19-1", [ 8, 19, 1 ], 3376, 300, 
+      "special arguments for the monster group that are no longer needed", 
+      "X839272078243F4DB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAmbiguous Class Fusions in the \033[5XGAP\033[105\
+X\033[101X\027\033[1X\027 Character Table Library\033[133X\033[101X", "9", 
+      [ 9, 0, 0 ], 1, 303, 
+      "ambiguous class fusions in the gap character table library", 
+      "X7A03A83E87FB1189" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSome \033[5XGAP\033[105X\033[101X\027\033[1X\027 \
+Utilities\033[133X\033[101X", "9.1", [ 9, 1, 0 ], 30, 303, 
+      "some gap utilities", "X784492877DB04FE9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YFusions Determined by Factorization through Inter\
+mediate Subgroups\033[133X\033[101X", "9.2", [ 9, 2, 0 ], 57, 304, 
+      "fusions determined by factorization through intermediate subgroups", 
+      "X7EA839057D3AD3B4" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XCo_3N5 \342\206\222 Co_3\033[122X\033[101\
+X\027\033[1X\027 (September 2002)\033[133X\033[101X", "9.2-1", [ 9, 2, 1 ], 
+      63, 304, "co_3n5 a\206\222 co_3 september 2002", "X78DCEEFD85FF1EE2" ], 
+  [ "\033[1X\033[33X\033[0;-2Y\033[22X31:15 \342\206\222 B\033[122X\033[101X\
+\027\033[1X\027 (March 2003)\033[133X\033[101X", "9.2-2", [ 9, 2, 2 ], 139, 
+      305, "31:15 a\206\222 b march 2003", "X86BCEA907EC4C833" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XSuzN3 \342\206\222 Suz\033[122X\033[101X\\
+027\033[1X\027 (September 2002)\033[133X\033[101X", "9.2-3", [ 9, 2, 3 ], 
+      170, 306, "suzn3 a\206\222 suz september 2002", "X7C719F527831F35A" ], 
+  [ "\033[1X\033[33X\033[0;-2Y\033[22XF_{3+}N5 \342\206\222 F_{3+}\033[122X\
+\033[101X\027\033[1X\027 (March 2002)\033[133X\033[101X", "9.2-4", 
+      [ 9, 2, 4 ], 227, 307, "f_{3+}n5 a\206\222 f_{3+} march 2002", 
+      "X828879F481EF30DD" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YFusions Determined Using Commutative Diagrams Inv\
+olving Smaller Subgroups\033[133X\033[101X", "9.3", [ 9, 3, 0 ], 298, 308, 
+      "fusions determined using commutative diagrams involving smaller subgrou\
+ps", "X7981579278F81AC6" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XBN7 \342\206\222 B\033[122X\033[101X\027\\
+033[1X\027 (March 2002)\033[133X\033[101X", "9.3-1", [ 9, 3, 1 ], 320, 308, 
+      "bn7 a\206\222 b march 2002", "X7F5186E28201B027" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X(A_4 \303\227 O_8^+(2).3).2 \342\206\222 \
+Fi_24^'\033[122X\033[101X\027\033[1X\027 (November 2002)\033[133X\033[101X", 
+      "9.3-2", [ 9, 3, 2 ], 387, 309, 
+      "a_4 a\227 o_8^+ 2 .3 .2 a\206\222 fi_24^ november 2002", 
+      "X79710B137B5BB1B8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XA_6 \303\227 L_2(8).3 \342\206\222 Fi_24^\
+'\033[122X\033[101X\027\033[1X\027 (November 2002)\033[133X\033[101X", 
+      "9.3-3", [ 9, 3, 3 ], 453, 310, 
+      "a_6 a\227 l_2 8 .3 a\206\222 fi_24^ november 2002", 
+      "X85822C647B29117B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X(3^2:D_8 \303\227 U_4(3).2^2).2 \342\206\\
+222 B\033[122X\033[101X\027\033[1X\027 (June 2007)\033[133X\033[101X", 
+      "9.3-4", [ 9, 3, 4 ], 512, 311, 
+      "3^2:d_8 a\227 u_4 3 .2^2 .2 a\206\222 b june 2007", 
+      "X81A607758682D9A9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X7^1+4:(3 \303\227 2.S_7) \342\206\222 M\\
+033[122X\033[101X\027\033[1X\027 (May 2009)\033[133X\033[101X", "9.3-5", 
+      [ 9, 3, 5 ], 624, 313, "7^1+4: 3 a\227 2.s_7 a\206\222 m may 2009", 
+      "X7962DD4387D63675" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X3^7.O_7(3):2 \342\206\222 Fi_24\033[122X\\
+033[101X\027\033[1X\027 (November 2010)\033[133X\033[101X", "9.3-6", 
+      [ 9, 3, 6 ], 714, 314, "3^7.o_7 3 :2 a\206\222 fi_24 november 2010", 
+      "X860B6C30812DE3FC" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X^2E_6(2)N3C \342\206\222 ^2E_6(2)\033[122\
+X\033[101X\027\033[1X\027 (January 2019)\033[133X\033[101X", "9.3-7", 
+      [ 9, 3, 7 ], 832, 316, "^2e_6 2 n3c a\206\222 ^2e_6 2 january 2019", 
+      "X7C3AC42F8342EE2E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YFusions Determined Using Commutative Diagrams Inv\
+olving Factor Groups\033[133X\033[101X", "9.4", [ 9, 4, 0 ], 983, 319, 
+      "fusions determined using commutative diagrams involving factor groups",
+      "X84F966E2824F5D52" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X3.A_7 \342\206\222 3.Suz\033[122X\033[101\
+X\027\033[1X\027 (December 2010)\033[133X\033[101X", "9.4-1", [ 9, 4, 1 ], 
+      986, 319, "3.a_7 a\206\222 3.suz december 2010", "X7F2B104686509CAA" ], 
+  [ "\033[1X\033[33X\033[0;-2Y\033[22XS_6 \342\206\222 U_4(2)\033[122X\033[101\
+X\027\033[1X\027 (September 2011)\033[133X\033[101X", "9.4-2", [ 9, 4, 2 ], 
+      1063, 320, "s_6 a\206\222 u_4 2 september 2011", "X82FB71647D37F4FD" ], 
+  [ "\033[1X\033[33X\033[0;-2YFusions Determined Using Commutative Diagrams In\
+volving Automorphic Extensions\033[133X\033[101X", "9.5", [ 9, 5, 0 ], 1135, 
+      321, 
+      "fusions determined using commutative diagrams involving automorphic ext\
+ensions", "X7CFBC41B818A318C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_3(8).3_1 \342\206\222 ^2E_6(2)\033[122X\
+\033[101X\027\033[1X\027 (December 2010)\033[133X\033[101X", "9.5-1", 
+      [ 9, 5, 1 ], 1139, 321, "u_3 8 .3_1 a\206\222 ^2e_6 2 december 2010", 
+      "X7E91F8707BA93081" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_3(4).2_1 \342\206\222 U_6(2)\033[122X\\
+033[101X\027\033[1X\027 (December 2010)\033[133X\033[101X", "9.5-2", 
+      [ 9, 5, 2 ], 1238, 323, "l_3 4 .2_1 a\206\222 u_6 2 december 2010", 
+      "X81B37EF378E89E00" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YConditions Imposed by Brauer Tables\033[133X\033[\
+101X", "9.6", [ 9, 6, 0 ], 1336, 325, "conditions imposed by brauer tables", 
+      "X85E2A6F480026C95" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(16).4 \342\206\222 J_3.2\033[122X\\
+033[101X\027\033[1X\027 (January\302\2402004)\033[133X\033[101X", "9.6-1", 
+      [ 9, 6, 1 ], 1347, 325, "l_2 16 .4 a\206\222 j_3.2 januarya\2402004", 
+      "X7ACC7F588213D5D5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(17) \342\206\222 S_8(2)\033[122X\033[\
+101X\027\033[1X\027 (July 2004)\033[133X\033[101X", "9.6-2", [ 9, 6, 2 ], 
+      1433, 326, "l_2 17 a\206\222 s_8 2 july 2004", "X7ACB86CB82ED49D1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(19) \342\206\222 J_3\033[122X\033[101\
+X\027\033[1X\027 (April 2003)\033[133X\033[101X", "9.6-3", [ 9, 6, 3 ], 1459, 
+      327, "l_2 19 a\206\222 j_3 april 2003", "X7DED4C437D479226" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YFusions Determined by Information about the Group\
+s\033[133X\033[101X", "9.7", [ 9, 7, 0 ], 1618, 329, 
+      "fusions determined by information about the groups", 
+      "X8225D9FA80A7D20F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_3(3).2 \342\206\222 Fi_24^'\033[122X\\
+033[101X\027\033[1X\027 (November 2002)\033[133X\033[101X", "9.7-1", 
+      [ 9, 7, 1 ], 1635, 330, "u_3 3 .2 a\206\222 fi_24^ november 2002", 
+      "X7AE2962E82B4C814" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(13).2 \342\206\222 Fi_24^'\033[122X\\
+033[101X\027\033[1X\027 (September 2002)\033[133X\033[101X", "9.7-2", 
+      [ 9, 7, 2 ], 1748, 331, "l_2 13 .2 a\206\222 fi_24^ september 2002", 
+      "X83061094871EE241" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XM_11 \342\206\222 B\033[122X\033[101X\\
+027\033[1X\027 (April 2009)\033[133X\033[101X", "9.7-3", [ 9, 7, 3 ], 1834, 
+      333, "m_11 a\206\222 b april 2009", "X7E9C203C7C4D709D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(11):2 \342\206\222 B\033[122X\033[101\
+X\027\033[1X\027 (April 2009)\033[133X\033[101X", "9.7-4", [ 9, 7, 4 ], 1892, 
+      334, "l_2 11 :2 a\206\222 b april 2009", "X85821D748716DC7E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_3(3) \342\206\222 B\033[122X\033[101X\\
+027\033[1X\027 (April 2009)\033[133X\033[101X", "9.7-5", [ 9, 7, 5 ], 1939, 
+      335, "l_3 3 a\206\222 b april 2009", "X828D81487F57D612" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(17).2 \342\206\222 B\033[122X\033[101\
+X\027\033[1X\027 (March 2004)\033[133X\033[101X", "9.7-6", [ 9, 7, 6 ], 1995, 
+      335, "l_2 17 .2 a\206\222 b march 2004", "X7B4E13337D66020F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(49).2_3 \342\206\222 B\033[122X\033[1\
+01X\027\033[1X\027 (June 2006)\033[133X\033[101X", "9.7-7", [ 9, 7, 7 ], 
+      2032, 336, "l_2 49 .2_3 a\206\222 b june 2006", "X8528432A84851F7B" ], 
+  [ "\033[1X\033[33X\033[0;-2Y\033[22X2^3.L_3(2) \342\206\222 G_2(5)\033[122X\
+\033[101X\027\033[1X\027 (January\302\2402004)\033[133X\033[101X", "9.7-8", 
+      [ 9, 7, 8 ], 2172, 338, "2^3.l_3 2 a\206\222 g_2 5 januarya\2402004", 
+      "X7EAD52AA7A28D956" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X5^{1+4}.2^{1+4}.A_5.4 \342\206\222 B\033[\
+122X\033[101X\027\033[1X\027 (April 2009)\033[133X\033[101X", "9.7-9", 
+      [ 9, 7, 9 ], 2216, 339, "5^{1+4}.2^{1+4}.a_5.4 a\206\222 b april 2009", 
+      "X79617107849A6CEA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe fusion from the character table of \033[22X7^\
+2:2L_2(7).2\033[122X\033[101X\027\033[1X\027 into the table of marks (January\
+\302\2402004)\033[133X\033[101X", "9.7-10", [ 9, 7, 10 ], 2269, 340, 
+      "the fusion from the character table of 7^2:2l_2 7 .2 into the table of \
+marks januarya\2402004", "X85C48EEB7B711C09" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X3 \303\227 U_4(2) \342\206\222 3_1.U_4(3)\
+\033[122X\033[101X\027\033[1X\027 (March 2010)\033[133X\033[101X", "9.7-11", 
+      [ 9, 7, 11 ], 2429, 343, "3 a\227 u_4 2 a\206\222 3_1.u_4 3 march 2010",
+      "X7B1C689C7EFD07CB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X2.3^4.2^3.S_4 \342\206\222 2.A12\033[122X\
+\033[101X\027\033[1X\027 (September 2011)\033[133X\033[101X", "9.7-12", 
+      [ 9, 7, 12 ], 2589, 345, "2.3^4.2^3.s_4 a\206\222 2.a12 september 2011",
+      "X7A94F78C792122D5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X127:7 \342\206\222 L_7(2)\033[122X\033[10\
+1X\027\033[1X\027 (January 2012)\033[133X\033[101X", "9.7-13", [ 9, 7, 13 ], 
+      2700, 347, "127:7 a\206\222 l_7 2 january 2012", "X7E2AF30C7E8F89F9" ], 
+  [ "\033[1X\033[33X\033[0;-2Y\033[22XL_2(59) \342\206\222 M\033[122X\033[101X\
+\027\033[1X\027 (May 2009) \342\200\223 Do not use this!\033[133X\033[101X", 
+      "9.7-14", [ 9, 7, 14 ], 2755, 348, 
+      "l_2 59 a\206\222 m may 2009 a\200\223 do not use this!", 
+      "X80051B297DF244CF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(71) \342\206\222 M\033[122X\033[101X\\
+027\033[1X\027 (May 2009)\033[133X\033[101X", "9.7-15", [ 9, 7, 15 ], 2820, 
+      349, "l_2 71 a\206\222 m may 2009", "X8409DA2E83A41ABE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_2(41) \342\206\222 M\033[122X\033[101X\\
+027\033[1X\027 (April 2012)\033[133X\033[101X", "9.7-16", [ 9, 7, 16 ], 2885, 
+      350, "l_2 41 a\206\222 m april 2012", "X78B3B1BE7A2CA4D1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XGAP\033[105X\033[101X\027\033[1X\027 compu\
+tations needed in the proof of [DNT13, Theorem 6.1 (ii)]\033[133X\033[101X", 
+      "10", [ 10, 0, 0 ], 1, 352, 
+      "gap computations needed in the proof of [dnt13 theorem 6.1 ii ]", 
+      "X831E9D0A7A2DBC72" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG/N \342\211\205 Sz(8)\033[122X\033[101X\\
+027\033[1X\027 and \033[22X|N| = 2^12\033[122X\033[101X\027\033[1X\027\033[133\
+X\033[101X", "10.1", [ 10, 1, 0 ], 35, 352, "g/n a\211\205 sz 8 and n = 2^12",
+      "X82BDD020860C6E95" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG/N \342\211\205 M_22\033[122X\033[101X\\
+027\033[1X\027 and \033[22X|N| = 2^10\033[122X\033[101X\027\033[1X\027\033[133\
+X\033[101X", "10.2", [ 10, 2, 0 ], 161, 355, "g/n a\211\205 m_22 and n = 2^10"
+        , "X7C01350E8217B0B1" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG/N \342\211\205 J_2\033[122X\033[101X\\
+027\033[1X\027 and \033[22X|N| = 2^12\033[122X\033[101X\027\033[1X\027\033[133\
+X\033[101X", "10.3", [ 10, 3, 0 ], 290, 357, "g/n a\211\205 j_2 and n = 2^12",
+      "X7E356703856DF22E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG/N \342\211\205 J_2\033[122X\033[101X\\
+027\033[1X\027 and \033[22X|N| = 5^14\033[122X\033[101X\027\033[1X\027\033[133\
+X\033[101X", "10.4", [ 10, 4, 0 ], 396, 359, "g/n a\211\205 j_2 and n = 5^14",
+      "X797E2EDB78F05F6E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG/N \342\211\205 J_2\033[122X\033[101X\\
+027\033[1X\027 and \033[22X|N| = 2^28\033[122X\033[101X\027\033[1X\027\033[133\
+X\033[101X", "10.5", [ 10, 5, 0 ], 543, 361, "g/n a\211\205 j_2 and n = 2^28",
+      "X828AECAE82B0CEB6" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG/N \342\211\205 ^3D_4(2)\033[122X\033[10\
+1X\027\033[1X\027 and \033[22X|N| = 2^26\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "10.6", [ 10, 6, 0 ], 616, 362, 
+      "g/n a\211\205 ^3d_4 2 and n = 2^26", "X81AB173981E3EED7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XG/N \342\211\205 ^3D_4(2)\033[122X\033[10\
+1X\027\033[1X\027 and \033[22X|N| = 3^25\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "10.7", [ 10, 7, 0 ], 748, 365, 
+      "g/n a\211\205 ^3d_4 2 and n = 3^25", "X83B044547B96B7A5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XGAP\033[105X\033[101X\027\033[1X\027 Compu\
+tations Concerning Probabilistic Generation of Finite Simple Groups\033[133X\
+\033[101X", "11", [ 11, 0, 0 ], 1, 366, 
+      "gap computations concerning probabilistic generation of finite simple g\
+roups", "X7BE9906583D0FCEC" ], 
+  [ "\033[1X\033[33X\033[0;-2YOverview\033[133X\033[101X", "11.1", 
+      [ 11, 1, 0 ], 38, 366, "overview", "X8389AD927B74BA4A" ], 
+  [ "\033[1X\033[33X\033[0;-2YPrerequisites\033[133X\033[101X", "11.2", 
+      [ 11, 2, 0 ], 199, 370, "prerequisites", "X7B4649CF7B7CFAA1" ], 
+  [ "\033[1X\033[33X\033[0;-2YTheoretical Background\033[133X\033[101X", 
+      "11.2-1", [ 11, 2, 1 ], 202, 370, "theoretical background", 
+      "X7B6AEBDF7B857E2E" ], 
+  [ "\033[1X\033[33X\033[0;-2YComputational Criteria\033[133X\033[101X", 
+      "11.2-2", [ 11, 2, 2 ], 305, 371, "computational criteria", 
+      "X79D7312484E78274" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[5XGAP\033[105X\033[101X\027\033[1X\027 Funct\
+ions for the Computations\033[133X\033[101X", "11.3", [ 11, 3, 0 ], 339, 372, 
+      "gap functions for the computations", "X7B56BE5384BAD54E" ], 
+  [ "\033[1X\033[33X\033[0;-2YGeneral Utilities\033[133X\033[101X", "11.3-1", 
+      [ 11, 3, 1 ], 356, 372, "general utilities", "X806328747D1D4ECC" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter-Theoretic Computations\033[133X\033[101\
+X", "11.3-2", [ 11, 3, 2 ], 499, 374, "character-theoretic computations", 
+      "X7A221012861440E2" ], 
+  [ "\033[1X\033[33X\033[0;-2YComputations with Groups\033[133X\033[101X", 
+      "11.3-3", [ 11, 3, 3 ], 786, 379, "computations with groups", 
+      "X83DACCF07EF62FAE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCharacter-Theoretic Computations\033[133X\033[101\
+X", "11.4", [ 11, 4, 0 ], 1240, 387, "character-theoretic computations", 
+      "X7A221012861440E2" ], 
+  [ "\033[1X\033[33X\033[0;-2YSporadic Simple Groups\033[133X\033[101X", 
+      "11.4-1", [ 11, 4, 1 ], 1256, 387, "sporadic simple groups", 
+      "X86CE51E180A3D4ED" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YNo longer necessary computations for the Baby Mon\
+ster and the Monster\033[133X\033[101X", "11.4-2", [ 11, 4, 2 ], 1400, 390, 
+      "no longer necessary computations for the baby monster and the monster",
+      "X821778BC7D665AB4" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAutomorphism Groups of Sporadic Simple Groups\\
+033[133X\033[101X", "11.4-3", [ 11, 4, 3 ], 1445, 391, 
+      "automorphism groups of sporadic simple groups", "X84E9D10F80A74A53" ], 
+  [ "\033[1X\033[33X\033[0;-2YOther Simple Groups \342\200\223 Easy Cases\033[\
+133X\033[101X", "11.4-4", [ 11, 4, 4 ], 1848, 397, 
+      "other simple groups a\200\223 easy cases", "X80DA58F187CDCF5F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAutomorphism Groups of other Simple Groups \342\\
+200\223 Easy Cases\033[133X\033[101X", "11.4-5", [ 11, 4, 5 ], 2043, 401, 
+      "automorphism groups of other simple groups a\200\223 easy cases", 
+      "X7B1E26D586337487" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_8^-(3)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.4-6", [ 11, 4, 6 ], 2230, 404, "o_8^- 3", 
+      "X78B856907ED13545" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_10^+(2)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.4-7", [ 11, 4, 7 ], 2252, 404, "o_10^+ 2", 
+      "X84AB334886DCA746" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_10^-(2)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.4-8", [ 11, 4, 8 ], 2306, 405, "o_10^- 2", 
+      "X84E3E4837BB93977" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_12^+(2)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.4-9", [ 11, 4, 9 ], 2369, 406, "o_12^+ 2", 
+      "X8307367E7C7C3BCE" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_12^-(2)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.4-10", [ 11, 4, 10 ], 2495, 408, "o_12^- 2", 
+      "X834FE1B58119A5FF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XS_6(4)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.4-11", [ 11, 4, 11 ], 2560, 409, "s_6 4", 
+      "X7C5980A385C088FA" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X\342\210\227\033[122X\033[101X\027\033[1X\
+\027\302\240\033[22XS_6(5)\033[122X\033[101X\027\033[1X\027\033[133X\033[101X"
+        , "11.4-12", [ 11, 4, 12 ], 2691, 411, "a\210\227a\240s_6 5", 
+      "X829EDF7F7C0BCB8E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XS_8(3)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.4-13", [ 11, 4, 13 ], 2740, 412, "s_8 3", 
+      "X85162B297E4B67EB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_4(4)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.4-14", [ 11, 4, 14 ], 2793, 413, "u_4 4", 
+      "X8495C2BF7B6EFFEF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_6(2)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.4-15", [ 11, 4, 15 ], 2843, 414, "u_6 2", 
+      "X7A3BB5AA83A2BDF3" ], 
+  [ "\033[1X\033[33X\033[0;-2YComputations using Groups\033[133X\033[101X", 
+      "11.5", [ 11, 5, 0 ], 2944, 415, "computations using groups", 
+      "X8237B8617D6F6027" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XA_2m+1\033[122X\033[101X\027\033[1X\027, \
+\033[22X2 \342\211\244 m \342\211\244 11\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "11.5-1", [ 11, 5, 1 ], 2953, 415, 
+      "a_2m+1 2 a\211\244 m a\211\244 11", "X815320787B601000" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XA_5\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "11.5-2", [ 11, 5, 2 ], 3048, 417, "a_5", "X7B5321337B28100B" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XA_6\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "11.5-3", [ 11, 5, 3 ], 3127, 418, "a_6", "X82C3B4287B0C7BEE" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XA_7\033[122X\033[101X\027\033[1X\027\033[\
+133X\033[101X", "11.5-4", [ 11, 5, 4 ], 3358, 422, "a_7", "X85B3C7217B105D4D" 
+     ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_d(q)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-5", [ 11, 5, 5 ], 3559, 425, "l_d q", 
+      "X84EA645A82E2BAFB" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X\342\210\227\033[122X\033[101X\027\033[1X\
+\027\302\240\033[22XL_d(q)\033[122X\033[101X\027\033[1X\027 with prime \033[22\
+Xd\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "11.5-6", 
+      [ 11, 5, 6 ], 3699, 428, "a\210\227a\240l_d q with prime d", 
+      "X855460BE787188B9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YAutomorphic Extensions of \033[22XL_d(q)\033[122X\
+\033[101X\027\033[1X\027\033[133X\033[101X", "11.5-7", [ 11, 5, 7 ], 3790, 
+      429, "automorphic extensions of l_d q", "X7EA88CEF81962F3F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XL_3(2)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-8", [ 11, 5, 8 ], 4215, 436, "l_3 2", 
+      "X7C8806DB8588BB51" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XM_11\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-9", [ 11, 5, 9 ], 4404, 439, "m_11", 
+      "X7B7061917ED3714D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XM_12\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-10", [ 11, 5, 10 ], 4548, 442, "m_12", 
+      "X82E0F48A7FF82BB3" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_7(3)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-11", [ 11, 5, 11 ], 4661, 443, "o_7 3", 
+      "X7FF2E8F27FBEB65C" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_8^+(2)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.5-12", [ 11, 5, 12 ], 4974, 449, "o_8^+ 2", 
+      "X7F80F2527C424AA4" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_8^+(3)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.5-13", [ 11, 5, 13 ], 5336, 454, "o_8^+ 3", 
+      "X78F0815B86253A1F" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO^+_8(4)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.5-14", [ 11, 5, 14 ], 6149, 468, "o^+_8 4", 
+      "X85BACC4A83F73392" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X\342\210\227\033[122X\033[101X\027\033[1X\
+\027\302\240\033[22XO_9(3)\033[122X\033[101X\027\033[1X\027\033[133X\033[101X"
+        , "11.5-15", [ 11, 5, 15 ], 6358, 471, "a\210\227a\240o_9 3", 
+      "X86EC26F78609618E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_10^-(3)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.5-16", [ 11, 5, 16 ], 6475, 473, "o_10^- 3", 
+      "X8393978A8773997E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_14^-(2)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.5-17", [ 11, 5, 17 ], 6608, 475, "o_14^- 2", 
+      "X7BBBEEEF834F1002" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XO_12^+(3)\033[122X\033[101X\027\033[1X\\
+027\033[133X\033[101X", "11.5-18", [ 11, 5, 18 ], 6709, 476, "o_12^+ 3", 
+      "X8477457780B69BC7" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X\342\210\227\033[122X\033[101X\027\033[1X\
+\027\302\240\033[22XS_4(8)\033[122X\033[101X\027\033[1X\027\033[133X\033[101X"
+        , "11.5-19", [ 11, 5, 19 ], 6842, 479, "a\210\227a\240s_4 8", 
+      "X854D85F287767342" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XS_6(2)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-20", [ 11, 5, 20 ], 6953, 480, "s_6 2", 
+      "X82CFBAF07D3487A0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XS_8(2)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-21", [ 11, 5, 21 ], 7141, 483, "s_8 2", 
+      "X826658207D9D6570" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22X\342\210\227\033[122X\033[101X\027\033[1X\
+\027\302\240\033[22XS_10(2)\033[122X\033[101X\027\033[1X\027\033[133X\033[101X\
+", "11.5-22", [ 11, 5, 22 ], 7223, 485, "a\210\227a\240s_10 2", 
+      "X82A6496887F80843" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_4(2)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-23", [ 11, 5, 23 ], 7286, 486, "u_4 2", 
+      "X7A03F8EC839AF0B5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_4(3)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-24", [ 11, 5, 24 ], 7469, 489, "u_4 3", 
+      "X7D738BE5804CF22E" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_6(3)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-25", [ 11, 5, 25 ], 7646, 491, "u_6 3", 
+      "X7D4BC6A38074BF68" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2Y\033[22XU_8(2)\033[122X\033[101X\027\033[1X\027\\
+033[133X\033[101X", "11.5-26", [ 11, 5, 26 ], 7701, 492, "u_8 2", 
+      "X7A92577A830B5F23" ], 
+  [ "Bibliography", "bib", [ "Bib", 0, 0 ], 1, 494, "bibliography", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "References", "bib", [ "Bib", 0, 0 ], 1, 494, "references", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 499, "index", "X83A0356F839C696F" ], 
+  [ "CTblLibXpls", "0.0", [ 0, 0, 0 ], 1, 1, "ctbllibxpls", 
+      "X7D2C85EC87DD46E5" ] ]
+);

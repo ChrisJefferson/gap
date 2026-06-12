@@ -1,0 +1,415 @@
+#SIXFORMAT  GapDocGAP
+HELPBOOKINFOSIXTMP := rec(
+encoding := "UTF-8",
+bookname := "ResClasses",
+entries :=
+[ [ "Title page", "0.0", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" 
+     ], 
+  [ "Abstract", "0.0-1", [ 0, 0, 1 ], 24, 2, "abstract", "X7AA6C5737B711C89" ]
+    , 
+  [ "Copyright", "0.0-2", [ 0, 0, 2 ], 43, 2, "copyright", 
+      "X81488B807F2A1CF1" ], 
+  [ "Table of Contents", "0.0-3", [ 0, 0, 3 ], 62, 3, "table of contents", 
+      "X8537FEB07AF2BEC8" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSet-Theoretic Unions of Residue Classes\033[133X\\
+033[101X", "1", [ 1, 0, 0 ], 1, 4, "set-theoretic unions of residue classes", 
+      "X815A3DDE7C0BC44A" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YEntering residue classes and set-theoretic unions\
+ thereof\033[133X\033[101X", "1.1", [ 1, 1, 0 ], 4, 4, 
+      "entering residue classes and set-theoretic unions thereof", 
+      "X7E16A64485A7AB79" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YMethods for residue class unions\033[133X\033[101\
+X", "1.2", [ 1, 2, 0 ], 126, 6, "methods for residue class unions", 
+      "X7A3FA13187CEADED" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YOn residue class unions of \033[22X\342\204\244^2\
+\033[122X\033[101X\027\033[1X\027\033[133X\033[101X", "1.3", [ 1, 3, 0 ], 
+      318, 9, "on residue class unions of a\204\244^2", "X7921D4368632E15C" ],
+  [ "\033[1X\033[33X\033[0;-2YThe categories and families of residue class uni\
+ons\033[133X\033[101X", "1.4", [ 1, 4, 0 ], 405, 11, 
+      "the categories and families of residue class unions", 
+      "X7B26BB1C7C8495A5" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YUnions of Residue Classes with Fixed Representati\
+ves\033[133X\033[101X", "2", [ 2, 0, 0 ], 1, 12, 
+      "unions of residue classes with fixed representatives", 
+      "X87871B5A86254179" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YEntering unions of residue classes with fixed rep\
+resentatives\033[133X\033[101X", "2.1", [ 2, 1, 0 ], 9, 12, 
+      "entering unions of residue classes with fixed representatives", 
+      "X78BE0FA38691B1B6" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YMethods for unions of residue classes with fixed \
+representatives\033[133X\033[101X", "2.2", [ 2, 2, 0 ], 78, 13, 
+      "methods for unions of residue classes with fixed representatives", 
+      "X7C26C7E682C2FD2E" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe invariant Delta\033[133X\033[101X", "2.3", 
+      [ 2, 3, 0 ], 220, 16, "the invariant delta", "X7A1CBA1B7E6B93D0" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe categories of unions of residue classes with \
+fixed rep's\033[133X\033[101X", "2.4", [ 2, 4, 0 ], 275, 16, 
+      "the categories of unions of residue classes with fixed reps", 
+      "X7BA9DE337DF742E9" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSemilocalizations of the Integers\033[133X\033[10\
+1X", "3", [ 3, 0, 0 ], 1, 17, "semilocalizations of the integers", 
+      "X80CB0518869B1818" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YEntering semilocalizations of the integers\033[13\
+3X\033[101X", "3.1", [ 3, 1, 0 ], 8, 17, 
+      "entering semilocalizations of the integers", "X7B3B22AC7E6247A4" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YMethods for semilocalizations of the integers\\
+033[133X\033[101X", "3.2", [ 3, 2, 0 ], 29, 17, 
+      "methods for semilocalizations of the integers", "X7E75C4217DCA45D0" ], 
+  [ "\033[1X\033[33X\033[0;-2YInstallation and Auxiliary Functions\033[133X\
+\033[101X", "4", [ 4, 0, 0 ], 1, 19, "installation and auxiliary functions", 
+      "X859F6BF88754E5CC" ], 
+  [ "\033[1X\033[33X\033[0;-2YRequirements\033[133X\033[101X", "4.1", 
+      [ 4, 1, 0 ], 4, 19, "requirements", "X85A08CF187A6D986" ], 
+  [ "\033[1X\033[33X\033[0;-2YInstallation\033[133X\033[101X", "4.2", 
+      [ 4, 2, 0 ], 13, 19, "installation", "X8360C04082558A12" ], 
+  [ "\033[1X\033[33X\033[0;-2YThe testing routines\033[133X\033[101X", "4.3", 
+      [ 4, 3, 0 ], 22, 19, "the testing routines", "X865D6A49826B92EC" ], 
+  [ "\033[1X\033[33X\033[0;-2YCreating timestamped logfiles\033[133X\033[101X"
+        , "4.4", [ 4, 4, 0 ], 42, 20, "creating timestamped logfiles", 
+      "X7B0129E185088420" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YDownloadFile, SendEmail and EmailLogFile\033[133X\
+\033[101X", "4.5", [ 4, 5, 0 ], 58, 20, 
+      "downloadfile sendemail and emaillogfile", "X81DD0163859E9EF5" ], 
+  [ "\033[1X\033[33X\033[0;-2YCreating bitmap pictures\033[133X\033[101X", 
+      "4.6", [ 4, 6, 0 ], 97, 20, "creating bitmap pictures", 
+      "X855F2CE284BFB06B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YSome general utility functions\033[133X\033[101X"
+        , "4.7", [ 4, 7, 0 ], 148, 21, "some general utility functions", 
+      "X808A30E37A293D19" ], 
+  [ "Bibliography", "bib", [ "Bib", 0, 0 ], 1, 23, "bibliography", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "References", "bib", [ "Bib", 0, 0 ], 1, 23, "references", 
+      "X7A6F98FD85F02BFE" ], 
+  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 24, "index", "X83A0356F839C696F" ], 
+  [ "\033[2XResidueClass\033[102X by ring, modulus and residue", "1.1-1", 
+      [ 1, 1, 1 ], 7, 4, "residueclass by ring modulus and residue", 
+      "X8753CC098447BE0D" ], 
+  [ "\033[2XResidueClass\033[102X by modulus and residue", "1.1-1", 
+      [ 1, 1, 1 ], 7, 4, "residueclass by modulus and residue", 
+      "X8753CC098447BE0D" ], 
+  [ "\033[2XResidueClass\033[102X by residue and modulus", "1.1-1", 
+      [ 1, 1, 1 ], 7, 4, "residueclass by residue and modulus", 
+      "X8753CC098447BE0D" ], 
+  [ "\033[10XIsResidueClass\033[110X", "1.1-1", [ 1, 1, 1 ], 7, 4, 
+      "isresidueclass", "X8753CC098447BE0D" ], 
+  [ "\033[10XModulus\033[110X of a residue class", "1.1-1", [ 1, 1, 1 ], 7, 
+      4, "modulus of a residue class", "X8753CC098447BE0D" ], 
+  [ "\033[10XResidue\033[110X of a residue class", "1.1-1", [ 1, 1, 1 ], 7, 
+      4, "residue of a residue class", "X8753CC098447BE0D" ], 
+  [ "\033[2XResidueClassUnion\033[102X by ring, modulus and residues", 
+      "1.1-2", [ 1, 1, 2 ], 39, 4, 
+      "residueclassunion by ring modulus and residues", "X85327C777F32DA8F" ],
+  [ "\033[2XResidueClassUnion\033[102X by ring, modulus, residues and included\
+ / excluded elements", "1.1-2", [ 1, 1, 2 ], 39, 4, 
+      "residueclassunion by ring modulus residues and included / excluded elem\
+ents", "X85327C777F32DA8F" ], 
+  [ "\033[2XResidueClassUnion\033[102X by ring and list of classes", "1.1-2", 
+      [ 1, 1, 2 ], 39, 4, "residueclassunion by ring and list of classes", 
+      "X85327C777F32DA8F" ], 
+  [ 
+      "\033[2XResidueClassUnion\033[102X by ring, list of classes and included / \
+excluded elements", "1.1-2", [ 1, 1, 2 ], 39, 4, 
+      "residueclassunion by ring list of classes and included / excluded eleme\
+nts", "X85327C777F32DA8F" ], 
+  [ "\033[10XStandardRep\033[110X for a residue class union", "1.1-2", 
+      [ 1, 1, 2 ], 39, 4, "standardrep for a residue class union", 
+      "X85327C777F32DA8F" ], 
+  [ "\033[10XSparseRep\033[110X for a residue class union", "1.1-2", 
+      [ 1, 1, 2 ], 39, 4, "sparserep for a residue class union", 
+      "X85327C777F32DA8F" ], 
+  [ "residue class union definition", "1.1-2", [ 1, 1, 2 ], 39, 4, 
+      "residue class union definition", "X85327C777F32DA8F" ], 
+  [ "\033[10XModulus\033[110X of a residue class union", "1.1-2", 
+      [ 1, 1, 2 ], 39, 4, "modulus of a residue class union", 
+      "X85327C777F32DA8F" ], 
+  [ "\033[10XResidues\033[110X of a residue class union", "1.1-2", 
+      [ 1, 1, 2 ], 39, 4, "residues of a residue class union", 
+      "X85327C777F32DA8F" ], 
+  [ "\033[10XIncludedElements\033[110X of a residue class union", "1.1-2", 
+      [ 1, 1, 2 ], 39, 4, "includedelements of a residue class union", 
+      "X85327C777F32DA8F" ], 
+  [ "\033[10XExcludedElements\033[110X of a residue class union", "1.1-2", 
+      [ 1, 1, 2 ], 39, 4, "excludedelements of a residue class union", 
+      "X85327C777F32DA8F" ], 
+  [ "\033[10XResidueClassUnionViewingFormat\033[110X", "1.1-2", [ 1, 1, 2 ], 
+      39, 4, "residueclassunionviewingformat", "X85327C777F32DA8F" ], 
+  [ 
+      "\033[2XAllResidueClassesModulo\033[102X of a given ring, modulo a given mo\
+dulus", "1.1-3", [ 1, 1, 3 ], 98, 5, 
+      "allresidueclassesmodulo of a given ring modulo a given modulus", 
+      "X8326D6F285081E0F" ], 
+  [ 
+      "\033[2XAllResidueClassesModulo\033[102X by modulus, of the default ring of\
+ that modulus", "1.1-3", [ 1, 1, 3 ], 98, 5, 
+      "allresidueclassesmodulo by modulus of the default ring of that modulus"
+        , "X8326D6F285081E0F" ], 
+  [ "\033[10XAllResidues\033[110X for ring and modulus", "1.1-3", 
+      [ 1, 1, 3 ], 98, 5, "allresidues for ring and modulus", 
+      "X8326D6F285081E0F" ], 
+  [ "\033[10XNumberOfResidues\033[110X for ring and modulus", "1.1-3", 
+      [ 1, 1, 3 ], 98, 5, "numberofresidues for ring and modulus", 
+      "X8326D6F285081E0F" ], 
+  [ "\033[10XNrResidues\033[110X for ring and modulus", "1.1-3", [ 1, 1, 3 ], 
+      98, 5, "nrresidues for ring and modulus", "X8326D6F285081E0F" ], 
+  [ "\033[10XPrint\033[110X for a residue class union", "1.2", [ 1, 2, 0 ], 
+      126, 6, "print for a residue class union", "X7A3FA13187CEADED" ], 
+  [ "\033[10XString\033[110X for a residue class union", "1.2", [ 1, 2, 0 ], 
+      126, 6, "string for a residue class union", "X7A3FA13187CEADED" ], 
+  [ "\033[10XDisplay\033[110X for a residue class union", "1.2", [ 1, 2, 0 ], 
+      126, 6, "display for a residue class union", "X7A3FA13187CEADED" ], 
+  [ "\033[10XUnion\033[110X for residue class unions", "1.2", [ 1, 2, 0 ], 
+      126, 6, "union for residue class unions", "X7A3FA13187CEADED" ], 
+  [ "\033[10XIntersection\033[110X for residue class unions", "1.2", 
+      [ 1, 2, 0 ], 126, 6, "intersection for residue class unions", 
+      "X7A3FA13187CEADED" ], 
+  [ "\033[10XDifference\033[110X for residue class unions", "1.2", 
+      [ 1, 2, 0 ], 126, 6, "difference for residue class unions", 
+      "X7A3FA13187CEADED" ], 
+  [ "\033[10XIsSubset\033[110X for residue class unions", "1.2", [ 1, 2, 0 ], 
+      126, 6, "issubset for residue class unions", "X7A3FA13187CEADED" ], 
+  [ "\033[2XSplittedClass\033[102X for a residue class and a number of parts",
+      "1.2-1", [ 1, 2, 1 ], 173, 7, 
+      "splittedclass for a residue class and a number of parts", 
+      "X854315A2877B69A7" ], 
+  [ "\033[2XAsUnionOfFewClasses\033[102X for a residue class union", "1.2-2", 
+      [ 1, 2, 2 ], 192, 7, "asunionoffewclasses for a residue class union", 
+      "X87C166FE7FA17325" ], 
+  [ 
+      "\033[2XPartitionsIntoResidueClasses\033[102X of a given ring, of given len\
+gth", "1.2-3", [ 1, 2, 3 ], 228, 8, 
+      "partitionsintoresidueclasses of a given ring of given length", 
+      "X8079E174813646DA" ], 
+  [ 
+      "\033[2XPartitionsIntoResidueClasses\033[102X of a given ring, of given len\
+gth, with moduli with given factors", "1.2-3", [ 1, 2, 3 ], 228, 8, 
+      "partitionsintoresidueclasses of a given ring of given length with modul\
+i with given factors", "X8079E174813646DA" ], 
+  [ 
+      "\033[2XRandomPartitionIntoResidueClasses\033[102X of a given ring, of give\
+n length", "1.2-4", [ 1, 2, 4 ], 248, 8, 
+      "randompartitionintoresidueclasses of a given ring of given length", 
+      "X8653860F7ADA4D38" ], 
+  [ 
+      "\033[2XCoverByResidueClasses\033[102X of the integers, by residue classes \
+with given moduli", "1.2-5", [ 1, 2, 5 ], 269, 8, 
+      "coverbyresidueclasses of the integers by residue classes with given mod\
+uli", "X7BAF36BF7A276D46" ], 
+  [ 
+      "\033[2XCoversByResidueClasses\033[102X of the integers, by residue classes\
+ with given moduli", "1.2-5", [ 1, 2, 5 ], 269, 8, 
+      "coversbyresidueclasses of the integers by residue classes with given mo\
+duli", "X7BAF36BF7A276D46" ], 
+  [ "\033[2XDensity\033[102X of a residue class union", "1.2-6", [ 1, 2, 6 ], 
+      296, 9, "density of a residue class union", "X791C16E77BE97FE3" ], 
+  [ "\033[10XIterator\033[110X for a residue class union", "1.2-6", 
+      [ 1, 2, 6 ], 296, 9, "iterator for a residue class union", 
+      "X791C16E77BE97FE3" ], 
+  [ "\033[10XNextIterator\033[110X for an iterator of a residue class union", 
+      "1.2-6", [ 1, 2, 6 ], 296, 9, 
+      "nextiterator for an iterator of a residue class union", 
+      "X791C16E77BE97FE3" ], 
+  [ "\033[2XIsResidueClassUnion\033[102X", "1.4-1", [ 1, 4, 1 ], 408, 11, 
+      "isresidueclassunion", "X7EA29BBD82552352" ], 
+  [ "\033[2XIsResidueClassUnionOfZ\033[102X", "1.4-1", [ 1, 4, 1 ], 408, 11, 
+      "isresidueclassunionofz", "X7EA29BBD82552352" ], 
+  [ "\033[2XIsResidueClassUnionOfZxZ\033[102X", "1.4-1", [ 1, 4, 1 ], 408, 
+      11, "isresidueclassunionofzxz", "X7EA29BBD82552352" ], 
+  [ "\033[2XIsResidueClassUnionOfZ_pi\033[102X", "1.4-1", [ 1, 4, 1 ], 408, 
+      11, "isresidueclassunionofz_pi", "X7EA29BBD82552352" ], 
+  [ "\033[2XIsResidueClassUnionOfGFqx\033[102X", "1.4-1", [ 1, 4, 1 ], 408, 
+      11, "isresidueclassunionofgfqx", "X7EA29BBD82552352" ], 
+  [ "\033[10XIsResidueClassUnionOfZ_pi\033[110X", "1.4-1", [ 1, 4, 1 ], 408, 
+      11, "isresidueclassunionofz_pi", "X7EA29BBD82552352" ], 
+  [ "\033[10XIsResidueClassUnionResidueListRep\033[110X", "1.4-1", 
+      [ 1, 4, 1 ], 408, 11, "isresidueclassunionresiduelistrep", 
+      "X7EA29BBD82552352" ], 
+  [ "\033[10XExtRepOfObj\033[110X", "1.4-1", [ 1, 4, 1 ], 408, 11, 
+      "extrepofobj", "X7EA29BBD82552352" ], 
+  [ "\033[10XObjByExtRep\033[110X", "1.4-1", [ 1, 4, 1 ], 408, 11, 
+      "objbyextrep", "X7EA29BBD82552352" ], 
+  [ "\033[2XResidueClassUnionsFamily\033[102X of a ring", "1.4-2", 
+      [ 1, 4, 2 ], 428, 11, "residueclassunionsfamily of a ring", 
+      "X7F9BCB1A797F8F48" ], 
+  [ 
+      "\033[2XResidueClassUnionsFamily\033[102X of a ring, with fixed representat\
+ives", "1.4-2", [ 1, 4, 2 ], 428, 11, 
+      "residueclassunionsfamily of a ring with fixed representatives", 
+      "X7F9BCB1A797F8F48" ], 
+  [ "residue class union coercion", "1.4-2", [ 1, 4, 2 ], 428, 11, 
+      "residue class union coercion", "X7F9BCB1A797F8F48" ], 
+  [ 
+      "\033[2XResidueClassWithFixedRepresentative\033[102X by ring, modulus and r\
+esidue", "2.1-1", [ 2, 1, 1 ], 12, 12, 
+      "residueclasswithfixedrepresentative by ring modulus and residue", 
+      "X831C976D876FDAD3" ], 
+  [ 
+      "\033[2XResidueClassWithFixedRepresentative\033[102X of Z, by modulus and r\
+esidue", "2.1-1", [ 2, 1, 1 ], 12, 12, 
+      "residueclasswithfixedrepresentative of z by modulus and residue", 
+      "X831C976D876FDAD3" ], 
+  [ "\033[10XIsResidueClassWithFixedRep\033[110X", "2.1-1", [ 2, 1, 1 ], 12, 
+      12, "isresidueclasswithfixedrep", "X831C976D876FDAD3" ], 
+  [ 
+      "\033[2XUnionOfResidueClassesWithFixedReps\033[102X by ring and list of cla\
+sses", "2.1-2", [ 2, 1, 2 ], 32, 12, 
+      "unionofresidueclasseswithfixedreps by ring and list of classes", 
+      "X871ED1D17AE52A95" ], 
+  [ 
+      "\033[2XUnionOfResidueClassesWithFixedReps\033[102X of Z, by list of classe\
+s", "2.1-2", [ 2, 1, 2 ], 32, 12, 
+      "unionofresidueclasseswithfixedreps of z by list of classes", 
+      "X871ED1D17AE52A95" ], 
+  [ "\033[10XModulus\033[110X of a union of residue classes with fixed rep's",
+      "2.1-2", [ 2, 1, 2 ], 32, 12, 
+      "modulus of a union of residue classes with fixed reps", 
+      "X871ED1D17AE52A95" ], 
+  [ "\033[10XClasses\033[110X of a union of residue classes with fixed rep's",
+      "2.1-2", [ 2, 1, 2 ], 32, 12, 
+      "classes of a union of residue classes with fixed reps", 
+      "X871ED1D17AE52A95" ], 
+  [ 
+      "\033[10XAsListOfClasses\033[110X for a union of residue classes with fixed\
+ rep's", "2.1-2", [ 2, 1, 2 ], 32, 12, 
+      "aslistofclasses for a union of residue classes with fixed reps", 
+      "X871ED1D17AE52A95" ], 
+  [ "\033[2XAllResidueClassesWithFixedRepsModulo\033[102X by ring and modulus"
+        , "2.1-3", [ 2, 1, 3 ], 59, 13, 
+      "allresidueclasseswithfixedrepsmodulo by ring and modulus", 
+      "X8198386A809A6B17" ], 
+  [ 
+      "\033[2XAllResidueClassesWithFixedRepsModulo\033[102X by modulus, of the de\
+fault ring of that modulus", "2.1-3", [ 2, 1, 3 ], 59, 13, 
+      "allresidueclasseswithfixedrepsmodulo by modulus of the default ring of \
+that modulus", "X8198386A809A6B17" ], 
+  [ 
+      "\033[2XMultiplicity\033[102X of an element in a union of residue classes w\
+ith fixed rep's", "2.2-1", [ 2, 2, 1 ], 88, 13, 
+      "multiplicity of an element in a union of residue classes with fixed rep\
+s", "X808442EC7F3F5748" ], 
+  [ 
+      "\033[2XMultiplicity\033[102X of a residue class in a union of residue clas\
+ses with fixed rep's", "2.2-1", [ 2, 2, 1 ], 88, 13, 
+      "multiplicity of a residue class in a union of residue classes with fixe\
+d reps", "X808442EC7F3F5748" ], 
+  [ "\033[10XDensity\033[110X of a union of residue classes with fixed rep's",
+      "2.2-1", [ 2, 2, 1 ], 88, 13, 
+      "density of a union of residue classes with fixed reps", 
+      "X808442EC7F3F5748" ], 
+  [ 
+      "\033[10XIsOverlappingFree\033[110X for a union of residue classes with fix\
+ed rep's", "2.2-1", [ 2, 2, 1 ], 88, 13, 
+      "isoverlappingfree for a union of residue classes with fixed reps", 
+      "X808442EC7F3F5748" ], 
+  [ 
+      "\033[10XAsOrdinaryUnionOfResidueClasses\033[110X for a union of residue cl\
+asses with fixed rep's", "2.2-1", [ 2, 2, 1 ], 88, 13, 
+      "asordinaryunionofresidueclasses for a union of residue classes with fix\
+ed reps", "X808442EC7F3F5748" ], 
+  [ 
+      "\033[2XUnion\033[102X for unions of residue classes with fixed representat\
+ives", "2.2-2", [ 2, 2, 2 ], 161, 15, 
+      "union for unions of residue classes with fixed representatives", 
+      "X8296A97779FE8B72" ], 
+  [ 
+      "\033[2XIntersection\033[102X for unions of residue classes with fixed repr\
+esentatives", "2.2-3", [ 2, 2, 3 ], 179, 15, 
+      "intersection for unions of residue classes with fixed representatives",
+      "X7FC166A57F1F5601" ], 
+  [ 
+      "\033[2XDifference\033[102X for unions of residue classes with fixed repres\
+entatives", "2.2-4", [ 2, 2, 4 ], 198, 15, 
+      "difference for unions of residue classes with fixed representatives", 
+      "X82A4EE727E67AB98" ], 
+  [ 
+      "\033[2XDelta\033[102X for a union of residue classes with fixed representa\
+tives", "2.3-1", [ 2, 3, 1 ], 223, 16, 
+      "delta for a union of residue classes with fixed representatives", 
+      "X78DCAB2C7C4E37E8" ], 
+  [ "\033[10XRho\033[110X for a union of residue classes with fixed rep's", 
+      "2.3-1", [ 2, 3, 1 ], 223, 16, 
+      "rho for a union of residue classes with fixed reps", 
+      "X78DCAB2C7C4E37E8" ], 
+  [ 
+      "\033[2XRepresentativeStabilizingRefinement\033[102X of a union of res.-cla\
+sses with fixed rep's", "2.3-2", [ 2, 3, 2 ], 249, 16, 
+      "representativestabilizingrefinement of a union of res.-classes with fix\
+ed reps", "X7E109A6E81A0465C" ], 
+  [ "\033[2XZ_pi\033[102X by set of non-invertible primes", "3.1-1", 
+      [ 3, 1, 1 ], 11, 17, "z_pi by set of non-invertible primes", 
+      "X7861432E7F221610" ], 
+  [ "\033[2XZ_pi\033[102X by non-invertible prime", "3.1-1", [ 3, 1, 1 ], 11, 
+      17, "z_pi by non-invertible prime", "X7861432E7F221610" ], 
+  [ "\033[10XIsZ_pi\033[110X", "3.1-1", [ 3, 1, 1 ], 11, 17, "isz_pi", 
+      "X7861432E7F221610" ], 
+  [ "\033[10XNoninvertiblePrimes\033[110X of a semilocalization of Z", 
+      "3.1-1", [ 3, 1, 1 ], 11, 17, 
+      "noninvertibleprimes of a semilocalization of z", "X7861432E7F221610" ],
+  [ "\033[10XStandardAssociate\033[110X of an element of a semilocalization of\
+ Z", "3.2", [ 3, 2, 0 ], 29, 17, 
+      "standardassociate of an element of a semilocalization of z", 
+      "X7E75C4217DCA45D0" ], 
+  [ "\033[10XGcd\033[110X of elements of a semilocalization of Z", "3.2", 
+      [ 3, 2, 0 ], 29, 17, "gcd of elements of a semilocalization of z", 
+      "X7E75C4217DCA45D0" ], 
+  [ "\033[10XLcm\033[110X of elements of a semilocalization of Z", "3.2", 
+      [ 3, 2, 0 ], 29, 17, "lcm of elements of a semilocalization of z", 
+      "X7E75C4217DCA45D0" ], 
+  [ "\033[10XFactors\033[110X of an element of a semilocalization of Z", 
+      "3.2", [ 3, 2, 0 ], 29, 17, 
+      "factors of an element of a semilocalization of z", "X7E75C4217DCA45D0" 
+     ], 
+  [ "\033[10XIsUnit\033[110X for an element of a semilocalization of Z", 
+      "3.2", [ 3, 2, 0 ], 29, 17, 
+      "isunit for an element of a semilocalization of z", "X7E75C4217DCA45D0" 
+     ], [ "\033[2XResClassesTest\033[102X", "4.3-1", [ 4, 3, 1 ], 25, 19, 
+      "resclassestest", "X8733F00082901C2C" ], 
+  [ "\033[2XResClassesTestExamples\033[102X", "4.3-2", [ 4, 3, 2 ], 34, 19, 
+      "resclassestestexamples", "X802034807F5D6C47" ], 
+  [ "\033[2XLogToDatedFile\033[102X", "4.4-1", [ 4, 4, 1 ], 45, 20, 
+      "logtodatedfile", "X7B023FD184CC118D" ], 
+  [ "\033[2XDownloadFile\033[102X", "4.5-1", [ 4, 5, 1 ], 61, 20, 
+      "downloadfile", "X7C1543408472A82B" ], 
+  [ "\033[2XSendEmail\033[102X", "4.5-2", [ 4, 5, 2 ], 71, 20, "sendemail", 
+      "X7F27919085001EA8" ], 
+  [ "\033[2XEmailLogFile\033[102X", "4.5-3", [ 4, 5, 3 ], 84, 20, 
+      "emaillogfile", "X8000E5CF7DF4339C" ], 
+  [ "\033[2XSaveAsBitmapPicture\033[102X picture, filename", "4.6-1", 
+      [ 4, 6, 1 ], 105, 21, "saveasbitmappicture picture filename", 
+      "X81DE1E838615C214" ], 
+  [ "\033[10XLoadBitmapPicture\033[110X filename", "4.6-1", [ 4, 6, 1 ], 105, 
+      21, "loadbitmappicture filename", "X81DE1E838615C214" ], 
+  [ "\033[2XDrawLineNC\033[102X pic, x1, y1, x2, y2, color, width", "4.6-2", 
+      [ 4, 6, 2 ], 131, 21, "drawlinenc pic x1 y1 x2 y2 color width", 
+      "X83D7129581B8CF21" ], 
+  [ "\033[10XPositionsSublist\033[110X", "4.7", [ 4, 7, 0 ], 148, 21, 
+      "positionssublist", "X808A30E37A293D19" ], 
+  [ 
+      "\033[10XEquivalenceClasses\033[110X for a list and a function computing a \
+class invariant", "4.7", [ 4, 7, 0 ], 148, 21, 
+      "equivalenceclasses for a list and a function computing a class invarian\
+t", "X808A30E37A293D19" ], 
+  [ 
+      "\033[10XEquivalenceClasses\033[110X for a list and a function describing a\
+n equivalence relation", "4.7", [ 4, 7, 0 ], 148, 21, 
+      "equivalenceclasses for a list and a function describing an equivalence \
+relation", "X808A30E37A293D19" ], 
+  [ "\033[10XGraphClasses\033[110X", "4.7", [ 4, 7, 0 ], 148, 21, 
+      "graphclasses", "X808A30E37A293D19" ], 
+  [ "\033[10XAllGraphs\033[110X", "4.7", [ 4, 7, 0 ], 148, 21, "allgraphs", 
+      "X808A30E37A293D19" ], 
+  [ "\033[10XIdGraphNC\033[110X", "4.7", [ 4, 7, 0 ], 148, 21, "idgraphnc", 
+      "X808A30E37A293D19" ] ]
+);

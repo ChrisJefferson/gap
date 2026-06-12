@@ -1,0 +1,19 @@
+inp 4 8 5 7 3
+pwr 2 3 15A\'
+pwr 2 7 6A\'
+pwr 2 6A\' 3A
+pwr 2 3A 3A\'
+pwr 3 3 5A
+pwr 3 7 4B
+pwr 3 6A\' 2A
+pwr 3 3A 1A
+pwr 3 4B 4A
+pwr 5 7 12A\'
+pwr 5 6A\' 6A
+pwr 7 7 12B
+pwr 7 12A\' 12B\'
+echo "Classes 1A 2A 4A 4B 5A 7ABC 13ABC 3A 3A' 6A 6A' 12A 12A' 12B 12B'"
+oup 15 1A 2A 4A 4B 5A 8 5 3A 3A\' 6A 6A\' 7 12A\' 12B 12B\'
+echo "Classes 15A 15A'"
+oup 2 3 15A\'
+

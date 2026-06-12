@@ -1,0 +1,56 @@
+\makelabel{Alnuth:Introduction}{1}
+\makelabel{Alnuth:Acknowledgements}{1.1}
+\makelabel{Alnuth:License}{1.2}
+\makelabel{Alnuth:Methods for number fields}{2}
+\makelabel{Alnuth:Creation of number fields}{2.1}
+\makelabel{Alnuth:FieldByMatricesNC}{2.1.1}
+\makelabel{Alnuth:FieldByMatrices}{2.1.1}
+\makelabel{Alnuth:FieldByMatrixBasisNC}{2.1.2}
+\makelabel{Alnuth:FieldByMatrixBasis}{2.1.2}
+\makelabel{Alnuth:FieldByPolynomialNC}{2.1.3}
+\makelabel{Alnuth:FieldByPolynomial}{2.1.3}
+\makelabel{Alnuth:Methods for number fields}{2.2}
+\makelabel{Alnuth:PrimitiveElement}{2.2.1}
+\makelabel{Alnuth:DefiningPolynomial}{2.2.1}
+\makelabel{Alnuth:IsPrimitiveElementOfNumberField}{2.2.2}
+\makelabel{Alnuth:DegreeOverPrimeField}{2.2.3}
+\makelabel{Alnuth:EquationOrderBasis}{2.2.4}
+\makelabel{Alnuth:MaximalOrderBasis}{2.2.4}
+\makelabel{Alnuth:IsIntegerOfNumberField}{2.2.4}
+\makelabel{Alnuth:UnitGroup}{2.2.5}
+\makelabel{Alnuth:IsUnitOfNumberField}{2.2.6}
+\makelabel{Alnuth:ExponentsOfUnits}{2.2.7}
+\makelabel{Alnuth:IsCyclotomicField}{2.2.8}
+\makelabel{Alnuth:NormCosetsOfNumberField}{2.2.9}
+\makelabel{Alnuth:Presentations of multiplicative subgroups}{2.3}
+\makelabel{Alnuth:PcpPresentationOfMultiplicativeSubgroup}{2.3.1}
+\makelabel{Alnuth:IsomorphismPcpGroup}{2.3.1}
+\makelabel{Alnuth:RelationLattice}{2.3.2}
+\makelabel{Alnuth:Methods to compute with subgroups of the unit group}{2.4}
+\makelabel{Alnuth:RelationLatticeOfUnits}{2.4.1}
+\makelabel{Alnuth:IntersectionOfUnitSubgroups}{2.4.2}
+\makelabel{Alnuth:Factorisation of polynomials over a number field}{2.5}
+\makelabel{Alnuth:FactorsPolynomialAlgExt}{2.5.1}
+\makelabel{Alnuth:FactorsPolynomialPari}{2.5.2}
+\makelabel{Alnuth:Examples}{2.6}
+\makelabel{Alnuth:ExampleMatField}{2.6.1}
+\makelabel{Alnuth:An example application}{3}
+\makelabel{Alnuth:Number fields defined by matrices}{3.1}
+\makelabel{Alnuth:Number fields defined by a polynomial}{3.2}
+\makelabel{Alnuth:Installation}{4}
+\makelabel{Alnuth:Installing Alnuth}{4.1}
+\makelabel{Alnuth:Getting PARI/GP}{4.2}
+\makelabel{Alnuth:Adjust the path of the executable for GP}{4.3}
+\makelabel{Alnuth:PariVersion}{4.3.1}
+\makelabel{Alnuth:SetAlnuthExternalExecutable}{4.3.2}
+\makelabel{Alnuth:SetAlnuthExternalExecutablePermanently}{4.3.3}
+\makelabel{Alnuth:RestoreAlnuthExternalExecutable}{4.3.4}
+\makelabel{Alnuth:Loading and testing the package}{4.4}
+\makelabel{Alnuth:Bibliography}{}
+\setcitlab {Coh93}{Coh93}
+\setcitlab {Polycyclic}{EHN11}
+\setcitlab {PARI2}{PAR11}
+\setcitlab {Poh93}{Poh93}
+\setcitlab {PZa89}{PZ89}
+\setcitlab {Sta79}{ST79}
+\makelabel{Alnuth:Index}{}

@@ -1,0 +1,82 @@
+\GAPDocLabFile{dev}
+\makelabel{dev:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{dev:Abstract}{}{X7AA6C5737B711C89}
+\makelabel{dev:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{dev:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{dev:Structure of the GAP distribution}{1}{X7A2465B67D8E59B6}
+\makelabel{dev:Kernel, library, documentation, package interface, development part}{1.1}{X7B27E71B7AA26F31}
+\makelabel{dev:The directories of the GAP distribution and repository}{1.2}{X7C387B4C84A76B5B}
+\makelabel{dev:The GAP kernel programming}{2}{X810D56CE7BC6031F}
+\makelabel{dev:Overview of the GAP kernel}{2.1}{X8071E6CA7A9CF5DF}
+\makelabel{dev:"Hello World" example}{2.2}{X7F9BD7A37B142C23}
+\makelabel{dev:Structure of the GAP kernel}{2.3}{X78D70F927B947A2C}
+\makelabel{dev:Garbage collection in GAP}{2.4}{X86BA4BA17AA4F56C}
+\makelabel{dev:GASMAN}{2.4.1}{X86E038D8796AECA3}
+\makelabel{dev:GASMAN Interface}{2.4.2}{X7AA6E6517ED276FA}
+\makelabel{dev:The GASMAN Interface for Weak Pointer Objects}{2.4.3}{X7C1EFEEB8071E0A2}
+\makelabel{dev:Interfaces}{2.5}{X815C2D007A090300}
+\makelabel{dev:Objects and API}{2.6}{X849901607E91AC92}
+\makelabel{dev:Immediate Integers and FFEs}{2.6.1}{X7B314E837FD109B1}
+\makelabel{dev:Arithmetics}{2.6.2}{X87FF26F4878230FB}
+\makelabel{dev:Functions}{2.6.3}{X86FA580F8055B274}
+\makelabel{dev:Lists}{2.6.4}{X7B256AE5780F140A}
+\makelabel{dev:Data objects}{2.6.5}{X789D77787E3527D4}
+\makelabel{dev:Rules of Kernel Programming}{2.7}{X7A547AB487DA5FA9}
+\makelabel{dev:Three golden rules}{2.7.1}{X861B9EB587F6B238}
+\makelabel{dev:Common kernel traps}{2.7.2}{X8055D4158291EAA2}
+\makelabel{dev:One More Bit of GASMAN interface}{2.7.3}{X7FC1A0FA7B0E8554}
+\makelabel{dev:The GAP compiler}{2.8}{X82DBFB18873C8E8F}
+\makelabel{dev:Compiling GAP Code}{2.8.1}{X7AFA67497FA81DCD}
+\makelabel{dev:Suitability for Compilation}{2.8.2}{X7FBB45C17D3F3B0B}
+\makelabel{dev:Compiling Library Code}{2.8.3}{X844D3126800839DE}
+\makelabel{dev:Global Variables}{2.9}{X7D9044767BEB1523}
+\makelabel{dev:Global variables}{2.9.1}{X7D9044767BEB1523}
+\makelabel{dev:Tracking global variables}{2.9.2}{X7A106F327F75851A}
+\makelabel{dev:The Kernel Module Structure and interface}{2.10}{X7B6775AC8609D5AB}
+\makelabel{dev:The Kernel Module Structure}{2.10.1}{X82E5407283B16176}
+\makelabel{dev:The Kernel Module Interface}{2.10.2}{X875A1DC186FEC3C5}
+\makelabel{dev:Sequences of Events}{2.10.3}{X7FBC8CDB82C7A500}
+\makelabel{dev:Saving a Workspace}{2.10.4}{X80CAC88A7E9561E3}
+\makelabel{dev:Excerpts from InitKernel from integer.c}{2.10.5}{X809F94777E699351}
+\makelabel{dev:Commentary}{2.10.6}{X7EA36574819CE9AD}
+\makelabel{dev:Other Similar Functions}{2.10.7}{X802173687AD2C3FD}
+\makelabel{dev:Importing from the Library}{2.10.8}{X781C432386ED9C00}
+\makelabel{dev:InitKernel}{2.10.9}{X797D02CD7AC39FE6}
+\makelabel{dev:initLibrary and postRestore}{2.10.10}{X7FDA1F307BC45E44}
+\makelabel{dev:Maintaining the GAP kernel and library}{3}{X87069A9C7F80F2F6}
+\makelabel{dev:Debugging the GAP Kernel}{3.1}{X8429278B82F8422F}
+\makelabel{dev:...}{3.2}{X872B5589872B5589}
+\makelabel{dev:Maintaining the GAP documentation}{4}{X7C24E045841932FE}
+\makelabel{dev:The source of the GAP documentation}{4.1}{X7C846E267C02DAC1}
+\makelabel{dev:How to compile the GAP manuals from the sources}{4.2}{X7F00F57B860D4BCB}
+\makelabel{dev:Testing GAP}{5}{X7E322F907A91E93C}
+\makelabel{dev:.tst-files}{5.1}{X7A8164FA845633C4}
+\makelabel{dev:Checking examples in the main manuals}{5.2}{X7C3CA111819C3B70}
+\makelabel{dev:Tests for packages}{5.3}{X86A3BA8286875488}
+\makelabel{dev:Checking references and cross-references of manuals}{5.4}{X7C9AC516810C5B9B}
+\makelabel{dev:Detecting potential naming conflicts}{5.5}{X81532DCF84DF5130}
+\makelabel{dev:The standard test suite}{5.6}{X7A7205ED7D3C47E5}
+\makelabel{dev:Test evaluation}{5.7}{X7E3E6D44826B524E}
+\makelabel{dev:Test Issues for Releases}{5.8}{X7D745E5F7EC8BF06}
+\makelabel{dev:Open items concerning tests}{5.9}{X864F14B185FDD394}
+\makelabel{dev:Version control using Git}{6}{X7C4D44E0842E7580}
+\makelabel{dev:Introduction}{6.1}{X7DFB63A97E67C0A1}
+\makelabel{dev:Using Git}{6.1.1}{X85BD472A872C6930}
+\makelabel{dev:Distributing packages via the GAP sites}{7}{X83A4D48480312567}
+\makelabel{dev:...}{7.1}{X872B5589872B5589}
+\makelabel{dev:Maintaining the GAP website}{8}{X83EA107F8604BF05}
+\makelabel{dev:Overview}{8.1}{X8389AD927B74BA4A}
+\makelabel{dev:Getting started}{8.2}{X7B1863E17896BCE1}
+\makelabel{dev:Git usage}{8.3}{X834E4B6C803BCC83}
+\makelabel{dev:The web server in St Andrews}{8.4}{X85F384C77F6DE105}
+\makelabel{dev:Installation on the web server}{8.5}{X868CFB5587409D40}
+\makelabel{dev:Needed ingredients}{8.5.1}{X7F6C26DE8716D8E4}
+\makelabel{dev:Installation procedure}{8.5.2}{X7F9860F087C945E6}
+\makelabel{dev:Installing updated versions}{8.5.3}{X7F7E53617EC4B7AF}
+\makelabel{dev:The GAP manuals on the web pages}{8.6}{X816DE34780E28F3B}
+\makelabel{dev:The GAP packages on the web pages}{8.7}{X836F4BD285D140CB}
+\makelabel{dev:The GAP forum archive}{8.8}{X87A022527B07691C}
+\makelabel{dev:Hints and conventions for writing GAP programs}{9}{X84B46A8F8558362E}
+\makelabel{dev:Naming conventions}{9.1}{X81F732457F7BC851}
+\makelabel{dev:Index}{Ind}{X83A0356F839C696F}
+\makelabel{dev:modules}{3.1}{X8429278B82F8422F}

@@ -1,0 +1,427 @@
+  
+  [1X7 [33X[0;0YLarge Nilpotent Subgroups of Sporadic Simple Groups[133X[101X
+  
+  [33X[0;0YDate: June 6th, 2009[133X
+  
+  [33X[0;0YWe  show that any nontrivial nilpotent subgroup [22XU[122X in a sporadic simple group
+  [22XG[122X  satisfies  [22X|U|  ⋅  |N_G(U)|  < |G|[122X. The proof uses the information in the
+  [5XAtlas[105X  of  Finite  Groups [CCN+85] and the [5XGAP[105X system [GAP24], in particular
+  its   Character   Table   Library [Bre25]  and  its  library  of  Tables  of
+  Marks [MNP19]. (In [Vdo00], it is shown that in any finite nonabelian simple
+  group [22XG[122X, any nilpotent subgroup [22XU[122X satisfies [22X|U|^2 < |G|[122X.)[133X
+  
+  
+  [1X7.1 [33X[0;0YThe Result[133X[101X
+  
+  [33X[0;0YThe aim of this writeup is to show the following statement.[133X
+  
+  [33X[0;0Y[13XProposition[113X:  Let  [22XG[122X  be  a  sporadic  simple  group,  let [22XU[122X be a nontrivial
+  nilpotent  subgroup  in  [22XG[122X,  and let [22XN_G(U)[122X denote the normalizer of [22XU[122X in [22XG[122X.
+  Then [22X|U| ⋅ |N_G(U)| < |G|[122X holds.[133X
+  
+  [33X[0;0YThe  following  criteria are sufficient to prove this proposition. Note that
+  we  are  interested  in  an  argument  that  uses only information about the
+  character  tables  of  the  sporadic  simple  groups  and  of  their maximal
+  subgroups.[133X
+  
+  [33X[0;0Y[13XLemma  1[113X: Let [22XG[122X be a nonabelian finite simple group, and suppose that [22XU[122X is a
+  nontrivial nilpotent subgroup of [22XG[122X such that [22X|U| ⋅ |N_G(U)| ≥ |G|[122X holds. Let
+  [22XΠ  = { p_1, p_2, ..., p_n }[122X be the set of prime divisors of [22X|U|[122X, and set [22Xn =
+  ∏_{p ∈ Π} p[122X.[133X
+  
+  [8X(a)[108X
+        [33X[0;6Y[22XG[122X  contains  an element [22Xg[122X of order [22Xn[122X and a maximal subgroup [22XM[122X with the
+        properties  [22Xg  ∈  Z(U)[122X  and  [22XN_G(U) ≤ M[122X. Set [22Xc:= gcd(|C_G(g)|_Π, |M|)[122X,
+        where  [22X|C_G(g)|_Π[122X  denotes  the  largest  divisor  of the order of the
+        centralizer  of [22Xg[122X in [22XG[122X whose prime divisors are elements of the set [22XΠ[122X.
+        Then  we  have  [22X|U| ≤ c[122X and hence [22Xc ⋅ |M| ≥ |G|[122X, in particular [22X|M|^2 ≥
+        |G|[122X.[133X
+  
+  [8X(b)[108X
+        [33X[0;6YIf [22X(g, M)[122X is as in part (a) then one of the following holds.[133X
+  
+        [8X(b1)[108X
+              [33X[0;12Y[22XU[122X is normal in [22XM[122X, and the Fitting subgroup [22XFit(M)[122X of [22XM[122X satisfies
+              [22X|Fit(M)| ⋅ |M| ≥ |G|[122X.[133X
+  
+        [8X(b2)[108X
+              [33X[0;12Y[22XU[122X  is  not  normal in [22XM[122X, so [22XN_G(U)[122X is a proper subgroup of [22XM[122X, in
+              particular [22X|G| ≤ |U| ⋅ |M|/2 ≤ c ⋅ |M| / 2[122X holds.[133X
+  
+  [8X(c)[108X
+        [33X[0;6YLet  [22X(g,  M)[122X  be  as  in part (b2) and assume that [22XM[122X contains a normal
+        subgroup  [22XK[122X  such that [22Xπ(M):= M/K[122X is an almost simple group with socle
+        [22XS[122X,  i. e.,  [22Xπ(M)[122X  has  a nonabelian simple normal subgroup [22XS[122X such that
+        [22XC_{π(M)}(S)[122X is trivial. Then either [22XU ≤ K[122X holds, and hence [22X|K| ⋅ |M| ≥
+        |G|[122X, or we are in the following situation.[133X
+  
+        [33X[0;6YThe  group [22Xπ(U):= U K / K[122X is a nontrivial nilpotent normal subgroup of
+        [22Xπ(N):=  N_G(U)  K / K[122X, and [22XH:= S ∩ π(N)[122X is a proper subgroup of [22XS[122X. The
+        latter statement holds because otherwise [22XS ∩ π(U)[122X would be normal in [22XS[122X
+        and  thus  would be trivial, which would imply that [22XS[122X would centralize
+        [22Xπ(U)[122X.[133X
+  
+        [33X[0;6YAs  a  consequence, [22X|π(N)|[122X divides [22X|π(M)/S| ⋅ |H| = |π(M)| / [S:H][122X, in
+        particular,  [22X[S:H]  ≤  |π(M)|  /  |π(N)|  =  |M|  / |N_G(U) K| ≤ |M| /
+        |N_G(U)| ≤ |M| ⋅ |U| / |G| ≤ c / [G:M][122X holds.[133X
+  
+  [33X[0;0YWe will apply Lemma 1 as follows.[133X
+  
+  [33X[0;0YFrom  the  character  tables  of [22XG[122X and [22XM[122X, the value [22X|Fit(M)|[122X and the maximal
+  possible  [22Xc[122X can be computed. If part (a) of the lemma applies then we verify
+  that  part (b1)  does  [13Xnot[113X  apply,  and  that  either  (b2)  or (c) yields a
+  contradiction.  Note  that  we  can  determine from the character table of [22XM[122X
+  whether  [22XM[122X  has  a  normal subgroup [22XK[122X such that [22XM/K[122X is almost simple, and in
+  this case we can compute the order of the socle [22XS[122X of [22XM/K[122X.[133X
+  
+  [33X[0;0YFor proving the nonexistence of the subgroup [22XH[122X in the situation of part (c),
+  we  will  show  that all subgroups of [22Xπ(M)[122X of index up to [22Xd:= c ⋅ [π(M):S] /
+  [G:M][122X  contain  [22XS[122X.  For  that,  we  will  compute the complete list of those
+  possible  permutation characters of [22Xπ(M)[122X whose degree is at most [22Xd[122X, and then
+  check that the kernels of these characters contain [22XS[122X.[133X
+  
+  [33X[0;0Y(Note  that these computations are cheap because the bound [22Xd[122X is small in the
+  cases  that occur. There are easier criteria for proving the nonexistence of
+  a  subgroup  of index at most [22Xd[122X in a simple group [22XS[122X, for example in the case
+  [22X|S|  >  d!  /  2[122X or if the smallest nontrivial irreducible degree of [22XS[122X is at
+  least [22Xd[122X; but these criteria do not suffice in our situation.)[133X
+  
+  [33X[0;0YWe illustrate the application of Lemma 1 with some examples.[133X
+  
+  [8X[22XJ_1[122X:[108X
+        [33X[0;6YThe  first Janko group [22XJ_1[122X (see [CCN+85, p. 36]) has order [22X175560[122X, and
+        the largest maximal subgroup has order [22X660[122X. The largest centralizer of
+        a  nonidentity  element  in [22XJ_1[122X has order [22X120[122X, and [22X660 ⋅ 120 = 79200 <
+        |J_1|[122X. Thus [22XJ_1[122X satisfies the proposition.[133X
+  
+  [8X[22XMM[122X:[108X
+        [33X[0;6YFor  the Monster group [22XMM[122X (see [CCN+85, p. 234]), we read off from the
+        list [Wil]  of  maximal subgroups that the only maximal subgroups [22XM[122X of
+        [22XMM[122X  with  the  property [22X|M|^2 ≥ MM[122X have the structure [22X2.B[122X. Already for
+        the   second   largest   maximal   subgroups,   with   the   structure
+        [22X2^{1+24}.Co_1[122X, the order is smaller than the index in the Monster.[133X
+  
+        [33X[0;6YOnly elements [22Xg[122X from the classes [10X2A[110X, [10X2B[110X, and [10X3A[110X have the property that
+        the product of [22X|2.B|[122X and the order of the centralizer of [22Xg[122X in [22XM[122X is not
+        smaller  than  [22X|M|[122X.  So  [22XU[122X  can  be  only a [22X2[122X- or a [22X3[122X-subgroup of [22X2.B[122X.
+        However,  the  [22X2[122X-part  and  the  [22X3[122X-part  of  [22X|2.B|[122X  are [22X2^42[122X and [22X3^13[122X,
+        respectively,  which  are  smaller  than the index of [22X2.B[122X in [22XM[122X. Thus [22XM[122X
+        satisfies the proposition.[133X
+  
+  [8X[22XFi_23[122X:[108X
+        [33X[0;6YWe  show  that  no  counterexample  to  the proposition can arise from
+        maximal  subgroups  [22XM[122X  of  the  type [22XO_8^+(3):S_3[122X in the Fischer group
+        [22XFi_23[122X  (see [CCN+85,  p.  177]).  Several  element  centralizers  in [22XG[122X
+        satisfy  Lemma 1 (a),  the largest value [22Xc[122X arises from elements in the
+        class  [10X6B[110X, whose centralizers have order [22X2^8 ⋅ 3^9[122X, which divides [22X|M|[122X.
+        So  [22X|U|  ≤ 2^8 ⋅ 3^9[122X, and a possible counterexample to the proposition
+        must  satisfy [22X|N_G(U)| ≥ |G| / (2^8 ⋅ 3^9) = 811588377600[122X. We have [22X|M|
+        =  29713078886400[122X,  which  is  less  than  [22X37[122X times this minimal order
+        required  for  [22XN_G(U)[122X.  However, the intersection [22XH[122X of this group with
+        the  simple  subgroup  [22XS ≅ O_8^+(3)[122X in [22XM[122X cannot be at most [22X36[122X, because
+        the  largest  maximal  subgroups in [22XS[122X have index [22X1080[122X (see [CCN+85, p.
+        140]).  Arguing  not  with  [22XS[122X  but with [22XM[122X, we can show –using only the
+        character  table of [22XM[122X– that all proper subgroups of index less than [22X37
+        ⋅ 6[122X in [22XM[122X contain [22XS[122X.[133X
+  
+  
+  [1X7.2 [33X[0;0YThe Proof[133X[101X
+  
+  [33X[0;0YThe following [5XGAP[105X function utilizes Lemma 1. Its input are the [5XGAP[105X character
+  table  [10Xtbl[110X  of  a  group [22XG[122X, say, and a list [10Xmaxesinfo[110X of character tables of
+  maximal  subgroups of [22XG[122X, covering at least all those maximal subgroups [22XM[122X for
+  which [22X|M|^2 ≥ |G|[122X holds.[133X
+  
+  [33X[0;0YThe  idea  is  to collect pairs [22X(M, g)[122X that satisfy part (a) of Lemma 1, and
+  then to show that they do not satisfy part (b) or part (c). For each maximal
+  subgroup  [22XM[122X that admits elements [22Xg[122X as in Lemma 1, information is printed how
+  this candidate is excluded.[133X
+  
+  [33X[0;0YThe  function returns a list of length three. The first entry is [9Xtrue[109X if the
+  criteria of Lemma 1 are sufficient to prove that the proposition is true for
+  [22XG[122X,  and  [9Xfalse[109X  otherwise.  The second entry is the name of [22XG[122X, and the third
+  entry  in  the  number  of  maximal subgroups [22XM[122X for which an element [22Xg[122X as in
+  Lemma 1 (a) exists.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XApplyTheLemma:= function( tbl, maxesinfo )[127X[104X
+    [4X[25X>[125X [27X    local Gname, Gsize, cents, orders, result, Mtbl, Msize, maxc, i,[127X[104X
+    [4X[25X>[125X [27X          pi, pipart, c, Mclasslengths, Fit, excluded, Kclasses, Mbar,[127X[104X
+    [4X[25X>[125X [27X          Ksize, Sclasses, Ssize, d;[127X[104X
+    [4X[25X>[125X [27X    Gname:= Identifier( tbl );[127X[104X
+    [4X[25X>[125X [27X    Gsize:= Size( tbl );[127X[104X
+    [4X[25X>[125X [27X    cents:= SizesCentralizers( tbl );[127X[104X
+    [4X[25X>[125X [27X    orders:= OrdersClassRepresentatives( tbl );[127X[104X
+    [4X[25X>[125X [27X    result:= [ true, Gname, 0 ];[127X[104X
+    [4X[25X>[125X [27X    # Run over the relevant maximal subgroups.[127X[104X
+    [4X[25X>[125X [27X    for Mtbl in maxesinfo do[127X[104X
+    [4X[25X>[125X [27X      Msize:= Size( Mtbl );[127X[104X
+    [4X[25X>[125X [27X      # Run over nonidentity class representatives g of squarefree[127X[104X
+    [4X[25X>[125X [27X      # order, compute the largest c that occurs.[127X[104X
+    [4X[25X>[125X [27X      maxc:= 1;[127X[104X
+    [4X[25X>[125X [27X      for i in [ 2 .. NrConjugacyClasses( tbl ) ] do[127X[104X
+    [4X[25X>[125X [27X        pi:= Factors( orders[i] );[127X[104X
+    [4X[25X>[125X [27X        if IsSet( pi ) then[127X[104X
+    [4X[25X>[125X [27X          # The elements in class `i' have squarefree order.[127X[104X
+    [4X[25X>[125X [27X          pipart:= Product( Filtered( Factors( cents[i] ),[127X[104X
+    [4X[25X>[125X [27X                                      x -> x in pi ) );[127X[104X
+    [4X[25X>[125X [27X          c:= Gcd( pipart, Msize );[127X[104X
+    [4X[25X>[125X [27X          if maxc < c then[127X[104X
+    [4X[25X>[125X [27X            maxc:= c;[127X[104X
+    [4X[25X>[125X [27X          fi;[127X[104X
+    [4X[25X>[125X [27X        fi;[127X[104X
+    [4X[25X>[125X [27X      od;[127X[104X
+    [4X[25X>[125X [27X      if maxc * Msize >= Gsize then[127X[104X
+    [4X[25X>[125X [27X        # Criterion (a) is satisfied, try to exclude (b) and (c).[127X[104X
+    [4X[25X>[125X [27X        result[3]:= result[3] + 1;[127X[104X
+    [4X[25X>[125X [27X        Print( Gname, ": consider M = ", Identifier( Mtbl ),[127X[104X
+    [4X[25X>[125X [27X               ", c = ", StringPP( maxc ),[127X[104X
+    [4X[25X>[125X [27X               ", c * |M| / |G| >= ", Int( maxc * Msize / Gsize ),[127X[104X
+    [4X[25X>[125X [27X               "\n" );[127X[104X
+    [4X[25X>[125X [27X        Mclasslengths:= SizesConjugacyClasses( Mtbl );[127X[104X
+    [4X[25X>[125X [27X        Fit:= Mclasslengths{ ClassPositionsOfFittingSubgroup( Mtbl ) };[127X[104X
+    [4X[25X>[125X [27X        if Sum( Fit ) * Msize >= Gsize then[127X[104X
+    [4X[25X>[125X [27X          # Criterion (b1) is satisfied.[127X[104X
+    [4X[25X>[125X [27X          Print( Gname, ": not excludable by (b1)\n" );[127X[104X
+    [4X[25X>[125X [27X          result[1]:= false;[127X[104X
+    [4X[25X>[125X [27X        elif maxc * Msize < 2 * Gsize then[127X[104X
+    [4X[25X>[125X [27X          # Criterion (b2) is not satisfied.[127X[104X
+    [4X[25X>[125X [27X          Print( Gname, ":     excluded by (b2)\n" );[127X[104X
+    [4X[25X>[125X [27X        else[127X[104X
+    [4X[25X>[125X [27X          # Run over the normal subgroups of M.[127X[104X
+    [4X[25X>[125X [27X          excluded:= false;[127X[104X
+    [4X[25X>[125X [27X          for Kclasses in ClassPositionsOfNormalSubgroups( Mtbl ) do[127X[104X
+    [4X[25X>[125X [27X            Mbar:= Mtbl / Kclasses;[127X[104X
+    [4X[25X>[125X [27X            Ksize:= Sum( Mclasslengths{ Kclasses } );[127X[104X
+    [4X[25X>[125X [27X            if IsAlmostSimpleCharacterTable( Mbar ) and[127X[104X
+    [4X[25X>[125X [27X               Ksize * Msize < Gsize then[127X[104X
+    [4X[25X>[125X [27X              # We are in the situation of criterion (c).[127X[104X
+    [4X[25X>[125X [27X              # The socle is the unique minimal normal subgroup.[127X[104X
+    [4X[25X>[125X [27X              Sclasses:= ClassPositionsOfMinimalNormalSubgroups([127X[104X
+    [4X[25X>[125X [27X                             Mbar )[1];[127X[104X
+    [4X[25X>[125X [27X              Ssize:= Sum( SizesConjugacyClasses( Mbar ){ Sclasses } );[127X[104X
+    [4X[25X>[125X [27X              d:= Int( maxc * Msize * Size( Mbar )[127X[104X
+    [4X[25X>[125X [27X                  / ( Gsize * Ssize ) );[127X[104X
+    [4X[25X>[125X [27X              # Try to show that all subgroups of index up to d[127X[104X
+    [4X[25X>[125X [27X              # in Mbar contain the socle.[127X[104X
+    [4X[25X>[125X [27X              if ForAll( [ 2 .. d ],[127X[104X
+    [4X[25X>[125X [27X                   n -> ForAll( PermChars( Mbar, rec( torso:= [ n ] ) ),[127X[104X
+    [4X[25X>[125X [27X                          chi -> IsSubset([127X[104X
+    [4X[25X>[125X [27X                                     ClassPositionsOfKernel( chi ),[127X[104X
+    [4X[25X>[125X [27X                                     Sclasses ) ) ) then[127X[104X
+    [4X[25X>[125X [27X                Print( Gname, ":     excluded by (c), |K| = ",[127X[104X
+    [4X[25X>[125X [27X                       StringPP( Ksize ), ", degree bound ", d, "\n" );[127X[104X
+    [4X[25X>[125X [27X                excluded:= true;[127X[104X
+    [4X[25X>[125X [27X                break;[127X[104X
+    [4X[25X>[125X [27X              fi;[127X[104X
+    [4X[25X>[125X [27X            fi;[127X[104X
+    [4X[25X>[125X [27X          od;[127X[104X
+    [4X[25X>[125X [27X          if not excluded then[127X[104X
+    [4X[25X>[125X [27X            Print( Gname, ": not excludable by (c)\n" );[127X[104X
+    [4X[25X>[125X [27X            result[1]:= false;[127X[104X
+    [4X[25X>[125X [27X          fi;[127X[104X
+    [4X[25X>[125X [27X        fi;[127X[104X
+    [4X[25X>[125X [27X      fi;[127X[104X
+    [4X[25X>[125X [27X    od;[127X[104X
+    [4X[25X>[125X [27X    return result;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  our proof relies on the classifications of maximal subgroups of sporadic
+  simple groups, see [CCN+85] and [BN95].[133X
+  
+  [33X[0;0YThe [5XGAP[105X Character Table Library [Bre25] contains the character tables of the
+  sporadic  simple  groups and of their maximal subgroups, except that not all
+  character  tables  of  maximal  subgroups of the Monster group are available
+  yet. (See Section [14X7.1[114X for the treatment of the Monster group.)[133X
+  
+  [33X[0;0YSince  the  [5XGAP[105X Character Table Library is used for the computations in this
+  section, we first load this package.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "ctbllib", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow we apply the function to the sporadic simple groups.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinfo:= [];;                                       [127X[104X
+    [4X[25Xgap>[125X [27Xfor name in AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                                       IsDuplicateTable, false ) do[127X[104X
+    [4X[25X>[125X [27X     tbl:= CharacterTable( name );[127X[104X
+    [4X[25X>[125X [27X     if HasMaxes( tbl ) then[127X[104X
+    [4X[25X>[125X [27X       mx:= List( Maxes( tbl ), CharacterTable );  [127X[104X
+    [4X[25X>[125X [27X     elif name = "M" then[127X[104X
+    [4X[25X>[125X [27X       mx:= [ CharacterTable( "2.B" ) ];[127X[104X
+    [4X[25X>[125X [27X     else[127X[104X
+    [4X[25X>[125X [27X       Error( "this should not happen ...");[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X     Add( info, ApplyTheLemma( tbl, mx ) );[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[28XB: consider M = 2.2E6(2).2, c = 2^38, c * |M| / |G| >= 20[128X[104X
+    [4X[28XB:     excluded by (c), |K| = 2, degree bound 40[128X[104X
+    [4X[28XCo1: consider M = Co2, c = 2^13*3^5, c * |M| / |G| >= 20[128X[104X
+    [4X[28XCo1:     excluded by (c), |K| = 1, degree bound 20[128X[104X
+    [4X[28XCo1: consider M = 3.Suz.2, c = 2^13*3^5, c * |M| / |G| >= 1[128X[104X
+    [4X[28XCo1:     excluded by (b2)[128X[104X
+    [4X[28XCo2: consider M = U6(2).2, c = 2^16, c * |M| / |G| >= 28[128X[104X
+    [4X[28XCo2:     excluded by (c), |K| = 1, degree bound 56[128X[104X
+    [4X[28XCo2: consider M = 2^10:m22:2, c = 2^18, c * |M| / |G| >= 5[128X[104X
+    [4X[28XCo2:     excluded by (c), |K| = 2^10, degree bound 11[128X[104X
+    [4X[28XCo2: consider M = 2^1+8:s6f2, c = 2^18, c * |M| / |G| >= 4[128X[104X
+    [4X[28XCo2:     excluded by (c), |K| = 2^9, degree bound 4[128X[104X
+    [4X[28XCo3: consider M = McL.2, c = 2^4*3^4, c * |M| / |G| >= 4[128X[104X
+    [4X[28XCo3:     excluded by (c), |K| = 1, degree bound 9[128X[104X
+    [4X[28XF3+: consider M = Fi23, c = 2^9*3^9, c * |M| / |G| >= 32[128X[104X
+    [4X[28XF3+:     excluded by (c), |K| = 1, degree bound 32[128X[104X
+    [4X[28XFi22: consider M = 2.U6(2), c = 2^7*3^6, c * |M| / |G| >= 26[128X[104X
+    [4X[28XFi22:     excluded by (c), |K| = 2, degree bound 26[128X[104X
+    [4X[28XFi22: consider M = O7(3), c = 2^7*3^6, c * |M| / |G| >= 6[128X[104X
+    [4X[28XFi22:     excluded by (c), |K| = 1, degree bound 6[128X[104X
+    [4X[28XFi22: consider M = Fi22M3, c = 2^7*3^6, c * |M| / |G| >= 6[128X[104X
+    [4X[28XFi22:     excluded by (c), |K| = 1, degree bound 6[128X[104X
+    [4X[28XFi22: consider M = O8+(2).3.2, c = 2^7*3^6, c * |M| / |G| >= 1[128X[104X
+    [4X[28XFi22:     excluded by (b2)[128X[104X
+    [4X[28XFi23: consider M = 2.Fi22, c = 2^8*3^9, c * |M| / |G| >= 159[128X[104X
+    [4X[28XFi23:     excluded by (c), |K| = 2, degree bound 159[128X[104X
+    [4X[28XFi23: consider M = O8+(3).3.2, c = 2^8*3^9, c * |M| / |G| >= 36[128X[104X
+    [4X[28XFi23:     excluded by (c), |K| = 1, degree bound 219[128X[104X
+    [4X[28XHS: consider M = M22, c = 2^7, c * |M| / |G| >= 1[128X[104X
+    [4X[28XHS:     excluded by (b2)[128X[104X
+    [4X[28XM11: consider M = A6.2_3, c = 2^4, c * |M| / |G| >= 1[128X[104X
+    [4X[28XM11:     excluded by (b2)[128X[104X
+    [4X[28XM12: consider M = M11, c = 2^4, c * |M| / |G| >= 1[128X[104X
+    [4X[28XM12:     excluded by (b2)[128X[104X
+    [4X[28XM12: consider M = M12M2, c = 2^4, c * |M| / |G| >= 1[128X[104X
+    [4X[28XM12:     excluded by (b2)[128X[104X
+    [4X[28XM22: consider M = L3(4), c = 2^6, c * |M| / |G| >= 2[128X[104X
+    [4X[28XM22:     excluded by (c), |K| = 1, degree bound 2[128X[104X
+    [4X[28XM22: consider M = 2^4:a6, c = 2^7, c * |M| / |G| >= 1[128X[104X
+    [4X[28XM22:     excluded by (b2)[128X[104X
+    [4X[28XM23: consider M = M22, c = 2^7, c * |M| / |G| >= 5[128X[104X
+    [4X[28XM23:     excluded by (c), |K| = 1, degree bound 5[128X[104X
+    [4X[28XM24: consider M = M23, c = 2^7, c * |M| / |G| >= 5[128X[104X
+    [4X[28XM24:     excluded by (c), |K| = 1, degree bound 5[128X[104X
+    [4X[28XM24: consider M = 2^4:a8, c = 2^10, c * |M| / |G| >= 1[128X[104X
+    [4X[28XM24:     excluded by (b2)[128X[104X
+    [4X[28XMcL: consider M = U4(3), c = 3^6, c * |M| / |G| >= 2[128X[104X
+    [4X[28XMcL:     excluded by (c), |K| = 1, degree bound 2[128X[104X
+    [4X[28XRu: consider M = 2F4(2)'.2, c = 2^12, c * |M| / |G| >= 1[128X[104X
+    [4X[28XRu:     excluded by (b2)[128X[104X
+    [4X[28XSuz: consider M = G2(4), c = 2^12, c * |M| / |G| >= 2[128X[104X
+    [4X[28XSuz:     excluded by (c), |K| = 1, degree bound 2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFirst  of  all,  we see that Lemma 1 is sufficient to prove the proposition,
+  since all candidates were excluded.[133X
+  
+  [33X[0;0YMoreover,  we  see  that  for  the  following ten sporadic simple groups, no
+  candidates  had  to  be  considered. (No information was printed about these
+  groups.)[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XFiltered( info, x -> x[3] = 0 );[127X[104X
+    [4X[28X[ [ true, "HN", 0 ], [ true, "He", 0 ], [ true, "J1", 0 ], [128X[104X
+    [4X[28X  [ true, "J2", 0 ], [ true, "J3", 0 ], [ true, "J4", 0 ], [128X[104X
+    [4X[28X  [ true, "Ly", 0 ], [ true, "M", 0 ], [ true, "ON", 0 ], [128X[104X
+    [4X[28X  [ true, "Th", 0 ] ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X7.3 [33X[0;0YAlternative: Use [5XGAP[105X[101X[1X's Tables of Marks[133X[101X
+  
+  [33X[0;0YWe  can easily inspect all conjugacy classes of subgroups of a group [22XG[122X whose
+  table  of  marks  is  contained in [5XGAP[105X's Library of Tables of Marks [MNP19].
+  First we load this [5XGAP[105X package.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "tomlib", false );[127X[104X
+    [4X[28Xtrue[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe following [5XGAP[105X function takes the table of marks of a group [22XG[122X and returns
+  the  list  of  pairs  [22X[  U,  N_G(U) ][122X where [22XU[122X ranges over representatives of
+  conjugacy classes of those nilpotent subgroups of [22XG[122X for which [22X|U| ⋅ |N_G(U)|[122X
+  is maximal.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xmaximalpairs:= function( tom )[127X[104X
+    [4X[25X>[125X [27X   local g, max, result, i, u, n, prod;[127X[104X
+    [4X[25X>[125X [27X   g:= UnderlyingGroup( tom );[127X[104X
+    [4X[25X>[125X [27X   max:= 1;[127X[104X
+    [4X[25X>[125X [27X   result:= [];[127X[104X
+    [4X[25X>[125X [27X   for i in [ 1 .. Length( OrdersTom( tom ) ) ] do[127X[104X
+    [4X[25X>[125X [27X     u:= RepresentativeTom( tom, i );[127X[104X
+    [4X[25X>[125X [27X     if not IsTrivial( u ) and IsNilpotent( u ) then[127X[104X
+    [4X[25X>[125X [27X       n:= Normalizer( g, u );[127X[104X
+    [4X[25X>[125X [27X       prod:= Size( u ) * Size( n );[127X[104X
+    [4X[25X>[125X [27X       if max < prod then[127X[104X
+    [4X[25X>[125X [27X         max:= prod;[127X[104X
+    [4X[25X>[125X [27X         result:= [ [ u, n ] ];[127X[104X
+    [4X[25X>[125X [27X       elif max = prod then[127X[104X
+    [4X[25X>[125X [27X         Add( result, [ u, n ] );[127X[104X
+    [4X[25X>[125X [27X       fi;[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25X>[125X [27X   return result;[127X[104X
+    [4X[25X>[125X [27Xend;;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSo  let  us  collect the data for those sporadic simple groups for which the
+  table of marks is known.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xinfo:= [];;[127X[104X
+    [4X[25Xgap>[125X [27Xfor name in AllCharacterTableNames( IsSporadicSimple, true,[127X[104X
+    [4X[25X>[125X [27X                                       IsDuplicateTable, false ) do[127X[104X
+    [4X[25X>[125X [27X     tom:= TableOfMarks( name );[127X[104X
+    [4X[25X>[125X [27X     if tom <> fail then[127X[104X
+    [4X[25X>[125X [27X       Add( info, [ name, tom, maximalpairs( tom ) ] );[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27XLength( info );[127X[104X
+    [4X[28X12[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe got results for twelve sporadic simple groups. The following computations
+  show  that  in  ten  cases,  the  simple  group [22XG[122X contains a unique class of
+  nontrivial  nilpotent  subgroups  [22XU[122X  for  which  the  maximal value of [22X|U| ⋅
+  |N_G(U)|[122X  is  attained.  The ratio of this value and [22X|G|[122X is less than [22X21[122X per
+  cent. The following table shows the name of the group [22XG[122X, the orders of [22XU[122X and
+  [22XN_G(U)[122X, and the integral part of [22X10^6[122X times the ratio.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XList( info, x -> Length( x[3] ) );[127X[104X
+    [4X[28X[ 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1 ][128X[104X
+    [4X[25Xgap>[125X [27Xmat:= [];;[127X[104X
+    [4X[25Xgap>[125X [27Xfor entry in info do[127X[104X
+    [4X[25X>[125X [27X     pair:= entry[3][1];                          # [ U, N_G(U) ][127X[104X
+    [4X[25X>[125X [27X     bound:= Size( pair[1] ) * Size( pair[2] );   # |U|*|N_G(U)|[127X[104X
+    [4X[25X>[125X [27X     size:= Size( UnderlyingGroup( entry[2] ) );  # |G|[127X[104X
+    [4X[25X>[125X [27X     Add( mat, [ entry[1],[127X[104X
+    [4X[25X>[125X [27X                 StringPP( Size( pair[1] ) ),[127X[104X
+    [4X[25X>[125X [27X                 StringPP( Size( pair[2] ) ),[127X[104X
+    [4X[25X>[125X [27X                 Int( 10^6 * bound / size ) ] );[127X[104X
+    [4X[25X>[125X [27X     if Size( pair[1] ) * Size( pair[2] ) >= 21/100 * size then[127X[104X
+    [4X[25X>[125X [27X       Error("!");[127X[104X
+    [4X[25X>[125X [27X     fi;[127X[104X
+    [4X[25X>[125X [27X   od;[127X[104X
+    [4X[25Xgap>[125X [27XPrintArray( mat );[127X[104X
+    [4X[28X[ [           Co3,           3^5,  2^5*3^7*5*11,          1886 ],[128X[104X
+    [4X[28X  [            HS,           2^6,       2^9*3*7,         15515 ],[128X[104X
+    [4X[28X  [            He,           2^6,    2^10*3^3*5,          2195 ],[128X[104X
+    [4X[28X  [            J1,            19,        2*3*19,         12337 ],[128X[104X
+    [4X[28X  [            J2,           2^6,       2^7*3^2,        121904 ],[128X[104X
+    [4X[28X  [            J3,           3^5,       2^3*3^5,          9404 ],[128X[104X
+    [4X[28X  [           M11,           3^2,       2^4*3^2,        163636 ],[128X[104X
+    [4X[28X  [           M12,           2^5,         2^6*3,         64646 ],[128X[104X
+    [4X[28X  [           M22,           2^4,     2^7*3^2*5,        207792 ],[128X[104X
+    [4X[28X  [           M23,           2^4,   2^7*3^2*5*7,         63241 ],[128X[104X
+    [4X[28X  [           M24,           2^6,    2^10*3^3*5,         36137 ],[128X[104X
+    [4X[28X  [           McL,           3^5,     2^4*3^6*5,         15779 ] ][128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YMoreover,  we  see  that in most cases, the group [22XU[122X for which the maximum is
+  attained is not the largest [22Xp[122X-subgroup in the simple group in question.[133X
+  

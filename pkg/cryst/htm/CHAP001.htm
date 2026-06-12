@@ -1,0 +1,76 @@
+<html><head><title>[cryst] 1 Introduction</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<h1>1 Introduction</h1><p>
+<p>
+<a name = "I0"></a>
+
+The <font face="Gill Sans,Helvetica,Arial">Cryst</font> package, previously known as <font face="Gill Sans,Helvetica,Arial">CrystGAP</font>, provides 
+functions for the computation with affine crystallographic groups, 
+in particular space groups. For the definition of the standard 
+crystallographic notions we refer to the International Tables 
+<a href="biblio.htm#Hah95"><cite>Hah95</cite></a>, in particular the chapter by Wondratschek <a href="biblio.htm#Won95"><cite>Won95</cite></a>,
+and to the introductory chapter in <a href="biblio.htm#BBNWZ78"><cite>BBNWZ78</cite></a>. The principal 
+algorithms used in this package are described in <a href="biblio.htm#EGN97"><cite>EGN97</cite></a>.
+<p>
+The present version for <font face="Gill Sans,Helvetica,Arial">GAP</font>&nbsp;4 has been considerably reworked from
+an earlier version for <font face="Gill Sans,Helvetica,Arial">GAP</font>&nbsp;3.4.4. Most of the porting to <font face="Gill Sans,Helvetica,Arial">GAP</font>&nbsp;4
+has been done by Franz G&auml;hler. Besides affine crystallographic
+groups acting from the right, also affine crystallographic groups acting 
+from the left are now fully supported. Many algorithms have been added, 
+extended, or improved in other ways.
+<p>
+Our warmest thanks go the Max Neunh&ouml;ffer, whose extensive
+testing of the <font face="Gill Sans,Helvetica,Arial">GAP</font> 4 version of <font face="Gill Sans,Helvetica,Arial">Cryst</font> in connection with <font face="Gill Sans,Helvetica,Arial">XGAP</font> 
+uncovered several bugs and led to many performance improvements.
+<p>
+<font face="Gill Sans,Helvetica,Arial">Cryst</font> is implemented in the <font face="Gill Sans,Helvetica,Arial">GAP</font>&nbsp;4 language, and runs on any 
+system supporting <font face="Gill Sans,Helvetica,Arial">GAP</font>&nbsp;4. However, certain commands may require 
+that other GAP packages such as <font face="Gill Sans,Helvetica,Arial">CaratInterface</font> or <font face="Gill Sans,Helvetica,Arial">XGAP</font> are installed.
+In particular, the routines in Section&nbsp;<a href="CHAP002.htm#SECT008">Normalizers</a> are likely
+to require <font face="Gill Sans,Helvetica,Arial">CaratInterface</font>, and the function WyckoffGraph (see&nbsp;<a href="CHAP002.htm#SSEC007.9">WyckoffGraph</a>)
+requires <font face="Gill Sans,Helvetica,Arial">XGAP</font>. Both <font face="Gill Sans,Helvetica,Arial">CaratInterface</font> and <font face="Gill Sans,Helvetica,Arial">XGAP</font> may be available
+only under Unix.
+<p>
+The <font face="Gill Sans,Helvetica,Arial">Cryst</font> package is loaded with the command
+<pre>
+gap&gt; LoadPackage( "cryst" ); 
+true
+</pre>
+<p>
+<font face="Gill Sans,Helvetica,Arial">Cryst</font> has been developed by
+<p>
+<dl compact>
+<dt>Bettina Eick <dd>
+Fachbereich Mathematik und Informatik <br>
+Technische Universit&auml;t Braunschweig <br>
+Pockelsstr. 14, D-38106 Braunschweig, Germany <br>
+e-mail: <a href="mailto:b.eick@tu-bs.de">b.eick@tu-bs.de</a>
+<p>
+<dt>Franz G&auml;hler <dd>
+Fakult&auml;t f&uuml;r Mathematik, 
+Universit&auml;t Bielefeld <br>
+Postfach 10 01 31, D-33501 Bielefeld, Germany <br>
+e-mail: <a href="mailto:gaehler@math.uni-bielefeld.de">gaehler@math.uni-bielefeld.de</a>
+<p>
+<dt>Werner Nickel <dd>
+Fachbereich Mathematik, AG2,
+Technische Universit&auml;t Darmstadt,  <br>
+Schlossgartenstra&szlig;e 7, D-64289 Darmstadt, Germany  <br>
+e-mail: <a href="mailto:nickel@mathematik.tu-darmstadt.de">nickel@mathematik.tu-darmstadt.de</a>
+</dl>
+<p>
+For bug reports, suggestions and comments please please use
+the issue tracker on GitHub:
+<p>
+<p>
+<dl compact>
+<dt><dd>
+<a href="https://github.com/gap-packages/Cryst/issues/">https://github.com/gap-packages/Cryst/issues/</a>
+</dl>
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>cryst manual<br>September 2025
+</address></body></html>

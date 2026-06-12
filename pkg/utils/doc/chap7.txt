@@ -1,0 +1,57 @@
+  
+  [1X7 [33X[0;0YRecords[133X[101X
+  
+  
+  [1X7.1 [33X[0;0YFunctions for records[133X[101X
+  
+  [1X7.1-1 AssignGlobals[101X
+  
+  [33X[1;0Y[29X[2XAssignGlobals[102X( [3Xrec[103X ) [32X function[133X
+  
+  [33X[0;0YThis function has been transferred from package [5XRCWA[105X.[133X
+  
+  [33X[0;0YIt  assigns  the  record components of [3Xrec[103X to global variables with the same
+  names.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xr := rec( a := 1, b := 2, c := 3 );;                                      [127X[104X
+    [4X[25Xgap>[125X [27XAssignGlobals( r );[127X[104X
+    [4X[28XThe following global variables have been assigned:[128X[104X
+    [4X[28X[ "a", "b", "c" ][128X[104X
+    [4X[25Xgap>[125X [27X[a,b,c];[127X[104X
+    [4X[28X[ 1, 2, 3 ][128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  
+  [1X7.1-2 OptionRecordWithDefaults[101X
+  
+  [33X[1;0Y[29X[2XOptionRecordWithDefaults[102X( [3Xdefaults[103X, [3Xuseroptions[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function simplifies handling records which are intended to be used for
+  expressing   configuration  options.  [3Xdefaults[103X  represents  the  a  "default
+  record",  and  [3Xuseroptions[103X  lets  the  user  give  new  values for values in
+  [3Xdefaults[103X.[133X
+  
+  [33X[0;0YThe  function  returns  a  record  with the same component names as [3Xdefaults[103X
+  which  has  the same values as [3Xdefaults[103X, except for those component names in
+  [3Xuseroptions[103X,  where  the values in [3Xuseroptions[103X are used instead. An error is
+  given  if  [3Xuseroptions[103X  contains  any  component names not in [3Xdefaults[103X. This
+  function is designed to support functions with optional arguments given as a
+  variadic  argument,  like  [10Xfunction(x,y,options...)[110X.  To  support  this,  if
+  [3Xuseroptions[103X  is  an  empty  list  it  is  treated as an empty record, and if
+  [3Xuseroptions[103X  is  a list of length 1 containing a record, this record is used
+  as [3Xuseroptions[103X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X[128X[104X
+    [4X[25Xgap>[125X [27Xdefaults := rec(a := 1, b := 2);;[127X[104X
+    [4X[25Xgap>[125X [27XOptionRecordWithDefaults(defaults, rec(a := 7));[127X[104X
+    [4X[28Xrec( a := 7, b := 2 )[128X[104X
+    [4X[25Xgap>[125X [27XOptionRecordWithDefaults(defaults, rec(b := 7));[127X[104X
+    [4X[28Xrec( a := 1, b := 7 )[128X[104X
+    [4X[25Xgap>[125X [27XOptionRecordWithDefaults(defaults, rec(c := 7));[127X[104X
+    [4X[28XError, Unknown option: c[128X[104X
+    [4X[28X[128X[104X
+  [4X[32X[104X
+  

@@ -1,0 +1,36 @@
+  
+  
+                           [1XThe [5XThreeKPlusOne[105X Package[101X
+  
+  
+                                   Version 42
+  
+  
+                                  Dummy Authör
+  
+  
+  
+  Dummy Authör
+      Email:    [7Xmailto:3kplusone@dev.null[107X
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2000 The Author.[133X
+  
+  [33X[0;0YYou can do with this package what you want.[133X
+  
+  [33X[0;0YReally.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (3k+1)[101X
+  
+  1 [33X[0;0YThe [22X3k+1[122X Problem[133X
+    1.1 [33X[0;0YTheory[133X
+    1.2 [33X[0;0YProgram[133X
+      1.2-1 ThreeKPlusOneSequence
+  
+  
+  [32X

@@ -1,0 +1,1182 @@
+
+<!-- %W  maintain.xml    GAP 4 package AtlasRep             Thomas Breuer -->
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Chapter Label="chap:maintain">
+<Heading>Maintenance Issues of the &AtlasRep; Package</Heading>
+
+This is just preliminary, in particular not intended for inclusion in the manual!
+
+<hier/>
+
+This chapter describes why some data that are available in the web &ATLAS;
+are excluded from the &GAP; interface,
+by which data they have been replaced (if applicable),
+and which additional data are distributed together with the
+&AtlasRep; package.
+
+
+-> section on just added material, such as cyc2ccls scripts
+
+-> document all in datapkg!
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:kernel_scripts">
+<Heading>Generators of Kernels</Heading>
+
+
+- change the code!
+  - test.g -> not only for compatible std. generators & same std.!
+
+run for 3^(1+12):2.Suz.2
+Print( "hier\n" );
+if entry[1] = "3^(1+12):2.Suz.2" then
+  SetSize( N, 3^13 );
+fi;
+#T  for 3^13, calling Size exceeds the memory!
+#T  (trans. permutation action on 3^12 = 531441 points!)
+
+-> how to verify that the kernel is correct?
+
+
+Note that the program computes elements in G,
+in particular we are not concerned with standardization in F,
+and we do not assume that the given standard generators of G
+are compatible with some standard generators of F.
+(Only relation: If G has several normal subgroups N such that G/N
+is isomorphic with F and if the i-th std. gens of G and F are compatible
+then we prefer the normal subgroup that is the kernel of the epim.
+given by mapping the i-th std. gen. of G to those of F.)
+
+
+- provide kernel info also for incompatible generators:
+
+AGR.STDCOMP("(A5xA12):2",[0,"A12.2",1,false]);
+AGR.STDCOMP("(A5xU3(8):3):2",[0,"A5.2",1,false]);
+AGR.STDCOMP("(L3(2)xS4(4):2).2",[0,"L3(2).2",1,false]);
+AGR.STDCOMP("2^2.2E6(2).S3",[0,"2E6(2).3.2",0,false]);
+AGR.STDCOMP("5^3.L3(5)",[2,"L3(5)",1,false]);
+
+- a new type of slps, many new scripts
+
+- hard case:
+  2.2E6(2) ->> 2E6(2) (and analog. 2^2.2E6(2) -> 2E6(2))
+  need to skip obviously unnecessary words;
+  the > 5593818-th word works (which exactly?),
+  but only 525 words must actually be tested (really?)
+  (altogether 10 minutes runtime!)
+
+  (done 2015-04-13 on gemma)
+
+5593773-
+5593781+
+5593782+
+5593813-
+5593814+
+5593818-
+[ [ m2^2*m1*m2*(m2*m1*m2^2*m1)^2*(m2*m1)^4, 33 ], true ]
+
+-> is equal to (m2^2*m1)^3*m2*m1*m2^2*m1*(m2*m1)^4
+   with slp 3:= 2*1
+            4:= 2*3
+            5:= 4^3  (2 mult)
+            6:= 3^4  (2 mult)
+            7:= 5*3
+            8:= 7*4
+            9:= 8*6
+   thus 9 mult!
+-> add a remark about the arbitr. of the printed factoriz.!
+
+(only those numbers are shown for which all syllables are below the el. order,
+and "-" means that the order in the factor group is even, which need not be
+checked)
+
+- function is AGR.Test.ComputeKernelGenerators...
+
+-> better move out from Test!
+
+- really verify the non-cyclic kernels! (see TODO_2)
+
+
+
+--------------------------------------------------------------------------
+
+kernel generators:
+
+- missing verifications in atlasrep/kerrun.out? (std. 0)
+- two kernels of order 3^13 --prove!
+
+# run on 2014-04-30
+
+# add a test:
+# if a repres. for G and of m.G are avail. then try to compute kernel slp,
+# also if no compat. is assumed;
+# try also compatibility ...
+
+# add a test: are all files in the datapkg dir. of atlasrep valid?
+
+......................................................................
+
+
+# find a kernel generator:
+
+# see AGR.Test.ComputeKernelGenerators! (atlasrep/gap/test.g)
+
+fgens:= AtlasGenerators( "L3(7).2", 1 ).generators;
+gens:= AtlasGenerators( "3.L3(7).2", 1 ).generators;
+
+
+kergens:= [];
+kerwords:= [];
+
+f:= FreeMonoid( 2 );
+mgens:= GeneratorsOfMonoid( f );
+iter:= Iterator( f );
+for word in iter do
+  m:= MappedWord( word, mgens, gens );
+  fm:= MappedWord( word, mgens, fgens );
+  ord:= Order( fm );
+  if Order( m ) <> ord then
+kergen:= m^ord;
+if not kergen in kergens then
+  Add( kergens, kergen );
+  Add( kerwords, word );
+  if Length( kerwords ) >= 1 then
+Error("!");
+  fi;
+fi;
+  fi;
+od;
+
+word;
+Order( m );
+Order( fm );
+
+brk> word;
+m1
+brk> Order( m );
+4
+brk> Order( fm );
+2
+
+
+m2^2*m1*m2*m1
+
+
+
+slp:= StraightLineProgram(
+[[2,1,1,1],[3,2],[2,2],[5,1,4,1],[[6,19]]],2
+);
+
+-----------------------------------------------------------------------------
+
+#I  AGR.Test.KernelGenerators for 2.A10.2: missing kernels of epim. to
+#I  [ "A10.2" ]
+#I  AGR.Test.KernelGenerators for 2.A12.2: missing kernels of epim. to
+#I  [ "A12.2" ]
+#I  AGR.Test.KernelGenerators for 2.A13.2: missing kernels of epim. to
+#I  [ "A13.2" ]
+#I  AGR.Test.KernelGenerators for 2.A8.2: missing kernels of epim. to
+#I  [ "A8.2" ]
+#I  AGR.Test.KernelGenerators for 2.A9.2: missing kernels of epim. to
+#I  [ "A9.2" ]
+#I  AGR.Test.KernelGenerators for 2.B: missing kernels of epim. to
+#I  [ "B" ]
+
+#I  AGR.Test.KernelGenerators for 2.L2(25): missing kernels of epim. to
+#I  [ "L2(25)" ]
+#I  AGR.Test.KernelGenerators for 2.O7(3).2: missing kernels of epim. to
+#I  [ "O7(3).2" ]
+#I  AGR.Test.KernelGenerators for 2.O8+(2): missing kernels of epim. to
+#I  [ "O8+(2)" ]
+#I  AGR.Test.KernelGenerators for 2.O8+(2).2: missing kernels of epim. to
+#I  [ "O8+(2).2" ]
+
+#I  AGR.Test.KernelGenerators for 2.U6(2).2: missing kernels of epim. to
+#I  [ "U6(2).2" ]
+omit 2^2.2E6(2)
+#I  AGR.Test.KernelGenerators for 2^2.2E6(2).S3: missing kernels of epim. to
+#I  [ "2E6(2).3.2" ]
+#I  AGR.Test.KernelGenerators for 2^2.L3(4): missing kernels of epim. to
+#I  [ "2.L3(4)", "L3(4)" ]
+#I  AGR.Test.KernelGenerators for 2^2.L3(4).2_2: missing kernels of epim. to
+#I  [ "L3(4).2_2" ]
+
+#I  AGR.Test.KernelGenerators for 6.O7(3).2: missing kernels of epim. to
+#I  [ "2.O7(3).2", "3.O7(3).2", "O7(3).2" ]
+
+#I  AGR.Test.KernelGenerators for Isoclinic(12.M22.2): missing kernels of epim\
+. to
+#I  [ "2.M22.2", "3.M22.2", "6.M22.2", "M22.2" ]
+#I  AGR.Test.KernelGenerators for Isoclinic(2.A8.2): missing kernels of epim. \
+to
+#I  [ "A8.2" ]
+#I  AGR.Test.KernelGenerators for Isoclinic(2.HS.2): missing kernels of epim. \
+to
+#I  [ "HS.2" ]
+#I  AGR.Test.KernelGenerators for Isoclinic(2.Suz.2): missing kernels of epim.\
+ to
+#I  [ "Suz.2" ]
+#I  AGR.Test.KernelGenerators for Isoclinic(4.M22.2): missing kernels of epim.\
+ to
+#I  [ "2.M22.2", "M22.2" ]
+
+#I  AGR.Test.KernelGenerators for Isoclinic(6.M22.2): missing kernels of epim.\
+ to
+#I  [ "3.M22.2", "M22.2" ]
+
+-> no repres.
+
+#I  AGR.Test.KernelGenerators for Isoclinic(6.Suz.2): missing kernels of epim.\
+ to
+#I  [ "3.Suz.2", "Suz.2" ]
+
+................
+#I  AGR.Test.KernelGenerators for 3^(1+12):2.Suz.2: missing kernels of epim. t\
+o
+#I  [ "2.Suz.2" ]
+#I  AGR.Test.KernelGenerators for 3^(1+12):6.Suz.2: missing kernels of epim. t\
+o
+#I  [ "3^(1+12).2.Suz.2", "6.Suz.2" ]
+
+-> Vorsicht:
+   Ich habe zwar gezeigt, dass die Konjugierten des 3. Erzeugers
+   mindestens eine 3^13 erzeugen, aber ist es nicht vielleicht mehr?
+   Und ich habe nicht gezeigt, dass die Untergruppe wirklich normal ist!
+
+(in beiden Fällen, M3max7G0-ker6Suzd2W1 und Mmax7G0-ker2Suzd2W1)
+
+
+gap> List( gens.generators, Order );
+[ 4, 3, 3 ]
+gap> List( fgens.generators, Order );
+[ 4, 3 ]
+gap> p:= Product( gens.generators{[1,2]} );;
+gap> l:= List( [0..11], x -> gens.generators[3]^(p^x) );;
+gap> cc:= Group(l );;
+gap> orb:= Orbit( cc, l[1][38] );;  Length( orb );
+1
+gap> orb:= Orbit( cc, l[1][78] );;  Length( orb );
+1594323
+gap> 3^13;
+1594323
+
+
+
+g:= Group( gens.generators );
+kergens:= [];
+kerwords:= [];
+
+f:= FreeMonoid( 2 );
+mgens:= GeneratorsOfMonoid( f );
+iter:= Iterator( f );
+for word in iter do
+  m:= MappedWord( word, mgens, gens.generators );
+  ord:= Order( m );
+  if ord mod 7 = 0 then
+kergen:= m^(ord/7);
+    if not kergen in kergens then
+      n:= NormalClosure( g, SubgroupNC( g, [ kergen ] ) );
+      if 7^5 mod Size( n ) = 0 then
+        Add( kergens, kergen );
+        Add( kerwords, [ word, ord/7 ] );
+        if Length( kerwords ) >= 1 then
+Error("!");
+        fi;
+      fi;
+    fi;
+  fi;
+od;
+
+</Section>
+
+ab hier o.k.!
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:excluded_data">
+<Heading>Excluded data files</Heading>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:3L37d2_wrong_repres">
+<Heading>A matrix representation of <M>3.L_3(7).2</M></Heading>
+
+The files <C>3L37d2G1-f7r6B0.m1</C> and <C>3L37d2G1-f7r6B0.m2</C>
+that are available in the web &ATLAS;
+contain generators for the group <M>G = 3.L_3(7).2</M>,
+but these generators are not standard.
+First we show this fact and then we compute standard generators.
+
+<P/>
+
+The files look as follows.
+
+<P/>
+
+<Listing>
+ 1     7     6     6
+000454
+000103
+000163
+321000
+016000
+622000
+</Listing>
+
+and
+
+<Listing>
+ 1     7     6     6
+000500
+000416
+000064
+251000
+212000
+203000
+</Listing>
+
+Standard generators of <M>G</M> are defined as follows.
+
+<P/>
+
+<Q>Std. gens. of <M>L_3(7).2</M> are <M>c, d</M>, where <M>c</M> in <C>2B</C>,
+<M>d</M> in <C>4B</C> (two outer classes),
+<M>|cd| = 19</M>, <M>|cdcdd| = 8</M>.
+Std. gens. of <M>3.L_3(7).2</M> are preimages <M>C, D</M>
+where <M>|CD| = 19</M>.</Q>
+
+<P/>
+
+We create the matrices in &GAP; and check the conditions.
+
+<P/>
+
+<Example>
+gap> gens:= List( [
+> " 1     7     6     6\n\
+> 000454\n\
+> 000103\n\
+> 000163\n\
+> 321000\n\
+> 016000\n\
+> 622000",
+> " 1     7     6     6\n\
+> 000500\n\
+> 000416\n\
+> 000064\n\
+> 251000\n\
+> 212000\n\
+> 203000" ], str -> ScanMeatAxeFile( str, 7, "string" ) );
+[ < immutable compressed matrix 6x6 over GF(7) >, 
+  < immutable compressed matrix 6x6 over GF(7) > ]
+gap> List( gens, Order );
+[ 2, 4 ]
+gap> Order( gens[1] * gens[2] );
+19
+gap> Order( ( gens[1] * gens[2] )^2 * gens[2] );
+6
+</Example>
+
+<P/>
+
+This shows that the given matrices are not <E>standard</E> generators
+of <M>G</M>.
+In order to convince ourselves that they generate <M>G</M>,
+we proceed as follows.
+First we compute a faithful permutation representation of the group <M>H</M>,
+say, that is generated by the given matrices.
+Then we show that the derived subgroup <M>D</M> of <M>H</M> is a perfect group
+with a central subgroup <M>Z</M> of order three such that the factor group
+<M>D / Z</M> is a simple group that is isomorphic with <M>L_3(7)</M>,
+thus <M>D</M> is the triple cover of <M>L_3(7)</M>.
+It remains to show that <M>H / Z</M> is not a direct product of <M>D / Z</M>
+and a group of order two; for that, it is enough to show that the centralizer
+of an element of order <M>19</M> in <M>H</M> has odd order.
+
+<!--
+Note that if <M>x</M> is an element of order <M>19</M> in <M>H</M> and
+<M>H / Z</M> is a direct product of <M>D / Z</M> and a group of order two
+that is generated by <M>y Z</M> then <M>x^y</M> lies in <M>x Z</M>;
+since <M>x</M> is the only element in <M>x Z</M> that has order <M>19</M>,
+we have found an element of even order that commutes with <M>x</M>.
+-->
+
+<P/>
+
+<Example>
+gap> g:= GroupWithGenerators( gens );;
+gap> Size( g );
+11261376
+gap> orbs:= Orbits( g, Elements( GF(7)^6 ) );;
+gap> Collected( List( orbs, Length ) );
+[ [ 1, 1 ], [ 684, 1 ], [ 16416, 1 ], [ 16758, 6 ] ]
+gap> orb:= First( orbs, x -> Length( x ) = 684 );;
+gap> acthom:= ActionHomomorphism( g, orb, OnRight );;
+gap> img:= Image( acthom );;
+gap> Size( img ) = Size( g );
+true
+gap> der:= DerivedSubgroup( img );;
+gap> IsPerfectGroup( der );
+true
+gap> z:= Centre( der );;
+gap> Size( z );
+3
+gap> f:= der / z;;
+gap> IsSimple( f );
+true
+gap> IsomorphismTypeInfoFiniteSimpleGroup( f );
+rec( name := "A(2,7) = L(3,7) ", parameter := [ 3, 7 ], series := "L" )
+gap> gensimgs:= List( gens, x -> x^acthom );;
+gap> x:= gensimgs[1] * gensimgs[2];;
+gap> Order( x );
+19
+gap> Size( Centralizer( img, x ) );
+57
+</Example>
+
+<P/>
+
+Now let us find standard generators for <M>G</M>.
+According to <Cite Key="CCN85" Where="p. 51"/>,
+there is exactly one conjugacy class of elements of the orders <M>2</M>
+and <M>4</M> in <M>G</M> outside <M>D</M>,
+and the given generators have the right orders and lie outside <M>D</M>.
+Thus we may keep the first matrix and replace the second one
+by a suitable <M>G</M>-conjugate.
+
+<P/>
+
+<Example>
+gap> c:= gensimgs[1];;
+gap> d:= gensimgs[2];;
+gap> repeat
+> dr:= d^Random( img );
+> until Order( c * dr ) = 19 and Order( (c * dr)^2 * dr ) = 8
+>       and Size( img ) = Size( SubgroupNC( img, [ c, dr ] ) );
+gap> 
+gap> stdgens:= [ gens[1], PreImagesRepresentative( acthom, dr ) ];
+[ < immutable compressed matrix 6x6 over GF(7) >, 
+  < immutable compressed matrix 6x6 over GF(7) > ]
+</Example>
+
+<P/>
+
+The erroneous representation gets excluded from the &GAP; interface
+by removing it from the data list in the file <F>gap/atlasprm.json</F>
+of the &AtlasRep; package and then adding an entry to the global variable
+<Ref Var="AGR.ExclusionList"/>.
+
+<!-- and add entry to htm/data/changes.htm -->
+
+<P/>
+
+The standard generators computed as shown above have been added to the
+data that are distributed together with the &AtlasRep; package,
+the representation is now available with the name <C>3L37d2G1-f7r6aB0</C>;
+note that the name <C>3L37d2G1-f7r6B0</C> must be avoided.
+
+<P/>
+
+<Example>
+gap> OneAtlasGeneratingSetInfo( "3.L3(7).2", Dimension, 6, Ring, GF(7) );
+rec( dim := 6, groupname := "3.L3(7).2", id := "a", 
+  identifier := 
+    [ "3.L3(7).2", 
+      [ [ "internal", "3L37d2G1-f7r6aB0.m1" ], 
+          [ "internal", "3L37d2G1-f7r6aB0.m2" ] ], 1, 7 ], 
+  repname := "3L37d2G1-f7r6aB0", repnr := 1, ring := GF(7), size := 11261376, 
+  standardization := 1, type := "matff" )
+</Example>
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:2O73d2_wrong_repres">
+<Heading>A matrix representation of <M>2.O_7(3).2^*</M></Heading>
+
+The files <C>2O73d2G1-f3r8B0.m1</C> and <C>2O73d2G1-f3r8B0.m2</C>
+that are available in the web &ATLAS;
+do not contain generators for the group <M>2.O_7(3).2</M>.
+
+<P/>
+
+The files look as follows.
+
+<P/>
+
+<Listing>
+ 1     3     8     8
+01200212
+10011201
+20201110
+02122011
+01111002
+00211210
+20212110
+00111021
+</Listing>
+
+and
+
+<Listing>
+ 1     3     8     8
+11010011
+10121000
+20000221
+12101200
+11001011
+22000112
+12121220
+01201002
+</Listing>
+
+Standard generators of <M>2.O_7(3).2</M> are defined as follows.
+
+<P/>
+
+<Q>Standard generators of <M>O_7(3).2</M> are <M>c, d</M>
+where <M>c</M> is in class <C>2D</C>,
+<M>d</M> has order <M>7</M>,
+<M>cd</M> has order <M>26</M> and <M>cdcdd</M> has order <M>14</M>.
+Standard generators of <M>2.O_7(3).2</M> are preimages <M>C, D</M>
+where <M>D</M> has order <M>7</M>.</Q>
+
+<P/>
+
+We create the matrices in &GAP; and check the conditions.
+
+<P/>
+
+<Example>
+gap> gens:= List( [
+> " 1     3     8     8\n\
+> 01200212\n\
+> 10011201\n\
+> 20201110\n\
+> 02122011\n\
+> 01111002\n\
+> 00211210\n\
+> 20212110\n\
+> 00111021",
+> " 1     3     8     8\n\
+> 11010011\n\
+> 10121000\n\
+> 20000221\n\
+> 12101200\n\
+> 11001011\n\
+> 22000112\n\
+> 12121220\n\
+> 01201002" ], str -> ScanMeatAxeFile( str, 3, "string" ) );
+[ < immutable compressed matrix 8x8 over GF(3) >,
+  < immutable compressed matrix 8x8 over GF(3) > ]
+gap> List( gens, Order );
+[ 2, 7 ]
+gap> Order( gens[1] * gens[2] );
+26
+gap> Order( ( gens[1] * gens[2] )^2 * gens[2] );
+28
+</Example>
+
+<P/>
+
+Since the <C>2D</C> elements in <M>O_7(3).2</M> lift to elements of
+order four in <M>2.O_7(3).2</M>,
+and since the elements of order <M>26</M> in <M>O_7(3).2</M> lift to
+elements of order <M>52</M> in <M>2.O_7(3).2</M>,
+the given matrices do not fit.
+They would fit, however, to the isoclinic variant <M>G = 2.O_7(3).2^*</M>,
+provided that they generate this group and that the first generator
+is a preimage of a <C>2D</C> element (that is, <E>not</E> a preimage of a
+<C>2E</C> element).
+
+<P/>
+
+In order to convince ourselves that the given matrices generate <M>G</M>,
+we proceed as follows.
+First we compute a faithful permutation representation of the group <M>H</M>,
+say, that is generated by the given matrices.
+Then we show that the derived subgroup <M>D</M> of <M>H</M> is a perfect group
+with a central subgroup <M>Z</M> of order two such that the factor group
+<M>D / Z</M> is a simple group that is isomorphic with <M>O_7(3)</M>,
+thus <M>D</M> is the double cover of <M>O_7(3)</M>.
+It remains to show that <M>H / Z</M> is not a direct product of <M>D / Z</M>
+and a group of order two;
+for that, it is enough to show that the centre of <M>H / Z</M> is trivial.
+
+<P/>
+
+<Example>
+gap> g:= GroupWithGenerators( gens );;
+gap> Size( g );
+18341406720
+gap> orbs:= Orbits( g, Elements( GF(3)^8 ) );;
+gap> Collected( List( orbs, Length ) );
+[ [ 1, 1 ], [ 2240, 1 ], [ 4320, 1 ] ]
+gap> orb:= First( orbs, x -> Length( x ) = 2240 );;
+gap> acthom:= ActionHomomorphism( g, orb, OnRight );;
+gap> img:= Image( acthom );;
+gap> Size( img ) = Size( g );
+true
+gap> der:= DerivedSubgroup( img );;
+gap> IsPerfectGroup( der );
+true
+gap> z:= Centre( der );;
+gap> Size( z );
+2
+gap> blocks:= Orbits( z, MovedPoints( img ) );;
+gap> act:= Action( img, blocks, OnSets );;
+gap> Size( act ) = Size( g ) / Size( z );
+true
+gap> IsSimple( act );
+true
+gap> IsomorphismTypeInfoFiniteSimpleGroup( act );
+rec( name := "B(3,3) = O(7,3)", parameter := [ 3, 3 ], series := "B" )
+gap> Size( Centre( act ) );
+1
+</Example>
+
+<P/>
+
+Now we show that the first generator is in fact a preimage of a
+<C>2D</C> element in <M>O_7(3).2</M>;
+note that this conjugacy class is the first class outside <M>O_7(3)</M>,
+and it is uniquely determined by the centralizer order of its elements.
+
+<P/>
+
+<Example>
+gap> ind:= Permutation( gens[1]^acthom, blocks, OnSets );;
+gap> c:= Size( Centralizer( act, ind ) );
+24261120
+gap> t:= CharacterTable( "O7(3).2" );;
+gap> Positions( SizesCentralizers( t ), c );
+[ 53 ]
+gap> Positions( OrdersClassRepresentatives( t ), 2 );
+[ 2, 3, 4, 53, 54, 55 ]
+</Example>
+
+<P/>
+
+Thus we have shown that the given matrices are standard generators
+of the group <M>G</M>.
+
+<P/>
+
+The erroneous representation gets excluded from the &GAP; interface
+by removing it from the data list in the file <F>gap/atlasprm.json</F>
+of the &AtlasRep; package and then adding an entry to the global variable
+<Ref Var="AGR.ExclusionList"/>.
+
+<!-- and add entry to htm/data/changes.htm -->
+
+<P/>
+
+The given matrices have been added to the data that are distributed
+together with the &AtlasRep; package,
+the representation is now available with the name <C>2O73d2iG1-f3r8B0</C>.
+(In order to make this work, also the &ATLAS; name <C>"2O73d2i"</C> for the
+group with &GAP; name <C>"Isoclinic(2.O7(3).2)"</C> had to be notified
+via a call to <C>AGR.GNAN</C>.
+
+<P/>
+
+<Example>
+gap> OneAtlasGeneratingSetInfo( "Isoclinic(2.O7(3).2)", Dimension, 8,
+>                               Ring, GF(3) );
+rec( dim := 8, groupname := "Isoclinic(2.O7(3).2)", id := "", 
+  identifier := 
+    [ "Isoclinic(2.O7(3).2)", 
+      [ [ "internal", "2O73d2iG1-f3r8B0.m1" ], 
+          [ "internal", "2O73d2iG1-f3r8B0.m2" ] ], 1, 3 ], 
+  repname := "2O73d2iG1-f3r8B0", repnr := 1, ring := GF(3), 
+  standardization := 1, type := "matff" )
+</Example>
+
+<P/>
+
+Of course we can create a representation of <M>2.O_7(3).2</M> from this
+representation,
+by multiplying the first generator with a fourth root of unity,
+for example with <C>Z(9)^2</C>.
+(see <Cite Key="CCN85" Where="p. xxiii"/>).
+Note that this representation is defined over the field with <M>9</M>
+elements, and that <M>2.O_7(3).2</M> does not have a faithful matrix
+representation of degree <M>8</M> over the field with <M>3</M> elements.
+The data that are distributed together with the &AtlasRep; package
+contain also this representation, with the name <C>2O73d2G1-f9r8B0</C>.
+
+<Example>
+gap> OneAtlasGeneratingSetInfo( "2.O7(3).2", Dimension, 8, Ring, GF(9) );
+rec( dim := 8, groupname := "2.O7(3).2", id := "", 
+  identifier := 
+    [ "2.O7(3).2", 
+      [ [ "internal", "2O73d2G1-f9r8B0.m1" ], 
+          [ "internal", "2O73d2G1-f9r8B0.m2" ] ], 1, 9 ], 
+  repname := "2O73d2G1-f9r8B0", repnr := 1, ring := GF(3^2), 
+  size := 18341406720, standardization := 1, type := "matff" )
+</Example>
+
+</Subsection>
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:F22d2_wrong_maxes">
+
+Some of the straight line programs that are available in the web &ATLAS; for
+computing generators of maximal subgroups of the group <M>G = Fi_{22}.2</M>
+are not correct.
+In fact, all of these programs compute generators for maximal subgroups
+but for some of them, the maximal subgroup is in a class different from
+the one that is claimed.
+
+<P/>
+
+Thus the programs in question have been excluded from the &GAP; interface
+by removing them from the data list in the file <F>gap/atlasprm.json</F>
+of the &AtlasRep; package and then adding entries to the global variable
+<Ref Var="AGR.ExclusionList"/>.
+
+<P/>
+
+Then the same programs have been added to the data that are distributed
+together with the &AtlasRep; package, but with different names;
+the mapping of names is as follows.
+
+<Table Align="|r|l|l|">
+<HorLine>
+<Row>
+  <Item>Order</Item>
+  <Item>Excluded name</Item><Item>Supported name</Item>
+</Row>
+<Row>
+  <Item><M>2090188800</M></Item>
+  <Item><C>F22d2G1-max12W1</C></Item><Item><C>F22d2G1-max3W2</C></Item>
+</Row>
+<Row>
+  <Item><M>908328960</M></Item>
+  <Item><C>F22d2G1-max10W1</C></Item><Item><C>F22d2G1-max4W2</C></Item>
+</Row>
+<Row>
+  <Item><M>185794560</M></Item>
+  <Item><C>F22d2G1-max3W1</C></Item><Item><C>F22d2G1-max5W2</C></Item>
+</Row>
+<Row>
+  <Item><M>106168320</M></Item>
+  <Item><C>F22d2G1-max4W1</C></Item><Item><C>F22d2G1-max6W2</C></Item>
+</Row>
+<Row>
+  <Item><M>78382080</M></Item>
+  <Item><C>F22d2G1-max5W1</C></Item><Item><C>F22d2G1-max7W2</C></Item>
+</Row>
+<Row>
+  <Item><M>35942400</M></Item>
+  <Item><C>F22d2G1-max6W1</C></Item><Item><C>F22d2G1-max8W2</C></Item>
+</Row>
+<Row>
+  <Item><M>35389440</M></Item>
+  <Item><C>F22d2G1-max7W1</C></Item><Item><C>F22d2G1-max9W2</C></Item>
+</Row>
+<Row>
+  <Item><M>25194240</M></Item>
+  <Item><C>F22d2G1-max8W1</C></Item><Item><C>F22d2G1-max10W2</C></Item>
+</Row>
+<Row>
+  <Item><M>10077696</M></Item>
+  <Item><C>F22d2G1-max9W1</C></Item><Item><C>F22d2G1-max11W2</C></Item>
+</Row>
+<Row>
+  <Item><M>8491392</M></Item>
+  <Item><C>F22d2G1-max11W1</C></Item><Item><C>F22d2G1-max12W2</C></Item>
+</Row>
+<HorLine>
+</Table>
+
+<P/>
+
+(A possible reason for the different numbering could be that the classes
+of maximal subgroups can be listed either according to non-increasing index
+or according to the ordering in <Cite Key="CCN85" Where="p. 163"/>;
+note that in the latter ordering, the relatively small <Q>novelties</Q>
+<M>G_2(3):2</M> and <M>3^5:(2 \times U_4(2).2)</M> appear in the positions
+<M>3</M> and <M>4</M>, respectively, whereas the positions of these groups
+according to increasing index must be <M>12</M> and <M>10</M>,
+respectively.
+Reordering the classes from the latter ordering to the former one would
+result in the mapping that appears in the above table;
+unfortunately, the straight line programs had not been ordered according to
+the latter ordering.).
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Subsection Label="subsect:L38d2_classreps">
+<Heading>Class representatives of <M>L_3(8).2</M></Heading>
+
+
+1. the script is WRONG:
+   Take the available 6-dim. repres. over GF(8),
+   its Brauer character value at 63AB does not fit to the char. table!
+
+2. thus CHOOSE the available repres. as the FIRST one in the table,
+   find out in which classes the inner elements lie
+
+3. next, determine the outer classes:
+   - 18A-C by their squares, which are 7th powers of the order 63 elements
+   - 14G-I by their squares which are connected to the 9th powers of the
+     order 63 elements
+   - 8A-B by a representation
+
+4. thus get a unique script; add it!
+
+
+-> not unique program L38d2G1-cycW1 --can this be improved?
+   outputs := [ "7GH", "14AB", "63AB", "73AB", "8A-B", "14G-I", "18A-C" ]
+-> on 8A-B: 2r2
+   on 14G-I: y7
+   on 18A-C: y9
+-> mod 3: 8AB disting. by dim. 72, 14G-I by 657
+-> mod 7: 8AB disting. by dim. 72, 14G-I by 511
+-> mod 73: 8AB disting. by dim. 71, 14G-I by 657, 18A-C by 511
+
+-> available:  9: G ≤ GL(72,7)  -> does not help!
+              23: G ≤ GL(71,73) -> two irreducibles, decidable!
+              25: G ≤ GL(511a,73)
+              26: G ≤ GL(511b,73)
+
+          1a 2a 3a 4a 7a 7b 7c 7d 7e 7f 7g 9a 9b 9c 14a 14b 14c 21a 21b 21c
+     2P   1a 1a 3a 2a 7b 7c 7a 7d 7f 7g 7e 9b 9c 9a  7b  7c  7a 21b 21c 21a
+     3P   1a 2a 1a 4a 7c 7a 7b 7d 7g 7e 7f 3a 3a 3a 14c 14a 14b  7c  7a  7b
+     7P   1a 2a 3a 4a 1a 1a 1a 1a 1a 1a 1a 9b 9c 9a  2a  2a  2a  3a  3a  3a
+    73P   1a 2a 3a 4a 7c 7a 7b 7d 7g 7e 7f 9a 9b 9c 14c 14a 14b 21c 21a 21b
+
+X.1        1  1  1  1  1  1  1  1  1  1  1  1  1  1   1   1   1   1   1   1
+X.2        1  1  1  1  1  1  1  1  1  1  1  1  1  1   1   1   1   1   1   1
+X.3       71  7 -1 -1  8  8  8  1  1  1  1 -1 -1 -1   .   .   .  -1  -1  -1
+X.4       71  7 -1 -1  8  8  8  1  1  1  1 -1 -1 -1   .   .   .  -1  -1  -1
+
+
+      2   .   .   .   .   .   .   .   .   .  4  1   5    5   1   1   1   1   1
+      3   2   2   2   2   2   2   2   2   2  2  2   .    .   .   .   .   2   2
+      7   1   1   1   1   1   1   1   1   1  1  .   .    .   1   1   1   .   .
+     73   .   .   .   .   .   .   .   .   .  .  .   .    .   .   .   .   .   .
+
+        63a 63b 63c 63d 63e 63f 63g 63h 63i 2b 6a  8a   8b 14d 14e 14f 18a 18b
+     2P 63b 63c 63a 63e 63f 63d 63h 63i 63g 1a 3a  4a   4a  7f  7g  7e  9b  9c
+     3P 21c 21a 21b 21a 21b 21c 21b 21c 21a 2b 2b  8b   8a 14f 14d 14e  6a  6a
+     7P  9b  9c  9a  9a  9b  9c  9c  9a  9b 2b 6a  8a   8b  2b  2b  2b 18b 18c
+    73P 63e 63f 63d 63h 63i 63g 63b 63c 63a 2b 6a  8a   8b 14f 14d 14e 18a 18b
+
+X.1       1   1   1   1   1   1   1   1   1  1  1   1    1   1   1   1   1   1
+X.2       1   1   1   1   1   1   1   1   1 -1 -1  -1   -1  -1  -1  -1  -1  -1
+X.3      -1  -1  -1  -1  -1  -1  -1  -1  -1 -1 -1  AQ  *AQ  -1  -1  -1  -1  -1
+X.4      -1  -1  -1  -1  -1  -1  -1  -1  -1  1  1 -AQ -*AQ   1   1   1   1   1
+
+
+      2   1
+      3   2
+      7   .
+     73   .
+
+        18c
+     2P  9a
+     3P  6a
+     7P 18a
+    73P 18c
+
+X.1       1
+X.2      -1
+X.3      -1
+X.4       1
+
+
+AQ = -1+2*E(8)-2*E(8)^3
+  = -1+2*Sqrt(2) = -1+2r2
+
+
+gap> prg:= AtlasProgram( "L3(8).2", "cyclic" );
+rec( groupname := "L3(8).2", identifier := [ "L3(8).2", "L38d2G1-cycW1", 1 ],
+  outputs := [ "7GH", "14AB", "63AB", "73AB", "8A-B", "14G-I", "18A-C" ],
+  program := <straight line program>, standardization := 1, version := "1" )
+gap> gens:= OneAtlasGeneratingSetInfo( "L3(8).2", Dimension, 71, Characteristic, 73 );
+rec( dim := 71, groupname := "L3(8).2", id := "",
+  identifier := [ "L3(8).2", [ "L38d2G1-f73r71B0.m1", "L38d2G1-f73r71B0.m2" ],
+      1, 73 ], repname := "L38d2G1-f73r71B0", repnr := 23, ring := GF(73),
+  size := 32965632, standardization := 1, type := "matff" )
+gap> gens:= AtlasGenerators( gens );
+rec( dim := 71,
+  generators := [ < immutable compressed matrix 71x71 over GF(73) >,
+      < immutable compressed matrix 71x71 over GF(73) > ],
+  groupname := "L3(8).2", id := "",
+  identifier := [ "L3(8).2", [ "L38d2G1-f73r71B0.m1", "L38d2G1-f73r71B0.m2" ],
+      1, 73 ], repname := "L38d2G1-f73r71B0", repnr := 23, ring := GF(73),
+  size := 32965632, standardization := 1, type := "matff" )
+gap> res:= ResultOfStraightLineProgram( prg.program, gens.generators );;
+gap> Length( res );
+7
+gap> 2b:= res[7]^9;
+< immutable compressed matrix 71x71 over GF(73) >
+gap> Order( last );
+2
+gap> BrauerCharacterValue( 2b );
+-1
+gap> # thus we have 71a!
+gap> 8ab:= res[5];
+< immutable compressed matrix 71x71 over GF(73) >
+gap> Order( last );
+8
+gap> BrauerCharacterValue( 8ab );
+-1-2*E(8)+2*E(8)^3
+gap> Quadratic( last );
+rec( ATLAS := "-1-2r2", a := -1, b := -2, d := 1, display := "-1-2*Sqrt(2)",
+  root := 2 )
+gap> # thus we have class 8B!
+
+
+concerning 18A-C:
+squares are in 9B, 9C, 9A
+and 9A is the 7th power of 63c, 63d, 63h
+and 9B is the 7th power of 63a, 63e, 63i
+and 9C is the 7th power of 63b, 63f, 63g
+
+-> so we could solve this without a repres.! (and the answer defines some repres.)
+
+-> what about 14G-I?
+
+squares:  14G -> 7f
+          14H -> 7g
+          14I -> 7e
+
+and 9th powers of 63 are
+     63a -> 21c -> 7b
+     63b -> 21a -> 7c
+     63c -> 21b -> 7a
+     63d -> 21a -> 7c
+     63e -> 21b -> 7a
+     63f -> 21c -> 7b
+     63g -> 21b -> 7a
+     63h -> 21c -> 7b
+     63i -> 21a -> 7c
+
+and there are representations of degree 146 or 1168 or 657 which couple 7a-c to 7d-f
+
+23: G ≤ GL(71,73)
+24: G ≤ GL(441,73)
+25: G ≤ GL(511a,73)
+26: G ≤ GL(511b,73)
+
+-> but we do not have it!
+
+-> in char. 3, also candidates:
+   degrees 146, 657
+
+-> use the nat. repres. in char. 2!
+
+
+
+</Subsection>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<Section Label="sect:L34_maxes">
+<Heading>Maximal Subgroups of <M>L_3(4)</M></Heading>
+
+Two straight line programs that are available in the web &ATLAS; for
+computing generators of maximal subgroups of the group <M>G = L_3(4)</M>
+are not correct.
+
+<P/>
+
+The contents of the file <C>L34G1-max4W1</C> is as follows.
+
+<P/>
+
+<Listing>
+mu 1 2 3
+mu 2 1 4
+iv 3 5
+mu 4 4 2
+mu 2 5 4
+mu 4 3 2
+</Listing>
+
+<P/>
+
+However,
+if we apply this program to standard generators of <M>G</M> then
+the outputs generate the whole group.
+
+<P/>
+
+<Example>
+gap> slp:= ScanStraightLineProgram( "\
+> mu 1 2 3\n\
+> mu 2 1 4\n\
+> iv 3 5\n\
+> mu 4 4 2\n\
+> mu 2 5 4\n\
+> mu 4 3 2", "string" );
+rec( program := <straight line program> )
+gap> g:= AtlasGroup( "L3(4)" );
+Group([ (1,2)(4,6)(5,7)(8,12)(9,14)(10,15)(11,17)(13,19), 
+  (2,3,5,4)(6,8,13,9)(7,10,16,11)(12,18)(14,20,21,15)(17,19) ])
+gap> res:= ResultOfStraightLineProgram( slp.program,
+>              GeneratorsOfGroup( g ) );;
+gap> Size( SubgroupNC( g, res ) );
+20160
+</Example>
+
+<P/>
+
+Similarly, the file <C>L34G1-max5W1</C> has the following contents.
+
+<P/>
+
+<Listing>
+mu 1 2 3
+mu 2 1 4
+iv 3 5
+mu 4 5 2
+mu 2 3 4
+mu 4 3 2
+</Listing>
+
+<P/>
+
+The subgroup generated by the outputs of this program has order <M>10</M>
+and is hence too small.
+
+<P/>
+
+<Example>
+gap> slp:= ScanStraightLineProgram( "\
+> mu 1 2 3\n\
+> mu 2 1 4\n\
+> iv 3 5\n\
+> mu 4 5 2\n\
+> mu 2 3 4\n\
+> mu 4 3 2", "string" );
+rec( program := <straight line program> )
+gap> res:= ResultOfStraightLineProgram( slp.program,
+>              GeneratorsOfGroup( g ) );;
+gap> Size( SubgroupNC( g, res ) );
+10
+</Example>
+
+<P/>
+
+Now we want to replace the wrong programs by correct ones.
+According to <Cite Key="CCN85" Where="p. 23"/>,
+the subgroups in the 3rd, 4th, and 5th class of maximal subgroups of <M>G</M>
+are all isomorphic with the alternating group <M>A_6</M>.
+Thus our task is to find two subgroups of type <M>A_6</M> in <M>G</M>
+that are not conjugate to each other and also not conjugate to the
+representative of the 3rd class of maximal subgroups.
+
+<P/>
+
+Our approach is to keep the first generator of <M>G</M> (an involution),
+and to iterate over short words in a free monoid until the corresponding
+word in the standard generators of <M>G</M> together with the involution
+generate a suitable subgroup.
+(Note that all subgroups of order <M>360</M> in <M>G</M> are maximal in
+<M>G</M> and have the type <M>A_6</M>.)
+
+<P/>
+
+<Example>
+gap> g:= AtlasGroup( "L3(4)" );;
+gap> s3:= AtlasSubgroup( "L3(4)", 3 );;
+gap> Size( s3 );  IsSimple( s3 );
+360
+true
+gap> gens:= ShallowCopy( GeneratorsOfGroup( g ) );;
+gap> f:= FreeMonoid( 2 );;
+gap> fgens:= GeneratorsOfMonoid( f );;
+[ m1, m2 ]
+gap> iter:= Iterator( f );;
+gap> repeat
+> w4:= NextIterator( iter );
+> s4:= Group( gens[1], MappedWord( w4, fgens, gens ) );
+> until Size( s4 ) = 360 and not IsConjugate( g, s3, s4 );
+gap> w4;
+m2*m1*m2^3*m1*m2*m1*m2
+gap> repeat
+> w5:= NextIterator( iter );
+> s5:= Group( gens[1], MappedWord( w5, fgens, gens ) );
+> until Size( s5 ) = 360
+> and not IsConjugate( g, s3, s5 )
+> and not IsConjugate( g, s4, s5 );
+gap> w5;
+m2*m1*m2*m1*m2^3*m1*m2
+</Example>
+
+<P/>
+
+The erroneous programs get excluded from the &GAP; interface
+by removing them from the data list in the file <F>gap/atlasprm.json</F>
+of the &AtlasRep; package and then adding entries to the global variable
+<Ref Var="AGR.ExclusionList"/>.
+
+<P/>
+
+The above words have been turned into straight line programs and then added
+to the data that are distributed together with the &AtlasRep; package,
+the programs are now available with the names <C>L34G1-max4W2</C>;
+and <C>L34G1-max5W2</C>, respectively;
+note that the names <C>L34G1-max4W1</C> and <C>L34G1-max5W1</C>
+must be avoided.
+
+<!-- and add entries to htm/data/changes.htm -->
+
+<P/>
+
+<Example>
+gap> subs:= List( [3..5], i -> AtlasSubgroup( g, i ) );;
+gap> List( subs, Size );
+[ 360, 360, 360 ]
+gap> IsConjugate( g, subs[1], subs[2] );
+false
+gap> IsConjugate( g, subs[1], subs[3] );
+false
+gap> IsConjugate( g, subs[2], subs[3] );
+false
+</Example>
+
+<P/>
+
+It turns out that the generators of the subgroups are in fact
+standard generators of <M>A_6</M>.
+
+<P/>
+
+<Example>
+gap> prg:= AtlasProgram( "A6", 1, "check" );
+rec( groupname := "A6", identifier := [ "A6", "A6G1-check1", 1, 1 ], 
+  program := <straight line decision>, standardization := 1, version := "1" )
+gap> ForAll( subs, s -> ResultOfStraightLineDecision( prg.program,
+>                           GeneratorsOfGroup( s ) ) );
+true
+</Example>
+
+<P/>
+
+Thus we can provide also the (empty) straight line programs
+<C>L34G1max3W1-A6G1W1</C>, <C>L34G1max4W2-A6G1W1</C>, and
+<C>L34G1max5W2-A6G1W1</C>,
+which express that the &GAP; interface provides <E>standard</E> generators
+for the maximal subgroups in question.
+
+</Section>
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+</Chapter>
+

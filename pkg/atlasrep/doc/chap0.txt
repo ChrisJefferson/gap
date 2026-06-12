@@ -1,0 +1,193 @@
+  
+  
+                          [1X[5XAtlasRep[105X --- A GAP 4 Package[101X
+  
+  
+                                (Version 2.1.9)
+  
+  
+                                Robert A. Wilson
+  
+                               Richard A. Parker
+  
+                                Simon Nickerson
+  
+                                  John N. Bray
+  
+                                 Thomas Breuer
+  
+  
+  
+  Robert A. Wilson
+      Email:    [7Xmailto:R.A.Wilson@qmul.ac.uk[107X
+      Homepage: [7Xhttp://www.maths.qmw.ac.uk/~raw[107X
+  Richard A. Parker
+      Email:    [7Xmailto:richpark@gmx.co.uk[107X
+  Simon Nickerson
+      Homepage: [7Xhttp://nickerson.org.uk/groups[107X
+  John N. Bray
+      Email:    [7Xmailto:J.N.Bray@qmul.ac.uk[107X
+      Homepage: [7Xhttp://www.maths.qmw.ac.uk/~jnb[107X
+  Thomas Breuer
+      Email:    [7Xmailto:sam@Math.RWTH-Aachen.De[107X
+      Homepage: [7Xhttps://www.math.rwth-aachen.de/~Thomas.Breuer[107X
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2002–2024[133X
+  
+  [33X[0;0YThis  package  may  be distributed under the terms and conditions of the GNU
+  Public License Version 3 or later, see [7Xhttp://www.gnu.org/licenses[107X.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (AtlasRep)[101X
+  
+  1 [33X[0;0YIntroduction to the [5XAtlasRep[105X Package[133X
+    1.1 [33X[0;0YThe [5XATLAS[105X of Group Representations[133X
+    1.2 [33X[0;0YThe GAP Interface to the [5XATLAS[105X of Group Representations[133X
+    1.3 [33X[0;0YWhat's New in [5XAtlasRep[105X, Compared to Older Versions?[133X
+      1.3-1 [33X[0;0YWhat's New in Version 2.1.9? (August 2024)[133X
+      1.3-2 [33X[0;0YWhat's New in Version 2.1.8? (January 2024)[133X
+      1.3-3 [33X[0;0YWhat's New in Version 2.1.7? (August 2023)[133X
+      1.3-4 [33X[0;0YWhat's New in Version 2.1.6? (October 2022)[133X
+      1.3-5 [33X[0;0YWhat's New in Version 2.1.5? (August 2022)[133X
+      1.3-6 [33X[0;0YWhat's New in Version 2.1.4? (August 2022)[133X
+      1.3-7 [33X[0;0YWhat's New in Version 2.1.3? (August 2022)[133X
+      1.3-8 [33X[0;0YWhat's New in Version 2.1.2? (March 2022)[133X
+      1.3-9 [33X[0;0YWhat's New in Version 2.1.1? (February 2022)[133X
+      1.3-10 [33X[0;0YWhat's New in Version 2.1.0? (May 2019)[133X
+      1.3-11 [33X[0;0YWhat's New in Version 1.5.1? (March 2016)[133X
+      1.3-12 [33X[0;0YWhat's New in Version 1.5? (July 2011)[133X
+      1.3-13 [33X[0;0YWhat's New in Version 1.4? (June 2008)[133X
+      1.3-14 [33X[0;0YWhat's New in Version 1.3.1? (October 2007)[133X
+      1.3-15 [33X[0;0YWhat's New in Version 1.3? (June 2007)[133X
+      1.3-16 [33X[0;0YWhat's New in Version 1.2? (November 2003)[133X
+      1.3-17 [33X[0;0YWhat's New in Version 1.1? (October 2002)[133X
+    1.4 [33X[0;0YAcknowledgements[133X
+  2 [33X[0;0YTutorial for the [5XAtlasRep[105X Package[133X
+    2.1 [33X[0;0YAccessing a Specific Group in [5XAtlasRep[105X[133X
+      2.1-1 [33X[0;0YAccessing a Group in [5XAtlasRep[105X via its Name[133X
+      2.1-2 [33X[0;0YAccessing a Maximal Subgroup of a Group in [5XAtlasRep[105X[133X
+    2.2 [33X[0;0YAccessing Specific Generators in [5XAtlasRep[105X[133X
+    2.3 [33X[0;0YBasic Concepts used in [5XAtlasRep[105X[133X
+      2.3-1 [33X[0;0YGroups, Generators, and Representations[133X
+      2.3-2 [33X[0;0YStraight Line Programs[133X
+    2.4 [33X[0;0YExamples of Using the [5XAtlasRep[105X Package[133X
+      2.4-1 [33X[0;0YExample: Class Representatives[133X
+      2.4-2 [33X[0;0YExample: Permutation and Matrix Representations[133X
+      2.4-3 [33X[0;0YExample: Outer Automorphisms[133X
+      2.4-4 [33X[0;0YExample: Using Semi-presentations and Black Box Programs[133X
+      2.4-5 [33X[0;0YExample: Using the [5XGAP[105X Library of Tables of Marks[133X
+      2.4-6 [33X[0;0YExample: Index [22X770[122X Subgroups in [22XM_22[122X[133X
+      2.4-7 [33X[0;0YExample: Index [22X462[122X Subgroups in [22XM_22[122X[133X
+  3 [33X[0;0YThe User Interface of the [5XAtlasRep[105X Package[133X
+    3.1 [33X[0;0YAccessing vs. Constructing Representations[133X
+    3.2 [33X[0;0YGroup Names Used in the [5XAtlasRep[105X Package[133X
+    3.3 [33X[0;0YStandard Generators Used in the [5XAtlasRep[105X Package[133X
+    3.4 [33X[0;0YClass Names Used in the [5XAtlasRep[105X Package[133X
+      3.4-1 [33X[0;0YDefinition of [5XATLAS[105X Class Names[133X
+      3.4-2 AtlasClassNames
+      3.4-3 AtlasCharacterNames
+    3.5 [33X[0;0YAccessing Data via [5XAtlasRep[105X[133X
+      3.5-1 DisplayAtlasInfo
+      3.5-2 [33X[0;0YExamples for DisplayAtlasInfo[133X
+      3.5-3 AtlasGenerators
+      3.5-4 AtlasProgram
+      3.5-5 AtlasProgramInfo
+      3.5-6 OneAtlasGeneratingSetInfo
+      3.5-7 AllAtlasGeneratingSetInfos
+      3.5-8 [33X[0;0YAtlasGroup[133X
+      3.5-9 [33X[0;0YAtlasSubgroup[133X
+      3.5-10 AtlasRepInfoRecord
+      3.5-11 [33X[0;0YEvaluatePresentation[133X
+      3.5-12 [33X[0;0YStandardGeneratorsData[133X
+    3.6 [33X[0;0Y[5XBrowse[105X Applications Provided by [5XAtlasRep[105X[133X
+      3.6-1 BrowseMinimalDegrees
+      3.6-2 BrowseBibliographySporadicSimple
+  4 [33X[0;0YCustomizations of the [5XAtlasRep[105X Package[133X
+    4.1 [33X[0;0YInstalling the [5XAtlasRep[105X Package[133X
+    4.2 [33X[0;0YUser Preferences of the [5XAtlasRep[105X Package[133X
+      4.2-1 [33X[0;0YUser preference [10XAtlasRepAccessRemoteFiles[110X[133X
+      4.2-2 [33X[0;0YUser preference [10XAtlasRepDataDirectory[110X[133X
+      4.2-3 [33X[0;0YUser preference [10XAtlasRepTOCData[110X[133X
+      4.2-4 [33X[0;0YUser preference [10XCompressDownloadedMeatAxeFiles[110X[133X
+      4.2-5 [33X[0;0YUser preference [10XFileAccessFunctions[110X[133X
+      4.2-6 [33X[0;0YUser preference [10XAtlasRepLocalServerPath[110X[133X
+      4.2-7 [33X[0;0YUser preference [10XHowToReadMeatAxeTextFiles[110X[133X
+      4.2-8 [33X[0;0YUser preference [10XWriteHeaderFormatOfMeatAxeFiles[110X[133X
+      4.2-9 [33X[0;0YUser preference [10XWriteMeatAxeFilesOfMode2[110X[133X
+      4.2-10 [33X[0;0YUser preference [10XBaseOfMeatAxePermutation[110X[133X
+      4.2-11 [33X[0;0YUser preference [10XDisplayFunction[110X[133X
+      4.2-12 [33X[0;0YUser preference [10XAtlasRepMarkNonCoreData[110X[133X
+      4.2-13 [33X[0;0YUser preference [10XDebugFileLoading[110X[133X
+      4.2-14 [33X[0;0YUser preference [10XAtlasRepJsonFilesAddresses[110X[133X
+    4.3 [33X[0;0YWeb Contents for the [5XAtlasRep[105X Package[133X
+    4.4 [33X[0;0YExtending the [5XATLAS[105X Database[133X
+  5 [33X[0;0YExtensions of the [5XAtlasRep[105X Package[133X
+    5.1 [33X[0;0YNotify Additional Data[133X
+      5.1-1 [33X[0;0YAtlasOfGroupRepresentationsNotifyData[133X
+      5.1-2 AtlasOfGroupRepresentationsForgetData
+      5.1-3 StringOfAtlasTableOfContents
+    5.2 [33X[0;0YThe Effect of Extensions on the User Interface[133X
+    5.3 [33X[0;0YAn Example of Extending the [5XAtlasRep[105X Data[133X
+  6 [33X[0;0YNew [5XGAP[105X Objects and Utility Functions provided by the [5XAtlasRep[105X Package[133X
+    6.1 [33X[0;0YStraight Line Decisions[133X
+      6.1-1 IsStraightLineDecision
+      6.1-2 LinesOfStraightLineDecision
+      6.1-3 NrInputsOfStraightLineDecision
+      6.1-4 ScanStraightLineDecision
+      6.1-5 StraightLineDecision
+      6.1-6 ResultOfStraightLineDecision
+      6.1-7 [33X[0;0YSemi-Presentations and Presentations[133X
+      6.1-8 AsStraightLineDecision
+      6.1-9 StraightLineProgramFromStraightLineDecision
+    6.2 [33X[0;0YBlack Box Programs[133X
+      6.2-1 IsBBoxProgram
+      6.2-2 ScanBBoxProgram
+      6.2-3 RunBBoxProgram
+      6.2-4 ResultOfBBoxProgram
+      6.2-5 AsBBoxProgram
+      6.2-6 AsStraightLineProgram
+    6.3 [33X[0;0YRepresentations of Minimal Degree[133X
+      6.3-1 MinimalRepresentationInfo
+      6.3-2 MinimalRepresentationInfoData
+      6.3-3 SetMinimalRepresentationInfo
+      6.3-4 [33X[0;0YCriteria Used to Compute Minimality Information[133X
+    6.4 [33X[0;0YA JSON Interface[133X
+      6.4-1 [33X[0;0YWhy JSON?[133X
+      6.4-2 AGR.JsonText
+      6.4-3 AGR.GapObjectOfJsonText
+  7 [33X[0;0YTechnicalities of the [5XAtlasRep[105X Package[133X
+    7.1 [33X[0;0YGlobal Variables Used by the [5XAtlasRep[105X Package[133X
+      7.1-1 InfoAtlasRep
+      7.1-2 InfoCMeatAxe
+      7.1-3 InfoBBox
+      7.1-4 AGR
+      7.1-5 AtlasOfGroupRepresentationsInfo
+    7.2 [33X[0;0YHow to Customize the Access to Data files[133X
+    7.3 [33X[0;0YReading and Writing MeatAxe Format Files[133X
+      7.3-1 ScanMeatAxeFile
+      7.3-2 MeatAxeString
+      7.3-3 FFList
+      7.3-4 CMtxBinaryFFMatOrPerm
+      7.3-5 FFMatOrPermCMtxBinary
+    7.4 [33X[0;0YReading and Writing [5XATLAS[105X Straight Line Programs[133X
+      7.4-1 ScanStraightLineProgram
+      7.4-2 AtlasStringOfProgram
+    7.5 [33X[0;0YData Types Used in the [5XAtlasRep[105X Package[133X
+      7.5-1 AGR.DeclareDataType
+    7.6 [33X[0;0YFilenames Used in the [5XAtlasRep[105X Package[133X
+      7.6-1 AGR.ParseFilenameFormat
+      7.6-2 AGR.FileContents
+    7.7 [33X[0;0YThe record component [10Xidentifier[110X used by the [5XAtlasRep[105X Package[133X
+      7.7-1 [33X[0;0YAtlasRepIdentifier[133X
+    7.8 [33X[0;0YThe Tables of Contents of the [5XAtlasRep[105X Package[133X
+    7.9 [33X[0;0YSanity Checks for the [5XAtlasRep[105X Package[133X
+      7.9-1 [33X[0;0YSanity Checks for a Table of Contents[133X
+      7.9-2 [33X[0;0YOther Sanity Checks[133X
+  
+  
+  [32X

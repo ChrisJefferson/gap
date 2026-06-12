@@ -1,0 +1,385 @@
+<html><head><title>[IRREDSOL] 5 Primitive soluble groups</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP004.htm">Previous</a>] [<a href ="CHAP00A.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<h1>5 Primitive soluble groups</h1><p>
+<P>
+<H3>Sections</H3>
+<oL>
+<li> <A HREF="CHAP005.htm#SECT001">Converting between irreducible soluble matrix groups and primitive soluble groups</a>
+<li> <A HREF="CHAP005.htm#SECT002">Finding primitive pc groups with given properties</a>
+<li> <A HREF="CHAP005.htm#SECT003">Finding primitive soluble permutation groups with given properties</a>
+<li> <A HREF="CHAP005.htm#SECT004">Recognising primitive soluble groups</a>
+<li> <A HREF="CHAP005.htm#SECT005">Obsolete functions</a>
+</ol><p>
+<p>
+<a name = "I0"></a>
+
+<a name = "I1"></a>
+
+<a name = "I2"></a>
+
+<a name = "I3"></a>
+
+An abstract finite group <var>G</var> is called <em>primitive</em>if it has a maximal 
+subgroup <var>M</var> with trivial core. Note that the permutation action of <var>G</var> on the 
+cosets of <var>M</var> is faithful and primitive. Conversely, if <var>G</var> is a primitive 
+permutation group, then a point stabilizer <var>M</var> of <var>G</var> is a maximal
+subgroup with trivial core. However, a permutation group which is primitive 
+as an abstract group need not be primitive as a permutation group. 
+<p>
+Now assume that <var>G</var> is primitive and soluble. Then there exists a unique conjugacy class of 
+such maximal subgroups&nbsp;<var>M</var>; the index of <var>M</var> in <var>G</var> is called the <em>degree</em>of <var>G</var>.
+Moreover, <var><var>M</var></var> 
+complements the socle <var>N</var> of <var><var>G</var></var>. THe socle <var>N</var> coincides with the Fitting 
+subgroup of <var>G</var>; it is the unique minimal normal subgroup <var>N</var> of&nbsp;<var>G</var>. Therefore, 
+the index of <var>M</var> in <var>G</var> is a prime power, <var>p<sup>n</sup></var>, say.
+Regarding <var>N</var> as a <var><font face="helvetica,arial">F</font><sub>p</sub></var>-vector space, <var>M</var> acts as an irreducible subgroup of <var>GL(n,p)</var> on <var>N</var>.
+Conversely, if <var>M</var> is an irreducible soluble subgroup of <var>GL(n,p)</var>, and <var>V = <font face="helvetica,arial">F</font><sub>p</sub><sup>n</sup></var>, then the
+split extension of <var>V</var> by <var>M</var> is a primitive soluble group. 
+This establishes a well known
+bijection between the isomorphism types (or, equivalently, the 
+<var>Sym(p<sup>n</sup>)</var>-conjugacy classes) of primitive soluble permutation groups of degree
+<var><var>p</var><sup><</sup>n&gt;</var> and the conjugacy classes of irreducible soluble subgroups of <var>GL(n, p)</var>.
+<p>
+The <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> package provides functions for translating between primitive soluble 
+groups and irreducible soluble matrix groups, which are
+described in Section&nbsp;<a href="CHAP005.htm#SECT001">Converting between irreducible soluble matrix groups  and primitive soluble groups</a>. Moreover, there are functions for finding
+primitive soluble groups with given properties, see Sections&nbsp;<a href="CHAP005.htm#SECT002">Finding primitive  pc groups with given properties</a> and <a href="CHAP005.htm#SECT003">Finding primitive soluble permutation groups with given properties</a>.
+<p>
+<p>
+<h2><a name="SECT001">5.1 Converting between irreducible soluble matrix groups and primitive soluble groups</a></h2>
+<p><p>
+<a name = "SSEC001.1"></a>
+<li><code>PrimitivePcGroup(</code><var>n</var><code>,</code><var>p</var><code>,</code><var>d</var><code>,</code><var>k</var><code>) F</code>
+<a name = "SSEC001.1"></a>
+<li><code>PrimitiveSolublePermGroup(</code><var>n</var><code>,</code><var>p</var><code>,</code><var>d</var><code>,</code><var>k</var><code>) F</code>
+<a name = "SSEC001.1"></a>
+<li><code>PrimitiveSolvablePermGroup(</code><var>n</var><code>,</code><var>p</var><code>,</code><var>d</var><code>,</code><var>k</var><code>) F</code>
+<p>
+These functions return the primitive soluble pc group resp. primitive soluble 
+permutation group obtainewd as the natural split extension of <var>V = <font face="helvetica,arial">F</font><sub>p</sub><sup>n</sup></var> by
+<code>IrreducibleSolubleMatrixGroup</code>(<var>n</var>,<var>p</var>,<var>d</var>,<var>k</var>). Here, <var>n</var> is a positive 
+integer, <var>p</var> is a prime, <var>d</var> divides <var>n</var> and <var>k</var> occurs in the list 
+<code>IndicesIrreducibleSolubleMatrixGroups</code>(<var>n</var>,<var>p</var>,<var>d</var>) 
+(see <a href="CHAP002.htm#SSEC002.2">IndicesIrreducibleSolubleMatrixGroups</a>).
+<p>
+As long as the relevant group data is not unloaded manually 
+(see <a href="CHAP002.htm#SSEC004.3">UnloadAbsolutelyIrreducibleSolubleGroupData</a>), the functions <code>PrimitivePcGroup</code>
+and <code>PrimitiveSolublePermGroup</code> will return the same group when called multiple times
+with the same arguments.
+<p>
+<a name = "SSEC001.2"></a>
+<li><code>PrimitivePcGroupIrreducibleMatrixGroup(</code><var>G</var><code>) F</code>
+<a name = "SSEC001.2"></a>
+<li><code>PrimitivePcGroupIrreducibleMatrixGroupNC(</code><var>G</var><code>) F</code>
+<p>
+For a given irreducible soluble matrix group <var>G</var> over a prime field, this function
+returns a primitive pc group <var>H</var> which is the split extension of <var>G</var> with its natural
+underlying vector space&nbsp;<var>V</var>. The <code>NC</code> version does not check whether <var>G</var> is over a prime field, 
+or whether <var>G</var> is irreducible. The group <var>H</var> has an attribute <code>Socle</code> (see <a href="../../../doc/ref/chap39.html#X81F647FA83D8854F">Socle</a>), corresponding to&nbsp;<var>V</var>. If the package <font face="Gill Sans,Helvetica,Arial">CRISP</font> is loaded, 
+then the attribute <code>SocleComplement</code> (see <font face="Gill Sans,Helvetica,Arial">CRISP</font> reference manual <a href="../../crisp/htm/CHAP004.htm#SSEC003.2">crisp:SocleComplement</a>) is set to a subgroup of 
+<var>H</var> isomorphic with <var>G</var>.
+<p>
+<pre>
+gap&gt; PrimitivePcGroupIrreducibleMatrixGroup(
+&gt;       IrreducibleSolubleMatrixGroup(4,2,2,3));
+&lt;pc group of size 160 with 6 generators&gt;
+</pre>
+<p>
+<a name = "SSEC001.3"></a>
+<li><code>PrimitivePermGroupIrreducibleMatrixGroup(</code><var>G</var><code>) F</code>
+<a name = "SSEC001.3"></a>
+<li><code>PrimitivePermGroupIrreducibleMatrixGroupNC(</code><var>G</var><code>) F</code>
+<p>
+For a given irreducible soluble matrix group <var>G</var> over a prime field, this function
+returns a primitive permutation group&nbsp;<var>H</var>, representing the affine action of <var>G</var> on its natural
+vector space&nbsp;<var>V</var>. The <code>NC</code> version does not check whether <var>G</var> is over a prime field, 
+or whether <var>G</var> is irreducible. The group <var>H</var> has an attribute <code>Socle</code> (see <a href="../../../doc/ref/chap39.html#X81F647FA83D8854F">Socle</a>), corresponding to&nbsp;<var>V</var>. If the package <font face="Gill Sans,Helvetica,Arial">CRISP</font> is loaded, 
+then the attribute <code>SocleComplement</code> (see <a href="../../crisp/htm/CHAP004.htm#SSEC003.2">crisp:SocleComplement</a> in the <font face="Gill Sans,Helvetica,Arial">CRISP</font> manual) is set to a subgroup of 
+<var>H</var> isomorphic with <var>G</var>.
+<p>
+<pre>
+gap&gt; PrimitivePermGroupIrreducibleMatrixGroup(
+&gt;       IrreducibleSolubleMatrixGroup(4,2,2,3));
+&lt;permutation group of size 160 with 6 generators&gt;
+</pre>
+<p>
+<a name = "SSEC001.4"></a>
+<li><code>IrreducibleMatrixGroupPrimitiveSolubleGroup(</code><var>G</var><code>) F</code>
+<a name = "SSEC001.4"></a>
+<li><code>IrreducibleMatrixGroupPrimitiveSolvableGroupNC(</code><var>G</var><code>) F</code>
+<p>
+For a given primitive soluble group <var>G</var>, this function returns a matrix group 
+obtained from the conjugation
+action of <var>G</var> on its unique minimal normal subgroup <var>N</var>, regarded as a vector 
+space over <var><font face="helvetica,arial">F</font><sub>p</sub></var>, where <var>p</var> is the exponent of <var>N</var>. 
+The <var><font face="helvetica,arial">F</font><sub>p</sub></var>-basis of <var>N</var> is chosen arbitrarily, so that the matrix group returned 
+is unique only up to conjugacy in the relevant <var>GL(n, p)</var>. The NC version does
+not check whether <var>G</var> is primitive and soluble.
+<p>
+<pre>
+gap&gt; IrreducibleMatrixGroupPrimitiveSolubleGroup(SymmetricGroup(4));
+Group([ &lt;an immutable 2x2 matrix over GF2&gt;, 
+  &lt;an immutable 2x2 matrix over GF2&gt; ])
+</pre>
+<p>
+<p>
+<h2><a name="SECT002">5.2 Finding primitive pc groups with given properties</a></h2>
+<p><p>
+<a name = "I4"></a>
+
+<a name = "I5"></a>
+
+<a name = "SSEC002.1"></a>
+<li><code>AllPrimitivePcGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<p>
+This function returns a list of all primitive soluble pc
+groups <var>G</var> in the  <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> library for which the return value of <var><var>func<sub>i</sub></var>(G)</var> lies
+in <var>arg_i</var>.  The arguments <var>func_1</var>, <var>func_2</var>, ...,
+must be <font face="Gill Sans,Helvetica,Arial">GAP</font> functions which take a pc group as their only argument and return a
+value, and <var>arg_1</var>, <var>arg_2</var>,
+...,  must be lists. If <var>arg_i</var> is not a list, <var>arg_i</var> is replaced by the list
+<code></code>[<var>arg_i</var><code>]</code>. One of the functions must be <code>Degree</code> or one of its
+equivalents, see below.
+<p>
+The following functions <var>func_i</var> are handled particularly efficiently.
+<p>
+<ul>
+<li> <code>Degree</code>, <code>NrMovedPoints</code>, <code>LargestMovedPoint</code>
+<li> <code>Order</code>, <code>Size</code>
+</ul>
+<p>
+Note that there is also a function <code>IteratorPrimitivePcGroups</code> (see
+<a href="CHAP005.htm#SSEC002.3">IteratorPrimitivePcGroups</a>) which allows one to run through the list produced by
+<code>AllPrimitivePcGroups</code> without having to store all the groups in the list
+simultaneously.
+<p>
+<pre>
+gap&gt; AllPrimitivePcGroups(Degree, [1..255], Order, [168]);
+[ &lt;pc group of size 168 with 5 generators&gt; ]
+</pre>
+<p>
+<a name = "SSEC002.2"></a>
+<li><code>OnePrimitivePcGroup(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<p>
+This function returns one primitive soluble pc
+group <var>G</var> in the  <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> library for which the return value of <var><var>func<sub>i</sub></var>(G)</var> lies in
+<var>arg_i</var>, or <code>fail</code> if no such group exists.  The arguments <var>func_1</var>, <var>func_2</var>, ...,
+must be <font face="Gill Sans,Helvetica,Arial">GAP</font> functions which take a pc group as their only argument and return a
+value, and <var>arg_1</var>, <var>arg_2</var>,
+...,  must be lists. If <var>arg_i</var> is not a list, <var>arg_i</var> is replaced by the list
+<code>[</code><var>arg_i</var><code>]</code>. One of the functions must be <code>Degree</code> or one of its, equivalents, <code>NrMovedPoints</code> or <code>LargestMovedPoint</code>.
+<p>
+For a list of functions which are handled particularly efficiently, see
+<a href="CHAP005.htm#SSEC002.1">AllPrimitivePcGroups</a>.
+<p>
+<pre>
+gap&gt; OnePrimitivePcGroup(Degree, [256], Order, [256*255]);
+&lt;pc group of size 65280 with 11 generators&gt;
+</pre>
+<p>
+<a name = "SSEC002.3"></a>
+<li><code>IteratorPrimitivePcGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<p>
+This function returns an iterator which runs through the list of all primitive soluble
+pc groups <var>G</var> in the  <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> library such that
+<var><var>func<sub>i</sub></var>(G)</var> lies in <var>arg_i</var>. The arguments <var>func_1</var>, <var>func_2</var>, ...,
+must be <font face="Gill Sans,Helvetica,Arial">GAP</font> functions taking a pc group as their only argument and returning 
+a value, and <var>arg_1</var>, <var>arg_2</var>, ..., 
+must be lists. If <var>arg_i</var> is not a list, <var>arg_i</var> is replaced by the list <code>[</code><var>arg_i</var><code>]</code>.
+One of the functions must be <code>Degree</code> or one of its, equivalents, <code>NrMovedPoints</code> 
+or <code>LargestMovedPoint</code>.
+For a list of functions which are handled particularly efficiently, see
+<a href="CHAP005.htm#SSEC002.1">AllPrimitivePcGroups</a>.
+<p>
+Using 
+<p>
+<code>IteratorPrimitivePcGroups</code>(<var>func_1</var>, <var>arg_1</var>, <var>func_2</var>, <var>arg_2</var>, ...)) 
+<p>
+is functionally equivalent to 
+<p>
+<code>Iterator</code>(<code>AllPrimitivePcGroups</code>(<var>func_1</var>, <var>arg_1</var>, <var>func_2</var>, <var>arg_2</var>, ...))
+<p>
+(see <a href="../../../doc/ref/chap30.html#X85A3F00985453F95">Iterators</a> for details) but does not 
+compute all relevant pc groups at the same time. 
+This may save some memory. 
+<p>
+<p>
+<h2><a name="SECT003">5.3 Finding primitive soluble permutation groups with given properties</a></h2>
+<p><p>
+<a name = "I6"></a>
+
+<a name = "I7"></a>
+
+<a name = "SSEC003.1"></a>
+<li><code>AllPrimitiveSolublePermGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<a name = "SSEC003.1"></a>
+<li><code>AllPrimitiveSolvablePermGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<p>
+This function returns a list of all primitive soluble permutation
+groups <var>G</var> corresponding to irreducible matrix groups in the  <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> library 
+for which the return value of <var><var>func<sub>i</sub></var>(G)</var> lies
+in <var>arg_i</var>.  The arguments <var>func_1</var>, <var>func_2</var>, ...,
+must be <font face="Gill Sans,Helvetica,Arial">GAP</font> functions which take a permutation group as their only argument and return a
+value, and <var>arg_1</var>, <var>arg_2</var>,
+...,  must be lists. If <var>arg_i</var> is not a list, <var>arg_i</var> is replaced by the list
+<code>[</code><var>arg_i</var><code>]</code>. One of the functions must be <code>Degree</code> or one of its
+equivalents, see below.
+<p>
+The following functions <var>func_i</var> are handled particularly efficiently. 
+<p>
+<ul>
+<p>
+<li> <code>Degree</code>, <code>NrMovedPoints</code>, <code>LargestMovedPoint</code>
+<li> <code>Order</code>, <code>Size</code>
+</ul>
+<p>
+Note that there is also a function <code>IteratorPrimitivePermGroups</code> (see
+<a href="CHAP005.htm#SSEC003.3">IteratorPrimitivePermGroups</a>) which allows one to run through the list produced by
+<code>AllPrimitivePcGroups</code> without having to store all of the groups
+simultaneously.
+<p>
+<pre>
+gap&gt; AllPrimitiveSolublePermGroups(Degree, [1..100], Order, [72]);
+[ Group([ (1,4,7)(2,5,8)(3,6,9), (1,2,3)(4,5,6)(7,8,9), (2,4)(3,7)(6,8), 
+      (2,3)(5,6)(8,9), (4,7)(5,8)(6,9) ]), 
+  Group([ (1,4,7)(2,5,8)(3,6,9), (1,2,3)(4,5,6)(7,8,9), (2,5,3,9)(4,8,7,6), 
+      (2,7,3,4)(5,8,9,6), (2,3)(4,7)(5,9)(6,8) ]), 
+  Group([ (1,4,7)(2,5,8)(3,6,9), (1,2,3)(4,5,6)(7,8,9), (2,5,6,7,3,9,8,4) ]) ]
+gap&gt; List(last, IdGroup);
+[ [ 72, 40 ], [ 72, 41 ], [ 72, 39 ] ]
+</pre>
+<p>
+<a name = "SSEC003.2"></a>
+<li><code>OnePrimitiveSolublePermGroup(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<a name = "SSEC003.2"></a>
+<li><code>OnePrimitiveSolvablePermGroup(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<p>
+This function returns one primitive soluble permutation
+group <var>G</var> corresponding to irreducible matrix groups in the  <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> library 
+for which the return value of <var><var>func<sub>i</sub></var>(G)</var> lies in
+<var>arg_i</var>, or <code>fail</code> if no such group exists.  The arguments <var>func_1</var>, <var>func_2</var>, ...,
+must be <font face="Gill Sans,Helvetica,Arial">GAP</font> functions which take a permutation group as their only argument and return a
+value, and <var>arg_1</var>, <var>arg_2</var>,
+...,  must be lists. If <var>arg_i</var> is not a list, <var>arg_i</var> is replaced by the list
+<code>[</code><var>arg_i</var><code>]</code>. One of the functions must be <code>Degree</code> or one of its, equivalents, <code>NrMovedPoints</code> or <code>LargestMovedPoint</code>.
+<p>
+For a list of functions which are handled particularly efficiently, see
+<a href="CHAP005.htm#SSEC003.1">AllPrimitiveSolublePermGroups</a>.
+<p>
+<pre>
+gap&gt; OnePrimitiveSolublePermGroup(Degree, [1..100], Size, [123321]);
+fail
+</pre>
+<p>
+<a name = "SSEC003.3"></a>
+<li><code>IteratorPrimitivePermGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<p>
+This function returns an iterator which runs through the list of all primitive soluble
+groups <var>G</var> in the  <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> library such that
+<var><var>func<sub>i</sub></var>(G)</var> lies in <var>arg_i</var>. The arguments <var>func_1</var>, <var>func_2</var>, ...,
+must be <font face="Gill Sans,Helvetica,Arial">GAP</font> functions taking a pc group as their only argument and returning 
+a value, and <var>arg_1</var>, <var>arg_2</var>, ..., 
+must be lists. If <var>arg_i</var> is not a list, <var>arg_i</var> is replaced by the list <code>[</code><var>arg_i</var><code>]</code>.
+One of the functions must be <code>Degree</code> or one of its, equivalents, <code>NrMovedPoints</code> 
+or <code>LargestMovedPoint</code>.
+For a list of functions which are handled particularly efficiently, see
+<a href="CHAP005.htm#SSEC003.1">AllPrimitiveSolublePermGroups</a>.
+<p>
+Using 
+<p>
+<code>IteratorPrimitiveSolublePermGroups</code>(<var>func_1</var>, <var>arg_1</var>, <var>func_2</var>, <var>arg_2</var>, ...)) 
+<p>
+is functionally equivalent to 
+<p>
+<code>Iterator</code>(<code>AllPrimitiveSolublePermGroups</code>(<var>func_1</var>, <var>arg_1</var>, <var>func_2</var>, <var>arg_2</var>, ...))
+<p>
+(see <a href="../../../doc/ref/chap30.html#X85A3F00985453F95">Iterators</a> for details) but does not 
+compute all relevant permutation groups at the same time. 
+<p>
+<p>
+<h2><a name="SECT004">5.4 Recognising primitive soluble groups</a></h2>
+<p><p>
+<a name = "I8"></a>
+
+<a name = "I9"></a>
+
+<a name = "I10"></a>
+
+<a name = "I11"></a>
+
+<a name = "I12"></a>
+
+<a name = "I13"></a>
+
+<a name = "I14"></a>
+
+<a name = "I15"></a>
+
+<a name = "SSEC004.1"></a>
+<li><code>IdPrimitiveSolubleGroup(</code><var>G</var><code>) F</code>
+<a name = "SSEC004.1"></a>
+<li><code>IdPrimitiveSolubleGroupNC(</code><var>G</var><code>) F</code>
+<a name = "SSEC004.1"></a>
+<li><code>IdPrimitiveSolvableGroup(</code><var>G</var><code>) F</code>
+<a name = "SSEC004.1"></a>
+<li><code>IdPrimitiveSolvableGroupNC(</code><var>G</var><code>) F</code>
+<p>
+returns the id of the primitive soluble group <var>G</var>. This is the same as
+the id of <code>IrreducibleMatrixGroupPrimitiveSolubleGroup</code>(<var>G</var>), see <a href="CHAP005.htm#SSEC001.4">IrreducibleMatrixGroupPrimitiveSolubleGroup</a> and <a href="CHAP003.htm#SSEC001.3">IdIrreducibleSolubleMatrixGroup</a>.
+Note that two primitive soluble groups are isomorphic if, and only if, their
+ids returned by <code>IdPrimitivePcGroup</code> are the same. The NC version does not
+check whether <var>G</var> is primitive and soluble.
+<p>
+<pre>
+gap&gt; G := SmallGroup(432, 734);
+&lt;pc group of size 432 with 7 generators&gt;
+gap&gt; IdPrimitiveSolubleGroup(G);
+[ 2, 3, 1, 2 ]
+gap&gt; G := AlternatingGroup(4);
+Alt( [ 1 .. 4 ] )
+gap&gt; IdPrimitiveSolubleGroup(G);
+[ 2, 2, 2, 1 ]
+</pre>
+<p>
+<a name = "SSEC004.2"></a>
+<li><code>RecognitionPrimitiveSolubleGroup(</code><var>G</var><code>,</code><var>wantiso</var><code>) F</code>
+<a name = "SSEC004.2"></a>
+<li><code>RecognitionPrimitiveSolvableGroup(</code><var>G</var><code>,</code><var>wantiso</var><code>) F</code>
+<p>
+This function returns a record <var>r</var> which identifies the primitive soluble group <var>G</var>.
+The component <code>id</code> is always present and contains the id of <var>G</var>. if <var>wantiso</var> is <code>true</code>, then
+the component <code>iso</code> is bound to an isomorphism from <var>G</var> into a primitive pc group.
+<p>
+<p>
+<h2><a name="SECT005">5.5 Obsolete functions</a></h2>
+<p><p>
+<a name = "I16"></a>
+
+<a name = "SSEC005.1"></a>
+<li><code>PrimitiveSolublePermutationGroup(</code><var>n</var><code>,</code><var>q</var><code>,</code><var>d</var><code>,</code><var>k</var><code>) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>PrimitiveSolvablePermutationGroup(</code><var>n</var><code>,</code><var>q</var><code>,</code><var>d</var><code>,</code><var>k</var><code>) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>PrimitivePermutationGroupIrreducibleMatrixGroup(</code><var>G</var><code>) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>PrimitivePermutationGroupIrreducibleMatrixGroupNC(</code><var>G</var><code>) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>AllPrimitiveSolublePermutationGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>AllPrimitiveSolvablePermutationGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>IteratorPrimitivePermutationGroups(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>OnePrimitiveSolublePermutationGroup(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<a name = "SSEC005.1"></a>
+<li><code>OnePrimitiveSolvablePermutationGroup(</code><var>func_1</var><code>, </code><var>arg_1</var><code>, </code><var>func_2</var><code>, </code><var>arg_2</var><code>, ...) F</code>
+<p>
+These functions have been renamed from ...<code>PermutationGroup</code>...to ...<code>PermGroup</code>....
+The above function names are deprecated.
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP004.htm">Previous</a>] [<a href ="CHAP00A.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>IRREDSOL manual<br>November 2022
+</address></body></html>

@@ -1,0 +1,1280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.59">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+             
+<title> Multiplicity-Free Permutation Characters in GAP</title>
+ 
+<h1 align="center">Multiplicity-Free Permutation Characters in GAP </h1>
+  <body bgcolor="FFFFFF"> 
+
+<div class="p"><!----></div>
+
+<h3 align="center"> T<font size="-2">HOMAS</font> B<font size="-2">REUER</font> <br />
+<i>Lehrstuhl D f&#252;r Mathematik</i> <br />
+<i>RWTH, 52056 Aachen, Germany</i> </h3>
+
+<div class="p"><!----></div>
+
+<h3 align="center">October 6th, 2000 </h3>
+
+<div class="p"><!----></div>
+
+
+<div class="p"><!----></div>
+This note shows a few examples of <font face="helvetica">GAP</font> computations concerning
+multiplicity-free permutation characters,
+with an emphasis on the classification of the faithful multiplicity-free
+permutation characters of the sporadic simple groups and their automorphism
+groups given in&nbsp;[<a href="#BL96" name="CITEBL96">BL96</a>].
+
+<div class="p"><!----></div>
+For examples on <font face="helvetica">GAP</font> computations with permutation characters in general,
+see the note&nbsp;[<a href="#ctblpope" name="CITEctblpope">Bre</a>].
+
+<div class="p"><!----></div>
+For further questions about <font face="helvetica">GAP</font>, consult its
+
+ <a href="link">Reference Manual</a>;
+in particular, for the description of the commands for character tables,
+see the chapter&nbsp;"Character Tables".
+
+<div class="p"><!----></div>
+Section&nbsp;<a href="#database">1</a> of this note shows how to interpret the individual
+data available in the database.
+In Section&nbsp;<a href="#explM23">2</a>, the main idea is to gather information from
+the database as a whole, by filtering items with suitable properties.
+Finally, Section&nbsp;<a href="#permcharinfo">3</a> gives an impression how <font face="helvetica">GAP</font>
+can be used to obtain results such as the classification of described
+in&nbsp;[<a href="#BL96" name="CITEBL96">BL96</a>].
+
+<div class="p"><!----></div>
+
+
+
+<div class="p"><!----></div>
+
+<h1>Contents </h1><a href="#tth_sEc1"
+>1&nbsp; The Database of Multiplicity-Free Characters</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc1.1"
+>1.1&nbsp; The Faithful Multiplicity-Free Permutation Characters of M<sub>11</sub></a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc1.2"
+>1.2&nbsp; The Faithful Multiplicity-Free Permutation Characters of M<sub>12</sub>.2</a><br /><a href="#tth_sEc2"
+>2&nbsp; Using the Database</a><br /><a href="#tth_sEc3"
+>3&nbsp; Using the Functions to Compute Multiplicity-Free Permutation Characters</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc3.1"
+>3.1&nbsp; Using Tables of Marks</a><br />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#tth_sEc3.2"
+>3.2&nbsp; Dealing with Possible Permutation Characters</a><br />
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;The Database of Multiplicity-Free Characters</h2><a name="database">
+</a>
+
+<div class="p"><!----></div>
+The database lists, for each group G that is either a sporadic simple
+group or an automorphism group of a sporadic simple group,
+a description of all conjugacy classes of subgroups H of G such that
+the action of G on the right cosets of H is a faithful and
+multiplicity-free permutation representation of G,
+plus the permutation character of this representation.
+The format how this information is stored is explained below,
+subtleties such as possibly equal characters for different classes of
+subgroups are discussed in Section&nbsp;<a href="#explM23">2</a>.
+
+<div class="p"><!----></div>
+(A <font face="helvetica">GAP</font> database providing more information about most of these
+representations is in preparation;
+this will cover, i.a., the character tables of the endomorphism rings of
+these representations and the permutation representations themselves.)
+
+<div class="p"><!----></div>
+The data is stored in the file <tt>multfree.dat</tt>,
+which is part of the Character Table Library&nbsp;[<a href="#CTblLib" name="CITECTblLib">Bre25</a>] of the <font face="helvetica">GAP</font>
+system&nbsp;[<a href="#GAP4" name="CITEGAP4">GAP04</a>] as well as the file you are currently reading.
+We load this <font face="helvetica">GAP</font> package and the data file into <font face="helvetica">GAP</font>&nbsp;4.
+Afterwards the function <tt>MultFreePermChars</tt> is available.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; LoadPackage( "ctbllib", false );
+    true
+    gap&#62; if not IsBound( MultFreePermChars ) then
+    &#62; ReadPackage( "ctbllib", "tst/multfree.dat" );
+    --------------------------------------------------------------------
+    Loading the Database of Multiplicity-Free Permutation Characters
+    of the Sporadic Simple Groups and Their Automorphism Groups,
+    by T. Breuer and K. Lux;
+    call `MultFreePermChars( &lt;name&#62; )' for accessing the data
+    for the group whose character table has identifier &lt;name&#62;.
+    --------------------------------------------------------------------
+    &#62; fi;
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc1.1">
+1.1</a>&nbsp;&nbsp;The Faithful Multiplicity-Free Permutation Characters of
+M<sub>11</sub></h3><a name="simple">
+</a>
+
+<div class="p"><!----></div>
+We start with the inspection of the Mathieu group M<sub>11</sub>,
+as an example of a <b>simple</b> group that is dealt with in the database.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; info:= MultFreePermChars( "M11" );
+    [ rec( ATLAS := "1a+10a", character := Character( CharacterTable( "M11" ),
+          [ 11, 3, 2, 3, 1, 0, 1, 1, 0, 0 ] ), group := "$M_{11}$", rank := 2, 
+          subgroup := "$A_6.2_3$" ), 
+      rec( ATLAS := "1a+10a+11a", character := Character( CharacterTable( "M11" ),
+         [ 22, 6, 4, 2, 2, 0, 0, 0, 0, 0 ] ), group := "$M_{11}$", rank := 3, 
+          subgroup := "$A_6 \\leq A_6.2_3$" ), 
+      rec( ATLAS := "1a+11a", character := Character( CharacterTable( "M11" ),
+          [ 12, 4, 3, 0, 2, 1, 0, 0, 1, 1 ] ), group := "$M_{11}$", rank := 2, 
+          subgroup := "$L_2(11)$" ), 
+      rec( ATLAS := "1a+11a+16ab+45a+55a", 
+          character := Character( CharacterTable( "M11" ),
+          [ 144, 0, 0, 0, 4, 0, 0, 0, 1, 1 ] ), group := "$M_{11}$", rank := 6, 
+          subgroup := "$11:5 \\leq L_2(11)$" ), 
+      rec( ATLAS := "1a+10a+44a", character := Character( CharacterTable( "M11" ),
+         [ 55, 7, 1, 3, 0, 1, 1, 1, 0, 0 ] ), group := "$M_{11}$", rank := 3, 
+          subgroup := "$3^2:Q_8.2$" ), 
+      rec( ATLAS := "1a+10a+44a+55a", 
+          character := Character( CharacterTable( "M11" ),
+          [ 110, 6, 2, 2, 0, 0, 2, 2, 0, 0 ] ), group := "$M_{11}$", rank := 4, 
+          subgroup := "$3^2:8 \\leq 3^2:Q_8.2$" ), 
+      rec( ATLAS := "1a+10a+11a+44a", 
+          character := Character( CharacterTable( "M11" ),
+          [ 66, 10, 3, 2, 1, 1, 0, 0, 0, 0 ] ), group := "$M_{11}$", rank := 4, 
+          subgroup := "$A_5.2$" ) ]
+    gap&#62; List( info, x -&#62; x.rank );
+    [ 2, 3, 2, 6, 3, 4, 4 ]
+    gap&#62; chars:= List( info, x -&#62; x.character );;
+    gap&#62; degrees:= List( chars, x -&#62; x[1] );
+    [ 11, 22, 12, 144, 55, 110, 66 ]
+
+</pre>
+
+<div class="p"><!----></div>
+We see that M<sub>11</sub> has seven multiplicity-free permutation characters,
+of the ranks and degrees listed above.
+(Note that for <b>multiplicity-free</b> permutation characters,
+the rank is equal to the number of irreducible constituents.)
+More precisely, there are exactly seven conjugacy classes of subgroups of
+M<sub>11</sub> such that the permutation action on the cosets of these subgroups
+is faithful and multiplicity-free.
+
+<div class="p"><!----></div>
+For displaying the characters compatibly with the character table of M<sub>11</sub>,
+we can use the <tt>Display</tt> operation.
+Note that the column and row ordering of character tables in <font face="helvetica">GAP</font>
+is compatible with that of the tables in the  A<font size="-2">TLAS</font> of Finite Groups
+([<a href="#CCN85" name="CITECCN85">CCN<sup>+</sup>85</a>]).
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tbl:= CharacterTable( "M11" );
+    CharacterTable( "M11" )
+    gap&#62; Display( tbl, rec( chars:= chars ) );
+    M11
+    
+         2   4  4  1  3  .  1  3  3   .   .
+         3   2  1  2  .  .  1  .  .   .   .
+         5   1  .  .  .  1  .  .  .   .   .
+        11   1  .  .  .  .  .  .  .   1   1
+    
+            1a 2a 3a 4a 5a 6a 8a 8b 11a 11b
+        2P  1a 1a 3a 2a 5a 3a 4a 4a 11b 11a
+        3P  1a 2a 1a 4a 5a 2a 8a 8b 11a 11b
+        5P  1a 2a 3a 4a 1a 6a 8b 8a 11a 11b
+       11P  1a 2a 3a 4a 5a 6a 8a 8b  1a  1a
+    
+    Y.1     11  3  2  3  1  .  1  1   .   .
+    Y.2     22  6  4  2  2  .  .  .   .   .
+    Y.3     12  4  3  .  2  1  .  .   1   1
+    Y.4    144  .  .  .  4  .  .  .   1   1
+    Y.5     55  7  1  3  .  1  1  1   .   .
+    Y.6    110  6  2  2  .  .  2  2   .   .
+    Y.7     66 10  3  2  1  1  .  .   .   .
+
+</pre>
+
+<div class="p"><!----></div>
+The <tt>subgroup</tt> component of each record in <tt>info</tt> describes
+the isomorphism type of a subgroup U of M<sub>11</sub> such that the value &#960;
+of the <tt>character</tt> component is induced from the trivial character of U;
+in other words, U is a point stabilizer of the permutation representation
+of M<sub>11</sub> with character &#960;.
+
+<div class="p"><!----></div>
+(Contrary to this example, in general it may happen that different classes of
+subgroups induce the same permutation character,
+and that these subgroups may also be nonisomorphic;
+see Section&nbsp;<a href="#explM23">2</a> for details.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; subgroups:= List( info, x -&#62; x.subgroup );
+    [ "$A_6.2_3$", "$A_6 \\leq A_6.2_3$", "$L_2(11)$", "$11:5 \\leq L_2(11)$", 
+      "$3^2:Q_8.2$", "$3^2:8 \\leq 3^2:Q_8.2$", "$A_5.2$" ]
+
+</pre>
+
+<div class="p"><!----></div>
+Each entry is a <span class="roman">L</span><sup><span class="roman">A</span></sup><span class="roman">T</span><sub><span class="roman">E</span></sub><span class="roman">X</span> format string that is either a name of the
+point stabilizer or has the form <tt>&lt;U&gt; \leq &lt;M&gt;</tt> where <tt>&lt;M&gt;</tt> is the name
+of a maximal subgroup containing the point stabilizer <tt>&lt;U&gt;</tt> as a proper
+subgroup; in the former case, the point stabilizer is itself maximal.
+
+<div class="p"><!----></div>
+Note that a backslash occurring in a <tt>subgroup</tt> string is escaped by another
+backslash;
+but only a single backslash is printed when the string is printed via
+the function <tt>Print</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Print( subgroups[2], "\n" );
+    $A_6 \leq A_6.2_3$
+
+</pre>
+
+<div class="p"><!----></div>
+Finally, the <tt>ATLAS</tt> component of each record in <tt>info</tt> describes the
+<tt>character</tt> value in terms of its irreducible constituents,
+as is computed by the function <tt>PermCharInfo</tt>.
+Examples can be found in Section&nbsp;<a href="#permcharinfo">3</a>;
+for details about the output format,
+see the documentation for this function in the <font face="helvetica">GAP</font> Reference Manual.
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc1.2">
+1.2</a>&nbsp;&nbsp;The Faithful Multiplicity-Free Permutation Characters of
+M<sub>12</sub>.2</h3>
+
+<div class="p"><!----></div>
+The automorphism group of a sporadic simple group G is either equal to G
+or an upward extension of G by an outer automorphism of order 2.
+The <b>nonsimple</b> automorphism group M<sub>12</sub>.2 of the Mathieu group M<sub>12</sub>
+serves as an example of the latter situation.
+
+<div class="p"><!----></div>
+In addition to the aspects mentioned in Section&nbsp;<a href="#simple">1.1</a>,
+here we meet the situation that a permutation character either is induced
+from a permutation character of M<sub>12</sub> or extends such a
+(not necessarily multiplicity-free) permutation character.
+The former case occurs exactly if the corresponding point stabilizer lies in
+M<sub>12</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; info:= MultFreePermChars( "M12.2" );;
+    gap&#62; Length( info );
+    13
+    gap&#62; info[1];
+    rec( ATLAS := "1a^{\\pm}+11ab", 
+      character := Character( CharacterTable( "M12.2" ),
+      [ 24, 0, 8, 6, 0, 4, 4, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ), 
+      group := "$M_{12}.2$", rank := 3, subgroup := "$M_{11}$" )
+    gap&#62; info[2];
+    rec( ATLAS := "1a^++11ab+55a^++66a^+", 
+      character := Character( CharacterTable( "M12.2" ),
+      [ 144, 0, 16, 9, 0, 0, 4, 0, 1, 0, 0, 1, 12, 4, 0, 0, 2, 2, 0, 1, 1 ] ), 
+      group := "$M_{12}.2$", rank := 4, subgroup := "$L_2(11).2$" )
+
+</pre>
+
+<div class="p"><!----></div>
+The first character in the list <tt>info</tt> is induced from the trivial character
+of a subgroup of type M<sub>11</sub> inside M<sub>12</sub>,
+the second character is induced from the trivial character of a L<sub>2</sub>(11).2
+subgroup whose intersection with M<sub>12</sub> is of type L<sub>2</sub>(11).
+
+<div class="p"><!----></div>
+We can distinguish the two kinds of permutation characters by explicitly
+using the character tables;
+for example, a permutation character is induced from a subgroup of a normal
+subgroup if and only if it vanishes outside the classes forming this
+subgroup.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; m12:= CharacterTable( "M12" );;
+    gap&#62; m122:= UnderlyingCharacterTable( info[1].character );;
+    gap&#62; fus:= GetFusionMap( m12, m122 );
+    [ 1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 10, 11, 12, 12 ]
+    gap&#62; outer:= Difference( [ 1 .. NrConjugacyClasses( m122 ) ], fus );
+    [ 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
+    gap&#62; info[1].character{ outer };
+    [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+    gap&#62; info[2].character{ outer };
+    [ 12, 4, 0, 0, 2, 2, 0, 1, 1 ]
+
+</pre>
+
+<div class="p"><!----></div>
+A perhaps easier way is to look at the <tt>ATLAS</tt> components of the <tt>info</tt>
+records.
+Namely, the characters induced from subgroups of M<sub>12</sub> have both
+linear characters of M<sub>12</sub>.2 as constituents,
+which is expressed by the substring <tt>"1a^{\\pm}"</tt>.
+
+<div class="p"><!----></div>
+More generally, the <tt>ATLAS</tt> component lists the irreducible constituents
+of the restriction to M<sub>12</sub>, where the two extensions of a character
+to M<sub>12</sub>.2 are distinguished by a superscript +, &#8722;, or &#177;;
+the latter means that both extensions occur.
+
+<div class="p"><!----></div>
+The <tt>ATLAS</tt> components describing the constituents relative to a subgroup
+of index 2 can be computed using the <font face="helvetica">GAP</font> function
+<tt>PermCharInfoRelative</tt>, see Section&nbsp;<a href="#permcharinfo">3</a>.
+
+<div class="p"><!----></div>
+It should be noted that the <tt>\leq</tt> substrings in the <tt>subgroup</tt> component
+cannot be used to distinguish the two kinds of permutation characters,
+since these substrings refer only to maximal subgroups <b>different from</b>
+M<sub>12</sub>.
+Examples are the first entry in <tt>info</tt> (see above), the fourth entry
+(containing a character that is induced from a subgroup of type A<sub>6</sub>.2<sub>2</sub>
+which lies in a A<sub>6</sub>.2<sup>2</sup> subgroup that is maximal in M<sub>11</sub>),
+and the nineth entry (containing a character induced from a subgroup of
+index 2 in a (2<sup>2</sup> &times;A<sub>5</sub>).2 subgroup that is maximal in M<sub>12</sub>.2.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; info[4];
+    rec( ATLAS := "1a^{\\pm}+11ab+54a^{\\pm}+66a^{\\pm}", 
+      character := Character( CharacterTable( "M12.2" ),
+      [ 264, 24, 24, 12, 0, 4, 4, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ), 
+      group := "$M_{12}.2$", rank := 7, subgroup := "$A_6.2_2 \\leq A_6.2^2$" )
+    gap&#62; info[9];
+    rec( 
+      ATLAS := "1a^++16ab+45a^++54a^{\\pm}+55a^-+66a^{\\pm}+99a^-+144a^++176a^-", 
+      character := Character( CharacterTable( "M12.2" ),
+      [ 792, 32, 24, 0, 6, 0, 2, 2, 0, 0, 2, 0, 0, 0, 8, 0, 0, 0, 2, 0, 0 ] ), 
+      group := "$M_{12}.2$", rank := 11, 
+      subgroup := "$(2 \\times A_5).2 \\leq (2^2 \\times A_5).2$" )
+
+</pre>
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Using the Database</h2><a name="explM23">
+</a>
+
+<div class="p"><!----></div>
+In this section, we study the complete list of multiplicity-free
+permutation characters of the sporadic simple groups and their
+automorphism groups as a whole.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; info:= MultFreePermChars( "all" );;
+    gap&#62; Length( info );
+    267
+    gap&#62; Length( Set( info ) );
+    262
+    gap&#62; chars:= List( info, x -&#62; x.character );;
+    gap&#62; Length( Set( chars ) );
+    261
+
+</pre>
+
+<div class="p"><!----></div>
+We see that there are exactly 267 conjugacy classes of subgroups
+such that the permutation representation on the cosets is multiplicity-free.
+Only 262 of the <tt>info</tt> records are different,
+and there is exactly one case where two different <tt>info</tt> records belong to
+the same permutation character.
+
+<div class="p"><!----></div>
+Let us look where these multiple entries arise.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; distrib:= List( info, x -&#62; Position( chars, x.character ) );;
+    gap&#62; ambiguous:= Filtered( InverseMap( distrib ), IsList );
+    [ [ 12, 15 ], [ 40, 41 ], [ 83, 84 ], [ 88, 90 ], [ 132, 133 ], [ 202, 203 ] ]
+    gap&#62; except:= Filtered( ambiguous, x -&#62; info[ x[1] ] &lt;&#62; info[ x[2] ] );
+    [ [ 83, 84 ] ]
+    gap&#62; ambiguous:= Difference( ambiguous, except );;
+    gap&#62; info{ except[1] };
+    [ rec( ATLAS := "1a+22a+230a", 
+          character := Character( CharacterTable( "M23" ),
+          [ 253, 29, 10, 5, 3, 2, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0 ] ), 
+          group := "$M_{23}$", rank := 3, subgroup := "$L_3(4).2_2$" ), 
+      rec( ATLAS := "1a+22a+230a", 
+          character := Character( CharacterTable( "M23" ),
+          [ 253, 29, 10, 5, 3, 2, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0 ] ), 
+          group := "$M_{23}$", rank := 3, subgroup := "$2^4:A_7$" ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+So the Mathieu group M<sub>23</sub> contains two classes of maximal subgroups,
+of the structures L<sub>3</sub>(4).2<sub>2</sub> and 2<sup>4</sup>:A<sub>7</sub>, respectively,
+such that the characters of the permutation representations on the
+cosets of these subgroups are equal.
+
+<div class="p"><!----></div>
+Furthermore, it is a consequence of the classification in&nbsp;[<a href="#BL96" name="CITEBL96">BL96</a>]
+that in all cases except this one,
+the isomorphism types of the point stabilizers are uniquely determined
+by the permutation characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ambiginfo:= info{ List( ambiguous, x -&#62; x[1] ) };;
+    gap&#62; for pair in ambiginfo do
+    &#62;      Print( pair.group, ", ", pair.subgroup, ", ", pair.ATLAS, "\n" );
+    &#62; od;
+    $M_{12}$, $A_6.2_1 \leq A_6.2^2$, 1a+11ab+54a+55a
+    $M_{22}$, $A_7$, 1a+21a+154a
+    $HS$, $U_3(5).2$, 1a+175a
+    $McL$, $M_{22}$, 1a+22a+252a+1750a
+    $Fi_{22}$, $O_7(3)$, 1a+429a+13650a
+
+</pre>
+
+<div class="p"><!----></div>
+In the other five cases of ambiguities, the whole <tt>info</tt> records are
+equal, and from the above list we conclude that for each pair,
+the point stabilizers are isomorphic.
+In fact the subgroups are conjugate in the outer automorphism groups
+of the simple groups involved.
+
+<div class="p"><!----></div>
+Next let us look at the distribution of ranks.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; Collected( List( info, x -&#62; x.rank ) );
+    [ [ 2, 11 ], [ 3, 31 ], [ 4, 25 ], [ 5, 43 ], [ 6, 24 ], [ 7, 21 ], 
+      [ 8, 26 ], [ 9, 16 ], [ 10, 17 ], [ 11, 9 ], [ 12, 9 ], [ 13, 8 ], 
+      [ 14, 4 ], [ 15, 3 ], [ 16, 3 ], [ 17, 5 ], [ 18, 5 ], [ 19, 2 ], 
+      [ 20, 2 ], [ 23, 1 ], [ 26, 1 ], [ 34, 1 ] ]
+    gap&#62; max:= Filtered( info, x -&#62; x.rank = 34 );;
+    gap&#62; max[1].group;  max[1].subgroup;  max[1].character[1]; 
+    "$F_{3+}.2$"
+    "$O_{10}^-(2) \\leq O_{10}^-(2).2$"
+    100354720284
+
+</pre>
+
+<div class="p"><!----></div>
+The maximal rank, 34, is attained for a degree 100&nbsp;354&nbsp;720&nbsp;284
+character of F<sub>3+</sub>.2 = Fi<sub>24</sub>.
+
+<div class="p"><!----></div>
+For the nonsimple automorphism groups of sporadic simple groups,
+the simple group G involved is of index 2,
+and each permutation characters either is induced from a character of G
+or extends a permutation character of G.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; nonsimple:= Filtered( info,
+    &#62;        x -&#62; not IsSimple( UnderlyingCharacterTable( x.character ) ) );;
+    gap&#62; Length( nonsimple );
+    120
+    gap&#62; ind:= Filtered( nonsimple, x -&#62; ScalarProduct( x.character,
+    &#62;              Irr( UnderlyingCharacterTable( x.character ) )[2] ) = 1 );;
+    gap&#62; Length( ind );
+    48
+
+</pre>
+
+<div class="p"><!----></div>
+There are exactly 120 multiplicity-free permutation characters of
+nonsimple automorphism groups of sporadic simple groups,
+and 48 of them are induced from characters of the simple groups.
+(Note that the second irreducible character of the <font face="helvetica">GAP</font> character tables
+in question is the unique nontrivial linear character.)
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; ind[1];
+    rec( ATLAS := "1a^{\\pm}+11ab", 
+      character := Character( CharacterTable( "M12.2" ),
+      [ 24, 0, 8, 6, 0, 4, 4, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ), 
+      group := "$M_{12}.2$", rank := 3, subgroup := "$M_{11}$" )
+    gap&#62; ForAll( ind, x -&#62; x.ATLAS{ [ 1 .. 8 ] } = "1a^{\\pm}" );
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+Another possibility to select the induced characters is to check whether
+the initial part of the <tt>ATLAS</tt> component is the string <tt>"1a^{\\pm}"</tt>.
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;Using the Functions to Compute Multiplicity-Free Permutation
+Characters</h2><a name="permcharinfo">
+</a>
+
+<div class="p"><!----></div>
+The functions <tt>MultFreeFromTomAndTable</tt> and <tt>MultFree</tt> will be used later on.
+
+<div class="p"><!----></div>
+(The functions can also be found in the file <tt>multfree.g</tt>,
+which can be downloaded from the same webpage where also this file can
+be found.)
+
+<div class="p"><!----></div>
+For a character table <tt>tbl</tt> for which the table of marks is available in
+the <font face="helvetica">GAP</font> library,
+the function <tt>MultFreeFromTomAndTable</tt> returns the list of all
+multiplicity-free permutation characters of <tt>tbl</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; BindGlobal( "MultFreeFromTomAndTable", function( tbl )
+    &#62;     local tom,     # the table of marks
+    &#62;           fus,     # fusion map from `t' to `tom'
+    &#62;           perms;   # perm. characters of `t'
+    &#62; 
+    &#62;     if HasFusionToTom( tbl ) or HasUnderlyingGroup( tbl ) then
+    &#62;       tom:= TableOfMarks( tbl );
+    &#62;     else
+    &#62;       Error( "no table of marks for character table &lt;tbl&#62; available" );
+    &#62;     fi;
+    &#62;     fus:= FusionCharTableTom( tbl, tom );
+    &#62;     if fus = fail then
+    &#62;       Error( "no unique fusion from &lt;tbl&#62; to the table of marks" );
+    &#62;     fi;
+    &#62;     perms:= PermCharsTom( tbl, tom );
+    &#62;     return Filtered( perms,
+    &#62;                x -&#62; ForAll( Irr( tbl ),
+    &#62;                             y -&#62; ScalarProduct( tbl, x, y ) &lt;= 1 ) );
+    &#62;     end );
+
+</pre>
+
+<div class="p"><!----></div>
+<tt>TestPerm</tt> calls the <font face="helvetica">GAP</font> library functions <tt>TestPerm1</tt>, <tt>TestPerm2</tt>,
+and <tt>TestPerm3</tt>; the return value is <tt>true</tt> if the argument <tt>pi</tt> is
+a possible permutation character of the character table <tt>tbl</tt>,
+and <tt>false</tt> otherwise.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; BindGlobal( "TestPerm", function( tbl, pi )
+    &#62;     return     TestPerm1( tbl, pi ) = 0
+    &#62;            and TestPerm2( tbl, pi ) = 0
+    &#62;            and not IsEmpty( TestPerm3( tbl, [ pi ] ) );
+    &#62;     end );
+
+</pre>
+
+<div class="p"><!----></div>
+Let <tt>H</tt> be a character table, <tt>S</tt> be a list of characters of <tt>H</tt>,
+<tt>psi</tt> a character of <tt>H</tt>, <tt>scprS</tt> a matrix, the i-th entry being the
+coefficients of the decomposition of the induced character of <tt>S</tt>[i]
+to a supergroup G, say, of <tt>H</tt>, <tt>scprpsi</tt> the decomposition of <tt>psi</tt>
+induced to G, and <tt>k</tt> a positive integer.
+
+<div class="p"><!----></div>
+<tt>CharactersInducingWithBoundedMultiplicity</tt> returns the list
+C( <tt>S</tt>, <tt>psi</tt>, <tt>k</tt> );
+this is the list of all those characters <tt>psi</tt> + &#977; of
+multiplicity at most <tt>k</tt> such that all constituents of &#977; are
+contained in <tt>S</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; DeclareGlobalFunction( "CharactersInducingWithBoundedMultiplicity" );
+    gap&#62; InstallGlobalFunction( CharactersInducingWithBoundedMultiplicity,
+    &#62;     function( H, S, psi, scprS, scprpsi, k )
+    &#62;     local result,       # the list $S( .. )$
+    &#62;           chi,          # $\chi$
+    &#62;           scprchi,      # decomposition of $\chi^G$
+    &#62;           i,            # loop from `1' to `k'
+    &#62;           allowed,      # indices of possible constituents
+    &#62;           Sprime,       # $S^{\prime}_i$
+    &#62;           scprSprime;   # decomposition of characters in $S^{\prime}_i$,
+    &#62;                         # induced to $G$
+    &#62; 
+    &#62;     if IsEmpty( S ) then
+    &#62; 
+    &#62;       # Test whether `psi' is a possible permutation character.
+    &#62;       if TestPerm( H, psi ) then
+    &#62;         result:= [ psi ];
+    &#62;       else
+    &#62;         result:= [];
+    &#62;       fi;
+    &#62; 
+    &#62;     else
+    &#62; 
+    &#62;       # Fix a character $\chi$.
+    &#62;       chi     := S[1];
+    &#62;       scprchi := scprS[1];
+    &#62; 
+    &#62;       # Form the union.
+    &#62;       result:= CharactersInducingWithBoundedMultiplicity( H,
+    &#62;                    S{ [ 2 .. Length( S ) ] }, psi,
+    &#62;                    scprS{ [ 2 .. Length( S ) ] }, scprpsi, k );
+    &#62;       for i in [ 1 .. k ] do
+    &#62;         allowed    := Filtered( [ 2 .. Length( S ) ],
+    &#62;                           j -&#62; Maximum( i * scprchi + scprS[j] ) &lt;= k );
+    &#62;         Sprime     := S{ allowed };
+    &#62;         scprSprime := scprS{ allowed };
+    &#62; 
+    &#62;         Append( result, CharactersInducingWithBoundedMultiplicity( H,
+    &#62;                             Sprime, psi + i * chi,
+    &#62;                             scprSprime, scprpsi + i * scprchi, k ) );
+    &#62;       od;
+    &#62; 
+    &#62;     fi;
+    &#62; 
+    &#62;     return result;
+    &#62;     end );
+
+</pre>
+
+<div class="p"><!----></div>
+Let <tt>G</tt> and <tt>H</tt> be character tables of groups G and H, respectively,
+such that H is a subgroup of G and the class fusion from <tt>H</tt> to <tt>G</tt>
+is stored on <tt>H</tt>.
+<tt>MultAtMost</tt> returns the list of all characters &#981;<sup>G</sup> of G
+of multiplicity at most <tt>k</tt> such that &#981; is a possible permutation
+character of H.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; BindGlobal( "MultAtMost", function( G, H, k )
+    &#62;     local triv,     # $1_H$
+    &#62;           permch,   # $(1_H)^G$
+    &#62;           scpr1H,   # decomposition of $(1_H)^G$
+    &#62;           rat,      # rational irreducible characters of $H$
+    &#62;           ind,      # induced rational irreducible characters
+    &#62;           mat,      # decomposition of `ind'
+    &#62;           allowed,  # indices of possible constituents
+    &#62;           S0,       # $S_0$
+    &#62;           scprS0,   # decomposition of characters in $S_0$,
+    &#62;                     # induced to $G$, with $Irr(G)$
+    &#62;           cand;     # list of multiplicity-free candidates, result
+    &#62; 
+    &#62;     # Compute $(1_H)^G$ and its decomposition into irreducibles of $G$.
+    &#62;     triv   := TrivialCharacter( H );
+    &#62;     permch := Induced( H, G, [ triv ] );
+    &#62;     scpr1H := MatScalarProducts( G, Irr( G ), permch )[1];
+    &#62; 
+    &#62;     # If $(1_H)^G$ has multiplicity larger than `k' then we are done.
+    &#62;     if Maximum( scpr1H ) &#62; k then
+    &#62;       return [];
+    &#62;     fi;
+    &#62; 
+    &#62;     # Compute the set $S_0$ of all possible nontrivial
+    &#62;     # rational constituents of a candidate of multiplicity at most `k',
+    &#62;     # that is, all those rational irreducible characters of
+    &#62;     # $H$ that induce to $G$ with multiplicity at most `k'.
+    &#62;     rat:= RationalizedMat( Irr( H ) );
+    &#62;     ind:= Induced( H, G, rat );
+    &#62;     mat:= MatScalarProducts( G, Irr( G ), ind );
+    &#62;     allowed:= Filtered( [ 1.. Length( mat ) ],
+    &#62;                         x -&#62; Maximum( mat[x] + scpr1H ) &lt;= k );
+    &#62;     S0     := rat{ allowed };
+    &#62;     scprS0 := mat{ allowed };
+    &#62; 
+    &#62;     # Compute $C( S_0, 1_H, k )$.
+    &#62;     cand:= CharactersInducingWithBoundedMultiplicity( H,
+    &#62;                S0, triv, scprS0, scpr1H, k );
+    &#62; 
+    &#62;     # Induce the candidates to $G$, and return the sorted list.
+    &#62;     cand:= Induced( H, G, cand );
+    &#62;     Sort( cand );
+    &#62;     return cand;
+    &#62;     end );
+
+</pre>
+
+<div class="p"><!----></div>
+<tt>MultFree</tt> returns <tt>MultAtMost( G, H, 1 )</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; BindGlobal( "MultFree", function( G, H )
+    &#62;     return MultAtMost( G, H, 1 );
+    &#62;     end );
+
+</pre>
+
+<div class="p"><!----></div>
+Let <tt>tbl</tt> be a character table with known <tt>Maxes</tt> value,
+and <tt>k</tt> a positive integer.
+The function <tt>PossiblePermutationCharactersWithBoundedMultiplicity</tt>
+returns a record with the following components.
+
+<ul>
+<br />identifier
+    the <tt>Identifier</tt> value of <tt>tbl</tt>,
+<br />maxnames
+    the list of names of the maximal subgroups of <tt>tbl</tt>,
+<br />permcand
+    at the i-th position the list of those possible permutation
+    characters of <tt>tbl</tt> whose multiplicity is at most <tt>k</tt>
+    and which are induced from the i-th maximal subgroup of <tt>tbl</tt>,
+    and
+<br />k
+    the given bound <tt>k</tt> for the multiplicity.</ul>
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; BindGlobal( "PossiblePermutationCharactersWithBoundedMultiplicity",
+    &#62;     function( tbl, k )
+    &#62;     local permcand, # list of all mult. free perm. character candidates
+    &#62;           maxname,  # loop over tables of maximal subgroups
+    &#62;           max;      # one table of a maximal subgroup
+    &#62; 
+    &#62;     if not HasMaxes( tbl ) then
+    &#62;       return fail;
+    &#62;     fi;
+    &#62; 
+    &#62;     permcand:= [];
+    &#62; 
+    &#62;     # Loop over the tables of maximal subgroups.
+    &#62;     for maxname in Maxes( tbl ) do
+    &#62; 
+    &#62;       max:= CharacterTable( maxname );
+    &#62;       if max = fail or GetFusionMap( max, tbl ) = fail then
+    &#62; 
+    &#62;         Print( "#E  no fusion `", maxname, "' -&#62; `", Identifier( tbl ),
+    &#62;                "' stored\n" );
+    &#62;         Add( permcand, Unknown() );
+    &#62; 
+    &#62;       else
+    &#62; 
+    &#62;         # Compute the possible perm. characters inducing through `max'.
+    &#62;         Add( permcand, MultAtMost( tbl, max, k ) );
+    &#62; 
+    &#62;       fi;
+    &#62;     od;
+    &#62; 
+    &#62;     # Return the result record.
+    &#62;     return rec( identifier := Identifier( tbl ),
+    &#62;                 maxnames   := Maxes( tbl ),
+    &#62;                 permcand   := permcand,
+    &#62;                 k          := k );
+    &#62;     end );
+
+</pre>
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc3.1">
+3.1</a>&nbsp;&nbsp;Using Tables of Marks</h3>
+
+<div class="p"><!----></div>
+As a small example for the computation of multiplicity-free permutation
+characters from the table of marks of a group, we consider the alternating
+group A<sub>5</sub>.
+Its character table as well as its table of marks are accessible from the
+respective <font face="helvetica">GAP</font> library, via the identifier <tt>A5</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tbl:= CharacterTable( "A5" );;
+    gap&#62; chars:= MultFreeFromTomAndTable( tbl );
+    [ Character( CharacterTable( "A5" ), [ 12, 0, 0, 2, 2 ] ), 
+      Character( CharacterTable( "A5" ), [ 10, 2, 1, 0, 0 ] ), 
+      Character( CharacterTable( "A5" ), [ 6, 2, 0, 1, 1 ] ), 
+      Character( CharacterTable( "A5" ), [ 5, 1, 2, 0, 0 ] ), 
+      Character( CharacterTable( "A5" ), [ 1, 1, 1, 1, 1 ] ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+As the <font face="helvetica">GAP</font> databases do not provide information about the isomorphism
+types of arbitrary subgroups, there is no way to compute automatically the
+<tt>subgroup</tt> strings as contained in the database of multiplicity-free
+permutation characters (cf.&nbsp;Section&nbsp;<a href="#database">1</a>).
+Of course it is easy to see that the above characters of A<sub>5</sub> are induced
+from the trivial characters of the cyclic group of order 5,
+the dihedral groups of orders 6 and 10, the alternating group A<sub>4</sub>,
+and the group A<sub>5</sub> itself, respectively.
+
+<div class="p"><!----></div>
+The <tt>ATLAS</tt> information used in the database records can be computed
+using the <font face="helvetica">GAP</font> function <tt>PermCharInfo</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; PermCharInfo( tbl, chars ).ATLAS;
+    [ "1a+3ab+5a", "1a+4a+5a", "1a+5a", "1a+4a", "1a" ]
+
+</pre>
+
+<div class="p"><!----></div>
+As an example for a nonsimple group, we repeat the computation of
+all multiplicity-free permutation characters of M<sub>12</sub>.2,
+using the <font face="helvetica">GAP</font> table of marks.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tbl:= CharacterTable( "M12.2" );;
+    gap&#62; chars:= MultFreeFromTomAndTable( tbl );;
+    gap&#62; lib:= MultFreePermChars( "M12.2" );;
+    gap&#62; Length( lib );  Length( chars );
+    13
+    15
+    gap&#62; Difference( chars, List( lib, x -&#62; x.character ) );
+    [ Character( CharacterTable( "M12.2" ),
+      [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ), 
+      Character( CharacterTable( "M12.2" ),
+      [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+This confirms the classification for M<sub>12</sub>.2, since the additional
+characters found from the table of marks are not faithful.
+
+<div class="p"><!----></div>
+The corresponding <tt>ATLAS</tt> information is computed using the <font face="helvetica">GAP</font> function
+<tt>PermCharInfoRelative</tt>, since the constituents shall be listed relative to
+the simple group M<sub>12</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tblsimple:= CharacterTable( "M12" );;
+    gap&#62; PermCharInfoRelative( tblsimple, tbl, chars ).ATLAS;
+    [ "1a^++16ab+45a^-+54a^{\\pm}+55a^{\\pm}bc+66a^++99a^{\\pm}+144a^++176a^+", 
+      "1a^++11ab+45a^-+54a^{\\pm}+55a^++66a^{\\pm}+99a^-+120a^{\\pm}+144a^{\\pm}",
+      "1a^{\\pm}+11ab+45a^{\\pm}+54a^{\\pm}+55a^{\\pm}bc+99a^{\\pm}+120a^{\\pm}", 
+      "1a^++16ab+45a^++54a^{\\pm}+55a^-+66a^{\\pm}+99a^-+144a^++176a^-", 
+      "1a^++16ab+45a^-+54a^{\\pm}+66a^++99a^-+144a^+", 
+      "1a^++11ab+54a^{\\pm}+55a^++66a^++99a^-+144a^+", 
+      "1a^{\\pm}+11ab+54a^{\\pm}+55a^{\\pm}+99a^{\\pm}", 
+      "1a^++16ab+45a^++54a^{\\pm}+66a^++144a^+", 
+      "1a^{\\pm}+11ab+54a^{\\pm}+66a^{\\pm}", "1a^++16ab+45a^++66a^+", 
+      "1a^++11ab+55a^++66a^+", "1a^{\\pm}+11ab+54a^{\\pm}", "1a^{\\pm}+11ab", 
+      "1a^{\\pm}", "1a^+" ]
+
+</pre>
+
+<div class="p"><!----></div>
+For more information about tables of marks, see&nbsp;[<a href="#Pfe97" name="CITEPfe97">Pfe97</a>].
+
+<div class="p"><!----></div>
+
+     <h3><a name="tth_sEc3.2">
+3.2</a>&nbsp;&nbsp;Dealing with Possible Permutation Characters</h3>
+
+<div class="p"><!----></div>
+In this section, we deal with <b>possible permutation characters</b>,
+that is, characters that have certain properties of permutation
+characters but for which no subgroups need to exist from whose trivial
+characters they are induced.
+For more information about such characters, see the section
+"Possible Permutation Characters" in the <font face="helvetica">GAP</font> Reference Manual,
+the paper&nbsp;[<a href="#BP98copy" name="CITEBP98copy">BP98</a>], and the note&nbsp;[<a href="#ctblpope" name="CITEctblpope">Bre</a>].
+
+<div class="p"><!----></div>
+We can compute possible permutation characters from the character table
+of the group in question, the table of marks need not be available.
+The problem is of course that for classifying the permutation characters,
+we have to decide which of the candidates are in fact permutation
+characters.
+
+<div class="p"><!----></div>
+Here we show only two small examples that could also be handled via
+tables of marks.
+(The <font face="helvetica">GAP</font> code shown uses only standard functions lists, such as
+<tt>List</tt>, <tt>Filtered</tt>, and <tt>ForAll</tt>, and functions for character tables,
+such as <tt>Irr</tt> and <tt>ScalarProduct</tt>;
+if you are not familiar with these functions, consult the corresponding
+sections in the <font face="helvetica">GAP</font> Reference Manual.)
+
+<div class="p"><!----></div>
+The first example is the Mathieu group M<sub>11</sub> that has been inspected
+already in Section&nbsp;<a href="#simple">1.1</a>.
+This group is small enough for the computation of all possible permutation
+characters, and then filtering out the multiplicity-free ones.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tbl:= CharacterTable( "M11" );;
+    gap&#62; perms:= PermChars( tbl );;
+    gap&#62; multfree:= Filtered( perms,
+    &#62;        x -&#62; ForAll( Irr( tbl ), chi -&#62; ScalarProduct( chi, x ) &lt;= 1 ) );
+    [ Character( CharacterTable( "M11" ), [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ), 
+      Character( CharacterTable( "M11" ), [ 11, 3, 2, 3, 1, 0, 1, 1, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 12, 4, 3, 0, 2, 1, 0, 0, 1, 1 ] ), 
+      Character( CharacterTable( "M11" ), [ 22, 6, 4, 2, 2, 0, 0, 0, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 55, 7, 1, 3, 0, 1, 1, 1, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 66, 10, 3, 2, 1, 1, 0, 0, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 110, 6, 2, 2, 0, 0, 2, 2, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 144, 0, 0, 0, 4, 0, 0, 0, 1, 1 ] ) ]
+    gap&#62; Length( multfree );
+    8
+
+</pre>
+
+<div class="p"><!----></div>
+Comparing this list with the seven faithful multiplicity-free permutation
+characters of M<sub>11</sub> shown in Section&nbsp;<a href="#simple">1.1</a>,
+we see that all candidates are in fact permutation characters.
+Without this information, we have to show, for each candidate,
+the existence of a subgroup that serves as the point stabilizer.
+
+<div class="p"><!----></div>
+Additionally, if we are interested in the subgroup information contained in
+the database (cf.&nbsp;the <tt>subgroup</tt> components of the <tt>info</tt> records in
+Section&nbsp;<a href="#database">1</a>), we want to relate the point stabilizers to the
+maximal subgroups of M<sub>11</sub>.
+
+<div class="p"><!----></div>
+In the case of the sporadic simple groups and their automorphism groups,
+we can use the fact that for many of these groups,
+the character tables of all maximal subgroups and the class fusions of these
+tables are known.
+Since each multiplicity-free permutation character of a group is either
+trivial or induced from a multiplicity-free permutation character of a
+maximal subgroup, we can thus reduce our problem to the computation of
+multiplicity-free possible permutation characters of all maximal subgroups.
+(That this really is a reduction can be read in&nbsp;[<a href="#BL96" name="CITEBL96">BL96</a>].)
+This approach is implemented in the function <tt>MultFree</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; tbl:= CharacterTable( "M11" );
+    CharacterTable( "M11" )
+    gap&#62; maxes:= Maxes( tbl );
+    [ "A6.2_3", "L2(11)", "3^2:Q8.2", "A5.2", "2.S4" ]
+    gap&#62; name:= maxes[1];;
+    gap&#62; MultFree( tbl, CharacterTable( name ) );
+    [ Character( CharacterTable( "M11" ), [ 11, 3, 2, 3, 1, 0, 1, 1, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 22, 6, 4, 2, 2, 0, 0, 0, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 110, 6, 2, 2, 0, 0, 2, 2, 0, 0 ] ) ]
+
+</pre>
+
+<div class="p"><!----></div>
+The function <tt>MultFree</tt> computes all multiplicity-free characters of
+the given character table that are induced from possible permutation
+characters of the given character table of a subgroup.
+(Note that these characters need not necessarily be faithful.)
+If we loop over all classes of maximal subgroups then we get all
+candidates for M<sub>11</sub>,
+together with the information in which maximal subgroup the hypothetical
+point stabilizer lies.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; cand:= [];;
+    gap&#62; for name in maxes do
+    &#62;      max:= CharacterTable( name );
+    &#62;      Append( cand, List( MultFree( tbl, max ),
+    &#62;                     chi -&#62; [ name, Size( tbl ) / Size( max ), chi ] ) );
+    &#62; od;
+    gap&#62; cand;
+    [ [ "A6.2_3", 11, Character( CharacterTable( "M11" ),
+          [ 11, 3, 2, 3, 1, 0, 1, 1, 0, 0 ] ) ], 
+      [ "A6.2_3", 11, Character( CharacterTable( "M11" ),
+          [ 22, 6, 4, 2, 2, 0, 0, 0, 0, 0 ] ) ], 
+      [ "A6.2_3", 11, Character( CharacterTable( "M11" ),
+          [ 110, 6, 2, 2, 0, 0, 2, 2, 0, 0 ] ) ], 
+      [ "L2(11)", 12, Character( CharacterTable( "M11" ),
+          [ 12, 4, 3, 0, 2, 1, 0, 0, 1, 1 ] ) ], 
+      [ "L2(11)", 12, Character( CharacterTable( "M11" ),
+          [ 144, 0, 0, 0, 4, 0, 0, 0, 1, 1 ] ) ], 
+      [ "3^2:Q8.2", 55, Character( CharacterTable( "M11" ),
+          [ 55, 7, 1, 3, 0, 1, 1, 1, 0, 0 ] ) ], 
+      [ "3^2:Q8.2", 55, Character( CharacterTable( "M11" ),
+          [ 110, 6, 2, 2, 0, 0, 2, 2, 0, 0 ] ) ], 
+      [ "A5.2", 66, Character( CharacterTable( "M11" ),
+          [ 66, 10, 3, 2, 1, 1, 0, 0, 0, 0 ] ) ] ]
+    gap&#62; Length( cand );  Length( Set( cand, x -&#62; x[3] ) );
+    8
+    7
+
+</pre>
+
+<div class="p"><!----></div>
+We immediately see that the candidates of degrees 11, 12, 55, and 66
+are permutation characters,
+since they are obtained by inducing the trivial characters of the
+maximal subgroups.
+The permutation characters of degrees 22 and 144 can be established
+in two steps.
+First we note that the group A<sub>6</sub>.2<sub>3</sub> contains the subgroup A<sub>6</sub> of index
+2,
+and the group L<sub>2</sub>(11) contains a class of subgroups of index 12,
+of isomorphism type 11:5.
+Second the possible permutation characters of degrees 2 and 12
+of these maximal subgroups of M<sub>11</sub> are uniquely determined,
+and inducing these characters to M<sub>11</sub> yields in fact multiplicity-free
+characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; max1:= CharacterTable( maxes[1] );;
+    gap&#62; perms1:= PermChars( max1, [ 2 ] );
+    [ Character( CharacterTable( "A6.2_3" ), [ 2, 2, 2, 2, 2, 0, 0, 0 ] ) ]
+    gap&#62; perms1[1]^tbl = cand[2][3];
+    true
+    gap&#62; max2:= CharacterTable( maxes[2] );;
+    gap&#62; perms2:= PermChars( max2, [ 12 ] );
+    [ Character( CharacterTable( "L2(11)" ), [ 12, 0, 0, 2, 2, 0, 1, 1 ] ) ]
+    gap&#62; perms2[1]^tbl = cand[5][3];
+    true
+
+</pre>
+
+<div class="p"><!----></div>
+The last candidate to deal with is the degree 110 character,
+which might be induced from a subgroup of A<sub>6</sub>.2<sub>3</sub> or 3<sup>2</sup>:Q<sub>8</sub>.2
+or both.
+Let us first look at the possible permutation characters of degree 10
+of A<sub>6</sub>.2<sub>3</sub>.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; PermChars( max1, [ 10 ] );
+    [ Character( CharacterTable( "A6.2_3" ), [ 10, 2, 1, 2, 0, 0, 2, 2 ] ), 
+      Character( CharacterTable( "A6.2_3" ), [ 10, 2, 1, 2, 0, 2, 0, 0 ] ) ]
+    gap&#62; OrdersClassRepresentatives( max1 );
+    [ 1, 2, 3, 4, 5, 4, 8, 8 ]
+
+</pre>
+
+<div class="p"><!----></div>
+There are two possibilities, and only the first induces the candidate of
+degree 110.
+The latter follows from the fact that the nonzero character value of the
+candidate on classes of element order 8 means that the
+hypothetical point stabilizer contains elements of order 8,
+cf.&nbsp;the <tt>Display</tt> call in Section&nbsp;<a href="#simple">1.1</a>.
+
+<div class="p"><!----></div>
+The group A<sub>6</sub>.2<sub>3</sub> has a unique class of subgroups of index 10,
+which are the Sylow 3 normalizers, of type 3<sup>2</sup>:Q<sub>8</sub>.
+Since Q<sub>8</sub> has no elements of order 8,
+the first candidate is <b>not</b> a permutation character.
+
+<div class="p"><!----></div>
+The remaining subgroup from which the degree 110 character can be induced
+is 3<sup>2</sup>:Q<sub>8</sub>.2;
+this group has three index 2 subgroups, and the candidate is in fact
+induced from the trivial character of one of these subgroups.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; max3:= CharacterTable( maxes[3] );;
+    gap&#62; classes:= SizesConjugacyClasses( max3 );;
+    gap&#62; Filtered( ClassPositionsOfNormalSubgroups( max3 ),
+    &#62;              x -&#62; Sum( classes{ x } ) = Size( max3 ) / 2 );
+    [ [ 1, 2, 4, 5, 6 ], [ 1, 2, 3, 4, 5, 7 ], [ 1, 2, 4, 5, 8, 9 ] ]
+    gap&#62; perms3:= PermChars( max3, [ 2 ] );
+    [ Character( CharacterTable( "3^2:Q8.2" ), [ 2, 2, 0, 2, 2, 0, 0, 2, 2 ] ), 
+      Character( CharacterTable( "3^2:Q8.2" ), [ 2, 2, 0, 2, 2, 2, 0, 0, 0 ] ), 
+      Character( CharacterTable( "3^2:Q8.2" ), [ 2, 2, 2, 2, 2, 0, 2, 0, 0 ] ) ]
+    gap&#62; induced:= List( perms3, x -&#62; x^tbl );
+    [ Character( CharacterTable( "M11" ), [ 110, 6, 2, 2, 0, 0, 2, 2, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 110, 6, 2, 6, 0, 0, 0, 0, 0, 0 ] ), 
+      Character( CharacterTable( "M11" ), [ 110, 14, 2, 2, 0, 2, 0, 0, 0, 0 ] ) ]
+    gap&#62; Position( induced, cand[3][3] );
+    1
+
+</pre>
+
+<div class="p"><!----></div>
+Putting these considerations together, we thus get a confirmation of the
+classification for M<sub>11</sub>.
+
+<div class="p"><!----></div>
+As a second example, we look at the group M<sub>12</sub>.2.
+The database contains 13 characters,
+and the approach using <tt>MultFree</tt> yields 17 different characters.
+We are interested in disproving the candidates that are not
+permutation characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; info:= MultFreePermChars( "M12.2" );;
+    gap&#62; perms:= Set( List( info, x -&#62; x.character ) );;
+    gap&#62; Length( info );  Length( perms );
+    13
+    13
+    gap&#62; tbl:= CharacterTable( "M12.2" );;
+    gap&#62; maxes:= Maxes( tbl );
+    [ "M12", "L2(11).2", "M12.2M3", "(2^2xA5):2", "2^3.(S4x2)", "4^2:D12.2", 
+      "3^(1+2):D8", "S4xS3", "A5.2" ]
+    gap&#62; cand:= [];;
+    gap&#62; for name in maxes do
+    &#62;      max:= CharacterTable( name );
+    &#62;      Append( cand, List( MultFree( tbl, max ),
+    &#62;                     chi -&#62; [ name, Size( tbl ) / Size( max ), chi ] ) );
+    &#62; od;
+    gap&#62; Length( cand );  Length( Set( List( cand, x -&#62; x[3] ) ) );
+    25
+    17
+    gap&#62; toexclude:= Set( Filtered( cand, x -&#62; not x[3] in perms ) );
+    [ [ "M12", 2, Character( CharacterTable( "M12.2" ),
+          [ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ], 
+      [ "M12", 2, Character( CharacterTable( "M12.2" ),
+          [ 440, 0, 24, 8, 8, 8, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+        , [ "M12", 2, Character( CharacterTable( "M12.2" ),
+          [ 1320, 0, 8, 6, 0, 8, 0, 0, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) ]
+        , [ "M12", 2, Character( CharacterTable( "M12.2" ),
+          [ 1320, 0, 24, 6, 0, 4, 0, 0, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ) 
+         ] ]
+
+</pre>
+
+<div class="p"><!----></div>
+Clearly the degree 2 character is a permutation character,
+but as it is not faithful, it is not contained in the database.
+
+<div class="p"><!----></div>
+The other three characters are all induced from candidates of the maximal
+subgroup M<sub>12</sub>,
+and we may use the same approach for M<sub>12</sub> in order to find out whether
+they can be permutation characters.
+
+<div class="p"><!----></div>
+
+<pre>
+    gap&#62; m12:= CharacterTable( "M12" );;
+    gap&#62; subcand:= [];;
+    gap&#62; submaxes:= Maxes( m12 );
+    [ "M11", "M12M2", "A6.2^2", "M12M4", "L2(11)", "3^2.2.S4", "M12M7", "2xS5", 
+      "M8.S4", "4^2:D12", "A4xS3" ]
+    gap&#62; for name in submaxes do
+    &#62;      max:= CharacterTable( name );
+    &#62;      Append( subcand, MultFree( m12, max ) );
+    &#62; od;
+    gap&#62; induced:= List( subcand, x -&#62; x^tbl );;
+    gap&#62; Intersection( induced, List( toexclude, x -&#62; x[3] ) );
+    [  ]
+
+</pre>
+
+<div class="p"><!----></div>
+Thus none of the candidates in the list <tt>toexclude</tt> is a permutation
+character.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+
+<h2>References</h2>
+
+<dl compact="compact">
+ <dt><a href="#CITEBL96" name="BL96">[BL96]</a></dt><dd>
+T.&nbsp;Breuer and K.&nbsp;Lux, <em>The multiplicity-free permutation characters of the
+  sporadic simple groups and their automorphism groups</em>, Comm. Algebra
+  <b>24</b> (1996), no.&nbsp;7, 2293-2316. MR 1390375 (97c:20020)
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEBP98copy" name="BP98copy">[BP98]</a></dt><dd>
+T.&nbsp;Breuer and G.&nbsp;Pfeiffer, <em>Finding possible permutation characters</em>, J.
+  Symbolic Comput. <b>26</b> (1998), no.&nbsp;3, 343-354. MR 1633876
+  (99e:20005)
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEctblpope" name="ctblpope">[Bre]</a></dt><dd>
+T.&nbsp;Breuer, <em>Permutation Characters in <font face="helvetica">GAP</font></em>, <a href="https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf"><tt>https://www.math.rwth<tt>-</tt>aachen.de/</tt>
+<tt><tt>~</tt>Thomas.Breuer/</tt>
+<tt>ctbllib/</tt><tt>doc2/</tt>
+<tt>manual.pdf</tt></a>.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITECTblLib" name="CTblLib">[Bre25]</a></dt><dd>
+<br /><table align="left" border="0"><tr><td width="50">
+<hr />
+</td></tr></table><!--hbox-->
+ , <em>The <font face="helvetica">GAP</font> Character Table Library, Version
+  1.3.10</em>, <a href="https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib"><tt>https://www.math.rwth<tt>-</tt>aachen.de/</tt>
+<tt><tt>~</tt>Thomas.Breuer/</tt>
+<tt>ctbllib</tt></a>, May 2025, <font face="helvetica">GAP</font> package.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITECCN85" name="CCN85">[CCN<sup>+</sup>85]</a></dt><dd>
+J.&nbsp;H. Conway, R.&nbsp;T. Curtis, S.&nbsp;P. Norton, R.&nbsp;A. Parker, and R.&nbsp;A. Wilson,
+  <em>Atlas of finite groups</em>, Oxford University Press, Eynsham, 1985,
+  Maximal subgroups and ordinary characters for simple groups, With
+  computational assistance from J. G. Thackray. MR 827219 (88g:20025)
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEGAP4" name="GAP4">[GAP04]</a></dt><dd>
+The GAP&nbsp;Group, <em>GAP-Groups, Algorithms, and
+  Programming, Version 4.4</em>, 2004, <a href="http://www.gap-system.org"><tt>http://www.gap-system.org</tt></a>.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEPfe97" name="Pfe97">[Pfe97]</a></dt><dd>
+G.&nbsp;Pfeiffer, <em>The subgroups of M<sub>24</sub>, or how to compute the table of
+  marks of a finite group</em>, Experiment. Math. <b>6</b> (1997), no.&nbsp;3,
+  247-270. MR 1481593 (98h:20032)</dd>
+</dl>
+
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.59.<br />On 22 May 2025, 15:04.</small>
+</html>

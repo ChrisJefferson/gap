@@ -1,0 +1,5 @@
+mu 1 2 3
+mu 3 3 4
+mu 1 1 5
+echo "Classes 1A 2A 3A 5A 5B"
+oup 5 5 1 2 3 4

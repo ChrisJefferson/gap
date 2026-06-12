@@ -1,0 +1,281 @@
+  
+  [1X8 [33X[0;0YMaintaining the [5XGAP[105X[101X[1X website[133X[101X
+  
+  [33X[0;0YThis  chapter describes how the information accessible on www.gap-system.org
+  ([7Xhttps://www.gap-system.org/[107X)  is  stored  and  collected,  and  how  it  is
+  transformed into web pages.[133X
+  
+  
+  [1X8.1 [33X[0;0YOverview[133X[101X
+  
+  [33X[0;0YThe  [5XGAP[105X website (in the following just called [21Xwebsite[121X) has a tree structure
+  for easier navigation and overview. Each node and each leaf of the tree is a
+  web page. Every single page resides somewhere in this tree. This position is
+  shown in the navigation bar on the left hand side, and the user can navigate
+  through the tree using this navigation bar. However, pages can still link to
+  other pages that reside in some other branch of the tree.[133X
+  
+  [33X[0;0YAll  the  sources  for  the  web  pages  are  kept  in  the  git  repository
+  [10Xhttps://github.com/gap-system/GapWWW[110X. So you can clone this repository using[133X
+  
+  git clone https://github.com/gap-system/GapWWW
+  
+  [33X[0;0YThe  web  server in St Andrews also uses its clone, updates it to the latest
+  revision  of  the  [9Xmaster[109X  branch,  runs the Jekyll tool and then serves the
+  pages.  Another  named  branch  is  called  [9Xtesting[109X  and it is served on the
+  password protected version of the [5XGAP[105X website at [7Xhttps://test.gap-system.org[107X
+  where work in progress may be published to be reviewed internally.[133X
+  
+  [33X[0;0YThe  [5XGAP[105X  website  has some pages that are treated specially such as the [5XGAP[105X
+  manuals, the pages for the [5XGAP[105X packages, the pages for the [5XGAP[105X bibliography,
+  and  the  (old)  [5XGAP[105X  forum  archive.  The  setup for these special pages is
+  described in Sections [14X8.6[114X to [14X8.8[114X in this chapter.[133X
+  
+  
+  [1X8.2 [33X[0;0YGetting started[133X[101X
+  
+  [33X[0;0YThere  are  several  possible  workflows dependently on how much efforts you
+  would like to commit to the website maintenance.[133X
+  
+  [33X[0;0YA  minimalistic scenario for small improvements (e.g. correcting details and
+  fixing typos) only requires to install git ([7Xhttps://git-scm.com/[107X) and then:[133X
+  
+  [31X1[131X   [33X[0;6YClone        the       Website       repository:       [10Xgit       clone
+        https://github.com/gap-system/GapWWW[110X[133X
+  
+  [31X2[131X   [33X[0;6YMake changes in a feature branch[133X
+  
+  [31X3[131X   [33X[0;6YSubmit   your   changes   as  GitHub  pull  request  so  that  website
+        administrator(s) can review and merge this update.[133X
+  
+  [33X[0;0YIf  you  are  one of website administrator(s), then you will also need to be
+  able  to  access  the web server in St Andrews via [10Xssh[110X to run certain update
+  scripts and copy necessary data.[133X
+  
+  
+  [1X8.3 [33X[0;0YGit usage[133X[101X
+  
+  [33X[0;0YWe  assume  here  that  you  are familiar with the standard git commands [10Xgit
+  clone[110X, [10Xgit pull[110X, [10Xgit push[110X, [10Xgit update[110X, [10Xgit commit[110X etc.[133X
+  
+  [33X[0;0YThe  source  files  for  the  web  site  are  kept  in  the  git  repository
+  [10Xhttps://github.com/gap-system/GapWWW[110X. You may clone it by doing[133X
+  
+  git clone https://github.com/gap-system/GapWWW
+  
+  [33X[0;0YThis  command  creates in your current directory a directory [11XGapWWW[111X with the
+  complete source tree of the web site.[133X
+  
+  [33X[0;0YSource  files  are treated like any other source file in the git repository,
+  that is you can update, modify, commit, add, remove them as usual.[133X
+  
+  [33X[0;0YThe  only  thing  one  has  to  understand  with  respect  to  git  is which
+  implications  the  branch  in which the change has appeared will have on the
+  process of its publication:[133X
+  
+  [30X    [33X[0;6YChanges  in  the  [9Xmaster[109X branch will not be automatically published on
+        the web server. They will be reviewed by the website administrator who
+        will then have to run the update script on the server in St Andrews as
+        described in Section [14X8.4[114X to make them available online.[133X
+  
+  [30X    [33X[0;6YChanges in feature branches (which you may create to keep some work in
+        progress) will not be visible anywhere.[133X
+  
+  [33X[0;0YA  little  comment  on the rationale behind this setup might be in order. It
+  allows  that  more  than  one  person works independently on the website and
+  those people exchange versions via git, without publishing them immediately.
+  The  actual  guidelines  who  does  what in this process should be agreed on
+  separately.[133X
+  
+  
+  [1X8.4 [33X[0;0YThe web server in St Andrews[133X[101X
+  
+  [33X[0;0YCurrently,  the  actually  published version of the web site is contained in
+  the directory [11X/gap/GapWWW[111X on the following machine in St Andrews:[133X
+  
+      gap-web.host.cs.st-andrews.ac.uk
+  
+  [33X[0;0YTo  get  access  to this data the easiest and most secure way is probably to
+  create  an  RSA key pair, append the public key to [11X/gap/.ssh/authorized_keys[111X
+  and  to  keep  the  private  key in the [11X.ssh[111X subdirectory of the user's home
+  directory.[133X
+  
+  [33X[0;0YBefore  performing  an  update on [11Xgap-web[111X, it is wise to check first whether
+  [5Xjekyll[105X  runs without an error message in your own checked out version of the
+  website.[133X
+  
+  [33X[0;0YThe  next step then is to test it on the online test version of the website.
+  To do so, ssh into [11Xgap-web[111X and the enter these commands:[133X
+  
+    cd ~/test.gap-system.org
+    git pull
+    jekyll build
+  
+  [33X[0;0YAssuming  this  worked  without error message, you can review the results at
+  [7Xhttps://test.gap-system.org[107X.[133X
+  
+  [33X[0;0YFinally, to update the actual website, use the following:[133X
+  
+    cd ~/www.gap-system.org
+    git pull
+    jekyll build
+  
+  
+  [1X8.5 [33X[0;0YInstallation on the web server[133X[101X
+  
+  [33X[0;0YThis  section  describes  the  procedure  to  install  the [5XGAP[105X web site on a
+  machine  from  scratch. Thus, this section is usually not needed because all
+  this  is  already  done  on  the  machine  [11Xgap-web.host.cs.st-andrews.ac.uk[111X.
+  However,  if  one  wants  to  have  an exact copy of the web site or have to
+  install it somewhere anew, this section is needed.[133X
+  
+  
+  [1X8.5-1 [33X[0;0YNeeded ingredients[133X[101X
+  
+  [30X    [33X[0;6Ystandard tools: [10Xgit[110X, [10Xtar[110X, [10Xgzip[110X, [10Xmake[110X, [10Xsh[110X[133X
+  
+  [30X    [33X[0;6Y[5Xjekyll[105X[133X
+  
+  [30X    [33X[0;6Ya web server if pages shall be published[133X
+  
+  [30X    [33X[0;6Ya  copy  of  the  full  [11Xdoc[111X  directory  from  a  [5XGAP[105X  installation for
+        references into the manual (this can reside on some web site)[133X
+  
+  [30X    [33X[0;6Ysetup for automatic creation of the pages for packages[133X
+  
+  
+  [1X8.5-2 [33X[0;0YInstallation procedure[133X[101X
+  
+  [31X1[131X   [33X[0;6YClone the git repository GapWWW:[133X
+  
+  git clone https://github.com/gap-system/GapWWW
+  
+        [33X[0;6YThis creates a subdirectory [11XGapWWW[111X in the current directory.[133X
+  
+  [31X2[131X   [33X[0;6YUnpack some (frozen) subtrees, which are in archives:[133X
+  
+      cd GapWWW
+      gzip -dc ForumArchive.tar.gz | tar xvf -
+      cd Gap3
+      gzip -dc Manual3.tar.gz | tar xvf -
+      cd ..
+  
+  [31X3[131X   [33X[0;6YTODO/FIXME/WARNING: everything after this is outdated!!![133X
+  
+        [33X[0;6YEdit [11XGapWWW/lib/config[111X, see that file for instructions:[133X
+  
+      vi lib/config
+  
+        [33X[0;6YIn this file a few variables have to be defined to adapt the web pages
+        to the local conditions.[133X
+  
+  [31X4[131X   [33X[0;6YCopy  a  whole  [11Xdoc[111X  directory  of  a  [5XGAP[105X  distribution  to the place
+        mentioned   in   [11XGapWWW/lib/config[111X  (see  step  4.)  in  the  variable
+        [10XGAPManualLink[110X (this is [11XGapWWW/Manuals[111X in the current setup).[133X
+  
+  [31X5[131X   [33X[0;6YThe  files  for  the  [5XGAP[105X  bibliography  have  been included into this
+        directory tree in the repository.[133X
+  
+        [33X[0;6YCreate the html and PDF versions by:[133X
+  
+      cd Doc/Bib
+      gap4 convbib.g
+      cd ../..
+  
+        [33X[0;6YSome  more  information  about this is in [11XGapWWW/Doc/Bib/INFO[111X which is
+        unchanges since 2010 and may be somewhat outdated.[133X
+  
+  [31X6[131X   [33X[0;6YInstall package manuals:[133X
+  
+        [33X[0;6YCopy  the  result  of  Frank's  scripts  to  the  place  mentioned  in
+        [11XGapWWW/lib/config[111X  (in the variable [11Xpkgmixerpath[111X). (currently, this is
+        [11XGapWWW/Manuals[111X, copy the whole [11Xpkg[111X directory)[133X
+  
+        [33X[0;6YTo  update  the package pages, copy all [11X.mixer[111X files and [11Xpkgconf.py[111X to
+        [11XGapWWW/Packages[111X and rerun the [5XMixer[105X.[133X
+  
+  [31X7[131X   [33X[0;6YMake  sure  that the file [11XGapWWW/lib/AllLinksOfAllHelpSections.data[111X is
+        always  up-to-date  (this  has  to  be  adjusted whenever the released
+        manuals change).[133X
+  
+        [33X[0;6YIn    the    development    version   of   [5XGAP[105X   there   is   a   file
+        [11Xdev/LinksOfAllHelpSections.g[111X.  Read  this  with  a current [5XGAP[105X version
+        with    all   currently   released   packages   installed   and   call
+        [10XWriteAllLinksOfAllHelpSections()[110X,     this     writes     the     file
+        [11XAllLinksOfAllHelpSections.data[111X.  It  has  then to be checked in to its
+        place  under  the  [11XGapWWW[111X  tree.  Do  not forget to publish the latest
+        revision.[133X
+  
+  [31X8[131X   [33X[0;6YRun Jekyll:[133X
+  
+      jekyll build
+  
+  
+  [1X8.5-3 [33X[0;0YInstalling updated versions[133X[101X
+  
+  [33X[0;0YIf  things  are changed in the repository, all that has to be done to update
+  the pages locally is:[133X
+  
+  git pull
+  
+  [33X[0;0Yin the [11XGapWWW[111X directory, followed by a[133X
+  
+    jekyll build
+  
+  
+  [1X8.6 [33X[0;0YThe [5XGAP[105X[101X[1X manuals on the web pages[133X[101X
+  
+  [33X[0;0YAll  [5XGAP[105X  manuals are available in HTML format via the web pages. This works
+  by  simply  copying  the [11Xdoc[111X directory of a complete [5XGAP[105X installation to the
+  place specified by the variable [11XGAPManualLink[111X in [11XGapWWW/lib/config[111X (which is
+  [11XGapWWW/Manuals[111X  in  the  current setup). Note that those files are [13Xnot[113X under
+  version  control  there, they are only copied to checked out working copies,
+  like for example on the web server in St Andrews.[133X
+  
+  [33X[0;0YThe single remaining point to explain is how one can specify links to manual
+  sections  on  the  web pages. This is done with a special [5XMixer[105X tag like the
+  following:[133X
+  
+      <mixer manual="Reference: Lists">Chapter about lists</mixer>
+  
+  [33X[0;0YThis  element creates a link to the manual section which would appear in the
+  [5XGAP[105X  help system when called with [21X[10X?Reference: Lists[110X[121X, which happens to be the
+  chapter  in  the reference manual about lists. The text of the link would be
+  [21XChapter about lists[121X.[133X
+  
+  [33X[0;0YThis  works,  because the [5XMixer[105X has access to a file containing the links to
+  all       manual       sections.       This       file       resides      in
+  [11XGapWWW/lib/AllLinksOfAllHelpSections.data[111X,    which    is    created   using
+  [11Xdev/LinksOfAllHelpSections.g[111X  in the development version of [5XGAP[105X as described
+  in Section [14X8.5[114X.[133X
+  
+  [33X[0;0YThe value of the attribute [21Xmanual[121X in the [21Xmixer[121X tag must be the complete text
+  of the section heading the link should point to.[133X
+  
+  
+  [1X8.7 [33X[0;0YThe [5XGAP[105X[101X[1X packages on the web pages[133X[101X
+  
+  [33X[0;0YThe archives and web pages for the [5XGAP[105X packages are generated by yet another
+  set  of  tools  described  in  Chapter [14X7[114X. These generate for every package a
+  [11X.mixer[111X-file and for all packages together a file [11Xpkgconf.py[111X. All these files
+  have to be put under version control in the directory [11XGapWWW/Packages[111X. These
+  nodes  then only have to be put into the tree by mentioning them in the [11Xtree[111X
+  file there.[133X
+  
+  
+  [1X8.8 [33X[0;0YThe [5XGAP[105X[101X[1X forum archive[133X[101X
+  
+  [33X[0;0YUntil  December  2003  the  [5XGAP[105X  forum archive was handled by a tool written
+  especially  for  this  task.  At  that  point  it was switched to [10Xmailman[110X, a
+  generic  tool for mailing list, which also does the archiving. Therefore the
+  old  forum archives are frozen in form of a huge amount of HTML pages. These
+  are  not  kept  under  version control as single files but as one big binary
+  archive under [11XGapWWW/ForumArchive.tar.gz[111X.[133X
+  
+  [33X[0;0YTo install those pages in a checked out working copy one just has to extract
+  this archive by doing[133X
+  
+      gzip -dc ForumArchive.tar.gz | tar xf -
+  
+  [33X[0;0Yin the [11XGapWWW[111X directory as explained in Section [14X8.5[114X.[133X
+  

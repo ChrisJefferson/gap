@@ -1,0 +1,46 @@
+\GAPDocLabFile{sophus}
+\makelabel{sophus:Title page}{}{X7D2C85EC87DD46E5}
+\makelabel{sophus:Abstract}{}{X7AA6C5737B711C89}
+\makelabel{sophus:Copyright}{}{X81488B807F2A1CF1}
+\makelabel{sophus:Acknowledgements}{}{X82A988D47DFAFCFA}
+\makelabel{sophus:Table of Contents}{}{X8537FEB07AF2BEC8}
+\makelabel{sophus:The theory}{1}{X818ED9677EDCB80E}
+\makelabel{sophus:A sample calculation with Sophus}{2}{X864BE1A7820A35FC}
+\makelabel{sophus:Sophus functions}{3}{X809610728132CED7}
+\makelabel{sophus:Some general functions to compute with Lie algebras}{3.1}{X7E043B9C80BF5DDF}
+\makelabel{sophus:Functions to compute with nilpotent bases}{3.2}{X7A8E9A01835EDC3C}
+\makelabel{sophus:The cover}{3.3}{X7F149872830B45BA}
+\makelabel{sophus:Automorphisms of nilpotent Lie algebras}{3.4}{X7AD387A67CDFF8A9}
+\makelabel{sophus:Automorphism group and isomorphism testing}{3.5}{X823B76A1836A4BD3}
+\makelabel{sophus:Descendants}{3.6}{X8396FA6279C8E439}
+\makelabel{sophus:Input and output}{3.7}{X78DA04477DDD0ACE}
+\makelabel{sophus:Bibliography}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{sophus:References}{Bib}{X7A6F98FD85F02BFE}
+\makelabel{sophus:Index}{Ind}{X83A0356F839C696F}
+\makelabel{sophus:License}{}{X81488B807F2A1CF1}
+\makelabel{sophus:SophusTest}{3.1.1}{X7831B69779E3E5D6}
+\makelabel{sophus:IsLieNilpotentOverFp}{3.1.2}{X7F110C75826C1A6D}
+\makelabel{sophus:MinimalGeneratorNumber}{3.1.3}{X7A9FAEC37ACA9285}
+\makelabel{sophus:AbelianLieAlgebra}{3.1.4}{X7C7898C07C7711DB}
+\makelabel{sophus:NilpotentBasis}{3.2.1}{X799C8C57797AE5F0}
+\makelabel{sophus:LieNBWeights}{3.2.2}{X7E1BDBF08305FC7A}
+\makelabel{sophus:LieNBDefinitions}{3.2.3}{X80CF319778583B3C}
+\makelabel{sophus:IsNilpotentBasis}{3.2.4}{X79D0807F784E9BEC}
+\makelabel{sophus:IsLieAlgebraWithNB}{3.2.5}{X809032BB7ECF5F48}
+\makelabel{sophus:LieCover}{3.3.1}{X830028407DC2D80A}
+\makelabel{sophus:CoverHomomorphism}{3.3.2}{X7F4D3B8B7E9C30F7}
+\makelabel{sophus:CoverOf}{3.3.3}{X783B60268536DD75}
+\makelabel{sophus:IsLieCover}{3.3.4}{X87BB5AEA80EB4E46}
+\makelabel{sophus:LieMultiplicator}{3.3.5}{X7F9DFA097A920EEF}
+\makelabel{sophus:LieNucleus}{3.3.6}{X84C5C1A37BCCB7B9}
+\makelabel{sophus:NilpotentLieAutomorphism}{3.4.1}{X86E8712281D7A532}
+\makelabel{sophus:IdentityNilpotentLieAutomorphism}{3.4.2}{X856F9F0B87F8673B}
+\makelabel{sophus:IsNilpotentLieAutomorphism}{3.4.3}{X78778C3087CB7999}
+\makelabel{sophus:AutomorphismGroup}{3.5.1}{X87677B0787B4461A}
+\makelabel{sophus:AutomorphismGroupNilpotentLieAlgebra}{3.5.2}{X7A9A3C7E7804704B}
+\makelabel{sophus:AreIsomorphicNilpotentLieAlgebras}{3.5.3}{X87B4D4C384E9B3DF}
+\makelabel{sophus:Descendants}{3.6.1}{X8396FA6279C8E439}
+\makelabel{sophus:DescendantsOfStep1OfAbelianLieAlgebra}{3.6.2}{X825E625F84273954}
+\makelabel{sophus:WriteLieAlgebraToString}{3.7.1}{X7B4AA5B97D4B53B9}
+\makelabel{sophus:ReadStringToNilpotentLieAlgebraOverFp}{3.7.2}{X841498AD80B13D34}
+\makelabel{sophus:WriteLieAlgebraListToFile}{3.7.3}{X7D54F5838172718B}

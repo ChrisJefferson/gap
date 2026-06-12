@@ -1,0 +1,1544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE file SYSTEM "bibxmlext.dtd">
+
+<file>
+<!-- some abbreviations of journal names, add more when needed -->
+<string key="rwth" value="Rheinisch Westfälische Technische Hochschule"/>
+<string key="rwthldfm" value="Lehrstuhl D für Mathematik,
+                      Rheinisch Westfälische Technische Hochschule"/>
+<string key="rwth-a" value="Aachen, Germany"/>
+
+<string key="appae" value="Appl. Algebra Engrg. Comm. Comput."/>
+<string key="arcmb1" value="Arch. Math. (Basel)"/>
+<string key="bulllond" value="Bull. London Math. Soc."/>
+<string key="comma2" value="Comm. Algebra"/>
+<string key="geomd2" value="Geom. Dedicata"/>
+<string key="invem" value="Invent. Math."/>
+<string key="jalge" value="J. Algebra"/>
+<string key="jausma" value="J. Austral. Math. Soc. Ser. A"/>
+<string key="jlonm1" value="J. London Math. Soc."/>
+<string key="jsymc" value="J. Symbolic Comput."/>
+<string key="micmj" value="Michigan Math. J."/>
+<string key="prolm1" value="Proc. London Math. Soc."/>
+<string key="prolm2" value="Proc. London Math. Soc. (3)"/>
+
+<!-- the actual entries -->
+
+<entry id="GAP4410"><misc>
+  <title><Wrap Name="Package">GAP</Wrap> &ndash;
+      <C>G</C>roups, <C>A</C>lgorithms, and <C>P</C>rogramming,
+      <C>V</C>ersion 4.4.10</title>
+  <organization>The GAP&nbsp;Group</organization>
+  <howpublished><URL>https://www.gap-system.org</URL></howpublished>
+  <month>Oct</month>
+  <year>2007</year>
+  <key>GAP</key>
+  <keywords>groups; *; gap; manual</keywords>
+</misc></entry>
+
+<entry id="GAP483"><misc>
+  <title><Wrap Name="Package">GAP</Wrap> &ndash;
+      <C>G</C>roups, <C>A</C>lgorithms, and <C>P</C>rogramming,
+      <C>V</C>ersion 4.8.3</title>
+  <organization>The GAP&nbsp;Group</organization>
+  <howpublished><URL>https://www.gap-system.org</URL></howpublished>
+  <year>2016</year>
+  <key>GAP</key>
+  <keywords>groups; *; gap; manual</keywords>
+</misc></entry>
+
+<entry id="GAP"><misc>
+  <title><Wrap Name="Package">GAP</Wrap> &ndash;
+      <C>G</C>roups, <C>A</C>lgorithms, and <C>P</C>rogramming,
+      <C>V</C>ersion 4.13.1</title>
+  <organization>The GAP&nbsp;Group</organization>
+  <howpublished><URL>https://www.gap-system.org</URL></howpublished>
+  <month>Mar</month>
+  <year>2024</year>
+  <key>GAP</key>
+  <keywords>groups; *; gap; manual</keywords>
+</misc></entry>
+
+<entry id="AtlasRep"><misc>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+    <name><first>Richard A.</first><last>Parker</last></name>
+    <name><first>Simon</first><last>Nickerson</last></name>
+    <name><first>John N.</first><last>Bray</last></name>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title><C>AtlasRep</C>, A <Wrap Name="Package">GAP</Wrap> <C>I</C>nterface
+         to the <C>A</C>tlas of <C>G</C>roup <C>R</C>epresentations,
+         <C>V</C>ersion 2.1.6</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/atlasrep</URL></howpublished>
+  <month>Oct</month>
+  <year>2022</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="BW07"><article>
+  <author>
+    <name><first>Richard W.</first><last>Barraclough</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The character table of a maximal subgroup of the <C>M</C>onster</title>
+  <journal>LMS J. Comput. Math.</journal>
+  <year>2007</year>
+  <volume>10</volume>
+  <pages>161&ndash;175</pages>
+  <mrnumber>2308856</mrnumber>
+  <mrclass>20C34 (20C15)</mrclass>
+  <mrreviewer>Donald L. White</mrreviewer>
+  <other type="doi">10.1112/S1461157000001352</other>
+  <other type="fjournal">LMS Journal of Computation and Mathematics</other>
+  <other type="url">https://doi.org/10.1112/S1461157000001352</other>
+</article></entry>
+
+<entry id="Browse"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Frank</first><last>Lübeck</last></name>
+  </author>
+  <title><C>Browse</C>, ncurses interface and browsing applications,
+         <C>V</C>ersion 1.8.21</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Browse</URL></howpublished>
+  <month>Mar</month>
+  <year>2023</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="Bos90"><article>
+  <author>
+    <name><first>Wieb</first><last>Bosma</last></name>
+  </author>
+  <title>Canonical bases for cyclotomic fields</title>
+  <journal><value key="appae"/></journal>
+  <year>1990</year>
+  <volume>1</volume>
+  <number>2</number>
+  <pages>125&ndash;134</pages>
+  <issn>0938-1279</issn>
+  <mrnumber>1325517 (95k:11135)</mrnumber>
+  <mrclass>11R18 (11Y40 20C15)</mrclass>
+  <mrreviewer>Michel Olivier</mrreviewer>
+  <other type="coden">AAECEW</other>
+  <other type="doi">10.1007/BF01810296</other>
+  <other type="fjournal">Applicable Algebra in Engineering, Communication and
+              Computing</other>
+  <other type="url">http://dx.doi.org/10.1007/BF01810296</other>
+</article></entry>
+
+<entry id="Magma"><article>
+  <author>
+    <name><first>Wieb</first><last>Bosma</last></name>
+    <name><first>John</first><last>Cannon</last></name>
+    <name><first>Caterine</first><last>Playoust</last></name>
+  </author>
+  <title>The <C>M</C>agma algebra system. <C>I</C>.
+      <C>T</C>he user language</title>
+  <journal>J. Symbolic Comput.</journal>
+  <year>1997</year>
+  <volume>24</volume>
+  <number>3&ndash;4</number>
+  <pages>235&ndash;265</pages>
+  <issn>0747-7171</issn>
+  <mrnumber>1484478</mrnumber>
+  <mrclass>68Q40</mrclass>
+  <other type="fjournal">Journal of Symbolic Computation</other>
+  <other type="url">https://doi.org/10.1006/jsco.1996.0125</other>
+</article></entry>
+
+<entry id="CP96"><misc>
+  <author>
+    <name><first>J. J.</first><last>Cannon</last></name>
+    <name><first>C.</first><last>Playoust</last></name>
+  </author>
+  <title>An introduction to algebraic programming in <C>Magma</C></title>
+  <howpublished><URL>http://www.math.usyd.edu.au:8000/u/magma</URL></howpublished>
+  <year>1996</year>
+  <other type="address">Sydney, Australia</other>
+  <other type="organization">School of Mathematics and Statistics,
+                University of Sydney</other>
+</misc></entry>
+
+<!-- The proposal for the following entry was found at
+     http://www.rfc-editor.org/info/rfc7159 -->
+<entry id="JSON"><misc>
+  <key>JSON</key>
+  <editor>
+    <name><first>T.</first><last>Bray</last></name>
+  </editor>
+  <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
+  <howpublished><URL>http://www.rfc-editor.org/info/rfc7159</URL></howpublished>
+  <month>Mar</month>
+  <year>2014</year>
+  <other type="doi">10.17487/RFC7159</other>
+</misc></entry>
+
+<entry id="AmbigFus"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title>Ambiguous Class Fusions in the <Wrap Name="Package">GAP</Wrap>
+         Character Table Library</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf</URL></howpublished>
+</misc></entry>
+
+<entry id="Auto"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title>Using Table Automorphisms for Constructing Character Tables
+                 in <Wrap Name="Package">GAP</Wrap></title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf</URL></howpublished>
+</misc></entry>
+
+<entry id="CCE"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title>Constructing Character Tables of Central Extensions
+                 in <Wrap Name="Package">GAP</Wrap></title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf</URL></howpublished>
+</misc></entry>
+
+<entry id="ctblpope"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title>Permutation <C>C</C>haracters in <Wrap Name="Package">GAP</Wrap></title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/doc2/manual.pdf</URL></howpublished>
+</misc></entry>
+
+<entry id="BMO17"><incollection>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Gunter</first><last>Malle</last></name>
+    <name><first>Eamonn A.</first><last>O'Brien</last></name>
+  </author>
+  <title>Reliability and reproducibility of <C>A</C>tlas information</title>
+  <booktitle>Finite simple groups: thirty years of the atlas and beyond</booktitle>
+  <publisher>Amer. Math. Soc.</publisher>
+  <year>2017</year>
+  <volume>694</volume>
+  <series>Contemp. Math.</series>
+  <pages>21&ndash;31</pages>
+  <address>Providence, RI</address>
+  <crossref>Atlas2017</crossref>
+  <mrnumber>3682588</mrnumber>
+  <mrclass>20-00 (20-04)</mrclass>
+</incollection></entry>
+
+<entry id="AtlasVerifyLargeArxiv"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title>Constructing the ordinary character tables of some <C>A</C>tlas
+         groups using character theoretic methods.</title>
+  <howpublished><URL Text="arXiv:1604.00754">https://export.arxiv.org/abs/1604.00754</URL></howpublished>
+</misc></entry>
+
+<entry id="ProbGenArxiv"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title><Wrap Name="Package">GAP</Wrap> computations concerning
+         probabilistic generation of finite simple groups</title>
+  <howpublished><URL Text="arXiv:0710.3267">https://export.arxiv.org/abs/0710.3267</URL></howpublished>
+</misc></entry>
+
+<entry id="Bre11"><article>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title>Computing character tables of groups of type
+      <C><M>M.G.A</M></C></title>
+  <journal>LMS J. Comput. Math.</journal>
+  <year>2011</year>
+  <volume>14</volume>
+  <pages>173&ndash;178</pages>
+  <issn>1461-1570</issn>
+  <mrnumber>2831228</mrnumber>
+  <mrclass>20C15 (20C40)</mrclass>
+  <url>http://dx.doi.org/10.1112/S1461157010000318</url>
+  <other type="doi">10.1112/S1461157010000318</other>
+  <other type="fjournal">LMS Journal of Computation and Mathematics</other>
+</article></entry>
+
+<entry id="Be00"><article>
+  <author>
+    <name><first>Áron</first><last>Bereczky</last></name>
+  </author>
+  <title>Maximal overgroups of <C>S</C>inger elements in classical
+      groups</title>
+  <journal><value key="jalge"/></journal>
+  <year>2000</year>
+  <volume>234</volume>
+  <number>1</number>
+  <pages>187&ndash;206</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>1799483 (2002a:20049)</mrnumber>
+  <mrclass>20G40</mrclass>
+  <mrreviewer>Cheryl E. Praeger</mrreviewer>
+  <url>http://dx.doi.org/10.1006/jabr.2000.8458</url>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1006/jabr.2000.8458</other>
+  <other type="fjournal">Journal of Algebra</other>
+</article></entry>
+
+<entry id="BGK"><article>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Robert M.</first><last>Guralnick</last></name>
+    <name><first>William M.</first><last>Kantor</last></name>
+  </author>
+  <title>Probabilistic generation of finite simple groups, <C>II</C></title>
+  <journal><value key="jalge"/></journal>
+  <year>2008</year>
+  <volume>320</volume>
+  <number>2</number>
+  <pages>443&ndash;494</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>2422303 (2010e:20096)</mrnumber>
+  <mrclass>20P05 (20D05)</mrclass>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1016/j.jalgebra.2007.10.028</other>
+  <other type="url">http://dx.doi.org/10.1016/j.jalgebra.2007.10.028</other>
+</article></entry>
+
+<entry id="BW1"><article>
+  <author>
+    <name><first>J. L.</first><last>Brenner</last></name>
+    <name><first>James</first><last>Wiegold</last></name>
+  </author>
+  <title>Two-generator groups. <C>I</C></title>
+  <journal><value key="micmj"/></journal>
+  <year>1975</year>
+  <volume>22</volume>
+  <pages>53&ndash;64</pages>
+  <issn>0026-2285</issn>
+  <mrnumber>0372033 (51 #8250)</mrnumber>
+  <mrclass>20D99</mrclass>
+  <mrreviewer>Morris Newman</mrreviewer>
+  <other type="fjournal">The Michigan Mathematical Journal</other>
+</article></entry>
+
+<entry id="BG21"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Robert M.</first><last>Guralnick</last></name>
+  </author>
+  <title>Finite groups can be generated by a pi-subgroup and a pi'-subgroup</title>
+  <howpublished><URL Text="arXiv:2103.17216">https://arxiv.org/abs/2103.17216</URL></howpublished>
+</misc></entry>
+
+<entry id="BMverify"><article>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Kay</first><last>Magaard</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>Verification of the ordinary character table
+         of the <C>B</C>aby <C>M</C>onster</title>
+  <journal><value key="jalge"/></journal>
+  <year>2020</year>
+  <volume>561</volume>
+  <pages>111&ndash;130</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>4135540</mrnumber>
+  <mrclass>20C15 (20C40 20D08),</mrclass>
+  <url>https://doi.org/10.1016/j.jalgebra.2019.06.047</url>
+  <other type="doi">10.1016/j.jalgebra.2019.06.047</other>
+  <other type="fjournal">Journal of Algebra</other>
+</article></entry>
+
+<entry id="Mverify"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Kay</first><last>Magaard</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>Verification of the conjugacy classes and ordinary character table
+         of the <C>M</C>onster</title>
+  <year>2024</year>
+  <howpublished>submitted</howpublished>
+</misc></entry>
+
+<entry id="BP98copy"><article>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Götz</first><last>Pfeiffer</last></name>
+  </author>
+  <title>Finding possible permutation characters</title>
+  <journal><value key="jsymc"/></journal>
+  <year>1998</year>
+  <volume>26</volume>
+  <number>3</number>
+  <pages>343&ndash;354</pages>
+  <issn>0747-7171</issn>
+  <mrnumber>1633876 (99e:20005)</mrnumber>
+  <mrclass>20B99 (20B40 20C15 20C40)</mrclass>
+  <mrreviewer>Cheryl E. Praeger</mrreviewer>
+  <url>http://dx.doi.org/10.1006/jsco.1998.0217</url>
+  <other type="doi">10.1006/jsco.1998.0217</other>
+  <other type="fjournal">Journal of Symbolic Computation</other>
+</article></entry>
+
+<entry id="BM05"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Jürgen</first><last>Müller</last></name>
+  </author>
+  <title>Character tables of endomorphism rings of multiplicity-free
+      permutation modules of the sporadic simple groups and their
+      cyclic and bicyclic extensions</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Juergen.Mueller/mferctbl/mferctbl.html</URL></howpublished>
+  <year>2005</year>
+</misc></entry>
+
+<entry id="CTblLib"><misc>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+  </author>
+  <title>The <Wrap Name="Package">GAP</Wrap> <C>C</C>haracter <C>T</C>able
+      <C>L</C>ibrary, <C>V</C>ersion 1.3.11</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib</URL></howpublished>
+  <month>May</month>
+  <year>2025</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="BGS11"><article>
+  <author>
+    <name><first>Tim C.</first><last>Burness</last></name>
+    <name><first>Robert M.</first><last>Guralnick</last></name>
+    <name><first>Jan</first><last>Saxl</last></name>
+  </author>
+  <title>On base sizes for symmetric groups</title>
+  <journal>Bull. Lond. Math. Soc.</journal>
+  <year>2011</year>
+  <volume>43</volume>
+  <number>2</number>
+  <pages>386&ndash;391</pages>
+  <issn>0024-6093</issn>
+  <mrnumber>2781219 (2012d:20003)</mrnumber>
+  <mrclass>20B15 (20B30 20D06 20P05)</mrclass>
+  <mrreviewer>Colva M. Roney-Dougal</mrreviewer>
+  <other type="doi">10.1112/blms/bdq123</other>
+  <other type="url">http://dx.doi.org/10.1112/blms/bdq123</other>
+  <other type="fjournal">Bulletin of the London Mathematical Society</other>
+</article></entry>
+
+<entry id="Cla05"><mastersthesis>
+  <author>
+    <name><first>Michael</first><last>Claßen-Houben</last></name>
+  </author>
+  <title>Jordan-<C>Z</C>erlegung der <C>C</C>haraktere für
+      die
+  <Wrap Name="Package">GAP</Wrap>-<C>C</C>haraktertafeln der endlichen <C>G</C>ruppen
+                vom <C>L</C>ie-<C>T</C>yp</title>
+  <school><value key="rwthldfm"/></school>
+  <year>2005</year>
+  <type>Diplomarbeit</type>
+  <address><value key="rwth-a"/></address>
+</mastersthesis></entry>
+
+<entry id="Dad66"><article>
+  <author>
+    <name><first>E. C.</first><last>Dade</last></name>
+  </author>
+  <title>Blocks with cyclic defect groups</title>
+  <journal>Ann. of Math. (2)</journal>
+  <year>1966</year>
+  <volume>84</volume>
+  <pages>20&ndash;48</pages>
+  <issn>0003-486X</issn>
+  <mrnumber>0200355</mrnumber>
+  <mrclass>20.80</mrclass>
+  <mrreviewer>C. W. Curtis</mrreviewer>
+  <url>http://dx.doi.org/10.2307/1970529</url>
+  <other type="doi">10.2307/1970529</other>
+  <other type="fjournal">Annals of Mathematics. Second Series</other>
+</article></entry>
+
+<entry id="Dan06"><mastersthesis>
+  <author>
+    <name><first>Sebastian</first><last>Dany</last></name>
+  </author>
+  <title>Berechnung von <C>C</C>haraktertafeln zentraler <C>E</C>rweiterungen
+      ausgewählter <C>G</C>ruppen</title>
+  <school><value key="rwthldfm"/></school>
+  <year>2006</year>
+  <type>Diplomarbeit</type>
+  <address><value key="rwth-a"/></address>
+</mastersthesis></entry>
+
+<entry id="Dem72"><article>
+  <author>
+    <name><first>Ulrich</first><last>Dempwolff</last></name>
+  </author>
+  <title>On extensions of an elementary abelian group of order
+              <C><M>2^{5}</M></C> by <C><M>{\rm GL}(5,\,2)</M></C></title>
+  <journal>Rend. Sem. Mat. Univ. Padova</journal>
+  <year>1972</year>
+  <volume>48</volume>
+  <pages>359&ndash;364 (1973)</pages>
+  <issn>0041-8994</issn>
+  <mrnumber>0393276 (52 \#14086)</mrnumber>
+  <mrclass>20K35</mrclass>
+  <mrreviewer>L. Ribes</mrreviewer>
+  <other type="fjournal">Rendiconti del Seminario Matematico della Università
+    di Padova. The Mathematical Journal of the University of Padova</other>
+</article></entry>
+
+<entry id="DLP25"><misc>
+  <author>
+    <name><first>Heiko</first><last>Dietrich</last></name>
+    <name><first>Melissa</first><last>Lee</last></name>
+    <name><first>Tomasz</first><last>Popiel</last></name>
+  </author>
+  <title>The maximal subgroups of the Monster</title>
+  <year>2025</year>
+  <howpublished><URL Text="Advances in Mathematics 469 (2025), article 110214">https://doi.org/10.1016/j.aim.2025.110214</URL></howpublished>
+</misc></entry>
+
+<entry id="DLPP24"><misc>
+  <author>
+    <name><first>Heiko</first><last>Dietrich</last></name>
+    <name><first>Melissa</first><last>Lee</last></name>
+    <name><first>Anthony</first><last>Pisani</last></name>
+    <name><first>Tomasz</first><last>Popiel</last></name>
+  </author>
+  <title>Explicit construction of the maximal subgroups of the Monster</title>
+  <year>2024</year>
+  <howpublished><URL Text="arXiv:2411.12230">https://arxiv.org/abs/2411.12230</URL></howpublished>
+</misc></entry>
+
+<entry id="DNT"><article>
+  <author>
+    <name><first>Silvio</first><last>Dolfi</last></name>
+    <name><first>Gabriel</first><last>Navarro</last></name>
+    <name><first>Pham Huu</first><last>Tiep</last></name>
+  </author>
+  <title>Finite groups whose same degree characters are <C>G</C>alois
+                      conjugate</title>
+  <journal>Israel J. Math.</journal>
+  <year>2013</year>
+  <volume>198</volume>
+  <number>1</number>
+  <pages>283&ndash;331</pages>
+  <issn>0041-8994</issn>
+  <mrnumber>096641</mrnumber>
+  <mrclass>20C15</mrclass>
+  <mrreviewer>Adriana Nenciu</mrreviewer>
+  <other type="fjournal">Israel Journal of Mathematics</other>
+</article></entry>
+
+<entry id="Feit82"><book>
+  <author>
+    <name><first>Walter</first><last>Feit</last></name>
+  </author>
+  <title>The representation theory of finite groups</title>
+  <publisher>North-Holland Publishing Co.</publisher>
+  <year>1982</year>
+  <volume>25</volume>
+  <series>North-Holland Mathematical Library</series>
+  <note>xiv+502 pp., ISBN 0-444-86155-6</note>
+  <mrnumber>661045 (83g:20001)</mrnumber>
+  <mrclass>20-02 (20C20)</mrclass>
+  <mrreviewer>J. L. Alperin</mrreviewer>
+</book></entry>
+
+<entry id="GK"><article>
+  <author>
+    <name><first>Robert M.</first><last>Guralnick</last></name>
+    <name><first>William M.</first><last>Kantor</last></name>
+  </author>
+  <title>Probabilistic generation of finite simple groups</title>
+  <journal><value key="jalge"/></journal>
+  <year>2000</year>
+  <volume>234</volume>
+  <number>2</number>
+  <pages>743&ndash;792</pages>
+  <note>Special issue in honor of Helmut Wielandt</note>
+  <issn>0021-8693</issn>
+  <mrnumber>1800754 (2002f:20038)</mrnumber>
+  <mrclass>20E32 (20D05 20P05)</mrclass>
+  <mrreviewer>Richard M. Thomas</mrreviewer>
+  <url>http://dx.doi.org/10.1006/jabr.2000.8357</url>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1006/jabr.2000.8357</other>
+  <other type="fjournal">Journal of Algebra</other>
+</article></entry>
+
+<entry id="GR20"><misc>
+  <author>
+    <name><first>Robert M.</first><last>Guralnick</last></name>
+    <name><first>Geoffrey R.</first><last>Robinson</last></name>
+  </author>
+  <title>Commuting involutions and elementary abelian subgroups
+    of simple groups</title>
+  <howpublished><URL Text="arXiv:2012.08693">http://export.arxiv.org/abs/2012.08693</URL></howpublished>
+</misc></entry>
+
+<entry id="Gag86"><article>
+  <author>
+    <name><first>Stephen M.</first><last>Gagola, Jr.</last></name>
+  </author>
+  <title>Formal character tables</title>
+  <journal><value key="micmj"/></journal>
+  <year>1986</year>
+  <volume>33</volume>
+  <number>1</number>
+  <pages>3&ndash;10</pages>
+  <issn>0026-2285</issn>
+  <mrnumber>817904 (86k:20010)</mrnumber>
+  <mrclass>20C99 (20C15)</mrclass>
+  <mrreviewer>Roderick Gow</mrreviewer>
+  <url>http://dx.doi.org/10.1307/mmj/1029003285</url>
+  <other type="doi">10.1307/mmj/1029003285</other>
+  <other type="fjournal">The Michigan Mathematical Journal</other>
+</article></entry>
+
+<entry id="GM01"><article>
+  <author>
+    <name><first>Shahiem</first><last>Ganief</last></name>
+    <name><first>Jamshid</first><last>Moori</last></name>
+  </author>
+  <title>On the spread of the sporadic simple groups</title>
+  <journal><value key="comma2"/></journal>
+  <year>2001</year>
+  <volume>29</volume>
+  <number>8</number>
+  <pages>3239&ndash;3255</pages>
+  <issn>0092-7872</issn>
+  <mrnumber>1849484 (2002i:20025)</mrnumber>
+  <mrclass>20D08 (20P05)</mrclass>
+  <mrreviewer>Ronald Solomon</mrreviewer>
+  <url>http://dx.doi.org/10.1081/AGB-100105019</url>
+  <other type="coden">COALDM</other>
+  <other type="doi">10.1081/AGB-100105019</other>
+  <other type="fjournal">Communications in Algebra</other>
+</article></entry>
+
+<entry id="GMN"><article>
+  <author>
+    <name><first>Thomas</first><last>Breuer</last></name>
+    <name><first>Robert M.</first><last>Guralnick</last></name>
+    <name><first>Andrea</first><last>Lucchini</last></name>
+    <name><first>Attila</first><last>Maróti</last></name>
+    <name><first>Gabor P.</first><last>Nagy</last></name>
+  </author>
+  <title>Hamiltonian cycles in the generating graphs of finite groups</title>
+  <journal><value key="bulllond"/></journal>
+  <year>2010</year>
+  <volume>42</volume>
+  <number>4</number>
+  <pages>621&ndash;633</pages>
+  <issn>0024-6093</issn>
+  <mrnumber>2669683 (2012a:20046)</mrnumber>
+  <mrclass>20D60 (05C25 05C45 20P05)</mrclass>
+  <mrreviewer>Mihalis A. Sykiotis</mrreviewer>
+  <url>http://dx.doi.org/10.1112/blms/bdq017</url>
+  <other type="doi">10.1112/blms/bdq017</other>
+  <other type="fjournal">Bulletin of the London Mathematical Society</other>
+</article></entry>
+
+<entry id="GMS89"><article>
+  <author>
+    <name><first>Robert L.</first><last>Griess Jr.</last></name>
+    <name><first>Ulrich</first><last>Meierfrankenfeld</last></name>
+    <name><first>Yoav</first><last>Segev</last></name>
+  </author>
+  <title>A uniqueness proof for the <C>M</C>onster</title>
+  <journal>Ann. of Math. (2)</journal>
+  <year>1989</year>
+  <volume>130</volume>
+  <number>3</number>
+  <pages>567&ndash;602</pages>
+  <issn>0003-486X</issn>
+  <mrnumber>1025167</mrnumber>
+  <mrclass>20D08</mrclass>
+  <mrreviewer>Gernot Stroth</mrreviewer>
+  <url>https://doi.org/10.2307/1971455</url>
+  <other type="fjournal">Annals of Mathematics. Second Series</other>
+</article></entry>
+
+<entry id="GPPS"><article>
+  <author>
+    <name><first>Robert</first><last>Guralnick</last></name>
+    <name><first>Tim</first><last>Penttila</last></name>
+    <name><first>Cheryl E.</first><last>Praeger</last></name>
+    <name><first>Jan</first><last>Saxl</last></name>
+  </author>
+  <title>Linear groups with orders having certain large prime divisors</title>
+  <journal><value key="prolm1"/></journal>
+  <year>1999</year>
+  <volume>78</volume>
+  <number>1</number>
+  <pages>167&ndash;214</pages>
+  <issn>0024-6115</issn>
+  <mrnumber>1658168 (99m:20113)</mrnumber>
+  <mrclass>20G40 (20C33 20E28 20E34)</mrclass>
+  <mrreviewer>Jean Michel</mrreviewer>
+  <url>http://dx.doi.org/10.1112/S0024611599001616</url>
+  <other type="coden">PLMTAL</other>
+  <other type="doi">10.1112/S0024611599001616</other>
+  <other type="fjournal">Proceedings of the London Mathematical Society. Third
+      Series</other>
+</article></entry>
+
+<entry id="HL89"><book>
+  <author>
+    <name><first>Gerhard</first><last>Hiss</last></name>
+    <name><first>Klaus</first><last>Lux</last></name>
+  </author>
+  <title>Brauer trees of sporadic groups</title>
+  <publisher>The Clarendon Press, Oxford University Press</publisher>
+  <year>1989</year>
+  <series>Oxford Science Publications</series>
+  <address>New York</address>
+  <isbn>0-19-853381-0</isbn>
+  <mrnumber>1033265 (91k:20018)</mrnumber>
+  <mrclass>20C20 (20-02 20D08)</mrclass>
+  <mrreviewer>Harvey Blau</mrreviewer>
+  <other type="pages">x+526</other>
+</book></entry>
+
+<entry id="HL94"><article>
+  <author>
+    <name><first>Gerhard</first><last>Hiss</last></name>
+    <name><first>Klaus</first><last>Lux</last></name>
+  </author>
+  <title>The <C><M>5</M></C>-modular characters of the sporadic simple
+      <C>F</C>ischer
+  groups <C><M>{\rm Fi}_{{22}}</M></C> and <C><M>{\rm
+      Fi}_{{23}}</M></C></title>
+  <journal><value key="comma2"/></journal>
+  <year>1994</year>
+  <volume>22</volume>
+  <number>9</number>
+  <pages>3563&ndash;3590</pages>
+  <note>With an appendix by Thomas Breuer</note>
+  <issn>0092-7872</issn>
+  <mrnumber>1278806 (95e:20020)</mrnumber>
+  <mrclass>20C34 (20C40)</mrclass>
+  <mrreviewer>A. S. Kondratʹev</mrreviewer>
+  <url>http://dx.doi.org/10.1080/00927879408825042</url>
+  <other type="coden">COALDM</other>
+  <other type="doi">10.1080/00927879408825042</other>
+  <other type="fjournal">Communications in Algebra</other>
+</article></entry>
+
+<entry id="Hoe01"><mastersthesis>
+  <author>
+    <name><first>Ines</first><last>Höhler</last></name>
+  </author>
+  <title>Vielfachheitsfreie <C>P</C>ermutationsdarstellungen
+  und die <C>I</C>nvarianten zugehöriger <C>G</C>raphen</title>
+  <school><value key="rwthldfm"/></school>
+  <year>2001</year>
+  <type>Examensarbeit</type>
+  <address><value key="rwth-a"/></address>
+</mastersthesis></entry>
+
+<entry id="cohomolo"><misc>
+  <author>
+    <name><first>Derek</first><last>Holt</last></name>
+  </author>
+  <title><Wrap Name="Package">cohomolo</Wrap>,
+    computing cohomology groups and <C>S</C>chur multipliers,
+    <C>V</C>ersion 1.6</title>
+  <howpublished><URL>http://www.maths.warwick.ac.uk/~dfh/cohomolo</URL></howpublished>
+  <year>2008</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="HW04"><article>
+  <author>
+    <name><first>Petra E.</first><last>Holmes</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title><C><M>{\rm PSL}_2(59)</M></C> is a subgroup of the <C>M</C>onster</title>
+  <journal><value key="jlonm1"/></journal>
+  <year>2004</year>
+  <volume>69</volume>
+  <number>1</number>
+  <pages>141&ndash;152</pages>
+  <issn>0024-6107</issn>
+  <mrnumber>2025332 (2004k:20035)</mrnumber>
+  <mrclass>20D08 (20D06)</mrclass>
+  <mrreviewer>Stephen D. Smith</mrreviewer>
+  <other type="coden">JLMSAK</other>
+  <other type="doi">10.1112/S0024610703004915</other>
+  <other type="url">http://dx.doi.org/10.1112/S0024610703004915</other>
+</article></entry>
+
+<entry id="HW08"><article>
+  <author>
+    <name><first>Petra E.</first><last>Holmes</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>On subgroups of the <C>M</C>onster containing <C><M>A_5</M></C>'s</title>
+  <journal><value key="jalge"/></journal>
+  <year>2008</year>
+  <volume>319</volume>
+  <number>7</number>
+  <pages>2653&ndash;2667</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>2397402 (2009a:20028)</mrnumber>
+  <mrclass>20D08 (20E28)</mrclass>
+  <mrreviewer>Stephen D. Smith</mrreviewer>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1016/j.jalgebra.2003.11.014</other>
+  <other type="url">http://dx.doi.org/10.1016/j.jalgebra.2003.11.014</other>
+</article></entry>
+
+<entry id="Jan76"><article>
+  <author>
+    <name><first>Zvonimir</first><last>Janko</last></name>
+  </author>
+  <title>A new finite simple group of order
+      <C><M>86,775,571,046,077,562,880</M></C> which possesses
+      <C><M>M_{24}</M></C> and the full covering group of <C><M>M_{22}</M></C>
+      as subgroups</title>
+  <journal>J. Algebra</journal>
+  <year>1976</year>
+  <volume>42</volume>
+  <number>2</number>
+  <pages>564&ndash;596</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>0432751 (55 #5734)</mrnumber>
+  <mrclass>20D05</mrclass>
+  <mrreviewer>Peter Landrock</mrreviewer>
+  <other type="fjournal">Journal of Algebra</other>
+  <other type="sporsimp">J4</other>
+  <other type="zblnumber">0344.20010</other>
+</article></entry>
+
+<entry id="Kle87"><article>
+  <author>
+    <name><first>Peter B.</first><last>Kleidman</last></name>
+  </author>
+  <title>The maximal subgroups of the finite <C><M>8</M></C>-dimensional
+              orthogonal groups <C><M>P\Omega^+_8(q)</M></C> and of their
+              automorphism groups</title>
+  <journal><value key="jalge"/></journal>
+  <year>1987</year>
+  <volume>110</volume>
+  <number>1</number>
+  <pages>173&ndash;242</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>904187 (88i:20070)</mrnumber>
+  <mrclass>20G40 (20D05)</mrclass>
+  <mrreviewer>Gernot Stroth</mrreviewer>
+  <url>http://dx.doi.org/10.1016/0021-8693(87)90042-1</url>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1016/0021-8693(87)90042-1</other>
+  <other type="fjournal">Journal of Algebra</other>
+</article></entry>
+
+<entry id="KlL90"><book>
+  <author>
+    <name><first>Peter</first><last>Kleidman</last></name>
+    <name><first>Martin</first><last>Liebeck</last></name>
+  </author>
+  <title>The subgroup structure of the finite classical groups</title>
+  <publisher>Cambridge University Press</publisher>
+  <year>1990</year>
+  <volume>129</volume>
+  <series>London Mathematical Society Lecture Note Series</series>
+  <address>Cambridge</address>
+  <isbn>0-521-35949-X</isbn>
+  <mrnumber>1057341 (91g:20001)</mrnumber>
+  <mrclass>20-02 (20D06 20G40)</mrclass>
+  <mrreviewer>R. W. Carter</mrreviewer>
+  <url>http://dx.doi.org/10.1017/CBO9780511629235</url>
+  <other type="doi">10.1017/CBO9780511629235</other>
+  <other type="pages">x+303</other>
+</book></entry>
+
+<entry id="KW88"><article>
+  <author>
+    <name><first>Peter B.</first><last>Kleidman</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The maximal subgroups of <C><M>J_4</M></C></title>
+  <journal><value key="prolm2"/></journal>
+  <year>1988</year>
+  <volume>56</volume>
+  <number>3</number>
+  <pages>484&ndash;510</pages>
+  <issn>0024-6115</issn>
+  <mrnumber>931511 (89b:20044)</mrnumber>
+  <mrclass>20D08 (20E28)</mrclass>
+  <mrreviewer>Gernot Stroth</mrreviewer>
+  <url>http://dx.doi.org/10.1112/plms/s3-56.3.484</url>
+  <other type="coden">PLMTAL</other>
+  <other type="doi">10.1112/plms/s3-56.3.484</other>
+  <other type="fjournal">Proceedings of the London Mathematical Society. Third
+      Series</other>
+</article></entry>
+
+<entry id="LSS92"><article>
+  <author>
+    <name><first>Martin W.</first><last>Liebeck</last></name>
+    <name><first>Jan</first><last>Saxl</last></name>
+    <name><first>Gary M.</first><last>Seitz</last></name>
+  </author>
+  <title>Subgroups of maximal rank in finite exceptional groups of
+              <C>L</C>ie type</title>
+  <journal>Proc. London Math. Soc. (3)</journal>
+  <year>1992</year>
+  <volume>65</volume>
+  <number>2</number>
+  <pages>297&ndash;325</pages>
+  <issn>0024-6115</issn>
+  <mrnumber>1168190</mrnumber>
+  <mrclass>20D06 (20E28 20G40)</mrclass>
+  <mrreviewer>Ulrich Dempwolff</mrreviewer>
+  <url>https://doi.org/10.1112/plms/s3-65.2.297</url>
+  <other type="fjournal">Proceedings of the London Mathematical Society.
+      Third Series</other>
+</article></entry>
+
+<entry id="LOST2010"><article>
+  <author>
+    <name><first>Martin W.</first><last>Liebeck</last></name>
+    <name><first>Eamonn A.</first><last>O'Brien</last></name>
+    <name><first>Aner</first><last>Shalev</last></name>
+    <name><first>Pham Huu</first><last>Tiep</last></name>
+  </author>
+  <title>The <C>O</C>re conjecture</title>
+  <journal>J. Eur. Math. Soc. (JEMS)</journal>
+  <year>2010</year>
+  <volume>12</volume>
+  <number>4</number>
+  <pages>939&ndash;1008</pages>
+  <issn>1435-9855</issn>
+  <mrnumber>2654085 (2011e:20016)</mrnumber>
+  <mrclass>20D05 (20C15 20D06)</mrclass>
+  <mrreviewer>Ronald Solomon</mrreviewer>
+  <url>http://dx.doi.org/10.4171/JEMS/220</url>
+  <other type="doi">10.4171/JEMS/220</other>
+  <other type="fjournal">Journal of the European Mathematical Society (JEMS)</other>
+</article></entry>
+
+<entry id="LM03"><misc>
+  <author>
+    <name><first>Stephen A.</first><last>Linton</last></name>
+    <name><first>S. A.</first><last>Mpono</last></name>
+  </author>
+  <title>Multiplicity-free permutation characters of covering groups
+                 of sporadic simple groups</title>
+  <howpublished>preprint</howpublished>
+</misc></entry>
+
+<entry id="GAPDoc"><misc>
+  <author>
+    <name><first>Frank</first><last>Lübeck</last></name>
+    <name><first>Max</first><last>Neunhöffer</last></name>
+  </author>
+  <title><Wrap Name="Package">GAPDoc</Wrap>,
+         A <C>M</C>eta <C>P</C>ackage for <Wrap Name="Package">GAP</Wrap>
+         <C>D</C>ocumentation,
+         <C>V</C>ersion 1.6.2</title>
+  <howpublished><URL>https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc</URL></howpublished>
+  <month>Oct</month>
+  <year>2018</year>
+  <note><Wrap Name="Package">GAP</Wrap> package</note>
+</misc></entry>
+
+<entry id="LP10"><book>
+  <author>
+    <name><first>Klaus</first><last>Lux</last></name>
+    <name><first>Herbert</first><last>Pahlings</last></name>
+  </author>
+  <title>Representations of groups</title>
+  <publisher>Cambridge University Press</publisher>
+  <year>2010</year>
+  <volume>124</volume>
+  <series>Cambridge Studies in Advanced Mathematics</series>
+  <address>Cambridge</address>
+  <note>A computational approach</note>
+  <isbn>978-0-521-76807-8</isbn>
+  <mrnumber>2680716 (2011j:20016)</mrnumber>
+  <mrclass>20C15 (20C20)</mrclass>
+  <mrreviewer>Shigeo Koshitani</mrreviewer>
+  <other type="pages">x+460</other>
+</book></entry>
+
+<entry id="LW91"><article>
+  <author>
+    <name><first>Stephen A.</first><last>Linton</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The maximal subgroups of the <C>F</C>ischer groups <C><M>{\rm
+      Fi}_{{24}}</M></C> and <C><M>{\rm Fi}'_{{24}}</M></C></title>
+  <journal><value key="prolm2"/></journal>
+  <year>1991</year>
+  <volume>63</volume>
+  <number>1</number>
+  <pages>113&ndash;164</pages>
+  <issn>0024-6115</issn>
+  <mrnumber>1105720 (92h:20031)</mrnumber>
+  <mrclass>20D08 (20E28)</mrclass>
+  <mrreviewer>Gerard M. Enright</mrreviewer>
+  <url>http://dx.doi.org/10.1112/plms/s3-63.1.113</url>
+  <other type="coden">PLMTAL</other>
+  <other type="doi">10.1112/plms/s3-63.1.113</other>
+  <other type="fjournal">Proceedings of the London Mathematical Society. Third
+      Series</other>
+</article></entry>
+
+<entry id="MSW94"><article>
+  <author>
+    <name><first>Gunter</first><last>Malle</last></name>
+    <name><first>Jan</first><last>Saxl</last></name>
+    <name><first>Thomas</first><last>Weigel</last></name>
+  </author>
+  <title>Generation of classical groups</title>
+  <journal><value key="geomd2"/></journal>
+  <year>1994</year>
+  <volume>49</volume>
+  <number>1</number>
+  <pages>85&ndash;116</pages>
+  <issn>0046-5755</issn>
+  <mrnumber>1261575 (95c:20068)</mrnumber>
+  <mrclass>20G40 (20D05 20F05)</mrclass>
+  <mrreviewer>A. A. Makhnev</mrreviewer>
+  <url>http://dx.doi.org/10.1007/BF01263536</url>
+  <other type="coden">GEMDAT</other>
+  <other type="doi">10.1007/BF01263536</other>
+  <other type="fjournal">Geometriae Dedicata</other>
+</article></entry>
+
+<entry id="Mue03"><phdthesis>
+  <author>
+    <name><first>Jürgen</first><last>Müller</last></name>
+  </author>
+  <title>On Endomorphism Rings and Character Tables</title>
+  <school><value key="rwthldfm"/></school>
+  <year>2003</year>
+  <type>Habilitationsschrift</type>
+  <address><value key="rwth-a"/></address>
+</phdthesis></entry>
+
+<entry id="Mue08"><article>
+  <author>
+    <name><first>Jürgen</first><last>Müller</last></name>
+  </author>
+  <title>On the multiplicity-free actions of the sporadic simple
+              groups</title>
+  <journal><value key="jalge"/></journal>
+  <year>2008</year>
+  <volume>320</volume>
+  <number>2</number>
+  <pages>910&ndash;926</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>2422321 (2009d:20028)</mrnumber>
+  <mrclass>20D08 (05C25 20C34)</mrclass>
+  <mrreviewer>A. S. Kondratʹev</mrreviewer>
+  <url>http://dx.doi.org/10.1016/j.jalgebra.2008.01.040</url>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1016/j.jalgebra.2008.01.040</other>
+  <other type="fjournal">Journal of Algebra</other>
+</article></entry>
+
+<entry id="Pis25"><misc>
+  <author>
+    <name><first>Anthony</first><last>Pisani</last></name>
+  </author>
+  <title>Computing the Character Table of a 2-local Maximal Subgroup of the Monster</title>
+  <year>2025</year>
+  <howpublished><URL Text="arXiv:2503.15857">https://arxiv.org/abs/2503.15857</URL></howpublished>
+</misc></entry>
+
+<entry id="TomLib"><misc>
+  <author>
+    <name><first>Thomas</first><last>Merkwitz</last></name>
+    <name><first>Liam</first><last>Naughton</last></name>
+    <name><first>Götz</first><last>Pfeiffer</last></name>
+  </author>
+  <title><C>TomLib</C>, The GAP Library of Tables of Marks,
+         <C>V</C>ersion 1.2.9</title>
+  <howpublished><URL>https://gap-packages.github.io/tomlib</URL></howpublished>
+  <month>Oct</month>
+  <year>2019</year>
+  <note>GAP package</note>
+  <keywords>table of marks; Burnside matrix; subgroup lattice; finite simple groups; Moebius function; Euler function</keywords>
+</misc></entry>
+
+<entry id="AtlasImpII"><misc>
+  <author>
+    <name><first>Simon P.</first><last>Norton</last></name>
+  </author>
+  <title><C>Improvements to the ATLAS&ndash;II</C></title>
+  <howpublished><URL>http://brauer.maths.qmul.ac.uk/Atlas/info/fullatlasmods.html</URL></howpublished>
+</misc></entry>
+
+<entry id="ABCImp"><misc>
+  <title><C>Improvements to the ATLAS of Brauer Characters</C></title>
+  <organization>The MOC Group</organization>
+  <howpublished><URL>https://www.math.rwth-aachen.de/homes/MOC/ABCerr.html</URL></howpublished>
+  <key>ABC Improvements</key>
+</misc></entry>
+
+<entry id="Nav98"><book>
+  <author>
+    <name><first>Gabriel</first><last>Navarro</last></name>
+  </author>
+  <title>Characters and blocks of finite groups</title>
+  <publisher>Cambridge University Press</publisher>
+  <year>1998</year>
+  <volume>250</volume>
+  <series>London Mathematical Society Lecture Note Series</series>
+  <address>Cambridge</address>
+  <isbn>0-521-59513-4</isbn>
+  <mrnumber>1632299 (2000a:20018)</mrnumber>
+  <mrclass>20C20 (20-02 20C15)</mrclass>
+  <mrreviewer>Wolfgang Willems</mrreviewer>
+  <url>http://dx.doi.org/10.1017/CBO9780511526015</url>
+  <other type="doi">10.1017/CBO9780511526015</other>
+  <other type="pages">x+287</other>
+</book></entry>
+
+<entry id="NR14"><article>
+  <author>
+    <name><first>Gabriel</first><last>Navarro</last></name>
+    <name><first>Noelia</first><last>Rizo</last></name>
+  </author>
+  <title>Nilpotent and perfect groups with the same set of character
+              degrees</title>
+  <journal>J. Algebra Appl.</journal>
+  <year>2014</year>
+  <volume>13</volume>
+  <number>8</number>
+  <pages>1450061, 3</pages>
+  <issn>0219-4988</issn>
+  <mrnumber>3225128</mrnumber>
+  <mrclass>20C15 (20D15)</mrclass>
+  <mrreviewer>Thomas Philip Wakefield</mrreviewer>
+  <url>http://dx.doi.org/10.1142/S0219498814500613</url>
+  <other type="doi">10.1142/S0219498814500613</other>
+  <other type="fjournal">Journal of Algebra and its Applications</other>
+</article></entry>
+
+<entry id="NW02"><article>
+  <author>
+    <name><first>Simon P.</first><last>Norton</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>Anatomy of the <C>M</C>onster. <C>II</C></title>
+  <journal><value key="prolm2"/></journal>
+  <year>2002</year>
+  <volume>84</volume>
+  <number>3</number>
+  <pages>581&ndash;598</pages>
+  <issn>0024-6115</issn>
+  <mrnumber>1888424 (2003b:20023)</mrnumber>
+  <mrclass>20D08 (20E28)</mrclass>
+  <mrreviewer>Mohammad-Reza Darafsheh</mrreviewer>
+  <url>http://dx.doi.org/10.1112/S0024611502013357</url>
+  <other type="coden">PLMTAL</other>
+  <other type="doi">10.1112/S0024611502013357</other>
+  <other type="fjournal">Proceedings of the London Mathematical Society. Third
+      Series</other>
+</article></entry>
+
+<entry id="NW12"><article>
+  <author>
+    <name><first>Simon P.</first><last>Norton</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>A correction to the <M>41</M>-structure of the <C>M</C>onster,
+         a construction of a new maximal subgroup <C>L<M>_2(41)</M></C>
+         and a new <C>M</C>oonshine phenomenon</title>
+  <journal>J. Lond. Math. Soc. (2)</journal>
+  <year>2013</year>
+  <volume>87</volume>
+  <number>3</number>
+  <pages>943&ndash;962</pages>
+  <issn>0024-6107</issn>
+  <mrnumber>3073684</mrnumber>
+  <mrclass>20D08 (20E28)</mrclass>
+  <mrreviewer>Robert M. Guralnick</mrreviewer>
+  <url>https://doi.org/10.1112/jlms/jds078</url>
+  <other type="doi">10.1112/jlms/jds078</other>
+</article></entry>
+
+<entry id="Pah07"><article>
+  <author>
+    <name><first>Herbert</first><last>Pahlings</last></name>
+  </author>
+  <title>The character table of <C><M>2^{1+22}_+.{\rm Co}_2</M></C></title>
+  <journal><value key="jalge"/></journal>
+  <year>2007</year>
+  <volume>315</volume>
+  <number>1</number>
+  <pages>301&ndash;325</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>2344348 (2008g:20023)</mrnumber>
+  <mrclass>20C34</mrclass>
+  <mrreviewer>Shigeo Koshitani</mrreviewer>
+  <other type="coden">JALGA4</other>
+  <other type="fjournal">Journal of Algebra</other>
+</article></entry>
+
+<entry id="Par77"><article>
+  <author>
+    <name><first>David</first><last>Parrott</last></name>
+  </author>
+  <title>On <C>T</C>hompson's simple group</title>
+  <journal>J. Algebra</journal>
+  <year>1977</year>
+  <volume>46</volume>
+  <number>2</number>
+  <pages>389&ndash;404</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>0447396 (56 #5708)</mrnumber>
+  <mrclass>20D05</mrclass>
+  <mrreviewer>David R. Mason</mrreviewer>
+  <other type="fjournal">Journal of Algebra</other>
+  <other type="sporsimp">Th</other>
+</article></entry>
+
+<entry id="PP24"><misc>
+  <author>
+    <name><first>Anthony</first><last>Pisani</last></name>
+    <name><first>Tomasz</first><last>Popiel</last></name>
+  </author>
+  <title>Conjugacy class fusion from four maximal subgroups of the <C>M</C>onste</title>
+  <year>2024</year>
+  <howpublished><URL Text="arXiv:2404.05194">https://arxiv.org/abs/2404.05194</URL></howpublished>
+</misc></entry>
+
+<entry id="Smi76c"><article>
+  <author>
+    <name><first>P. E.</first><last>Smith</last></name>
+  </author>
+  <title>A simple subgroup of <C><M>M?</M></C> and
+      <C><M>E_8(3)</M></C></title>
+  <journal>Bull. London Math. Soc.</journal>
+  <year>1976</year>
+  <volume>8</volume>
+  <number>2</number>
+  <pages>161&ndash;165</pages>
+  <issn>0024-6093</issn>
+  <mrnumber>0409630 (53 #13382)</mrnumber>
+  <mrclass>20D05</mrclass>
+  <mrreviewer>David C. Hunt</mrreviewer>
+  <other type="fjournal">The Bulletin of the London Mathematical
+      Society</other>
+  <other type="sporsimp">Th</other>
+</article></entry>
+
+<entry id="Str76b"><article>
+  <author>
+    <name><first>Gernot</first><last>Stroth</last></name>
+  </author>
+  <title>A characterization of <C>F</C>ischer's sporadic simple group of the
+      order <C><M>2^{41} \cdot 3^{13} \cdot 5^6 \cdot 7^2 \cdot 11 \cdot 13 \cdot 17 \cdot 19 \cdot 23 \cdot 31 \cdot 47</M></C></title>
+  <journal>J. Algebra</journal>
+  <year>1976</year>
+  <volume>40</volume>
+  <number>2</number>
+  <pages>499&ndash;531</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>0417277 (54 #5334)</mrnumber>
+  <mrclass>20D05</mrclass>
+  <mrreviewer>David C. Hunt</mrreviewer>
+  <other type="fjournal">Journal of Algebra</other>
+  <other type="sporsimp">B</other>
+</article></entry>
+
+<entry id="SW99"><article>
+  <author>
+    <name><first>Ibrahim A. I.</first><last>Suleiman</last></name>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>Construction of exceptional covers of generic groups</title>
+  <journal>Math. Proc. Cambridge Philos. Soc.</journal>
+  <year>1999</year>
+  <volume>125</volume>
+  <number>1</number>
+  <pages>31&ndash;38</pages>
+  <issn>0305-0041</issn>
+  <mrnumber>1645505</mrnumber>
+  <mrclass>20D08 (20C34)</mrclass>
+  <url>https://doi.org/10.1017/S0305004198002722</url>
+  <other type="fjournal">Mathematical Proceedings of the Cambridge Philosophical
+              Society</other>
+</article></entry>
+
+<entry id="Vdo00"><article>
+  <author>
+    <name><first>E. P.</first><last>Vdovin</last></name>
+  </author>
+  <title>Large nilpotent subgroups of finite simple groups</title>
+  <journal>Algebra Log.</journal>
+  <year>2000</year>
+  <volume>39</volume>
+  <number>5</number>
+  <pages>526&ndash;546, 630</pages>
+  <issn>0373-9252</issn>
+  <mrnumber>1805754</mrnumber>
+  <mrclass>20D06 (20D08 20D15)</mrclass>
+  <mrreviewer>A. S. Kondratʹev</mrreviewer>
+  <url>http://dx.doi.org/10.1007/BF02681614</url>
+  <other type="doi">10.1007/BF02681614</other>
+  <other type="fjournal">Algebra i Logika. Institut Diskretnoĭ   Matematiki
+      i Informatiki</other>
+</article></entry>
+
+<entry id="Wilson87"><article>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>Some subgroups of the <C>B</C>aby <C>M</C>onster</title>
+  <journal><value key="invem"/></journal>
+  <year>1987</year>
+  <volume>89</volume>
+  <number>1</number>
+  <pages>197&ndash;218</pages>
+  <issn>0020-9910</issn>
+  <mrnumber>892191 (88d:20030)</mrnumber>
+  <mrclass>20D08 (20E28)</mrclass>
+  <mrreviewer>Bernd Baumann</mrreviewer>
+  <other type="coden">INVMBH</other>
+  <other type="doi">10.1007/BF01404677</other>
+  <other type="fjournal">Inventiones Mathematicae</other>
+  <other type="url">http://dx.doi.org/10.1007/BF01404677</other>
+</article></entry>
+
+<entry id="Wilson88"><article>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The odd-local subgroups of the <C>M</C>onster</title>
+  <journal><value key="jausma"/></journal>
+  <year>1988</year>
+  <volume>44</volume>
+  <number>1</number>
+  <pages>1&ndash;16</pages>
+  <issn>0263-6115</issn>
+  <mrnumber>914399 (88k:20038)</mrnumber>
+  <mrclass>20D08</mrclass>
+  <mrreviewer>Gernot Stroth</mrreviewer>
+  <other type="coden">JAMADS</other>
+  <other type="fjournal">Australian Mathematical Society. Journal. Series A.
+              Pure Mathematics and Statistics</other>
+</article></entry>
+
+<entry id="Wilson93"><article>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>Some new subgroups of the <C>B</C>aby <C>M</C>onster</title>
+  <journal><value key="bulllond"/></journal>
+  <year>1993</year>
+  <volume>25</volume>
+  <number>1</number>
+  <pages>23&ndash;28</pages>
+  <issn>0024-6093</issn>
+  <mrnumber>1190359 (93j:20041)</mrnumber>
+  <mrclass>20D08</mrclass>
+  <mrreviewer>È. M. Palʹchik</mrreviewer>
+  <url>http://dx.doi.org/10.1112/blms/25.1.23</url>
+  <other type="coden">LMSBBT</other>
+  <other type="doi">10.1112/blms/25.1.23</other>
+  <other type="fjournal">The Bulletin of the London Mathematical
+      Society</other>
+</article></entry>
+
+<entry id="Wil93a"><article>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>More on maximal subgroups of the <C>B</C>aby <C>M</C>onster</title>
+  <journal><value key="arcmb1"/></journal>
+  <year>1993</year>
+  <volume>61</volume>
+  <number>6</number>
+  <pages>497&ndash;507</pages>
+  <issn>0003-889X</issn>
+  <mrnumber>1254061 (95i:20021)</mrnumber>
+  <mrclass>20D08</mrclass>
+  <mrreviewer>David C. Hunt</mrreviewer>
+  <other type="coden">ACVMAL</other>
+  <other type="fjournal">Archiv der Mathematik</other>
+</article></entry>
+
+<entry id="Wil98"><article>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The <C>M</C>c<C>K</C>ay conjecture is true for the sporadic simple
+              groups</title>
+  <journal><value key="jalge"/></journal>
+  <year>1998</year>
+  <volume>207</volume>
+  <number>1</number>
+  <pages>294&ndash;305</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>1643110 (99h:20016)</mrnumber>
+  <mrclass>20C34 (20D08 20D20)</mrclass>
+  <mrreviewer>Jian Bei An</mrreviewer>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1006/jabr.1998.7450</other>
+  <other type="fjournal">Journal of Algebra</other>
+  <other type="url">http://dx.doi.org/10.1006/jabr.1998.7450</other>
+</article></entry>
+
+<entry id="Wil99"><article>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The maximal subgroups of the <C>B</C>aby <C>M</C>onster.
+      <C>I</C></title>
+  <journal><value key="jalge"/></journal>
+  <year>1999</year>
+  <volume>211</volume>
+  <number>1</number>
+  <pages>1&ndash;14</pages>
+  <issn>0021-8693</issn>
+  <mrnumber>1656568 (2000b:20016)</mrnumber>
+  <mrclass>20D08 (20E28)</mrclass>
+  <mrreviewer>Andrew Woldar</mrreviewer>
+  <url>http://dx.doi.org/10.1006/jabr.1998.7601</url>
+  <other type="coden">JALGA4</other>
+  <other type="doi">10.1006/jabr.1998.7601</other>
+  <other type="fjournal">Journal of Algebra</other>
+</article></entry>
+
+<entry id="Wil09"><book>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The finite simple groups</title>
+  <publisher>Springer-Verlag London, Ltd.</publisher>
+  <year>2009</year>
+  <volume>251</volume>
+  <series>Graduate Texts in Mathematics</series>
+  <address>London</address>
+  <isbn>978-1-84800-987-5</isbn>
+  <mrnumber>2562037</mrnumber>
+  <mrclass>20D05</mrclass>
+  <mrreviewer>Gernot Stroth</mrreviewer>
+  <url>http://dx.doi.org/10.1007/978-1-84800-988-2</url>
+  <other type="doi">10.1007/978-1-84800-988-2</other>
+  <other type="pages">xvi+298</other>
+</book></entry>
+
+<entry id="Wil10"><incollection>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>New computations in the <C>M</C>onster</title>
+  <booktitle>Moonshine: the first quarter century and beyond</booktitle>
+  <publisher>Cambridge Univ. Press</publisher>
+  <year>2010</year>
+  <volume>372</volume>
+  <series>London Math. Soc. Lecture Note Ser.</series>
+  <pages>393&ndash;403</pages>
+  <address>Cambridge</address>
+  <crossref>Moonshine2010</crossref>
+  <mrnumber>2681789 (2011i:20020)</mrnumber>
+  <mrclass>20D08 (20-02)</mrclass>
+  <mrreviewer>A. S. Kondratʹev</mrreviewer>
+</incollection></entry>
+
+<entry id="Wil17"><article>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title>The uniqueness of <C><M>{\rm PSU}_3(8)</M></C> in the
+      <C>M</C>onster</title>
+  <journal>Bull. Lond. Math. Soc.</journal>
+  <year>2017</year>
+  <volume>49</volume>
+  <number>5</number>
+  <pages>877--880</pages>
+  <issn>0024-6093,1469-2120</issn>
+  <mrnumber>3742453</mrnumber>
+  <mrclass>20D08</mrclass>
+  <mrreviewer>Andrea\ Previtali</mrreviewer>
+  <url>https://doi.org/10.1112/blms.12075</url>
+  <other type="doi">10.1112/blms.12075</other>
+  <other type="fjournal">Bulletin of the London Mathematical Society</other>
+</article></entry>
+
+<entry id="Mmaxes"><misc>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+  </author>
+  <title><C>ATLAS</C>: <C>M</C>onster group <M>{M}</M></title>
+  <howpublished><URL>http://brauer.maths.qmul.ac.uk/Atlas/spor/M</URL></howpublished>
+</misc></entry>
+
+<entry id="Moonshine2010"><proceedings>
+  <editor>
+    <name><first>James</first><last>Lepowsky</last></name>
+    <name><first>John</first><last>McKay</last></name>
+    <name><first>Michael P.</first><last>Tuite</last></name>
+  </editor>
+  <title>Moonshine: the first quarter century and beyond</title>
+  <year>2010</year>
+  <volume>372</volume>
+  <series>London Mathematical Society Lecture Note Series</series>
+  <address>Cambridge</address>
+  <publisher>Cambridge University Press</publisher>
+  <isbn>978-0-521-10664-1</isbn>
+  <mrnumber>2724692 (2011e:17001)</mrnumber>
+  <mrclass>17-06 (20-06)</mrclass>
+  <other type="booktitle">Proceedings of the Workshop on the Moonshine
+     Conjectures
+              and Vertex Algebras held at Heriot-Watt University,
+              Edinburgh, July 5&ndash;13, 2004</other>
+  <other type="pages">xii+403</other>
+</proceedings></entry>
+
+<entry id="Atlas2017"><proceedings>
+  <editor>
+    <name><first>Manjul</first><last>Bhargava</last></name>
+    <name><first>Robert</first><last>Guralnick</last></name>
+    <name><first>Gerhard</first><last>Hiss</last></name>
+    <name><first>Klaus</first><last>Lux</last></name>
+    <name><first>Pham Huu</first><last>Tiep</last></name>
+  </editor>
+  <title>Finite simple groups: thirty years of the <C>A</C>tlas and beyond</title>
+  <year>2017</year>
+  <volume>694</volume>
+  <series>Contemporary Mathematics</series>
+  <address>Providence, RI</address>
+  <publisher>American Mathematical Society</publisher>
+  <isbn>978-1-4704-3678-0; 978-1-4704-4168-5</isbn>
+  <mrnumber>3682583</mrnumber>
+  <mrclass>20-06</mrclass>
+  <other type="booktitle">Proceedings of the international conference
+      celebrating the <C>A</C>tlases and honoring <C>J</C>ohn <C>C</C>onway,
+      held at <C>P</C>rinceton <C>U</C>niversity, <C>P</C>rinceton, <C>NJ</C>,
+      <C>N</C>ovember 2&ndash;5, 2015</other>
+  <other type="pages">ix+229</other>
+</proceedings></entry>
+
+<entry id="AGRv3"><misc>
+  <author>
+    <name><first>Robert A.</first><last>Wilson</last></name>
+    <name><first>Peter</first><last>Walsh</last></name>
+    <name><first>Jonathan</first><last>Tripp</last></name>
+    <name><first>Ibrahim</first><last>Suleiman</last></name>
+    <name><first>Richard A.</first><last>Parker</last></name>
+    <name><first>Simon P.</first><last>Norton</last></name>
+    <name><first>Simon</first><last>Nickerson</last></name>
+    <name><first>Steve</first><last>Linton</last></name>
+    <name><first>John</first><last>Bray</last></name>
+    <name><first>Rachel</first><last>Abbott</last></name>
+  </author>
+  <title><C>ATLAS of Finite Group Representations</C></title>
+  <howpublished><URL>http://brauer.maths.qmul.ac.uk/Atlas/v3</URL></howpublished>
+  <key>ATLAS</key>
+</misc></entry>
+
+</file>
+

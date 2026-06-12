@@ -1,0 +1,440 @@
+<html><head><title>[CRISP] 5 Fitting classes and Fitting sets</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP004.htm">Previous</a>] [<a href ="CHAP006.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<h1>5 Fitting classes and Fitting sets</h1><p>
+<P>
+<H3>Sections</H3>
+<oL>
+<li> <A HREF="CHAP005.htm#SECT001">Creating Fitting classes</a>
+<li> <A HREF="CHAP005.htm#SECT002">Creating Fitting formations</a>
+<li> <A HREF="CHAP005.htm#SECT003">Creating Fitting sets</a>
+<li> <A HREF="CHAP005.htm#SECT004">Attributes and operations for Fitting classes and Fitting sets</a>
+<li> <A HREF="CHAP005.htm#SECT005">Low level functions for normal subgroups related to radicals</a>
+</ol><p>
+<p>
+In this chapter, you will find information on how to create 
+Fitting classes and Fitting sets (see <a href="CHAP005.htm#SECT001">Creating Fitting classes</a> and
+<a href="CHAP005.htm#SECT003">Creating Fitting sets</a> below), and how to compute injectors and radicals
+with respect to these;  see <a href="CHAP005.htm#SECT004">Attributes and operations for Fitting classes and Fitting sets</a>.
+<p>
+<p>
+<h2><a name="SECT001">5.1 Creating Fitting classes</a></h2>
+<p><p>
+<a name = "I0"></a>
+
+Recall that a Fitting class is a nonempty group class which is closed with respect
+to normal subgroups and joins of subnormal subgroups.
+<p>
+<a name = "SSEC001.1"></a>
+<li><code>FittingClass(</code><var>rec</var><code>) O</code>
+<p>
+returns the Fitting class <var>fitclass</var> defined by the entries of the record
+<var>rec</var>. Note that it is the user's responsibility to ensure that <var>rec</var> really
+defines a Fitting class.
+<var>rec</var> may have components <code>\in</code>, <code>inj</code>, <code>rad</code>, <code>char</code>, and <code>name</code>. The
+functions assigned to the components are stored in the attributes
+<code>MemberFunction</code>, <code>InjectorFunction</code>,
+<code>RadicalFunction</code>, <code>Characteristic</code>, and <code>Name</code>, of <var>fitclass</var>. Please refer
+to <a href="CHAP002.htm#SSEC002.2">MemberFunction</a>,  <a href="CHAP005.htm#SSEC004.4">InjectorFunction</a>, <a href="CHAP005.htm#SSEC004.3">RadicalFunction</a>,
+<a href="CHAP003.htm#SSEC004.1">Characteristic</a>, and <a href="../../../doc/ref/chap12.html#X7F14EF9D81432113">Name</a> for the meaning of these attributes.
+<p>
+ The third example below shows how to construct
+the Fitting class <var>L<sub>2</sub>(calN)</var> (see <a href="biblio.htm#DH92"><cite>DH92</cite></a>, IX, 1.14 and 1.15), where
+<var>calN</var> is the class of all finite nilpotent groups.
+<p>
+<pre>
+gap&gt; myNilpotentGroups := FittingClass(rec(\in := IsNilpotentGroup,
+&gt;    rad := FittingSubgroup));
+FittingClass(in:=&lt;Property "IsNilpotentGroup"&gt;, rad:=&lt;Attribute "FittingSubgr\
+oup"&gt;)
+gap&gt; myTwoGroups := FittingClass(rec(
+&gt;    \in := G -&gt; IsSubset([2], Set(Factors(Size(G)))), 
+&gt;    rad :=  G -&gt; PCore(G,2),
+&gt;    inj := G -&gt; SylowSubgroup(G,2)));
+FittingClass(in:=function( G ) ... end, rad:=function( G ) ... end, inj:=func\
+tion( G ) ... end)
+gap&gt; myL2_Nilp := FittingClass(rec(\in := 
+&gt;     G -&gt; IsSolvableGroup(G) 
+&gt;          and Index(G, Injector(G, myNilpotentGroups)) mod 2 &lt;&gt; 0));
+FittingClass(in:=function( G ) ... end)
+gap&gt; SymmetricGroup(3) in myL2_Nilp;
+false
+gap&gt; SymmetricGroup(4) in myL2_Nilp;
+true   
+</pre>
+<p>
+<a name = "SSEC001.2"></a>
+<li><code>FittingProduct(</code><var>fit1</var><code>, </code><var>fit2</var><code>) O</code>
+<p>
+returns the Fitting product <var>prod</var> of the Fitting classes <var>fit1</var> and <var>fit2</var>,
+i.&nbsp;e., the class of all groups <var>G</var> such that <var>G/R</var> is  a <var>fit2</var>-group, where
+<var>R</var> is the <var>fit1</var>-radical of <var>G</var>.  <var>prod</var> is again a Fitting class.
+Note that if <var>fit1</var> and <var>fit2</var> are also
+formations, then <var>prod</var> equals the
+formation product of <var>fit1</var> and <var>fit2</var>; see <a href="CHAP004.htm#SSEC004.3">FormationProduct</a> 
+andindexttFittingFormationProduct
+<a href="CHAP004.htm#SSEC004.4">FittingFormationProduct</a>.
+<p>
+<pre>
+gap&gt; FittingProduct(myNilpotentGroups, myTwoGroups);
+FittingProduct(FittingClass(in:=&lt;Property "IsNilpotentGroup"&gt;, rad:=&lt;Attribu\
+te "FittingSubgroup"&gt;), FittingClass(in:=function( G ) ... end, rad:=function\
+( G ) ... end, inj:=function( G ) ... end))
+gap&gt; FittingProduct(myNilpotentGroups, myL2_Nilp);
+FittingProduct(FittingClass(in:=&lt;Property "IsNilpotentGroup"&gt;, rad:=&lt;Attribu\
+te "FittingSubgroup"&gt;), FittingClass(in:=function( G ) ... end))
+</pre>
+<p>
+<p>
+<h2><a name="SECT002">5.2 Creating Fitting formations</a></h2>
+<p><p>
+<a name = "I1"></a>
+
+<a name = "I2"></a>
+
+<a name = "I3"></a>
+
+Fitting formations are Fitting classes which are also formations.
+<p>
+<a name = "SSEC002.1"></a>
+<li><code>FittingFormation(</code><var>rec</var><code>) O</code>
+<p>
+creates a Fitting formation from the record <var>rec</var>. Note that it is the user's 
+responsibility to ensure that <var>rec</var> really defines a Fitting formation.
+<var>rec</var> may  have any components admissible for saturated formations (see
+<a href="CHAP004.htm#SSEC004.2">SaturatedFormation</a>)  or Fitting classes (see <a href="CHAP005.htm#SSEC001.1">FittingClass</a>), that is,
+<code>\in</code>, <code>res</code>, <code>rad</code>, <code>inj</code>, <code>char</code>, and <code>name</code>, 
+ whose values are stored in the attributes <code>MemberFunction</code>,
+<code>ResidualFunction</code>, <code>RadicalFunction</code>,
+<code>InjectorFunction</code>, <code>Characteristic</code>, and <code>Name</code>, respectively.
+Please refer
+to <a href="CHAP002.htm#SSEC002.2">MemberFunction</a>,  <a href="CHAP004.htm#SSEC005.2">ResidualFunction</a>, <a href="CHAP005.htm#SSEC004.3">RadicalFunction</a>,
+<a href="CHAP005.htm#SSEC004.4">InjectorFunction</a>,  <a href="CHAP003.htm#SSEC004.1">Characteristic</a>, and <a href="../../../doc/ref/chap12.html#X7F14EF9D81432113">Name</a>, respectively, for the
+meaning of these attributes.
+<p>
+<a name = "SSEC002.2"></a>
+<li><code>SaturatedFittingFormation(</code><var>rec</var><code>) O</code>
+<p>
+creates a saturated Fitting formation from the record <var>rec</var>. Note that it is the user's responsibility to ensure that <var>rec</var> really
+defines a saturated Fitting formation. <var>rec</var> may have any
+components admissible for saturated formations (see <a href="CHAP004.htm#SSEC004.2">SaturatedFormation</a>) or
+Fitting classes (see <a href="CHAP005.htm#SSEC001.1">FittingClass</a>), that is, <code>\in</code>, <code>res</code>, <code>proj</code>,
+<code>bound</code>, <code>locdef</code>, <code>rad</code>, <code>inj</code>,   <code>char</code>, and <code>Name</code>, whose values are
+stored in the attributes <code>MemberFunction</code> (see <a href="CHAP002.htm#SSEC002.2">MemberFunction</a>),
+<code>ResidualFunction</code> (see <a href="CHAP004.htm#SSEC005.2">ResidualFunction</a>),
+ <code>ProjectorFunction</code> (see <a href="CHAP004.htm#SSEC002.6">ProjectorFunction</a>), <code>BoundaryFunction</code> (see
+<a href="CHAP004.htm#SSEC002.5">BoundaryFunction</a>), <code>LocalDefinitionFunction</code> (see
+<a href="CHAP004.htm#SSEC005.3">LocalDefinitionFunction</a>), <code>RadicalFunction</code> (see <a href="CHAP005.htm#SSEC004.3">RadicalFunction</a>),
+<code>InjectorFunction</code> (see <a href="CHAP005.htm#SSEC004.4">InjectorFunction</a>), <code>Characteristic</code> (see
+<a href="CHAP003.htm#SSEC004.1">Characteristic</a>), and <code>Name</code> (see <a href="../../../doc/ref/chap12.html#X7F14EF9D81432113">Name</a>), respectively.
+<p>
+<p>
+<h2><a name="SECT003">5.3 Creating Fitting sets</a></h2>
+<p><p>
+<a name = "I4"></a>
+
+A nonempty set <var>calF</var> of subgroups of a group <var>G</var> is a <strong>Fitting set of
+<var>G</var></strong>  if it satisfies the following properties:
+<p>
+<dl compact>
+<dt>(1)<dd>if <var>H</var> belongs to <var>calF</var> and <var>K</var> is normal in <var>H</var>, then <var>K</var> 
+           belongs to <var>calF</var>;
+<p>
+<dt>(2)<dd>if <var>H</var> and <var>K</var> belong to <var>calF</var>, and <var>H</var> and <var>K</var> are normal in
+<var>langleH, K rangle</var>, then <var>langleH, K rangle= H K</var> belongs to <var>cal
+F</var>;
+<p>
+<dt>(3)<dd>if <var>H</var> is in <var>calF</var> and <var>g inG</var>, then <var>H<sup>g</sup></var> also belongs to 
+           <var>calF</var>.
+</dl>
+<p>
+Note that a Fitting set <var>fitset</var> of the group&nbsp;<var>G</var> is a subset of the set of all
+subgroups of&nbsp;<var>G</var>. Therefore it is not closed under group
+isomorphisms, hence  is <strong>not</strong> a group class. If <var>H</var> is a subgroup of <var>G</var>, then the
+subgroups of <var>G</var> in <var>fitset</var> which are contained in <var>H</var> form a Fitting set of <var>H</var>.
+We will not distinguish between <var>fitset</var> and the arising Fitting set of <var>H</var>. 
+Moreover, if  <var>fit</var> is a Fitting class and <var>grp</var> is a group, then the set of all
+subgroups of <var>grp</var> which belong to <var>fit</var> is a Fitting set of <var>grp</var>.
+<p>
+<a name = "SSEC003.1"></a>
+<li><code>IsFittingSet(</code><var>G</var><code>, </code><var>fitset</var><code>) O</code>
+<p>
+tests whether <var>fitset</var> (or, more precisely, the set of all subgroups of <var>G</var>
+which are contained in  <var>fitset</var>) is a Fitting set of the group <var>G</var>. Thus if
+<var>fitset</var> is a Fitting class, or if
+<var>G</var> is a subgroup of the group <var>H</var> and <var>fitset</var> is a Fitting set of <var>H</var>,
+then <code>IsFittingSet(</code><var>G</var><code>, </code><var>fitset</var><code>)</code> will return <code>true</code>.
+<p>
+<a name = "SSEC003.2"></a>
+<li><code>FittingSet(</code><var>G</var><code>, </code><var>rec</var><code>) O</code>
+<p>
+returns the Fitting set <var>fitset</var> of the group <var>G</var>, defined by the entries of the
+record <var>rec</var>. Note that, although it would be possible to test whether <var>rec</var> 
+defines a Fitting set, such a test
+is not performed, since it would be extremely expensive, even for relatively
+small groups.
+<p>
+<var>rec</var> may have components <code>\in</code>, <code>inj</code>, <code>rad</code>, and <code>name</code>. The
+functions assigned to the components are stored in the attributes
+<code>MemberFunction</code>, <code>InjectorFunction</code>, 
+<code>RadicalFunction</code>, and <code>Name</code>, of <var>fitset</var>. Please see <a href="CHAP002.htm#SSEC002.2">MemberFunction</a>,
+<a href="CHAP005.htm#SSEC004.4">InjectorFunction</a> and <a href="CHAP005.htm#SSEC004.3">RadicalFunction</a> for the meaning of these arguments.
+<p>
+Note that at present, every Fitting set has to be a class (see <a href="CHAP002.htm">Set theoretical classes</a>). The second example below shows how to define a Fitting set from 
+a list of subgroups.
+<p>
+<pre>
+gap&gt;  fitset := FittingSet(SymmetricGroup(4), rec(
+&gt;        \in := S -&gt; IsSubgroup(AlternatingGroup(4), S),
+&gt;        rad := S -&gt; Intersection(AlternatingGroup(4), S),
+&gt;        inj := S -&gt; Intersection(AlternatingGroup(4), S)));
+FittingSet(SymmetricGroup( 
+[ 1 .. 4 ] ), rec(in:=function( S ) ... end, rad:=function( S ) ... end, inj:\
+=function( S ) ... end))
+gap&gt; FittingSet(SymmetricGroup(3), rec(
+&gt;       \in := H -&gt; H in [Group(()), Group((1,2)), Group((1,3)), Group((2,3))]));
+FittingSet(SymmetricGroup( [ 1 .. 3 ] ), rec(in:=function( H ) ... end))
+</pre>
+<p>
+<a name = "SSEC003.3"></a>
+<li><code>ImageFittingSet(</code><var>alpha</var><code>, </code><var>fitset</var><code>) O</code>
+<p>
+returns the image <var>F_1</var> of the Fitting set <var>fitset</var> under the group homomorphism 
+<var>alpha</var>, i.e.
+the Fitting set <var>F_1</var> of <code>Image(</code><var>alpha</var><code>)</code> which consists of all subgroups
+<code></code><var>alpha</var><code>(</code><var>S</var><code>)</code> of <code>Image(</code><var>alpha</var><code>)</code> such that <var>S</var> is a <var>fitset</var>-injector of 
+<code>PreImage(</code><var>alpha</var><code>, </code><var>S</var><code>)</code>. <var>fitset</var> must be a Fitting set of <code>PreImage(</code><var>alpha</var><code>)</code>
+or a Fitting class.  Note that the image of a Fitting class is a
+Fitting set but not a Fitting class.
+<p>
+<pre>
+gap&gt; alpha := GroupHomomorphismByImages(SymmetricGroup(4), SymmetricGroup(3),
+&gt;  [(1,2),(1,3),(1,4)], [(1,2),(1,3),(2,3)]);;
+gap&gt; im := ImageFittingSet(alpha, fitset);
+FittingSet(Group( [(1,2),(1,3),(2,3) 
+ ] ), rec(inj:=function( G ) ... end))
+gap&gt; Radical(Image(alpha), im);
+Group([ (), (), (1,2,3), (1,3,2) ])
+</pre>
+<p>
+<a name = "SSEC003.4"></a>
+<li><code>PreImageFittingSet(</code><var>alpha</var><code>, </code><var>fitset</var><code>) O</code>
+<p>
+returns the preimage <var>fitset_0</var> of the Fitting set <var>fitset</var> of <code>Image(</code><var>alpha</var><code>)</code> under the group homomorphism <var>alpha</var>. It consists of all
+subgroups <var>S</var> of <code>PreImage(</code><var>alpha</var><code>)</code> which are subnormal in <code>PreImage(</code><var>alpha</var><code>, </code><var>T</var><code>)</code> for some <var>T</var> in <var>fitset</var>. <var>fitset</var> must be a Fitting set of
+<code>Image(</code><var>alpha</var><code>)</code> or a Fitting class. 
+<p>
+Note that the preimage of a Fitting class is just a Fitting set but 
+not a Fitting class.
+<p>
+Moreover, <code>ImageFittingSet(PreImageFittingSet(</code><var>fitset</var><code>, </code><var>alpha</var><code>),
+</code><var>alpha</var><code>)</code> equals <var>fitset</var> but in general, <var>fitset</var> is not contained in
+<code>PreImageFittingSet(ImageFittingSet(</code><var>fitset</var><code>, </code><var>alpha</var><code>), </code><var>alpha</var><code>)</code>; see
+e.g. Example VIII,&nbsp;2.16 of&nbsp;<a href="biblio.htm#DH92"><cite>DH92</cite></a>.
+<p>
+<pre>
+gap&gt; pre := PreImageFittingSet(alpha, NilpotentGroups);
+FittingSet(SymmetricGroup( [ 1 .. 4 ] ), rec(inj:=function( G ) ... end))
+gap&gt; Injector(Source(alpha), pre);
+Group([ (1,2,3), (1,2)(3,4) ])
+</pre>
+<p>
+<a name = "SSEC003.5"></a>
+<li><code>Intersection(</code><var>fitset1</var><code>, </code><var>fitset2</var><code>)</code>
+<p>
+Let <var>fitset1</var> and <var>fitset2</var> be Fitting sets of the groups <var>G1</var> and <var>G2</var>. 
+Then the intersection of <var>fitset1</var> and <var>fitset2</var> will be a Fitting set of the 
+intersection of <var>G1</var> and <var>G2</var>. You will run into an error if
+<font face="Gill Sans,Helvetica,Arial">GAP</font> cannot compute the intersection of <var>G1</var> and <var>G2</var>.
+<p>
+<pre>
+gap&gt; F1 := FittingSet(SymmetricGroup(3),
+&gt; rec(\in := IsNilpotentGroup, rad := FittingSubgroup));
+FittingSet(SymmetricGroup( 
+[ 1 .. 3 ] ), rec(in:=&lt;Property "IsNilpotentGroup"&gt;, rad:=&lt;Attribute "Fitting\
+Subgroup"&gt;))
+gap&gt; F2 := FittingSet(AlternatingGroup(4),
+&gt; rec(\in := ReturnTrue, rad := H -&gt; H));
+FittingSet(AlternatingGroup( 
+[ 1 .. 4 ] ), rec(in:=function( arg ) ... end, rad:=function( H ) ... end))
+gap&gt; F := Intersection(F1, F2);
+FittingSet(Group( 
+[ (1,2,3) ] ), rec(in:=function( x ) ... end, rad:=function( G ) ... end))
+gap&gt; Intersection(F1, PiGroups([2,5]));
+FittingSet(SymmetricGroup( 
+[ 1 .. 3 ] ), rec(in:=function( x ) ... end, rad:=function( G ) ... end))
+</pre>
+<p>
+<p>
+<h2><a name="SECT004">5.4 Attributes and operations for Fitting classes and Fitting sets</a></h2>
+<p><p>
+<a name = "I5"></a>
+
+<a name = "I6"></a>
+
+<a name = "I7"></a>
+
+<a name = "I8"></a>
+
+<a name = "I9"></a>
+
+<a name = "I10"></a>
+
+<a name = "I11"></a>
+
+<a name = "I12"></a>
+
+In addition to operations applicable to classes, both Fitting sets and
+Fitting classes admit the following attributes and operations. Of course,
+Fitting classes, being group classes, also admit all properties and
+attributes for group classes.
+<p>
+<a name = "SSEC004.1"></a>
+<li><code>Radical(</code><var>G</var><code>,  </code><var>fitset</var><code>) O</code>
+<p>
+returns the <var>grpclass</var>-radical of the group <var>G</var>, where
+<var>fitset</var> is a Fitting set of <var>G</var> (see <a href="CHAP005.htm#SSEC003.1">IsFittingSet</a>), or a Fitting
+class. The <var>fitset</var>-radical of <var>G</var> is the unique largest normal subgroup
+of <var>G</var> belonging to <var>fitset</var>. Note that <code>Radical(</code><var>G</var><code>)</code> returns the soluble
+radical of a group <var>G</var> (see <a href="../../../doc/ref/chap39.html#X787F5F14844FAACE">RadicalGroup</a> in the <font face="Gill Sans,Helvetica,Arial">GAP</font> reference
+manual). The class <code>myL2_Nilp</code> in the example below has been defined in <a href="CHAP005.htm#SSEC001.1">FittingClass</a>.
+<p>
+<pre>
+gap&gt; Radical(SymmetricGroup(4), FittingClass(rec(\in := IsNilpotentGroup)));
+Group([(1,4)(2,3),(1,3)(2,4) ])
+gap&gt; Radical(SymmetricGroup(4), myL2_Nilp);
+Sym( [ 1 .. 4 ] ) 
+gap&gt; Radical(SymmetricGroup(3), myL2_Nilp);
+Group([ (1,2,3) ])
+</pre>
+<p>
+<a name = "SSEC004.2"></a>
+<li><code>Injector(</code><var>G</var><code>, </code><var>fitset</var><code>) O</code>
+<p>
+returns a <var>fitset</var>-injector of the group <var>G</var>, where <var>fitset</var> is a
+Fitting set of <var>G</var> (or a group containing <var>G</var>), or a Fitting class. A
+subgroup <var>H</var> of <var>G</var> is a <var>fitset</var>-injector of <var>G</var> if <var>S capH</var> is
+<var>fitset</var>-maximal in <var>S</var> for every subnormal subgroup <var>S</var> of <var>G</var>. Note that by 
+<a href="biblio.htm#DH92"><cite>DH92</cite></a>, VIII,&nbsp;2.9, all <var>fitset</var>-injectors of <var>G</var> are conjugate in <var>G</var>,
+and it is not hard to see that every subgroup of <var>G</var> has <var>fitset</var>-injectors
+if and only if <var>fitset</var> is a Fitting set of <var>G</var>. In particular, if <var>fitset</var>
+is a group class, then every finite
+soluble group has <var>fitset</var>-injectors if and only if <var>fitset</var> is a Fitting
+class; see <a href="biblio.htm#DH92"><cite>DH92</cite></a>, IX,&nbsp;1.4.
+<p>
+<pre>
+gap&gt; Injector(SymmetricGroup(4), FittingClass(rec(\in := IsNilpotentGroup)));
+Group([ (1,4)(2,3), (1,3)(2,4), (3,4) ])
+</pre>
+<p>
+<a name = "SSEC004.3"></a>
+<li><code>RadicalFunction(</code><var>class</var><code>) A</code>
+<p>
+This attribute, if present, forms part of the definition of <var>class</var> supplied
+by the user. It must contain a function which takes one argument, a group
+<var>G</var>, and returns the <var>class</var>-radical of <var>G</var>. This function
+will be used during subsequent calls to <code>Radical</code>. Therefore
+<code>Radical</code> (see <a href="CHAP005.htm#SSEC004.1">Radical</a>), which is guaranteed to work for
+arbitrary  Fitting sets <var>class</var>, should always be called by the user to
+compute <var>class</var>-radicals.
+<p>
+<a name = "SSEC004.4"></a>
+<li><code>InjectorFunction(</code><var>class</var><code>) A</code>
+<p>
+This attribute constitutes part of the definition of <var>class</var> supplied by the
+user. If present, it must contain a function taking a group
+<var>G</var> as the only argument and returning a <var>class</var>-injector of <var>G</var>. This
+function will then be used by <code>Injector</code> (see <a href="CHAP005.htm#SSEC004.2">Injector</a>). Since <code>Injector</code>
+will work for arbitrary  Fitting sets, it should always be called by the user
+to compute <var>class</var>-injectors.
+<p>
+<p>
+<h2><a name="SECT005">5.5 Low level functions for normal subgroups related to radicals</a></h2>
+<p><p>
+<a name = "I13"></a>
+
+<a name = "I14"></a>
+
+<a name = "SSEC005.1"></a>
+<li><code>OneInvariantSubgroupMaxWrtNProperty(</code><var>act</var><code>, </code><var>grp</var><code>, </code><var>pretest</var><code>, </code><var>test</var><code>, </code><var>data</var><code>) O</code>
+<p>
+Let <var>act</var> be a list or group whose elements act on <var>grp</var> via the caret operator,
+such that every subgroup of <var>grp</var> invariant under <var>act</var> is normal in <var>grp</var>. 
+Assume <var>calX</var> is a set of subgroups of <var>grp</var>  such that <var>calX</var> contains the trivial group,
+and if <var>M</var> and <var>N</var> are <var>act</var>-invariant subgroups with <var>M incalX</var> and <var>M</var> containing <var>N</var>,
+then also <var>N incalX</var>. Then 
+<code>OneInvariantSubgroupMaxWrtNProperty</code> computes an <var>act</var>-invariant subgroup <var>M in
+calX</var> such that no <var>act</var>-invariant subgroup of <var>grp</var> properly containing <var>M</var> belongs to <var>cal
+X</var>. 
+<p>
+For example, every Fitting set <var>calX</var> satisfies the above properties, where <var><var>act</var> = G</var>. In
+this case, <code>OneInvariantSubgroupMaxWrtNProperty</code> will return the <var>cal
+X</var>-radical of <var>grp</var>.
+<p>
+The class <var>calX</var> is described by two functions, <var>pretest</var> and <var>test</var>. 
+<p>
+<var>pretest</var> is a function taking four arguments, <var>U</var>, <var>V</var>, <var>R</var>, and <var>data</var>,
+where <var>data</var> is just the argument passed to
+<code>OneInvariantSubgroupMaxWrtNProperty</code>. <var><var>U</var>/<var>V</var></var> is an <var>act</var>-composition factor of
+<var>grp</var>, and  <var>R</var> is an <var>act</var>-invariant subgroup of <var>grp</var> contained in <var>V</var> which is known to
+belong to
+<var>calX</var>.
+<p>
+<var>pretest</var> may return the values <code>true</code>, <code>false</code>, or <code>fail</code>. If it returns 
+<code>true</code>, every <var>act</var>-invariant subgroup <var>N</var> of <var>grp</var> contained in <var>U</var> such that
+<var><var>N</var>/<var>R</var></var> is 
+<var>G</var>-isomorphic with <var><var>U</var>/<var>V</var></var> must belong to <var>calX</var>. If it returns <code>false</code>,
+no such <var>N</var> may belong to <var>calX</var>. 
+<p>
+<var>test</var> is a function taking three arguments, <var>S</var>, <var>R</var>, and <var>data</var>, where
+data has been described above. <var>R</var> is an <var>act</var>-invariant subgroup of <var>grp</var> belonging to
+<var>calX</var>, and <var><var>S</var>/<var>R</var></var> is an <var>act</var>-composition factor of <var>grp</var>. The function must return
+true if <var>S</var> belongs to <var>calX</var>, and false otherwise. 
+<p>
+Note that <code></code><var>test</var><code>(</code><var>S</var><code>, </code><var>R</var><code>, </code><var>data</var><code>)</code> is only called if <code>pretest(</code><var>U</var><code>, </code><var>V</var><code>,
+</code><var>R</var><code>, </code><var>data</var><code>)</code> has returned <code>fail</code> for a chief factor <var><var>U</var>/<var>V</var></var> which is
+<var>G</var>-isomorphic with <var><var>S</var>/<var>R</var></var>. Therefore <var>test</var> need not repeat tests
+already performed by <var>pretest</var>. In particular, if <var>pretest</var> always returns
+<code>true</code> or <code>false</code>, <var>test</var> will not be called at all.
+<p>
+<var>data</var> is never used or changed by <code>OneInvariantSubgroupMaxWrtNProperty</code>, but
+exists only as a means for passing additional information to or between
+the functions <var>pretest</var> and <var>test</var>.
+<p>
+<a name = "SSEC005.2"></a>
+<li><code>AllInvariantSubgroupsWithNProperty(</code><var>act</var><code>, </code><var>grp</var><code>, </code><var>pretest</var><code>, </code><var>test</var><code>, </code><var>data</var><code>) O</code>
+<p>
+returns a list consisting of all <var>act</var>-invariant subgroups of <var>grp</var> belonging 
+to the class <var>calX</var> described by <var>pretest</var>, <var>test</var>, and <var>data</var>. See
+the documentation of <code>OneInvariantSubgroupMaxWrtNProperty</code> (see
+<a href="CHAP005.htm#SSEC005.1">OneInvariantSubgroupMaxWrtNProperty</a>) for details.
+<p>
+<pre>
+gap&gt; D := DihedralGroup(8);;
+gap&gt; AllInvariantSubgroupsWithNProperty(
+&gt; D, D,
+&gt;     ReturnFail,
+&gt;     function(R, S, data)
+&gt;         return IsAbelian(R);
+&gt;     end,
+&gt;     fail);
+[ Group([ f3 ]), &lt;pc group with 2 generators&gt;, &lt;pc group with 2 generators&gt;,
+  Group([ f1, f3 ]), Group([  ]) ]
+</pre>
+<p>
+<a name = "SSEC005.3"></a>
+<li><code>OneNormalSubgroupWithNProperty(</code><var>grp</var><code>, </code><var>pretest</var><code>, </code><var>test</var><code>, </code><var>data</var><code>) O</code>
+<a name = "SSEC005.3"></a>
+<li><code>AllNormalSubgroupsWithNProperty(</code><var>grp</var><code>, </code><var>pretest</var><code>, </code><var>test</var><code>, </code><var>data</var><code>) O</code>
+<p>
+are the same as <code>OneInvariantSubgroupMaxWrtNProperty</code> (see
+<a href="CHAP005.htm#SSEC005.1">OneInvariantSubgroupMaxWrtNProperty</a>)
+and  <code>AllInvariantSubgroupsWithNProperty</code> (see
+<a href="CHAP005.htm#SSEC005.2">AllInvariantSubgroupsWithNProperty</a>), where <var><var>act</var> = <var>grp</var></var>, and thus the
+<var>act</var>-invariant subgroups of <var>grp</var> are just the normal subgroups of <var>grp</var>.
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP004.htm">Previous</a>] [<a href ="CHAP006.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>CRISP manual<br>August 2025
+</address></body></html>

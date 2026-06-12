@@ -1,0 +1,60 @@
+<html><head><title>[IRREDSOL] 1 Overview</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<h1>1 Overview</h1><p>
+<p>
+<a name = "I0"></a>
+
+<a name = "I1"></a>
+
+The package <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> provides a library of irreducible
+soluble subgroups of matrix groups over finite fields and a corresponding library of primitive soluble groups.
+<p>
+Currently, <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> contains all subgroups, up to conjugacy, of <var>GL(n, q)</var>, 
+where <var>n</var> is a positive integer and <var>q</var>
+is a prime power satisfying  <var>q<sup>n</sup> leq2<sup>24</sup> - 1 = 16,777,215</var>. The underlying data base consists of 
+<var> 921,371</var> absolutely irreducible groups of degree <var>n &gt; 1</var> amounting to <var>1,089,136</var> irreducible groups of degree&nbsp;<var>n&gt;1</var>. See Section&nbsp;<a href="CHAP002.htm#SECT001">Design of the group library</a> for details.
+<p>
+The groups in the <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> 
+library can be accessed one at a time (see Section&nbsp;<a href="CHAP002.htm#SECT002">Low level access functions</a>). In addition, there are functions which allow to 
+search the library for groups with given properties (see Section <a href="CHAP002.htm#SECT003">Finding matrix groups with given properties</a>). Moreover, given an irreducible soluble matrix group
+<var>G</var>, it is possible to identify the group in the library to which <var>G</var> is conjugate,
+including a conjugating matrix, if desired. See Section&nbsp;<a href="CHAP003.htm#SECT001">Identification of irreducible groups</a>.
+<p>
+Apart from this, the <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> package provides additional functionality
+for matrix groups, such as the computation of imprimitivity systems;
+see Chapter&nbsp;<a href="CHAP004.htm">Additional functionality for matrix groups</a>.
+<p>
+It is well-known that there is a bijection between the  irreducible soluble subgroups of
+<var>GL(n, p)</var>, where
+<var>p</var> is a prime, and the conjugacy classes, or equivalently the isomorphism types, of
+primitive soluble subgroups of <var>Sym(p<sup>n</sup>)</var>. The <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> package contains
+functions to translate between irreducible soluble matrix groups and primitive
+groups, to search for primitive soluble groups with given  properties, and functions to
+recognise them, up to isomorphism (or, equivalently, up to conjugacy in <var>Sym(p<sup>n</sup>)</var>).  See Sections <a href="CHAP005.htm#SECT001">Converting between irreducible soluble matrix groups and primitive soluble groups</a>, <a href="CHAP005.htm#SECT003">Finding primitive soluble permutation groups with given properties</a>, and <a href="CHAP005.htm#SECT004">Recognising primitive soluble groups</a>, respectively.
+<p>
+Note that <font face="Gill Sans,Helvetica,Arial">GAP</font> contains another library consisting of all <var>372</var> irreducible soluble
+subgroups of <var>GL(n, p)</var>, where <var>n &gt; 1</var>, <var>p</var> is a prime, and <var>p<sup>n</sup> &lt; 2<sup>8</sup></var>. This library 
+was originally
+created by Mark Short&nbsp;<a href="biblio.htm#Sho"><cite>Sho</cite></a>, and two omissions in <var>GL(2,13)</var> were added later; 
+see <font face="Gill Sans,Helvetica,Arial">PrimGrp</font> reference manual <a href="../../primgrp/doc/chap2.html#X82FD673384BF353B">primgrp:Irreducible Solvable Matrix Groups</a>.
+All of these groups are,  of course, also part of the <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> data base, and the
+<font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> package provides functions to identify the groups in the
+<font face="Gill Sans,Helvetica,Arial">GAP</font> library in <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> and vice-versa. See
+Section&nbsp;<a href="CHAP003.htm#SECT002">Compatibility with other data libraries</a>.
+<p>
+The groups in the <font face="Gill Sans,Helvetica,Arial">IRREDSOL</font> data base were constructed using the Aschbacher 
+classification&nbsp;<a href="biblio.htm#Asc"><cite>Asc</cite></a> of maximal subgroups of linear groups. Further details can be found 
+in&nbsp;<a href="biblio.htm#EH"><cite>EH</cite></a>, where the 
+construction of all irreducible soluble subgroups of <var>GL(n, q)</var> with <var>q<sup>n</sup> &lt; 3<sup>8</sup></var>
+is described.
+<p>
+For a historical account of the classification of irreducible matrix groups and
+primitive permutation groups, the reader is referred to <a href="biblio.htm#Sho"><cite>Sho</cite></a> and, 
+for more recent developments, to&nbsp;<a href="biblio.htm#EH"><cite>EH</cite></a>.
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP002.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>IRREDSOL manual<br>November 2022
+</address></body></html>

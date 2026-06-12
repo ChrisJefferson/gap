@@ -1,0 +1,111 @@
+<html><head><title>[aclib] 2 Algorithms for almost crystallographic groups</title></head>
+<body text="#000000" bgcolor="#ffffff">
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP001.htm">Previous</a>] [<a href ="CHAP003.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<h1>2 Algorithms for almost crystallographic groups</h1><p>
+<P>
+<H3>Sections</H3>
+<oL>
+<li> <A HREF="CHAP002.htm#SECT001">Properties of almost crystallographic groups</a>
+<li> <A HREF="CHAP002.htm#SECT002">Betti numbers</a>
+<li> <A HREF="CHAP002.htm#SECT003">Determination of certain extensions</a>
+</ol><p>
+<p>
+This chapter presents a variety of algorithms for almost crystallographic
+groups. In most cases, they assume a polycyclically presented group as 
+input; in particular, the input groups must be polycyclic in this case.
+The methods described here supplement the methods of the <font face="Gill Sans,Helvetica,Arial">Polycyclic</font> 
+package for polycyclically presented groups. Many of the functions in this 
+chapter are based on methods of the <font face="Gill Sans,Helvetica,Arial">Polycyclic</font> package and thus this 
+package must be installed to use the functions introduced here. We refer to
+the <font face="Gill Sans,Helvetica,Arial">Polycyclic</font> package for further information on polycyclic 
+presentations.
+<p>
+<p>
+<h2><a name="SECT001">2.1 Properties of almost crystallographic groups</a></h2>
+<p><p>
+<a name = "SSEC001.1"></a>
+<li><code>IsAlmostCrystallographic( </code><var>G</var><code> ) P</code>
+<p>
+This function checks if a polycyclically presented group <var>G</var> is almost
+crystallographic; that is, it checks if <var>G</var> is nilpotent-by-finite and
+has no non-trivial finite normal subgroup.  
+<p>
+<a name = "SSEC001.2"></a>
+<li><code>IsAlmostBieberbachGroup( </code><var>G</var><code> ) P</code>
+<p>
+This function checks if a polycyclically presented group <var>G</var> is almost
+Bieberbach; that is, it checks if <var>G</var> is nilpotent-by-finite and torsion
+free.
+<p>
+<p>
+<h2><a name="SECT002">2.2 Betti numbers</a></h2>
+<p><p>
+Let <var>G</var> be a polycyclically presented and torsion free group of Hirsch 
+length <var>n</var>. Then we can compute the Betti numbers <var>beta<sub>i</sub>(G)</var> for <var>i in
+{0, 1, 2, n-2, n-1, n}</var>. If <var>n leq6</var>, then we can compute all Betti
+numbers <var>beta<sub>i</sub>(G)</var> for <var>0 leqi leq6</var> of <var>G</var>. We introduce the following
+functions for this purpose and we refer to <a href="biblio.htm#BRO"><cite>BRO</cite></a> for the details on 
+the orientation module and the Betti numbers.
+<p>
+<a name = "SSEC002.1"></a>
+<li><code>OrientationModule( </code><var>G</var><code> ) F</code>
+<p>
+This function determines the orientation module of the polycyclically
+presented group <var>G</var>; that is, it returns a list of matrices <var>m<sub>1</sub>, ...,
+m<sub>n</sub> leqGL( 1, <font face="helvetica,arial">Z</font>)</var> which are the images of the 'Igs(G)' in their action
+on the orientation module.  
+<p>
+<a name = "SSEC002.2"></a>
+<li><code>BettiNumber( </code><var>G</var><code>, </code><var>m</var><code> ) F</code>
+<p>
+This function returns the <var>m</var>th Betti number of the polycyclically presented
+torsion free group <var>G</var> if <var>m in{0, 1, 2, n-2, n-1, n}</var>, where <var>n</var> is the 
+Hirsch length of <var>G</var>. 
+<p>
+<a name = "SSEC002.3"></a>
+<li><code>BettiNumbers( </code><var>G</var><code> ) A</code>
+<p>
+This function returns the Betti number of the polycyclically presented
+torsion free group <var>G</var> if the Hirsch length of <var>G</var> is smaller than 7.
+<p>
+<p>
+<h2><a name="SECT003">2.3 Determination of certain extensions</a></h2>
+<p><p>
+Let <var>G</var> be a polycyclically presented almost crystallographic group. We want 
+to check the existence of certain extensions of <var>G</var>. 
+<p>
+First, it is well-known that the equivalence classes of extensions of <var>G</var>
+correspond to the second cohomology group of <var>G</var>. This cohomology group can
+be computed using the methods of the <font face="Gill Sans,Helvetica,Arial">Polycyclic</font> package for any 
+explicitly given module of <var>G</var>. Further, we can construct a polycyclic
+presentation for each cocycle of the second cohomology group. We give an 
+example for such a computation below. 
+<p>
+However, we may be interested in certain extensions only; for example, 
+the torsion free extensions are often of particular interest. If the 
+second cohomology group is finite, then we can compute a polycyclic 
+presentation for each element of this group and check the resulting group
+for torsion freeness. But if the second cohomology group is infinite, then
+this approach is not available. Hence we introduce the following special 
+method to cover this and related applications.
+<p>
+<a name = "SSEC003.1"></a>
+<li><code>HasExtensionOfType( </code><var>G</var><code>, </code><var>torsionfree</var><code>, </code><var>minimalcentre</var><code> ) F</code>
+<p>
+Suppose that <var>G</var> is a polycyclically presented almost crystallographic group
+with Fitting subgroup <var>N</var>. This function checks if there is a <var>G</var>-module 
+<var>M cong<font face="helvetica,arial">Z</font></var> which is centralized by <var>N</var> such that there exists a torsion
+free extension of <var>M</var> by <var>G</var> (if the flag <var>torsionfree</var> is true) or an 
+extension <var>E</var> with <var>Z(Fitt(E)) = M</var> (if the flag <var>minimalcentre</var> is true)
+or an extension which satisfies both conditions (if both flags are true).
+<p>
+We note that the existence of such extensions is of interest in the 
+determination of extensions which are almost Bieberbach groups. We refer 
+to <a href="biblio.htm#DE1"><cite>DE1</cite></a> for a more detailed account of this application and for
+further results of a similar nature.
+<p>
+<p>
+[<a href = "chapters.htm">Up</a>] [<a href ="CHAP001.htm">Previous</a>] [<a href ="CHAP003.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
+<P>
+<address>aclib manual<br>August 2025
+</address></body></html>

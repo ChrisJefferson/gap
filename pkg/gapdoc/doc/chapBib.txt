@@ -1,0 +1,13 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XGAP06[120X]  [17XGAP  -- Groups, Algorithms, and Programming, Version 4.4.9[117X, The GAP
+  Group, Aachen, St Andrews (2006), (https://www.gap-system.org).
+  
+  [[20XLam85[120X]  [16XLamport,  L.[116X,  [17XLaTeX: A Document Preparation System[117X, Addison-Wesley
+  (1985).
+  
+  
+  
+  [32X
